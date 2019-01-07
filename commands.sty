@@ -1,0 +1,68 @@
+\ProvidesPackage{commands}
+
+% Mathematical environments
+\theoremstyle{plain}
+\newtheorem{definition}{Definition}[section]
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}{Proposition}[theorem]
+\newtheorem{lemma}{Lemma}[theorem]
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{remark}
+\newtheorem{remark}{Remark}[section]
+\theoremstyle{definition}
+\newtheorem{example}{Example}[section]
+
+% Print latin words in italics
+\usepackage{xspace}
+\newcommand{\invitro}{\textit{in vitro}\xspace}
+\newcommand{\invivo}{\textit{in vivo}\xspace}
+\newcommand{\cis}{\textit{cis}\xspace}
+\newcommand{\trans}{\textit{trans}\xspace}
+\newcommand{\etal}{\textit{et al.}\xspace}
+\newcommand{\denovo}{\textit{de novo}\xspace}
+\newcommand{\etcetera}{\textit{et cetera}\xspace}
+\newcommand{\etc}{\textit{etc.}\xspace}
+\newcommand{\ie}{\textit{i.\hairsp{}e.}\xspace}
+\newcommand{\eg}{\textit{e.\hairsp{}g.}\xspace}
+\newcommand{\cfr}{cfr.}
+
+% Easily label and reference elements
+% Note that \label must appear after \caption
+\usepackage{varioref}
+\newcommand{\labpart}[1]{\label{part:#1 }}
+\newcommand{\refpart}[1]{\hyperref[#1]{Part}~\ref{part:#1 }}
+\newcommand{\labch}[1]{\label{ch:#1 }}
+\newcommand{\refch}[1]{Chapter \textit{\nameref{ch:#1 }} \vpageref{ch:#1 }\,}
+\newcommand{\labsec}[1]{\label{sec:#1 }}
+\newcommand{\refsec}[1]{Section \textit{\nameref{sec:#1 }} \vpageref{sec:#1 }\,}
+\newcommand{\labfig}[1]{\label{fig:#1 }}
+\newcommand{\reffig}[1]{\hyperref[fig:#1 ]{Figure} \ref{fig:#1 }}
+\newcommand{\labtab}[1]{\label{tab:#1 }}
+\newcommand{\reftab}[1]{\hyperref[tab:#1 ]{Table} \ref{tab:#1 }}
+
+% Cite commands
+\DeclareCiteCommand{\fullcite}
+  {\defcounter{maxnames}{99}%
+    \usebibmacro{prenote}}
+  {\clearfield{url}%
+   \clearfield{pages}%
+   \clearfield{pagetotal}%
+   \clearfield{edition}%
+   \clearfield{issn}%
+   \clearfield{doi}%
+   \usedriver
+     {\DeclareNameAlias{sortname}{default}}
+     {\thefield{entrytype}}
+  }
+  {\multicitedelim}
+  {\usebibmacro{postnote}}
+
+% Tables
+\newcommand{\na}{\quad--} % Used in tables for N/A cells
+\newcommand{\hangp}[1]{\makebox[0pt][r]{(}#1\makebox[0pt][l]{)}} % Create parentheses around text in tables which take up no horizontal space - this improves column spacing
+\newcommand{\hangstar}{\makebox[0pt][l]{*}} % Create asterisks in tables which take up no horizontal space - this improves column spacing
+
+% A command to print the current month and year
+\newcommand{\monthyear}{\ifcase\month\or January\or February\or March\or 
+April\or May\or June\or July\or August\or September\or October\or 
+November\or December\fi\space\number\year}

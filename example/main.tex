@@ -1,0 +1,135 @@
+\documentclass[
+  fontsize=10pt,
+  %chapterprefix=true,
+  numbers=noenddot,
+  %draft,
+]{../kaobook}
+
+% Load common packages and commands
+\usepackage{../style}
+\usepackage{../packages}
+\usepackage{../commands}
+
+% Load packages for testing
+\usepackage{blindtext}
+%\usepackage{showframe}
+%\usepackage{showlabels}
+
+% Add bibfile
+\addbibresource{main.bib}
+
+% Set path for images
+\graphicspath{{images/}{../images/}}
+
+% Index
+%\makeindex[columns=3, title=Alphabetical Index, intoc]
+
+% Glossary
+\makeglossaries
+
+\begin{document}
+
+% General structure of a book:
+% 	\frontmatter
+% 	Cover
+% 	Half-title (r)
+% 	Empty (v)
+% 	Title (r)
+%	Information (copyright, ISBN, etc.) (v)
+%	Dedication (r)
+%	Notation and other conventions used (v)
+%	Table of contents (r)
+%	List of figures (r)
+%	Preface (r)
+%
+%	\mainmatter
+%	Chapters (1, 2, ..., n)
+%
+%	\appendix
+%	Appendices (A, B, ..., Z)
+%
+%	\backmatter
+%	Bibliography (r)
+%	Glossary (r)
+%	Index (r)
+%	Empty
+%
+%	Cover
+
+\title{Title of the Book}
+\author{Author Name}
+\publishers{}
+\date{}
+
+\frontmatter
+
+% Front cover
+%\includepdf{pages/cover-front.pdf}
+
+\input{pages/half-title}
+
+%\clearpage
+\input{pages/information}
+
+\input{pages/title}
+
+%\clearpage
+\input{pages/dedication}
+
+\clearpage
+\input{pages/greek-alphabet}
+
+\cleardoublepage
+\tableofcontents
+\clearpage
+\listoffigures
+% \cleardoublepage
+% \listoftables
+
+\mainmatter
+
+\input{chapters/preface}
+
+\input{chapters/introduction}
+
+\setpartpreamble{
+  \vspace{3cm}
+  \begin{center}
+  \includegraphics[width=0.8\linewidth]{images/gmaps-3d-simplices}
+  \end{center}
+}
+\newgeometry{top=2.170cm,
+			bottom=3.510cm,
+			inner=2.1835cm,
+			outer=2.1835cm,
+			ignoremp}
+\part{First Part}
+\restoregeometry
+
+\input{chapters/crickets}
+
+\input{chapters/conclusions}
+
+\appendix
+
+\input{chapters/ants}
+
+\backmatter
+
+% Bibliograhy
+\printbibliography[heading=bibintoc,title=Bibliography]
+
+% Glossary
+%\printglossaries
+
+% Index
+%\printindex
+
+% Back cover
+\clearpage
+\thispagestyle{empty}
+\null%
+\clearpage
+%\includepdf{pages/cover-back.pdf}
+
+\end{document}
