@@ -17,3 +17,12 @@ Work in progress
 
 * use savegeometry and loadgeometry for fullwidth pages, and set the 
   default values in style.
+
+* fix bookmarks
+
+* use tocbasic
+
+* replace geometry with typearea (?)
+
+* use the proper commands @author, @title and @publishers in 
+  information, title, dedication, ...
