@@ -1,0 +1,54 @@
+\ProvidesPackage{packages}
+
+% Book structure
+\usepackage{pdfpages}               % Insert PDF pages
+\usepackage{subfiles} % Adopt a modular structure
+\usepackage{todonotes} % Add useful notes in the margins
+
+% Index and glossary
+\usepackage{imakeidx}
+\usepackage{glossaries}
+
+% Special gliphs
+\usepackage{ccicons}                % Creative Commons icons
+\usepackage{metalogo}               % XeTeX logo
+
+% Mathematics
+\usepackage{amsmath} % Improved mathematics
+\usepackage{amsfonts} % Mathematical fonts
+\usepackage{amssymb}        % AMS symbols and environments
+\usepackage{amsthm} % Mathematical environments
+%\usepackage{unicode-math}           % Use unicode math font, not TeX
+%\usepackage{mathtools}              % More math symbols and environments
+%\setmathfont{Asana-Math.otf}
+
+% Listings code
+\usepackage{listings}		% Code
+\usepackage{scrhack}		% Work around compatibility problem
+
+\definecolor{listingkeywords}{rgb}{0.00, 0.5, 0.0}
+\definecolor{listingidentifiers}{rgb}{0, 0, 0}
+\definecolor{listingcomments}{rgb}{0.25, 0.5, 0.5}
+\definecolor{listingstrings}{rgb}{0.73, 0.13, 0.13}
+\definecolor{listingnumbers}{rgb}{0.25, 0.25, 0.25}
+\lstset{
+  basicstyle=\scriptsize\ttfamily,
+  keywordstyle=\color{listingkeywords}\bfseries,
+  identifierstyle=\color{listingidentifiers},
+  commentstyle=\color{listingcomments}\itshape,
+  stringstyle=\color{listingstrings},
+  numberstyle=\scriptsize\color{listingnumbers}\ttfamily,
+  frame=single,
+  tabsize=4,
+  %language=[ISO]C++
+}
+
+% Verbatim
+\usepackage{fancyvrb} % Customization of verbatim environments
+\fvset{fontsize=\normalsize} % Change here the font size of all verbatim 
+
+% Algorithms
+\usepackage[linesnumbered,
+            ruled,
+			vlined]{algorithm2e}    % Algorithms
+
