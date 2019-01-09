@@ -1,4 +1,4 @@
-\ProvidesPackage{perbook}
+\ProvidesPackage{style}
 
 % GEOMETRY {{{
 
@@ -98,16 +98,19 @@
   \RequirePackage{mathpazo}
   \RequirePackage{helvet}
 
-  % TODO: font families
 
-  \addtokomafont{disposition}{\rmfamily}
-  \addtokomafont{part}{\Huge}
-  %\addtokomafont{title}{\rmfamily}
-  \addtokomafont{chapter}{\textbf}
-  \addtokomafont{partentry}{\normalfont\scshape}
-  \addtokomafont{chapterentry}{\normalfont\scshape}
-  %\addtokomafont{descriptionlabel}{\normalfont\bfseries}
+  %\addtokomafont{disposition}{\textit}
+  %\addtokomafont{part}{\Huge}
+  %\addtokomafont{title}{\Huge}
+  %\addtokomafont{chapter}{\textit}
+  %\addtokomafont{section}{\textit}
+  %\addtokomafont{partentry}{\normalfont\scshape}
+  %\addtokomafont{chapterentry}{\normalfont\scshape}
+  \setkomafont{descriptionlabel}{\normalfont\bfseries}
   %\addtokomafont{caption}{\footnotesize}
+  %\makeatletter
+  %\addtokomafont{captionlabel}{\@margin@par}
+  %\makeatother
 
 \fi
 
@@ -116,7 +119,7 @@
 % TOC, LOF AND LOT {{{
 
 % Levels in table of contents
-\setcounter{tocdepth}{1}
+\setcounter{tocdepth}{\subsectiontocdepth}
 
 % List of figures title as "Figures"
 \renewcaptionname{english}{\listfigurename}{Figures}

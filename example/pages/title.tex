@@ -1,37 +1,5 @@
-% Official title
-\thispagestyle{empty} % Is it necessary?
+% KOMA title
 
-\begin{titlepage}
-\null%
-\vspace{3em}%
-\begin{center}
-
-%% Skip space as in half-title
-\vspace*{4\baselineskip}
-
-%% Print the title.
-{\makeatletter
-\huge\@title%
-\makeatother}
-
-\bigskip
-
-% Subtitle
-{\Large Edit this page to suit your needs}
-
-\bigskip
-\bigskip
-
-%% Print the full name of the author.
-By
-
-\makeatletter
-{\large First Name {\scshape Last Name}}
-\makeatother
-
-\vfill
-
-Published by \ldots
-
-\end{center}
-\end{titlepage}
+% If you use a cover page, you may want to assign page 3 to the title, 
+% so that the cover page gets 1.
+\maketitle[3]

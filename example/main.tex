@@ -1,5 +1,12 @@
 \documentclass[
   fontsize=10pt,
+  parskip=half,
+  toc=listof,
+  toc=index,
+  toc=bibliography,
+  twoside,
+  open=right,
+  headings=optiontoheadandtoc,
   %chapterprefix=true,
   numbers=noenddot,
   %draft,
@@ -22,7 +29,7 @@
 \graphicspath{{images/}{../images/}}
 
 % Index
-%\makeindex[columns=3, title=Alphabetical Index, intoc]
+\makeindex[columns=3, title=Alphabetical Index, intoc]
 
 % Glossary
 \makeglossaries
@@ -33,7 +40,7 @@
 % 	\frontmatter
 % 	Cover
 % 	Half-title (r)
-% 	Empty (v)
+% 	Frontispiece (v)
 % 	Title (r)
 %	Information (copyright, ISBN, etc.) (v)
 %	Dedication (r)
@@ -56,35 +63,35 @@
 %
 %	Cover
 
+\titlehead{The \texttt{kaobook} class}
+\subject{Use this document as a template}
 \title{Example and Documentation \\ of the \texttt{kaobook} class}
-\author{Federico Marotta}
-\publishers{}
-\date{}
+\subtitle{Customise this page according to your needs}
+\author{Federico Marotta \thanks{A \LaTeX\ lover}}
+\date{\today}
+\publishers{an Awesome Publisher}
 
 \frontmatter
 
-% Front cover
 %\includepdf{pages/cover-front.pdf}
 
-%\input{pages/half-title}
+\input{pages/half-title}
 
-%\cleardoublepage
-\input{pages/title}
+\input{pages/frontispiece}
 
 \input{pages/information}
 
-\clearpage
 \input{pages/dedication}
 
-%\clearpage
+\input{pages/title}
+
 %\input{pages/greek-alphabet}
 
-\cleardoublepage
 \input{pages/toc}
 
-\mainmatter
-
 \input{chapters/preface}
+
+\mainmatter
 
 \input{chapters/introduction}
 
@@ -113,7 +120,7 @@
 \backmatter
 
 % Bibliograhy
-\printbibliography[heading=bibintoc,title=Bibliography]
+\printbibliography[title=Bibliography]
 
 % Glossary
 %\printglossaries

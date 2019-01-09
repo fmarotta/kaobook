@@ -82,9 +82,9 @@
 
 \newcommand{\@body@par}{%
   \justifying%
-  \setlength{\RaggedRightParindent}{0pc}%
-  \setlength{\parindent}{0pc}%
-  \setlength{\parskip}{1pc}%
+  %\setlength{\RaggedRightParindent}{0pc}%
+  %\setlength{\parindent}{0pc}%
+  %\setlength{\parskip}{1pc}%
   \singlespacing%
   \frenchspacing% no additional space after periods
   \normalfont%
@@ -100,7 +100,7 @@
   \frenchspacing% no additional space after periods
   \normalfont%
   \footnotesize%
-  %\color{blue}%
+  \color{blue}%
 }
 
 % By default, use @body@par specifications
@@ -446,12 +446,10 @@
 
 % HYPERREFERENCES {{{
 
-\RequirePackage{bookmark}               % Add things in TOC
-
+\RequirePackage{hyperref}
 \definecolor{greenforlinks}{rgb}{0.09, 0.45, 0.27}
 
 \PassOptionsToPackage{hyphens}{url}
-
 \hypersetup{
 			unicode,
 			pdfborder={0 0 0},
@@ -480,27 +478,12 @@
 \fi%
 }}
 
-% Add half-title to PDF bookmarks
-%\makeatletter
-\pretocmd{\maketitle}{%
-  \if@openright\cleardoublepage\else\clearpage\fi
-  \pdfbookmark[0]{Preliminaries}{title}% TODO: Change link to cover in online PDF version
-  \pdfbookmark[1]{Half title}{title}% 
-}{}{}%
-%\makeatother
-% Add table of contents to PDF bookmarks
-%\makeatletter
-\pretocmd{\tableofcontents}{%
-  \if@openright\cleardoublepage\else\clearpage\fi
-  \pdfbookmark[1]{Table of contents}{toc}%
-}{}{}%
-%\makeatother
-% Add list of figures to PDF bookmarks
-%\makeatletter
-\pretocmd{\listoffigures}{%
-  \if@openright\cleardoublepage\else\clearpage\fi
-  \pdfbookmark[1]{List of figures}{lof}%
-}{}{}%
-%\makeatother
+% Bookmarks
+\BeforeTOCHead[toc]{%
+  \cleardoublepage
+    \edef\@tempa{%
+      \noexpand\pdfbookmark[0]{\list@fname}{\@currext}%
+    }\@tempa
+}
 
 % }}}
