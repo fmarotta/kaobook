@@ -1,5 +1,30 @@
 \chapter{Introduction}
 
+\newcommand{\chaptertoc}[1][Chapter Overview]{%
+	\begingroup\parindent 0pt \parfillskip 0pt \leftskip 0pt \rightskip 1cm
+	\etocsetstyle{section}
+	{}
+	{\leavevmode\leftskip 0cm\relax}
+	{\bfseries\normalsize\makebox[.7cm]{\etocnumber}%
+		\etocname\nobreak\hfill\nobreak
+		\par}%\rlap{\makebox[1cm]{\mdseries\etocpage}}\par}
+	{}
+	\etocsetstyle{subsection}
+	{}
+	{\leavevmode\leftskip .6cm\relax}
+	{\mdseries\normalsize\makebox[1cm]{\etocnumber}%
+		\etocname\nobreak\hfill\nobreak
+		\par}%\rlap{\makebox[1cm]{\etocpage}}\par}
+	{}
+	%\etocsettocstyle{\normalsize Chapter Overview\par\nobreak\medskip}{}
+	\etocruledstyle[1]{\bfseries\Large\color{greenforlinks}#1}
+	%\etocframedstyle[1]{#1}%
+	\marginnote[*-1.5]{\localtableofcontents}%
+	\endgroup
+}
+
+\chaptertoc{}
+
 %\dictum{
 %Those who look only to the past or the present, are certain to miss the 
 %future.
@@ -8,6 +33,10 @@
 %\marginnote{\minitoc}
 
 \section{Basic features}
+
+\blindtext
+
+\subsection{Advanced features}
 
 \blindtext
 

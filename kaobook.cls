@@ -479,11 +479,11 @@
 }}
 
 % Bookmarks
-\BeforeTOCHead[toc]{%
-  \cleardoublepage
-    \edef\@tempa{%
-      \noexpand\pdfbookmark[0]{\list@fname}{\@currext}%
-    }\@tempa
-}
+%\BeforeTOCHead[toc]{%
+  %\cleardoublepage
+	%\edef\@tempa{%
+	  %\noexpand\pdfbookmark[0]{\list@fname}{\@currext}%
+	%}\@tempa
+%}
 
 % }}}
