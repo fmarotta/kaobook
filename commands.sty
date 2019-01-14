@@ -14,6 +14,7 @@
 
 % Print latin words in italics
 \usepackage{xspace}
+\newcommand{\hairsp}{\hspace{1pt}} % Command to print a very short space
 \newcommand{\invitro}{\textit{in vitro}\xspace}
 \newcommand{\invivo}{\textit{in vivo}\xspace}
 \newcommand{\cis}{\textit{cis}\xspace}
@@ -33,9 +34,13 @@
 \newcommand{\labpart}[1]{\label{part:#1 }}
 \newcommand{\refpart}[1]{\hyperref[#1]{Part}~\ref{part:#1 }}
 \newcommand{\labch}[1]{\label{ch:#1 }}
-\newcommand{\refch}[1]{Chapter \textit{\nameref{ch:#1 }} \vpageref{ch:#1 }\,}
+\newcommand{\refch}[1]{Chapter 
+	{\usekomafont{chapter}\normalsize\nameref{ch:#1 }}
+	\vpageref{ch:#1 }\,}
 \newcommand{\labsec}[1]{\label{sec:#1 }}
-\newcommand{\refsec}[1]{Section \textit{\nameref{sec:#1 }} \vpageref{sec:#1 }\,}
+\newcommand{\refsec}[1]{Section 
+	{\usekomafont{section}\normalsize\nameref{sec:#1 }}
+	\vpageref{sec:#1 }\,}
 \newcommand{\labfig}[1]{\label{fig:#1 }}
 \newcommand{\reffig}[1]{\hyperref[fig:#1 ]{Figure} \ref{fig:#1 }}
 \newcommand{\labtab}[1]{\label{tab:#1 }}

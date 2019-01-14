@@ -1,11 +1,6 @@
 % Copyright page
-
-\uppertitleback{
-\makeatletter%
-Example and Documentation of the kaobook class, By %
-\href{http://mywebsite.com}{\@author}%
-\makeatother%
-}
+\makeatletter
+\uppertitleback{\@titlehead}
 
 \lowertitleback{
 \textbf{Disclaimer}\\
@@ -31,5 +26,6 @@ The source code of this thesis is available at: \\
 \url{https://myurl.com}
 
 \textbf{Publisher} \\
-First printed in Jan 2019 by \ldots
+First printed in Jan 2019 by \@publishers
 }
+\makeatother

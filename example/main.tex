@@ -1,12 +1,5 @@
 \documentclass[
   fontsize=10pt,
-  parskip=half,
-  toc=listof,
-  toc=index,
-  toc=bibliography,
-  twoside,
-  open=right,
-  headings=optiontoheadandtoc,
   %chapterprefix=true,
   numbers=noenddot,
   %draft,
@@ -18,7 +11,6 @@
 \usepackage{../commands}
 
 % Load packages for testing
-\usepackage{etoc}
 \usepackage{blindtext}
 %\usepackage{showframe}
 %\usepackage{showlabels}
@@ -66,9 +58,10 @@
 
 \titlehead{The \texttt{kaobook} class}
 \subject{Use this document as a template}
-\title{Example and Documentation \\ of the \texttt{kaobook} class}
+\title[Example and Documentation of the \texttt{kaobook} class]{Example 
+	and Documentation \\ of the \texttt{kaobook} class}
 \subtitle{Customise this page according to your needs}
-\author{Federico Marotta \thanks{A \LaTeX\ lover}}
+\author[Federico Marotta]{Federico Marotta \thanks{A \LaTeX\ lover}}
 \date{\today}
 \publishers{an Awesome Publisher}
 
@@ -88,31 +81,39 @@
 
 %\input{pages/greek-alphabet}
 
-\input{pages/toc}
-
 \input{chapters/preface}
+
+\input{pages/toc}
 
 \mainmatter
 
 \input{chapters/introduction}
 
+\widepage
 \setpartpreamble{
-  \vspace{3cm}
   \begin{center}
-  \includegraphics[width=0.8\linewidth]{images/gmaps-3d-simplices}
+  \includegraphics[width=0.8\linewidth]{images/partpre}
+  \captionof{figure}{\url{https://commons.wikimedia.org/wiki/File:Puzzle-4.svg}}
   \end{center}
 }
-\newgeometry{top=2.170cm,
-			bottom=3.510cm,
-			inner=2.1835cm,
-			outer=2.1835cm,
-			ignoremp}
-\part{First Part}
-\restoregeometry
+\part{Class Options, Commands and Environments}
+\marginpage
 
-\input{chapters/crickets}
+\input{chapters/options}
+\input{chapters/textnotes}
+\input{chapters/figsntabs}
 
-\input{chapters/conclusions}
+\widepage
+\setpartpreamble{
+  \begin{center}
+  \includegraphics[width=0.8\linewidth]{images/partpre}
+  \captionof{figure}{\url{https://commons.wikimedia.org/wiki/File:Puzzle-4.svg}}
+  \end{center}
+}
+\part{Style}
+\marginpage
+
+\chapter{TODO}
 
 \appendix
 
@@ -121,7 +122,8 @@
 \backmatter
 
 % Bibliograhy
-\printbibliography[title=Bibliography]
+%\setbibpreamble{References in citation order\par\bigskip}
+\printbibliography[heading=bibintoc,title=Bibliography]
 
 % Glossary
 %\printglossaries

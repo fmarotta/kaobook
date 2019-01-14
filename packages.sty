@@ -1,17 +1,9 @@
 \ProvidesPackage{packages}
 
-% Book structure
-\usepackage{pdfpages}               % Insert PDF pages
+% Productivity
+\usepackage{pdfpages} % Insert PDF pages
 \usepackage{subfiles} % Adopt a modular structure
 \usepackage{todonotes} % Add useful notes in the margins
-
-% Index and glossary
-\usepackage{imakeidx}
-\usepackage{glossaries}
-
-% Special gliphs
-\usepackage{ccicons}                % Creative Commons icons
-\usepackage{metalogo}               % XeTeX logo
 
 % Mathematics
 \usepackage{amsmath} % Improved mathematics
@@ -52,3 +44,43 @@
             ruled,
 			vlined]{algorithm2e}    % Algorithms
 
+
+% Special gliphs
+\usepackage{ccicons}                % Creative Commons icons
+\usepackage{metalogo}               % XeTeX logo
+
+% Index and glossary
+\usepackage{imakeidx}
+\usepackage{glossaries}
+
+% Bibliography
+% In the future you might want to check this out: 
+% https://tex.stackexchange.com/questions/244971/biblatex-order-of-entries-in-a-multi-citation
+\RequirePackage[
+	%style=numeric-comp,
+	%citestyle=authortitle-icomp,
+	citestyle=numeric-comp,
+	%bibstyle=authoryear,
+	bibstyle=numeric,
+	sorting=none,
+	%sorting=nyt,
+	%sortcites=true,
+	%autocite=footnote,
+	backend=biber,
+	hyperref=true,
+	backref=true
+]{biblatex}
+\AtEveryBibitem{
+	\clearfield{url}
+	\clearfield{issn}
+	\clearfield{isbn}
+	\clearfield{archivePrefix}
+	\clearfield{arxivId}
+	\clearfield{pmid}
+	\clearfield{eprint}
+	\ifentrytype{book}{\clearfield{doi}}{}
+}
+\DefineBibliographyStrings{english}{%
+  backrefpage = {page},% originally "cited on page"
+  backrefpages = {pages},% originally "cited on pages"
+}

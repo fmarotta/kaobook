@@ -5,9 +5,9 @@
 \newcommand{\@baseclass}{scrbook} % the name of the base class 
 
 \RequirePackage{etoolbox}		% Easy programming to modify TeX stuff
+\usepackage{calc}
 \RequirePackage{xifthen}		% Easy conditionals
 \RequirePackage{xkeyval}		% Manage class options
-\RequirePackage{ifxetex}		% Detect if we are using XeLaTeX
 
 % CLASS OPTIONS {{{
 
@@ -43,17 +43,21 @@
 \DeclareOption{twocolumn}{\OptionNotUsed}
 \DeclareOption{landscape}{\OptionNotUsed}
 
-% Set default options
-\ExecuteOptions{openright}
-\ExecuteOptions{twoside}
-\ExecuteOptions{fontsize=9pt}
-%\ExecuteOptions{space}
-%\ExecuteOptions{justify}
-
 % Pass the other options to the base class
 \DeclareOption*{
   \PassOptionsToClass{\CurrentOption}{\@baseclass}
 }
+
+% Set default options
+\PassOptionsToClass{fontsize=9pt}{\@baseclass}
+\PassOptionsToClass{parskip=half}{\@baseclass}
+\PassOptionsToClass{toc=listof}{\@baseclass}
+\PassOptionsToClass{toc=index}{\@baseclass}
+\PassOptionsToClass{toc=glossary}{\@baseclass}
+\PassOptionsToClass{toc=bibliography}{\@baseclass}
+\PassOptionsToClass{headings=optiontoheadandtoc}{\@baseclass}
+%\ExecuteOptions{space}
+%\ExecuteOptions{justify}
 
 % Process the options
 \ProcessOptions\relax
@@ -63,12 +67,46 @@
 
 % }}}
 
+% DOCUMENT STRUCTURE {{{
+
+\RequirePackage{tocbasic}
+\usepackage{etoc}
+\setuptoc{toc}{totoc}
+\setcounter{secnumdepth}{1}
+
+\newcommand{\@plaintitle}{}
+\renewcommand{\title}[2][]{
+  \gdef\@title{#2}
+  \ifthenelse{\isempty{#1}}%
+  {
+	\renewcommand{\@plaintitle}{\title}% use full title
+  }
+  {
+	\renewcommand{\@plaintitle}{#1}% use provided plain-text title
+  }
+  \hypersetup{pdftitle={\@plaintitle}} % set the PDF metadata title
+}
+
+\newcommand{\@plainauthor}{}
+\renewcommand{\author}[2][]{
+  \gdef\@author{#2}
+  \ifthenelse{\isempty{#1}}%
+  {
+	\renewcommand{\@plainauthor}{\author}% use full author
+  }
+  {
+	\renewcommand{\@plainauthor}{#1}% use provided plain-text author
+  }
+  \hypersetup{pdfauthor={\@plainauthor}} % set the PDF metadata author
+}
+
+% }}}
+
 % COLORS AND FONTS, ENCODING {{{
 
 \RequirePackage[utf8]{inputenc}	% utf8 encoding in the input (.tex) file
-\RequirePackage[english=british]{csquotes}	% English quotes
 \RequirePackage{hyphenat}					% Hyphenation for special fonts
-\RequirePackage{xcolor}						% Colours in text
+\RequirePackage[usenames,dvipsnames,svgnames]{xcolor}
 \RequirePackage{microtype} % Improves character and word spacing
 
 % }}}
@@ -100,7 +138,7 @@
   \frenchspacing% no additional space after periods
   \normalfont%
   \footnotesize%
-  \color{blue}%
+  %\color{blue}%
 }
 
 % By default, use @body@par specifications
@@ -113,75 +151,36 @@
 \RequirePackage{scrlayer-scrpage}       % Customise head and foot regions
 \setlength{\headheight}{115pt}			% Enlarge the header
 
-% Part title style [todo]
-%\renewcommand*{\partformat}{\vspace{-6cm}\partname~\thepart\autodot\thispagestyle{empty}}
-
-% Chapter title style
-\setlength{\fboxsep}{0cm}
-\renewcommand*{\@@makechapterhead}[1]{%
-  \vspace*{3\baselineskip plus \parskip}
-  \makebox{%
-	\makebox[\linewidth]{\parbox[c][2cm]{\linewidth}{%
-	  \if@mainmatter\raggedleft\fi\size@chapter{#1}%
-	}}%
-    \if@mainmatter%
-	  \makebox[\marginparsep]{\parbox[c][2cm]{%
-		\marginparsep}{\centering\rule{1pt}{2cm}}%
-	  }%
-	  \makebox[4cm]{\parbox[c][2cm]{4cm}{%
-		\scalebox{5}{\usekomafont{chapter}\thechapter\autodot}}%
-	  }%
-    \fi
-  }%
-  \vspace*{1.5\baselineskip plus .1\baselineskip minus .167\baselineskip}
+% Headings styles
+\renewpagestyle{scrheadings}{
+  {\hspace{-\marginparwidth}\hspace{-\marginparsep}%
+	\makebox[\overflowingheadlen][l]{\makebox[2em][r]{\thepage}%
+	\quad\rule{1pt}{100pt}\quad{}\leftmark}}%
+  {\makebox[\overflowingheadlen][r]{\rightmark\quad\rule{1pt}{100pt}%
+	\quad\makebox[2em][l]{\thepage}} }%
+  {\makebox[\overflowingheadlen][r]{\rightmark\quad\rule{1pt}{100pt}%
+	\quad\makebox[2em][l]{\thepage}} }%
+}{
+  {}%
+  {}%
+  {}
+  }
+\renewpagestyle{plain.scrheadings}{
+  {}%
+  {}%
+  {}
+}{
+  {}%
+  {}%
+  {}
 }
 
 \let\oldfrontmatter\frontmatter
 \renewcommand{\frontmatter}{
-
   \oldfrontmatter
 
-  \newgeometry{
-	top=2.620cm,
-	bottom=4.238cm,
-	%top=2.170cm,
-	%bottom=3.510cm,
-	inner=2.1835cm,
-	outer=2.1835cm,
-	ignoremp
-  }
-
-  \renewpagestyle{scrheadings}{
-	{\makebox[2em][r]{\thepage}\quad\rule{1pt}{100pt}\quad{}Contents}%
-	{\hfill\rightmark\quad\rule{1pt}{100pt}\quad\makebox[2em][l]{\thepage}}%
-	{}
-  }{
-	{}%
-	{}%
-	{}
-  }
-  \renewpagestyle{plain.scrheadings}{
-	{}%
-	{}%
-	{}
-  }{
-	{\thepage}%
-	{\hfill\thepage}%
-	{}
-  }
-
-  % Uncomment if you want a first blank page
-  %\oldfrontmatter
-  \sloppy
-
-}
-
-\let\oldmainmatter\mainmatter
-\renewcommand{\mainmatter}{
-
-  \if@openright\cleardoublepage\else\clearpage\fi
-
-  \restoregeometry
+  % Shrink the margins
+  \widepage
 
   % Lengths used for page head
   \newlength{\overflowingheadlen}
@@ -189,67 +188,46 @@
   \addtolength{\overflowingheadlen}{\marginparsep}
   \addtolength{\overflowingheadlen}{\marginparwidth}
 
-  % Page style for chapters
-  \renewpagestyle{scrheadings}{
-	{\hspace{-\marginparwidth}\hspace{-\marginparsep}\makebox[\overflowingheadlen][l]{\makebox[2em][r]{\thepage}\quad\rule{1pt}{100pt}\quad{}\leftmark}}%
-	{\makebox[\overflowingheadlen][r]{\rightmark\quad\rule{1pt}{100pt}\quad\makebox[2em][l]{\thepage}} }%
-	{}
-  }{
-	{}%
-	{}%
-	{}
-  }
-  \renewpagestyle{plain.scrheadings}{
-	{}%
-	{}%
-	{}
-  }{
-	{\thepage}%
-	{\makebox[\overflowingheadlen][r]{\thepage}}%
-	{}
-  }
+  \pagestyle{plain.scrheadings}
+  \sloppy
+}
 
+\let\oldmainmatter\mainmatter
+\renewcommand{\mainmatter}{
   \oldmainmatter
 
+  % Enlarge the margins
+  \marginpage
+
+  % Lengths used for page head
+  %\newlength{\overflowingheadlen}
+  \setlength{\overflowingheadlen}{\linewidth}
+  \addtolength{\overflowingheadlen}{\marginparsep}
+  \addtolength{\overflowingheadlen}{\marginparwidth}
+
+  \pagestyle{scrheadings}
+}
+
+\let\oldappendix\appendix
+\renewcommand{\appendix}{
+  \oldappendix
+  \bookmarksetup{startatroot}
 }
 
 \let\oldbackmatter\backmatter
 \renewcommand{\backmatter}{
-
-  \if@openright\cleardoublepage\else\clearpage\fi
-
-  \restoregeometry
-  \newgeometry{
-	%top=2.170cm,
-	%bottom=3.510cm,
-	top=2.620cm,
-	bottom=4.238cm,
-	inner=2.1835cm,
-	outer=2.1835cm,
-	ignoremp}
-
-  % Page style for back matter
-  \renewpagestyle{scrheadings}{
-	{\hspace{-\marginparwidth}\hspace{-\marginparsep}\makebox[\overflowingheadlen][l]{\makebox[2em][r]{\thepage}\quad\rule{1pt}{100pt}\quad{}\leftmark}}%
-	{\makebox[\overflowingheadlen][r]{\rightmark\quad\rule{1pt}{100pt}\quad\makebox[2em][l]{\thepage}} }%
-	{}
-  }{
-	{}%
-	{}%
-	{}
-  }
-  \renewpagestyle{plain.scrheadings}{
-	{}%
-	{}%
-	{}
-  }{
-	{\thepage}%
-	{\makebox[\overflowingheadlen][r]{\thepage}}%
-	{}
-  }
-
   \oldbackmatter
 
+  % Shrink the margins
+  \widepage
+
+  % Lengths used for page head
+  %\newlength{\overflowingheadlen}
+  \setlength{\overflowingheadlen}{\linewidth}
+  \addtolength{\overflowingheadlen}{\marginparsep}
+  \addtolength{\overflowingheadlen}{\marginparwidth}
+
+  \bookmarksetup{startatroot}
 }
 
 % }}}
@@ -310,7 +288,7 @@
 % FIGURES, TABLES AND CAPTIONS {{{
 
 \RequirePackage{graphicx}
-\RequirePackage{subfig}                 % Subfigures
+%\RequirePackage{subfig}                 % Subfigures
 \setkeys{Gin}{width=\linewidth,totalheight=\textheight,keepaspectratio} % Improves figure scaling
 \RequirePackage{booktabs}               % Nicer tables
 \RequirePackage{multirow}               % Cells occupying multiple rows in tables
@@ -369,7 +347,8 @@
                     capposition=beside,
 					capbesideposition={top,outside},
 					capbesideframe=yes,
-                    floatwidth=\textwidth}
+					capbesidewidth=\marginparwidth,
+					floatwidth=1.013\textwidth}
 \floatsetup[widefigure]{margins=hangoutside,
                         facing=yes,
                         capposition=bottom}
@@ -377,8 +356,9 @@
                    facing=yes,
                    capposition=beside,
 				   capbesideposition={top,outside},
-				   capbesideframe=yes,
-                   floatwidth=\textwidth}
+				   %capbesideframe=yes,
+				   capbesidewidth=\marginparwidth,
+				   floatwidth=1.013\textwidth}
 \floatsetup[widetable]{margins=hangoutside,
                        facing=yes,
                        capposition=bottom}
@@ -392,7 +372,32 @@
   %width=\marginparwidth,
   indention=0pt,
   parindent=0pt,
-  skip=10pt,
+  skip=-15pt,
+}
+
+% }}}
+
+% MARGIN TOC {{{
+
+\newcommand{\margintoc}{
+  \begingroup
+	\etocsetstyle{section}
+	{\parskip 0pt}
+	{\leftskip 0pt}
+	{\makebox[.8cm]{\etocnumber\autodot}
+	\etocname\nobreak\leaders\hbox{\hbox to .75ex {\hss.\hss}}\hfill\nobreak
+	\etocpage\par}
+	{}
+	\etocsetstyle{subsection}
+	{\parskip 0pt}
+	{\leftskip 0pt}
+	{\makebox[.8cm]{}
+	\etocname\nobreak\hfill\nobreak\par}
+	{}
+	\etocsettocstyle{\usekomafont{dictum}}{}
+	\etocsetnexttocdepth{subsection}
+	\marginnote[*-1.8]{\localtableofcontents}
+  \endgroup
 }
 
 % }}}
@@ -400,53 +405,16 @@
 % ENVIRONMENTS {{{
 
 % Bullets
-\renewcommand{\labelitemi}{$\blacktriangleright$}
+\RequirePackage{amssymb}        % AMS symbols and environments
+\renewcommand{\labelitemi}{\footnotesize$\blacktriangleright$}
 \renewcommand{\labelitemii}{\textbullet}
-
-% }}}
-
-% BIBLIOGRAPHY {{{
-
-% Bibliography
-% In the future you might want to check this out: 
-% https://tex.stackexchange.com/questions/244971/biblatex-order-of-entries-in-a-multi-citation
-\RequirePackage[
-	%style=numeric-comp,
-	%citestyle=authortitle-icomp,
-	citestyle=numeric-comp,
-	%bibstyle=authoryear,
-	bibstyle=numeric,
-	sorting=none,
-	%sorting=nyt,
-	%sortcites=true,
-	%autocite=footnote,
-	backend=biber,
-	hyperref=true,
-	backref=true
-]{biblatex}
-\AtEveryBibitem{
-	\clearfield{url}
-	\clearfield{issn}
-	\clearfield{isbn}
-	\clearfield{archivePrefix}
-	\clearfield{arxivId}
-	\clearfield{pmid}
-	\clearfield{eprint}
-	\ifentrytype{book}{\clearfield{doi}}{}
-}
-%\DeclareLanguageMapping{english}{english-apa}
-%\renewcommand{\cite}[2][0pt]{\sidenote[][#1]{\fullcite{#2}} }
-
-\DefineBibliographyStrings{english}{%
-  backrefpage = {page},% originally "cited on page"
-  backrefpages = {pages},% originally "cited on pages"
-}
 
 % }}}
 
 % HYPERREFERENCES {{{
 
 \RequirePackage{hyperref}
+\RequirePackage{bookmark}
 \definecolor{greenforlinks}{rgb}{0.09, 0.45, 0.27}
 
 \PassOptionsToPackage{hyphens}{url}
@@ -460,11 +428,11 @@
 			linktoc=all,
 			breaklinks=true,
             colorlinks=true,
-			allcolors=greenforlinks,
-			%citecolor = DarkGreen,
-			%linkcolor = DarkBlue,
+			%allcolors=greenforlinks,
+			citecolor = DarkGreen,
+			linkcolor = DarkBlue,
 			%pagecolor = DarkBlue,
-			%urlcolor = DarkGreen,
+			urlcolor = DarkGreen,
 }
 
 % Formatting of back references
@@ -477,13 +445,5 @@
 \else Cited on pages~#2.%
 \fi%
 }}
-
-% Bookmarks
-%\BeforeTOCHead[toc]{%
-  %\cleardoublepage
-	%\edef\@tempa{%
-	  %\noexpand\pdfbookmark[0]{\list@fname}{\@currext}%
-	%}\@tempa
-%}
 
 % }}}

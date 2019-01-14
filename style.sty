@@ -30,25 +30,66 @@
 %             marginparsep=0.4cm]{geometry}
 
 % For printing on A4
-\usepackage[includemp,
-			 a4paper,
-			 paperwidth=21.0cm,
-			 paperheight=29.7cm,
-			 %layouthoffset=1.05cm,
-			 %layoutvoffset=2.56cm,
-			 top=2.620cm,
-			 bottom=4.238cm,
-			 inner=2.183cm,
-			 outer=2.183cm,
-			 marginparwidth=4.830cm, % Fixed for now
-			 marginparsep=0.483cm]{geometry}
+\usepackage[
+	a4paper,
+	paperwidth=21.0cm,
+	paperheight=29.7cm,
+	%layouthoffset=1.05cm,
+	%layoutvoffset=2.56cm,
+	top=2.620cm,
+	bottom=4.238cm,
+	inner=2.183cm,
+	outer=2.183cm,
+	marginparwidth=4.830cm, % Fixed for now
+	marginparsep=0.483cm,
+	includemp
+]{geometry}
+
+\newcommand{\marginpage}{
+	\newgeometry{
+		top=2.620cm,
+		bottom=4.238cm,
+		inner=2.183cm,
+		outer=2.183cm,
+		marginparwidth=4.830cm,
+		marginparsep=0.483cm,
+		includemp
+	}
+}
+
+\newcommand{\widepage}{
+	\newgeometry{
+		top=2.620cm,
+		bottom=4.238cm,
+		inner=2.1835cm,
+		outer=2.1835cm,
+		marginparwidth=0cm,
+		marginparsep=0cm,
+		ignoremp
+	}
+}
+
+\newcommand{\fullwidthpage}{
+	\newgeometry{
+		top=0cm,
+		bottom=0cm,
+		inner=0cm,
+		outer=0cm,
+		marginparwidth=0cm,
+		marginparsep=0cm,
+		ignoremp
+	}
+}
 
 % }}}
 
 % FONTS {{{
 
+\RequirePackage{ifxetex}		% Detect if we are using XeLaTeX
+
 \ifxetex
   \RequirePackage{polyglossia}			% Correct hyphenation
+  \RequirePackage[english=british]{csquotes}	% English quotes
   \setdefaultlanguage{english}
   \RequirePackage{fontspec}				% Selecting fonts
 
@@ -94,19 +135,23 @@
 
 \else
   \RequirePackage[english]{babel}	% Load characters and hyphenation
+  \RequirePackage[english=british]{csquotes}	% English quotes
   \RequirePackage[T1]{fontenc}		% utf8 encoding in the output (.pdf) file
-  \RequirePackage{mathpazo}
+  \RequirePackage{fourier}
   \RequirePackage{helvet}
 
 
-  %\addtokomafont{disposition}{\textit}
-  %\addtokomafont{part}{\Huge}
-  %\addtokomafont{title}{\Huge}
-  %\addtokomafont{chapter}{\textit}
-  %\addtokomafont{section}{\textit}
-  %\addtokomafont{partentry}{\normalfont\scshape}
-  %\addtokomafont{chapterentry}{\normalfont\scshape}
-  \setkomafont{descriptionlabel}{\normalfont\bfseries}
+  %\addtokomafont{disposition}{\rmfamily\normalfont\itshape}
+  %\addtokomafont{title}{\normalfont\itshape}
+  \addtokomafont{part}{\normalfont\itshape}
+  \addtokomafont{chapter}{\normalfont\itshape}
+  \addtokomafont{section}{\normalfont\itshape}
+  \addtokomafont{subsection}{\normalfont\itshape}
+  \addtokomafont{subsubsection}{\normalfont\itshape}
+  \addtokomafont{paragraph}{\normalfont\bfseries}
+  \addtokomafont{partentry}{\normalfont\scshape\bfseries}
+  \addtokomafont{chapterentry}{\normalfont\bfseries}
+  %\setkomafont{descriptionlabel}{\normalfont\bfseries}
   %\addtokomafont{caption}{\footnotesize}
   %\makeatletter
   %\addtokomafont{captionlabel}{\@margin@par}
@@ -119,7 +164,7 @@
 % TOC, LOF AND LOT {{{
 
 % Levels in table of contents
-\setcounter{tocdepth}{\subsectiontocdepth}
+\setcounter{tocdepth}{\sectiontocdepth}
 
 % List of figures title as "Figures"
 \renewcaptionname{english}{\listfigurename}{Figures}
@@ -161,5 +206,47 @@
 %\renewcommand{\cfttabfont}{\hypersetup{allcolors=black}}
 %\renewcommand{\cfttableader}{\hspace{1em}}
 %\renewcommand{\cfttabafterpnum}{\cftparfillskip}
+
+% }}}
+
+% FORMATTING DISPOSITIONS {{{
+
+% Part title style [todo]
+%\renewcommand*{\partformat}{\vspace{-6cm}\partname~\thepart\autodot\thispagestyle{empty}}
+
+% Chapter title style
+\renewcommand*{\chapterformat}{
+  \hspace{\linewidth}
+  \rule{1pt}{2cm}
+  \hspace{.5\marginparsep}
+  \parbox[b]{\marginparwidth}{\scalebox{3.3}{\usekomafont{chapter}\thechapter\autodot}}
+  \hspace{-\marginparwidth}
+  \hspace{-.5\marginparsep}
+  \hspace{-\linewidth}
+  \hspace{-1.35cm}
+}
+
+% Chapter title style (odl)
+% by renewing \@@makechapterhead we lose some KOMA features such as the 
+% possibility to set beforeskip in the chapter preamble.
+%\setlength{\fboxsep}{0cm}
+%\renewcommand*{\@@makechapterhead}[1]{%
+  %\vspace*{3\baselineskip plus \parskip}
+  %\makebox{%
+	%\makebox[\linewidth]{\parbox[c][2cm]{\linewidth}{%
+	  %\if@mainmatter\raggedleft\fi\usekomafont{chapter}{#1}%
+	%}}%
+	%\if@mainmatter%
+	  %\makebox[\marginparsep]{\parbox[c][2cm]{%
+		%\marginparsep}{\centering\rule{1pt}{2cm}}%
+	  %}%
+	  %\makebox[\marginparwidth]{\parbox[c][2cm]{\marginparwidth}{%
+		%\scalebox{4}{\usekomafont{chapter}\thechapter\autodot}}%
+	  %}%
+	%\fi
+  %}%
+  %\vspace*{1.5\baselineskip plus .1\baselineskip minus 
+  %.167\baselineskip}
+%}
 
 % }}}
