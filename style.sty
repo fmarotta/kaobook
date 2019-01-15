@@ -138,7 +138,7 @@
   \RequirePackage[english=british]{csquotes}	% English quotes
   \RequirePackage[T1]{fontenc}		% utf8 encoding in the output (.pdf) file
   \RequirePackage{fourier}
-  \RequirePackage{helvet}
+  \usepackage[scaled=1]{helvet}
 
 
   %\addtokomafont{disposition}{\rmfamily\normalfont\itshape}
@@ -215,18 +215,33 @@
 %\renewcommand*{\partformat}{\vspace{-6cm}\partname~\thepart\autodot\thispagestyle{empty}}
 
 % Chapter title style
-\renewcommand*{\chapterformat}{
-  \hspace{\linewidth}
-  \rule{1pt}{2cm}
-  \hspace{.5\marginparsep}
-  \parbox[b]{\marginparwidth}{\scalebox{3.3}{\usekomafont{chapter}\thechapter\autodot}}
-  \hspace{-\marginparwidth}
-  \hspace{-.5\marginparsep}
-  \hspace{-\linewidth}
-  \hspace{-1.35cm}
-}
+%\renewcommand*{\chapterformat}{
+  %\hspace{\linewidth}
+  %\rule{1pt}{2cm}
+  %\hspace{.5\marginparsep}
+  %\parbox[b]{\marginparwidth}{\scalebox{3.3}{\usekomafont{chapter}\thechapter\autodot}}
+  %\hspace{-\marginparwidth}
+  %\hspace{-.5\marginparsep}
+  %\hspace{-\linewidth}
+  %\hspace{-1.35cm}
+%}
 
-% Chapter title style (odl)
+%\renewcommand*{\chapterformat}{%
+  %\enskip\mbox{\scalebox{4}{\framebox{\thechapter\autodot}}}}
+%\renewcommand\chapterlinesformat[3]{%
+  %\parbox[b]{\textwidth}{\hrulefill#2}\par%
+  %#3\par\bigskip
+  %\hrule}
+
+% Might be useful
+%\renewcommand{\chapterformat}{
+	%\begin{tikzpicture}[remember picture,overlay]
+		%\draw[fill=gray,draw=none] (0,0) rectangle (1cm,1cm);
+	%\end{tikzpicture}
+	%\thechapter
+%}
+
+% Chapter title style (old)
 % by renewing \@@makechapterhead we lose some KOMA features such as the 
 % possibility to set beforeskip in the chapter preamble.
 %\setlength{\fboxsep}{0cm}

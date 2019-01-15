@@ -1,12 +1,16 @@
-%\setchapterpreamble[o]{
-	%\vspace*{-2.60cm}\hspace*{-2.25cm}
-	%\includegraphics[width=\paperwidth,height=7cm,keepaspectratio=false]{images/seaside}
-%}
-% beforeskip=-(figure_height-top_margin)
-%\RedeclareSectionCommand[beforeskip=-4.40cm]{chapter}
+\renewcommand*{\chapterformat}
+{
+  \enskip\mbox{\scalebox{4}{\thechapter\autodot}}
+}
+\renewcommand\chapterlinesformat[3]
+{
+  \parbox[b]{\textwidth}{\hrulefill#2}\par%
+  #3%\par\bigskip
+  \parbox[b]{\textwidth+\marginparsep+\marginparwidth}{\hrulefill}%
+  %\hrule
+}
 \setchapterpreamble[u]{\margintoc}
 \chapter{Introduction}
-%\RedeclareSectionCommand[beforeskip=0cm]{chapter}
 
 \section{The main ideas}
 
@@ -62,7 +66,7 @@ The main features are the following:
 		margins.
 		\begin{marginfigure}[*-3]
 			\includegraphics{monalisa}
-			\caption{The Mona Lisa.\\
+			\caption[The Mona Lisa]{The Mona Lisa.\\
 				\url{https://commons.wikimedia.org/wiki/File:Mona_Lisa,_by_Leonardo_da_Vinci,_from_C2RMF_retouched.jpg}}
 		\end{marginfigure}
 	\item[Margin toc] Finally, since we have wide margins, why don't add 

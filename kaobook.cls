@@ -369,7 +369,9 @@
                        capposition=bottom}
 
 % Captions
+%\setkomafont{captionlabel}{\@margin@par}
 \DeclareCaptionFormat{margin}{\@margin@par #1#2#3}
+\DeclareCaptionFormat{marginemph}{\@margin@par\bfseries #1#2#3}
 \captionsetup{
   format=margin,
   strut=no,
@@ -385,7 +387,7 @@
 
 % MARGIN TOC {{{
 
-\newcommand{\margintoc}{
+\newcommand{\margintoc}[1][*-3.5]{
   \begingroup
 	\etocsetstyle{section}
 	{\parskip 0pt}
@@ -402,7 +404,7 @@
 	{}
 	\etocsettocstyle{\usekomafont{dictum}}{}
 	\etocsetnexttocdepth{subsection}
-	\marginnote[*-1.8]{\localtableofcontents}
+	\marginnote[#1]{\localtableofcontents}
   \endgroup
 }
 
