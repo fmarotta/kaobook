@@ -13,12 +13,29 @@
 
 \section{Normal figures and tables}
 
+%\marginnote{\blindtext}
+
 \blindtext
 
 \begin{figure}[h]
 	\includegraphics[width=0.4\textwidth]{monalisa}
 	\caption{It's Mona Lisa again. \blindtext}
 \end{figure}
+
+\blindtext
+
+\begin{table}
+\begin{tabular}{ |c|c|c|c| } 
+\hline
+col1 & col2 & col3 \\
+\hline
+\multirow{3}{4em}{Multiple row} & cell2 & cell3 \\ 
+& cell5 & cell6 \\ 
+& cell8 & cell9 \\ 
+\hline
+\end{tabular}
+\caption{A useless table. \blindtext}
+\end{table}
 
 \blindtext
 

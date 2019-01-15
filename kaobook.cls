@@ -297,12 +297,16 @@
 \RequirePackage{scrhack}				% Force KOMA to like floatrow
 \RequirePackage{floatrow}               % Set up captions of floats
 
+% Space between float box and main text
+\renewcommand\FBaskip{6pt}
+\renewcommand\FBbskip{6pt}
+
 %% (Borrowed from tufte-latex)
-% Tighten up space between displays (e.g., a figure or table) and make symmetric
+% Tighten up space between displays (e.g., equations) and make symmetric
 \setlength\abovedisplayskip{6pt plus 2pt minus 4pt}
 \setlength\belowdisplayskip{6pt plus 2pt minus 4pt}
 
-\setlength\columnseprule{.4pt}
+%\setlength\columnseprule{.4pt}
 
 % marginfigure and margintable
 % (Code borrowed from the sidenotes package)
@@ -343,22 +347,23 @@
 
 % Figures and tables
 \floatsetup[figure]{margins=hangoutside,
-                    facing=yes,
+					facing=yes,
                     capposition=beside,
-					capbesideposition={top,outside},
+					capbesideposition=outside,
+					%capbesideposition=outside,
 					capbesideframe=yes,
 					capbesidewidth=\marginparwidth,
-					floatwidth=1.013\textwidth}
+					floatwidth=sidefil}
 \floatsetup[widefigure]{margins=hangoutside,
                         facing=yes,
                         capposition=bottom}
 \floatsetup[table]{margins=hangoutside,
                    facing=yes,
                    capposition=beside,
-				   capbesideposition={top,outside},
-				   %capbesideframe=yes,
+				   capbesideposition=outside,
+				   capbesideframe=yes,
 				   capbesidewidth=\marginparwidth,
-				   floatwidth=1.013\textwidth}
+				   floatwidth=sidefil}
 \floatsetup[widetable]{margins=hangoutside,
                        facing=yes,
                        capposition=bottom}
@@ -367,6 +372,7 @@
 \DeclareCaptionFormat{margin}{\@margin@par #1#2#3}
 \captionsetup{
   format=margin,
+  strut=no,
   %%hypcap=true, % links point to the top of the figure
   singlelinecheck=false,
   %width=\marginparwidth,
