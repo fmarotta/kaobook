@@ -51,7 +51,7 @@
 
 % Index and glossary
 \usepackage{imakeidx}
-\usepackage{glossaries}
+\usepackage[xindy,toc]{glossaries}
 
 % Bibliography
 % In the future you might want to check this out: 
@@ -68,7 +68,9 @@
 	%autocite=footnote,
 	backend=biber,
 	hyperref=true,
-	backref=true
+	backref=true,
+	citecounter=true,
+	citetracker=true,
 ]{biblatex}
 \AtEveryBibitem{
 	\clearfield{url}

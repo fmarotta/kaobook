@@ -14,11 +14,46 @@
 \setchapterpreamble[u]{\margintoc[*-3]}
 \chapter{Class Options}
 
-\section{TODO}
-
-Describe the most common options used, both the ones inherited from 
-scrbook and the kao-specific ones.
+In this chapter I will describe the most common options used, both the 
+ones inherited from scrbook and the kao-specific ones.
 
 \section{KOMA options}
 
+The class is based on the scrbook, therefore it understands all of the 
+options you would normally pass to that class. By default, the font size 
+is 9pt and the paragraphs are separated by space, not marked by 
+indentation. The default value for parskip is half.
+
+The toc has an entry for everything: listoffigures, listoftables, 
+indices, and bibliographies. There are also entries for the 
+tableofcontents itself (through the \verb|\setuptoc{toc}{totoc}| 
+command). If you want entries for the glossaries as well, you can set 
+the \verb|toc| option of the package \verb|glossaries|.
+
 \section{kao options}
+
+In the future I plan to add more options to set the paragraph formatting 
+(justified vs ragged) and the position of the margins (inner vs outer in 
+twoside mode, left vs right in oneside mode)\sidenote[-5.5pt][]{As of 
+now, paragraphs are justified, formatted with \texttt{singlespacing} 
+(from package \texttt{setspace}) and \texttt{frenchspacing}.}. 
+
+\section{Other things worth knowing}
+
+By default, dispositions are numbered up to the section thanks to the 
+command \verb|\setcounter{secnumdepth}{1}|. We also altered slightly the 
+entries of the parts in the table of contents so as to include "Part". 
+The table of contents can be modified through the package \verb|etoc|, 
+which is loaded because it is needed for the margintocs.
+
+We provide optional arguments to the \verb|\title| and \verb|\author| 
+commands so that you can insert short, plain text versions of this 
+fields, which can be used, typically in the half-title or somewhere else 
+in the frontmatter, through the commands \verb|\plaintitle| and 
+\verb|\plainauthor|, respectively.
+
+\marginnote{We also load \texttt{xcolor}.}
+
+The packages \verb|inputenc|, \verb|hyphenat|, \verb|microtype| are 
+already loaded, but you have to load babel or polyglossia and csquotes, 
+if you wish.

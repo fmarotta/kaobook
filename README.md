@@ -17,8 +17,8 @@ Work in progress
 
 * replace geometry with typearea (?)
 
-* fix position of figure captions
+* move up all the sidenotes by 5.5pt
 
-* improve chapter format
+* Fix sidenotes counter
 
-* citations in the margins
+* marginnotes inserted between paragraphs add white space

@@ -15,9 +15,17 @@
 
 \subsection{usage}
 
-\subsection{implementation}
+To insert a sidenote, just enter the command \verb|\sidenote{Text of the note}|. You can specify a mark\sidenote[O]{This sidenote has a 
+	special mark} with \verb|\sidenote[mark]{Text}|, or you can specify 
+an offset and a mark with \verb|\sidenote[offset][mark]{Text}|, in which 
+case the mark can be empty. If you want to know more, read the 
+documentation of the \verb|snotez| package.
 
 \section{Marginnotes}
+
+This command is similar to the previous one: you can use it like 
+\verb|\marginnote[offset]{Text}|, where the offset argument can be left 
+out.\marginnote{\blindtext}
 
 \section{Footnotes}
 
@@ -28,3 +36,15 @@ command \verb|\footnote|, just in case you want to put a footnote once
 in a while\footnote{And this is how they look like.}.
 
 \section{Margintoc}
+
+Since we are talking about margins, we introduce here the 
+\verb|\margintoc| command, which accepts a parameter for the vertical 
+offset, like so: \verb|\margintoc[offset]|. It can be used in any point 
+of the document, but we think it makes sense to use it at the beginning 
+of chapters or parts. We like to put it in the chapter preamble, with 
+this code:
+
+\begin{verbatim}
+	\setchapterpreamble[u]{\margintoc}
+	\chapter{Sidenotes and Marginnotes}
+\end{verbatim}

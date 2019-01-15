@@ -1,0 +1,33 @@
+\newglossaryentry{computer}
+{
+  name=computer,
+  description={is a programmable machine that receives input,
+               stores and manipulates data, and provides
+               output in a useful format}
+}
+\newacronym[longplural={Frames per Second}]{fpsLabel}{FPS}{Frame per Second}
+
+\renewcommand*{\chapterformat}
+{
+  \enskip\mbox{\scalebox{4}{\thechapter\autodot}}
+}
+\renewcommand\chapterlinesformat[3]
+{
+  \parbox[b]{\textwidth}{\hrulefill#2}\par%
+  #3%\par\bigskip
+  \parbox[b]{\textwidth+\marginparsep+\marginparwidth}{\hrulefill}%
+  %\hrule
+}
+\setchapterpreamble[u]{\margintoc}
+\chapter{References}
+
+\section{Citations}
+
+To cite someone\sidecite{Visscher2008,James2013} is very simple: just 
+use the \verb|\sidecite| command. It does not have an offset argument 
+yet, but it will.
+
+\section{Glossaries and Indices}
+
+Here I will use a glossary entry: \gls{computer}. Since we are here, let 
+us reference an acronym: \acrfull{fpsLabel} and \acrshort{fpsLabel}.

@@ -11,7 +11,7 @@
 		%indention=2cm,
 		parindent=0.7cm,
 	}
-	\caption[seaside]{By Bushra Feroz - Own work, CC BY-SA 4.0, 
+	\caption[The seaside]{By Bushra Feroz - Own work, CC BY-SA 4.0, 
 		https://commons.wikimedia.org/w/index.php?curid=68724647}
 	\endgroup
 }
@@ -33,15 +33,25 @@
 
 \section{Normal figures and tables}
 
-%\marginnote{\blindtext}
+Normal figures and tables can be inserted just like in any standard 
+\LaTeX\xspace document. The captions will be positioned in the margins 
+thanks to the \verb|floatrow| package. The space between the figure and 
+the text can be specified with the following commands:
 
-\blindtext
+\begin{verbatim}
+	\renewcommand\FBaskip{4pt}
+	\renewcommand\FBbskip{4pt}
+\end{verbatim}
+
+Here is a picture of Mona Lisa (\reffig{normalmonalisa}), as an example.
 
 \begin{figure}[h]
 	\includegraphics[width=0.4\textwidth]{monalisa}
-	\caption{It's Mona Lisa again. \blindtext}
+	\caption[Mona Lisa, again]{It's Mona Lisa again. \blindtext}
+	\labfig{normalmonalisa}
 \end{figure}
 
+I don't have much to say, so I will just insert some blind text. 
 \blindtext
 
 \begin{table}
@@ -54,14 +64,17 @@ col1 & col2 & col3 \\
 & cell8 & cell9 \\ 
 \hline
 \end{tabular}
-\caption{A useless table. \blindtext}
+\caption[A useless table]{A useless table.}
 \end{table}
 
 \blindtext
 
 \section{Margin figures and tables}
 
-\blindtext
+Marginfigures can be inserted with the environment \verb|marginfigure|. 
+In this case, the whole picture is confined to the margin and the 
+caption is below it. There is also the \verb|margintable| environment, 
+of which \reftab{useless} is an example.
 
 \begin{margintable}[*-6]
 \begin{tabular}{ |c|c|c|c| } 
@@ -73,7 +86,28 @@ col1 & col2 & col3 \\
 & cell8 & cell9 \\ 
 \hline
 \end{tabular}
-\caption{A useless table.}
+\caption[Another useless table]{Another useless table.}
+\labtab{useless}
 \end{margintable}
 
+Marginfigures and tables can be positioned with an optional offset 
+command, like so:
+
+\begin{verbatim}
+	\begin{marginfigure}[offset]
+		\includegraphics{images/seaside}
+	\end{marginfigure}
+\end{verbatim}
+
+Offset ca be either a measure or a multiple of \verb|\baselineskip| in 
+the format \verb|[*5]|.\todo{improve this part} 
+
 \section{Wide figures and tables}
+
+With the environments \verb|figure*| and \verb|table*| you can insert 
+figures which span the whole page width.
+
+\begin{figure*}[h]
+	\includegraphics{images/seaside}
+	\caption[A wide seaside]{A wide seaside.}
+\end{figure*}

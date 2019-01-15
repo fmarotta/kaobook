@@ -8,6 +8,8 @@
 \usepackage{calc}
 \RequirePackage{xifthen}		% Easy conditionals
 \RequirePackage{xkeyval}		% Manage class options
+\RequirePackage{xparse}
+\RequirePackage{xstring}
 
 % CLASS OPTIONS {{{
 
@@ -18,14 +20,6 @@
 \newboolean{@option@raggedright}
 \DeclareOption{raggedright}{
   \setboolean{@option@raggedright}{true}
-}
-\newboolean{@option@indent} % indent the first line of a paragraph
-\DeclareOption{indent}{
-  \setboolean{@option@indent}{true}
-}
-\newboolean{@option@space} % separate paragraphs with space
-\DeclareOption{space}{
-  \setboolean{@option@space}{true}
 }
 \newboolean{@option@innermargins}
 \DeclareOption{innermargins}{
@@ -39,9 +33,9 @@
   \ClassInfo{@fmarotta@pkgname}{The `leftmargins' option implies `oneside'}
   \ExecuteOptions{oneside}
 }
-\DeclareOption{onecolumn}{\OptionNotUsed}
-\DeclareOption{twocolumn}{\OptionNotUsed}
-\DeclareOption{landscape}{\OptionNotUsed}
+%\DeclareOption{onecolumn}{\OptionNotUsed}
+%\DeclareOption{twocolumn}{\OptionNotUsed}
+%\DeclareOption{landscape}{\OptionNotUsed}
 
 % Pass the other options to the base class
 \DeclareOption*{
@@ -56,7 +50,6 @@
 \PassOptionsToClass{toc=glossary}{\@baseclass}
 \PassOptionsToClass{toc=bibliography}{\@baseclass}
 \PassOptionsToClass{headings=optiontoheadandtoc}{\@baseclass}
-%\ExecuteOptions{space}
 %\ExecuteOptions{justify}
 
 % Process the options
@@ -69,10 +62,19 @@
 
 % DOCUMENT STRUCTURE {{{
 
+% TOC
 \RequirePackage{tocbasic}
-\usepackage{etoc}
+\RequirePackage{etoc}
 \setuptoc{toc}{totoc}
+
+% Actual document structure
 \setcounter{secnumdepth}{1}
+
+\newcommand\partentrynumberformat[1]{\partname\ #1}
+\RedeclareSectionCommand[
+  tocentrynumberformat=\partentrynumberformat,
+  tocnumwidth=5.5em
+]{part}
 
 \newcommand{\@plaintitle}{}
 \renewcommand{\title}[2][]{
@@ -106,8 +108,8 @@
 
 \RequirePackage[utf8]{inputenc}	% utf8 encoding in the input (.tex) file
 \RequirePackage{hyphenat}					% Hyphenation for special fonts
-\RequirePackage[usenames,dvipsnames,svgnames]{xcolor}
 \RequirePackage{microtype} % Improves character and word spacing
+\RequirePackage[usenames,dvipsnames,svgnames]{xcolor}
 
 % }}}
 
@@ -124,6 +126,8 @@
   %\setlength{\parindent}{0pc}%
   %\setlength{\parskip}{1pc}%
   \singlespacing%
+  %\onehalfspacing%
+  %\setstretch{1.05}
   \frenchspacing% no additional space after periods
   \normalfont%
   \normalsize%
@@ -261,6 +265,7 @@
 \renewcommand*{\raggedleftmarginnote}{}
 \renewcommand*{\raggedrightmarginnote}{}
 \renewcommand*{\marginfont}{\@margin@par}
+\renewcommand{\marginnotevadjust}{-4.5pt}
 
 % Renew \marginnote command to make it similar to snotez's \sidenote
 \def\mnotez@if@nblskip#1{%
@@ -283,6 +288,10 @@
 % Small workaround for \chapter
 \newcommand{\pp@g@sidenote}{}
 
+% FIXME
+%\marginposadjustment=10pt
+%\setlength\marginposadjustment{6pt plus 2pt minus 4pt}
+
 % }}}
 
 % FIGURES, TABLES AND CAPTIONS {{{
@@ -298,8 +307,8 @@
 \RequirePackage{floatrow}               % Set up captions of floats
 
 % Space between float box and main text
-\renewcommand\FBaskip{6pt}
-\renewcommand\FBbskip{6pt}
+\renewcommand\FBaskip{4pt}
+\renewcommand\FBbskip{4pt}
 
 %% (Borrowed from tufte-latex)
 % Tighten up space between displays (e.g., equations) and make symmetric
@@ -387,7 +396,7 @@
 
 % MARGIN TOC {{{
 
-\newcommand{\margintoc}[1][*-3.5]{
+\newcommand{\margintoc}[1][*-3.3]{
   \begingroup
 	\etocsetstyle{section}
 	{\parskip 0pt}
@@ -416,6 +425,21 @@
 \RequirePackage{amssymb}        % AMS symbols and environments
 \renewcommand{\labelitemi}{\footnotesize$\blacktriangleright$}
 \renewcommand{\labelitemii}{\textbullet}
+
+% }}}
+
+% BIBLIOGRAPHY {{{
+
+\NewDocumentCommand{\sidecite}{m}{%
+  \cite{#1}%
+  \margincitation{#1}%
+}
+\NewDocumentCommand{\margincitation}{ >{\SplitList{,}} m }{%
+  \marginnote[-5.5pt]{\ProcessList{#1}{\formatmargincitation}}
+}
+\NewDocumentCommand{\formatmargincitation}{m}{%
+  \parencite{#1}: \citeauthor*{#1} (\citeyear{#1}), \citetitle{#1}\\
+}
 
 % }}}
 

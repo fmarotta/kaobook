@@ -4,6 +4,7 @@
 }
 \renewcommand\chapterlinesformat[3]
 {
+  \vspace*{-1cm}%
   \parbox[b]{\textwidth}{\hrulefill#2}\par%
   #3%\par\bigskip
   \parbox[b]{\textwidth+\marginparsep+\marginparwidth}{\hrulefill}%
@@ -62,12 +63,13 @@ The main features are the following:
 			while marginnotes are not}.
 	\item[Margin figs/tabs] A couple of useful environments is 
 		\verb|marginfigure| and \verb|margintable|, which, not 
-		surprisingly, allow you to put figures and tables in the 
-		margins.
+		surprisingly, allow you to put figures and tables in the margins 
+		(cfr. \reffig{marginmonalisa}).
 		\begin{marginfigure}[*-3]
 			\includegraphics{monalisa}
 			\caption[The Mona Lisa]{The Mona Lisa.\\
 				\url{https://commons.wikimedia.org/wiki/File:Mona_Lisa,_by_Leonardo_da_Vinci,_from_C2RMF_retouched.jpg}}
+			\labfig{marginmonalisa}
 		\end{marginfigure}
 	\item[Margin toc] Finally, since we have wide margins, why don't add 
 		a little table of contents in them? See \verb|\margintoc| for 
@@ -75,7 +77,7 @@ The main features are the following:
 	\item[Hyperref] \verb|hyperref| is loaded and by default we try to 
 		add bookmarks in a sensible way; in particular, the bookmarks 
 		levels are automatically reset at \verb|\appendix| and 
-		\verb|backmatter|.
+		\verb|\backmatter|.
 \end{description}
 
 \section{What this class does not}
