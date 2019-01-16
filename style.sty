@@ -214,6 +214,19 @@
 % Part title style [todo]
 %\renewcommand*{\partformat}{\vspace{-6cm}\partname~\thepart\autodot\thispagestyle{empty}}
 
+\renewcommand*{\chapterformat}
+{
+  \enskip\mbox{\scalebox{4}{\thechapter\autodot}}
+}
+\renewcommand\chapterlinesformat[3]
+{
+  \vspace*{-1cm}%
+  \parbox[b]{\textwidth}{\hrulefill#2}\par%
+  #3%\par\bigskip
+  \parbox[b]{\textwidth+\marginparsep+\marginparwidth}{\hrulefill}%
+  %\hrule
+}
+
 % Chapter title style
 %\renewcommand*{\chapterformat}{
   %\hspace{\linewidth}

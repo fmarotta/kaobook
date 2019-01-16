@@ -34,9 +34,9 @@ the \verb|toc| option of the package \verb|glossaries|.
 
 In the future I plan to add more options to set the paragraph formatting 
 (justified vs ragged) and the position of the margins (inner vs outer in 
-twoside mode, left vs right in oneside mode)\sidenote[-5.5pt][]{As of 
-now, paragraphs are justified, formatted with \texttt{singlespacing} 
-(from package \texttt{setspace}) and \texttt{frenchspacing}.}. 
+twoside mode, left vs right in oneside mode)\sidenote{As of now, 
+	paragraphs are justified, formatted with \texttt{singlespacing} 
+	(from package \texttt{setspace}) and \texttt{frenchspacing}.}. 
 
 \section{Other things worth knowing}
 
@@ -46,14 +46,27 @@ entries of the parts in the table of contents so as to include "Part".
 The table of contents can be modified through the package \verb|etoc|, 
 which is loaded because it is needed for the margintocs.
 
-We provide optional arguments to the \verb|\title| and \verb|\author| 
-commands so that you can insert short, plain text versions of this 
-fields, which can be used, typically in the half-title or somewhere else 
-in the frontmatter, through the commands \verb|\plaintitle| and 
-\verb|\plainauthor|, respectively.
-
-\marginnote{We also load \texttt{xcolor}.}
+\marginnote[1.5\parskip]{We also load \texttt{xcolor}.}
 
 The packages \verb|inputenc|, \verb|hyphenat|, \verb|microtype| are 
 already loaded, but you have to load babel or polyglossia and csquotes, 
 if you wish.
+
+\section{Document Structure}
+
+We provide optional arguments to the \verb|\title| and \verb|\author| 
+commands so that you can insert short, plain text versions of this 
+fields, which can be used, typically in the half-title or somewhere else 
+in the frontmatter, through the commands \verb|\@plaintitle| and 
+\verb|\@plainauthor|, respectively. The pdftitle and pdfauthor are set 
+through hyperref to the plain values if present, otherwise to the normal 
+values.
+
+The frontmatter uses a layout without margins and a plain page style 
+(\ie no headings). In the mainmatter the margins are wide, the page 
+numbers are arabic (while in the frontmatter there are roman numbers) 
+and the headings are fancy. In the appendix we use 
+\verb|\bookmarksetup{startatroot}| so that the bookmarks to the chapters 
+are on their own; without this, they would be under the previous part. 
+In the backmatter the margins shrink again and we reset again the 
+bookmarks root.

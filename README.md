@@ -16,9 +16,3 @@ Work in progress
 ## TODO
 
 * replace geometry with typearea (?)
-
-* move up all the sidenotes by 5.5pt
-
-* Fix sidenotes counter
-
-* marginnotes inserted between paragraphs add white space

@@ -4,12 +4,13 @@
 \newcommand{\@classname}{kaobook} % the name of the class 
 \newcommand{\@baseclass}{scrbook} % the name of the base class 
 
-\RequirePackage{etoolbox}		% Easy programming to modify TeX stuff
-\usepackage{calc}
-\RequirePackage{xifthen}		% Easy conditionals
-\RequirePackage{xkeyval}		% Manage class options
-\RequirePackage{xparse}
-\RequirePackage{xstring}
+% Load low-level packages required for programming
+\RequirePackage{etoolbox}	% Easy programming to modify TeX stuff
+\RequirePackage{calc}		% Make calculations
+\RequirePackage{xifthen}	% Easy conditionals
+\RequirePackage{xkeyval}	% Manage class options
+\RequirePackage{xparse}		% Parse arguments to macros
+\RequirePackage{xstring}	% Parse strings
 
 % CLASS OPTIONS {{{
 
@@ -47,7 +48,6 @@
 \PassOptionsToClass{parskip=half}{\@baseclass}
 \PassOptionsToClass{toc=listof}{\@baseclass}
 \PassOptionsToClass{toc=index}{\@baseclass}
-\PassOptionsToClass{toc=glossary}{\@baseclass}
 \PassOptionsToClass{toc=bibliography}{\@baseclass}
 \PassOptionsToClass{headings=optiontoheadandtoc}{\@baseclass}
 %\ExecuteOptions{justify}
@@ -101,6 +101,8 @@
   }
   \hypersetup{pdfauthor={\@plainauthor}} % set the PDF metadata author
 }
+
+\pretocmd{\maketitle}{\pdfbookmark[1]{\@title}{title}}{}{}
 
 % }}}
 
@@ -246,10 +248,10 @@
   stable,
   multiple
 ]{footmisc} % load after `setspace' and `raggedright'
-\RequirePackage[marginnote=true]{snotez}	% For sidenotes
 \RequirePackage{marginnote}
 \RequirePackage{marginfix}              % Make marginpars float freely
 \RequirePackage[section]{placeins}		% prevent floats to cross sections
+\RequirePackage[marginnote=true]{snotez}	% For sidenotes
 
 % More floats
 \extrafloats{100}
@@ -265,7 +267,7 @@
 \renewcommand*{\raggedleftmarginnote}{}
 \renewcommand*{\raggedrightmarginnote}{}
 \renewcommand*{\marginfont}{\@margin@par}
-\renewcommand{\marginnotevadjust}{-4.5pt}
+\renewcommand{\marginnotevadjust}{-11pt}
 
 % Renew \marginnote command to make it similar to snotez's \sidenote
 \def\mnotez@if@nblskip#1{%
@@ -282,15 +284,13 @@
 
 % Sidenotes
 \setsidenotes{text-mark-format=\textsuperscript{\normalfont#1},
-              note-mark-format=#1:,
-              note-mark-sep=\enskip}
+			  note-mark-format=#1:,
+			  note-mark-sep=\enskip}
 
 % Small workaround for \chapter
-\newcommand{\pp@g@sidenote}{}
-
-% FIXME
-%\marginposadjustment=10pt
-%\setlength\marginposadjustment{6pt plus 2pt minus 4pt}
+\RequirePackage{chngcntr}
+\counterwithout{sidenote}{chapter}
+%\newcommand{\pp@g@sidenote}{}
 
 % }}}
 
@@ -396,17 +396,17 @@
 
 % MARGIN TOC {{{
 
-\newcommand{\margintoc}[1][*-3.3]{
+\newcommand{\margintoc}[1][*-2.9]{
   \begingroup
 	\etocsetstyle{section}
-	{\parskip 0pt}
+	{\parindent -5pt \parskip 0pt}
 	{\leftskip 0pt}
 	{\makebox[.8cm]{\etocnumber\autodot}
 	\etocname\nobreak\leaders\hbox{\hbox to .75ex {\hss.\hss}}\hfill\nobreak
 	\etocpage\par}
 	{}
 	\etocsetstyle{subsection}
-	{\parskip 0pt}
+	{\parindent -5pt \parskip 0pt}
 	{\leftskip 0pt}
 	{\makebox[.8cm]{}
 	\etocname\nobreak\hfill\nobreak\par}
@@ -435,7 +435,7 @@
   \margincitation{#1}%
 }
 \NewDocumentCommand{\margincitation}{ >{\SplitList{,}} m }{%
-  \marginnote[-5.5pt]{\ProcessList{#1}{\formatmargincitation}}
+  \marginnote{\ProcessList{#1}{\formatmargincitation}}
 }
 \NewDocumentCommand{\formatmargincitation}{m}{%
   \parencite{#1}: \citeauthor*{#1} (\citeyear{#1}), \citetitle{#1}\\

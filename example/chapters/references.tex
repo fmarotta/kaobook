@@ -23,11 +23,20 @@
 
 \section{Citations}
 
-To cite someone\sidecite{Visscher2008,James2013} is very simple: just 
+To cite someone \sidecite{Visscher2008,James2013} is very simple: just 
 use the \verb|\sidecite| command. It does not have an offset argument 
-yet, but it will.
+yet, but it probably will in the future. This command supports multiple 
+entries, as you can see, and by default it prints the reference on the 
+margin as well as adding it to the bibliography at the end of the 
+document. For this setup I used biblatex but I think that workarounds 
+are possible \sidecite{James2013}. Note that the citations have nothing 
+to do with the text, they are completely random as they only serve the 
+purpose to illustrate the feature.
 
 \section{Glossaries and Indices}
 
-Here I will use a glossary entry: \gls{computer}. Since we are here, let 
-us reference an acronym: \acrfull{fpsLabel} and \acrshort{fpsLabel}.
+I previously defined some glossary entries and now I am going to use 
+them, for instance, like this: \gls{computer}. Since we are here, let us 
+reference an acronym: this is the full version, \acrfull{fpsLabel}, and 
+this is the short one \acrshort{fpsLabel}. These entries will appear in 
+the glossary in the backmatter.

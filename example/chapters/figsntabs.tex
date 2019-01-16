@@ -17,7 +17,7 @@
 }
 % beforeskip=-(figure_height-top_margin)
 \RedeclareSectionCommand[beforeskip=-5.3cm]{chapter}
-\setchapterpreamble[u]{\margintoc[*-6]}
+\setchapterpreamble[u]{\margintoc[*-4.5]}
 
 \makeatletter
 \renewcommand{\chapterlinesformat}[3]{%
@@ -43,7 +43,9 @@ the text can be specified with the following commands:
 	\renewcommand\FBbskip{4pt}
 \end{verbatim}
 
-Here is a picture of Mona Lisa (\reffig{normalmonalisa}), as an example.
+Here is a picture of Mona Lisa (\reffig{normalmonalisa}), as an example. 
+The captions are formatted as the marginnotes; to change the options you 
+can use \verb|\captsetup| from the \verb|caption| package.
 
 \begin{figure}[h]
 	\includegraphics[width=0.4\textwidth]{monalisa}
@@ -76,7 +78,7 @@ In this case, the whole picture is confined to the margin and the
 caption is below it. There is also the \verb|margintable| environment, 
 of which \reftab{useless} is an example.
 
-\begin{margintable}[*-6]
+\begin{margintable}
 \begin{tabular}{ |c|c|c|c| } 
 \hline
 col1 & col2 & col3 \\
@@ -100,14 +102,34 @@ command, like so:
 \end{verbatim}
 
 Offset ca be either a measure or a multiple of \verb|\baselineskip| in 
-the format \verb|[*5]|.\todo{improve this part} 
+the format \verb|[*5]|.\todo{improve this part} If you are wondering how 
+I inserted this orange bubble, have a look at the \verb|todo| package.
 
 \section{Wide figures and tables}
 
 With the environments \verb|figure*| and \verb|table*| you can insert 
-figures which span the whole page width.
+figures which span the whole page width. The caption will be positioned 
+below.
 
-\begin{figure*}[h]
+Now, if you will excuse me, I will add some more blindtext. \blindtext
+
+\blindtext
+
+\begin{figure*}
 	\includegraphics{images/seaside}
-	\caption[A wide seaside]{A wide seaside.}
+	\vspace{-1.2cm}
+	\caption[A wide seaside]{A wide seaside, and a wide caption.
+		Credits: By Bushra Feroz - Own work, CC BY-SA 4.0, 
+		https://commons.wikimedia.org/w/index.php?curid=68724647.
+		\blindtext}
 \end{figure*}
+
+\section{Image before chapter}
+
+It is relatively easy to insert a figure before the chapter title with 
+the help of the \verb|\setchapterpreamble| command. The details are left 
+to the reader\sidenote{Check the source code for a hint.}.
+
+Note also that throughout the document I have used different chapter 
+title styles, both to experiment and to show some possibilities. 
+Customising this is quite easy as well.
