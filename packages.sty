@@ -10,6 +10,7 @@
 \usepackage{amsfonts} % Mathematical fonts
 \usepackage{amssymb}        % AMS symbols and environments
 \usepackage{amsthm} % Mathematical environments
+\usepackage{thmtools}
 %\usepackage{unicode-math}           % Use unicode math font, not TeX
 %\usepackage{mathtools}              % More math symbols and environments
 %\setmathfont{Asana-Math.otf}
@@ -52,37 +53,3 @@
 % Index and glossary
 \usepackage{imakeidx}
 \usepackage[xindy,toc]{glossaries}
-
-% Bibliography
-% In the future you might want to check this out: 
-% https://tex.stackexchange.com/questions/244971/biblatex-order-of-entries-in-a-multi-citation
-\RequirePackage[
-	%style=numeric-comp,
-	%citestyle=authortitle-icomp,
-	citestyle=numeric-comp,
-	%bibstyle=authoryear,
-	bibstyle=numeric,
-	sorting=none,
-	%sorting=nyt,
-	%sortcites=true,
-	%autocite=footnote,
-	backend=biber,
-	hyperref=true,
-	backref=true,
-	citecounter=true,
-	citetracker=true,
-]{biblatex}
-\AtEveryBibitem{
-	\clearfield{url}
-	\clearfield{issn}
-	\clearfield{isbn}
-	\clearfield{archivePrefix}
-	\clearfield{arxivId}
-	\clearfield{pmid}
-	\clearfield{eprint}
-	\ifentrytype{book}{\clearfield{doi}}{}
-}
-\DefineBibliographyStrings{english}{%
-  backrefpage = {page},% originally "cited on page"
-  backrefpages = {pages},% originally "cited on pages"
-}

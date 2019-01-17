@@ -47,6 +47,8 @@
 \PassOptionsToClass{fontsize=9pt}{\@baseclass}
 \PassOptionsToClass{parskip=half}{\@baseclass}
 \PassOptionsToClass{toc=listof}{\@baseclass}
+%\PassOptionsToClass{toc=flat}{\@baseclass}
+%\PassOptionsToClass{toc=numberline}{\@baseclass}
 \PassOptionsToClass{toc=index}{\@baseclass}
 \PassOptionsToClass{toc=bibliography}{\@baseclass}
 \PassOptionsToClass{headings=optiontoheadandtoc}{\@baseclass}
@@ -127,9 +129,9 @@
   %\setlength{\RaggedRightParindent}{0pc}%
   %\setlength{\parindent}{0pc}%
   %\setlength{\parskip}{1pc}%
-  \singlespacing%
+  %\singlespacing%
   %\onehalfspacing%
-  %\setstretch{1.05}
+  \setstretch{1.10}
   \frenchspacing% no additional space after periods
   \normalfont%
   \normalsize%
@@ -140,7 +142,8 @@
   \setlength{\RaggedRightParindent}{0pc}%
   \setlength{\parindent}{0pc}%
   \setlength{\parskip}{0.5pc}%
-  \singlespacing%
+  %\singlespacing%
+  \setstretch{1.10}%
   \frenchspacing% no additional space after periods
   \normalfont%
   \footnotesize%
@@ -252,22 +255,28 @@
 \RequirePackage{marginfix}              % Make marginpars float freely
 \RequirePackage[section]{placeins}		% prevent floats to cross sections
 \RequirePackage[marginnote=true]{snotez}	% For sidenotes
+\RequirePackage{chngcntr}
 
 % More floats
 \extrafloats{100}
 
+% Do not reset sidenote counter at each chapter
+\counterwithout{sidenote}{chapter}
+% Small workaround: if you don't use counterwithout, uncomment this
+%\newcommand{\pp@g@sidenote}{}
+
+% Space between marginpars
+\setlength\marginparpush{10pt} % minimum distance between marginpars
+
 % Footnotes
 % FIXME: I cannot choose the paragraph layout of footnotes
-\renewcommand{\footnotelayout}{\@margin@par}
-
-% marginfix: affects marginpars
-\marginskip{10pt} % minimum distance between marginpars
+%\renewcommand{\footnotelayout}{\@margin@par}
 
 % marginnote: affects marginnotes. Justify and format
 \renewcommand*{\raggedleftmarginnote}{}
 \renewcommand*{\raggedrightmarginnote}{}
 \renewcommand*{\marginfont}{\@margin@par}
-\renewcommand{\marginnotevadjust}{-11pt}
+\renewcommand{\marginnotevadjust}{3pt}
 
 % Renew \marginnote command to make it similar to snotez's \sidenote
 \def\mnotez@if@nblskip#1{%
@@ -286,11 +295,6 @@
 \setsidenotes{text-mark-format=\textsuperscript{\normalfont#1},
 			  note-mark-format=#1:,
 			  note-mark-sep=\enskip}
-
-% Small workaround for \chapter
-\RequirePackage{chngcntr}
-\counterwithout{sidenote}{chapter}
-%\newcommand{\pp@g@sidenote}{}
 
 % }}}
 
@@ -314,8 +318,12 @@
 % Tighten up space between displays (e.g., equations) and make symmetric
 \setlength\abovedisplayskip{6pt plus 2pt minus 4pt}
 \setlength\belowdisplayskip{6pt plus 2pt minus 4pt}
+\abovedisplayskip 10\p@ \@plus2\p@ \@minus5\p@
+\abovedisplayshortskip \z@ \@plus3\p@
+\belowdisplayshortskip 6\p@ \@plus3\p@ \@minus3\p@
+\belowdisplayskip \abovedisplayskip
 
-%\setlength\columnseprule{.4pt}
+\setlength\columnseprule{.4pt}
 
 % marginfigure and margintable
 % (Code borrowed from the sidenotes package)
@@ -327,9 +335,9 @@
   \mparshift{\mnotez@if@nblskip{#1}{\@cdr#1\@nil\baselineskip}{#1}}
   \begin{lrbox}{\@sidenotes@marginfigurebox}
 	\begin{minipage}{\marginparwidth}
-	  %\@margin@par
 	  \captionsetup{type=figure}
 	  %\captionsetup{type=marginfigure}
+	  %\centering
 }
 {
 	\end{minipage}
@@ -347,6 +355,7 @@
 	\begin{minipage}{\marginparwidth}
 	  %\captionsetup{type=table,style=margintable}
 	  \captionsetup{type=table}
+	  \centering
 }
 {
 	\end{minipage}
@@ -378,9 +387,8 @@
                        capposition=bottom}
 
 % Captions
-%\setkomafont{captionlabel}{\@margin@par}
+\addtokomafont{captionlabel}{\bfseries\color{DarkBlue}}
 \DeclareCaptionFormat{margin}{\@margin@par #1#2#3}
-\DeclareCaptionFormat{marginemph}{\@margin@par\bfseries #1#2#3}
 \captionsetup{
   format=margin,
   strut=no,
@@ -389,7 +397,7 @@
   %width=\marginparwidth,
   indention=0pt,
   parindent=0pt,
-  skip=-15pt,
+  %skip=-15pt,
 }
 
 % }}}
@@ -430,12 +438,45 @@
 
 % BIBLIOGRAPHY {{{
 
+% In the future you might want to check this out: 
+% https://tex.stackexchange.com/questions/244971/biblatex-order-of-entries-in-a-multi-citation
+\RequirePackage[
+	%style=numeric-comp,
+	%citestyle=authortitle-icomp,
+	citestyle=numeric-comp,
+	%bibstyle=authoryear,
+	bibstyle=numeric,
+	sorting=none,
+	%sorting=nyt,
+	%sortcites=true,
+	%autocite=footnote,
+	backend=biber,
+	hyperref=true,
+	backref=true,
+	citecounter=true,
+	citetracker=true,
+]{biblatex}
+\AtEveryBibitem{
+	\clearfield{url}
+	\clearfield{issn}
+	\clearfield{isbn}
+	\clearfield{archivePrefix}
+	\clearfield{arxivId}
+	\clearfield{pmid}
+	\clearfield{eprint}
+	\ifentrytype{book}{\clearfield{doi}}{}
+}
+\DefineBibliographyStrings{english}{%
+  backrefpage = {page},% originally "cited on page"
+  backrefpages = {pages},% originally "cited on pages"
+}
+
 \NewDocumentCommand{\sidecite}{m}{%
   \cite{#1}%
   \margincitation{#1}%
 }
 \NewDocumentCommand{\margincitation}{ >{\SplitList{,}} m }{%
-  \marginnote{\ProcessList{#1}{\formatmargincitation}}
+  \marginnote[-1pt]{\ProcessList{#1}{\formatmargincitation}}
 }
 \NewDocumentCommand{\formatmargincitation}{m}{%
   \parencite{#1}: \citeauthor*{#1} (\citeyear{#1}), \citetitle{#1}\\

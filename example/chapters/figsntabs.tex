@@ -1,22 +1,23 @@
 \setchapterpreamble[o]{
 	\begingroup
-	\vspace*{-2.60cm}\hspace*{-2.25cm}
+	\vspace*{-3cm}\hspace*{-2.56cm}
 	\includegraphics[width=\paperwidth,height=8cm,keepaspectratio=false]{images/seaside}
-	\vspace{-1.0cm}
+	\vspace*{-1.6cm}
 	\addtokomafont{captionlabel}{\bfseries}
+	\addtokomafont{caption}{\bfseries}
 	\captionsetup{
 		type=figure,
-		format=marginemph, 
-		width=\textwidth+\marginparsep+\marginparwidth,
+		%format=marginemph, 
+		%width=\textwidth+\marginparsep+\marginparwidth,
 		%indention=2cm,
-		parindent=0.7cm,
+		%parindent=-2cm,
 	}
-	\caption[The seaside]{By Bushra Feroz - Own work, CC BY-SA 4.0, 
-		https://commons.wikimedia.org/w/index.php?curid=68724647}
+	\caption[The seaside]{\textbf{By Bushra Feroz - Own work, CC BY-SA 4.0, 
+		https://commons.wikimedia.org/w/index.php?curid=68724647}}
 	\endgroup
 }
 % beforeskip=-(figure_height-top_margin)
-\RedeclareSectionCommand[beforeskip=-5.3cm]{chapter}
+\RedeclareSectionCommand[beforeskip=-5.1cm]{chapter}
 \setchapterpreamble[u]{\margintoc[*-4.5]}
 
 \makeatletter
@@ -79,6 +80,7 @@ caption is below it. There is also the \verb|margintable| environment,
 of which \reftab{useless} is an example.
 
 \begin{margintable}
+\raggedright
 \begin{tabular}{ |c|c|c|c| } 
 \hline
 col1 & col2 & col3 \\
@@ -117,7 +119,6 @@ Now, if you will excuse me, I will add some more blindtext. \blindtext
 
 \begin{figure*}
 	\includegraphics{images/seaside}
-	\vspace{-1.2cm}
 	\caption[A wide seaside]{A wide seaside, and a wide caption.
 		Credits: By Bushra Feroz - Own work, CC BY-SA 4.0, 
 		https://commons.wikimedia.org/w/index.php?curid=68724647.

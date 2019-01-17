@@ -30,44 +30,92 @@
 %             marginparsep=0.4cm]{geometry}
 
 % For printing on A4
+%\usepackage[
+	%a4paper,
+	%paperwidth=21.0cm,
+	%paperheight=29.7cm,
+	%%layouthoffset=1.05cm,
+	%%layoutvoffset=2.56cm,
+	%top=2.620cm,
+	%bottom=4.238cm,
+	%inner=2.183cm,
+	%outer=2.183cm,
+	%marginparwidth=4.830cm, % Fixed for now
+	%marginparsep=0.483cm,
+	%includemp
+%]{geometry}
+
+% Tufte geometry
 \usepackage[
 	a4paper,
-	paperwidth=21.0cm,
-	paperheight=29.7cm,
-	%layouthoffset=1.05cm,
-	%layoutvoffset=2.56cm,
-	top=2.620cm,
-	bottom=4.238cm,
-	inner=2.183cm,
-	outer=2.183cm,
-	marginparwidth=4.830cm, % Fixed for now
-	marginparsep=0.483cm,
-	includemp
+	%paperwidth=21.0cm,
+	%paperheight=29.7cm,
+	top=27.4mm,
+	bottom=27.4mm,
+	inner=24.8mm,
+	%outer=24.8mm,
+	%headsep=2\baselineskip,
+	textwidth=107mm,
+	marginparsep=8.2mm,
+	marginparwidth=49.4mm,
+	%textheight=49\baselineskip,
+	%headheight=\baselineskip,
+	includemp,
 ]{geometry}
 
 \newcommand{\marginpage}{
 	\newgeometry{
-		top=2.620cm,
-		bottom=4.238cm,
-		inner=2.183cm,
-		outer=2.183cm,
-		marginparwidth=4.830cm,
-		marginparsep=0.483cm,
+		top=27.4mm,
+		bottom=27.4mm,
+		inner=24.8mm,
+		%outer=24.8mm,
+		%right=2.183cm,
+		textwidth=107mm,
+		marginparsep=8.2mm,
+		marginparwidth=49.4mm,
+		%textheight=49\baselineskip,
 		includemp
 	}
 }
 
 \newcommand{\widepage}{
 	\newgeometry{
-		top=2.620cm,
-		bottom=4.238cm,
-		inner=2.1835cm,
-		outer=2.1835cm,
-		marginparwidth=0cm,
-		marginparsep=0cm,
-		ignoremp
+		top=27.4mm,
+		bottom=27.4mm,
+		inner=24.8mm,
+		outer=24.8mm,
+		%right=2.183cm,
+		%textwidth=107mm,
+		marginparsep=0mm,
+		marginparwidth=0mm,
+		%textheight=49\baselineskip,
+		ignoremp,
 	}
 }
+
+%\newcommand{\marginpage}{
+	%\newgeometry{
+		%top=2.620cm,
+		%bottom=4.238cm,
+		%inner=2.183cm,
+		%outer=2.183cm,
+		%marginparwidth=4.830cm,
+		%marginparsep=0.483cm,
+		%includemp
+	%}
+%}
+
+%\newcommand{\widepage}{
+	%\newgeometry{
+		%top=2.620cm,
+		%bottom=4.238cm,
+		%inner=2.1835cm,
+		%outer=2.1835cm,
+		%marginparwidth=0cm,
+		%marginparsep=0cm,
+		%ignoremp
+	%}
+%}
 
 \newcommand{\fullwidthpage}{
 	\newgeometry{
@@ -137,19 +185,20 @@
   \RequirePackage[english]{babel}	% Load characters and hyphenation
   \RequirePackage[english=british]{csquotes}	% English quotes
   \RequirePackage[T1]{fontenc}		% utf8 encoding in the output (.pdf) file
-  \RequirePackage{fourier}
+  \RequirePackage{mathpazo}
+  %\RequirePackage{fourier}
   \usepackage[scaled=1]{helvet}
 
 
   %\addtokomafont{disposition}{\rmfamily\normalfont\itshape}
   %\addtokomafont{title}{\normalfont\itshape}
-  \addtokomafont{part}{\normalfont\itshape}
-  \addtokomafont{chapter}{\normalfont\itshape}
-  \addtokomafont{section}{\normalfont\itshape}
-  \addtokomafont{subsection}{\normalfont\itshape}
-  \addtokomafont{subsubsection}{\normalfont\itshape}
-  \addtokomafont{paragraph}{\normalfont\bfseries}
-  \addtokomafont{partentry}{\normalfont\scshape\bfseries}
+  \addtokomafont{part}{\normalfont\itshape\bfseries\color{Maroon}}
+  \addtokomafont{chapter}{\normalfont\itshape\bfseries\color{Maroon}}
+  \addtokomafont{section}{\normalfont\itshape\bfseries\color{Maroon}}
+  \addtokomafont{subsection}{\normalfont\itshape\bfseries\color{Maroon}}
+  \addtokomafont{subsubsection}{\normalfont\itshape\bfseries\color{Maroon}}
+  \addtokomafont{paragraph}{\normalfont\bfseries\bfseries\color{Maroon}}
+  \addtokomafont{partentry}{\normalfont\scshape\bfseries\color{Maroon}}
   \addtokomafont{chapterentry}{\normalfont\bfseries}
   %\setkomafont{descriptionlabel}{\normalfont\bfseries}
   %\addtokomafont{caption}{\footnotesize}
@@ -164,7 +213,7 @@
 % TOC, LOF AND LOT {{{
 
 % Levels in table of contents
-\setcounter{tocdepth}{\sectiontocdepth}
+\setcounter{tocdepth}{\subsectiontocdepth}
 
 % List of figures title as "Figures"
 \renewcaptionname{english}{\listfigurename}{Figures}
@@ -238,13 +287,6 @@
   %\hspace{-\linewidth}
   %\hspace{-1.35cm}
 %}
-
-%\renewcommand*{\chapterformat}{%
-  %\enskip\mbox{\scalebox{4}{\framebox{\thechapter\autodot}}}}
-%\renewcommand\chapterlinesformat[3]{%
-  %\parbox[b]{\textwidth}{\hrulefill#2}\par%
-  %#3\par\bigskip
-  %\hrule}
 
 % Might be useful
 %\renewcommand{\chapterformat}{
