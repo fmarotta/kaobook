@@ -16,3 +16,9 @@ Work in progress
 ## TODO
 
 * replace geometry with typearea (?)
+
+* use thmtools to change the style of theorems. In particular, provide 
+  different files .sty, each with its own style, that can be plugged in 
+the document
+
+* fix backref from glossaries

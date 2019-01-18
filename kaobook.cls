@@ -113,7 +113,7 @@
 \RequirePackage[utf8]{inputenc}	% utf8 encoding in the input (.tex) file
 \RequirePackage{hyphenat}					% Hyphenation for special fonts
 \RequirePackage{microtype} % Improves character and word spacing
-\RequirePackage[usenames,dvipsnames,svgnames]{xcolor}
+\RequirePackage[usenames,svgnames]{xcolor}
 
 % }}}
 
@@ -160,14 +160,19 @@
 \RequirePackage{scrlayer-scrpage}       % Customise head and foot regions
 \setlength{\headheight}{115pt}			% Enlarge the header
 
+\newcommand{\sectionname}{Section}
+
+\renewcommand{\chaptermark}[1]{\markleft{\textbf{\chaptername\ \thechapter:}\ #1}{}}
+\renewcommand{\sectionmark}[1]{\markright{\textbf{\sectionname\ \thesection:} #1}{}}
+
 % Headings styles
 \renewpagestyle{scrheadings}{
   {\hspace{-\marginparwidth}\hspace{-\marginparsep}%
 	\makebox[\overflowingheadlen][l]{\makebox[2em][r]{\thepage}%
-	\quad\rule{1pt}{100pt}\quad{}\leftmark}}%
+	\quad\rule{1pt}{100pt}\quad{}\leftmark} }%
   {\makebox[\overflowingheadlen][r]{\rightmark\quad\rule{1pt}{100pt}%
 	\quad\makebox[2em][l]{\thepage}} }%
-  {\makebox[\overflowingheadlen][r]{\rightmark\quad\rule{1pt}{100pt}%
+  {\makebox[\overflowingheadlen][r]{\leftmark\quad\rule{1pt}{100pt}%
 	\quad\makebox[2em][l]{\thepage}} }%
 }{
   {}%
@@ -221,6 +226,7 @@
 \renewcommand{\appendix}{
   \oldappendix
   \bookmarksetup{startatroot}
+  \renewcommand{\chaptername}{Appendix}
 }
 
 \let\oldbackmatter\backmatter
@@ -256,6 +262,11 @@
 \RequirePackage[section]{placeins}		% prevent floats to cross sections
 \RequirePackage[marginnote=true]{snotez}	% For sidenotes
 \RequirePackage{chngcntr}
+
+% Alternative to footmisc:
+% \renewcommand\thefootnote{\fnsymbol{footnote}}
+% \MakePerPage[1]{footnote}
+% \KOMAoption{footnotes=multiple}
 
 % More floats
 \extrafloats{100}
@@ -387,7 +398,7 @@
                        capposition=bottom}
 
 % Captions
-\addtokomafont{captionlabel}{\bfseries\color{DarkBlue}}
+\addtokomafont{captionlabel}{\bfseries}
 \DeclareCaptionFormat{margin}{\@margin@par #1#2#3}
 \captionsetup{
   format=margin,
