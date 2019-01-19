@@ -110,7 +110,6 @@
 
 % COLORS AND FONTS, ENCODING {{{
 
-\RequirePackage[utf8]{inputenc}	% utf8 encoding in the input (.tex) file
 \RequirePackage{hyphenat}					% Hyphenation for special fonts
 \RequirePackage{microtype} % Improves character and word spacing
 \RequirePackage[usenames,svgnames]{xcolor}
@@ -160,9 +159,8 @@
 \RequirePackage{scrlayer-scrpage}       % Customise head and foot regions
 \setlength{\headheight}{115pt}			% Enlarge the header
 
-\newcommand{\sectionname}{Section}
-
-\renewcommand{\chaptermark}[1]{\markleft{\textbf{\chaptername\ \thechapter:}\ #1}{}}
+\renewcommand{\chaptermark}[1]{\markleft{\textbf{\chaptername\ 
+\thechapter:}\ #1}{}}
 \renewcommand{\sectionmark}[1]{\markright{\textbf{\sectionname\ \thesection:} #1}{}}
 
 % Headings styles
@@ -188,6 +186,15 @@
   {}%
   {}
 }
+\newpagestyle{pagenum.scrheadings}{
+  {}%
+  {}%
+  {}
+}{
+  {\thepage}%
+  {\hfill\thepage}%
+  {}
+}
 
 \let\oldfrontmatter\frontmatter
 \renewcommand{\frontmatter}{
@@ -202,6 +209,7 @@
   \addtolength{\overflowingheadlen}{\marginparsep}
   \addtolength{\overflowingheadlen}{\marginparwidth}
 
+  %\pagestyle{front.scrheadings}
   \pagestyle{plain.scrheadings}
   \sloppy
 }
@@ -448,6 +456,15 @@
 % }}}
 
 % BIBLIOGRAPHY {{{
+
+\RequirePackage{ifxetex}		% Detect if we are using XeLaTeX
+
+% Polyglossia must be set up before biblatex
+% The language can be changed later
+\ifxetex
+  \RequirePackage{polyglossia}
+  \setdefaultlanguage{english}
+\fi
 
 % In the future you might want to check this out: 
 % https://tex.stackexchange.com/questions/244971/biblatex-order-of-entries-in-a-multi-citation

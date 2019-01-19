@@ -1,0 +1,132 @@
+\ProvidesPackage{tcbtheorems}
+
+% Theorems using tcolorbox
+
+% The syntax for these environments differs from the classical ams 
+% syntax, therefore they have a different name: they are called 
+% tcbtheorem, tcbproposition, and so on. The user has to make an 
+% informed decision to use these environments. For this reason, this 
+% package can be loaded together with any of the others: ams theorems 
+% and tcb theorems can be mixed in the same document.
+
+\usepackage[most]{tcolorbox}
+
+% Create a new environment, tcbtheorem, to be used in place of amsthm's theorem
+\newtcbtheorem[number within=section]{tcbtheorem}{Theorem}{
+  breakable,
+  %enhanced,
+  sharp corners,
+  %attach boxed title to top left={
+    %yshifttext=-1mm
+  %},
+  fonttitle=\bfseries,
+  fontupper=\textsc,
+  enhanced,
+  colback=orange,
+  colframe=orange!50!black,
+  %colframe=orange,
+  frame hidden,
+  coltitle=black,
+  colbacktitle=orange,
+  titlerule=.5pt,
+  titlerule style=black,
+  %boxed title style={
+    %sharp corners,
+    %size=small,
+    %colback=orange!75!black,
+    %colframe=orange!75!black,
+  %} 
+}{thm} % thm is prepended to the label, so you can \ref{thm:fermat}
+
+\newtcbtheorem[number within=section]{tcbproposition}{Proposition}{
+  breakable,
+  sharp corners,
+  fonttitle=\bfseries,
+  fontupper=\textsc,
+  enhanced,
+  colback=orange,
+  colframe=orange!50!black,
+  frame hidden,
+  coltitle=black,
+  colbacktitle=orange,
+  titlerule=.5pt,
+  titlerule style=black,
+}{prop}
+
+\newtcbtheorem[number within=section]{tcbcorollary}{Corollary}{
+  breakable,
+  sharp corners,
+  fonttitle=\bfseries,
+  fontupper=\textsc,
+  enhanced,
+  colback=orange,
+  colframe=orange!50!black,
+  frame hidden,
+  coltitle=black,
+  colbacktitle=orange,
+  titlerule=.5pt,
+  titlerule style=black,
+}{corol}
+
+\newtcbtheorem[number within=section]{tcblemma}{Lemma}{
+  breakable,
+  sharp corners,
+  fonttitle=\bfseries,
+  fontupper=\textsc,
+  enhanced,
+  colback=orange,
+  colframe=orange!50!black,
+  frame hidden,
+  coltitle=black,
+  colbacktitle=orange,
+  titlerule=.5pt,
+  titlerule style=black,
+}{lemma}
+
+% Create a new environment, tcbproof
+\newtcbtheorem[no counter]{tcbproof}{Proof}{
+  enhanced,
+  sharp corners,
+  attach boxed title to top left={
+    yshifttext=-1mm
+  },
+  colback=white,
+  colframe=blue!25,
+  fonttitle=\bfseries,
+  coltitle=black,
+  boxed title style={
+    sharp corners,
+    size=small,
+    colback=blue!25,
+    colframe=blue!25,
+  } 
+}{prf}
+
+\newtcbtheorem[number within=section]{tcbdefinition}{Definition}{
+  breakable,
+  fonttitle=\itshape,
+  fontupper=\textsc,
+  enhanced,
+  colback=LightBlue,
+  colframe=blue!50!black,
+  %frame hidden,
+  coltitle=black,
+  colbacktitle=LightBlue,
+  titlerule=.5pt,
+  titlerule style=black,
+}{def}
+
+\newtcbtheorem[number within=section]{tcbexample}{Example}{
+  breakable,
+  round corners,
+  fonttitle=\itshape,
+  fontupper=\textsc,
+  enhanced,
+  colback=white,
+  colframe=white!50!black,
+  %frame hidden,
+  coltitle=black,
+  colbacktitle=white,
+  titlerule=.5pt,
+  titlerule style=black,
+}{ex}

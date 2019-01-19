@@ -1,0 +1,30 @@
+\ProvidesPackage{environments}
+
+% Simple boxed environment {{{
+
+% kaobox (while tcolorbox may be more rich, I find it too complicated so 
+% I prefer mdframed)
+\usepackage{tikz}
+\usepackage[framemethod=TikZ]{mdframed}
+
+\newmdenv[
+	skipabove=\topskip,
+	skipbelow=\topskip,
+	rightmargin=0pt,
+	leftmargin=0pt,
+	topline=false,
+	bottomline=false,
+	rightline=false,
+	leftline=false,
+	roundcorner=0pt,
+	frametitlerule=true,
+	backgroundcolor=LightBlue,
+]{kaobox}
+
+% }}}
+
+% Environment with a counter {{{
+
+% TODO
+
+% }}}

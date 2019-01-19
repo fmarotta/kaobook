@@ -131,64 +131,72 @@
 
 % }}}
 
-% FONTS {{{
+% ENCODING & FONTS {{{
 
-\RequirePackage{ifxetex}		% Detect if we are using XeLaTeX
+\RequirePackage{ifxetex}
+
+% Provide a companion to \chaptername
+\newcommand{\sectionname}{Section}
 
 \ifxetex
   \RequirePackage{polyglossia}			% Correct hyphenation
+  \setdefaultlanguage{italian}
   \RequirePackage[english=british]{csquotes}	% English quotes
-  \setdefaultlanguage{english}
   \RequirePackage{fontspec}				% Selecting fonts
 
   \geometry{xetex}
+  \hypersetup{xetex}
 
-  \setmainfont{texgyrepagella-regular.otf}[
-	Ligatures=TeX,
-	Numbers=Lining,
-	BoldFont=texgyrepagella-bold.otf,
-	ItalicFont=texgyrepagella-italic.otf,
-	BoldItalicFont=texgyrepagella-bolditalic.otf,
-  ]
-  \setmonofont{Nimbus Mono PS}[
-	%Path=../fonts/,
-	Scale=MatchLowercase,
-	%BoldFont=CourierPrime-Bold,
-	%ItalicFont=CourierPrime-Italic,
-	%BoldItalicFont=CourierPrime-BoldItalic,
-  ]
+  \RequirePackage{mathpazo}
+  %\RequirePackage{fourier}
+  \usepackage[scaled=1]{helvet}
 
-  \newfontfamily\fanciestfont[
-	%Path=../fonts/,
-	Ligatures={TeX,Discretionary},
-	%Scale=MatchLowerCase,
-  ]{Cantarell}
-  \newfontfamily\fancyfont[
-	%Path=../fonts/,
-	Ligatures=TeX,
-  ]{Cantarell}
-  \newfontfamily\chapternumberfont[
-	%Path=../fonts/,
-	Ligatures=TeX,
-	Numbers=Lining
-  ]{Cantarell}
+  %\setmainfont{texgyrepagella-regular.otf}[
+	%Ligatures=TeX,
+	%Numbers=Lining,
+	%BoldFont=texgyrepagella-bold.otf,
+	%ItalicFont=texgyrepagella-italic.otf,
+	%BoldItalicFont=texgyrepagella-bolditalic.otf,
+  %]
+  %\setmonofont{Nimbus Mono PS}[
+	%%Path=../fonts/,
+	%Scale=MatchLowercase,
+	%%BoldFont=CourierPrime-Bold,
+	%%ItalicFont=CourierPrime-Italic,
+	%%BoldItalicFont=CourierPrime-BoldItalic,
+  %]
 
-  \addtokomafont{disposition}{\fancyfont}
-  \addtokomafont{part}{\Huge}
-  \addtokomafont{title}{\fanciestfont}
-  \addtokomafont{chapter}{\fanciestfont}
-  \addtokomafont{chapterentry}{\normalfont\scshape}
-  \addtokomafont{descriptionlabel}{\normalfont\bfseries}
-  \addtokomafont{caption}{\footnotesize}
+  %\newfontfamily\fanciestfont[
+	%%Path=../fonts/,
+	%Ligatures={TeX,Discretionary},
+	%%Scale=MatchLowerCase,
+  %]{Cantarell}
+  %\newfontfamily\fancyfont[
+	%%Path=../fonts/,
+	%Ligatures=TeX,
+  %]{Cantarell}
+  %\newfontfamily\chapternumberfont[
+	%%Path=../fonts/,
+	%Ligatures=TeX,
+	%Numbers=Lining
+  %]{Cantarell}
+
+  %\addtokomafont{disposition}{\fancyfont}
+  %\addtokomafont{part}{\Huge}
+  %\addtokomafont{title}{\fanciestfont}
+  %\addtokomafont{chapter}{\fanciestfont}
+  %\addtokomafont{chapterentry}{\normalfont\scshape}
+  %\addtokomafont{descriptionlabel}{\normalfont\bfseries}
+  %\addtokomafont{caption}{\footnotesize}
 
 \else
   \RequirePackage[english]{babel}	% Load characters and hyphenation
   \RequirePackage[english=british]{csquotes}	% English quotes
   \RequirePackage[T1]{fontenc}		% utf8 encoding in the output (.pdf) file
+  \RequirePackage[utf8]{inputenc}	% utf8 encoding in the input (.tex) file
   \RequirePackage{mathpazo}
   %\RequirePackage{fourier}
   \usepackage[scaled=1]{helvet}
-
 
   %\addtokomafont{disposition}{\rmfamily\normalfont\itshape}
   %\addtokomafont{title}{\normalfont\itshape}
