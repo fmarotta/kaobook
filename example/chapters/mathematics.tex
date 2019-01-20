@@ -3,14 +3,24 @@
 
 \section{Theorems}
 
-\blindtext
+Despite most people complain at the sight of a book full of equations, 
+mathematics is an important part of many books. Here, we shall 
+illustrate some of the possibilities. We believe that theorems, 
+definitions, remarks and examples should be emphasised with a shaded 
+background; however, the colour should not be to heavy on the eyes, so 
+we have chosen light yellow.\sidenote{The boxes are all of the same 
+	colour here, because we did not want our document to look like 
+	\href{https://en.wikipedia.org/wiki/Harlequin}{Harlequin}.}
 
 \begin{definition}
+\labdef{openset}
 Let $(X, d)$ be a metric space. A subset $U \subset X$ is an open set 
 if, for any $x \in U$ there exists $r > 0$ such that $B(x, r) \subset 
 U$. We call the topology associated to d the set $\tau\textsubscript{d}$ 
 of all the open subsets of $(X, d).$
 \end{definition}
+
+\refdef{openset} is very important.
 
 \begin{theorem}
 A finite intersection of open sets of (X, d) is an open set of (X, d), 
@@ -24,20 +34,26 @@ i.e $\tau\textsubscript{d}$ is closed under finite intersections. Any
 union of open sets of (X, d) is an open set of (X, d).
 \end{proposition}
 
+\marginnote{You can even insert footnotes inside the theorem 
+	environments; they will be displayed at the bottom of the box.}
+
 \begin{lemma}
-A finite intersection of open sets of (X, d) is an open set of (X, d), 
-i.e $\tau\textsubscript{d}$ is closed under finite intersections. Any 
-union of open sets of (X, d) is an open set of (X, d).
+A finite intersection\footnote{I'm a footnote} of open sets of (X, d) is 
+an open set of (X, d), i.e $\tau\textsubscript{d}$ is closed under 
+finite intersections. Any union of open sets of (X, d) is an open set of 
+(X, d).
 \end{lemma}
 
-\begin{corollary}
+You can safely ignore the content of the theorems\ldots
+
+\begin{corollary}[Finite Intersection, Countable Union]
 A finite intersection of open sets of (X, d) is an open set of (X, d), 
 i.e $\tau\textsubscript{d}$ is closed under finite intersections. Any 
 union of open sets of (X, d) is an open set of (X, d).
 \end{corollary}
 
 \begin{proof}
-The proof is left to the reader as a trivial exercise.
+The proof is left to the reader as a trivial exercise. Hint: \blindtext
 \end{proof}
 
 \begin{definition}
@@ -47,6 +63,14 @@ U$. We call the topology associated to d the set $\tau\textsubscript{d}$
 of all the open subsets of $(X, d).$
 \end{definition}
 
+\marginnote{
+	\begin{equation*}
+  x = a_0 + \cfrac{1}{a_1
+          + \cfrac{1}{a_2
+          + \cfrac{1}{a_3 + \cfrac{1}{a_4} } } }
+	\end{equation*}
+}
+
 \begin{example}
 Let $(X, d)$ be a metric space. A subset $U \subset X$ is an open set 
 if, for any $x \in U$ there exists $r > 0$ such that $B(x, r) \subset 
@@ -54,15 +78,6 @@ U$. We call the topology associated to d the set $\tau\textsubscript{d}$
 of all the open subsets of $(X, d).$
 \end{example}
 
-\begin{examples}
-\begin{subexample}
-Simple example
-\end{subexample}
-\begin{subexample}
-Simple example
-\end{subexample}
-\end{examples}
-
 \begin{remark}
 Let $(X, d)$ be a metric space. A subset $U \subset X$ is an open set 
 if, for any $x \in U$ there exists $r > 0$ such that $B(x, r) \subset 
@@ -70,25 +85,47 @@ U$. We call the topology associated to d the set $\tau\textsubscript{d}$
 of all the open subsets of $(X, d).$
 \end{remark}
 
+As you may have noticed, definitions, example and remarks have 
+independent counters; theorems, propositions, lemmas and corollaries 
+share the same counter.
+
 \begin{remark}
-Integral $\int_{a}^{b} x^2 dx$ inline
+Here is how an integral looks like inline: $\int_{a}^{b} x^2 dx$, and 
+here is the same integral displayed in its own paragraph:
 \[\int_{a}^{b} x^2 dx\]
 \end{remark}
 
-\section{Boxes}
+We provide two files for the theorem styles: plaintheorems.sty, which 
+you should include if you do not want coloured boxes around theorems; 
+and mdftheorems.sty, which is the one used for this document.
 
-\blindtext
+\section[Boxes \& Environments]{Boxes \& Custom Environments
+\sidenote[*1.5][]{Notice that in the table of contents and in the 
+	header, the name of this section is \enquote{Boxes \& Environments}; 
+	we achieved this with the optional argument of the \texttt{section} 
+	command.}}
+
+Say you want to insert a special section, an optional content or just 
+something you want to emphasise. Boxes are the right choice. We used 
+mdframed to construct the ones shown below.
 
 \begin{kaobox}[frametitle=Title of the box]
 \blindtext
 \end{kaobox}
 
-\begin{tcbtheorem}{Fermat}{fermat}
-test theorem
-\end{tcbtheorem}
-\begin{tcbproof}{Theorem \ref{thm:fermat}}{}
-The proof is very very easy. Ask Andrew Wiles.
-\end{tcbproof}
+If you set up a counter, you can even create your own numbered 
+environment.
+
+\begin{commentbox}
+	\blindtext
+\end{commentbox}
+
+%\begin{tcbtheorem}{Fermat}{fermat}
+%test theorem
+%\end{tcbtheorem}
+%\begin{tcbproof}{Theorem \ref{thm:fermat}}{}
+%The proof is very very easy. Ask Andrew Wiles.
+%\end{tcbproof}
 
 %\begin{definition∗}[Inhomogeneous linear]
 %\blindtext
@@ -107,18 +144,18 @@ The proof is very very easy. Ask Andrew Wiles.
 
 \blindtext
 
-\begin{margintable}
-	\captionsetup{type=table,position=above}
-	\begin{kaobox}
-		\caption{caption}
-		\begin{tabular}{ |c|c|c|c| } 
-			\hline
-			col1 & col2 & col3 \\
-			\hline
-			\multirow{3}{4em}{Multiple row} & cell2 & cell3 \\ 
-			& cell5 & cell6 \\ 
-			& cell8 & cell9 \\ 
-			\hline
-		\end{tabular}
-	\end{kaobox}
-\end{margintable}
+%\begin{margintable}
+	%\captionsetup{type=table,position=above}
+	%\begin{kaobox}
+		%\caption{caption}
+		%\begin{tabular}{ |c|c|c|c| }
+			%\hline
+			%col1 & col2 & col3 \\
+			%\hline
+			%\multirow{3}{4em}{Multiple row} & cell2 & cell3 \\ & cell5 
+			%%& cell6 \\ 
+			%& cell8 & cell9 \\
+			%\hline
+		%\end{tabular}
+	%\end{kaobox}
+%\end{margintable}

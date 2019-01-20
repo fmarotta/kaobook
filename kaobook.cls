@@ -114,6 +114,15 @@
 \RequirePackage{microtype} % Improves character and word spacing
 \RequirePackage[usenames,svgnames]{xcolor}
 
+\RequirePackage{ifxetex}		% Detect if we are using XeLaTeX
+
+% Polyglossia must be set up before biblatex
+% The language can be changed later
+\ifxetex
+  \RequirePackage{polyglossia}
+  \setdefaultlanguage{english}
+\fi
+
 % }}}
 
 % PARAGRAPH FORMATTING {{{
@@ -159,9 +168,8 @@
 \RequirePackage{scrlayer-scrpage}       % Customise head and foot regions
 \setlength{\headheight}{115pt}			% Enlarge the header
 
-\renewcommand{\chaptermark}[1]{\markleft{\textbf{\chaptername\ 
-\thechapter:}\ #1}{}}
-\renewcommand{\sectionmark}[1]{\markright{\textbf{\sectionname\ \thesection:} #1}{}}
+\renewcommand{\chaptermark}[1]{\markleft{\textbf{\chaptername\ \thechapter:}\ #1}{}}
+\renewcommand{\sectionmark}[1]{\markright{\thesection\ #1}{}}
 
 % Headings styles
 \renewpagestyle{scrheadings}{
@@ -284,7 +292,7 @@
 % Small workaround: if you don't use counterwithout, uncomment this
 %\newcommand{\pp@g@sidenote}{}
 
-% Space between marginpars
+% Space between marginpars (Doesn't work AFAIK)
 \setlength\marginparpush{10pt} % minimum distance between marginpars
 
 % Footnotes
@@ -295,7 +303,7 @@
 \renewcommand*{\raggedleftmarginnote}{}
 \renewcommand*{\raggedrightmarginnote}{}
 \renewcommand*{\marginfont}{\@margin@par}
-\renewcommand{\marginnotevadjust}{3pt}
+\renewcommand{\marginnotevadjust}{2.8pt}
 
 % Renew \marginnote command to make it similar to snotez's \sidenote
 \def\mnotez@if@nblskip#1{%
@@ -446,25 +454,7 @@
 
 % }}}
 
-% ENVIRONMENTS {{{
-
-% Bullets
-\RequirePackage{amssymb}        % AMS symbols and environments
-\renewcommand{\labelitemi}{\footnotesize$\blacktriangleright$}
-\renewcommand{\labelitemii}{\textbullet}
-
-% }}}
-
 % BIBLIOGRAPHY {{{
-
-\RequirePackage{ifxetex}		% Detect if we are using XeLaTeX
-
-% Polyglossia must be set up before biblatex
-% The language can be changed later
-\ifxetex
-  \RequirePackage{polyglossia}
-  \setdefaultlanguage{english}
-\fi
 
 % In the future you might want to check this out: 
 % https://tex.stackexchange.com/questions/244971/biblatex-order-of-entries-in-a-multi-citation
@@ -495,8 +485,8 @@
 	\ifentrytype{book}{\clearfield{doi}}{}
 }
 \DefineBibliographyStrings{english}{%
-  backrefpage = {page},% originally "cited on page"
-  backrefpages = {pages},% originally "cited on pages"
+  backrefpage = {cited on page},% originally "cited on page"
+  backrefpages = {cited on pages},% originally "cited on pages"
 }
 
 \NewDocumentCommand{\sidecite}{m}{%

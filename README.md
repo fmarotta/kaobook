@@ -17,10 +17,4 @@ Work in progress
 
 * replace geometry with typearea (?)
 
-* fix backref from glossaries
-
 * Update the documentation
-
-* Enrich the theorem styles
-
-* create environment with a counter

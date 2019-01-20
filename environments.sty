@@ -7,24 +7,49 @@
 \usepackage{tikz}
 \usepackage[framemethod=TikZ]{mdframed}
 
-\newmdenv[
+\mdfdefinestyle{kaoboxstyle}{
 	skipabove=\topskip,
 	skipbelow=\topskip,
 	rightmargin=0pt,
 	leftmargin=0pt,
+	%innertopmargin=3pt,
+	%innerbottommargin=3pt,
+	innerrightmargin=7pt,
+	innerleftmargin=7pt,
 	topline=false,
 	bottomline=false,
 	rightline=false,
 	leftline=false,
-	roundcorner=0pt,
+	%linewidth=1pt,
+	%roundcorner=0pt,
+	%font={},
+	%frametitlefont={},
 	frametitlerule=true,
-	backgroundcolor=LightBlue,
+	linecolor=black,
+	%backgroundcolor=LightBlue,
+	fontcolor=black,
+	%frametitlebackgroundcolor=LightBlue,
+}
+
+\newmdenv[
+	style=kaoboxstyle,
+	backgroundcolor=LightBlue!60,
+	frametitlebackgroundcolor=LightBlue!60,
 ]{kaobox}
 
 % }}}
 
 % Environment with a counter {{{
 
-% TODO
+\newcounter{commentcounter}
+\numberwithin{commentcounter}{section}
+\newenvironment{commentbox}
+{
+	\refstepcounter{commentcounter}
+	\begin{kaobox}[frametitle=Comment \thecommentcounter]
+}
+{
+	\end{kaobox}
+}
 
 % }}}

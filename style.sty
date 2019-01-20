@@ -138,6 +138,11 @@
 % Provide a companion to \chaptername
 \newcommand{\sectionname}{Section}
 
+% Bullets
+\RequirePackage{amssymb}
+\renewcommand{\labelitemi}{\footnotesize$\blacktriangleright$}
+\renewcommand{\labelitemii}{\textbullet}
+
 \ifxetex
   \RequirePackage{polyglossia}			% Correct hyphenation
   \setdefaultlanguage{italian}
@@ -191,9 +196,9 @@
 
 \else
   \RequirePackage[english]{babel}	% Load characters and hyphenation
-  \RequirePackage[english=british]{csquotes}	% English quotes
   \RequirePackage[T1]{fontenc}		% utf8 encoding in the output (.pdf) file
   \RequirePackage[utf8]{inputenc}	% utf8 encoding in the input (.tex) file
+  \RequirePackage[english=british]{csquotes}	% English quotes
   \RequirePackage{mathpazo}
   %\RequirePackage{fourier}
   \usepackage[scaled=1]{helvet}
@@ -234,7 +239,8 @@
 	%anchorcolor=Red,
 	citecolor=Coral!80!black,
 	%filecolor=Red,
-	linkcolor=NavyBlue,
+	%linkcolor=NavyBlue,
+	linkcolor=Black,
 	%menucolor=Red,
 	%runcolor=Red,
 	urlcolor=DarkGreen,
@@ -250,6 +256,7 @@
 % List of figures title as "Figures"
 \renewcaptionname{english}{\listfigurename}{Figures}
 \renewcaptionname{english}{\listtablename}{Tables}
+\renewcommand{\listtheoremname}{Theorems}
 
 % Table of contents styles
 %\newlength{\alignviiilength}
