@@ -17,10 +17,7 @@ Work in progress
 
 * replace geometry with typearea (?)
 
-* fix backref from glossaries
+* fix backref from glossaries (actually, it seems that all the links 
+  from the toc to the pages are wrong)
 
 * Update the documentation
-
-* Enrich the theorem styles
-
-* create environment with a counter

@@ -1,27 +1,39 @@
-\ProvidesPackage{plaintheorems}
+\ProvidesPackage{mdtheorems}
 
-% Plain ams* theorems
+% Use mdframed to shade the background of theorems
 
 \usepackage{amsmath} % Improved mathematics
 \usepackage{amsfonts} % Mathematical fonts
 \usepackage{amssymb} % AMS symbols and environments
 \usepackage{amsthm} % Mathematical environments
 \usepackage{thmtools}
-%\usepackage{unicode-math}           % Use unicode math font, not TeX
-%\usepackage{mathtools}              % More math symbols and environments
-%\setmathfont{Asana-Math.otf}
+\usepackage{tikz}
+\usepackage[framemethod=TikZ]{mdframed}
 
-% Edit the following to create a new style (NOTE: it is much simpler 
-% using thmtools!)
-%\newtheoremstyle{theorem}% name of the style to be used
-  %{spaceabove}% measure of space to leave above the theorem. E.g.: 3pt
-  %{spacebelow}% measure of space to leave below the theorem. E.g.: 3pt
-  %{bodyfont}% name of font to use in the body of the theorem
-  %{indent}% measure of space to indent
-  %{headfont}% name of head font
-  %{headpunctuation}% punctuation between head and body
-  %{headspace}% space after theorem head; " " = normal interword space
-  %{headspec}% Manually specify head
+% Box style
+\mdfdefinestyle{mdfkao}{
+	skipabove=\topskip,
+	skipbelow=\topskip,
+	rightmargin=0pt,
+	leftmargin=0pt,
+	innertopmargin=7pt,
+	innerbottommargin=3pt,
+	innerrightmargin=5pt,
+	innerleftmargin=5pt,
+	topline=false,
+	bottomline=false,
+	rightline=false,
+	leftline=false,
+	%linewidth=1pt,
+	%roundcorner=0pt,
+	%font={},
+	%frametitlefont={},
+	frametitlerule=true,
+	%linecolor=black,
+	%backgroundcolor=LightBlue,
+	%fontcolor=black,
+	%frametitlebackgroundcolor=LightBlue,
+}
 
 % Theorem styles
 \declaretheoremstyle[
@@ -82,24 +94,44 @@
 	refname={theorem,theorems},
 	Refname={Theorem,Theorems},
 	numberwithin=section,
+	mdframed={
+		style=mdfkao,
+		backgroundcolor=LightYellow,
+		frametitlebackgroundcolor=LightYellow,
+	},
 ]{theorem}
 \declaretheorem[
 	name=Proposition,
 	refname={proposition,propositions},
 	Refname={Proposition,Propositions},
 	sibling=theorem,
+	mdframed={
+		style=mdfkao,
+		backgroundcolor=LightYellow,
+		frametitlebackgroundcolor=LightYellow,
+	},
 ]{proposition}
 \declaretheorem[
 	name=Lemma,
 	refname={lemma,lemmas},
 	Refname={Lemma,Lemmas},
 	sibling=theorem,
+	mdframed={
+		style=mdfkao,
+		backgroundcolor=LightYellow,
+		frametitlebackgroundcolor=LightYellow,
+	},
 ]{lemma}
 \declaretheorem[
 	name=Corollary,
 	refname={corollary,corollaries},
 	Refname={Corollary,Corollaries},
 	sibling=theorem,
+	mdframed={
+		style=mdfkao,
+		backgroundcolor=LightYellow,
+		frametitlebackgroundcolor=LightYellow,
+	},
 ]{corollary}
 
 \theoremstyle{kaodefinition}
@@ -108,6 +140,11 @@
 	refname={definition,definitions},
 	Refname={Definition,Definitions},
 	numberwithin=section,
+	mdframed={
+		style=mdfkao,
+		backgroundcolor=LightYellow,
+		frametitlebackgroundcolor=LightYellow,
+	},
 ]{definition}
 
 \theoremstyle{kaoremark}
@@ -116,6 +153,11 @@
 	refname={remark,remarks},
 	Refname={Remark,Remarks},
 	numberwithin=section,
+	mdframed={
+		style=mdfkao,
+		backgroundcolor=LightYellow,
+		frametitlebackgroundcolor=LightYellow,
+	},
 ]{remark}
 
 \theoremstyle{kaoexample}
@@ -124,6 +166,11 @@
 	refname={example,examples},
 	Refname={Example,Examples},
 	numberwithin=section,
+	mdframed={
+		style=mdfkao,
+		backgroundcolor=LightYellow,
+		frametitlebackgroundcolor=LightYellow,
+	},
 ]{example}
 
 %\renewcommand{\thetheorem}{\arabic{chapter}.\arabic{section}.\arabic{theorem}}
