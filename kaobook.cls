@@ -14,6 +14,8 @@
 
 % CLASS OPTIONS {{{
 
+% TODO: implement these options
+
 \newboolean{@option@justified}
 \DeclareOption{justified}{
   \setboolean{@option@justified}{true}
@@ -72,7 +74,7 @@
 % Actual document structure
 \setcounter{secnumdepth}{1}
 
-\newcommand\partentrynumberformat[1]{\partname\ #1}
+\newcommand\partentrynumberformat[1]{\partname\space#1}
 \RedeclareSectionCommand[
   tocentrynumberformat=\partentrynumberformat,
   tocnumwidth=5.5em
@@ -271,7 +273,7 @@
   para,
   perpage,
   stable,
-  multiple
+  %multiple
 ]{footmisc} % load after `setspace' and `raggedright'
 \RequirePackage{marginnote}
 \RequirePackage{marginfix}              % Make marginpars float freely
@@ -288,9 +290,9 @@
 \extrafloats{100}
 
 % Do not reset sidenote counter at each chapter
-\counterwithout{sidenote}{chapter}
+%\counterwithout{sidenote}{chapter}
 % Small workaround: if you don't use counterwithout, uncomment this
-%\newcommand{\pp@g@sidenote}{}
+\newcommand{\pp@g@sidenote}{}
 
 % Space between marginpars (Doesn't work AFAIK)
 \setlength\marginparpush{10pt} % minimum distance between marginpars
@@ -303,7 +305,7 @@
 \renewcommand*{\raggedleftmarginnote}{}
 \renewcommand*{\raggedrightmarginnote}{}
 \renewcommand*{\marginfont}{\@margin@par}
-\renewcommand{\marginnotevadjust}{2.8pt}
+\renewcommand{\marginnotevadjust}{3pt}
 
 % Renew \marginnote command to make it similar to snotez's \sidenote
 \def\mnotez@if@nblskip#1{%
@@ -431,22 +433,29 @@
 
 % MARGIN TOC {{{
 
-\newcommand{\margintoc}[1][*-2.9]{
+\newcommand{\margintoc}[1][*-2.65]{
   \begingroup
 	\etocsetstyle{section}
 	{\parindent -5pt \parskip 0pt}
 	{\leftskip 0pt}
 	{\makebox[.8cm]{\etocnumber\autodot}
-	\etocname\nobreak\leaders\hbox{\hbox to .75ex {\hss.\hss}}\hfill\nobreak
+	\etocname\nobreak\leaders\hbox{\hbox to 1.5ex {\hss.\hss}}\hfill\nobreak
 	\etocpage\par}
 	{}
 	\etocsetstyle{subsection}
 	{\parindent -5pt \parskip 0pt}
 	{\leftskip 0pt}
 	{\makebox[.8cm]{}
-	\etocname\nobreak\hfill\nobreak\par}
+	\etocname\nobreak\leaders\hbox{\hbox to 1.5ex {\hss.\hss}}\hfill\nobreak
+	\etocpage\par}
+	%\etocname\nobreak\hfill\nobreak\par}
 	{}
-	\etocsettocstyle{\usekomafont{dictum}}{}
+	%\hypersetup{linkcolor=DarkBlue}
+	%\hypersetup{colorlinks=false}
+	%\etocsettocstyle{}{}
+	%\etocsettocstyle{\normalfont\sffamily\small}{}
+	%\etocsettocstyle{\usekomafont{section}\small}{}
+	\etocsettocstyle{\usekomafont{chapterentry}\small}{}
 	\etocsetnexttocdepth{subsection}
 	\marginnote[#1]{\localtableofcontents}
   \endgroup
@@ -520,7 +529,7 @@
 			breaklinks=true,
             colorlinks=true,
 			%allcolors=greenforlinks,
-			citecolor = DarkGreen,
+			citecolor = DarkOrange,
 			linkcolor = DarkBlue,
 			%pagecolor = DarkBlue,
 			urlcolor = DarkGreen,

@@ -35,9 +35,11 @@
 \section{Normal figures and tables}
 
 Normal figures and tables can be inserted just like in any standard 
-\LaTeX\xspace document. The captions will be positioned in the margins 
-thanks to the \verb|floatrow| package. The space between the figure and 
-the text can be specified with the following commands:
+\LaTeX\xspace document. The \verb|graphicx| package is already loaded, 
+and if you want you can load \verb|subfig|. The captions will be 
+positioned in the margins with the help of the \verb|floatrow| package. 
+The space between the figure and the text can be specified with the 
+following commands:
 
 \begin{verbatim}
 	\renewcommand\FBaskip{4pt}
@@ -46,7 +48,9 @@ the text can be specified with the following commands:
 
 Here is a picture of Mona Lisa (\reffig{normalmonalisa}), as an example. 
 The captions are formatted as the marginnotes; to change the options you 
-can use \verb|\captsetup| from the \verb|caption| package.
+can use \verb|\captsetup| from the \verb|caption| package. Remember that 
+if you want to reference a figure, the label must come \emph{after} the 
+caption!
 
 \begin{figure}[h]
 	\includegraphics[width=0.4\textwidth]{monalisa}
@@ -54,41 +58,65 @@ can use \verb|\captsetup| from the \verb|caption| package.
 	\labfig{normalmonalisa}
 \end{figure}
 
-I don't have much to say, so I will just insert some blind text. 
-\blindtext
+The tables can be inserted as easily as the figures, as exemplified in 
+the following code:
 
+\begin{lstlisting}
 \begin{table}
-\begin{tabular}{ |c|c|c|c| } 
-\hline
-col1 & col2 & col3 \\
-\hline
-\multirow{3}{4em}{Multiple row} & cell2 & cell3 \\ 
-& cell5 & cell6 \\ 
-& cell8 & cell9 \\ 
-\hline
+\begin{tabular}{ c c c c  }
+	\hline
+	col1 & col2 & col3 \\
+	\hline
+	\multirow{3}{4em}{Multiple row} & cell2 & cell3 \\ & cell5 & cell6 
+	\\ & cell8 & cell9 \\ \hline
 \end{tabular}
 \caption[A useless table]{A useless table.}
 \end{table}
+\end{lstlisting}
 
+which results in the useless \reftab{useless}.
+
+\begin{table}[h]
+\begin{tabular}{ c c c c  }
+	\hline
+	col1 & col2 & col3 \\
+	\hline
+	\multirow{3}{4em}{Multiple row} & cell2 & cell3 \\ & cell5 & cell6 
+	\\ & cell8 & cell9 \\ \hline
+\end{tabular}
+\caption[A useless table]{A useless table.}
+\labtab{useless}
+\end{table}
+
+I don't have much else to say, so I will just insert some blind text. 
 \blindtext
 
 \section{Margin figures and tables}
 
 Marginfigures can be inserted with the environment \verb|marginfigure|. 
 In this case, the whole picture is confined to the margin and the 
-caption is below it. There is also the \verb|margintable| environment, 
-of which \reftab{useless} is an example.
+caption is below it. \reffig{marginmonalisa} is obtained with something 
+like this:
+
+\begin{lstlisting}
+\begin{marginfigure}
+	\includegraphics{monalisa}
+	\caption[The Mona Lisa]{The Mona Lisa.}
+	\labfig{marginmonalisa}
+\end{marginfigure}
+\end{lstlisting}
+
+There is also the \verb|margintable| environment, of which 
+\reftab{useless} is an example.
 
 \begin{margintable}
 \raggedright
-\begin{tabular}{ |c|c|c|c| } 
-\hline
-col1 & col2 & col3 \\
-\hline
-\multirow{3}{4em}{Multiple row} & cell2 & cell3 \\ 
-& cell5 & cell6 \\ 
-& cell8 & cell9 \\ 
-\hline
+\begin{tabular}{ c c c c }
+	\hline
+	col1 & col2 & col3 \\
+	\hline
+	\multirow{3}{4em}{Multiple row} & cell2 & cell3 \\ & cell5 & cell6 
+	\\ & cell8 & cell9 \\ \hline
 \end{tabular}
 \caption[Another useless table]{Another useless table.}
 \labtab{useless}
@@ -97,25 +125,22 @@ col1 & col2 & col3 \\
 Marginfigures and tables can be positioned with an optional offset 
 command, like so:
 
-\begin{verbatim}
-	\begin{marginfigure}[offset]
-		\includegraphics{images/seaside}
-	\end{marginfigure}
-\end{verbatim}
+\begin{lstlisting}
+\begin{marginfigure}[offset]
+	\includegraphics{images/seaside}
+\end{marginfigure}
+\end{lstlisting}
 
-Offset ca be either a measure or a multiple of \verb|\baselineskip| in 
-the format \verb|[*5]|.\todo{improve this part} If you are wondering how 
-I inserted this orange bubble, have a look at the \verb|todo| package.
+Offset ca be either a measure or a multiple of \verb|\baselineskip|, 
+much like with \verb|\sidenote|, \verb|\marginnote| and 
+\verb|\margintoc|.\todo{improve this part} If you are wondering how I 
+inserted this orange bubble, have a look at the \verb|todo| package.
 
 \section{Wide figures and tables}
 
 With the environments \verb|figure*| and \verb|table*| you can insert 
 figures which span the whole page width. The caption will be positioned 
 below.
-
-Now, if you will excuse me, I will add some more blindtext. \blindtext
-
-\blindtext
 
 \begin{figure*}
 	\includegraphics{seaside}
@@ -125,13 +150,12 @@ Now, if you will excuse me, I will add some more blindtext. \blindtext
 		\blindtext}
 \end{figure*}
 
-%\section{Image before chapter}
-%
-%It is relatively easy to insert a figure before the chapter title with 
-%the help of the \verb|\setchapterpreamble| command. The details are 
-%%left 
-%to the reader\sidenote{Check the source code for a hint.}.
+\section{Image before chapter}
 
-%Note also that throughout the document I have used different chapter 
-%title styles, both to experiment and to show some possibilities. 
-%Customising this is quite easy as well.
+It is relatively easy to insert a figure before the chapter title with 
+the help of the \verb|\setchapterpreamble| command. The details are left 
+to the reader.\sidenote{Check the source code for a hint.}
+
+Note also that throughout the document I have used different chapter 
+title styles, both to experiment and to show some possibilities. 
+Customising this is quite easy as well.

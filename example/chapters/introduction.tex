@@ -44,26 +44,27 @@ the style. Indeed, it is a well-known \LaTeX\xspace printiple that
 structure and style should be separated as much as possible (see also 
 \refsec{doesnot}). This means that this class will only provide 
 commands, environments and in general, the opportunity to do things, 
-which the user may or may not exploit. Actually, some stylistic matters 
-are embedded in the class, but the user is able to customise them with 
-ease.
+which the user may or may not use. Actually, some stylistic matters are 
+embedded in the class, but the user is able to customise them with ease.
 
 The main features are the following:
 
 \begin{description}
-	\item[Page Headings] They span the margins and, in twoside mode, 
-		display alternatively the chapter and the section name.
+	\item[Page Headings] They span the whole page, margins included, 
+		and, in twoside mode, display alternatively the chapter and the 
+		section name.
 	\item[Matters] The commands \verb|\frontmatter|, \verb|\mainmatter| 
 		and \verb|\backmatter| have been redefined in order to have 
 		automatically wide margins in the main matter, and narrow 
 		margins in the front and back matters.
 	\item[Margin text] We provide commands \verb|\sidenote| and 
-		\verb|\marginnote| to put text in the margins\sidenote{Sidenotes 
-			(like this!) are numbered while marginnotes are not}.
+		\verb|\marginnote| to put text in the 
+		margins.\sidenote{Sidenotes (like this!) are numbered while 
+			marginnotes are not}
 	\item[Margin figs/tabs] A couple of useful environments is 
 		\verb|marginfigure| and \verb|margintable|, which, not 
 		surprisingly, allow you to put figures and tables in the margins 
-		(cfr. \reffig{marginmonalisa}).
+		(\cfr \reffig{marginmonalisa}).
 		\begin{marginfigure}
 			\includegraphics{monalisa}
 			\caption[The Mona Lisa]{The Mona Lisa.\\
@@ -77,6 +78,9 @@ The main features are the following:
 		add bookmarks in a sensible way; in particular, the bookmarks 
 		levels are automatically reset at \verb|\appendix| and 
 		\verb|\backmatter|.
+	\item[Bibliography] We want the reader to be able to know what has 
+		been cited without having to go to the end of the document every 
+		time, so we put citations in the margins as well.
 \end{description}
 
 \section{What this class does not}
@@ -84,20 +88,35 @@ The main features are the following:
 
 As anticipated, the styling is left to the user. Indeed, every book may 
 have sidenotes, margin figures and so on, but each book will have its 
-own fonts, toc style and so on. For this reason, we only provide 
+own fonts, toc style \etcetera. For this reason, we only provide 
 sensible defaults. The github repository is organised as follows.
 
 \begin{description}
 	\item[kaobook.cls] The class file, which contains the definitions of 
 		the commands and the environments and loads the required 
 		packages.
-	\item[packages.sty] Loads other packages to improve the experience 
-		of the user (for instance, \verb|ams*| packages are loaded here 
-		as they are not required in every book).
-	\item[commands.sty] Complements to the packages, \eg the 
-		specifications of the \verb|theorem| environments.
+	\item[packages.sty] Loads other packages to improve the writing with 
+		special contents (for instance, the \verb|listing| package is 
+		loaded here as it is not required in every book).
+	\item[commands.sty] Complements to the packages, \eg some commands 
+		to manage label and referencing, or to print special words 
+		always in the same way.
+	\item[environments.sty] Provides special environments, like boxes. 
+		See \refch{mathematics} for some examples.
+	\item[theorems.sty] Style of mathematical environments. Acutally, 
+		there are two such packages: one is for plain theorems, \ie the 
+		theorems are printed in plain text; the other uses 
+		\verb|mdframed| to draw a box around theorems. The user can plug 
+		the most appropriate style into its document.
 	\item[style.sty] Page layout, formatting of the titles\ldots
 \end{description}
 
-Moreover, there is a folder containing this very book as an 
-example.\sidenote{\blindtext}
+\marginnote{Moreover, the github repository also contains a folder with 
+	this very book as an example.}
+
+In the rest of the book, I shall assume that the reader is not a novice 
+in the use of \LaTeX, and refer to the documentation of the packages 
+used in this class for things that are already explained there. 
+Moreover, I assume that the reader is willing to edit the provided 
+packages for styles, environments and commands, if he or she does not 
+like the default settings.

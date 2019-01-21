@@ -1,5 +1,6 @@
 \setchapterpreamble[u]{\margintoc}
 \chapter{Mathematics and Boxes}
+\labch{mathematics}
 
 \section{Theorems}
 
@@ -20,7 +21,9 @@ U$. We call the topology associated to d the set $\tau\textsubscript{d}$
 of all the open subsets of $(X, d).$
 \end{definition}
 
-\refdef{openset} is very important.
+\refdef{openset} is very important. I am not joking, but I have inserted 
+this phrase only to show how to reference definitions. The following 
+statement is repeated over and over in different environments.
 
 \begin{theorem}
 A finite intersection of open sets of (X, d) is an open set of (X, d), 
@@ -64,6 +67,7 @@ of all the open subsets of $(X, d).$
 \end{definition}
 
 \marginnote{
+	Here is a random equation, just because we can:
 	\begin{equation*}
   x = a_0 + \cfrac{1}{a_1
           + \cfrac{1}{a_2
@@ -97,7 +101,9 @@ here is the same integral displayed in its own paragraph:
 
 We provide two files for the theorem styles: plaintheorems.sty, which 
 you should include if you do not want coloured boxes around theorems; 
-and mdftheorems.sty, which is the one used for this document.
+and mdftheorems.sty, which is the one used for this document. Of course, 
+you will have to edit these files according to your taste and the 
+general style of the book.
 
 \section[Boxes \& Environments]{Boxes \& Custom Environments
 \sidenote[*1.5][]{Notice that in the table of contents and in the 
@@ -106,8 +112,10 @@ and mdftheorems.sty, which is the one used for this document.
 	command.}}
 
 Say you want to insert a special section, an optional content or just 
-something you want to emphasise. Boxes are the right choice. We used 
-mdframed to construct the ones shown below.
+something you want to emphasise. We think that nothing works better than 
+a box in these cases. We used \verb|mdframed| to construct the ones 
+shown below. You can create and modify such environments by editing the 
+provided file environments.sty (check the github repository).
 
 \begin{kaobox}[frametitle=Title of the box]
 \blindtext
@@ -133,7 +141,9 @@ environment.
 
 \section{Experiments}
 
-\blindtext
+It is possible to wrap marginnotes inside boxes, too. Audacious readers 
+are encouraged to try their own experiments and let me know the 
+outcomes.
 
 \marginnote{
 	\begin{kaobox}[frametitle=title of margin note]

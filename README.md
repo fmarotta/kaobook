@@ -17,4 +17,6 @@ Work in progress
 
 * replace geometry with typearea (?)
 
-* Update the documentation
+* improve the documentation
+
+* make up mind on margintoc
