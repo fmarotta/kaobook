@@ -11,9 +11,10 @@
 \usepackage[framemethod=TikZ]{mdframed}
 
 % Box style
+\mdfsetup{skipabove=\topskip,skipbelow=0pt}%-.5\topskip}
 \mdfdefinestyle{mdfkao}{
 	skipabove=\topskip,
-	skipbelow=\topskip,
+	skipbelow=\topskip, % Does not work :(
 	rightmargin=0pt,
 	leftmargin=0pt,
 	innertopmargin=7pt,
@@ -56,7 +57,7 @@
   bodyfont=\normalfont\itshape,
   %headformat={\NAME\space\NUMBER\space\NOTE},
   headpunct={},
-  %postheadspace={.5em plus .1em minus .1em},
+  postheadspace={.5em plus .1em minus .1em},
   %prefoothook={\hfill\qedsymbol}
 ]{kaodefinition}
 
@@ -69,7 +70,7 @@
   %headformat={\footnotesize$\triangleright$\space\normalsize\NAME\space\NUMBER\space\NOTE},
   %headformat={\NAME\space\NUMBER\space\NOTE},
   headpunct={},
-  %postheadspace={.5em plus .1em minus .1em},
+  postheadspace={.5em plus .1em minus .1em},
   %refname={theorem,theorems},
   %Refname={Theorem,Theorems},
 ]{kaoremark}
@@ -82,7 +83,7 @@
   %bodyfont=\normalfont,
   %headformat={\NAME\space\NUMBER\space\NOTE},
   headpunct={},
-  %postheadspace={.5em plus .1em minus .1em},
+  postheadspace={.5em plus .1em minus .1em},
   %prefoothook={\hfill\qedsymbol}
   %refname={theorem,theorems},
   %Refname={Theorem,Theorems},

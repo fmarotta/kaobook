@@ -154,7 +154,7 @@
 
   \RequirePackage{mathpazo}
   %\RequirePackage{fourier}
-  \RequirePackage[scaled=.9]{helvet}
+  \RequirePackage[scaled=.95]{helvet}
   \RequirePackage{beramono}
 
   %\setmainfont{texgyrepagella-regular.otf}[
@@ -200,18 +200,29 @@
   \RequirePackage[T1]{fontenc}		% utf8 encoding in the output (.pdf) file
   \RequirePackage[utf8]{inputenc}	% utf8 encoding in the input (.tex) file
   \RequirePackage[english=british]{csquotes}	% English quotes
-  \RequirePackage{mathpazo}
+
   %\RequirePackage{fourier}
-  \usepackage[scaled=1]{helvet}
+  \usepackage{mathpazo}
+  %\usepackage{Baskervaldx}
+  \usepackage[scaled]{helvet}
+  %\usepackage{avant}
+  %\usepackage{courier} % monospace font
+  %\usepackage[scaled=.85]{beramono} % monospace font
+  \usepackage[cal=boondoxo]{mathalfa} % mathcal from STIX, unslanted a 
+  %bit
+  %\usepackage[cmintegrals,bigdelims,vvarbb]{newtxmath} % 
+  \usepackage[baskervaldx,cmintegrals,bigdelims,vvarbb]{newtxmath} % 
+  %math italic letters from Baskervaldx
 
   %\addtokomafont{disposition}{\rmfamily\normalfont\itshape}
   %\addtokomafont{title}{\normalfont\itshape}
+  %\addtokomafont{part}{\fontfamily{pplx}\selectfont\itshape\bfseries}
   \addtokomafont{part}{\normalfont\itshape\bfseries}
   \addtokomafont{chapter}{\normalfont\itshape\bfseries}
   \addtokomafont{section}{\normalfont\itshape\bfseries}
   \addtokomafont{subsection}{\normalfont\itshape\bfseries}
   \addtokomafont{subsubsection}{\normalfont\itshape\bfseries}
-  \addtokomafont{paragraph}{\normalfont\bfseries\bfseries}
+  \addtokomafont{paragraph}{\normalfont\itshape\bfseries}
   \addtokomafont{partentry}{\normalfont\scshape\bfseries}
   \addtokomafont{chapterentry}{\normalfont\bfseries}
   %\setkomafont{descriptionlabel}{\small}
@@ -219,6 +230,8 @@
   %\makeatletter
   %\addtokomafont{captionlabel}{\@margin@par}
   %\makeatother
+
+  \setstretch{1.10}
 
 \fi
 
@@ -314,6 +327,8 @@
   \parbox[b]{\textwidth+\marginparsep+\marginparwidth}{\hrulefill}%
   %\hrule
 }
+%\renewcommand*{\sectionformat}{\upshape\thesection\autodot\enskip}
+\renewcommand*{\subsectionformat}{\upshape\thesubsection\autodot\enskip}
 
 % Chapter title style
 %\renewcommand*{\chapterformat}{
@@ -357,6 +372,14 @@
   %\vspace*{1.5\baselineskip plus .1\baselineskip minus 
   %.167\baselineskip}
 %}
+
+% }}}
+
+% FORMATTING HEADINGS {{{
+
+\renewcommand{\chaptermark}[1]{\markleft{\textbf{\chaptername\ \thechapter:}\ #1}{}}
+\renewcommand{\sectionmark}[1]{\markright{\thesection\ #1}{}}
+%\addtokomafont{pageheadfoot}{\fontfamily{pplx}\selectfont}
 
 % }}}
 

@@ -139,9 +139,9 @@
   %\setlength{\RaggedRightParindent}{0pc}%
   %\setlength{\parindent}{0pc}%
   %\setlength{\parskip}{1pc}%
-  %\singlespacing%
+  \singlespacing%
   %\onehalfspacing%
-  \setstretch{1.10}
+  %\setstretch{1.10}
   \frenchspacing% no additional space after periods
   \normalfont%
   \normalsize%
@@ -152,8 +152,8 @@
   \setlength{\RaggedRightParindent}{0pc}%
   \setlength{\parindent}{0pc}%
   \setlength{\parskip}{0.5pc}%
-  %\singlespacing%
-  \setstretch{1.10}%
+  \singlespacing%
+  %\setstretch{1.10}%
   \frenchspacing% no additional space after periods
   \normalfont%
   \footnotesize%
@@ -169,9 +169,6 @@
 
 \RequirePackage{scrlayer-scrpage}       % Customise head and foot regions
 \setlength{\headheight}{115pt}			% Enlarge the header
-
-\renewcommand{\chaptermark}[1]{\markleft{\textbf{\chaptername\ \thechapter:}\ #1}{}}
-\renewcommand{\sectionmark}[1]{\markright{\thesection\ #1}{}}
 
 % Headings styles
 \renewpagestyle{scrheadings}{
@@ -305,7 +302,7 @@
 \renewcommand*{\raggedleftmarginnote}{}
 \renewcommand*{\raggedrightmarginnote}{}
 \renewcommand*{\marginfont}{\@margin@par}
-\renewcommand{\marginnotevadjust}{3pt}
+\renewcommand{\marginnotevadjust}{-9pt}
 
 % Renew \marginnote command to make it similar to snotez's \sidenote
 \def\mnotez@if@nblskip#1{%
@@ -349,8 +346,8 @@
 \setlength\belowdisplayskip{6pt plus 2pt minus 4pt}
 \abovedisplayskip 10\p@ \@plus2\p@ \@minus5\p@
 \abovedisplayshortskip \z@ \@plus3\p@
-\belowdisplayshortskip 6\p@ \@plus3\p@ \@minus3\p@
 \belowdisplayskip \abovedisplayskip
+\belowdisplayshortskip 6\p@ \@plus3\p@ \@minus3\p@
 
 \setlength\columnseprule{.4pt}
 
@@ -426,7 +423,7 @@
   %width=\marginparwidth,
   indention=0pt,
   parindent=0pt,
-  %skip=-15pt,
+  skip=-15pt,
 }
 
 % }}}
@@ -438,14 +435,14 @@
 	\etocsetstyle{section}
 	{\parindent -5pt \parskip 0pt}
 	{\leftskip 0pt}
-	{\makebox[.8cm]{\etocnumber\autodot}
+	{\makebox[.7cm]{\etocnumber\autodot}
 	\etocname\nobreak\leaders\hbox{\hbox to 1.5ex {\hss.\hss}}\hfill\nobreak
 	\etocpage\par}
 	{}
 	\etocsetstyle{subsection}
 	{\parindent -5pt \parskip 0pt}
 	{\leftskip 0pt}
-	{\makebox[.8cm]{}
+	{\makebox[.7cm]{}
 	\etocname\nobreak\leaders\hbox{\hbox to 1.5ex {\hss.\hss}}\hfill\nobreak
 	\etocpage\par}
 	%\etocname\nobreak\hfill\nobreak\par}
@@ -503,7 +500,7 @@
   \margincitation{#1}%
 }
 \NewDocumentCommand{\margincitation}{ >{\SplitList{,}} m }{%
-  \marginnote[-1pt]{\ProcessList{#1}{\formatmargincitation}}
+  \marginnote[.5pt]{\ProcessList{#1}{\formatmargincitation}}
 }
 \NewDocumentCommand{\formatmargincitation}{m}{%
   \parencite{#1}: \citeauthor*{#1} (\citeyear{#1}), \citetitle{#1}\\
@@ -525,6 +522,8 @@
 			%pagebackref=true,
 			%hyperfootnotes=false,
 			bookmarksdepth=section,
+			bookmarksopen=true,
+			%bookmarksopenlevel=4,
 			linktoc=all,
 			breaklinks=true,
             colorlinks=true,

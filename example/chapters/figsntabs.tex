@@ -2,7 +2,7 @@
 	\begingroup
 	\vspace*{-3cm}\hspace*{-2.56cm}
 	\includegraphics[width=\paperwidth,height=8cm,keepaspectratio=false]{images/seaside}
-	\vspace*{-1.6cm}
+	\vspace*{-1.4cm}
 	\addtokomafont{captionlabel}{\bfseries}
 	\addtokomafont{caption}{\bfseries}
 	\captionsetup{
@@ -17,7 +17,7 @@
 	\endgroup
 }
 % beforeskip=-(figure_height-top_margin)
-\RedeclareSectionCommand[beforeskip=-5.1cm]{chapter}
+\RedeclareSectionCommand[beforeskip=-5cm]{chapter}
 \setchapterpreamble[u]{\margintoc[*-4.5]}
 
 \makeatletter
@@ -144,6 +144,7 @@ below.
 
 \begin{figure*}
 	\includegraphics{seaside}
+	\vspace*{-1.3cm}
 	\caption[A wide seaside]{A wide seaside, and a wide caption.
 		Credits: By Bushra Feroz - Own work, CC BY-SA 4.0, 
 		https://commons.wikimedia.org/w/index.php?curid=68724647.
@@ -156,6 +157,23 @@ It is relatively easy to insert a figure before the chapter title with
 the help of the \verb|\setchapterpreamble| command. The details are left 
 to the reader.\sidenote{Check the source code for a hint.}
 
-Note also that throughout the document I have used different chapter 
-title styles, both to experiment and to show some possibilities. 
-Customising this is quite easy as well.
+In this chapter I also have used a different chapter title style. This 
+is just to demonstrate how easy it is to alter the default if you don't 
+like it and if you are willing to write some commands on your own. For 
+instance, you could try the following code:
+
+\begin{lstlisting}
+\renewcommand*{\chapterformat}
+{
+  \enskip\mbox{\scalebox{3.5}{\framebox{\thechapter\autodot}}}
+}
+\renewcommand\chapterlinesformat[3]
+{
+  \parbox[b]{\textwidth+\marginparsep+\marginparwidth}{
+	\parbox[b]{\textwidth}{#3}%
+	\parbox[b]{\marginparsep}{\hfill}%
+	\parbox[b]{\marginparwidth}{#2}%
+  }
+  %\hrule
+}
+\end{lstlisting}
