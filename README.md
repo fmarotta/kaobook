@@ -13,6 +13,16 @@ post](https://3d.bk.tudelft.nl/ken/en/2016/04/17/a-1.5-column-layout-in-latex.ht
 
 Work in progress
 
+## Contributing
+
+Do you like the design? Why don't you try to improve it? Any 
+contribution is welcome!
+
+P.S. Work is in progress to publish the template at 
+[LaTeXTemplatex.com](https://www.latextemplates.com), therefore from now 
+on the code should meet the requirements for the site: extensive 
+commenting and separation of content into clearly labelled blocks.
+
 ## TODO
 
 * replace geometry with typearea (?)
