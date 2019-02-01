@@ -142,6 +142,8 @@
 \RequirePackage{amssymb}
 \renewcommand{\labelitemi}{\footnotesize$\blacktriangleright$}
 \renewcommand{\labelitemii}{\textbullet}
+\RequirePackage{enumitem}
+\setlist[itemize]{noitemsep}
 
 \ifxetex
   \RequirePackage{polyglossia}			% Correct hyphenation
@@ -207,17 +209,17 @@
   \usepackage[scaled]{helvet}
   %\usepackage{avant}
   %\usepackage{courier} % monospace font
-  %\usepackage[scaled=.85]{beramono} % monospace font
+  \usepackage[scaled=.85]{beramono} % monospace font
   \usepackage[cal=boondoxo]{mathalfa} % mathcal from STIX, unslanted a 
   %bit
-  %\usepackage[cmintegrals,bigdelims,vvarbb]{newtxmath} % 
-  \usepackage[baskervaldx,cmintegrals,bigdelims,vvarbb]{newtxmath} % 
+  \usepackage[cmintegrals,bigdelims,vvarbb]{newtxmath} % 
+  %\usepackage[baskervaldx,cmintegrals,bigdelims,vvarbb]{newtxmath} % 
   %math italic letters from Baskervaldx
 
   %\addtokomafont{disposition}{\rmfamily\normalfont\itshape}
   %\addtokomafont{title}{\normalfont\itshape}
   %\addtokomafont{part}{\fontfamily{pplx}\selectfont\itshape\bfseries}
-  \addtokomafont{part}{\normalfont\itshape\bfseries}
+  \addtokomafont{part}{\normalfont\scshape\bfseries}
   \addtokomafont{chapter}{\normalfont\itshape\bfseries}
   \addtokomafont{section}{\normalfont\itshape\bfseries}
   \addtokomafont{subsection}{\normalfont\itshape\bfseries}
@@ -253,7 +255,8 @@
 	%anchorcolor=Red,
 	citecolor=DarkOrange!70!black,
 	%filecolor=Red,
-	linkcolor=DarkBlue,
+	%linkcolor=DarkBlue,
+	linkcolor=Black,
 	%menucolor=Red,
 	%runcolor=Red,
 	urlcolor=DarkGreen,
@@ -267,9 +270,10 @@
 \setcounter{tocdepth}{\subsectiontocdepth}
 
 % List of figures title as "Figures"
+\renewcaptionname{english}{\contentsname}{Contents}
 \renewcaptionname{english}{\listfigurename}{Figures}
 \renewcaptionname{english}{\listtablename}{Tables}
-\renewcommand{\listtheoremname}{Theorems}
+\newcaptionname{english}{\listtheoremname}{Theorems}
 
 % Table of contents styles
 %\newlength{\alignviiilength}
@@ -317,18 +321,37 @@
 
 \renewcommand*{\chapterformat}
 {
-  \enskip\mbox{\scalebox{4}{\thechapter\autodot}}
+  \chapappifchapterprefix{\nobreakspace}\scalebox{3.5}{\thechapter\autodot}
 }
 \renewcommand\chapterlinesformat[3]
 {
-  \vspace*{-1cm}%
-  \parbox[b]{\textwidth}{\hrulefill#2}\par%
-  #3%\par\bigskip
-  \parbox[b]{\textwidth+\marginparsep+\marginparwidth}{\hrulefill}%
-  %\hrule
+  %\vspace*{-1cm}%
+  %\leavevmode
+  \makebox[\textwidth+\marginparsep+\marginparwidth]{%
+	\makebox[\textwidth][l]{\hfill#2}%\hfill%\par%\bigskip
+	\makebox[\marginparsep][l]{}%
+	\makebox[\marginparwidth][l]{}%
+  }\\
+  \vspace{.5cm}
+  %\makebox[\textwidth+\marginparsep+\marginparwidth]{%
+	%\hrulefill[1pt]%
+  %}\par
+  \makebox[\textwidth+\marginparsep+\marginparwidth]{%
+	\makebox[\textwidth][l]{#3}%
+	\makebox[\marginparsep][l]{}%
+	\makebox[\marginparwidth][l]{}%
+  }
+  %\makebox[\textwidth+\marginparsep+\marginparwidth+3cm]{%
+	%\hrulefill[1.1pt]%
+	%\makebox[\textwidth][l]{\hrulefill}%
+	%\makebox[\marginparsep][l]{\hrulefill}%
+	%\makebox[\marginparwidth][l]{\hrulefill}%
+  %}
 }
+\RedeclareSectionCommand[beforeskip=0cm]{chapter}
+%\RedeclareSectionCommand[afterskip=0.4cm]{chapter}
 %\renewcommand*{\sectionformat}{\upshape\thesection\autodot\enskip}
-\renewcommand*{\subsectionformat}{\upshape\thesubsection\autodot\enskip}
+%\renewcommand*{\subsectionformat}{\upshape\thesubsection\autodot\enskip}
 
 % Chapter title style
 %\renewcommand*{\chapterformat}{
@@ -377,15 +400,8 @@
 
 % FORMATTING HEADINGS {{{
 
-\renewcommand{\chaptermark}[1]{\markleft{\textbf{\chaptername\ \thechapter:}\ #1}{}}
-\renewcommand{\sectionmark}[1]{\markright{\thesection\ #1}{}}
+%\renewcommand{\chaptermark}[1]{\markleft{\textbf{\chapapp\ \thechapter:}\ #1}{}}
+%\renewcommand{\sectionmark}[1]{\markright{\thesection\ #1}{}}
 %\addtokomafont{pageheadfoot}{\fontfamily{pplx}\selectfont}
-
-% }}}
-
-% OTHER {{{
-
-%\setglossarystyle{listhypergroup}
-\setglossarystyle{listgroup}
 
 % }}}

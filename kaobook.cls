@@ -71,14 +71,19 @@
 \RequirePackage{etoc}
 \setuptoc{toc}{totoc}
 
+% hrulefill
+\renewcommand{\hrulefill}[1][0.4pt]{%
+	\leavevmode\leaders\hrule height #1\hfill\kern\z@%
+}
+
 % Actual document structure
 \setcounter{secnumdepth}{1}
 
-\newcommand\partentrynumberformat[1]{\partname\space#1}
-\RedeclareSectionCommand[
-  tocentrynumberformat=\partentrynumberformat,
-  tocnumwidth=5.5em
-]{part}
+%\newcommand\partentrynumberformat[1]{\partname\space#1}
+%\RedeclareSectionCommand[
+  %tocentrynumberformat=\partentrynumberformat,
+  %tocnumwidth=5.5em
+%]{part}
 
 \newcommand{\@plaintitle}{}
 \renewcommand{\title}[2][]{
@@ -177,7 +182,7 @@
 	\quad\rule{1pt}{100pt}\quad{}\leftmark} }%
   {\makebox[\overflowingheadlen][r]{\rightmark\quad\rule{1pt}{100pt}%
 	\quad\makebox[2em][l]{\thepage}} }%
-  {\makebox[\overflowingheadlen][r]{\leftmark\quad\rule{1pt}{100pt}%
+  {\makebox[\overflowingheadlen][r]{\rightmark\quad\rule{1pt}{100pt}%
 	\quad\makebox[2em][l]{\thepage}} }%
 }{
   {}%
@@ -266,22 +271,33 @@
 
 \RequirePackage[
   bottom,
-  symbol,
-  para,
+  symbol*,
+  %para,
+  hang,
+  flushmargin,
   perpage,
   stable,
   %multiple
 ]{footmisc} % load after `setspace' and `raggedright'
+\RequirePackage{footnotebackref}
 \RequirePackage{marginnote}
 \RequirePackage{marginfix}              % Make marginpars float freely
-\RequirePackage[section]{placeins}		% prevent floats to cross sections
+%\RequirePackage[section]{placeins}		% prevent floats to cross 
+%sections
 \RequirePackage[marginnote=true]{snotez}	% For sidenotes
 \RequirePackage{chngcntr}
 
 % Alternative to footmisc:
-% \renewcommand\thefootnote{\fnsymbol{footnote}}
-% \MakePerPage[1]{footnote}
-% \KOMAoption{footnotes=multiple}
+%\RequirePackage{perpage}
+%\renewcommand\thefootnote{\fnsymbol{footnote}}
+%\MakePerPage[1]{footnote}
+%\KOMAoption{footnotes=multiple}
+
+%\renewcommand{\hangfootparskip}{.5\parskip}
+%\renewcommand{\hangfootparindent}{1em}
+%\renewcommand{\footnotemargin}{-1em}
+\patchcmd{\footref}{\ref}{\hypersetup{colorlinks=black}\ref}{}{}
+\edef\BackrefFootnoteTag{bhfn:\theBackrefHyperFootnoteCounter}%
 
 % More floats
 \extrafloats{100}
@@ -357,7 +373,7 @@
 \newenvironment{marginfigure}[1][0pt]
 {
   %\let\footnotemark\mpfootnotemark
-  \FloatBarrier
+  %\FloatBarrier
   \mparshift{\mnotez@if@nblskip{#1}{\@cdr#1\@nil\baselineskip}{#1}}
   \begin{lrbox}{\@sidenotes@marginfigurebox}
 	\begin{minipage}{\marginparwidth}
@@ -375,7 +391,7 @@
 \newsavebox{\@sidenotes@margintablebox}
 \newenvironment{margintable}[1][0pt]
 {
-  \FloatBarrier
+  %\FloatBarrier
   \mparshift{\mnotez@if@nblskip{#1}{\@cdr#1\@nil\baselineskip}{#1}}
   \begin{lrbox}{\@sidenotes@margintablebox}
 	\begin{minipage}{\marginparwidth}
@@ -430,19 +446,19 @@
 
 % MARGIN TOC {{{
 
-\newcommand{\margintoc}[1][*-2.65]{
+\newcommand{\margintoc}[1][*-3.7]{
   \begingroup
 	\etocsetstyle{section}
-	{\parindent -5pt \parskip 0pt}
+	{\parindent -1.5pt \parskip 0pt}
 	{\leftskip 0pt}
-	{\makebox[.7cm]{\etocnumber\autodot}
+	{\makebox[.5cm]{\etocnumber\autodot}
 	\etocname\nobreak\leaders\hbox{\hbox to 1.5ex {\hss.\hss}}\hfill\nobreak
 	\etocpage\par}
 	{}
 	\etocsetstyle{subsection}
-	{\parindent -5pt \parskip 0pt}
+	{\parindent -1.5pt \parskip 0pt}
 	{\leftskip 0pt}
-	{\makebox[.7cm]{}
+	{\makebox[.5cm]{}
 	\etocname\nobreak\leaders\hbox{\hbox to 1.5ex {\hss.\hss}}\hfill\nobreak
 	\etocpage\par}
 	%\etocname\nobreak\hfill\nobreak\par}
@@ -450,7 +466,7 @@
 	%\hypersetup{linkcolor=DarkBlue}
 	%\hypersetup{colorlinks=false}
 	%\etocsettocstyle{}{}
-	%\etocsettocstyle{\normalfont\sffamily\small}{}
+	%\etocsettocstyle{\normalfont\sffamily\normalsize}{}
 	%\etocsettocstyle{\usekomafont{section}\small}{}
 	\etocsettocstyle{\usekomafont{chapterentry}\small}{}
 	\etocsetnexttocdepth{subsection}
@@ -520,7 +536,7 @@
 			pdfborder={0 0 0},
 			%xetex,
 			%pagebackref=true,
-			%hyperfootnotes=false,
+			hyperfootnotes=false,
 			bookmarksdepth=section,
 			bookmarksopen=true,
 			%bookmarksopenlevel=4,
@@ -537,12 +553,42 @@
 % Formatting of back references
 %\renewcommand*{\backref}[1]{}
 %\renewcommand*{\backrefalt}[4]{{%
-\newcommand*{\backref}[1]{}
-\newcommand*{\backrefalt}[4]{{%
-\ifcase#1 Not cited.%
-\or{}Cited on page~#2.%
-\else Cited on pages~#2.%
-\fi%
-}}
+%\newcommand*{\backref}[1]{}
+%\newcommand*{\backrefalt}[4]{{%
+%\ifcase#1 Not cited.%
+%\or{}Cited on page~#2.%
+%\else Cited on pages~#2.%
+%\fi%
+%}}
+
+\def\@footnotecolor{black}
+\define@key{Hyp}{footnotecolor}{%
+ \HyColor@HyperrefColor{#1}\@footnotecolor%
+}
+\def\@footnotemark{%
+    \leavevmode
+    \ifhmode\edef\@x@sf{\the\spacefactor}\nobreak\fi
+    \stepcounter{Hfootnote}%
+    \global\let\Hy@saved@currentHref\@currentHref
+    \hyper@makecurrent{Hfootnote}%
+    \global\let\Hy@footnote@currentHref\@currentHref
+    \global\let\@currentHref\Hy@saved@currentHref
+    \hyper@linkstart{footnote}{\Hy@footnote@currentHref}%
+    \@makefnmark
+    \hyper@linkend
+    \ifhmode\spacefactor\@x@sf\fi
+    \relax
+}%
+
+\renewcommand\@makefntext[1]{%
+	\renewcommand\@makefnmark{%
+		\mbox{\textsuperscript{\normalfont%
+			\hyperref[\BackrefFootnoteTag]{%
+				\color{\@footnotecolor}{\@thefnmark}%
+			}}\,%
+		}%
+	}%
+	\BHFN@OldMakefntext{#1}%
+}%
 
 % }}}

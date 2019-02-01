@@ -3,6 +3,7 @@
   %oneside,
   %open=any,
   %chapterprefix=true,
+  chapterentrydots=true,
   numbers=noenddot,
   %draft,
 ]{../kaobook}
@@ -63,8 +64,9 @@
 
 \titlehead{The \texttt{kaobook} class}
 \subject{Use this document as a template}
-\title[Example and Documentation of the \texttt{kaobook} class]{Example 
-	and Documentation \\ of the \texttt{kaobook} class}
+\title[Example and Documentation of the {\normalfont\texttt{kaobook}} 
+class]{Example and Documentation \\ of the {\normalfont\texttt{kaobook}} 
+class}
 \subtitle{Customise this page according to your needs}
 \author[Federico Marotta]{Federico Marotta \thanks{A \LaTeX\ lover}}
 \date{\today}
@@ -98,10 +100,11 @@
 \setpartpreamble{
   \begin{center}
   \includegraphics[width=0.8\linewidth]{images/partpre}
-  \captionof{figure}{\url{https://commons.wikimedia.org/wiki/File:Puzzle-4.svg}}
+  \captionof{figure}[A puzzle]{\url{https://commons.wikimedia.org/wiki/File:Puzzle-4.svg}}
   \end{center}
 }
-\part{Class Options, Commands and Environments}
+\RedeclareSectionCommand[beforeskip=3cm]{part}
+\addpart{Class Options, Commands and Environments}
 \marginpage
 
 \input{chapters/options}
@@ -123,6 +126,10 @@
 %\chapter{TODO}
 
 \appendix
+
+\widepage
+\addpart{Appendix}
+\marginpage
 
 \input{chapters/ants}
 

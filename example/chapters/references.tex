@@ -1,14 +1,34 @@
 \renewcommand*{\chapterformat}
 {
-  \enskip\mbox{\scalebox{4}{\thechapter\autodot}}
+  \chapappifchapterprefix{\nobreakspace}\scalebox{3.5}{\thechapter\autodot}
 }
 \renewcommand\chapterlinesformat[3]
 {
-  \parbox[b]{\textwidth}{\hrulefill#2}\par%
-  #3%\par\bigskip
-  \parbox[b]{\textwidth+\marginparsep+\marginparwidth}{\hrulefill}%
-  %\hrule
+  %\vspace*{-1cm}%
+  \leavevmode
+  \makebox[\textwidth+\marginparsep+\marginparwidth]{%
+	\makebox[\textwidth][l]{\hrulefill[1pt]#2}%\hfill%\par%\bigskip
+	\makebox[\marginparsep][l]{}%
+	\makebox[\marginparwidth][l]{}%
+  }\\
+  %\vspace{.5cm}
+  %\makebox[\textwidth+\marginparsep+\marginparwidth]{%
+	%\hrulefill[1pt]%
+  %}\par
+  \makebox[\textwidth+\marginparsep+\marginparwidth]{%
+	\makebox[\textwidth][l]{#3}%
+	\makebox[\marginparsep][l]{}%
+	\makebox[\marginparwidth][l]{}%
+  }\\
+  \makebox[\textwidth+\marginparsep+\marginparwidth]{%
+	\hrulefill[1.1pt]%
+	%\makebox[\textwidth][l]{\hrulefill}%
+	%\makebox[\marginparsep][l]{\hrulefill}%
+	%\makebox[\marginparwidth][l]{\hrulefill}%
+  }
 }
+\RedeclareSectionCommand[beforeskip=0cm]{chapter}
+
 \setchapterpreamble[u]{\margintoc}
 \chapter{References}
 
