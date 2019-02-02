@@ -481,7 +481,7 @@
 	pdfborder={0 0 0},		% Suppress border around pdf
 	%xetex,
 	%pagebackref=true,
-	hyperfootnotes=false,	% We already use footmisc
+	%hyperfootnotes=false,	% We already use footmisc
 	bookmarksdepth=section,
 	bookmarksopen=true,		% Expand the bookmarks as soon as the pdf file is opened
 	%bookmarksopenlevel=4,
