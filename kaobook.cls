@@ -13,7 +13,7 @@
 % Modified for LaTeX Templates by Vel (vel@LaTeXTemplates.com)
 %
 % License:
-% The MIT License (see included LICENSE file)
+% GPL Version 3 (see included LICENSE file)
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
