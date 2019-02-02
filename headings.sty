@@ -1,0 +1,223 @@
+\DeclareDocumentCommand{\setchapterstyle}{m}{
+	\ifthenelse{\equal{plain}{#1}}{\chapterstyleplain}{}
+	\ifthenelse{\equal{lines}{#1}}{\chapterstylelines}{}
+	\ifthenelse{\equal{kao}{#1}}{\chapterstylekao}{}
+}
+
+% The default definition in KOMA script
+\DeclareDocumentCommand{\chapterstyleplain}{}
+{
+	\renewcommand{\chapterlinesformat}[3]{%
+		\@hangfrom{##2}{##3}}
+	\renewcommand*{\chapterformat}{%
+		\mbox{\chapappifchapterprefix{\nobreakspace}\thechapter%
+		\autodot\IfUsePrefixLine{}{\enskip}}}
+
+	\RedeclareSectionCommand[beforeskip=0cm]{chapter}
+	\setlength{\mtocshift}{-2.5cm}
+}
+
+% The Kao style
+\DeclareDocumentCommand{\chapterstylekao}{}
+{
+	\renewcommand*{\chapterformat}
+	{
+	  \chapappifchapterprefix{\nobreakspace}\scalebox{3.5}{\thechapter\autodot}
+	}
+	\renewcommand\chapterlinesformat[3]
+	{
+	  \makebox[\textwidth+\marginparsep+\marginparwidth]{%
+		\makebox[\textwidth][r]{##2}%\hfill%\par%\bigskip
+		\makebox[\marginparsep][c]{\rule[-1.5cm]{1.5pt}{3.5cm}}%
+		\makebox[\marginparwidth][l]{}%
+	  }\\
+	  \vspace{-0.8cm}
+	  \makebox[\textwidth+\marginparsep+\marginparwidth]{%
+		\makebox[\textwidth][r]{##3}%
+		\makebox[\marginparsep][l]{}%
+		\makebox[\marginparwidth][l]{}%
+	  }
+	}
+
+	\RedeclareSectionCommand[beforeskip=0cm]{chapter}
+	\setlength{\mtocshift}{-5.2cm}
+}
+
+% Lines
+\DeclareDocumentCommand{\chapterstylelines}{}
+{
+	\renewcommand*{\chapterformat}
+	{
+	  \chapappifchapterprefix{\nobreakspace}\scalebox{3.5}{\thechapter\autodot}
+	}
+	\renewcommand\chapterlinesformat[3]
+	{
+	  %\vspace*{-1cm}%
+	  \leavevmode
+	  \makebox[\textwidth+\marginparsep+\marginparwidth]{%
+		\makebox[\textwidth][l]{\hrulefill[1pt]##2}%\hfill%\par%\bigskip
+		\makebox[\marginparsep][l]{}%
+		\makebox[\marginparwidth][l]{}%
+	  }\\
+	  %\vspace{.5cm}
+	  \makebox[\textwidth+\marginparsep+\marginparwidth]{%
+		\makebox[\textwidth][l]{##3}%
+		\makebox[\marginparsep][l]{}%
+		\makebox[\marginparwidth][l]{}%
+	  }\\
+	  \makebox[\textwidth+\marginparsep+\marginparwidth]{%
+		\hrulefill[1.1pt]%
+		%\makebox[\textwidth][l]{\hrulefill}%
+		%\makebox[\marginparsep][l]{\hrulefill}%
+		%\makebox[\marginparwidth][l]{\hrulefill}%
+	  }
+	}
+
+	\RedeclareSectionCommand[beforeskip=0cm]{chapter}
+	\setlength{\mtocshift}{-2.5cm}
+}
+
+% By default start with plain style
+\chapterstyleplain
+
+
+% Takes as input the image path and optinally beforeskip
+\DeclareDocumentCommand{\setchapterimage}{O{5.5cm} m}
+{
+	\setchapterpreamble[o]{
+		\vspace*{-2.7cm}\hspace*{-2.56cm}
+		\includegraphics[width=\paperwidth,height=#1+2.7cm,keepaspectratio=false]{#2}
+	}
+	% beforeskip=-(figure_height-top_margin)
+	\RedeclareSectionCommand[beforeskip=-#1]{chapter}
+	\setlength{\mtocshift}{-2cm}%
+}
+
+
+\RequirePackage{scrlayer-scrpage}       % Customise head and foot regions
+\setlength{\headheight}{115pt}			% Enlarge the header
+
+% Headings styles
+\renewpagestyle{scrheadings}{
+  {\hspace{-\marginparwidth}\hspace{-\marginparsep}%
+	\makebox[\overflowingheadlen][l]{\makebox[2em][r]{\thepage}%
+	\quad\rule{1pt}{100pt}\quad{}\leftmark} }%
+  {\makebox[\overflowingheadlen][r]{\rightmark\quad\rule{1pt}{100pt}%
+	\quad\makebox[2em][l]{\thepage}} }%
+  {\makebox[\overflowingheadlen][r]{\rightmark\quad\rule{1pt}{100pt}%
+	\quad\makebox[2em][l]{\thepage}} }%
+}{
+  {}%
+  {}%
+  {}
+  }
+\renewpagestyle{plain.scrheadings}{
+  {}%
+  {}%
+  {}
+}{
+  {}%
+  {}%
+  {}
+}
+\newpagestyle{pagenum.scrheadings}{
+  {}%
+  {}%
+  {}
+}{
+  {\thepage}%
+  {\hfill\thepage}%
+  {}
+}
+
+% FORMATTING HEADERS {{{
+
+%\renewcommand{\chaptermark}[1]{\markleft{\textbf{\chapapp\ \thechapter:}\ #1}{}}
+%\renewcommand{\sectionmark}[1]{\markright{\thesection\ #1}{}}
+%\addtokomafont{pageheadfoot}{\fontfamily{pplx}\selectfont}
+
+% }}}
+
+% FORMATTING DISPOSITIONS {{{
+
+% Part title style [todo]
+%\renewcommand*{\partformat}{\vspace{-6cm}\partname~\thepart\autodot\thispagestyle{empty}}
+
+%\renewcommand*{\chapterformat}
+%{
+  %\chapappifchapterprefix{\nobreakspace}\scalebox{3.5}{\thechapter\autodot}
+%}
+%\renewcommand\chapterlinesformat[3]
+%{
+  %%\vspace*{-1cm}%
+  %%\leavevmode
+  %\makebox[\textwidth+\marginparsep+\marginparwidth]{%
+	%\makebox[\textwidth][r]{#2}%\hfill%\par%\bigskip
+	%\makebox[\marginparsep][c]{\rule[-1.5cm]{1.5pt}{3.5cm}}%
+	%\makebox[\marginparwidth][l]{}%
+  %}\\
+  %\vspace{-0.75cm}
+  %%\makebox[\textwidth+\marginparsep+\marginparwidth]{%
+	%%\hrulefill[1pt]%
+  %%}\par
+  %\makebox[\textwidth+\marginparsep+\marginparwidth]{%
+	%\makebox[\textwidth][r]{#3}%
+	%\makebox[\marginparsep][l]{}%
+	%\makebox[\marginparwidth][l]{}%
+  %}
+  %%\makebox[\textwidth+\marginparsep+\marginparwidth+3cm]{%
+	%%\hrulefill[1.1pt]%
+	%%\makebox[\textwidth][l]{\hrulefill}%
+	%%\makebox[\marginparsep][l]{\hrulefill}%
+	%%\makebox[\marginparwidth][l]{\hrulefill}%
+  %%}
+%}
+%\RedeclareSectionCommand[beforeskip=0cm]{chapter}
+%%\RedeclareSectionCommand[afterskip=0.4cm]{chapter}
+%%\renewcommand*{\sectionformat}{\upshape\thesection\autodot\enskip}
+%%\renewcommand*{\subsectionformat}{\upshape\thesubsection\autodot\enskip}
+
+% Chapter title style
+%\renewcommand*{\chapterformat}{
+  %\hspace{\linewidth}
+  %\rule{1pt}{2cm}
+  %\hspace{.5\marginparsep}
+  %\parbox[b]{\marginparwidth}{\scalebox{3.3}{\usekomafont{chapter}\thechapter\autodot}}
+  %\hspace{-\marginparwidth}
+  %\hspace{-.5\marginparsep}
+  %\hspace{-\linewidth}
+  %\hspace{-1.35cm}
+%}
+
+% Might be useful
+%\renewcommand{\chapterformat}{
+	%\begin{tikzpicture}[remember picture,overlay]
+		%\draw[fill=gray,draw=none] (0,0) rectangle (1cm,1cm);
+	%\end{tikzpicture}
+	%\thechapter
+%}
+
+% Chapter title style (old)
+% by renewing \@@makechapterhead we lose some KOMA features such as the 
+% possibility to set beforeskip in the chapter preamble.
+%\setlength{\fboxsep}{0cm}
+%\renewcommand*{\@@makechapterhead}[1]{%
+  %\vspace*{3\baselineskip plus \parskip}
+  %\makebox{%
+	%\makebox[\linewidth]{\parbox[c][2cm]{\linewidth}{%
+	  %\if@mainmatter\raggedleft\fi\usekomafont{chapter}{#1}%
+	%}}%
+	%\if@mainmatter%
+	  %\makebox[\marginparsep]{\parbox[c][2cm]{%
+		%\marginparsep}{\centering\rule{1pt}{2cm}}%
+	  %}%
+	  %\makebox[\marginparwidth]{\parbox[c][2cm]{\marginparwidth}{%
+		%\scalebox{4}{\usekomafont{chapter}\thechapter\autodot}}%
+	  %}%
+	%\fi
+  %}%
+  %\vspace*{1.5\baselineskip plus .1\baselineskip minus 
+  %.167\baselineskip}
+%}
+
+% }}}

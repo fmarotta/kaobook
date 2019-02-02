@@ -135,16 +135,6 @@
 
 \RequirePackage{ifxetex}
 
-% Provide a companion to \chaptername
-\newcommand{\sectionname}{Section}
-
-% Bullets
-\RequirePackage{amssymb}
-\renewcommand{\labelitemi}{\footnotesize$\blacktriangleright$}
-\renewcommand{\labelitemii}{\textbullet}
-\RequirePackage{enumitem}
-\setlist[itemize]{noitemsep}
-
 \ifxetex
   \RequirePackage{polyglossia}			% Correct hyphenation
   \setdefaultlanguage{italian}
@@ -253,7 +243,8 @@
 
 \hypersetup{
 	%anchorcolor=Red,
-	citecolor=DarkOrange!70!black,
+	%citecolor=DarkOrange!70!black,
+	citecolor=Black,
 	%filecolor=Red,
 	%linkcolor=DarkBlue,
 	linkcolor=Black,
@@ -266,6 +257,8 @@
 
 % TOC, LOF AND LOT {{{
 
+\RequirePackage{tocbasic}
+\setuptoc{toc}{totoc}
 % Levels in table of contents
 \setcounter{tocdepth}{\subsectiontocdepth}
 
@@ -274,6 +267,11 @@
 \renewcaptionname{english}{\listfigurename}{Figures}
 \renewcaptionname{english}{\listtablename}{Tables}
 \newcaptionname{english}{\listtheoremname}{Theorems}
+
+\DeclareTOCStyleEntry[level=1,indent=0em,numwidth=2em]%
+{tocline}{figure}
+\DeclareTOCStyleEntry[level=1,indent=0em,numwidth=2em]%
+{tocline}{table}
 
 % Table of contents styles
 %\newlength{\alignviiilength}
@@ -311,97 +309,5 @@
 %\renewcommand{\cfttabfont}{\hypersetup{allcolors=black}}
 %\renewcommand{\cfttableader}{\hspace{1em}}
 %\renewcommand{\cfttabafterpnum}{\cftparfillskip}
-
-% }}}
-
-% FORMATTING DISPOSITIONS {{{
-
-% Part title style [todo]
-%\renewcommand*{\partformat}{\vspace{-6cm}\partname~\thepart\autodot\thispagestyle{empty}}
-
-\renewcommand*{\chapterformat}
-{
-  \chapappifchapterprefix{\nobreakspace}\scalebox{3.5}{\thechapter\autodot}
-}
-\renewcommand\chapterlinesformat[3]
-{
-  %\vspace*{-1cm}%
-  %\leavevmode
-  \makebox[\textwidth+\marginparsep+\marginparwidth]{%
-	\makebox[\textwidth][l]{\hfill#2}%\hfill%\par%\bigskip
-	\makebox[\marginparsep][l]{}%
-	\makebox[\marginparwidth][l]{}%
-  }\\
-  \vspace{.5cm}
-  %\makebox[\textwidth+\marginparsep+\marginparwidth]{%
-	%\hrulefill[1pt]%
-  %}\par
-  \makebox[\textwidth+\marginparsep+\marginparwidth]{%
-	\makebox[\textwidth][l]{#3}%
-	\makebox[\marginparsep][l]{}%
-	\makebox[\marginparwidth][l]{}%
-  }
-  %\makebox[\textwidth+\marginparsep+\marginparwidth+3cm]{%
-	%\hrulefill[1.1pt]%
-	%\makebox[\textwidth][l]{\hrulefill}%
-	%\makebox[\marginparsep][l]{\hrulefill}%
-	%\makebox[\marginparwidth][l]{\hrulefill}%
-  %}
-}
-\RedeclareSectionCommand[beforeskip=0cm]{chapter}
-%\RedeclareSectionCommand[afterskip=0.4cm]{chapter}
-%\renewcommand*{\sectionformat}{\upshape\thesection\autodot\enskip}
-%\renewcommand*{\subsectionformat}{\upshape\thesubsection\autodot\enskip}
-
-% Chapter title style
-%\renewcommand*{\chapterformat}{
-  %\hspace{\linewidth}
-  %\rule{1pt}{2cm}
-  %\hspace{.5\marginparsep}
-  %\parbox[b]{\marginparwidth}{\scalebox{3.3}{\usekomafont{chapter}\thechapter\autodot}}
-  %\hspace{-\marginparwidth}
-  %\hspace{-.5\marginparsep}
-  %\hspace{-\linewidth}
-  %\hspace{-1.35cm}
-%}
-
-% Might be useful
-%\renewcommand{\chapterformat}{
-	%\begin{tikzpicture}[remember picture,overlay]
-		%\draw[fill=gray,draw=none] (0,0) rectangle (1cm,1cm);
-	%\end{tikzpicture}
-	%\thechapter
-%}
-
-% Chapter title style (old)
-% by renewing \@@makechapterhead we lose some KOMA features such as the 
-% possibility to set beforeskip in the chapter preamble.
-%\setlength{\fboxsep}{0cm}
-%\renewcommand*{\@@makechapterhead}[1]{%
-  %\vspace*{3\baselineskip plus \parskip}
-  %\makebox{%
-	%\makebox[\linewidth]{\parbox[c][2cm]{\linewidth}{%
-	  %\if@mainmatter\raggedleft\fi\usekomafont{chapter}{#1}%
-	%}}%
-	%\if@mainmatter%
-	  %\makebox[\marginparsep]{\parbox[c][2cm]{%
-		%\marginparsep}{\centering\rule{1pt}{2cm}}%
-	  %}%
-	  %\makebox[\marginparwidth]{\parbox[c][2cm]{\marginparwidth}{%
-		%\scalebox{4}{\usekomafont{chapter}\thechapter\autodot}}%
-	  %}%
-	%\fi
-  %}%
-  %\vspace*{1.5\baselineskip plus .1\baselineskip minus 
-  %.167\baselineskip}
-%}
-
-% }}}
-
-% FORMATTING HEADINGS {{{
-
-%\renewcommand{\chaptermark}[1]{\markleft{\textbf{\chapapp\ \thechapter:}\ #1}{}}
-%\renewcommand{\sectionmark}[1]{\markright{\thesection\ #1}{}}
-%\addtokomafont{pageheadfoot}{\fontfamily{pplx}\selectfont}
 
 % }}}

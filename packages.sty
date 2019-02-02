@@ -7,28 +7,67 @@
 
 % Listings code
 \usepackage{listings}		% Code
+%\usepackage{minted}
 \usepackage{scrhack}		% Work around compatibility problem
 
-\definecolor{listingkeywords}{rgb}{0.00, 0.5, 0.0}
+\definecolor{listingkeywords}{rgb}{0.0, 0.5, 0.0}
 \definecolor{listingidentifiers}{rgb}{0, 0, 0}
 \definecolor{listingcomments}{rgb}{0.25, 0.5, 0.5}
 \definecolor{listingstrings}{rgb}{0.73, 0.13, 0.13}
 \definecolor{listingnumbers}{rgb}{0.25, 0.25, 0.25}
-\lstset{
-  basicstyle=\scriptsize\ttfamily,
-  keywordstyle=\color{listingkeywords}\bfseries,
-  identifierstyle=\color{listingidentifiers},
+\lstdefinestyle{kaolst}{
+  aboveskip=-.5\topskip,
+  %belowskip=.5\topskip,
+  basicstyle=\normalsize\ttfamily,
   commentstyle=\color{listingcomments}\itshape,
-  stringstyle=\color{listingstrings},
+  keywordstyle=\color{listingkeywords}\bfseries,
   numberstyle=\scriptsize\color{listingnumbers}\ttfamily,
-  frame=single,
+  stringstyle=\color{listingstrings},
+  identifierstyle=\color{listingidentifiers},
+  backgroundcolor=\color{White},
+  breakatwhitespace=false,
+  breaklines=true,
+  captionpos=t,
+  keepspaces=true,
+  showspaces=false,
+  showstringspaces=false,
+  showtabs=false,
+  numbers=left,
+  numbersep=1em,
+  %frame=lines,
+  frame=l,
+  framerule=.7pt,
   tabsize=4,
-  %language=[ISO]C++
+  defaultdialect=[LaTeX]Tex,
 }
+\lstdefinestyle{kaolstplain}{
+  aboveskip=-\topskip,
+  %belowskip=.5\topskip,
+  basicstyle=\normalsize\ttfamily,
+  commentstyle=\color{listingcomments}\itshape,
+  keywordstyle=\color{listingkeywords}\bfseries,
+  numberstyle=\scriptsize\color{listingnumbers}\ttfamily,
+  stringstyle=\color{listingstrings},
+  identifierstyle=\color{listingidentifiers},
+  backgroundcolor=\color{White},
+  breakatwhitespace=false,
+  breaklines=true,
+  captionpos=b,
+  keepspaces=true,
+  showspaces=false,
+  showstringspaces=false,
+  showtabs=false,
+  numbers=none,
+  frame=none,
+  tabsize=4,
+  defaultdialect=[LaTeX]Tex,
+}
+\lstset{style=kaolst}
 
 % Verbatim
 \usepackage{fancyvrb} % Customization of verbatim environments
 \fvset{fontsize=\normalsize} % Change here the font size of all verbatim 
+%\preto{\@verbatim}{\topsep=0pt \partopsep=0pt }
 
 % Algorithms
 \usepackage[linesnumbered,
@@ -42,3 +81,6 @@
 % Index and glossary
 \usepackage{imakeidx}
 \usepackage[xindy,toc]{glossaries}
+
+% Nomenclature
+\usepackage[intoc]{nomencl}

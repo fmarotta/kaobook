@@ -1,5 +1,17 @@
 \ProvidesPackage{environments}
 
+% Items {{{
+
+\RequirePackage{amssymb}
+\renewcommand{\labelitemi}{\footnotesize$\blacktriangleright$}
+\renewcommand{\labelitemii}{\textbullet}
+\RequirePackage{enumitem}
+\setlist[itemize]{noitemsep}
+\setlist[enumerate]{noitemsep}
+\setlist[description]{noitemsep}
+
+% }}}
+
 % Simple boxed environment {{{
 
 % kaobox (while tcolorbox may be more rich, I find it too complicated so 
@@ -42,15 +54,41 @@
 
 % Environment with a counter {{{
 
-\newcounter{commentcounter}
-\numberwithin{commentcounter}{section}
 \newenvironment{commentbox}
 {
-	\refstepcounter{commentcounter}
-	\begin{kaobox}[frametitle=Comment \thecommentcounter]
+	\refstepcounter{commentbox}
+	\begin{kaobox}[frametitle=Comment~\thecommentbox\autodot]
 }
 {
 	\end{kaobox}
 }
+
+\newcounter{commentbox}
+\numberwithin{commentbox}{section}
+\newcommand*{\commentboxformat}{% Format for the caption
+	Comment~\thecommentbox\csname autodot\endcsname}
+\newcommand*{\fnum@commentbox}{\commentboxformat}
+
+% }}}
+
+% Floating environment (with table of contents entries) {{{
+
+\newenvironment{floatingbox}{%
+	\@float{floatingbox}%
+}{%
+	\end@float
+}
+
+\newcommand*{\fps@floatingbox}{tbph}
+\newcommand*{\ftype@floatingbox}{5}
+\newcommand*{\floatingboxformat}{%
+	Insight~\thefloatingbox\csname autodot\endcsname}
+\newcommand*{\fnum@floatingbox}{\floatingboxformat}
+\newcommand*{\ext@floatingbox}{loi}
+
+\addtotoclist[float]{loi}
+\newcommand*{\listofloiname}{List of Insights}
+\newcommand*{\l@floatingbox}{\l@figure}
+\newcommand*{\listofinsights}{\listoftoc{loi}}
 
 % }}}

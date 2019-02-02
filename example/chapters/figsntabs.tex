@@ -1,24 +1,24 @@
 \setchapterpreamble[o]{
 	\begingroup
 	\vspace*{-3cm}\hspace*{-2.56cm}
-	\includegraphics[width=\paperwidth,height=8cm,keepaspectratio=false]{images/seaside}
-	\vspace*{-1.4cm}
-	\addtokomafont{captionlabel}{\bfseries}
-	\addtokomafont{caption}{\bfseries}
-	\captionsetup{
-		type=figure,
-		%format=marginemph, 
-		%width=\textwidth+\marginparsep+\marginparwidth,
-		%indention=2cm,
-		%parindent=-2cm,
-	}
-	\caption[The seaside]{\textbf{By Bushra Feroz - Own work, CC BY-SA 4.0, 
-		https://commons.wikimedia.org/w/index.php?curid=68724647}}
+	\includegraphics[width=\paperwidth,height=8.5cm,keepaspectratio=false]{images/seaside}
+	%\vspace*{-1.4cm}
+	%\addtokomafont{captionlabel}{\bfseries}
+	%\addtokomafont{caption}{\bfseries}
+	%\captionsetup{
+		%type=figure,
+		%%format=marginemph, 
+		%%width=\textwidth+\marginparsep+\marginparwidth,
+		%%indention=2cm,
+		%%parindent=-2cm,
+	%}
+	%\caption[The seaside]{\textbf{By Bushra Feroz - Own work, CC BY-SA 
+	%4.0, https://commons.wikimedia.org/w/index.php?curid=68724647}}
 	\endgroup
 }
 % beforeskip=-(figure_height-top_margin)
-\RedeclareSectionCommand[beforeskip=-5cm]{chapter}
-\setchapterpreamble[u]{\margintoc[*-4.5]}
+\RedeclareSectionCommand[beforeskip=-5.5cm]{chapter}
+\setchapterpreamble[u]{\margintoc[*-5]}
 
 \makeatletter
 \renewcommand{\chapterlinesformat}[3]{%
@@ -34,6 +34,10 @@
 
 \section{Normal figures and tables}
 
+\footnote[0]{The credits for the image above the chapter title go to:
+	Bushra Feroz --- Own work, CC~BY-SA~4.0, 
+	https://commons.wikimedia.org/w/index.php?curid=68724647}
+
 Normal figures and tables can be inserted just like in any standard 
 \LaTeX\xspace document. The \verb|graphicx| package is already loaded, 
 and if you want you can load \verb|subfig|. The captions will be 
@@ -41,10 +45,10 @@ positioned in the margins with the help of the \verb|floatrow| package.
 The space between the figure and the text can be specified with the 
 following commands:
 
-\begin{verbatim}
-	\renewcommand\FBaskip{4pt}
-	\renewcommand\FBbskip{4pt}
-\end{verbatim}
+\begin{lstlisting}[style=kaolstplain]
+\renewcommand\FBaskip{4pt}
+\renewcommand\FBbskip{4pt}
+\end{lstlisting}
 
 Here is a picture of Mona Lisa (\reffig{normalmonalisa}), as an example. 
 The captions are formatted as the marginnotes; to change the options you 
@@ -64,11 +68,13 @@ the following code:
 \begin{lstlisting}
 \begin{table}
 \begin{tabular}{ c c c c  }
-	\hline
+	\toprule
 	col1 & col2 & col3 \\
-	\hline
-	\multirow{3}{4em}{Multiple row} & cell2 & cell3 \\ & cell5 & cell6 
-	\\ & cell8 & cell9 \\ \hline
+	\midrule
+	\multirow{3}{4em}{Multiple row} & cell2 & cell3 \\ &
+	cell5 & cell6 \\ &
+	cell8 & cell9 \\
+	\bottomrule
 \end{tabular}
 \caption[A useless table]{A useless table.}
 \end{table}
@@ -78,11 +84,13 @@ which results in the useless \reftab{useless}.
 
 \begin{table}[h]
 \begin{tabular}{ c c c c  }
-	\hline
+	\toprule
 	col1 & col2 & col3 \\
-	\hline
-	\multirow{3}{4em}{Multiple row} & cell2 & cell3 \\ & cell5 & cell6 
-	\\ & cell8 & cell9 \\ \hline
+	\midrule
+	\multirow{3}{4em}{Multiple row} & cell2 & cell3 \\ &
+	cell5 & cell6 \\ &
+	cell8 & cell9 \\
+	\bottomrule
 \end{tabular}
 \caption[A useless table]{A useless table.}
 \labtab{useless}

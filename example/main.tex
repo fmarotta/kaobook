@@ -3,7 +3,7 @@
   %oneside,
   %open=any,
   %chapterprefix=true,
-  chapterentrydots=true,
+  %chapterentrydots=true,
   numbers=noenddot,
   %draft,
 ]{../kaobook}
@@ -14,6 +14,7 @@
 \usepackage{../environments}
 %\usepackage{../plaintheorems}
 \usepackage{../mdftheorems}
+\usepackage{../headings}
 \usepackage{../style}
 
 % Load packages for testing
@@ -26,6 +27,12 @@
 
 % Set path for images
 \graphicspath{{images/}{../images/}}
+
+% Nomenclature
+\makenomenclature
+\renewcommand{\nomname}{Notation}
+\renewcommand{\nompreamble}{The next list describes several symbols that 
+will be later used within the body of the document.}
 
 % Index
 \makeindex[columns=3, title=Alphabetical Index, intoc]
@@ -111,22 +118,28 @@ class}
 \input{chapters/textnotes}
 \input{chapters/figsntabs}
 \input{chapters/references}
+
+\widepage
+\setpartpreamble{
+  \begin{center}
+  \includegraphics[width=0.8\linewidth]{images/partpre}
+  \captionof{figure}[A puzzle]{\url{https://commons.wikimedia.org/wiki/File:Puzzle-4.svg}}
+  \end{center}
+}
+\RedeclareSectionCommand[beforeskip=3cm]{part}
+\addpart{Design and Additional Features}
+\marginpage
+
+\input{chapters/layout}
+%\input{chapters/tocs} %explain how to add custom tocs
+%\input{chapters/spaces}
 \input{chapters/mathematics}
-
-%\widepage
-%\setpartpreamble{
-  %\begin{center}
-  %\includegraphics[width=0.8\linewidth]{images/partpre}
-  %\captionof{figure}{\url{https://commons.wikimedia.org/wiki/File:Puzzle-4.svg}}
-  %\end{center}
-%}
-%\part{Style}
-%\marginpage
-
-%\chapter{TODO}
+%\input{chapters/others} %lisings, verbatim, ... (contents of 
+%packages.sty)
 
 \appendix
 
+% Put this in \appendix?
 \widepage
 \addpart{Appendix}
 \marginpage
@@ -134,6 +147,7 @@ class}
 \input{chapters/ants}
 
 \backmatter
+\setchapterstyle{plain}
 
 % Bibliograhy
 \input{pages/bibliography}
@@ -143,6 +157,9 @@ class}
 
 % Glossary
 \input{pages/glossary}
+
+% Nomenclature
+\input{pages/nomenclature}
 
 % Back cover
 \clearpage
