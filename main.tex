@@ -1,0 +1,331 @@
+%----------------------------------------------------------------------------------------
+%	PACKAGES AND OTHER DOCUMENT CONFIGURATIONS
+%----------------------------------------------------------------------------------------
+
+\documentclass[
+	fontsize=10pt,
+	%oneside,
+	%open=any,
+	%chapterprefix=true,
+	%chapterentrydots=true,
+	numbers=noenddot,
+	%draft,
+]{kaobook}
+
+% TODO move lots of the below to the class
+
+% Load common packages and commands
+\usepackage{styles/packages}
+\usepackage{styles/commands}
+\usepackage{styles/environments}
+%\usepackage{styles/plaintheorems}
+\usepackage{styles/mdftheorems}
+\usepackage{styles/headings}
+\usepackage{styles/style}
+
+% Load packages for testing
+\usepackage{blindtext}
+%\usepackage{showframe}
+%\usepackage{showlabels}
+
+% Add bibfile
+\addbibresource{main.bib}
+
+% Set path for images
+\graphicspath{{images/}{./}}
+
+% Nomenclature
+\makenomenclature
+\renewcommand{\nomname}{Notation}
+\renewcommand{\nompreamble}{The next list describes several symbols that will be later used within the body of the document.}
+
+% Index
+\makeindex[columns=3, title=Alphabetical Index, intoc]
+
+% Glossary
+\makeglossaries
+
+\begin{document}
+
+% General structure of a book:
+% 	\frontmatter
+% 	Cover
+% 	Half-title (r)
+% 	Frontispiece (v)
+% 	Title (r)
+%	Information (copyright, ISBN, etc.) (v)
+%	Dedication (r)
+%	Notation and other conventions used (v)
+%	Table of contents (r)
+%	List of figures (r)
+%	Preface (r)
+%
+%	\mainmatter
+%	Chapters (1, 2, ..., n)
+%
+%	\appendix
+%	Appendices (A, B, ..., Z)
+%
+%	\backmatter
+%	Bibliography (r)
+%	Glossary (r)
+%	Index (r)
+%	Empty
+%
+%	Cover
+
+\titlehead{The \texttt{kaobook} class}
+\subject{Use this document as a template}
+\title[Example and Documentation of the {\normalfont\texttt{kaobook}} class]{Example and Documentation \\ of the {\normalfont\texttt{kaobook}} class}
+\subtitle{Customise this page according to your needs}
+\author[Federico Marotta]{Federico Marotta \thanks{A \LaTeX\ lover}}
+\date{\today}
+\publishers{an Awesome Publisher}
+
+\frontmatter
+
+%\includepdf{cover-front.pdf}
+
+%----------------------------------------------------------------------------------------
+%	OPENING
+%----------------------------------------------------------------------------------------
+
+\makeatletter
+\extratitle{
+	% In the title page, the title is vspaced by 9.5\baselineskip
+	\vspace*{9\baselineskip}
+	\vspace*{\parskip}
+	\begin{center}
+		% In the title page, \huge is set after the komafont for title
+		\usekomafont{title}\huge\@title
+	\end{center}
+}
+\makeatother
+
+%----------------------------------------------------------------------------------------
+%	FRONTISPIECE
+%----------------------------------------------------------------------------------------
+
+% Frontispiece (verso of the half-title)
+
+%\frontispiece{}
+
+%----------------------------------------------------------------------------------------
+%	COPYRIGHT PAGE
+%----------------------------------------------------------------------------------------
+
+\makeatletter
+\uppertitleback{\@titlehead}
+
+\lowertitleback{
+	\textbf{Disclaimer}\\
+	You can edit this page to suit your needs. For instance, here we have a no copyright statement, a colophon and some other information. This page is based on the corresponding page of Ken Arroyo Ohori's thesis, with minimal changes.
+	
+	\textbf{No copyright}\\
+	\cczero\ This book is released into the public domain using the CC0 code. To the extent possible under law, I waive all copyright and related or neighbouring rights to this work.
+	
+	To view a copy of the CC0 code, visit: \\\url{http://creativecommons.org/publicdomain/zero/1.0/}
+	
+	\textbf{Colophon} \\
+	This document was typeset with the help of \href{https://sourceforge.net/projects/koma-script/}{\KOMAScript} and \href{ttps://www.latex-project.org/}{\LaTeX} using the \href{https://github.com/fmarotta/kaobook/}{kaobook} class.
+	
+	The source code of this book is available at:\\\url{https://github.com/fmarotta/kaobook/tree/master/example}
+	
+	(You are welcome to contribute!)
+	
+	\textbf{Publisher} \\
+	First printed in Jan 2019 by \@publishers
+}
+\makeatother
+
+%----------------------------------------------------------------------------------------
+%	DEDICATION
+%----------------------------------------------------------------------------------------
+
+\dedication{
+	The harmony of the world is made manifest in Form and Number, and 
+	the heart and soul and all the poetry of Natural Philosophy are 
+	embodied in the concept of mathematical beauty.\\
+	\flushright -- D'Arcy Wentworth Thompson
+}
+
+%----------------------------------------------------------------------------------------
+%	TITLE PAGE
+%----------------------------------------------------------------------------------------
+
+% KOMA title
+
+% If you use a cover page, you may want to assign page 3 to the title, 
+% so that the cover page gets 1.
+\maketitle[3]
+
+%----------------------------------------------------------------------------------------
+%	GREEK ALPHABET
+%----------------------------------------------------------------------------------------
+
+% Greek alphabet with pronunciation (borrowed from https://gitlab.com/jim.hefferon/linear-algebra)
+\thispagestyle{empty}
+
+\begin{center}
+	\textbf{Greek letters with pronounciation}\\[1.5ex]
+	\newcommand{\pronounced}[1]{\hspace*{.2em}\small\textit{#1}}
+	\begin{tabular}{cl@{\hspace*{3em}}cl}
+		% TODO stop using \makebox and clean up whitespace
+		character &\multicolumn{1}{c}{\makebox[-3.5em][r]{name}}       
+		&character  &\multicolumn{1}{c}{\makebox[-3.5em][r]{name}}  \\ 
+		\hline
+		\makebox[1em][l]{\( \alpha  \)} &alpha \pronounced{AL-fuh}  
+		&\makebox[1em][l]{\( \nu     \)}  &nu  \pronounced{NEW}       \\
+		\makebox[1em][l]{\( \beta   \)} &beta  \pronounced{BAY-tuh}     
+		&\makebox[1em][l]{\( \xi  \), \( \Xi \)}  &xi   \pronounced{KSIGH}    \\ 
+		\makebox[1em][l]{\( \gamma  \), \( \Gamma \)} &gamma  \pronounced{GAM-muh}
+		&\makebox[1em][l]{\( o \)} &omicron  \pronounced{OM-uh-CRON}  \\
+		\makebox[1em][l]{\( \delta  \), \( \Delta \)} &delta  \pronounced{DEL-tuh} 
+		&\makebox[1em][l]{\( \pi \), \( \Pi \)} &pi  \pronounced{PIE}     \\
+		\makebox[1em][l]{\( \epsilon\)} &epsilon  \pronounced{EP-suh-lon}   
+		&\makebox[1em][l]{\( \rho \)} &rho  \pronounced{ROW}    \\
+		\makebox[1em][l]{\( \zeta   \)} &zeta   \pronounced{ZAY-tuh}    
+		&\makebox[1em][l]{\( \sigma  \), \( \Sigma \)} &sigma  \pronounced{SIG-muh}  \\
+		\makebox[1em][l]{\( \eta  \)} &eta  \pronounced{AY-tuh}      
+		&\makebox[1em][l]{\( \tau \)} &tau  \pronounced{TOW (as in cow)}    \\
+		\makebox[1em][l]{\( \theta \), \( \Theta \)} &theta  \pronounced{THAY-tuh}    
+		&\makebox[1em][l]{\( \upsilon\), \( \Upsilon \)} &upsilon  \pronounced{OOP-suh-LON}  \\
+		\makebox[1em][l]{\( \iota \)} &iota \pronounced{eye-OH-tuh}   
+		&\makebox[1em][l]{\( \phi \), \( \Phi \)} &phi  \pronounced{FEE, or FI (as in hi)}    \\
+		\makebox[1em][l]{\( \kappa  \)} &kappa  \pronounced{KAP-uh}  
+		&\makebox[1em][l]{\( \chi \)}  &chi  \pronounced{KI (as in hi)}    \\
+		\makebox[1em][l]{\( \lambda \), \( \Lambda \)} &lambda  \pronounced{LAM-duh}  
+		&\makebox[1em][l]{\( \psi    \), \( \Psi \)}  &psi \pronounced{SIGH, or PSIGH}    \\
+		\makebox[1em][l]{\( \mu  \)}  &mu  \pronounced{MEW}     
+		&\makebox[1em][l]{\( \omega  \), \( \Omega \)} &omega  \pronounced{oh-MAY-guh}  
+	\end{tabular}   \\[1.5ex]
+	Capitals shown are the ones that differ from Roman capitals.
+\end{center}
+
+%----------------------------------------------------------------------------------------
+%	PREFACE
+%----------------------------------------------------------------------------------------
+
+\input{chapters/preface}
+
+%----------------------------------------------------------------------------------------
+%	TABLE OF CONTENTS
+%----------------------------------------------------------------------------------------
+
+\begingroup
+\etocstandarddisplaystyle
+\etocstandardlines
+%\etocmulticolstyle[2]{\chapter*{Contents}}
+%\setstretch{1}
+%\hypersetup{linkcolor=DarkBlue}
+\tableofcontents
+\listoffigures
+\listoftables
+%\listoftheorems
+\endgroup
+
+%----------------------------------------------------------------------------------------
+%	MAIN BODY
+%----------------------------------------------------------------------------------------
+
+\mainmatter
+
+\input{chapters/introduction}
+
+\widepage
+\setpartpreamble{
+	\begin{center}
+		\includegraphics[width=0.8\linewidth]{images/partpre}
+		\captionof{figure}[A puzzle]{\url{https://commons.wikimedia.org/wiki/File:Puzzle-4.svg}}
+	\end{center}
+}
+\RedeclareSectionCommand[beforeskip=3cm]{part}
+\addpart{Class Options, Commands and Environments}
+\marginpage
+
+\input{chapters/options}
+\input{chapters/textnotes}
+\input{chapters/figsntabs}
+\input{chapters/references}
+
+\widepage
+\setpartpreamble{
+	\begin{center}
+		\includegraphics[width=0.8\linewidth]{images/partpre}
+		\captionof{figure}[A puzzle]{\url{https://commons.wikimedia.org/wiki/File:Puzzle-4.svg}}
+	\end{center}
+}
+\RedeclareSectionCommand[beforeskip=3cm]{part}
+\addpart{Design and Additional Features}
+\marginpage
+
+\input{chapters/layout}
+%\input{chapters/tocs} %explain how to add custom tocs
+%\input{chapters/spaces}
+\input{chapters/mathematics}
+%\input{chapters/others} %lisings, verbatim, ... (contents of 
+%packages.sty)
+
+\appendix
+
+% Put this in \appendix?
+\widepage
+\addpart{Appendix}
+\marginpage
+
+\input{chapters/ants}
+
+\backmatter
+\setchapterstyle{plain}
+
+%----------------------------------------------------------------------------------------
+%	BIBLIOGRAPHY
+%----------------------------------------------------------------------------------------
+
+%\setbibpreamble{References in citation order\par\bigskip}
+\printbibliography[heading=bibintoc,title=Bibliography]
+
+%----------------------------------------------------------------------------------------
+%	INDEX
+%----------------------------------------------------------------------------------------
+
+\printindex
+
+%----------------------------------------------------------------------------------------
+%	GLOSSARY
+%----------------------------------------------------------------------------------------
+
+\newglossaryentry{computer}
+{
+	name=computer,
+	description={is a programmable machine that receives input, stores and manipulates data, and provides output in a useful format}
+}
+
+\newacronym[longplural={Frames per Second}]{fpsLabel}{FPS}{Frame per Second}
+
+%\setglossarystyle{listhypergroup}
+\setglossarystyle{listgroup}
+
+%\printglossary[type=\acronymtype, title=Acronyms, toctitle=Acronyms]
+\printglossary[title=Special Terms, toctitle=List of terms]
+
+%----------------------------------------------------------------------------------------
+%	NOMENCLATURE
+%----------------------------------------------------------------------------------------
+
+\nomenclature{$c$}{Speed of light in a vacuum inertial frame}
+\nomenclature{$h$}{Planck constant}
+
+\printnomenclature
+
+
+% Back cover
+%\clearpage
+%\thispagestyle{empty}
+%\null%
+%\clearpage
+%\includepdf{pages/cover-back.pdf}
+
+%----------------------------------------------------------------------------------------
+
+\end{document}
