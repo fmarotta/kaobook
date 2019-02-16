@@ -99,35 +99,37 @@
 
 % Headings styles
 \renewpagestyle{scrheadings}{
-  {\hspace{-\marginparwidth}\hspace{-\marginparsep}%
-	\makebox[\overflowingheadlen][l]{\makebox[2em][r]{\thepage}%
-	\quad\rule{1pt}{100pt}\quad{}\leftmark} }%
-  {\makebox[\overflowingheadlen][r]{\rightmark\quad\rule{1pt}{100pt}%
-	\quad\makebox[2em][l]{\thepage}} }%
-  {\makebox[\overflowingheadlen][r]{\rightmark\quad\rule{1pt}{100pt}%
-	\quad\makebox[2em][l]{\thepage}} }%
+	{\hspace{-\marginparwidth}\hspace{-\marginparsep}%
+		\makebox[\overflowingheadlen][l]{\makebox[2em][r]{\thepage}%
+		\quad\rule{1pt}{100pt}\quad{}\leftmark} }%
+  	{\makebox[\overflowingheadlen][r]{\rightmark\quad\rule{1pt}{100pt}%
+		\quad\makebox[2em][l]{\thepage}} }%
+  	{\makebox[\overflowingheadlen][r]{\rightmark\quad\rule{1pt}{100pt}%
+		\quad\makebox[2em][l]{\thepage}} }%
 }{
-  {}%
-  {}%
-  {}
-  }
-\renewpagestyle{plain.scrheadings}{
-  {}%
-  {}%
-  {}
-}{
-  {}%
-  {}%
-  {}
+	{}%
+	{}%
+	{}
 }
-\newpagestyle{pagenum.scrheadings}{
-  {}%
-  {}%
-  {}
+
+\renewpagestyle{plain.scrheadings}{
+	{}%
+	{}%
+	{}
 }{
-  {\thepage}%
-  {\hfill\thepage}%
-  {}
+	{}%
+	{}%
+	{}
+}
+
+\newpagestyle{pagenum.scrheadings}{
+	{}%
+	{}%
+	{}
+}{
+	{\thepage}%
+	{\hfill\thepage}%
+	{}
 }
 
 % FORMATTING HEADERS {{{

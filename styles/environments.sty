@@ -1,6 +1,8 @@
 \ProvidesPackage{environments}
 
-% Items {{{
+%----------------------------------------------------------------------------------------
+%	ITEMS
+%----------------------------------------------------------------------------------------
 
 \RequirePackage{amssymb}
 \renewcommand{\labelitemi}{\footnotesize$\blacktriangleright$}
@@ -10,12 +12,11 @@
 \setlist[enumerate]{noitemsep}
 \setlist[description]{noitemsep}
 
-% }}}
+%----------------------------------------------------------------------------------------
+%	SIMPLE BOXED ENVIRONMENT
+%----------------------------------------------------------------------------------------
 
-% Simple boxed environment {{{
-
-% kaobox (while tcolorbox may be more rich, I find it too complicated so 
-% I prefer mdframed)
+% kaobox (while tcolorbox may be more rich, I find it too complicated so I prefer mdframed)
 \usepackage{tikz}
 \usepackage[framemethod=TikZ]{mdframed}
 
@@ -50,16 +51,14 @@
 	frametitlebackgroundcolor=LightBlue!60,
 ]{kaobox}
 
-% }}}
+%----------------------------------------------------------------------------------------
+%	ENVIRONMENT WITH A COUNTER
+%----------------------------------------------------------------------------------------
 
-% Environment with a counter {{{
-
-\newenvironment{commentbox}
-{
+\newenvironment{commentbox}{
 	\refstepcounter{commentbox}
 	\begin{kaobox}[frametitle=Comment~\thecommentbox\autodot]
-}
-{
+}{
 	\end{kaobox}
 }
 
@@ -69,9 +68,10 @@
 	Comment~\thecommentbox\csname autodot\endcsname}
 \newcommand*{\fnum@commentbox}{\commentboxformat}
 
-% }}}
 
-% Floating environment (with table of contents entries) {{{
+%----------------------------------------------------------------------------------------
+%	FLOATING ENVIRONMENT WITH TOC ENTRIES
+%----------------------------------------------------------------------------------------
 
 \newenvironment{floatingbox}{%
 	\@float{floatingbox}%
@@ -90,5 +90,3 @@
 \newcommand*{\listofloiname}{List of Insights}
 \newcommand*{\l@floatingbox}{\l@figure}
 \newcommand*{\listofinsights}{\listoftoc{loi}}
-
-% }}}
