@@ -7,94 +7,97 @@
 \usepackage{amssymb} % AMS symbols and environments
 \usepackage{amsthm} % Mathematical environments
 \usepackage{thmtools}
-%\usepackage{unicode-math}           % Use unicode math font, not TeX
-%\usepackage{mathtools}              % More math symbols and environments
+%\usepackage{unicode-math} % Use unicode math font, not TeX
+%\usepackage{mathtools} % More math symbols and environments
 %\setmathfont{Asana-Math.otf}
 
-% Edit the following to create a new style (NOTE: it is much simpler 
-% using thmtools!)
+% Edit the following to create a new style (NOTE: it is much simpler using thmtools!)
 %\newtheoremstyle{theorem}% name of the style to be used
-  %{spaceabove}% measure of space to leave above the theorem. E.g.: 3pt
-  %{spacebelow}% measure of space to leave below the theorem. E.g.: 3pt
-  %{bodyfont}% name of font to use in the body of the theorem
-  %{indent}% measure of space to indent
-  %{headfont}% name of head font
-  %{headpunctuation}% punctuation between head and body
-  %{headspace}% space after theorem head; " " = normal interword space
-  %{headspec}% Manually specify head
+	%{spaceabove}% measure of space to leave above the theorem. E.g.: 3pt
+	%{spacebelow}% measure of space to leave below the theorem. E.g.: 3pt
+	%{bodyfont}% name of font to use in the body of the theorem
+	%{indent}% measure of space to indent
+	%{headfont}% name of head font
+	%{headpunctuation}% punctuation between head and body
+	%{headspace}% space after theorem head; " " = normal interword space
+	%{headspec}% Manually specify head
 
 % Theorem styles
 \declaretheoremstyle[
-  %spaceabove=.5\thm@preskip,
-  %spacebelow=.5\thm@postskip,
-  %headfont=\normalfont\bfseries,%\scshape,
-  %notefont=\normalfont, notebraces={ (}{)},
-  bodyfont=\normalfont\itshape,
-  %headformat={\NAME\space\NUMBER\space\NOTE},
-  headpunct={},
-  %postheadspace={.5em plus .1em minus .1em},
-  %prefoothook={\hfill\qedsymbol}
+	%spaceabove=.5\thm@preskip,
+	%spacebelow=.5\thm@postskip,
+	%headfont=\normalfont\bfseries,%\scshape,
+	%notefont=\normalfont, notebraces={ (}{)},
+	bodyfont=\normalfont\itshape,
+	%headformat={\NAME\space\NUMBER\space\NOTE},
+	headpunct={},
+	%postheadspace={.5em plus .1em minus .1em},
+	%prefoothook={\hfill\qedsymbol}
 ]{kaoplain}
 
 \declaretheoremstyle[
-  %spaceabove=.5\thm@preskip,
-  %spacebelow=.5\thm@postskip,
-  %headfont=\normalfont\bfseries,%\scshape,
-  %notefont=\normalfont, notebraces={ (}{)},
-  bodyfont=\normalfont\itshape,
-  %headformat={\NAME\space\NUMBER\space\NOTE},
-  headpunct={},
-  %postheadspace={.5em plus .1em minus .1em},
-  %prefoothook={\hfill\qedsymbol}
+	%spaceabove=.5\thm@preskip,
+	%spacebelow=.5\thm@postskip,
+	%headfont=\normalfont\bfseries,%\scshape,
+	%notefont=\normalfont, notebraces={ (}{)},
+	bodyfont=\normalfont\itshape,
+	%headformat={\NAME\space\NUMBER\space\NOTE},
+	headpunct={},
+	%postheadspace={.5em plus .1em minus .1em},
+	%prefoothook={\hfill\qedsymbol}
 ]{kaodefinition}
 
 \declaretheoremstyle[
-  %spaceabove=.5\thm@preskip,
-  %spacebelow=.5\thm@postskip,
-  %headfont=\normalfont\bfseries,
-  %notefont=\normalfont, notebraces={ (}{)},
-  %bodyfont=\normalfont,
-  %headformat={\footnotesize$\triangleright$\space\normalsize\NAME\space\NUMBER\space\NOTE},
-  %headformat={\NAME\space\NUMBER\space\NOTE},
-  headpunct={},
-  %postheadspace={.5em plus .1em minus .1em},
-  %refname={theorem,theorems},
-  %Refname={Theorem,Theorems},
+	%spaceabove=.5\thm@preskip,
+	%spacebelow=.5\thm@postskip,
+	%headfont=\normalfont\bfseries,
+	%notefont=\normalfont, notebraces={ (}{)},
+	%bodyfont=\normalfont,
+	%headformat={\footnotesize$\triangleright$\space\normalsize\NAME\space\NUMBER\space\NOTE},
+	%headformat={\NAME\space\NUMBER\space\NOTE},
+	headpunct={},
+	%postheadspace={.5em plus .1em minus .1em},
+	%refname={theorem,theorems},
+	%Refname={Theorem,Theorems},
 ]{kaoremark}
 
 \declaretheoremstyle[
-  %spaceabove=.5\thm@preskip,
-  %spacebelow=.5\thm@postskip,
-  %headfont=\normalfont\bfseries,
-  %notefont=\normalfont, notebraces={ (}{)},
-  %bodyfont=\normalfont,
-  %headformat={\NAME\space\NUMBER\space\NOTE},
-  headpunct={},
-  %postheadspace={.5em plus .1em minus .1em},
-  %prefoothook={\hfill\qedsymbol}
-  %refname={theorem,theorems},
-  %Refname={Theorem,Theorems},
+	%spaceabove=.5\thm@preskip,
+	%spacebelow=.5\thm@postskip,
+	%headfont=\normalfont\bfseries,
+	%notefont=\normalfont, notebraces={ (}{)},
+	%bodyfont=\normalfont,
+	%headformat={\NAME\space\NUMBER\space\NOTE},
+	headpunct={},
+	%postheadspace={.5em plus .1em minus .1em},
+	%prefoothook={\hfill\qedsymbol}
+	%refname={theorem,theorems},
+	%Refname={Theorem,Theorems},
 ]{kaoexample}
 
 \theoremstyle{kaoplain}
+
 \declaretheorem[
 	name=Theorem,
 	refname={theorem,theorems},
 	Refname={Theorem,Theorems},
 	numberwithin=section,
 ]{theorem}
+
 \declaretheorem[
 	name=Proposition,
 	refname={proposition,propositions},
 	Refname={Proposition,Propositions},
 	sibling=theorem,
 ]{proposition}
+
 \declaretheorem[
 	name=Lemma,
 	refname={lemma,lemmas},
 	Refname={Lemma,Lemmas},
 	sibling=theorem,
 ]{lemma}
+
 \declaretheorem[
 	name=Corollary,
 	refname={corollary,corollaries},

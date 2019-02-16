@@ -1,33 +1,35 @@
 \ProvidesPackage{style}
 
-% GEOMETRY {{{
+%----------------------------------------------------------------------------------------
+%	GEOMETRY
+%----------------------------------------------------------------------------------------
 
 % Golden ratio proportions on crown quarto with marginpar inside
 %\RequirePackage[includemp,
-			%paperwidth=18.90cm,
-			%paperheight=24.58cm,
-			%top=2.170cm,
-			%bottom=3.510cm,
-			%inner=2.1835cm,
-			%outer=2.1835cm,
-			%marginparwidth=4cm, % Fixed for now
-			%marginparsep=0.4cm]{geometry}
+	%paperwidth=18.90cm,
+	%paperheight=24.58cm,
+	%top=2.170cm,
+	%bottom=3.510cm,
+	%inner=2.1835cm,
+	%outer=2.1835cm,
+	%marginparwidth=4cm, % Fixed for now
+	%marginparsep=0.4cm]{geometry}
 
 % For full bleed printing on crown quarto with 1/8 inch trim margin
 % \RequirePackage[includemp,
-%             paperwidth=19.54cm,
-%             paperheight=25.22cm,
-%             % showframe,
-%             layoutwidth=18.90cm,
-%             layoutheight=24.58cm,
-%             layouthoffset=0.32cm,
-%             layoutvoffset=0.32cm,
-%             top=2.170cm,
-%             bottom=3.510cm,
-%             inner=2.1835cm,
-%             outer=2.1835cm,
-%             marginparwidth=4cm, % Fixed for now
-%             marginparsep=0.4cm]{geometry}
+	%paperwidth=19.54cm,
+	%paperheight=25.22cm,
+	%% showframe,
+	%layoutwidth=18.90cm,
+	%layoutheight=24.58cm,
+	%layouthoffset=0.32cm,
+	%layoutvoffset=0.32cm,
+	%top=2.170cm,
+	%bottom=3.510cm,
+	%inner=2.1835cm,
+	%outer=2.1835cm,
+	%marginparwidth=4cm, % Fixed for now
+	%marginparsep=0.4cm]{geometry}
 
 % For printing on A4
 %\usepackage[
@@ -129,107 +131,106 @@
 	}
 }
 
-% }}}
-
-% ENCODING & FONTS {{{
+%----------------------------------------------------------------------------------------
+%	ENCODING AND FONTS
+%----------------------------------------------------------------------------------------
 
 \RequirePackage{ifxetex}
 
 \ifxetex
-  \RequirePackage{polyglossia}			% Correct hyphenation
-  \setdefaultlanguage{italian}
-  \RequirePackage[english=british]{csquotes}	% English quotes
-  \RequirePackage{fontspec}				% Selecting fonts
+	\RequirePackage{polyglossia}	% Correct hyphenation
+	\setdefaultlanguage{italian}
+	\RequirePackage[english=british]{csquotes}	% English quotes
+	\RequirePackage{fontspec}		% Selecting fonts
 
-  \geometry{xetex}
-  \hypersetup{xetex}
+	\geometry{xetex}
+	\hypersetup{xetex}
 
-  \RequirePackage{mathpazo}
-  %\RequirePackage{fourier}
-  \RequirePackage[scaled=.95]{helvet}
-  \RequirePackage{beramono}
+	\RequirePackage{mathpazo}
+	%\RequirePackage{fourier}
+	\RequirePackage[scaled=.95]{helvet}
+	\RequirePackage{beramono}
 
-  %\setmainfont{texgyrepagella-regular.otf}[
+	%\setmainfont{texgyrepagella-regular.otf}[
 	%Ligatures=TeX,
 	%Numbers=Lining,
 	%BoldFont=texgyrepagella-bold.otf,
 	%ItalicFont=texgyrepagella-italic.otf,
 	%BoldItalicFont=texgyrepagella-bolditalic.otf,
-  %]
-  %\setmonofont{Nimbus Mono PS}[
+	%]
+	%\setmonofont{Nimbus Mono PS}[
 	%%Path=../fonts/,
 	%Scale=MatchLowercase,
 	%%BoldFont=CourierPrime-Bold,
 	%%ItalicFont=CourierPrime-Italic,
 	%%BoldItalicFont=CourierPrime-BoldItalic,
-  %]
+	%]
 
-  %\newfontfamily\fanciestfont[
+	%\newfontfamily\fanciestfont[
 	%%Path=../fonts/,
 	%Ligatures={TeX,Discretionary},
 	%%Scale=MatchLowerCase,
-  %]{Cantarell}
-  %\newfontfamily\fancyfont[
+	%]{Cantarell}
+	%\newfontfamily\fancyfont[
 	%%Path=../fonts/,
 	%Ligatures=TeX,
-  %]{Cantarell}
-  %\newfontfamily\chapternumberfont[
+	%]{Cantarell}
+	%\newfontfamily\chapternumberfont[
 	%%Path=../fonts/,
 	%Ligatures=TeX,
 	%Numbers=Lining
-  %]{Cantarell}
+	%]{Cantarell}
 
-  %\addtokomafont{disposition}{\fancyfont}
-  %\addtokomafont{part}{\Huge}
-  %\addtokomafont{title}{\fanciestfont}
-  %\addtokomafont{chapter}{\fanciestfont}
-  %\addtokomafont{chapterentry}{\normalfont\scshape}
-  %\addtokomafont{descriptionlabel}{\normalfont\bfseries}
-  %\addtokomafont{caption}{\footnotesize}
+	%\addtokomafont{disposition}{\fancyfont}
+	%\addtokomafont{part}{\Huge}
+	%\addtokomafont{title}{\fanciestfont}
+	%\addtokomafont{chapter}{\fanciestfont}
+	%\addtokomafont{chapterentry}{\normalfont\scshape}
+	%\addtokomafont{descriptionlabel}{\normalfont\bfseries}
+	%\addtokomafont{caption}{\footnotesize}
 
 \else
-  \RequirePackage[english]{babel}	% Load characters and hyphenation
-  \RequirePackage[T1]{fontenc}		% utf8 encoding in the output (.pdf) file
-  \RequirePackage[utf8]{inputenc}	% utf8 encoding in the input (.tex) file
-  \RequirePackage[english=british]{csquotes}	% English quotes
+	\RequirePackage[english]{babel} % Load characters and hyphenation
+	\RequirePackage[T1]{fontenc} % utf8 encoding in the output (.pdf) file
+	\RequirePackage[utf8]{inputenc} % utf8 encoding in the input (.tex) file
+	\RequirePackage[english=british]{csquotes}	% English quotes
 
-  %\RequirePackage{fourier}
-  \usepackage{mathpazo}
-  %\usepackage{Baskervaldx}
-  \usepackage[scaled]{helvet}
-  %\usepackage{avant}
-  %\usepackage{courier} % monospace font
-  \usepackage[scaled=.85]{beramono} % monospace font
-  \usepackage[cal=boondoxo]{mathalfa} % mathcal from STIX, unslanted a 
-  %bit
-  \usepackage[cmintegrals,bigdelims,vvarbb]{newtxmath} % 
-  %\usepackage[baskervaldx,cmintegrals,bigdelims,vvarbb]{newtxmath} % 
-  %math italic letters from Baskervaldx
+	%\RequirePackage{fourier}
+	\usepackage{mathpazo}
+	%\usepackage{Baskervaldx}
+	\usepackage[scaled]{helvet}
+	%\usepackage{avant}
+	%\usepackage{courier} % monospace font
+	\usepackage[scaled=.85]{beramono} % monospace font
+	\usepackage[cal=boondoxo]{mathalfa} % mathcal from STIX, unslanted a 
+	%bit
+	\usepackage[cmintegrals,bigdelims,vvarbb]{newtxmath} % 
+	%\usepackage[baskervaldx,cmintegrals,bigdelims,vvarbb]{newtxmath} % 
+	%math italic letters from Baskervaldx
 
-  %\addtokomafont{disposition}{\rmfamily\normalfont\itshape}
-  %\addtokomafont{title}{\normalfont\itshape}
-  %\addtokomafont{part}{\fontfamily{pplx}\selectfont\itshape\bfseries}
-  \addtokomafont{part}{\normalfont\scshape\bfseries}
-  \addtokomafont{chapter}{\normalfont\itshape\bfseries}
-  \addtokomafont{section}{\normalfont\itshape\bfseries}
-  \addtokomafont{subsection}{\normalfont\itshape\bfseries}
-  \addtokomafont{subsubsection}{\normalfont\itshape\bfseries}
-  \addtokomafont{paragraph}{\normalfont\itshape\bfseries}
-  \addtokomafont{partentry}{\normalfont\scshape\bfseries}
-  \addtokomafont{chapterentry}{\normalfont\bfseries}
-  %\setkomafont{descriptionlabel}{\small}
-  %\addtokomafont{caption}{\footnotesize}
-  %\makeatletter
-  %\addtokomafont{captionlabel}{\@margin@par}
-  %\makeatother
+	%\addtokomafont{disposition}{\rmfamily\normalfont\itshape}
+	%\addtokomafont{title}{\normalfont\itshape}
+	%\addtokomafont{part}{\fontfamily{pplx}\selectfont\itshape\bfseries}
+	\addtokomafont{part}{\normalfont\scshape\bfseries}
+	\addtokomafont{chapter}{\normalfont\itshape\bfseries}
+	\addtokomafont{section}{\normalfont\itshape\bfseries}
+	\addtokomafont{subsection}{\normalfont\itshape\bfseries}
+	\addtokomafont{subsubsection}{\normalfont\itshape\bfseries}
+	\addtokomafont{paragraph}{\normalfont\itshape\bfseries}
+	\addtokomafont{partentry}{\normalfont\scshape\bfseries}
+	\addtokomafont{chapterentry}{\normalfont\bfseries}
+	%\setkomafont{descriptionlabel}{\small}
+	%\addtokomafont{caption}{\footnotesize}
+	%\makeatletter
+	%\addtokomafont{captionlabel}{\@margin@par}
+	%\makeatother
 
-  \setstretch{1.10}
-
+	\setstretch{1.10}
 \fi
 
-% }}}
-
-% COLOURS {{{
+%----------------------------------------------------------------------------------------
+%	COLOURS
+%----------------------------------------------------------------------------------------
 
 %\addtokomafont{title}{\color{Maroon}}
 %\addtokomafont{part}{\color{Maroon}}
@@ -253,9 +254,9 @@
 	urlcolor=DarkGreen,
 }
 
-% }}}
-
-% TOC, LOF AND LOT {{{
+%----------------------------------------------------------------------------------------
+%	TOC, LOF & LOT
+%----------------------------------------------------------------------------------------
 
 \RequirePackage{tocbasic}
 \setuptoc{toc}{totoc}
@@ -309,5 +310,3 @@
 %\renewcommand{\cfttabfont}{\hypersetup{allcolors=black}}
 %\renewcommand{\cfttableader}{\hspace{1em}}
 %\renewcommand{\cfttabafterpnum}{\cftparfillskip}
-
-% }}}

@@ -37,29 +37,28 @@
 \newcommand{\refdef}[1]{\textbf{\hyperref[def:#1]{Definition}\xspace\ref{def:#1}}}
 
 % Cite commands (assuming biblatex is loaded)
-\DeclareCiteCommand{\fullcite}
-  {\defcounter{maxnames}{99}%
-    \usebibmacro{prenote}}
-  {\clearfield{url}%
-   \clearfield{pages}%
-   \clearfield{pagetotal}%
-   \clearfield{edition}%
-   \clearfield{issn}%
-   \clearfield{doi}%
-   \usedriver
-     {\DeclareNameAlias{sortname}{default}}
-     {\thefield{entrytype}}
-  }
-  {\multicitedelim}
-  {\usebibmacro{postnote}}
+\DeclareCiteCommand{\fullcite}{%
+	\defcounter{maxnames}{99}%
+	\usebibmacro{prenote}}
+	{\clearfield{url}%
+	\clearfield{pages}%
+	\clearfield{pagetotal}%
+	\clearfield{edition}%
+	\clearfield{issn}%
+	\clearfield{doi}%
+	\usedriver
+	{\DeclareNameAlias{sortname}{default}}
+	{\thefield{entrytype}}
+}
+{\multicitedelim}
+{\usebibmacro{postnote}}
 
 % Tables
 \newcommand{\na}{\quad--} % Used in tables for N/A cells
 \newcommand{\hangp}[1]{\makebox[0pt][r]{(}#1\makebox[0pt][l]{)}} % Create parentheses around text in tables which take up no horizontal space - this improves column spacing
 \newcommand{\hangstar}{\makebox[0pt][l]{*}} % Create asterisks in tables which take up no horizontal space - this improves column spacing
 
-% A command to print the current month and year
-% Taken from tufte-latex
+% A command to print the current month and year (from tufte-latex)
 \newcommand{\monthyear}{\ifcase\month\or January\or February\or March\or 
 April\or May\or June\or July\or August\or September\or October\or 
 November\or December\fi\space\number\year}
