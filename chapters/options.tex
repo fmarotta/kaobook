@@ -1,18 +1,6 @@
-%\renewcommand*{\chapterformat}
-%{
-  %\enskip\mbox{\scalebox{3.5}{\framebox{\thechapter\autodot}}}
-%}
-%\renewcommand\chapterlinesformat[3]
-%{
-  %\parbox[b]{\textwidth+\marginparsep+\marginparwidth}{
-	%\parbox[b]{\textwidth}{#3}%
-	%\parbox[b]{\marginparsep}{\hfill}%
-	%\parbox[b]{\marginparwidth}{#2}%
-  %}
-  %%\hrule
-%}
 \setchapterpreamble[u]{\margintoc}
 \chapter{Class Options}
+\labch{options}
 
 In this chapter I will describe the most common options used, both the 
 ones inherited from scrbook and the kao-specific ones.
@@ -21,57 +9,60 @@ ones inherited from scrbook and the kao-specific ones.
 
 The class is based on the scrbook, therefore it understands all of the 
 options you would normally pass to that class. By default, the font size 
-is 9pt and the paragraphs are separated by space, not marked by 
+is 9.5pt and the paragraphs are separated by space, not marked by 
 indentation. The default value for parskip is half.
 
 The toc has an entry for everything: listoffigures, listoftables, 
-indices, and bibliographies. There are also entries for the 
-tableofcontents itself (thanks to the \verb|\setuptoc{toc}{totoc}| 
-command). If you want entries for the glossaries as well, you can set 
-the \verb|toc| option of the package 
-\verb|glossaries|.\sidenote[*-1.5][]{If you don't want all these things 
-in the table of contents, pass the appropriate KOMA options to the 
-class.}
+indices, glossaries and bibliographies. There are also entries for the 
+table of contents itself (thanks to the 
+\Command{setuptoc\{toc\}\{totoc\}} command). If you want entries for the 
+glossaries as well, you can set the \Option{toc} option of the package 
+\Package{glossaries}.\sidenote[-7mm][]{If you don't want all these 
+things in the table of contents, pass the appropriate KOMA options to 
+the class.}
 
 \section{KAO options}
 
 In the future I plan to add more options to set the paragraph formatting 
-(justified vs ragged) and the position of the margins (inner vs outer in 
-twoside mode, left vs right in oneside mode)\sidenote[*-1.5][]{As of 
-now, paragraphs are justified, formatted with \texttt{singlespacing} 
-(from package \texttt{setspace}) and \texttt{frenchspacing}.}. 
+(\eg justified vs ragged) and the position of the margins (inner or 
+outer in twoside mode, left or right in oneside 
+mode)\sidenote[-10mm][]{As of now, paragraphs are justified, formatted 
+with \Command{singlespacing} (from the \Package{setspace} package) and 
+\Command{frenchspacing}.}. 
 
 \section{Other things worth knowing}
 
 By default, dispositions are numbered up to the section thanks to the 
-command \verb|\setcounter{secnumdepth}{1}|. We also altered slightly the 
-entries of the parts in the table of contents so as to include "Part". 
-The table of contents can be modified through the package \verb|etoc|, 
-which is loaded because it is needed for the margintocs. The sidenotes 
-are numbered on a per-chapter basis.
+command \Command{setcounter\{secnumdepth\}\{1\}}. The table of contents 
+can be modified through the package \Package{etoc}, which is loaded 
+because it is needed for the margintocs, or the more traditional 
+\Package{tocbase}. The sidenotes are numbered on a per-chapter basis, 
+with the \Package{chngcntr} package; if you want to have only one 
+counter for the whole document, check the provided \Path{style.sty} 
+file.
 
 \marginnote[1.5\parskip]{We also load \texttt{xcolor}.}
 
-The packages \verb|inputenc|, \verb|hyphenat|, \verb|microtype| are 
-already loaded, but you have to load babel or polyglossia and csquotes, 
-if you wish. \verb|biblatex| is already loaded and it is needed to 
-display citations in the margins.
+The packages \Package{inputenc}, \Package{hyphenat}, \Package{microtype} 
+are loaded in the class file. \Package{babel} and \Package{biblatex} are 
+already loaded, the latter being needed to display citations in the 
+margins.
 
 \section{Document Structure}
 
-We provide optional arguments to the \verb|\title| and \verb|\author| 
-commands so that you can insert short, plain text versions of this 
-fields, which can be used, typically in the half-title or somewhere else 
-in the frontmatter, through the commands \verb|\@plaintitle| and 
-\verb|\@plainauthor|, respectively. The pdftitle and pdfauthor are set 
-through hyperref to the plain values if present, otherwise to the normal 
-values.
+We provide optional arguments to the \Command{title} and 
+\Command{author} commands so that you can insert short, plain text 
+versions of this fields, which can be used, typically in the half-title 
+or somewhere else in the frontmatter, through the commands 
+\Command{@plaintitle} and \Command{@plainauthor}, respectively. The 
+pdftitle and pdfauthor are automatically set through hyperref to the 
+plain values if present, otherwise to the normal values.
 
 The frontmatter uses a layout without margins and a plain page style 
-(\ie no headings). In the mainmatter the margins are wide, the page 
-numbers are arabic (while in the frontmatter there are roman numbers) 
-and the headings are fancy. In the appendix we use 
-\verb|\bookmarksetup{startatroot}| so that the bookmarks to the chapters 
-are on their own; without this, they would be under the preceding part. 
-In the backmatter the margins shrink again and we reset again the 
-bookmarks root.
+(\ie no headers or footers). In the mainmatter the margins are wide, the 
+page numbers are arabic (while in the frontmatter there are roman 
+numbers, even though they are not visible) and the headings are fancy. 
+In the appendix we use \Command{bookmarksetup\{startatroot\}} so that 
+the bookmarks to the chapters are on their own; without this, they would 
+be under the preceding part. In the backmatter the margins shrink again 
+and we reset again the bookmarks root.

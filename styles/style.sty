@@ -1,71 +1,33 @@
 \ProvidesPackage{style}
 
 %----------------------------------------------------------------------------------------
-%	GEOMETRY
+%	PAGE LAYOUT
 %----------------------------------------------------------------------------------------
 
-% Golden ratio proportions on crown quarto with marginpar inside
-%\RequirePackage[includemp,
-	%paperwidth=18.90cm,
-	%paperheight=24.58cm,
-	%top=2.170cm,
-	%bottom=3.510cm,
-	%inner=2.1835cm,
-	%outer=2.1835cm,
-	%marginparwidth=4cm, % Fixed for now
-	%marginparsep=0.4cm]{geometry}
-
-% For full bleed printing on crown quarto with 1/8 inch trim margin
-% \RequirePackage[includemp,
-	%paperwidth=19.54cm,
-	%paperheight=25.22cm,
-	%% showframe,
-	%layoutwidth=18.90cm,
-	%layoutheight=24.58cm,
-	%layouthoffset=0.32cm,
-	%layoutvoffset=0.32cm,
-	%top=2.170cm,
-	%bottom=3.510cm,
-	%inner=2.1835cm,
-	%outer=2.1835cm,
-	%marginparwidth=4cm, % Fixed for now
-	%marginparsep=0.4cm]{geometry}
-
-% For printing on A4
-%\usepackage[
-	%a4paper,
-	%paperwidth=21.0cm,
-	%paperheight=29.7cm,
-	%%layouthoffset=1.05cm,
-	%%layoutvoffset=2.56cm,
-	%top=2.620cm,
-	%bottom=4.238cm,
-	%inner=2.183cm,
-	%outer=2.183cm,
-	%marginparwidth=4.830cm, % Fixed for now
-	%marginparsep=0.483cm,
-	%includemp
-%]{geometry}
-
-% Tufte geometry
 \usepackage[
 	a4paper,
 	%paperwidth=21.0cm,
 	%paperheight=29.7cm,
-	top=27.4mm,
 	bottom=27.4mm,
 	inner=24.8mm,
 	%outer=24.8mm,
-	%headsep=2\baselineskip,
+	%right=2.183cm,
 	textwidth=107mm,
 	marginparsep=8.2mm,
 	marginparwidth=49.4mm,
 	%textheight=49\baselineskip,
-	%headheight=\baselineskip,
-	includemp,
+	includemp
 ]{geometry}
 
-\newcommand{\marginpage}{
+% TODO: see page 410 of the KOMA-script guide, it may be possible to include the layout in the \pagestyle with \beforeselectanypagestyle.
+
+\DeclareDocumentCommand{\pagelayout}{m}{
+	\ifthenelse{\equal{margin}{#1}}{\marginlayout}{}
+	\ifthenelse{\equal{wide}{#1}}{\widelayout}{}
+	\ifthenelse{\equal{fullwidth}{#1}}{\fullwidthlayout}{}
+}
+
+\newcommand{\marginlayout}{
 	\newgeometry{
 		top=27.4mm,
 		bottom=27.4mm,
@@ -80,7 +42,7 @@
 	}
 }
 
-\newcommand{\widepage}{
+\newcommand{\widelayout}{
 	\newgeometry{
 		top=27.4mm,
 		bottom=27.4mm,
@@ -95,30 +57,6 @@
 	}
 }
 
-%\newcommand{\marginpage}{
-	%\newgeometry{
-		%top=2.620cm,
-		%bottom=4.238cm,
-		%inner=2.183cm,
-		%outer=2.183cm,
-		%marginparwidth=4.830cm,
-		%marginparsep=0.483cm,
-		%includemp
-	%}
-%}
-
-%\newcommand{\widepage}{
-	%\newgeometry{
-		%top=2.620cm,
-		%bottom=4.238cm,
-		%inner=2.1835cm,
-		%outer=2.1835cm,
-		%marginparwidth=0cm,
-		%marginparsep=0cm,
-		%ignoremp
-	%}
-%}
-
 \newcommand{\fullwidthpage}{
 	\newgeometry{
 		top=0cm,
@@ -132,101 +70,187 @@
 }
 
 %----------------------------------------------------------------------------------------
+%	HEADERS AND FOOTERS
+%----------------------------------------------------------------------------------------
+
+\RequirePackage{scrlayer-scrpage}       % Customise head and foot regions
+\setlength{\headheight}{115pt}			% Enlarge the header
+
+% Headings styles
+% FIXME: use headwidth (see page 259 of the KOMA-script book)
+\renewpagestyle{scrheadings}{
+	{\hspace{-\marginparwidth}\hspace{-\marginparsep}%
+		\makebox[\overflowingheadlen][l]{\makebox[2em][r]{\thepage}%
+		\quad\rule{1pt}{100pt}\quad{}\leftmark} }%
+  	{\makebox[\overflowingheadlen][r]{\rightmark\quad\rule{1pt}{100pt}%
+		\quad\makebox[2em][l]{\thepage}} }%
+  	{\makebox[\overflowingheadlen][r]{\rightmark\quad\rule{1pt}{100pt}%
+		\quad\makebox[2em][l]{\thepage}} }%
+}{
+	{}%
+	{}%
+	{}
+}
+
+\renewpagestyle{plain.scrheadings}{
+	{}%
+	{}%
+	{}
+}{
+	{}%
+	{}%
+	{}
+}
+
+\newpagestyle{pagenum.scrheadings}{
+	{}%
+	{}%
+	{}
+}{
+	{\thepage}%
+	{\hfill\thepage}%
+	{}
+}
+
+%----------------------------------------------------------------------------------------
+%	CHAPTER HEADING STYLES
+%----------------------------------------------------------------------------------------
+
+\DeclareDocumentCommand{\setchapterstyle}{m}{
+	\ifthenelse{\equal{plain}{#1}}{\chapterstyleplain}{}
+	\ifthenelse{\equal{lines}{#1}}{\chapterstylelines}{}
+	\ifthenelse{\equal{kao}{#1}}{\chapterstylekao}{}
+}
+
+% The default definition in KOMA script
+\DeclareDocumentCommand{\chapterstyleplain}{}
+{
+	\renewcommand{\chapterlinesformat}[3]{%
+		\@hangfrom{##2}{##3}}
+	\renewcommand*{\chapterformat}{%
+		\mbox{\chapappifchapterprefix{\nobreakspace}\thechapter%
+		\autodot\IfUsePrefixLine{}{\enskip}}}
+
+	\RedeclareSectionCommand[beforeskip=0cm,afterskip=1cm]{chapter}
+	\setlength{\mtocshift}{-3.2cm}
+}
+
+% The Kao style
+\DeclareDocumentCommand{\chapterstylekao}{}
+{
+	\renewcommand*{\chapterformat}
+	{
+	  \chapappifchapterprefix{\nobreakspace}\scalebox{3.5}{\thechapter\autodot}
+	}
+	\renewcommand\chapterlinesformat[3]
+	{
+	  \makebox[\textwidth+\marginparsep+\marginparwidth]{%
+		\makebox[\textwidth][r]{##2}%\hfill%\par%\bigskip
+		\makebox[\marginparsep][c]{\rule[-1.5cm]{1pt}{3.5cm}}%
+		\makebox[\marginparwidth][l]{}%
+	  }\\
+	  \vspace{-0.8cm}
+	  \makebox[\textwidth+\marginparsep+\marginparwidth]{%
+		\makebox[\textwidth][r]{##3}%
+		\makebox[\marginparsep][l]{}%
+		\makebox[\marginparwidth][l]{}%
+	  }
+	}
+
+	\RedeclareSectionCommand[beforeskip=0cm,afterskip=0.3cm]{chapter}
+	\setlength{\mtocshift}{-4.6cm}
+}
+
+% Lines
+\DeclareDocumentCommand{\chapterstylelines}{}
+{
+	\renewcommand*{\chapterformat}
+	{
+	  \chapappifchapterprefix{\nobreakspace}\scalebox{3.5}{\thechapter\autodot}
+	}
+	\renewcommand\chapterlinesformat[3]
+	{
+	  %\vspace*{-1cm}%
+	  \leavevmode
+	  \makebox[\textwidth+\marginparsep+\marginparwidth]{%
+		\makebox[\textwidth][l]{\hrulefill[1pt]##2}%\hfill%\par%\bigskip
+		\makebox[\marginparsep][l]{}%
+		\makebox[\marginparwidth][l]{}%
+	  }\\
+	  %\vspace{.5cm}
+	  \makebox[\textwidth+\marginparsep+\marginparwidth]{%
+		\makebox[\textwidth][l]{##3}%
+		\makebox[\marginparsep][l]{}%
+		\makebox[\marginparwidth][l]{}%
+	  }\\
+	  \makebox[\textwidth+\marginparsep+\marginparwidth]{%
+		\hrulefill[1.1pt]%
+		%\makebox[\textwidth][l]{\hrulefill}%
+		%\makebox[\marginparsep][l]{\hrulefill}%
+		%\makebox[\marginparwidth][l]{\hrulefill}%
+	  }
+	}
+
+	\RedeclareSectionCommand[beforeskip=0cm,afterskip=1cm]{chapter}
+	\setlength{\mtocshift}{-2.5cm}
+}
+
+% By default start with plain style
+\chapterstyleplain
+
+
+% Takes as input the image path and optinally beforeskip
+\DeclareDocumentCommand{\setchapterimage}{O{5.5cm} m}
+{
+	\setchapterpreamble[o]{
+		\vspace*{-2.7cm}\hspace*{-2.56cm}
+		\includegraphics[width=\paperwidth,height=#1+2.7cm,keepaspectratio=false]{#2}
+	}
+	% beforeskip=-(figure_height-top_margin)
+	\RedeclareSectionCommand[beforeskip=-#1]{chapter}
+	\setlength{\mtocshift}{-2cm}%
+}
+
+
+%----------------------------------------------------------------------------------------
 %	ENCODING AND FONTS
 %----------------------------------------------------------------------------------------
 
-\RequirePackage{ifxetex}
+\RequirePackage[english]{babel} % Load characters and hyphenation
+\RequirePackage[T1]{fontenc} % utf8 encoding in the output (.pdf) file
+\RequirePackage[utf8]{inputenc} % utf8 encoding in the input (.tex) file
+\RequirePackage[english=british]{csquotes}	% English quotes
 
-\ifxetex
-	\RequirePackage{polyglossia}	% Correct hyphenation
-	\setdefaultlanguage{italian}
-	\RequirePackage[english=british]{csquotes}	% English quotes
-	\RequirePackage{fontspec}		% Selecting fonts
+%\RequirePackage{fourier}
+\usepackage{mathpazo}
+%\usepackage{Baskervaldx}
+\usepackage[scaled]{helvet}
+%\usepackage{avant}
+%\usepackage{courier} % monospace font
+\usepackage[scaled=.85]{beramono} % monospace font
+\usepackage[cal=boondoxo]{mathalfa} % mathcal from STIX, unslanted a bit
+\usepackage[cmintegrals,bigdelims,vvarbb]{newtxmath} % 
+%\usepackage[baskervaldx,cmintegrals,bigdelims,vvarbb]{newtxmath} % 
+%math italic letters from Baskervaldx
 
-	\geometry{xetex}
-	\hypersetup{xetex}
+%\addtokomafont{disposition}{\rmfamily\normalfont\itshape}
+%\addtokomafont{title}{\normalfont\itshape}
+%\addtokomafont{part}{\fontfamily{pplx}\selectfont\itshape\bfseries}
+\addtokomafont{part}{\normalfont\scshape\bfseries}
+\addtokomafont{chapter}{\normalfont\itshape}
+\addtokomafont{section}{\normalfont\itshape}
+\addtokomafont{subsection}{\normalfont\itshape}
+\addtokomafont{subsubsection}{\normalfont\itshape}
+\addtokomafont{paragraph}{\normalfont\itshape}
+\addtokomafont{partentry}{\normalfont\scshape\bfseries}
+\addtokomafont{chapterentry}{\normalfont\bfseries}
+\setkomafont{descriptionlabel}{\normalfont\bfseries}
+%\addtokomafont{caption}{\footnotesize}
+%\makeatletter
+%\addtokomafont{captionlabel}{\@margin@par}
+%\makeatother
 
-	\RequirePackage{mathpazo}
-	%\RequirePackage{fourier}
-	\RequirePackage[scaled=.95]{helvet}
-	\RequirePackage{beramono}
-
-	%\setmainfont{texgyrepagella-regular.otf}[
-	%Ligatures=TeX,
-	%Numbers=Lining,
-	%BoldFont=texgyrepagella-bold.otf,
-	%ItalicFont=texgyrepagella-italic.otf,
-	%BoldItalicFont=texgyrepagella-bolditalic.otf,
-	%]
-	%\setmonofont{Nimbus Mono PS}[
-	%%Path=../fonts/,
-	%Scale=MatchLowercase,
-	%%BoldFont=CourierPrime-Bold,
-	%%ItalicFont=CourierPrime-Italic,
-	%%BoldItalicFont=CourierPrime-BoldItalic,
-	%]
-
-	%\newfontfamily\fanciestfont[
-	%%Path=../fonts/,
-	%Ligatures={TeX,Discretionary},
-	%%Scale=MatchLowerCase,
-	%]{Cantarell}
-	%\newfontfamily\fancyfont[
-	%%Path=../fonts/,
-	%Ligatures=TeX,
-	%]{Cantarell}
-	%\newfontfamily\chapternumberfont[
-	%%Path=../fonts/,
-	%Ligatures=TeX,
-	%Numbers=Lining
-	%]{Cantarell}
-
-	%\addtokomafont{disposition}{\fancyfont}
-	%\addtokomafont{part}{\Huge}
-	%\addtokomafont{title}{\fanciestfont}
-	%\addtokomafont{chapter}{\fanciestfont}
-	%\addtokomafont{chapterentry}{\normalfont\scshape}
-	%\addtokomafont{descriptionlabel}{\normalfont\bfseries}
-	%\addtokomafont{caption}{\footnotesize}
-
-\else
-	\RequirePackage[english]{babel} % Load characters and hyphenation
-	\RequirePackage[T1]{fontenc} % utf8 encoding in the output (.pdf) file
-	\RequirePackage[utf8]{inputenc} % utf8 encoding in the input (.tex) file
-	\RequirePackage[english=british]{csquotes}	% English quotes
-
-	%\RequirePackage{fourier}
-	\usepackage{mathpazo}
-	%\usepackage{Baskervaldx}
-	\usepackage[scaled]{helvet}
-	%\usepackage{avant}
-	%\usepackage{courier} % monospace font
-	\usepackage[scaled=.85]{beramono} % monospace font
-	\usepackage[cal=boondoxo]{mathalfa} % mathcal from STIX, unslanted a 
-	%bit
-	\usepackage[cmintegrals,bigdelims,vvarbb]{newtxmath} % 
-	%\usepackage[baskervaldx,cmintegrals,bigdelims,vvarbb]{newtxmath} % 
-	%math italic letters from Baskervaldx
-
-	%\addtokomafont{disposition}{\rmfamily\normalfont\itshape}
-	%\addtokomafont{title}{\normalfont\itshape}
-	%\addtokomafont{part}{\fontfamily{pplx}\selectfont\itshape\bfseries}
-	\addtokomafont{part}{\normalfont\scshape\bfseries}
-	\addtokomafont{chapter}{\normalfont\itshape\bfseries}
-	\addtokomafont{section}{\normalfont\itshape\bfseries}
-	\addtokomafont{subsection}{\normalfont\itshape\bfseries}
-	\addtokomafont{subsubsection}{\normalfont\itshape\bfseries}
-	\addtokomafont{paragraph}{\normalfont\itshape\bfseries}
-	\addtokomafont{partentry}{\normalfont\scshape\bfseries}
-	\addtokomafont{chapterentry}{\normalfont\bfseries}
-	%\setkomafont{descriptionlabel}{\small}
-	%\addtokomafont{caption}{\footnotesize}
-	%\makeatletter
-	%\addtokomafont{captionlabel}{\@margin@par}
-	%\makeatother
-
-	\setstretch{1.10}
-\fi
+\setstretch{1.10}
 
 %----------------------------------------------------------------------------------------
 %	COLOURS
@@ -251,8 +275,29 @@
 	linkcolor=Black,
 	%menucolor=Red,
 	%runcolor=Red,
-	urlcolor=DarkGreen,
+	urlcolor=OliveGreen,
 }
+%
+%----------------------------------------------------------------------------------------
+%	NUMBERING
+%----------------------------------------------------------------------------------------
+
+\setcounter{secnumdepth}{1} % Number only up to sections
+
+\RequirePackage{chngcntr} % Allows to reset the sidenotes counter at each chapter
+
+% If you want to reset the sidenote counter at each chapter,
+% 1) comment `\counterwithout{sidenote}{chapter}'
+% 2) uncomment `\newcommand{pp@g@sidenote}{}'
+%
+% If you want only one counter for the entire document,
+% 1) uncomment `\counterwithout{sidenote}{chapter}'
+% 2) comment `\newcommand{pp@g@sidenote}{}'
+
+%\counterwithout{sidenote}{chapter}
+\newcommand{\pp@g@sidenote}{}
+
+% NOTE: the definition of \pp@g@sidenote is a small workaround in order to fix the behaviour of chngcntr.
 
 %----------------------------------------------------------------------------------------
 %	TOC, LOF & LOT
@@ -273,40 +318,3 @@
 {tocline}{figure}
 \DeclareTOCStyleEntry[level=1,indent=0em,numwidth=2em]%
 {tocline}{table}
-
-% Table of contents styles
-%\newlength{\alignviiilength}
-%\setlength{\alignviiilength}{7.5mm}
-%\newlength{\alignxlength}
-%\setlength{\alignxlength}{8.5mm}
-%\renewcommand{\cftdotsep}{\cftnodots}
-%\renewcommand{\cftpnumalign}{l}
-
-%\setlength{\cftpartnumwidth}{\alignviiilength}
-%\renewcommand{\cftpartfont}{\LARGE\hypersetup{allcolors=black}}
-%\renewcommand{\cftpartpagefont}{\LARGE}
-
-%\setlength{\cftchapnumwidth}{\alignviiilength}
-%\renewcommand{\cftchapfont}{\large\hypersetup{allcolors=black}}
-%% \renewcommand{\cftchapleader}{\hspace{1em}}
-%\renewcommand{\cftchappagefont}{\large}
-%% \renewcommand{\cftchapafterpnum}{\cftparfillskip}
-
-%\setlength{\cftsecnumwidth}{\alignviiilength}
-%\renewcommand{\cftsecfont}{\hypersetup{allcolors=black}}
-%\setlength{\cftsecindent}{\alignviiilength}
-%\renewcommand{\cftsecleader}{\hspace{1em}}
-%% \renewcommand{\cftsecpagefont}{\normalfont\color{greenforlinks}}
-%\renewcommand{\cftsecafterpnum}{\cftparfillskip}
-
-%\setlength{\cftfigindent}{0mm}
-%\renewcommand{\cftfigfont}{\hypersetup{allcolors=black}}
-%\setlength{\cftfignumwidth}{\alignxlength}
-%\renewcommand{\cftfigleader}{\hspace{1em}}
-%\renewcommand{\cftfigafterpnum}{\cftparfillskip}
-
-%\setlength{\cfttabindent}{0mm}
-%\setlength{\cfttabnumwidth}{\alignxlength}
-%\renewcommand{\cfttabfont}{\hypersetup{allcolors=black}}
-%\renewcommand{\cfttableader}{\hspace{1em}}
-%\renewcommand{\cfttabafterpnum}{\cftparfillskip}

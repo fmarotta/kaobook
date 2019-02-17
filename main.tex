@@ -4,29 +4,29 @@
 
 \documentclass[
 	fontsize=10pt,
-	%oneside,
+	twoside=false,
 	%open=any,
 	%chapterprefix=true,
 	%chapterentrydots=true,
 	numbers=noenddot,
-	%draft,
+	%draft=true,
+	%overfullrule=true,
 ]{kaobook}
 
 % TODO move lots of the below to the class
 
 % Load common packages and commands
 \usepackage{styles/packages}
-\usepackage{styles/commands}
+\usepackage{styles/references}
 \usepackage{styles/environments}
 %\usepackage{styles/plaintheorems}
 \usepackage{styles/mdftheorems}
-\usepackage{styles/headings}
 \usepackage{styles/style}
 
 % Load packages for testing
 \usepackage{blindtext}
 %\usepackage{showframe}
-%\usepackage{showlabels}
+\usepackage{showlabels}
 
 % Add bibfile
 \addbibresource{main.bib}
@@ -34,16 +34,16 @@
 % Set path for images
 \graphicspath{{images/}{./}}
 
-% Nomenclature
-\makenomenclature
-\renewcommand{\nomname}{Notation}
-\renewcommand{\nompreamble}{The next list describes several symbols that will be later used within the body of the document.}
-
 % Index
 \makeindex[columns=3, title=Alphabetical Index, intoc]
 
 % Glossary
 \makeglossaries
+
+% Nomenclature
+\makenomenclature
+\renewcommand{\nomname}{Notation}
+\renewcommand{\nompreamble}{The next list describes several symbols that will be later used within the body of the document.}
 
 \begin{document}
 
@@ -212,32 +212,18 @@
 
 \input{chapters/introduction}
 
-\widepage
-\setpartpreamble{
-	\begin{center}
-		\includegraphics[width=0.8\linewidth]{images/partpre}
-		\captionof{figure}[A puzzle]{\url{https://commons.wikimedia.org/wiki/File:Puzzle-4.svg}}
-	\end{center}
-}
-\RedeclareSectionCommand[beforeskip=3cm]{part}
+\pagelayout{wide}
 \addpart{Class Options, Commands and Environments}
-\marginpage
+\pagelayout{margin}
 
 \input{chapters/options}
 \input{chapters/textnotes}
 \input{chapters/figsntabs}
 \input{chapters/references}
 
-\widepage
-\setpartpreamble{
-	\begin{center}
-		\includegraphics[width=0.8\linewidth]{images/partpre}
-		\captionof{figure}[A puzzle]{\url{https://commons.wikimedia.org/wiki/File:Puzzle-4.svg}}
-	\end{center}
-}
-\RedeclareSectionCommand[beforeskip=3cm]{part}
+\pagelayout{wide}
 \addpart{Design and Additional Features}
-\marginpage
+\pagelayout{margin}
 
 \input{chapters/layout}
 %\input{chapters/tocs} %explain how to add custom tocs
@@ -249,9 +235,9 @@
 \appendix
 
 % Put this in \appendix?
-\widepage
+\widelayout
 \addpart{Appendix}
-\marginpage
+\marginlayout
 
 \input{chapters/ants}
 

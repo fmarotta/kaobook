@@ -28,7 +28,7 @@
 \newcommand{\@baseclass}{scrbook} % Base class name
 
 % Set the default options
-\PassOptionsToClass{fontsize=9pt}{\@baseclass}
+\PassOptionsToClass{fontsize=9.5pt}{\@baseclass}
 \PassOptionsToClass{parskip=half}{\@baseclass}
 \PassOptionsToClass{toc=listof}{\@baseclass}
 \PassOptionsToClass{toc=index}{\@baseclass}
@@ -50,6 +50,7 @@
 \RequirePackage{xifthen} % Easy conditionals
 \RequirePackage{xkeyval} % Manage class options
 \RequirePackage{xparse} % Parse arguments for macros
+\RequirePackage{xspace} % Better print trailing whitespace
 \RequirePackage{xstring} % Parse strings
 
 %----------------------------------------------------------------------------------------
@@ -83,7 +84,7 @@
 }
 
 % Make a bookmark to the title page
-\pretocmd{\maketitle}{\pdfbookmark[1]{\@title}{title}}{}{}
+\pretocmd{\maketitle}{\pdfbookmark[1]{\@plaintitle}{title}}{}{}
 
 %----------------------------------------------------------------------------------------
 %	PARAGRAPH FORMATTING
@@ -91,6 +92,10 @@
 
 \RequirePackage{ragged2e} % Required to achieve better ragged paragraphs
 \RequirePackage{setspace} % Required to easily set the space between lines
+\RequirePackage{hyphenat} % Hyphenation for special fonts
+\RequirePackage{microtype} % Improves character and word spacing
+\RequirePackage{needspace} % Required to prevent page break right after a sectioning command
+\RequirePackage[usenames,dvipsnames]{xcolor} % Colours
 
 % TODO: recognize space/indent justified/raggedright class options
 
@@ -126,8 +131,6 @@
 \let\oldfrontmatter\frontmatter % Store the old command
 \renewcommand{\frontmatter}{
 	\oldfrontmatter % first of all, call the old command
-	
-	\widepage % Use a wide page layout
 
 	% Set some Lengths used for the page headers
 	\newlength{\overflowingheadlen}
@@ -136,6 +139,7 @@
 	\addtolength{\overflowingheadlen}{\marginparwidth}
 
 	\pagestyle{plain.scrheadings} % Use a plain style for the header and the footer
+	\pagelayout{wide} % Use a wide page layout
 	%\sloppy % Required to better break long lines
 }
 
@@ -146,24 +150,23 @@
 \renewcommand{\mainmatter}{
 	\oldmainmatter % call the old command
 
-	\marginpage % Use a 1.5 column layout
-
 	% Set some Lengths used for the page headers
 	\setlength{\overflowingheadlen}{\linewidth}
 	\addtolength{\overflowingheadlen}{\marginparsep}
 	\addtolength{\overflowingheadlen}{\marginparwidth}
 
 	\pagestyle{scrheadings} % Use a fancy style for the header and the footer
+	\pagelayout{margin} % Use a 1.5 column layout
 }
 
 %------------------------------------------------
 
 % Appendix
-%\let\oldappendix\appendix % store the old command
-%\renewcommand{\appendix}{
-	%\oldappendix % Call the cold command
-	%\bookmarksetup{startatroot} % Reset the bookmark depth
-%}
+\let\oldappendix\appendix % store the old command
+\renewcommand{\appendix}{
+	\oldappendix % Call the old command
+	\bookmarksetup{startatroot} % Reset the bookmark depth
+}
 
 %------------------------------------------------
 
@@ -172,8 +175,6 @@
 \renewcommand{\backmatter}{
 	\oldbackmatter % Call the cold command
 
-	\widepage % Use a wide page layout
-
 	% Set some Lengths used for the page headers
 	\setlength{\overflowingheadlen}{\linewidth}
 	\addtolength{\overflowingheadlen}{\marginparsep}
@@ -181,6 +182,7 @@
 
 	\bookmarksetup{startatroot} % Reset the bookmark depth
 	\pagestyle{plain.scrheadings} % Use a plain style for the header and the footer
+	\pagelayout{wide} % Use a wide page layout
 }
 
 %----------------------------------------------------------------------------------------
@@ -193,6 +195,8 @@
 \extrafloats{100}
 
 %------------------------------------------------
+
+% TODO: see also page 440 of the KOMA-script guide
 
 \RequirePackage[
 	bottom,
@@ -209,7 +213,7 @@
 % Workaround to fix back references
 \edef\BackrefFootnoteTag{bhfn:\theBackrefHyperFootnoteCounter}
 
-% FIXME: I am not able to choose the paragraph layout of footnotes, probably footnotes conflicts with scrbook.
+% FIXME: I am not able to choose the paragraph layout of footnotes, probably the footnotes package conflicts with scrbook.
 %\renewcommand{\footnotelayout}{\@margin@par}
 
 %------------------------------------------------
@@ -240,23 +244,6 @@
 	note-mark-sep=\enskip, % Set the space after the marker
 }
 
-%------------------------------------------------
-
-\RequirePackage{chngcntr} % Allows to reset the sidenotes counter at each chapter
-
-% If you want to reset the sidenote counter at each chapter,
-% 1) comment `\counterwithout{sidenote}{chapter}'
-% 2) uncomment `\newcommand{pp@g@sidenote}{}'
-%
-% If you want only one counter for the entire document,
-% 1) uncomment `\counterwithout{sidenote}{chapter}'
-% 2) comment `\newcommand{pp@g@sidenote}{}'
-
-%\counterwithout{sidenote}{chapter}
-\newcommand{\pp@g@sidenote}{}
-
-% NOTE: the definition of \pp@g@sidenote is a small workaround in order to fix the behaviour of chngcntr.
-
 %----------------------------------------------------------------------------------------
 %	FIGURES, TABLES AND CAPTIONS
 %----------------------------------------------------------------------------------------
@@ -269,6 +256,7 @@
 \RequirePackage[hypcap=true]{caption} % Correctly placed anchors for hyperlinks
 \RequirePackage{scrhack} % Force KOMA to like floatrow
 \RequirePackage{floatrow} % Set up captions of floats
+\RequirePackage{dblfloatfix} % Better positioning of wide figures and tables
 
 % Improve the figure placing (see https://www.overleaf.com/learn/latex/Tips)
 \def\topfraction{.9}
@@ -363,6 +351,10 @@
 	parindent=0pt, % Suppress space between paragraphs
 	skip=-15pt, % Decrease the space between the figure and the caption
 }
+
+% Needed to have continued figures and tables (https://en.wikibooks.org/wiki/LaTeX/Floats,_Figures_and_Captions#Figures_in_multiple_parts)
+\DeclareCaptionLabelFormat{cont}{#1~#2\alph{ContinuedFloat}}
+\captionsetup[ContinuedFloat]{labelformat=cont}
 
 %----------------------------------------------------------------------------------------
 %	MARGIN TOC
@@ -484,7 +476,7 @@
 	citecolor = DarkOrange,
 	linkcolor = DarkBlue,
 	%pagecolor = DarkBlue,
-	urlcolor = DarkGreen,
+	urlcolor = OliveGreen,
 }
 
 % Define a new color for the footnote marks
@@ -521,21 +513,6 @@
 
 % THINGS THAT I DON'T KNOW WHERE TO PLACE
 
-\setcounter{secnumdepth}{1} % Number only up to sections
-
 \renewcommand{\hrulefill}[1][0.4pt]{%
 	\leavevmode\leaders\hrule height #1\hfill\kern\z@%
 }
-
-\RequirePackage{hyphenat} % Hyphenation for special fonts
-\RequirePackage{microtype} % Improves character and word spacing
-\RequirePackage[usenames,svgnames]{xcolor} % 
-
-\RequirePackage{ifxetex} % Detect if we are using XeLaTeX
-
-% Polyglossia must be set up before biblatex
-% The language can be changed later
-\ifxetex
-  \RequirePackage{polyglossia}
-  \setdefaultlanguage{english}
-\fi

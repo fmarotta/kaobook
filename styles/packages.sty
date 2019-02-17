@@ -82,3 +82,35 @@
 
 % Nomenclature
 \usepackage[intoc]{nomencl}
+
+% Commands to print specific wors always in the same way
+\newcommand{\Class}[1]{\texttt{#1}}
+\newcommand{\Package}[1]{\texttt{#1}}
+\newcommand{\Option}[1]{\texttt{#1}}
+\newcommand{\Command}[1]{\texttt{\textbackslash#1}}
+\newcommand{\Environment}[1]{\texttt{#1}}
+\newcommand{\Path}[1]{\texttt{#1}}
+
+% Print latin words in italics (The xspace package is required but we already loaded it in the class)
+\newcommand{\hairsp}{\hspace{1pt}} % Command to print a very short space
+\newcommand{\invitro}{\textit{in vitro}\xspace}
+\newcommand{\invivo}{\textit{in vivo}\xspace}
+\newcommand{\cis}{\textit{cis}\xspace}
+\newcommand{\trans}{\textit{trans}\xspace}
+\newcommand{\etal}{\textit{et al.}\xspace}
+\newcommand{\denovo}{\textit{de novo}\xspace}
+\newcommand{\etcetera}{\textit{et cetera}\xspace}
+\newcommand{\etc}{\textit{etc.}\xspace}
+\newcommand{\ie}{\textit{i.\hairsp{}e.}\xspace}
+\newcommand{\eg}{\textit{e.\hairsp{}g.}\xspace}
+\newcommand{\cfr}{cfr.\space}
+
+% Tables
+\newcommand{\na}{\quad--} % Used in tables for N/A cells
+\newcommand{\hangp}[1]{\makebox[0pt][r]{(}#1\makebox[0pt][l]{)}} % Create parentheses around text in tables which take up no horizontal space - this improves column spacing
+\newcommand{\hangstar}{\makebox[0pt][l]{*}} % Create asterisks in tables which take up no horizontal space - this improves column spacing
+
+% A command to print the current month and year (from tufte-latex)
+\newcommand{\monthyear}{\ifcase\month\or January\or February\or March\or 
+April\or May\or June\or July\or August\or September\or October\or 
+November\or December\fi\space\number\year}
