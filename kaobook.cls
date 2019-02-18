@@ -306,6 +306,7 @@
 }
 
 % Change the position of the captions
+\DeclareFloatSeparators{marginparsep}{\hskip\marginparsep}
 \floatsetup[figure]{ % Captions for figueres
 	margins=hangoutside, % Put captions in the margins
 	facing=yes,
@@ -313,7 +314,8 @@
 	capbesideposition=outside,
 	capbesideframe=yes,
 	capbesidewidth=\marginparwidth, % Width of the caption equal to the width of the margin
-	floatwidth=sidefil, % Width of the figure equal to the width of the text
+	capbesidesep=marginparsep,
+	floatwidth=\textwidth, % Width of the figure equal to the width of the text
 }
 \floatsetup[widefigure]{ % Captions for wide figures
 	margins=hangoutside, % Put captions below the figure
@@ -415,6 +417,7 @@
 ]{biblatex}
 
 % Remove some unwanted entries from the bibliography
+% TODO: the url should be kept for online resources.
 \AtEveryBibitem{
 	\clearfield{url}
 	\clearfield{issn}

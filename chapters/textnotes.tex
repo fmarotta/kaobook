@@ -1,55 +1,59 @@
-%\renewcommand*{\chapterformat}
-%{
-  %\enskip\mbox{\scalebox{3.5}{\framebox{\thechapter\autodot}}}
-%}
-%\renewcommand\chapterlinesformat[3]
-%{
-  %\parbox[b]{\textwidth+\marginparsep+\marginparwidth}{
-	%\parbox[b]{\textwidth}{#3}%
-	%\parbox[b]{\marginparsep}{\hfill}%
-	%\parbox[b]{\marginparwidth}{#2}%
-  %}
-  %%\hrule
-%}
 \setchapterpreamble[u]{\margintoc}
-\chapter{Sidenotes and Marginnotes}
+\chapter{Margin stuff}
+
+Sidenotes are a distinctive feature of all 1.5-column-layout books. 
+Indeed, having wide margins means that some material can be displayed 
+there. We use margins for all kind of stuff: sidenotes, marginnotes, 
+small tables of contents, citations, and, why not?, special boxes and 
+environments.
 
 \section{Sidenotes}
 
-To insert a sidenote, just enter the command 
-\begin{verbatim}
-\sidenote{Text of the note}
-\end{verbatim}.
-You can specify a mark\sidenote[O]{This sidenote has a special mark, a 
-	big O!} with
-\begin{verbatim}
-\sidenote[mark]{Text}
-\end{verbatim}
-or you can specify an offset and a mark with
-\begin{verbatim}
-\sidenote[offset][mark]{Text}
-\end{verbatim}
-in which case the mark can be empty. If you want to know more, read the 
-documentation of the \verb|snotez| package.
+Sidenotes are like footnotes, except that they go in the margin, where 
+they are more readable. To insert a sidenote, just use the command 
+\Command{sidenote\{Text of the note\}}. You can specify a 
+mark\sidenote[O]{This sidenote has a special mark, a big O!} with
+\Command{sidenote[mark]\{Text\}}, but you can also specify an offset, 
+which moves the sidenote upwards or downwards, like so: 
+\Command{sidenote[offset][mark]\{Text\}}. You always have to add the 
+brackets for the mark, but they can be empty.\sidenote{If you want to 
+know more about the usage of the \Command{sidenote} command, read the 
+documentation of the \Package{snotez} package.}
 
-Sidenotes are handled through the \verb|snotez| package, which relies on 
-the \verb|marginnote| package. The sidenote counter is reset at every 
-chapter, but you can change that with the \verb|\counterwithout| 
-command.
+There was an alternative package, \Package{sidenotes}, which we could 
+have used. We went for \Package{snotez} because it was the one used in 
+Ken Ohori's thesis, which inspired this class. The features are very 
+similar, but one additional thing offered by \Package{snotez} is that 
+the offset can be specified as a multiple of \Command{baselineskip}. For 
+example, if you want to enter a sidenote with the normal mark and move 
+it upwards one line, type:
+
+\begin{lstlisting}[style=kaolstplain]
+\sidenote[*-1][]{Text of the sidenote.}
+\end{lstlisting}
+
+Sidenotes are handled through the \Package{snotez} package, which in 
+turn relies on the \Package{marginnote} package.
 
 \section{Marginnotes}
 
-\marginnote{The command for margin notes comes from the 
-	\texttt{marginnote} package, but it has been redefined in order to 
-	change the position of the optional offset argument, which now 
-	precedes the text of the note, while in the original version it was 
-	at the end. Check the \texttt{marginnote} package.}
+This command is very similar to the previous one. You can create a 
+marginnote with \Command{marginnote[offset]\{Text\}}, where the offset 
+argument can be left out, or it can be a multiple of 
+\Command{baselineskip}.\marginnote[-1mm]{While the command for margin 
+notes comes from the \Package{marginnote} package, it has been redefined 
+in order to change the position of the optional offset argument, which 
+now precedes the text of the note, whereas in the original version it 
+was at the end. We have also added the possibility to use a multiple of 
+\Command{baselineskip} as offset. These things were made only to make 
+everything more consistent, so that you have to remember less things!}
 
-This command is similar to the previous one. You can use it like so:
-\begin{verbatim}
-\marginnote[offset]{Text}
-\end{verbatim}
-where the offset argument can be left out.
+\begin{kaobox}[frametitle=To Do]
+A small thing that needs to be done is to renew the \Command{sidenote} 
+command so that it takes only one optional argument, the offset. The 
+special mark argument can go somewhere else. In other words, we want the 
+syntax of \Command{sidenote} to resemble that of \Command{marginnote}.
+\end{kaobox}
 
 We load the packages \verb|marginnote|, \verb|marginfix| and 
 \verb|placeins|. Since \verb|snotez| uses \verb|marginnote|, what we say 
@@ -66,9 +70,11 @@ multiple of \verb|\baselineskip|, \eg
 
 \section{Footnotes}
 
-Footnotes force the reader to constantly move from one area of the page 
-to the other. Arguably marginnotes solve this issue, so you should not 
-use footnotes. Nevertheless, for completeness, we have the standard 
+Even though they are not displayed in the margin, we will discuss about 
+footnotes here, since sidenotes are intended to be a replacement of 
+them. Footnotes force the reader to constantly move from one area of the 
+page to the other. Arguably marginnotes solve this issue, so you should 
+not use footnotes. Nevertheless, for completeness, we have the standard 
 command \verb|\footnote|, just in case you want to put a footnote once 
 in a while.\footnote{And this is how they look like. Notice that in the 
 PDF file there is a back reference to the text; pretty cool, uh?}
