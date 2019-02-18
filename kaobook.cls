@@ -30,9 +30,6 @@
 % Set the default options
 \PassOptionsToClass{fontsize=9.5pt}{\@baseclass}
 \PassOptionsToClass{parskip=half}{\@baseclass}
-\PassOptionsToClass{toc=listof}{\@baseclass}
-\PassOptionsToClass{toc=index}{\@baseclass}
-\PassOptionsToClass{toc=bibliography}{\@baseclass}
 \PassOptionsToClass{headings=optiontoheadandtoc}{\@baseclass}
 
 \DeclareOption*{\PassOptionsToClass{\CurrentOption}{\@baseclass}} % Pass through any options to the base class
@@ -50,7 +47,6 @@
 \RequirePackage{xifthen} % Easy conditionals
 \RequirePackage{xkeyval} % Manage class options
 \RequirePackage{xparse} % Parse arguments for macros
-\RequirePackage{xspace} % Better print trailing whitespace
 \RequirePackage{xstring} % Parse strings
 
 %----------------------------------------------------------------------------------------
@@ -95,6 +91,7 @@
 \RequirePackage{hyphenat} % Hyphenation for special fonts
 \RequirePackage{microtype} % Improves character and word spacing
 \RequirePackage{needspace} % Required to prevent page break right after a sectioning command
+\RequirePackage{xspace} % Better print trailing whitespace
 \RequirePackage[usenames,dvipsnames]{xcolor} % Colours
 
 % TODO: recognize space/indent justified/raggedright class options

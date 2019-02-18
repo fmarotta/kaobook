@@ -237,11 +237,11 @@
 %\addtokomafont{title}{\normalfont\itshape}
 %\addtokomafont{part}{\fontfamily{pplx}\selectfont\itshape\bfseries}
 \addtokomafont{part}{\normalfont\scshape\bfseries}
-\addtokomafont{chapter}{\normalfont\itshape}
-\addtokomafont{section}{\normalfont\itshape}
-\addtokomafont{subsection}{\normalfont\itshape}
-\addtokomafont{subsubsection}{\normalfont\itshape}
-\addtokomafont{paragraph}{\normalfont\itshape}
+\addtokomafont{chapter}{\normalfont\bfseries}
+\addtokomafont{section}{\normalfont\bfseries}
+\addtokomafont{subsection}{\normalfont\bfseries}
+\addtokomafont{subsubsection}{\normalfont\bfseries}
+\addtokomafont{paragraph}{\normalfont\bfseries}
 \addtokomafont{partentry}{\normalfont\scshape\bfseries}
 \addtokomafont{chapterentry}{\normalfont\bfseries}
 \setkomafont{descriptionlabel}{\normalfont\bfseries}
@@ -307,6 +307,10 @@
 \setuptoc{toc}{totoc}
 % Levels in table of contents
 \setcounter{tocdepth}{\subsectiontocdepth}
+
+\PassOptionsToClass{toc=listof}{\@baseclass}
+\PassOptionsToClass{toc=index}{\@baseclass}
+\PassOptionsToClass{toc=bibliography}{\@baseclass}
 
 % List of figures title as "Figures"
 \renewcaptionname{english}{\contentsname}{Contents}

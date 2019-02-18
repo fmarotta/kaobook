@@ -11,3 +11,25 @@
 
 \blindtext
 
+\section{Table of Contents}
+
+Another option that is activated by default changes the style of the 
+table of contents. By default, there is an entry for everything: list of 
+figures, list of tables, indices, glossaries and bibliographies. There 
+are also entries for the table of contents itself (thanks to the 
+\Command{setuptoc\{toc\}\{totoc\}} command). If you want entries for the 
+glossaries as well, you can set the \Option{toc} option of the package 
+\Package{glossaries}.\sidenote[-7mm][]{If you don't want all these 
+things in the table of contents, pass the appropriate KOMA options to 
+the class.}
+
+By default, dispositions are numbered up to the section thanks to the 
+command \Command{setcounter\{secnumdepth\}\{1\}}. The table of contents 
+can be modified through the package \Package{etoc}, which is loaded 
+because it is needed for the margintocs, or the more traditional 
+\Package{tocbase}. The sidenotes are numbered on a per-chapter basis, 
+with the \Package{chngcntr} package; if you want to have only one 
+counter for the whole document, check the provided \Path{style.sty} 
+file.
+
+\marginnote[1.5\parskip]{We also load \texttt{xcolor}.}
