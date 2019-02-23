@@ -1,42 +1,12 @@
-\setchapterpreamble[o]{
-	\begingroup
-	\vspace*{-3cm}\hspace*{-2.56cm}
-	\includegraphics[width=\paperwidth,height=8.5cm,keepaspectratio=false]{images/seaside}
-	%\vspace*{-1.4cm}
-	%\addtokomafont{captionlabel}{\bfseries}
-	%\addtokomafont{caption}{\bfseries}
-	%\captionsetup{
-		%type=figure,
-		%%format=marginemph, 
-		%%width=\textwidth+\marginparsep+\marginparwidth,
-		%%indention=2cm,
-		%%parindent=-2cm,
-	%}
-	%\caption[The seaside]{\textbf{By Bushra Feroz - Own work, CC BY-SA 
-	%4.0, https://commons.wikimedia.org/w/index.php?curid=68724647}}
-	\endgroup
-}
-% beforeskip=-(figure_height-top_margin)
-\RedeclareSectionCommand[beforeskip=-5.5cm]{chapter}
-\setchapterpreamble[u]{\margintoc[*-4.5]}
-
-\makeatletter
-\renewcommand{\chapterlinesformat}[3]{%
-  \@hangfrom{#2}{#3}%
-}
-\makeatother
-\renewcommand*{\chapterformat}{%
-  \mbox{\chapappifchapterprefix{\nobreakspace}\thechapter
-	\autodot\IfUsePrefixLine{}{\enskip}}}
-
+\setchapterimage[6cm]{seaside}
+\setchapterpreamble[u]{\margintoc}
 \chapter{Figures and Tables}
-\RedeclareSectionCommand[beforeskip=0cm]{chapter}
+
+%\footnote[0]{The credits for the image above the chapter title go to:
+	%Bushra Feroz --- Own work, CC~BY-SA~4.0, 
+	%https://commons.wikimedia.org/w/index.php?curid=68724647}
 
 \section{Normal figures and tables}
-
-\footnote[0]{The credits for the image above the chapter title go to:
-	Bushra Feroz --- Own work, CC~BY-SA~4.0, 
-	https://commons.wikimedia.org/w/index.php?curid=68724647}
 
 Normal figures and tables can be inserted just like in any standard 
 \LaTeX\xspace document. The \verb|graphicx| package is already loaded, 

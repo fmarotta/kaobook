@@ -190,22 +190,57 @@
 	\setlength{\mtocshift}{-2.5cm}
 }
 
-% By default start with plain style
-\chapterstyleplain
+% Image (Used internally for \chapterimage; normal users should not need this command)
+\DeclareDocumentCommand{\chapterstyleimage}{}{%
+	\renewcommand*{\chapterformat}{%
+		\mbox{\chapappifchapterprefix{\nobreakspace}\thechapter%
+		\autodot\IfUsePrefixLine{}{\enskip}}
+	}
+	\renewcommand{\chapterlinesformat}[3]{%
+		\begin{tikzpicture}[remember picture, overlay]
+			\node[
+				anchor=east,
+				xshift=\overflowingheadlen,
+				yshift=.9cm,
+				rectangle,
+				%very thick,
+				%draw=white,
+				rounded corners=10pt,
+				fill=gray!20!white,
+				inner sep=12pt,
+				text centered,
+				minimum width=\textwidth,
+			]{\@hangfrom{##2}{##3}};
+			\node[
+				anchor=west,
+				xshift=-3cm,
+				yshift=2mm,
+				rectangle,
+				fill=white,
+				minimum height=.5cm,
+				minimum width=\paperwidth+3cm,
+			]{};
+		\end{tikzpicture}
+	}
+}
 
-
-% Takes as input the image path and optinally beforeskip
+% Takes as input the image path and optionally the "beforeskip"
 \DeclareDocumentCommand{\setchapterimage}{O{5.5cm} m}
 {
 	\setchapterpreamble[o]{
 		\vspace*{-2.7cm}\hspace*{-2.56cm}
 		\includegraphics[width=\paperwidth,height=#1+2.7cm,keepaspectratio=false]{#2}
 	}
+
+	\chapterstyleimage
+
 	% beforeskip=-(figure_height-top_margin)
-	\RedeclareSectionCommand[beforeskip=-#1]{chapter}
-	\setlength{\mtocshift}{-2cm}%
+	\RedeclareSectionCommand[beforeskip=-#1, afterskip=.6cm]{chapter}
+	\setlength{\mtocshift}{0cm}%
 }
 
+% By default start with plain style
+\chapterstyleplain
 
 %----------------------------------------------------------------------------------------
 %	ENCODING AND FONTS

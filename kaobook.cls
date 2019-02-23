@@ -93,6 +93,7 @@
 \RequirePackage{needspace} % Required to prevent page break right after a sectioning command
 \RequirePackage{xspace} % Better print trailing whitespace
 \RequirePackage[usenames,dvipsnames]{xcolor} % Colours
+\RequirePackage{tikz} % Allows to draw custom shapes
 
 % TODO: recognize space/indent justified/raggedright class options
 

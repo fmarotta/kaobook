@@ -84,6 +84,7 @@
 \usepackage[intoc]{nomencl}
 
 % Commands to print specific wors always in the same way
+% TODO: in \Command, automatically escape braces {} and replace backslashes with \textbackslash
 \newcommand{\Class}[1]{\texttt{#1}}
 \newcommand{\Package}[1]{\texttt{#1}}
 \newcommand{\Option}[1]{\texttt{#1}}
@@ -102,8 +103,8 @@
 \newcommand{\adhoc}{\textit{ad hoc}\xspace}
 \newcommand{\etcetera}{\textit{et cetera}\xspace}
 \newcommand{\etc}{\textit{etc.}\xspace}
-\newcommand{\ie}{\textit{i.\hairsp{}e.}\xspace}
-\newcommand{\eg}{\textit{e.\hairsp{}g.}\xspace}
+\newcommand{\ie}{\textit{i.\nobreak\hairsp{}e.}\xspace}
+\newcommand{\eg}{\textit{e.\nobreak\hairsp{}g.}\xspace}
 \newcommand{\vs}{\textit{vs}\xspace}
 \newcommand{\cfr}{\textit{cfr.}\xspace}
 

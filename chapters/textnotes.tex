@@ -1,4 +1,3 @@
-\setchapterstyle{kao}
 \setchapterpreamble[u]{\margintoc}
 \chapter{Margin stuff}
 
@@ -13,21 +12,21 @@ environments.
 Sidenotes are like footnotes, except that they go in the margin, where 
 they are more readable. To insert a sidenote, just use the command 
 \Command{sidenote\{Text of the note\}}. You can specify a 
-mark\sidenote[O]{This sidenote has a special mark, a big O!} with
+mark\sidenote[O]{This sidenote has a special mark, a big O!} with \\ 
 \Command{sidenote[mark]\{Text\}}, but you can also specify an offset, 
-which moves the sidenote upwards or downwards, like so: 
+which moves the sidenote upwards or downwards, like so: \\ 
 \Command{sidenote[offset][mark]\{Text\}}. You always have to add the 
 brackets for the mark, but they can be empty.\sidenote{If you want to 
 know more about the usage of the \Command{sidenote} command, read the 
 documentation of the \Package{snotez} package.}
 
 There was an alternative package, \Package{sidenotes}, which we could 
-have used. We went for \Package{snotez} because it was the one used in 
-Ken Ohori's thesis, which inspired this class. The features are very 
-similar, but one additional thing offered by \Package{snotez} is that 
-the offset can be specified as a multiple of \Command{baselineskip}. For 
-example, if you want to enter a sidenote with the normal mark and move 
-it upwards one line, type:
+have used. In the end we went for \Package{snotez} because it was the 
+one used in Ken Ohori's thesis, which inspired this class. The features 
+are very similar, but one additional thing offered by \Package{snotez} 
+is that the offset can be specified as a multiple of 
+\Command{baselineskip}. For example, if you want to enter a sidenote 
+with the normal mark and move it upwards one line, type:
 
 \begin{lstlisting}[style=kaolstplain]
 \sidenote[*-1][]{Text of the sidenote.}
@@ -41,13 +40,18 @@ turn relies on the \Package{marginnote} package.
 This command is very similar to the previous one. You can create a 
 marginnote with \Command{marginnote[offset]\{Text\}}, where the offset 
 argument can be left out, or it can be a multiple of 
-\Command{baselineskip}.\marginnote[-1mm]{While the command for margin 
+\Command{baselineskip},\marginnote[-1mm]{While the command for margin 
 notes comes from the \Package{marginnote} package, it has been redefined 
 in order to change the position of the optional offset argument, which 
 now precedes the text of the note, whereas in the original version it 
 was at the end. We have also added the possibility to use a multiple of 
 \Command{baselineskip} as offset. These things were made only to make 
-everything more consistent, so that you have to remember less things!}
+everything more consistent, so that you have to remember less things!} 
+\eg
+
+\begin{lstlisting}[style=kaolstplain]
+\marginnote[-12pt]{Text} or \marginnote[*-3]{Text}.
+\end{lstlisting}
 
 \begin{kaobox}[frametitle=To Do]
 A small thing that needs to be done is to renew the \Command{sidenote} 
@@ -56,29 +60,25 @@ special mark argument can go somewhere else. In other words, we want the
 syntax of \Command{sidenote} to resemble that of \Command{marginnote}.
 \end{kaobox}
 
-We load the packages \verb|marginnote|, \verb|marginfix| and 
-\verb|placeins|. Since \verb|snotez| uses \verb|marginnote|, what we say 
-for marginnotes is also valid for sidenotes. The style of marginnotes 
-and captions is the same, and the notes are shifted slightly upwards 
-(\verb|\renewcommand{\marginnotevadjust}{3pt}|) in order to allineate 
-them to the bottom of the line of text where the marginnote is issued.
-
-The offset option can be either a (positive or negative) length or a 
-multiple of \verb|\baselineskip|, \eg
-\begin{verbatim}
-\marginnote[-12pt]{Text} or \marginnote[*-3]{Text}
-\end{verbatim}
+We load the packages \Package{marginnote}, \Package{marginfix} and 
+\Package{placeins}. Since \Package{snotez} uses \Package{marginnote}, 
+what we said for marginnotes is also valid for sidenotes. Side- and 
+margin- notes are shifted slightly upwards 
+(\Command{renewcommand\{\textbackslash marginnotevadjust\}\{3pt\}}) in 
+order to allineate them to the bottom of the line of text where the note 
+is issued.
 
 \section{Footnotes}
 
 Even though they are not displayed in the margin, we will discuss about 
-footnotes here, since sidenotes are intended to be a replacement of 
-them. Footnotes force the reader to constantly move from one area of the 
-page to the other. Arguably marginnotes solve this issue, so you should 
-not use footnotes. Nevertheless, for completeness, we have the standard 
-command \verb|\footnote|, just in case you want to put a footnote once 
-in a while.\footnote{And this is how they look like. Notice that in the 
-PDF file there is a back reference to the text; pretty cool, uh?}
+footnotes here, since sidenotes are mainly intended to be a replacement 
+of them. Footnotes force the reader to constantly move from one area of 
+the page to the other. Arguably, marginnotes solve this issue, so you 
+should not use footnotes. Nevertheless, for completeness, we have left 
+the standard command \verb|\footnote|, just in case you want to put a 
+footnote once in a while.\footnote{And this is how they look like. 
+Notice that in the PDF file there is a back reference to the text; 
+pretty cool, uh?}
 
 \section{Margintoc}
 
