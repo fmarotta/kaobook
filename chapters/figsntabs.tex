@@ -23,7 +23,7 @@ want to change something about captions you can use the command
 you want to reference a figure, the label must come \emph{after} the 
 caption!
 
-\begin{figure}[h]
+\begin{figure}[hb]
 	\includegraphics[width=0.45\textwidth]{monalisa}
 	\caption[Mona Lisa, again]{It's Mona Lisa again. \blindtext}
 	\labfig{normalmonalisa}
@@ -34,10 +34,12 @@ The position of the caption, as opposed to its format, is handled by the
 but now I am pretty satisfied.
 
 \begin{kaobox}[frametitle=To Do]
-The only problem is that the captions will always be aligned to the 
-bottom of the figure/table. I tried to follow the \Package{floatrow} 
-manual, but even specifying the \enquote{\Option{top}} option, I cannot 
-make it work. If you know how to fix this, please let me know.
+The only problem is that if you want to use oneside mode, as in this 
+document, you have to manually setup floatrow so that it prints the 
+captions in the right margin instead of alternatively in the right and 
+left margins. To do this, change \enquote{hangoutside} to 
+\enquote{hangright}. However, there must be a way to really fix this 
+strange behaviour. If you know something about it, please let me know.
 \end{kaobox}
 
 Tables can be inserted as easily as figures, as exemplified by the 
@@ -64,6 +66,7 @@ which results in the useless \vreftab{useless}.
 
 \begin{table}[b]
 \caption[A useless table]{A useless table.}
+\labtab{useless}
 \begin{tabular}{ c c c c }
 	\toprule
 	col1 & col2 & col3 & col 4 \\
@@ -76,7 +79,6 @@ which results in the useless \vreftab{useless}.
 	cell8 & cell9 & cell10 \\
 	\bottomrule
 \end{tabular}
-\labtab{useless}
 \end{table}
 
 I don't have much else to say, so I will just insert some blind text. 
