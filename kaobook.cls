@@ -222,7 +222,7 @@
 \renewcommand*{\raggedleftmarginnote}{} % Suppress left margin
 \renewcommand*{\raggedrightmarginnote}{} % Suppress right margin
 \renewcommand*{\marginfont}{\@margin@par} % Format marginnotes according to \@marginpar (see above)
-\renewcommand{\marginnotevadjust}{-8.5pt} % Bring all marginnotes upward a bit
+\renewcommand{\marginnotevadjust}{3pt} % Bring all marginnotes downward a bit
 \RequirePackage[marginnote=true]{snotez} % Provides options for sidenotes
 
 % Redefine the command to print marginnotes:
@@ -352,7 +352,7 @@
 	%width=\marginparwidth,
 	indention=0pt, % Suppress indentation
 	parindent=0pt, % Suppress space between paragraphs
-	skip=-15pt, % Decrease the space between the figure and the caption
+	skip=6pt, % Increase the space between the figure and the caption
 }
 
 % Needed to have continued figures and tables (https://en.wikibooks.org/wiki/LaTeX/Floats,_Figures_and_Captions#Figures_in_multiple_parts)
