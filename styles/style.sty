@@ -116,15 +116,14 @@
 %	CHAPTER HEADING STYLES
 %----------------------------------------------------------------------------------------
 
-\DeclareDocumentCommand{\setchapterstyle}{m}{
+\DeclareDocumentCommand{\setchapterstyle}{m}{%
 	\ifthenelse{\equal{plain}{#1}}{\chapterstyleplain}{}
 	\ifthenelse{\equal{lines}{#1}}{\chapterstylelines}{}
 	\ifthenelse{\equal{kao}{#1}}{\chapterstylekao}{}
 }
 
 % The default definition in KOMA script
-\DeclareDocumentCommand{\chapterstyleplain}{}
-{
+\DeclareDocumentCommand{\chapterstyleplain}{}{%
 	\renewcommand{\chapterlinesformat}[3]{%
 		\@hangfrom{##2}{##3}}
 	\renewcommand*{\chapterformat}{%
@@ -136,29 +135,20 @@
 }
 
 % The Kao style
-\DeclareDocumentCommand{\chapterstylekao}{}
-{
-	\renewcommand*{\chapterformat}
-	{
-	  \chapappifchapterprefix{\nobreakspace}\scalebox{3.5}{\thechapter\autodot}
+\DeclareDocumentCommand{\chapterstylekao}{}{%
+	\renewcommand*{\chapterformat}{%
+		\mbox{\chapappifchapterprefix{\nobreakspace}\scalebox{2.3}{\thechapter\autodot}}
 	}
-	\renewcommand\chapterlinesformat[3]
-	{
+	\renewcommand\chapterlinesformat[3]{%
 	  \makebox[\textwidth+\marginparsep+\marginparwidth]{%
-		\makebox[\textwidth][r]{##2}%\hfill%\par%\bigskip
-		\makebox[\marginparsep][c]{\rule[-1.5cm]{1pt}{3.5cm}}%
-		\makebox[\marginparwidth][l]{}%
-	  }\\
-	  \vspace{-0.8cm}
-	  \makebox[\textwidth+\marginparsep+\marginparwidth]{%
-		\makebox[\textwidth][r]{##3}%
-		\makebox[\marginparsep][l]{}%
-		\makebox[\marginparwidth][l]{}%
+		\parbox[b]{\textwidth}{\hfill ##3}%
+		\makebox[\marginparsep][c]{\rule[-.35cm]{1pt}{1.7cm}}%
+		\parbox[b]{\marginparwidth}{##2}%
 	  }
 	}
 
 	\RedeclareSectionCommand[beforeskip=0cm,afterskip=0.3cm]{chapter}
-	\setlength{\mtocshift}{-4.6cm}
+	\setlength{\mtocshift}{0cm}
 }
 
 % Lines
