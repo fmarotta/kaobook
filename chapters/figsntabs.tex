@@ -1,68 +1,81 @@
-\setchapterimage[6cm]{seaside}
+\setchapterimage[6.5cm]{seaside}
 \setchapterpreamble[u]{\margintoc}
-\chapter{Figures and Tables}
+\chapter{Figures and Tables\footnotemark[0]}
 
-%\footnote[0]{The credits for the image above the chapter title go to:
-	%Bushra Feroz --- Own work, CC~BY-SA~4.0, 
-	%https://commons.wikimedia.org/w/index.php?curid=68724647}
+\footnotetext{The credits for the image above the chapter title go to:
+	Bushra Feroz --- Own work, CC~BY-SA~4.0, 
+	\url{https://commons.wikimedia.org/w/index.php?curid=68724647}}
 
 \section{Normal figures and tables}
 
-Normal figures and tables can be inserted just like in any standard 
-\LaTeX\xspace document. The \verb|graphicx| package is already loaded, 
-and if you want you can load \verb|subfig|. The captions will be 
-positioned in the margins with the help of the \verb|floatrow| package. 
-The space between the figure and the text can be specified with the 
-following commands:
-
-\begin{lstlisting}[style=kaolstplain]
-\renewcommand\FBaskip{4pt}
-\renewcommand\FBbskip{4pt}
-\end{lstlisting}
+Figures and tables can be inserted just like in any standard 
+\LaTeX\xspace document. The \Package{graphicx} package is already loaded 
+and configured in such a way that the figure width is equal to the 
+textwidth and the height is adjusted in order to maintaini the original 
+aspect ratio. As you may have imagined, the captions will be 
+positioned\ldots well, in the margins. This is achieved with the help of 
+the \Package{floatrow} package.
 
 Here is a picture of Mona Lisa (\reffig{normalmonalisa}), as an example. 
-The captions are formatted as the marginnotes; to change the options you 
-can use \verb|\captsetup| from the \verb|caption| package. Remember that 
-if you want to reference a figure, the label must come \emph{after} the 
+The captions are formatted as the margin- and the side-notes; If you 
+want to change something about captions you can use the command 
+\Command{captsetup} from the \Package{caption} package. Remember that if 
+you want to reference a figure, the label must come \emph{after} the 
 caption!
 
 \begin{figure}[h]
-	\includegraphics[width=0.4\textwidth]{monalisa}
+	\includegraphics[width=0.45\textwidth]{monalisa}
 	\caption[Mona Lisa, again]{It's Mona Lisa again. \blindtext}
 	\labfig{normalmonalisa}
 \end{figure}
 
-The tables can be inserted as easily as the figures, as exemplified in 
-the following code:
+The position of the caption, as opposed to its format, is handled by the 
+\Package{floatrow} package. Achieving this result has been quite hard, 
+but now I am pretty satisfied.
+
+\begin{kaobox}[frametitle=To Do]
+The only problem is that the captions will always be aligned to the 
+bottom of the figure/table. I tried to follow the \Package{floatrow} 
+manual, but even specifying the \enquote{\Option{top}} option, I cannot 
+make it work. If you know how to fix this, please let me know.
+\end{kaobox}
+
+Tables can be inserted as easily as figures, as exemplified by the 
+following code:
 
 \begin{lstlisting}
 \begin{table}
-\begin{tabular}{ c c c c  }
+\begin{tabular}{ c c c c }
 	\toprule
-	col1 & col2 & col3 \\
+	col1 & col2 & col3 & col 4 \\
 	\midrule
-	\multirow{3}{4em}{Multiple row} & cell2 & cell3 \\ &
-	cell5 & cell6 \\ &
-	cell8 & cell9 \\
+	\multirow{3}{4em}{Multiple row} & cell2 & cell3 & cell4\\ &
+	cell5 & cell6 & cell7 \\ &
+	cell8 & cell9 & cell10 \\
+	\multirow{3}{4em}{Multiple row} & cell2 & cell3 & cell4 \\ &
+	cell5 & cell6 & cell7 \\ &
+	cell8 & cell9 & cell10 \\
 	\bottomrule
 \end{tabular}
-\caption[A useless table]{A useless table.}
 \end{table}
 \end{lstlisting}
 
-which results in the useless \reftab{useless}.
+which results in the useless \vreftab{useless}.
 
-\begin{table}[h]
-\begin{tabular}{ c c c c  }
+\begin{table}[b]
+\caption[A useless table]{A useless table.}
+\begin{tabular}{ c c c c }
 	\toprule
-	col1 & col2 & col3 \\
+	col1 & col2 & col3 & col 4 \\
 	\midrule
-	\multirow{3}{4em}{Multiple row} & cell2 & cell3 \\ &
-	cell5 & cell6 \\ &
-	cell8 & cell9 \\
+	\multirow{3}{4em}{Multiple row} & cell2 & cell3 & cell4\\ &
+	cell5 & cell6 & cell7 \\ &
+	cell8 & cell9 & cell10 \\
+	\multirow{3}{4em}{Multiple row} & cell2 & cell3 & cell4 \\ &
+	cell5 & cell6 & cell7 \\ &
+	cell8 & cell9 & cell10 \\
 	\bottomrule
 \end{tabular}
-\caption[A useless table]{A useless table.}
 \labtab{useless}
 \end{table}
 
@@ -129,7 +142,7 @@ below.
 		\blindtext}
 \end{figure*}
 
-\section{Image before chapter}
+\section{TikZ}
 
 It is relatively easy to insert a figure before the chapter title with 
 the help of the \verb|\setchapterpreamble| command. The details are left 

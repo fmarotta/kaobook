@@ -18,7 +18,10 @@ which moves the sidenote upwards or downwards, like so: \\
 \Command{sidenote[offset][mark]\{Text\}}. You always have to add the 
 brackets for the mark, but they can be empty.\sidenote{If you want to 
 know more about the usage of the \Command{sidenote} command, read the 
-documentation of the \Package{snotez} package.}
+documentation of the \Package{snotez} package.} The format of the actual 
+sidenote can be changed with the command \Command{setsidenotes}, which 
+allows you to modify, for instance, the format of the markers and the 
+separator between the marker and the text of the sidenote.
 
 There was an alternative package, \Package{sidenotes}, which we could 
 have used. In the end we went for \Package{snotez} because it was the 
@@ -97,3 +100,6 @@ with this code:
 	\setchapterpreamble[u]{\margintoc}
 	\chapter{Chapter title}
 \end{verbatim}
+
+Not only textual stuff can be displayed in the margin, but also figures. 
+Those will be the focus of the next chapter.

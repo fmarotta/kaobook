@@ -93,7 +93,6 @@
 \RequirePackage{needspace} % Required to prevent page break right after a sectioning command
 \RequirePackage{xspace} % Better print trailing whitespace
 \RequirePackage[usenames,dvipsnames]{xcolor} % Colours
-\RequirePackage{tikz} % Allows to draw custom shapes
 
 % TODO: recognize space/indent justified/raggedright class options
 
@@ -248,10 +247,12 @@
 
 \RequirePackage{graphicx} % Include figures
 \setkeys{Gin}{width=\linewidth,totalheight=\textheight,keepaspectratio} % Improves figure scaling
+\RequirePackage{tikz} % Allows to draw custom shapes
 \RequirePackage{booktabs} % Nicer tables
 \RequirePackage{multirow} % Cells occupying multiple rows in tables
 \RequirePackage{multicol} % Multiple columns in dictionary
 \RequirePackage[hypcap=true]{caption} % Correctly placed anchors for hyperlinks
+\RequirePackage{atbegshi}
 \RequirePackage{scrhack} % Force KOMA to like floatrow
 \RequirePackage{floatrow} % Set up captions of floats
 \RequirePackage{dblfloatfix} % Better positioning of wide figures and tables
@@ -308,34 +309,82 @@
 
 % Change the position of the captions
 \DeclareFloatSeparators{marginparsep}{\hskip\marginparsep}
-\floatsetup[figure]{ % Captions for figueres
-	margins=hangoutside, % Put captions in the margins
-	facing=yes,
-	capposition=beside,
-	capbesideposition=outside,
-	capbesideframe=yes,
-	capbesidewidth=\marginparwidth, % Width of the caption equal to the width of the margin
-	capbesidesep=marginparsep,
-	floatwidth=\textwidth, % Width of the figure equal to the width of the text
+\def\mypage{0}
+\AtBeginShipout{\ifnum\mypage=0\relax\gdef\mypage{1}\else\gdef\mypage{0}\fi}
+\expandafter\def\csname floatsetup0\endcsname{%
+	\floatsetup[figure]{ % Captions for figueres
+		margins=hangright, % Put captions in the margins
+		facing=yes,
+		capposition=beside,
+		capbesideposition={top,right},
+		capbesideframe=yes,
+		capbesidewidth=\marginparwidth, % Width of the caption equal to the width of the margin
+		capbesidesep=marginparsep,
+		floatwidth=\textwidth, % Width of the figure equal to the width of the text
+	}
+	\floatsetup[widefigure]{ % Captions for wide figures
+		margins=hangright, % Put captions below the figure
+		facing=yes,
+		capposition=bottom
+	}
+	\floatsetup[table]{ % Captions for tables
+		margins=hangright, % Put captions in the margin
+		facing=yes,
+		capposition=beside,
+		capbesideposition={top,right},
+		%capbesideposition=outside,
+		capbesideframe=yes,
+		capbesidewidth=\marginparwidth, % Width of the caption equal to the width of the margin
+		capbesidesep=marginparsep,
+		floatwidth=\textwidth, % Width of the figure equal to the width of the text
+	}
+	\floatsetup[widetable]{ % Captions for wide tables
+		margins=hangright, % Put captions above the table
+		facing=yes,
+		capposition=above
+	}
 }
-\floatsetup[widefigure]{ % Captions for wide figures
-	margins=hangoutside, % Put captions below the figure
-	facing=yes,
-	capposition=bottom
+\expandafter\def\csname floatsetup1\endcsname{%
+	\floatsetup[figure]{ % Captions for figueres
+		margins=hangleft, % Put captions in the margins
+		facing=yes,
+		capposition=beside,
+		capbesideposition={top,left},
+		capbesideframe=yes,
+		capbesidewidth=\marginparwidth, % Width of the caption equal to the width of the margin
+		capbesidesep=marginparsep,
+		floatwidth=\textwidth, % Width of the figure equal to the width of the text
+	}
+	\floatsetup[widefigure]{ % Captions for wide figures
+		margins=hangleft, % Put captions below the figure
+		facing=yes,
+		capposition=bottom
+	}
+	\floatsetup[table]{ % Captions for tables
+		margins=hangleft, % Put captions in the margin
+		facing=yes,
+		capposition=beside,
+		capbesideposition={top,left},
+		%capbesideposition=outside,
+		capbesideframe=yes,
+		capbesidewidth=\marginparwidth, % Width of the caption equal to the width of the margin
+		capbesidesep=marginparsep,
+		floatwidth=\textwidth, % Width of the figure equal to the width of the text
+	}
+	\floatsetup[widetable]{ % Captions for wide tables
+		margins=hangleft, % Put captions above the table
+		facing=yes,
+		capposition=above
+	}
 }
-\floatsetup[table]{ % Captions for tables
-	margins=hangoutside, % Put captions in the margin
-	facing=yes,
-	capposition=beside,
-	capbesideposition=outside,
-	capbesideframe=yes,
-	capbesidewidth=\marginparwidth, % Width of the caption equal to the width of the margin
-	floatwidth=sidefil, % Width of the figure equal to the width of the text
-}
-\floatsetup[widetable]{ % Captions for wide tables
-	margins=hangoutside, % Put captions below the table
-	facing=yes,
-	capposition=bottom
+
+\renewenvironment{figure}[1][\fps@figure]{
+	\csname floatsetup\mypage\endcsname%
+	\let\float@endH@ORI\float@endH
+	\def\float@endH{\float@endH@ORI}%
+	\@float{figure}before
+}{
+	\end@float
 }
 
 % Change the formatting of the captions
