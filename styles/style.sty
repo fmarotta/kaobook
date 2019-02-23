@@ -77,15 +77,19 @@
 \setlength{\headheight}{115pt}			% Enlarge the header
 
 % Headings styles
-% FIXME: use headwidth (see page 259 of the KOMA-script book)
 \renewpagestyle{scrheadings}{
-	{\hspace{-\marginparwidth}\hspace{-\marginparsep}%
-		\makebox[\overflowingheadlen][l]{\makebox[2em][r]{\thepage}%
-		\quad\rule{1pt}{100pt}\quad{}\leftmark} }%
-  	{\makebox[\overflowingheadlen][r]{\rightmark\quad\rule{1pt}{100pt}%
-		\quad\makebox[2em][l]{\thepage}} }%
-  	{\makebox[\overflowingheadlen][r]{\rightmark\quad\rule{1pt}{100pt}%
-		\quad\makebox[2em][l]{\thepage}} }%
+	{\hspace{-\marginparwidth}\hspace{-\marginparsep}\makebox[\overflowingheadlen][l]{%
+		\parbox[b][1.7cm][r]{2em}{\thepage}
+		\makebox[2em][c]{\rule[-1.15cm]{1pt}{1.55cm}}
+		\parbox[b][1.7cm][l]{\width}{\leftmark}}}%
+	{\makebox[\overflowingheadlen][r]{%
+		\parbox[t][1.7cm][c]{\textwidth}{\hfill\rightmark}%
+		\makebox[2em][c]{\rule[-1.15cm]{1pt}{1.55cm}}%
+		\parbox[t][1.7cm][c]{2em}{\thepage}}}
+	{\makebox[\overflowingheadlen][r]{%
+		\parbox[t][1.7cm][c]{\textwidth}{\hfill\rightmark}%
+		\makebox[2em][c]{\rule[-1.15cm]{1pt}{1.55cm}}%
+		\parbox[t][1.7cm][c]{2em}{\thepage}}}
 }{
 	{}%
 	{}%
@@ -137,18 +141,19 @@
 % The Kao style
 \DeclareDocumentCommand{\chapterstylekao}{}{%
 	\renewcommand*{\chapterformat}{%
-		\mbox{\chapappifchapterprefix{\nobreakspace}\scalebox{2.3}{\thechapter\autodot}}
+		\mbox{\chapappifchapterprefix{\nobreakspace}\scalebox{2.5}{\thechapter\autodot}}
 	}
 	\renewcommand\chapterlinesformat[3]{%
-	  \makebox[\textwidth+\marginparsep+\marginparwidth]{%
-		\parbox[b]{\textwidth}{\hfill ##3}%
-		\makebox[\marginparsep][c]{\rule[-.35cm]{1pt}{1.7cm}}%
-		\parbox[b]{\marginparwidth}{##2}%
-	  }
+		\vspace*{-4.5cm}
+		\makebox[\textwidth+\marginparsep+\marginparwidth]{%
+			\parbox[b]{\textwidth}{\hfill ##3}%
+			\makebox[\marginparsep][c]{\rule[-.35cm]{1pt}{5.7cm}}%
+			\parbox[b]{\marginparwidth}{##2}%
+		}
 	}
 
 	\RedeclareSectionCommand[beforeskip=0cm,afterskip=0.3cm]{chapter}
-	\setlength{\mtocshift}{0cm}
+	\setlength{\mtocshift}{0mm}
 }
 
 % Lines
@@ -259,7 +264,7 @@
 \hypersetup{
 	%anchorcolor=Red,
 	%citecolor=DarkOrange!70!black,
-	citecolor=Black,
+	citecolor=OliveGreen,
 	%filecolor=Red,
 	%linkcolor=DarkBlue,
 	linkcolor=Black,
