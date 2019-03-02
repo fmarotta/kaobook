@@ -1,61 +1,70 @@
-\renewcommand*{\chapterformat}
-{
-  \chapappifchapterprefix{\nobreakspace}\scalebox{3.5}{\thechapter\autodot}
-}
-\renewcommand\chapterlinesformat[3]
-{
-  %\vspace*{-1cm}%
-  \leavevmode
-  \makebox[\textwidth+\marginparsep+\marginparwidth]{%
-	\makebox[\textwidth][l]{\hrulefill[1pt]#2}%\hfill%\par%\bigskip
-	\makebox[\marginparsep][l]{}%
-	\makebox[\marginparwidth][l]{}%
-  }\\
-  %\vspace{.5cm}
-  %\makebox[\textwidth+\marginparsep+\marginparwidth]{%
-	%\hrulefill[1pt]%
-  %}\par
-  \makebox[\textwidth+\marginparsep+\marginparwidth]{%
-	\makebox[\textwidth][l]{#3}%
-	\makebox[\marginparsep][l]{}%
-	\makebox[\marginparwidth][l]{}%
-  }\\
-  \makebox[\textwidth+\marginparsep+\marginparwidth]{%
-	\hrulefill[1.1pt]%
-	%\makebox[\textwidth][l]{\hrulefill}%
-	%\makebox[\marginparsep][l]{\hrulefill}%
-	%\makebox[\marginparwidth][l]{\hrulefill}%
-  }
-}
-\RedeclareSectionCommand[beforeskip=0cm]{chapter}
-
-\setchapterpreamble[u]{\margintoc[*-5.5]}
+\setchapterstyle{kao}
+%\setchapterpreamble[u]{\margintoc}
 \chapter{References}
 
 \section{Citations}
 
+\index{citations}
 To cite someone \sidecite{Visscher2008,James2013} is very simple: just 
-use the \verb|\sidecite| command. It does not have an offset argument 
-yet, but it probably will in the future. This command supports multiple 
-entries, as you can see, and by default it prints the reference on the 
-margin as well as adding it to the bibliography at the end of the 
-document. For this setup I used biblatex but I think that workarounds 
-are possible \sidecite{James2013}. Note that the citations have nothing 
-to do with the text, they are completely random as they only serve the 
-purpose to illustrate the feature.
+use the \Command{sidecite}\index{\Command{sidecite}} command. It does 
+not have an offset argument yet, but it probably will in the future. 
+This command supports multiple entries, as you can see, and by default 
+it prints the reference on the margin as well as adding it to the 
+bibliography at the end of the document. For this setup I used biblatex 
+but I think that workarounds are possible.\sidecite{James2013} Note that 
+the citations have nothing to do with the text, they are completely 
+random as they only serve the purpose to illustrate the feature.
 
 \section{Glossaries and Indices}
 
-If you load the packages \verb|glossaries| and \verb|imakeidx| you can 
-add those things to your book. For instance, I previously defined some 
-glossary entries and now I am going to use them, like this: 
-\gls{computer}. \verb|glossaries| allows you to use acronyms as well, 
-like the following: this is the full version, \acrfull{fpsLabel}, and 
-this is the short one \acrshort{fpsLabel}. These entries will appear in 
-the glossary in the backmatter.
+\index{glossary}
+If you load the packages \Package{glossaries} and \Package{imakeidx} you 
+can add those fancy glossaries and indices to your book. For instance, I 
+previously defined some glossary entries and now I am going to use them, 
+like this: \gls{computer}. \Package{glossaries} also allows you to use 
+acronyms, like the following: this is the full version, 
+\acrfull{fpsLabel}, and this is the short one \acrshort{fpsLabel}. These 
+entries will appear in the glossary in the backmatter.
 
-To illustrate the indexing feature,\index{index} I have just called 
-\verb|\index{index}|, and an entry in the index has been added. Check it 
-out!
+Unless you use \href{https://www.overleaf.com}{Overleaf} or some other 
+fancy IDE for \LaTeX, you need to run an external command from your 
+terminal in order to compile a document with a glossary. In particular, 
+the commands required are:\sidenote[-2mm][]{These are the commands you 
+would run on a UNIX system; for Windows, have a look at the 
+documentation.}
 
-You can read the documentation of these packages if you are interested.
+\begin{lstlisting}[style=kaolstplain]
+$ pdflatex main.tex
+$ makeglossaries main
+$ pdflatex main.tex
+\end{lstlisting}
+
+Note that you need not run \texttt{makeglossaries} every time you 
+compile your document, but only when you change the glossary entries.
+
+\index{index}
+To create an index, you need to insert the command 
+\Command{index\{subject\}} whenever you are talking about 
+\enquote{subject} in the text. For instance, at the start of this 
+paragraph I would write \Command{index\{index\}}, and an entry would be 
+added to the Index in the backmatter. Check it out!
+
+\marginnote[2mm]{In theory, you would need to run an external command 
+for the index as well, but luckily the package we suggested, 
+	\Package{imakeidx}, can compile the index automatically.}
+
+\index{nomenclature}
+A nomenclature is just a special kind of index; you can find one at the 
+end of this book. To insert a nomenclature, use the package 
+\Package{nomencl} and add the terms with the command 
+\Command{nomenclature}. Then, put a \Command{printnomenclature} where 
+you want the nomenclature to appear.
+
+Also with this package we need to run an external command to compile the 
+document, otherwise the nomenclature will not appear:
+
+\begin{lstlisting}[style=kaolstplain]
+$ pdflatex main.tex
+$ makeindex main.nlo -s nomencl.ist -o main.nls
+$ pdflatex main.tex
+\end{lstlisting}

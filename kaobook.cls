@@ -352,7 +352,8 @@
 	%width=\marginparwidth,
 	indention=0pt, % Suppress indentation
 	parindent=0pt, % Suppress space between paragraphs
-	skip=6pt, % Increase the space between the figure and the caption
+	aboveskip=6pt, % Increase the space between the figure and the caption
+	belowskip=6pt, % Increase the space between the caption and the table
 }
 
 % Needed to have continued figures and tables (https://en.wikibooks.org/wiki/LaTeX/Floats,_Figures_and_Captions#Figures_in_multiple_parts)

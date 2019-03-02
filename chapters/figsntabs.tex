@@ -29,20 +29,22 @@ caption!
 	\labfig{normalmonalisa}
 \end{figure}
 
-The position of the caption, as opposed to its format, is handled by the 
-\Package{floatrow} package. Achieving this result has been quite hard, 
-but now I am pretty satisfied.
+While the format of the caption is managed by \Package{caption}, its 
+position is handled by the \Package{floatrow} package. Achieving this 
+result has been quite hard, but now I am pretty satisfied.
 
 \begin{kaobox}[frametitle=To Do]
 The only problem is that if you want to use oneside mode, as in this 
 document, you have to manually setup floatrow so that it prints the 
 captions in the right margin instead of alternatively in the right and 
-left margins. To do this, change \enquote{hangoutside} to 
-\enquote{hangright}. However, there must be a way to really fix this 
-strange behaviour. If you know something about it, please let me know.
+left margins, \ie you have to change \enquote{hangoutside} to 
+\enquote{hangright}. This can be automatically done by recognising the 
+\Option{two-} or \Option{one- side} options, but there must be a way to 
+fix this strange behaviour using only \Package{floatrow}. If you know 
+something about it, please let me know.
 \end{kaobox}
 
-Tables can be inserted as easily as figures, as exemplified by the 
+Tables can be inserted just as easily as figures, as exemplified by the 
 following code:
 
 \begin{lstlisting}
@@ -86,10 +88,10 @@ I don't have much else to say, so I will just insert some blind text.
 
 \section{Margin figures and tables}
 
-Marginfigures can be inserted with the environment \verb|marginfigure|. 
-In this case, the whole picture is confined to the margin and the 
-caption is below it. \reffig{marginmonalisa} is obtained with something 
-like this:
+Marginfigures can be inserted with the environment 
+\Environment{marginfigure}. In this case, the whole picture is confined 
+to the margin and the caption is below it. \reffig{marginmonalisa} is 
+obtained with something like this:
 
 \begin{lstlisting}
 \begin{marginfigure}
@@ -99,10 +101,15 @@ like this:
 \end{marginfigure}
 \end{lstlisting}
 
-There is also the \verb|margintable| environment, of which 
-\reftab{anotheruseless} is an example.
+There is also the \Environment{margintable} environment, of which 
+\reftab{anotheruseless} is an example. Notice how you can place the 
+caption above the table by just issuing the \Command{caption} command 
+before beginning the \Environment{tabular} environment. Usually, figure 
+captions are below, while table captions are above.
 
 \begin{margintable}
+\caption[Another useless table]{Another useless table.}
+\labtab{anotheruseless}
 \raggedright
 \begin{tabular}{ c c c c }
 	\hline
@@ -111,8 +118,6 @@ There is also the \verb|margintable| environment, of which
 	\multirow{3}{4em}{Multiple row} & cell2 & cell3 \\ & cell5 & cell6 
 	\\ & cell8 & cell9 \\ \hline
 \end{tabular}
-\caption[Another useless table]{Another useless table.}
-\labtab{anotheruseless}
 \end{margintable}
 
 Marginfigures and tables can be positioned with an optional offset 
@@ -124,49 +129,24 @@ command, like so:
 \end{marginfigure}
 \end{lstlisting}
 
-Offset ca be either a measure or a multiple of \verb|\baselineskip|, 
-much like with \verb|\sidenote|, \verb|\marginnote| and 
-\verb|\margintoc|.\todo{improve this part} If you are wondering how I 
-inserted this orange bubble, have a look at the \verb|todo| package.
+Offset ca be either a measure or a multiple of \Command{baselineskip}, 
+much like with \Command{sidenote}, \Command{marginnote} and 
+\Command{margintoc}.\todo{Improve this part.} If you are wondering how I 
+inserted this orange bubble, have a look at the \Package{todo} package.
 
 \section{Wide figures and tables}
 
-With the environments \verb|figure*| and \verb|table*| you can insert 
-figures which span the whole page width. The caption will be positioned 
-below.
-
 \begin{figure*}[h!]
 	\includegraphics{seaside}
-	\vspace*{-1.3cm}
 	\caption[A wide seaside]{A wide seaside, and a wide caption.
-		Credits: By Bushra Feroz - Own work, CC BY-SA 4.0, 
-		https://commons.wikimedia.org/w/index.php?curid=68724647.
-		\blindtext}
+		Credits: By Bushra Feroz --- Own work, CC BY-SA 4.0, 
+		\url{https://commons.wikimedia.org/w/index.php?curid=68724647}}
 \end{figure*}
 
-\section{TikZ}
+With the environments \Environment{figure*} and \Environment{table*} you 
+can insert figures which span the whole page width. The caption will be 
+positioned below.
 
-It is relatively easy to insert a figure before the chapter title with 
-the help of the \verb|\setchapterpreamble| command. The details are left 
-to the reader.\sidenote{Check the source code for a hint.}
-
-In this chapter I also have used a different chapter title style. This 
-is just to demonstrate how easy it is to alter the default if you don't 
-like it and if you are willing to write some commands on your own. For 
-instance, you could try the following code:
-
-\begin{lstlisting}
-\renewcommand*{\chapterformat}
-{
-  \enskip\mbox{\scalebox{3.5}{\framebox{\thechapter\autodot}}}
-}
-\renewcommand\chapterlinesformat[3]
-{
-  \parbox[b]{\textwidth+\marginparsep+\marginparwidth}{
-	\parbox[b]{\textwidth}{#3}%
-	\parbox[b]{\marginparsep}{\hfill}%
-	\parbox[b]{\marginparwidth}{#2}%
-  }
-  %\hrule
-}
-\end{lstlisting}
+You may have noticed the full width image at the very beginning of this 
+chapter: that, however, is set up in an entirely different way, which 
+you'll read about in \vrefch{layout}.

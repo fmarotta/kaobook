@@ -152,37 +152,6 @@
 \maketitle[3]
 
 %----------------------------------------------------------------------------------------
-%	GREEK ALPHABET
-% 	Originally from https://gitlab.com/jim.hefferon/linear-algebra
-%----------------------------------------------------------------------------------------
-
-\thispagestyle{empty} % Suppress headers and footers on this page
-
-\begin{center}
-	\textbf{Greek letters with pronounciation} \\[1.5ex]
-	\newcommand{\pronounced}[1]{\hspace*{.2em}\small\textit{#1}}
-	\begin{tabular}{l l @{\hspace*{3em}} l l}
-		\toprule
-		Character & Name & Character & Name \\ 
-		\midrule
-		$\alpha$ & alpha \pronounced{AL-fuh} & $\nu$ & nu \pronounced{NEW} \\
-		$\beta$ & beta \pronounced{BAY-tuh} & $\xi$, $\Xi$ & xi \pronounced{KSIGH} \\ 
-		$\gamma$, $\Gamma$ & gamma \pronounced{GAM-muh} & o & omicron \pronounced{OM-uh-CRON} \\
-		$\delta$, $\Delta$ & delta \pronounced{DEL-tuh} & $\pi$, $\Pi$ & pi \pronounced{PIE} \\
-		$\epsilon$ & epsilon \pronounced{EP-suh-lon} & $\rho$ & rho \pronounced{ROW} \\
-		$\zeta$ & zeta \pronounced{ZAY-tuh} & $\sigma$, $\Sigma$ & sigma \pronounced{SIG-muh} \\
-		$\eta$ & eta \pronounced{AY-tuh} & $\tau$ & tau \pronounced{TOW (as in cow)} \\
-		$\theta$, $\Theta$ & theta \pronounced{THAY-tuh} & $\upsilon$, $\Upsilon$ & upsilon \pronounced{OOP-suh-LON} \\
-		$\iota$ & iota \pronounced{eye-OH-tuh} & $\phi$, $\Phi$ & phi \pronounced{FEE, or FI (as in hi)} \\
-		$\kappa$ & kappa \pronounced{KAP-uh} & $\chi$ & chi \pronounced{KI (as in hi)} \\
-		$\lambda$, $\Lambda$ & lambda \pronounced{LAM-duh} & $\psi$, $\Psi$ & psi \pronounced{SIGH, or PSIGH} \\
-		$\mu$ & mu \pronounced{MEW} & $\omega$, $\Omega$ & omega \pronounced{oh-MAY-guh} \\
-		\bottomrule
-	\end{tabular} \\[1.5ex]
-	Capitals shown are the ones that differ from Roman capitals.
-\end{center}
-
-%----------------------------------------------------------------------------------------
 %	PREFACE
 %----------------------------------------------------------------------------------------
 
@@ -252,10 +221,43 @@
 \printbibliography[heading=bibintoc,title=Bibliography]
 
 %----------------------------------------------------------------------------------------
-%	INDEX
+%	NOMENCLATURE
 %----------------------------------------------------------------------------------------
 
-\printindex
+\nomenclature{$c$}{Speed of light in a vacuum inertial frame}
+\nomenclature{$h$}{Planck constant}
+
+\printnomenclature
+
+%----------------------------------------------------------------------------------------
+%	GREEK ALPHABET
+% 	Originally from https://gitlab.com/jim.hefferon/linear-algebra
+%----------------------------------------------------------------------------------------
+
+\vspace{3cm}
+{\usekomafont{chapter}Greek letters with pronounciation} \\[2ex]
+\begin{center}
+	\newcommand{\pronounced}[1]{\hspace*{.2em}\small\textit{#1}}
+	\begin{tabular}{l l @{\hspace*{3em}} l l}
+		\toprule
+		Character & Name & Character & Name \\ 
+		\midrule
+		$\alpha$ & alpha \pronounced{AL-fuh} & $\nu$ & nu \pronounced{NEW} \\
+		$\beta$ & beta \pronounced{BAY-tuh} & $\xi$, $\Xi$ & xi \pronounced{KSIGH} \\ 
+		$\gamma$, $\Gamma$ & gamma \pronounced{GAM-muh} & o & omicron \pronounced{OM-uh-CRON} \\
+		$\delta$, $\Delta$ & delta \pronounced{DEL-tuh} & $\pi$, $\Pi$ & pi \pronounced{PIE} \\
+		$\epsilon$ & epsilon \pronounced{EP-suh-lon} & $\rho$ & rho \pronounced{ROW} \\
+		$\zeta$ & zeta \pronounced{ZAY-tuh} & $\sigma$, $\Sigma$ & sigma \pronounced{SIG-muh} \\
+		$\eta$ & eta \pronounced{AY-tuh} & $\tau$ & tau \pronounced{TOW (as in cow)} \\
+		$\theta$, $\Theta$ & theta \pronounced{THAY-tuh} & $\upsilon$, $\Upsilon$ & upsilon \pronounced{OOP-suh-LON} \\
+		$\iota$ & iota \pronounced{eye-OH-tuh} & $\phi$, $\Phi$ & phi \pronounced{FEE, or FI (as in hi)} \\
+		$\kappa$ & kappa \pronounced{KAP-uh} & $\chi$ & chi \pronounced{KI (as in hi)} \\
+		$\lambda$, $\Lambda$ & lambda \pronounced{LAM-duh} & $\psi$, $\Psi$ & psi \pronounced{SIGH, or PSIGH} \\
+		$\mu$ & mu \pronounced{MEW} & $\omega$, $\Omega$ & omega \pronounced{oh-MAY-guh} \\
+		\bottomrule
+	\end{tabular} \\[1.5ex]
+	Capitals shown are the ones that differ from Roman capitals.
+\end{center}
 
 %----------------------------------------------------------------------------------------
 %	GLOSSARY
@@ -275,13 +277,10 @@
 \printglossary[title=Special Terms, toctitle=List of terms]
 
 %----------------------------------------------------------------------------------------
-%	NOMENCLATURE
+%	INDEX
 %----------------------------------------------------------------------------------------
 
-\nomenclature{$c$}{Speed of light in a vacuum inertial frame}
-\nomenclature{$h$}{Planck constant}
-
-\printnomenclature
+\printindex
 
 
 % Back cover
