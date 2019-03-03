@@ -1,6 +1,7 @@
 \setchapterstyle{kao}
 %\setchapterpreamble[u]{\margintoc}
 \chapter{References}
+\labch{references}
 
 \section{Citations}
 
@@ -18,13 +19,14 @@ random as they only serve the purpose to illustrate the feature.
 \section{Glossaries and Indices}
 
 \index{glossary}
-If you load the packages \Package{glossaries} and \Package{imakeidx} you 
-can add those fancy glossaries and indices to your book. For instance, I 
-previously defined some glossary entries and now I am going to use them, 
-like this: \gls{computer}. \Package{glossaries} also allows you to use 
-acronyms, like the following: this is the full version, 
-\acrfull{fpsLabel}, and this is the short one \acrshort{fpsLabel}. These 
-entries will appear in the glossary in the backmatter.
+The \Class{kaobook} class loads the packages \Package{glossaries} and 
+\Package{imakeidx}, with which you can add glossaries and indices to 
+your book. For instance, I previously defined some glossary entries and 
+now I am going to use them, like this: \gls{computer}. 
+\Package{glossaries} also allows you to use acronyms, like the 
+following: this is the full version, \acrfull{fpsLabel}, and this is the 
+short one \acrshort{fpsLabel}. These entries will appear in the glossary 
+in the backmatter.
 
 Unless you use \href{https://www.overleaf.com}{Overleaf} or some other 
 fancy IDE for \LaTeX, you need to run an external command from your 
@@ -44,9 +46,9 @@ compile your document, but only when you change the glossary entries.
 
 \index{index}
 To create an index, you need to insert the command 
-\Command{index\{subject\}} whenever you are talking about 
+\lstinline|\index{subject}| whenever you are talking about 
 \enquote{subject} in the text. For instance, at the start of this 
-paragraph I would write \Command{index\{index\}}, and an entry would be 
+paragraph I would write \lstinline|index{index}|, and an entry would be 
 added to the Index in the backmatter. Check it out!
 
 \marginnote[2mm]{In theory, you would need to run an external command 
@@ -55,10 +57,10 @@ for the index as well, but luckily the package we suggested,
 
 \index{nomenclature}
 A nomenclature is just a special kind of index; you can find one at the 
-end of this book. To insert a nomenclature, use the package 
+end of this book. To insert a nomenclature, we use the package 
 \Package{nomencl} and add the terms with the command 
-\Command{nomenclature}. Then, put a \Command{printnomenclature} where 
-you want the nomenclature to appear.
+\Command{nomenclature}. We put then a \Command{printnomenclature} where 
+we want it to appear.
 
 Also with this package we need to run an external command to compile the 
 document, otherwise the nomenclature will not appear:
@@ -68,3 +70,74 @@ $ pdflatex main.tex
 $ makeindex main.nlo -s nomencl.ist -o main.nls
 $ pdflatex main.tex
 \end{lstlisting}
+
+These packages are all loaded in 
+\href{style/packages.sty}{packages.sty}, one of the files that come with 
+this class. However, the configuration of the elements is best done in 
+the main.tex file, since each book will have different entries and 
+styles.
+
+\marginnote[-19mm]{This brief section was by no means a complete 
+reference on the subject, therefore you should consult the documentation 
+of the above package to gain a full understanding of how they work.}
+
+\section{Hyperreferences}
+
+\index{hyperreferences}
+In this class we provide a handy sub-package to help you referencing the 
+same elements always in the same way, for consistency across the book. 
+First, you can label each element with a specific command. For instance, 
+should you want to label a chapter, you would put 
+\lstinline|\labch{chapter-title}| right after the \Command{chapter} 
+directive. This is just a convienence, because \Command{labch} is 
+actually just an alias to \lstinline|\label{ch:chapter-title}|, so it 
+spares you the writing of \enquote{ch}. We defined similar commands for 
+many typically labeled elements, including:
+
+\begin{multicols}{2}
+\setlength{\columnseprule}{0pt}
+\begin{itemize}
+	\item Page: \Command{labpage}
+	\item Part: \Command{labpart}
+	\item Chapter: \Command{labch}
+	\item Section: \Command{labsec}
+	\item Figure: \Command{labfig}
+	\item Table: \Command{labtab}
+	\item Definition: \Command{labdef}
+	\item Theorem: \Command{labthm}
+	\item Proposition: \Command{labprop}
+	\item Lemma: \Command{lablemma}
+	\item Remark: \Command{labremark}
+	\item Example: \Command{labexample}
+	\item Exercise: \Command{labexercise}
+\end{itemize}
+\end{multicols}
+
+Of course, we have similar commands for referencing those elements. 
+However, since the style of the reference should depend on the context, 
+we provide different commands to reference the same thing. For instance, 
+in some occasions you may want to reference the chapter by name, but 
+other times you want to reference it only by number. In general, there 
+are four reference style, which we call plain, vario, name, and full. 
+
+The plain style references only by number. It is accessed, for chapters, 
+with \lstinline|\refch{chapter-title}| (for other elements, the syntax 
+is analogous). Such a reference results in: \refch{references}.
+
+The vario and name styles rest upon the \Package{varioref} package. 
+Their syntax is \lstinline|\vrefch{chapter-title}| and 
+\lstinline|\nrefch{chapter-title}|, and they result in: 
+\vrefch{references}, for the vario style, and: \nrefch{references}, for 
+the name style. As you can see, the page is referenced in 
+\Package{varioref} style.
+
+The full style references everything. You can use it with 
+\lstinline|\frefch{chapter-title}| and it looks like this: 
+\frefch{references}.
+
+Of course, all the other elements have similar commands (\eg for parts 
+you would use \lstinline|\vrefpart{part-title}| or something like that). 
+However, not all elements implement all the four styles. The provided 
+commands should be enough, but if you want to see what is available or 
+to add the missing ones, have a look at the 
+\href{styles/references.sty}{provided package}.
