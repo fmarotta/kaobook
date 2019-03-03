@@ -1,11 +1,55 @@
-\setchapterpreamble[u]{\margintoc[*-6]}
-\setchapterstyle{plain}
 \setchapterimage[6cm]{images/seaside}
+\setchapterpreamble[u]{\margintoc}
 \chapter{Page Layout}
+\labch{layout}
 
 \section{Headings}
 
-\blindtext
+So far, in this document I used two different styles for the chapter 
+headings: one has the chapter name, a rule and, in the margin, the 
+chapter number; the other has an image at the top of the page, and the 
+chapter title is printed in a box (like for this chapter). There is one 
+additional style, which I used only in the appendix 
+(\refpage{appendix}); there, the chapter title is enclosed in two 
+horizontal rules, and the chapter number (or letter, in the case of the 
+appendix) is above it.\sidenote{To be honest, I do not think that mixing 
+heading styles like this is a wise choice, but in this document I did 
+only to show you how they look.}
+
+Every book is unique, so it makes sense to have different styles from 
+which to choose. Actually, it would be awesome if whenever a 
+\Class{kao}-user designs a new heading style, he or she added it to the 
+three styles already present, so that it will be available for new users 
+and new books.
+
+The choice of the style is made simple by the \Command{setchapterstyle} 
+command. It accepts one option, the name of the style, which can be: 
+\enquote{plain}, \enquote{kao}, or \enquote{lines}.\sidenote{Plain is 
+the default \LaTeX\xspace title style; the other ones are self 
+explanatory.} If instead you want the image style, you have to use the 
+command \Command{setchapterimage}, which accepts the path to the image 
+as argument; you can also provide an optional parameter in square 
+brackets to specify the height of the image.
+
+Let us make some examples. In this book, I begin a normal chapter with 
+the lines:
+
+\begin{lstlisting}
+\setchapterstyle{kao}
+\setchapterpreamble[u]{\margintoc}
+\chapter{Title of the Chapter}
+\labch{title}
+\end{lstlisting}
+
+Once the chapter style is set, it holds until you change it. When I want 
+to start a chapter with an image, I simply write:
+
+\begin{lstlisting}
+\setchapterimage[7cm]{path/to/image.png}
+\setchapterpreamble[u]{\margintoc}
+\chapter{Catchy Title}
+\labch{catchy}
+\end{lstlisting}
 
 \section{Headers \& Footers}
 
