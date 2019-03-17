@@ -4,10 +4,10 @@
 %	ITEMS
 %----------------------------------------------------------------------------------------
 
-\RequirePackage{amssymb}
+\usepackage{amssymb}
 \renewcommand{\labelitemi}{\small$\blacktriangleright$}
 \renewcommand{\labelitemii}{\textbullet}
-\RequirePackage{enumitem}
+\usepackage{enumitem}
 \setlist[itemize]{noitemsep}
 \setlist[enumerate]{noitemsep}
 \setlist[description]{noitemsep}
@@ -47,8 +47,8 @@
 
 \newmdenv[
 	style=kaoboxstyle,
-	backgroundcolor=RoyalBlue!30!White,
-	frametitlebackgroundcolor=RoyalBlue!30!White,
+	backgroundcolor=RoyalBlue!25!White,
+	frametitlebackgroundcolor=RoyalBlue!25!White,
 ]{kaobox}
 
 %----------------------------------------------------------------------------------------
@@ -95,7 +95,8 @@
 %	CITATION ENVIRONMENT
 %----------------------------------------------------------------------------------------
 
-% TODO: create a fancy environment for this.
+% TODO: create a fancy environment for this. Perhaps printing also the 
+% abstract.
 
 % Cite commands (assuming biblatex is loaded)
 \DeclareCiteCommand{\fullcite}{%
