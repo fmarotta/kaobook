@@ -170,7 +170,7 @@
 % Back matter
 \let\oldbackmatter\backmatter % store the old command
 \renewcommand{\backmatter}{
-	\oldbackmatter % Call the cold command
+	\oldbackmatter % Call the old command
 
 	% Set some Lengths used for the page headers
 	\setlength{\overflowingheadlen}{\linewidth}
@@ -516,8 +516,10 @@
 	\BHFN@OldMakefntext{#1}%
 }
 
-% THINGS THAT I DON'T KNOW WHERE TO PLACE
+%----------------------------------------------------------------------------------------
+%	INCLUSION OF ADDITIONAL PACKAGES
+%----------------------------------------------------------------------------------------
 
-\renewcommand{\hrulefill}[1][0.4pt]{%
-	\leavevmode\leaders\hrule height #1\hfill\kern\z@%
-}
+\RequirePackage{styles/references}
+\RequirePackage{styles/packages}
+\RequirePackage{styles/style}

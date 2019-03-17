@@ -1,6 +1,6 @@
 \setchapterimage[6.5cm]{seaside}
 \setchapterpreamble[u]{\margintoc}
-\chapter{Figures and Tables\footnotemark[0]}
+\chapter[Figures and Tables]{Figures and Tables\footnotemark[0]}
 
 \footnotetext{The credits for the image above the chapter title go to:
 	Bushra Feroz --- Own work, CC~BY-SA~4.0, 
@@ -103,9 +103,12 @@ obtained with something like this:
 
 There is also the \Environment{margintable} environment, of which 
 \reftab{anotheruseless} is an example. Notice how you can place the 
-caption above the table by just issuing the \Command{caption} command 
+caption above the table by just placing the \Command{caption} command 
 before beginning the \Environment{tabular} environment. Usually, figure 
-captions are below, while table captions are above.
+captions are below, while table captions are above. This rule is also 
+respected for normal figures and tables: the captions are always on the 
+side, but for figure they are aligned to the bottom, while for tables to 
+the top.
 
 \begin{margintable}
 \caption[Another useless table]{Another useless table.}
@@ -145,8 +148,9 @@ inserted this orange bubble, have a look at the \Package{todo} package.
 
 With the environments \Environment{figure*} and \Environment{table*} you 
 can insert figures which span the whole page width. The caption will be 
-positioned below.
+positioned below or above, according to taste.
 
 You may have noticed the full width image at the very beginning of this 
 chapter: that, however, is set up in an entirely different way, which 
-you'll read about in \vrefch{layout}.
+you'll read about in \vrefch{layout}. Now it is time to tackle 
+hyperreferences.

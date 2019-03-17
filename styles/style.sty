@@ -157,6 +157,9 @@
 }
 
 % Lines
+\renewcommand{\hrulefill}[1][0.4pt]{%
+	\leavevmode\leaders\hrule height #1\hfill\kern\z@%
+}
 \DeclareDocumentCommand{\chapterstylelines}{}
 {
 	\renewcommand*{\chapterformat}
@@ -280,6 +283,7 @@
 %\addtokomafont{captionlabel}{\@margin@par}
 %\makeatother
 
+% When using the Palatino font, it is better to use a slightly larger % stretch.
 \setstretch{1.10}
 
 %----------------------------------------------------------------------------------------
@@ -352,3 +356,4 @@
 {tocline}{figure}
 \DeclareTOCStyleEntry[level=1,indent=0em,numwidth=2em]%
 {tocline}{table}
+

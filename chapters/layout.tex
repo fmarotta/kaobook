@@ -41,8 +41,17 @@ the lines:
 \labch{title}
 \end{lstlisting}
 
-Once the chapter style is set, it holds until you change it. When I want 
-to start a chapter with an image, I simply write:
+In Line 1 I choose the style for the title to be \enquote{kao}. Then, I 
+specify that I want the margin toc. The rest is ordinary administration 
+in \LaTeX, except that I use my own \Command{labch} to label the 
+chapter. Actually, the \Command{setchapterpreamble} is a standard 
+\KOMAScript one, so I invide you to read about it in the KOMA 
+documentation. Once the chapter style is set, it holds until you change 
+it.\sidenote{The \Command{margintoc} has to be specified at every 
+chapter. Perhaps in the future this may change; it all depends on how 
+this feature will be welcomed by the users, so keep in touch with me if 
+you have preferences!} Whenever I want to start a chapter with an image, 
+I simply write:
 
 \begin{lstlisting}
 \setchapterimage[7cm]{path/to/image.png}
@@ -53,39 +62,166 @@ to start a chapter with an image, I simply write:
 
 \section{Headers \& Footers}
 
-\blindtext
+Headers and footers in \KOMAScript are handled by the 
+\Package{scrlayer-scrpage} package. There are two basic style: 
+\enquote{scrheadings} and \enquote{plain.scrheadings}. The former is 
+used for normal pages, whereas the latter is used in title pages (those 
+where a new chapter starts, for instance) and, at least in this book, in 
+the front matter. At any rate, the style can be changed with the 
+\Command{pagestyle} command, \eg 
+\lstinline|\pagestyle{plain.scrheadings}|.
+
+In both stles, the footer is completely empty. In plain.scrheadings, 
+also the header is absent (otherwise it wouldn't be so plain\ldots), but 
+in the normal style the design is reminescent of the \enquote{kao} style 
+for chapter titles.
+
+\begin{kaobox}[frametitle=To Do]
+The \Option{twoside} class option is still unstable and, among other 
+things, headers may (and will) break. I should definitely try to fix 
+this. As always, any help will be greatly appreciated.
+\end{kaobox}
 
 \section{Table of Contents}
 
-Another option that is activated by default changes the style of the 
-table of contents. By default, there is an entry for everything: list of 
-figures, list of tables, indices, glossaries and bibliographies. There 
-are also entries for the table of contents itself (thanks to the 
-\Command{setuptoc\{toc\}\{totoc\}} command). If you want entries for the 
-glossaries as well, you can set the \Option{toc} option of the package 
-\Package{glossaries}.\sidenote[-7mm][]{If you don't want all these 
-things in the table of contents, pass the appropriate KOMA options to 
-the class.}
+Another important part of a book is the table of contents. By default, 
+in \Class{kaobook} there is an entry for everything: list of figures, 
+list of tables, bibliographies, and even the table of contents itself. 
+Not everybody might like this, so we will provide a description of the 
+changes you need to do in order to enable or disable each of these 
+entries. In the following \reftab{tocentries}, each item corresponds to 
+a possible entry in the \acrshort{tocLabel}, and its description is the 
+command you need to provide to have such entry. These commands are 
+specified in the attached \href{style/style.sty}{style 
+package},\sidenote{In the same file, you can also choose the titles of 
+these entries.} so if you don't want the entries, just comment the 
+corresponding lines.
 
-By default, dispositions are numbered up to the section thanks to the 
-command \Command{setcounter\{secnumdepth\}\{1\}}. The table of contents 
-can be modified through the package \Package{etoc}, which is loaded 
-because it is needed for the margintocs, or the more traditional 
-\Package{tocbase}. The sidenotes are numbered on a per-chapter basis, 
-with the \Package{chngcntr} package; if you want to have only one 
-counter for the whole document, check the provided \Path{style.sty} 
-file.
+Of course, some packages, like those for glossaries and indices, will 
+try to add their own entries.\marginnote{In a later section, we will see 
+how you can define your own floating environment, and endow it with an 
+entry in the \acrshort{tocLabel}.} In such cases, you have to follow the 
+instructions specific to that package. Here, since we have talked about 
+glossaries and notations in \refch{references}, we will biefly see how 
+to configure them.
 
-\marginnote[1.5\parskip]{We also load \texttt{xcolor}.}
+\begin{table}
+\footnotesize
+\caption{Commands to add a particular entry to the table of contents.}
+\labtab{tocentries}
+\begin{tabular}{ l l }
+	\toprule
+	Entry & Command to Activate \\
+	\midrule
+	Table of Contents & \lstinline|\setuptoc{toc}{totoc}| \\
+	List of Figs and Tabs & \lstinline|\PassOptionsToClass{toc=listof}{\@baseclass}| \\
+	Bibliography & \lstinline|\PassOptionsToClass{toc=bibliography}{\@baseclass}| \\
+	\bottomrule
+\end{tabular}
+\end{table}
 
-The sidenote counter is reset at every chapter, but you can change that 
-with the \verb|\counterwithout| command.
+For the \Package{glossaries} package, use the \enquote{toc} option when 
+you load it: \lstinline|\usepackage[toc]{glossaries}|. For 
+\Package{nomencl}, pass the \enquote{intoc} option at the moment of 
+loading the package. Both \Package{glossaries} and \Package{nomencl} are 
+loaded in the attached \href{style/packages.sty}{\enquote{packages} 
+package}.
 
- The space between the figure and the text can be specified with the 
-following commands:
+Additional configuration of the table of contents can be performed 
+through the packages \Package{etoc}, which is loaded because it is 
+needed for the margintocs, or the more traditional \Package{tocbase}. 
+Read the respective documentations if you want to be able to change the 
+default \acrshort{tocLabel} style.\sidenote{(And please, send me a copy 
+of what you have done, I'm so curious!)}
 
-\begin{lstlisting}[style=kaolstplain]
-\renewcommand\FBaskip{4pt}
-\renewcommand\FBbskip{4pt}
+\section{Page Layout}
+
+Besides the page style, you can also change the width of the content of 
+a page. This is particularly useful for pages dedicated to part titles, 
+where having the 1.5-column layout might be a little awkward, or for 
+pages where you only put figures, where it is important to exploit all 
+the available space.
+
+In practice, there are two layouts: \enquote{wide} and \enquote{margin}. 
+The former suppresses the margins and allocates the full page for 
+contents, while the latter is the layout used in most of the pages of 
+this book, including this one. The wide layout is also used 
+automatically in the front and back matters.
+
+To change page layout, use the \Command{pagelayout} command. For 
+example, when I start a new part, I write:
+
+\begin{lstlisting}
+\pagelayout{wide}
+\addpart{Title of the New Part}
+\pagelayout{margin}
 \end{lstlisting}
 
+\section{Numbers \& Counters}
+
+In this short section we shall see how dispositions, sidenotes and 
+figures are numbered in the \Class{kaobook} class.
+
+By default, dispositions are numbered up to the section. This is 
+achieved by setting: \lstinline|\setcounter{secnumdepth}{1}|.
+
+The sidenotes are numbered on a per-chapter basis, thanks to the 
+\Package{chngcntr} package; if you want to have only one counter for the 
+whole document, check the provided \href{style/style.sty}{style 
+package}.\marginnote{Perhaps I will create a simpler command for this.} 
+In particular:
+
+\begin{itemize}
+	\item If you want to reset the sidenote counter at each chapter,
+	\begin{enumerate}
+		\item comment \lstinline|\counterwithout{sidenote}{chapter}|
+		\item uncomment \lstinline|\newcommand{pp@g@sidenote}{}|
+	\end{enumerate}
+	\item If you want only one counter for the entire document,
+	\begin{enumerate}
+		\item uncomment \lstinline|\counterwithout{sidenote}{chapter}|
+		\item comment \lstinline|\newcommand{pp@g@sidenote}{}|
+	\end{enumerate}
+\end{itemize}
+
+Figure and Table numbering is also per-chapter, but if you want to 
+change that, use something like:
+
+\begin{lstlisting}[style=kaolstplain]
+\renewcommand{\thefigure}{\arabic{section}.\arabic{figure}}
+\end{lstlisting}
+
+\section{White Space}
+
+One of the things that I find most hard in \LaTeX is to finely tune the 
+white space around objects. There are not fixed rules, each object needs 
+its own adjustment. Here we shall see how some spaces are defined at the 
+moment in this class.\marginnote{Attention! This section may be 
+incomplete.}
+
+\textbf{Space around figures and tables}
+
+\begin{lstlisting}[style=kaolstplain]
+\renewcommand\FBaskip{.4\topskip}
+\renewcommand\FBbskip{\FBaskip}
+\end{lstlisting}
+
+\textbf{Space around captions}
+
+\begin{lstlisting}[style=kaolstplain]
+\captionsetup{
+	aboveskip=6pt,
+	belowskip=6pt
+}
+\end{lstlisting}
+
+\textbf{Space around displays (\eg equations)}
+
+\begin{lstlisting}[style=kaolstplain]
+\setlength\abovedisplayskip{6pt plus 2pt minus 4pt}
+\setlength\belowdisplayskip{6pt plus 2pt minus 4pt}
+\abovedisplayskip 10\p@ \@plus2\p@ \@minus5\p@
+\abovedisplayshortskip \z@ \@plus3\p@
+\belowdisplayskip \abovedisplayskip
+\belowdisplayshortskip 6\p@ \@plus3\p@ \@minus3\p@
+\end{lstlisting}
