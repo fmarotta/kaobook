@@ -16,6 +16,15 @@ but I think that workarounds are possible.\sidecite{James2013} Note that
 the citations have nothing to do with the text, they are completely 
 random as they only serve the purpose to illustrate the feature.
 
+To compile a document containing citations, you need to use an external 
+tool, which for this class is biber. You need to run the following:
+
+\begin{lstlisting}[style=kaolstplain]
+$ pdflatex main.tex
+$ biber main
+$ pdflatex main.tex
+\end{lstlisting}
+
 \section{Glossaries and Indices}
 
 \index{glossary}
@@ -55,10 +64,10 @@ for the index as well, but luckily the package we suggested,
 	\Package{imakeidx}, can compile the index automatically.}
 
 \index{nomenclature}
-A nomenclature is just a special kind of index; you can find one in many
-mathematics books. To insert a nomenclature, we use the package
-\Package{nomencl} and add the terms with the command \Command{nomenclature}. We
-put then a \Command{printnomenclature} where we want it to appear.
+A nomenclature is just a special kind of index; you can find one at the end of
+this book. To insert a nomenclature, we use the package \Package{nomencl} and
+add the terms with the command \Command{nomenclature}. We put then a
+\Command{printnomenclature} where we want it to appear.
 
 Also with this package we need to run an external command to compile the 
 document, otherwise the nomenclature will not appear:
@@ -74,6 +83,12 @@ These packages are all loaded in
 this class. However, the configuration of the elements is best done in 
 the main.tex file, since each book will have different entries and 
 styles.
+
+Note that the \Package{nomencl} package caused problems when the 
+document was compiled, so, to make a long story short, I had to prevent 
+\Package{scrhack} to load the hak-file for \Package{nomencl}. When 
+compiling the document on Overleaf, however, this problem seem to 
+vanish.
 
 \marginnote[-19mm]{This brief section was by no means a complete 
 reference on the subject, therefore you should consult the documentation 
