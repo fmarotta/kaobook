@@ -13,8 +13,6 @@
 	%overfullrule=true,
 ]{kaobook}
 
-% TODO move lots of the below to the class
-
 % Load common packages and commands
 \usepackage{styles/environments}
 \usepackage{styles/mdftheorems}
@@ -38,9 +36,9 @@
 \makeglossaries
 
 % Nomenclature
-\makenomenclature
-\renewcommand{\nomname}{Notation}
-\renewcommand{\nompreamble}{The next list describes several symbols that will be later used within the body of the document.}
+%\makenomenclature
+%\renewcommand{\nomname}{Notation}
+%\renewcommand{\nompreamble}{The next list describes several symbols that will be later used within the body of the document.}
 
 \begin{document}
 
@@ -103,10 +101,11 @@
 %	COPYRIGHT PAGE
 %----------------------------------------------------------------------------------------
 
+% If you use the twoside option, use \uppertitleback and \lowertitleback; if you use the oneside option, use \frontispiece.
 \makeatletter
-\uppertitleback{\@titlehead}
+\frontispiece{
+	\vfill
 
-\lowertitleback{
 	\textbf{Disclaimer}\\
 	You can edit this page to suit your needs. For instance, here we have a no copyright statement, a colophon and some other information. This page is based on the corresponding page of Ken Arroyo Ohori's thesis, with minimal changes.
 	
@@ -221,10 +220,10 @@
 %	NOMENCLATURE
 %----------------------------------------------------------------------------------------
 
-\nomenclature{$c$}{Speed of light in a vacuum inertial frame}
-\nomenclature{$h$}{Planck constant}
+%\nomenclature{$c$}{Speed of light in a vacuum inertial frame}
+%\nomenclature{$h$}{Planck constant}
 
-\printnomenclature
+%\printnomenclature
 
 %----------------------------------------------------------------------------------------
 %	GREEK ALPHABET
