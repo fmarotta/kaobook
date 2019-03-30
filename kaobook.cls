@@ -253,7 +253,7 @@
 \RequirePackage{multicol} % Multiple columns in dictionary
 \RequirePackage[hypcap=true]{caption} % Correctly placed anchors for hyperlinks
 \RequirePackage{atbegshi}
-\RequirePackage{scrhack} % Force KOMA to like floatrow
+\RequirePackage[nomencl=false]{scrhack} % Force KOMA to like floatrow
 \RequirePackage{floatrow} % Set up captions of floats
 \RequirePackage{dblfloatfix} % Better positioning of wide figures and tables
 

@@ -36,9 +36,9 @@
 \makeglossaries
 
 % Nomenclature
-%\makenomenclature
-%\renewcommand{\nomname}{Notation}
-%\renewcommand{\nompreamble}{The next list describes several symbols that will be later used within the body of the document.}
+\makenomenclature
+\renewcommand{\nomname}{Notation}
+\renewcommand{\nompreamble}{The next list describes several symbols that will be later used within the body of the document.}
 
 \begin{document}
 
@@ -85,27 +85,26 @@
 %	OPENING
 %----------------------------------------------------------------------------------------
 
-\makeatletter
-\extratitle{
-	% In the title page, the title is vspaced by 9.5\baselineskip
-	\vspace*{9\baselineskip}
-	\vspace*{\parskip}
-	\begin{center}
-		% In the title page, \huge is set after the komafont for title
-		\usekomafont{title}\huge\@title
-	\end{center}
-}
-\makeatother
+% \makeatletter
+% \extratitle{
+% 	% In the title page, the title is vspaced by 9.5\baselineskip
+% 	\vspace*{9\baselineskip}
+% 	\vspace*{\parskip}
+% 	\begin{center}
+% 		% In the title page, \huge is set after the komafont for title
+% 		\usekomafont{title}\huge\@title
+% 	\end{center}
+% }
+% \makeatother
 
 %----------------------------------------------------------------------------------------
 %	COPYRIGHT PAGE
 %----------------------------------------------------------------------------------------
 
-% If you use the twoside option, use \uppertitleback and \lowertitleback; if you use the oneside option, use \frontispiece.
 \makeatletter
-\frontispiece{
-	\vfill
+\uppertitleback{\@titlehead}
 
+\lowertitleback{
 	\textbf{Disclaimer}\\
 	You can edit this page to suit your needs. For instance, here we have a no copyright statement, a colophon and some other information. This page is based on the corresponding page of Ken Arroyo Ohori's thesis, with minimal changes.
 	
@@ -143,9 +142,11 @@
 
 % KOMA title
 
-% If you use a cover page, you may want to assign page 3 to the title, 
-% so that the cover page gets 1.
+% If you use a cover page, you may want to assign page 3 to the title, so that the cover page gets 1.
+% In oneside mode, \uppertitleback and \lowertitleback are not normally printed, therefore we use twoside=semi just for the title pages.
+\KOMAoptions{twoside=semi}
 \maketitle[3]
+\KOMAoptions{twoside=false}
 
 %----------------------------------------------------------------------------------------
 %	PREFACE
@@ -220,10 +221,10 @@
 %	NOMENCLATURE
 %----------------------------------------------------------------------------------------
 
-%\nomenclature{$c$}{Speed of light in a vacuum inertial frame}
-%\nomenclature{$h$}{Planck constant}
+\nomenclature{$c$}{Speed of light in a vacuum inertial frame}
+\nomenclature{$h$}{Planck constant}
 
-%\printnomenclature
+\printnomenclature
 
 %----------------------------------------------------------------------------------------
 %	GREEK ALPHABET
