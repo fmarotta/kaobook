@@ -1,9 +1,28 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% kaobook
+% LaTeX Template
+% Version 1.0 (2/2/19)
+%
+% This template originates from:
+% https://www.LaTeXTemplates.com
+%
+% Authors:
+% Federico Marotta (federicomarotta@mail.com)
+% Based on the doctoral thesis of Ken Arroyo Ohori (https://3d.bk.tudelft.nl/ken/en)
+% and on the Tufte-LaTeX class.
+% Modified for LaTeX Templates by Vel (vel@latextemplates.com)
+%
+% License:
+% GPL Version 3 (see included LICENSE file)
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 %----------------------------------------------------------------------------------------
 %	PACKAGES AND OTHER DOCUMENT CONFIGURATIONS
 %----------------------------------------------------------------------------------------
 
 \documentclass[
-	fontsize=10pt,
+	fontsize=10pt, % Base font size
 	twoside=false,
 	open=any,
 	%chapterprefix=true,
@@ -23,17 +42,13 @@
 %\usepackage{showframe}
 %\usepackage{showlabels}
 
-% Add bibfile
-\addbibresource{main.bib}
+\addbibresource{main.bib} % Bibliography file
 
-% Set path for images
-\graphicspath{{images/}{./}}
+\graphicspath{{images/}{./}} % Paths in which to look for images
 
-% Index
-\makeindex[columns=3, title=Alphabetical Index, intoc]
+\makeindex[columns=3, title=Alphabetical Index, intoc] % Index
 
-% Glossary
-\makeglossaries
+\makeglossaries % Glossary
 
 % Nomenclature
 \makenomenclature
@@ -41,6 +56,24 @@
 \renewcommand{\nompreamble}{The next list describes several symbols that will be later used within the body of the document.}
 
 \begin{document}
+
+%----------------------------------------------------------------------------------------
+%	BOOK INFORMATION
+%----------------------------------------------------------------------------------------
+
+\titlehead{The \texttt{kaobook} class}
+\subject{Use this document as a template}
+
+\title[Example and documentation of the {\normalfont\texttt{kaobook}} class]{Example and documentation \\ of the {\normalfont\texttt{kaobook}} class}
+\subtitle{Customise this page according to your needs}
+
+\author[Federico Marotta]{Federico Marotta \thanks{A \LaTeX\ lover}}
+
+\date{\today}
+
+\publishers{An Awesome Publisher}
+
+%----------------------------------------------------------------------------------------
 
 % General structure of a book:
 % 	\frontmatter
@@ -69,15 +102,7 @@
 %
 %	Cover
 
-\titlehead{The \texttt{kaobook} class}
-\subject{Use this document as a template}
-\title[Example and documentation of the {\normalfont\texttt{kaobook}} class]{Example and documentation \\ of the {\normalfont\texttt{kaobook}} class}
-\subtitle{Customise this page according to your needs}
-\author[Federico Marotta]{Federico Marotta \thanks{A \LaTeX\ lover}}
-\date{\today}
-\publishers{An Awesome Publisher}
-
-\frontmatter
+\frontmatter % Denotes the start of the pre-document content, uses roman numerals
 
 %\includepdf{cover-front.pdf}
 
@@ -108,10 +133,14 @@
 	\textbf{Disclaimer}\\
 	You can edit this page to suit your needs. For instance, here we have a no copyright statement, a colophon and some other information. This page is based on the corresponding page of Ken Arroyo Ohori's thesis, with minimal changes.
 	
+	\medskip
+	
 	\textbf{No copyright}\\
 	\cczero\ This book is released into the public domain using the CC0 code. To the extent possible under law, I waive all copyright and related or neighbouring rights to this work.
 	
 	To view a copy of the CC0 code, visit: \\\url{http://creativecommons.org/publicdomain/zero/1.0/}
+	
+	\medskip
 	
 	\textbf{Colophon} \\
 	This document was typeset with the help of \href{https://sourceforge.net/projects/koma-script/}{\KOMAScript} and \href{ttps://www.latex-project.org/}{\LaTeX} using the \href{https://github.com/fmarotta/kaobook/}{kaobook} class.
@@ -119,6 +148,8 @@
 	The source code of this book is available at:\\\url{https://github.com/fmarotta/kaobook/tree/master/example}
 	
 	(You are welcome to contribute!)
+	
+	\medskip
 	
 	\textbf{Publisher} \\
 	First printed in Jan 2019 by \@publishers
@@ -130,9 +161,7 @@
 %----------------------------------------------------------------------------------------
 
 \dedication{
-	The harmony of the world is made manifest in Form and Number, and 
-	the heart and soul and all the poetry of Natural Philosophy are 
-	embodied in the concept of mathematical beauty.\\
+	The harmony of the world is made manifest in Form and Number, and the heart and soul and all the poetry of Natural Philosophy are embodied in the concept of mathematical beauty.\\
 	\flushright -- D'Arcy Wentworth Thompson
 }
 
@@ -152,10 +181,10 @@
 %	PREFACE
 %----------------------------------------------------------------------------------------
 
-\input{chapters/preface}
+\input{chapters/preface.tex}
 
 %----------------------------------------------------------------------------------------
-%	TABLE OF CONTENTS
+%	TABLE OF CONTENTS & LIST OF FIGURES/TABLES
 %----------------------------------------------------------------------------------------
 
 \begingroup
@@ -164,55 +193,60 @@
 %\etocmulticolstyle[2]{\chapter*{Contents}}
 %\setstretch{1}
 %\hypersetup{linkcolor=DarkBlue}
-\tableofcontents
-\listoffigures
-\listoftables
-%\listoftheorems
+
+\tableofcontents % Output the table of contents
+
+\listoffigures % Output the list of figures
+
+\listoftables % Output the list of tables
+
+%\listoftheorems % Output the list of theorems
 \endgroup
 
 %----------------------------------------------------------------------------------------
 %	MAIN BODY
 %----------------------------------------------------------------------------------------
 
-\mainmatter
+\mainmatter % Denotes the start of the main document content, resets page numbering and uses arabic numbers
 
-\input{chapters/introduction}
+\input{chapters/introduction.tex}
 
-\pagelayout{wide}
+\pagelayout{wide} % No margins
 \addpart{Class Options, Commands and Environments}
-\pagelayout{margin}
+\pagelayout{margin} % Restore margins
 
-\input{chapters/options}
-\input{chapters/textnotes}
-\input{chapters/figsntabs}
-\input{chapters/references}
+\input{chapters/options.tex}
+\input{chapters/textnotes.tex}
+\input{chapters/figsntabs.tex}
+\input{chapters/references.tex}
 
-\pagelayout{wide}
+\pagelayout{wide} % No margins
 \addpart{Design and Additional Features}
-\pagelayout{margin}
+\pagelayout{margin} % Restore margins
 
-\input{chapters/layout}
-%\input{chapters/tocs} %explain how to add custom tocs
-%\input{chapters/spaces}
-\input{chapters/mathematics}
-%\input{chapters/others} %lisings, verbatim, ... (contents of 
-%packages.sty)
+\input{chapters/layout.tex}
+%\input{chapters/tocs.tex} % Examples of how to add custom ToCs
+\input{chapters/mathematics.tex}
 
 \appendix
 
-% Put this in \appendix?
-\widelayout
+\pagelayout{wide} % No margins
 \addpart{Appendix}
-\marginlayout
+\pagelayout{margin} % Restore margins
 
-\input{chapters/appendix}
+\input{chapters/appendix.tex}
 
-\backmatter
-\setchapterstyle{plain}
+%----------------------------------------------------------------------------------------
+
+\backmatter % Denotes the end of the main document content
+
+\setchapterstyle{plain} % Output plain chapters from this point onwards
 
 %----------------------------------------------------------------------------------------
 %	BIBLIOGRAPHY
 %----------------------------------------------------------------------------------------
+
+% The bibliography needs to be compiled on the command line with 'biber main' from the template directory
 
 %\setbibpreamble{References in citation order\par\bigskip}
 \printbibliography[heading=bibintoc,title=Bibliography]
@@ -221,10 +255,12 @@
 %	NOMENCLATURE
 %----------------------------------------------------------------------------------------
 
+% The nomenclature needs to be compiled on the command line with 'makeindex main.nlo -s nomencl.ist -o main.nls' from the template directory
+
 \nomenclature{$c$}{Speed of light in a vacuum inertial frame}
 \nomenclature{$h$}{Planck constant}
 
-\printnomenclature
+\printnomenclature % Output the nomenclature
 
 %----------------------------------------------------------------------------------------
 %	GREEK ALPHABET
@@ -260,30 +296,33 @@
 %	GLOSSARY
 %----------------------------------------------------------------------------------------
 
+% The glossary needs to be compiled on the command line with 'makeglossaries main' from the template directory
+
 \newglossaryentry{computer}{
 	name=computer,
 	description={is a programmable machine that receives input, stores and manipulates data, and provides output in a useful format}
 }
 
 \newacronym[longplural={Frames per Second}]{fpsLabel}{FPS}{Frame per Second}
-
-\newacronym[longplural={Tables of Contents}]{tocLabel}{TOC}{Table of 
-Contents}
+\newacronym[longplural={Tables of Contents}]{tocLabel}{TOC}{Table of Contents}
 
 %\setglossarystyle{listhypergroup}
 \setglossarystyle{listgroup}
 
-%\printglossary[type=\acronymtype, title=Acronyms, toctitle=Acronyms]
-\printglossary[title=Special Terms, toctitle=List of terms]
+\printglossary[title=Special Terms, toctitle=List of terms] % Output the glossary, 'title'  is the chapter heading for the glossary, toctitle is the table of contents heading
 
 %----------------------------------------------------------------------------------------
 %	INDEX
 %----------------------------------------------------------------------------------------
 
-\printindex
+% The index needs to be compiled on the command line with 'makeindex main' from the template directory
 
+\printindex % Output the index
 
-% Back cover
+%----------------------------------------------------------------------------------------
+%	BACK COVER
+%----------------------------------------------------------------------------------------
+
 %\clearpage
 %\thispagestyle{empty}
 %\null%
