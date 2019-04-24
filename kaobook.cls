@@ -4,13 +4,13 @@
 % Version 1.0 (2/2/19)
 %
 % This template originates from:
-% http://www.LaTeXTemplates.com
+% https://www.LaTeXTemplates.com
 %
 % Authors:
 % Federico Marotta (federicomarotta@mail.com)
 % Based on the doctoral thesis of Ken Arroyo Ohori (https://3d.bk.tudelft.nl/ken/en)
 % and on the Tufte-LaTeX class.
-% Modified for LaTeX Templates by Vel (vel@LaTeXTemplates.com)
+% Modified for LaTeX Templates by Vel (vel@latextemplates.com)
 %
 % License:
 % GPL Version 3 (see included LICENSE file)
@@ -57,26 +57,26 @@
 % Usage: \title[Plain Title]{Actual Title}
 \newcommand{\@plaintitle}{}
 \renewcommand{\title}[2][]{
-	\gdef\@title{#2} % store the full title in @title
-	\ifthenelse{\isempty{#1}}{ % if there is no plain title
-		\renewcommand{\@plaintitle}{\title} % use full title
-	}{ % if there is a plain title
-		\renewcommand{\@plaintitle}{#1} % use provided plain-text title
+	\gdef\@title{#2} % Store the full title in @title
+	\ifthenelse{\isempty{#1}}{ % If there is no plain title
+		\renewcommand{\@plaintitle}{\title} % Use full title
+	}{ % If there is a plain title
+		\renewcommand{\@plaintitle}{#1} % Use provided plain-text title
 	}
-	\hypersetup{pdftitle={\@plaintitle}} % set the PDF metadata title
+	\hypersetup{pdftitle={\@plaintitle}} % Set the PDF metadata title
 }
 
 % Provide an optional argument to the \author command in which to store a plain text author, without any formatting
 % Usage: \author[Plain Author]{Actual Author}
 \newcommand{\@plainauthor}{}
 \renewcommand{\author}[2][]{
-	\gdef\@author{#2} % store the full author in @author
-	\ifthenelse{\isempty{#1}}{ % if there is no plain author
-		\renewcommand{\@plainauthor}{\author}% use full author
-  	}{ % if there is a plain author
-		\renewcommand{\@plainauthor}{#1}% use provided plain-text author
+	\gdef\@author{#2} % Store the full author in @author
+	\ifthenelse{\isempty{#1}}{ % If there is no plain author
+		\renewcommand{\@plainauthor}{\author}% Use full author
+  	}{ % If there is a plain author
+		\renewcommand{\@plainauthor}{#1}% Use provided plain-text author
 	}
-	\hypersetup{pdfauthor={\@plainauthor}} % set the PDF metadata author
+	\hypersetup{pdfauthor={\@plainauthor}} % Set the PDF metadata author
 }
 
 % Make a bookmark to the title page
@@ -96,26 +96,32 @@
 
 % TODO: recognize space/indent justified/raggedright class options
 
+%------------------------------------------------
+
 % Settings for a normal paragraph
 \newcommand{\@body@par}{%
-	\justifying% justify text
-	\singlespacing% set the interline space to a single line
-	\frenchspacing% no additional space after periods
-	\normalfont% use the default font
-	\normalsize% use the default size
+	\justifying% Justify text
+	\singlespacing% Set the interline space to a single line
+	\frenchspacing% No additional space after periods
+	\normalfont% Use the default font
+	\normalsize% Use the default size
 }
+
+%------------------------------------------------
 
 % Settings for a paragraph in the margins
 \newcommand{\@margin@par}{%
 	\justifying% justify text
 	\setlength{\RaggedRightParindent}{0em}% Suppress indentation
 	\setlength{\parindent}{0em}% Suppress indentation
-	\setlength{\parskip}{0.5pc}% set the space between paragraphs
-	%\singlespacing% set the space between lines
-	\frenchspacing% no additional space after periods
-	\normalfont% use the default font
-	\footnotesize% use a smaller size
+	\setlength{\parskip}{0.5pc}% Set the space between paragraphs
+	%\singlespacing% Set the space between lines
+	\frenchspacing% No additional space after periods
+	\normalfont% Use the default font
+	\footnotesize% Use a smaller size
 }
+
+%------------------------------------------------
 
 % By default, use @body@par settings
 \@body@par
@@ -127,7 +133,7 @@
 % Front matter
 \let\oldfrontmatter\frontmatter % Store the old command
 \renewcommand{\frontmatter}{
-	\oldfrontmatter % first of all, call the old command
+	\oldfrontmatter % First of all, call the old command
 
 	% Set some Lengths used for the page headers
 	\newlength{\overflowingheadlen}
@@ -143,9 +149,9 @@
 %------------------------------------------------
 
 % Main matter
-\let\oldmainmatter\mainmatter % store the old command
+\let\oldmainmatter\mainmatter % Store the old command
 \renewcommand{\mainmatter}{
-	\oldmainmatter % call the old command
+	\oldmainmatter % Call the old command
 
 	% Set some Lengths used for the page headers
 	\setlength{\overflowingheadlen}{\linewidth}
@@ -159,7 +165,7 @@
 %------------------------------------------------
 
 % Appendix
-\let\oldappendix\appendix % store the old command
+\let\oldappendix\appendix % Store the old command
 \renewcommand{\appendix}{
 	\oldappendix % Call the old command
 	\bookmarksetup{startatroot} % Reset the bookmark depth
@@ -168,7 +174,7 @@
 %------------------------------------------------
 
 % Back matter
-\let\oldbackmatter\backmatter % store the old command
+\let\oldbackmatter\backmatter % Store the old command
 \renewcommand{\backmatter}{
 	\oldbackmatter % Call the old command
 
@@ -347,7 +353,7 @@
 \captionsetup{
 	format=margin, % Use the style previously declared
 	strut=no,
-	%%hypcap=true, % links point to the top of the figure
+	%%hypcap=true, % Links point to the top of the figure
 	singlelinecheck=false,
 	%width=\marginparwidth,
 	indention=0pt, % Suppress indentation
@@ -403,7 +409,6 @@
 %	 BIBLIOGRAPHY
 %----------------------------------------------------------------------------------------
 
-% Load biblatex and set the style
 \RequirePackage[
 	%style=numeric-comp,
 	%citestyle=authortitle-icomp,
@@ -414,7 +419,7 @@
 	%sorting=nyt,
 	%sortcites=true,
 	%autocite=footnote,
-	backend=biber,
+	backend=biber, % Compile the bibliography with biber
 	hyperref=true,
 	backref=true,
 	citecounter=true,
@@ -422,7 +427,7 @@
 ]{biblatex}
 
 % Remove some unwanted entries from the bibliography
-% TODO: the url should be kept for online resources.
+% TODO: the url should be kept for online resources
 \AtEveryBibitem{
 	\clearfield{url}
 	\clearfield{issn}
@@ -517,7 +522,7 @@
 }
 
 %----------------------------------------------------------------------------------------
-%	INCLUSION OF ADDITIONAL PACKAGES
+%	INCLUDE ADDITIONAL PACKAGES
 %----------------------------------------------------------------------------------------
 
 \RequirePackage{styles/references}
