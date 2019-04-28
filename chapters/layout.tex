@@ -45,7 +45,7 @@ In Line 1 I choose the style for the title to be \enquote{kao}. Then, I
 specify that I want the margin toc. The rest is ordinary administration 
 in \LaTeX, except that I use my own \Command{labch} to label the 
 chapter. Actually, the \Command{setchapterpreamble} is a standard 
-\KOMAScript one, so I invide you to read about it in the KOMA 
+\KOMAScript\xspace one, so I invide you to read about it in the KOMA 
 documentation. Once the chapter style is set, it holds until you change 
 it.\sidenote{The \Command{margintoc} has to be specified at every 
 chapter. Perhaps in the future this may change; it all depends on how 
@@ -62,7 +62,7 @@ I simply write:
 
 \section{Headers \& Footers}
 
-Headers and footers in \KOMAScript are handled by the 
+Headers and footers in \KOMAScript\xspace are handled by the 
 \Package{scrlayer-scrpage} package. There are two basic style: 
 \enquote{scrheadings} and \enquote{plain.scrheadings}. The former is 
 used for normal pages, whereas the latter is used in title pages (those 
@@ -77,9 +77,8 @@ in the normal style the design is reminescent of the \enquote{kao} style
 for chapter titles.
 
 \begin{kaobox}[frametitle=To Do]
-The \Option{twoside} class option is still unstable and, among other 
-things, headers may (and will) break. I should definitely try to fix 
-this. As always, any help will be greatly appreciated.
+The \Option{twoside} class option is still unstable and. As always, any 
+help will be greatly appreciated.
 \end{kaobox}
 
 \section{Table of Contents}
@@ -165,27 +164,17 @@ figures are numbered in the \Class{kaobook} class.
 By default, dispositions are numbered up to the section. This is 
 achieved by setting: \lstinline|\setcounter{secnumdepth}{1}|.
 
-The sidenotes are numbered on a per-chapter basis, thanks to the 
-\Package{chngcntr} package; if you want to have only one counter for the 
-whole document, check the provided \href{style/style.sty}{style 
-package}.\marginnote{Perhaps I will create a simpler command for this.} 
-In particular:
+The sidenotes counter is the same across all the document, but if you 
+want it to reset at each chapter, just uncomment the line
 
-\begin{itemize}
-	\item If you want to reset the sidenote counter at each chapter,
-	\begin{enumerate}
-		\item comment \lstinline|\counterwithout{sidenote}{chapter}|
-		\item uncomment \lstinline|\newcommand{pp@g@sidenote}{}|
-	\end{enumerate}
-	\item If you want only one counter for the entire document,
-	\begin{enumerate}
-		\item uncomment \lstinline|\counterwithout{sidenote}{chapter}|
-		\item comment \lstinline|\newcommand{pp@g@sidenote}{}|
-	\end{enumerate}
-\end{itemize}
+\begin{lstlisting}[style=kaolstplain]
+\counterwithin*{sidenote}{chapter}
+\end{lstlisting}
 
-Figure and Table numbering is also per-chapter, but if you want to 
-change that, use something like:
+in the \Package{styles/style.sty} package provided by this class.
+
+Figure and Table numbering is also per-chapter; to change that, use 
+something like:
 
 \begin{lstlisting}[style=kaolstplain]
 \renewcommand{\thefigure}{\arabic{section}.\arabic{figure}}
@@ -193,11 +182,11 @@ change that, use something like:
 
 \section{White Space}
 
-One of the things that I find most hard in \LaTeX is to finely tune the 
-white space around objects. There are not fixed rules, each object needs 
-its own adjustment. Here we shall see how some spaces are defined at the 
-moment in this class.\marginnote{Attention! This section may be 
-incomplete.}
+One of the things that I find most hard in \LaTeX\xspace is to finely 
+tune the white space around objects. There are not fixed rules, each 
+object needs its own adjustment. Here we shall see how some spaces are 
+defined at the moment in this class.\marginnote{Attention! This section 
+may be incomplete.}
 
 \textbf{Space around figures and tables}
 

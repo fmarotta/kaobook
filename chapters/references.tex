@@ -17,12 +17,13 @@ the citations have nothing to do with the text, they are completely
 random as they only serve the purpose to illustrate the feature.
 
 To compile a document containing citations, you need to use an external 
-tool, which for this class is biber. You need to run the following:
+tool, which for this class is biber. You need to run the following 
+(assuming that your tex file is called main.text):
 
 \begin{lstlisting}[style=kaolstplain]
-$ pdflatex main.tex
+$ pdflatex main
 $ biber main
-$ pdflatex main.tex
+$ pdflatex main
 \end{lstlisting}
 
 \section{Glossaries and Indices}
@@ -44,9 +45,9 @@ the commands required are:\sidenote[-2mm][]{These are the commands you
 would run in a UNIX system; I have no idea on how it works in Windows.}
 
 \begin{lstlisting}[style=kaolstplain]
-$ pdflatex main.tex
+$ pdflatex main
 $ makeglossaries main
-$ pdflatex main.tex
+$ pdflatex main
 \end{lstlisting}
 
 Note that you need not run \texttt{makeglossaries} every time you 
@@ -73,9 +74,9 @@ Also with this package we need to run an external command to compile the
 document, otherwise the nomenclature will not appear:
 
 \begin{lstlisting}[style=kaolstplain]
-$ pdflatex main.tex
+$ pdflatex main
 $ makeindex main.nlo -s nomencl.ist -o main.nls
-$ pdflatex main.tex
+$ pdflatex main
 \end{lstlisting}
 
 These packages are all loaded in 
@@ -86,7 +87,7 @@ styles.
 
 Note that the \Package{nomencl} package caused problems when the 
 document was compiled, so, to make a long story short, I had to prevent 
-\Package{scrhack} to load the hak-file for \Package{nomencl}. When 
+\Package{scrhack} to load the hack-file for \Package{nomencl}. When 
 compiling the document on Overleaf, however, this problem seem to 
 vanish.
 

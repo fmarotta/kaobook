@@ -1,6 +1,7 @@
 \setchapterstyle{kao}
 \setchapterpreamble[u]{\margintoc}
 \chapter{Introduction}
+\labch{intro}
 
 \section{The main ideas}
 
@@ -11,11 +12,11 @@ else can be displayed. Arguably, this layout helps to organise the
 	which at the same time is very close to the point in the text where 
 	it is referenced.
 
-This text does not aim to be an apology of wide margins, for there are 
-many better suited authors for this task; the purpose of all these words 
-is just to fill the space so that the reader can see how a book written 
-with the kaobook class looks like. Meanwhile, I shall also try to 
-illustrate the features of the class.
+This document does not aim to be an apology of wide margins, for there 
+are many better suited authors for this task; the purpose of all these 
+words is just to fill the space so that the reader can see how a book 
+written with the kaobook class looks like. Meanwhile, I shall also try 
+to illustrate the features of the class.
 
 The main ideas behind kaobook come from this 
 \href{https://3d.bk.tudelft.nl/ken/en/2016/04/17/a-1.5-column-layout-in-latex.html}{blog 
@@ -45,8 +46,8 @@ started.
 \section{What this class does}
 \labsec{does}
 
-The kaobook class focuses more about the document structure than about 
-the style. Indeed, it is a well-known \LaTeX\xspace principle that 
+The \Class{kaobook} class focuses more about the document structure than 
+about the style. Indeed, it is a well-known \LaTeX\xspace principle that 
 structure and style should be separated as much as possible (see also 
 \vrefsec{doesnot}). This means that this class will only provide 
 commands, environments and in general, the opportunity to do things, 
@@ -87,7 +88,7 @@ The main features are the following:
 	to add bookmarks in a sensible way; in particular, the bookmarks 
 	levels are automatically reset at \Command{appendix} and 
 	\Command{backmatter}. Moreover, we also provide a small package to 
-	enhance hyperreferences to other parts of the text.
+	ease the hyperreferencing of other parts of the text.
 	\item[Bibliography] We want the reader to be able to know what has 
 	been cited without having to go to the end of the document every 
 	time, so citations go in the margins as well as at the end, as in 

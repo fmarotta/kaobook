@@ -1,3 +1,4 @@
+\setchapterstyle{kao}
 \setchapterpreamble[u]{\margintoc}
 \chapter{Class Options}
 \labch{options}
@@ -11,13 +12,13 @@ though that some options may lead to unexpected results\ldots
 
 The \Class{kaobook} class is based on \Class{scrbook}, therefore it 
 understands all of the options you would normally pass to that class. If 
-you have a lot of patience, you can read the \KOMAScript 
+you have a lot of patience, you can read the \KOMAScript\xspace 
 guide.\sidenote{The guide can be downloaded from 
 \url{https://ctan.org/pkg/koma-script?lang=en}.} Actually, the reading 
 of such guide is suggested as it is very instructive.
 
-Every \KOMAScript option you pass to the class when you load it is 
-automatically activated. In addition, in \Class{kaobook} some options 
+Every \KOMAScript\xspace option you pass to the class when you load it 
+is automatically activated. In addition, in \Class{kaobook} some options 
 have modified default values. For instance, the font size is 9.5pt and 
 the paragraphs are separated by space\sidenote[-7mm][]{To be precise, 
 they are separated by half a line worth of space: the \Option{parskip} 
@@ -27,9 +28,9 @@ value is \enquote{half}.}, not marked by indentation.
 
 In the future I plan to add more options to set the paragraph formatting 
 (justified or ragged) and the position of the margins (inner or outer in 
-twoside mode, left or right in oneside mode)\sidenote{As of now, 
+twoside mode, left or right in oneside mode).\sidenote{As of now, 
 paragraphs are justified, formatted with \Command{singlespacing} (from 
-the \Package{setspace} package) and \Command{frenchspacing}.}. 
+the \Package{setspace} package) and \Command{frenchspacing}.}
 
 I take this opportunity to renew the call for help: everyone is 
 encouraged to add features or reimplement existing ones, and to send me 
@@ -38,11 +39,11 @@ the results. You can find the github repository at
 
 \begin{kaobox}[frametitle=To Do]
 Implement the \Option{justified} and \Option{margin} options. To be 
-consistent with the \KOMAScript style, they should accept a simple 
-switch as a parameter, where the simple switch should be \Option{true} 
-or \Option{false}, or one of the other standard values for simple 
-switches supported by \KOMAScript. See the \KOMAScript documentation for 
-further information.
+consistent with the \KOMAScript\xspace style, they should accept a 
+simple switch as a parameter, where the simple switch should be 
+\Option{true} or \Option{false}, or one of the other standard values for 
+simple switches supported by \KOMAScript. See the \KOMAScript\xspace 
+documentation for further information.
 \end{kaobox}
 
 The above box is an example of a \Environment{kaobox}, which will be 

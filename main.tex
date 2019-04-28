@@ -23,17 +23,17 @@
 
 \documentclass[
 	fontsize=10pt, % Base font size
-	twoside=false, % VEL: setting this to true causes errors, fix and comment what it does
-	open=any, % VEL: changing this to open=right doesn't seem to do anything
+	twoside=false, % Use different layouts for even and odd pages (in particular, if twoside=true, the margin column will be always on the outside)
+	%open=any, % If twoside=true, uncomment this to force new chapters to start on any page, not only on right pages
 	%chapterprefix=true, % Uncomment to use the word "Chapter" before chapter numbers everywhere they appear
 	%chapterentrydots=true, % Uncomment to output dots from the chapter name to the page number in the table of contents
-	numbers=noenddot, % Comment to output dots after chapter numbers everywhere they appear VEL: are there any other values that can be used here? If not, this should just be a flag or true/false, not a key=value
-	%draft=true, % VEL: add comment about what uncommenting this will do
-	%overfullrule=true, % VEL: add comment about what uncommenting this will do
+	numbers=noenddot, % Comment to output dots after chapter numbers; the most common values for this option are: enddot, noenddot and auto (see the KOMAScript documentation for an in-depth explanation)
+	%draft=true, % If uncommented, images will be replaced by empty boxes
+	%overfullrule=true, % If uncommented, overly long lines will be marked by a black box
 ]{kaobook}
 
 % Load common packages and commands
-\usepackage{styles/environments} % VEL: all of the occurences of \usepackage{folder/file} lead to this warning in the log: "LaTeX Warning: You have requested package `styles/style', but the package provides `style'."
+\usepackage{styles/environments}
 \usepackage{styles/mdftheorems}
 %\usepackage{styles/plaintheorems}
 
@@ -42,18 +42,15 @@
 %\usepackage{showframe}
 %\usepackage{showlabels}
 
-\addbibresource{main.bib} % Bibliography file
-
 \graphicspath{{images/}{./}} % Paths in which to look for images
+
+\addbibresource{main.bib} % Bibliography file
 
 \makeindex[columns=3, title=Alphabetical Index, intoc] % Create an index
 
 \makeglossaries % Create a glossary
 
-% Nomenclature
 \makenomenclature % Create nomenclature
-\renewcommand{\nomname}{Notation}
-\renewcommand{\nompreamble}{The next list describes several symbols that will be later used within the body of the document.}
 
 %----------------------------------------------------------------------------------------
 
@@ -77,38 +74,7 @@
 
 %----------------------------------------------------------------------------------------
 
-% VEL: do you think this structure list is necessary? It's somewhat obvious from looking at the inclusions/sections below that this is the structure. Maybe it's better to put it in the help text of the template?
-
-% General structure of a book:
-% 	\frontmatter
-% 	Cover
-% 	Half-title (r)
-% 	Frontispiece (v)
-% 	Title (r)
-%	Information (copyright, ISBN, etc.) (v)
-%	Dedication (r)
-%	Notation and other conventions used (v)
-%	Table of contents (r)
-%	List of figures (r)
-%	Preface (r)
-%
-%	\mainmatter
-%	Chapters (1, 2, ..., n)
-%
-%	\appendix
-%	Appendices (A, B, ..., Z)
-%
-%	\backmatter
-%	Bibliography (r)
-%	Glossary (r)
-%	Index (r)
-%	Empty
-%
-%	Cover
-
 \frontmatter % Denotes the start of the pre-document content, uses roman numerals
-
-%\includepdf{cover-front.pdf} % VEL: either include an example cover-front.pdf with the template or remove this, otherwise it's confusing to users
 
 %----------------------------------------------------------------------------------------
 %	OPENING PAGE
@@ -173,14 +139,11 @@
 %	TITLE PAGE
 %----------------------------------------------------------------------------------------
 
-% VEL: This needs clearer commenting, I'm not sure what that KOMAoptions do here
+% Note that \maketitle will actually print many pages.
 
-% KOMA title
-
-% If you use a cover page, you may want to assign page 3 to the title, so that the cover page gets 1.
-% In oneside mode, \uppertitleback and \lowertitleback are not normally printed, therefore we use twoside=semi just for the title pages.
+% If twoside=false, \uppertitleback and \lowertitleback are not printed. To overcome this issue, we set twoside=semi just before printing the title pages, and set it back to false just after the title pages.
 \KOMAoptions{twoside=semi}
-\maketitle[3]
+\maketitle[3] % The [3] assigns "page 3" to the title, so that the cover page would get "page 1" (see KOMAScript documentation about maketitle)
 \KOMAoptions{twoside=false}
 
 %----------------------------------------------------------------------------------------
@@ -194,19 +157,26 @@
 %----------------------------------------------------------------------------------------
 
 \begingroup
-\etocstandarddisplaystyle % VEL: comment this
-\etocstandardlines % VEL: comment this
-%\etocmulticolstyle[2]{\chapter*{Contents}} % VEL: comment this or remove it
+
+% Define the style for the TOC, LOF, and LOT
 %\setstretch{1}
 %\hypersetup{linkcolor=DarkBlue}
+\setlength{\textheight}{23cm}
+
+% Turn on compatibility mode for the etoc package
+\etocstandarddisplaystyle % "toc display" as if etoc was not loaded
+\etocstandardlines % "toc lines as if etoc was not loaded
 
 \tableofcontents % Output the table of contents
 
 \listoffigures % Output the list of figures
 
+% Comment both of the following lines to have the LOF and the LOT on different pages
+\let\cleardoublepage\bigskip
+\let\clearpage\bigskip
+
 \listoftables % Output the list of tables
 
-%\listoftheorems % Output the list of theorems
 \endgroup
 
 %----------------------------------------------------------------------------------------
@@ -231,7 +201,6 @@
 \pagelayout{margin} % Restore margins
 
 \input{chapters/layout.tex}
-%\input{chapters/tocs.tex} % Examples of how to add custom ToCs
 \input{chapters/mathematics.tex}
 
 \appendix % From here onwards, chapters are numbered with letters, as is the appendix convention
@@ -254,8 +223,8 @@
 
 % The bibliography needs to be compiled on the command line with 'biber main' from the template directory
 
-%\setbibpreamble{References in citation order\par\bigskip} % VEL: this doesn't seem to do anything when uncommented
-\printbibliography[heading=bibintoc, title=Bibliography] % Add the bibliography heading to the ToC and set the title of the bibliography
+\defbibnote{bibnote}{Here are the references in citation order.\par\bigskip} % Prepend this text to the bibliography
+\printbibliography[heading=bibintoc, title=Bibliography, prenote=bibnote] % Add the bibliography heading to the ToC and set the title of the bibliography
 
 %----------------------------------------------------------------------------------------
 %	NOMENCLATURE
@@ -266,6 +235,8 @@
 \nomenclature{$c$}{Speed of light in a vacuum inertial frame}
 \nomenclature{$h$}{Planck constant}
 
+\renewcommand{\nomname}{Notation}
+\renewcommand{\nompreamble}{The next list describes several symbols that will be later used within the body of the document.}
 \printnomenclature % Output the nomenclature
 
 %----------------------------------------------------------------------------------------
@@ -312,9 +283,7 @@
 \newacronym[longplural={Frames per Second}]{fpsLabel}{FPS}{Frame per Second}
 \newacronym[longplural={Tables of Contents}]{tocLabel}{TOC}{Table of Contents}
 
-%\setglossarystyle{listhypergroup} % VEL: what does this do when uncommented?
-\setglossarystyle{listgroup} % VEL: comment this
-
+\setglossarystyle{listgroup} % Set the style of the glossary (see https://en.wikibooks.org/wiki/LaTeX/Glossary for a reference)
 \printglossary[title=Special Terms, toctitle=List of terms] % Output the glossary, 'title'  is the chapter heading for the glossary, toctitle is the table of contents heading
 
 %----------------------------------------------------------------------------------------
@@ -329,13 +298,13 @@
 %	BACK COVER
 %----------------------------------------------------------------------------------------
 
-% VEL: would be better if you include an example cover-back.pdf with the template so uncommenting this does something
+% If you have a PDF file that you want to use as back cover, uncomment the following lines.
 
 %\clearpage
 %\thispagestyle{empty}
 %\null%
 %\clearpage
-%\includepdf{pages/cover-back.pdf}
+%\includepdf{cover-back.pdf}
 
 %----------------------------------------------------------------------------------------
 

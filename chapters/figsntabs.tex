@@ -31,18 +31,8 @@ caption!
 
 While the format of the caption is managed by \Package{caption}, its 
 position is handled by the \Package{floatrow} package. Achieving this 
-result has been quite hard, but now I am pretty satisfied.
-
-\begin{kaobox}[frametitle=To Do]
-The only problem is that if you want to use oneside mode, as in this 
-document, you have to manually setup floatrow so that it prints the 
-captions in the right margin instead of alternatively in the right and 
-left margins, \ie you have to change \enquote{hangoutside} to 
-\enquote{hangright}. This can be automatically done by recognising the 
-\Option{two-} or \Option{one- side} options, but there must be a way to 
-fix this strange behaviour using only \Package{floatrow}. If you know 
-something about it, please let me know.
-\end{kaobox}
+result has been quite hard, but now I am pretty satisfied. In two-side 
+mode, the captions are printed in the correct margin.
 
 Tables can be inserted just as easily as figures, as exemplified by the 
 following code:
@@ -66,7 +56,7 @@ following code:
 
 which results in the useless \vreftab{useless}.
 
-\begin{table}[b]
+\begin{table}[h]
 \caption[A useless table]{A useless table.}
 \labtab{useless}
 \begin{tabular}{ c c c c }

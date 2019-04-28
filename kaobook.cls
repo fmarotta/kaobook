@@ -1,7 +1,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % kaobook
 % LaTeX Class
-% Version 1.0 (2/2/19)
+% Version 1.0 (28/4/19)
 %
 % This template originates from:
 % https://www.LaTeXTemplates.com
@@ -22,7 +22,7 @@
 %----------------------------------------------------------------------------------------
 
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesClass{kaobook}[2019/02/02 v1.0 kaobook class v1.0]
+\ProvidesClass{kaobook}[2019/04/28 v1.0 kaobook class v1.0]
 
 \newcommand{\@classname}{kaobook} % Class name
 \newcommand{\@baseclass}{scrbook} % Base class name
@@ -315,9 +315,42 @@
 
 % Change the position of the captions
 \DeclareFloatSeparators{marginparsep}{\hskip\marginparsep}
+\if@twoside
+	\floatsetup[figure]{ % Captions for figueres
+		margins=hangoutside, % Put captions in the margins
+		facing=yes,
+		capposition=beside,
+		capbesideposition={bottom,outside},
+		capbesideframe=yes,
+		capbesidewidth=\marginparwidth, % Width of the caption equal to the width of the margin
+		capbesidesep=marginparsep,
+		floatwidth=\textwidth, % Width of the figure equal to the width of the text
+	}
+	\floatsetup[widefigure]{ % Captions for wide figures
+		margins=hangoutside, % Put captions below the figure
+		facing=yes,
+		capposition=bottom
+	}
+	\floatsetup[table]{ % Captions for tables
+		margins=hangoutside, % Put captions in the margin
+		facing=yes,
+		capposition=beside,
+		capbesideposition={top,outside},
+		%capbesideposition=outside,
+		capbesideframe=yes,
+		capbesidewidth=\marginparwidth, % Width of the caption equal to the width of the margin
+		capbesidesep=marginparsep,
+		floatwidth=\textwidth, % Width of the figure equal to the width of the text
+	}
+	\floatsetup[widetable]{ % Captions for wide tables
+		margins=hangoutside, % Put captions above the table
+		facing=yes,
+		capposition=above
+	}
+\else
 	\floatsetup[figure]{ % Captions for figueres
 		margins=hangright, % Put captions in the margins
-		facing=no,
+		facing=yes,
 		capposition=beside,
 		capbesideposition={bottom,right},
 		capbesideframe=yes,
@@ -332,7 +365,7 @@
 	}
 	\floatsetup[table]{ % Captions for tables
 		margins=hangright, % Put captions in the margin
-		facing=no,
+		facing=yes,
 		capposition=beside,
 		capbesideposition={top,right},
 		%capbesideposition=outside,
@@ -346,6 +379,7 @@
 		facing=no,
 		capposition=above
 	}
+\fi
 
 % Change the formatting of the captions
 \addtokomafont{captionlabel}{\bfseries} % Bold font for the figure label

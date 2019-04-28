@@ -1,4 +1,4 @@
-\ProvidesPackage{style}
+\ProvidesPackage{styles/style}
 
 %----------------------------------------------------------------------------------------
 %	PAGE LAYOUT
@@ -79,9 +79,9 @@
 % Headings styles
 \renewpagestyle{scrheadings}{
 	{\hspace{-\marginparwidth}\hspace{-\marginparsep}\makebox[\overflowingheadlen][l]{%
-		\parbox[b][1.7cm][r]{2em}{\thepage}
+		\parbox[t][1.7cm][c]{2em}{\hfill\thepage}
 		\makebox[2em][c]{\rule[-1.15cm]{1pt}{1.55cm}}
-		\parbox[b][1.7cm][l]{\width}{\leftmark}}}%
+		\parbox[t][1.7cm][c]{\textwidth}{\leftmark}}}%
 	{\makebox[\overflowingheadlen][r]{%
 		\parbox[t][1.7cm][c]{\textwidth}{\hfill\rightmark}%
 		\makebox[2em][c]{\rule[-1.15cm]{1pt}{1.55cm}}%
@@ -202,18 +202,22 @@
 	\renewcommand{\chapterlinesformat}[3]{%
 		\begin{tikzpicture}[remember picture, overlay]
 			\node[
-				anchor=east,
-				xshift=\overflowingheadlen,
-				yshift=.9cm,
+				anchor=west,
+				xshift=-3cm,
+				%xshift=\overflowingheadlen,
+				yshift=1.15cm,
 				rectangle,
 				%very thick,
 				%draw=white,
-				rounded corners=10pt,
+				%rounded corners=10pt,
 				fill=gray!20!white,
-				inner sep=12pt,
+				fill opacity=0.8,
+				inner sep=14pt,
+				text opacity=1,
 				text centered,
-				minimum width=\textwidth,
-			]{\@hangfrom{##2}{##3}};
+				%minimum width=\textwidth,
+				minimum width=\paperwidth+3cm
+			]{\makebox[\textwidth]{\@hangfrom{##2}{##3}}};
 			\node[
 				anchor=west,
 				xshift=-3cm,
@@ -318,20 +322,8 @@
 
 \setcounter{secnumdepth}{1} % Number only up to sections
 
-\RequirePackage{chngcntr} % Allows to reset the sidenotes counter at each chapter
-
-% If you want to reset the sidenote counter at each chapter,
-% 1) comment `\counterwithout{sidenote}{chapter}'
-% 2) uncomment `\newcommand{pp@g@sidenote}{}'
-%
-% If you want only one counter for the entire document,
-% 1) uncomment `\counterwithout{sidenote}{chapter}'
-% 2) comment `\newcommand{pp@g@sidenote}{}'
-
-%\counterwithout{sidenote}{chapter}
-\newcommand{\pp@g@sidenote}{}
-
-% NOTE: the definition of \pp@g@sidenote is a small workaround in order to fix the behaviour of chngcntr.
+%\counterwithin*{sidenote}{chapter} % Uncomment to reset the sidenote counter at each chapter
+\counterwithout{sidenote}{chapter} % Uncomment to have one sidenote counter for the whole document
 
 %----------------------------------------------------------------------------------------
 %	TOC, LOF & LOT
