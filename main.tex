@@ -23,17 +23,17 @@
 
 \documentclass[
 	fontsize=10pt, % Base font size
-	twoside=false,
-	open=any,
-	%chapterprefix=true,
-	%chapterentrydots=true,
-	numbers=noenddot,
-	%draft=true,
-	%overfullrule=true,
+	twoside=false, % VEL: setting this to true causes errors, fix and comment what it does
+	open=any, % VEL: changing this to open=right doesn't seem to do anything
+	%chapterprefix=true, % Uncomment to use the word "Chapter" before chapter numbers everywhere they appear
+	%chapterentrydots=true, % Uncomment to output dots from the chapter name to the page number in the table of contents
+	numbers=noenddot, % Comment to output dots after chapter numbers everywhere they appear VEL: are there any other values that can be used here? If not, this should just be a flag or true/false, not a key=value
+	%draft=true, % VEL: add comment about what uncommenting this will do
+	%overfullrule=true, % VEL: add comment about what uncommenting this will do
 ]{kaobook}
 
 % Load common packages and commands
-\usepackage{styles/environments}
+\usepackage{styles/environments} % VEL: all of the occurences of \usepackage{folder/file} lead to this warning in the log: "LaTeX Warning: You have requested package `styles/style', but the package provides `style'."
 \usepackage{styles/mdftheorems}
 %\usepackage{styles/plaintheorems}
 
@@ -46,14 +46,16 @@
 
 \graphicspath{{images/}{./}} % Paths in which to look for images
 
-\makeindex[columns=3, title=Alphabetical Index, intoc] % Index
+\makeindex[columns=3, title=Alphabetical Index, intoc] % Create an index
 
-\makeglossaries % Glossary
+\makeglossaries % Create a glossary
 
 % Nomenclature
-\makenomenclature
+\makenomenclature % Create nomenclature
 \renewcommand{\nomname}{Notation}
 \renewcommand{\nompreamble}{The next list describes several symbols that will be later used within the body of the document.}
+
+%----------------------------------------------------------------------------------------
 
 \begin{document}
 
@@ -74,6 +76,8 @@
 \publishers{An Awesome Publisher}
 
 %----------------------------------------------------------------------------------------
+
+% VEL: do you think this structure list is necessary? It's somewhat obvious from looking at the inclusions/sections below that this is the structure. Maybe it's better to put it in the help text of the template?
 
 % General structure of a book:
 % 	\frontmatter
@@ -104,30 +108,30 @@
 
 \frontmatter % Denotes the start of the pre-document content, uses roman numerals
 
-%\includepdf{cover-front.pdf}
+%\includepdf{cover-front.pdf} % VEL: either include an example cover-front.pdf with the template or remove this, otherwise it's confusing to users
 
 %----------------------------------------------------------------------------------------
-%	OPENING
+%	OPENING PAGE
 %----------------------------------------------------------------------------------------
 
-% \makeatletter
-% \extratitle{
-% 	% In the title page, the title is vspaced by 9.5\baselineskip
-% 	\vspace*{9\baselineskip}
-% 	\vspace*{\parskip}
-% 	\begin{center}
-% 		% In the title page, \huge is set after the komafont for title
-% 		\usekomafont{title}\huge\@title
-% 	\end{center}
-% }
-% \makeatother
+%\makeatletter
+%\extratitle{
+%	% In the title page, the title is vspaced by 9.5\baselineskip
+%	\vspace*{9\baselineskip}
+%	\vspace*{\parskip}
+%	\begin{center}
+%		% In the title page, \huge is set after the komafont for title
+%		\usekomafont{title}\huge\@title
+%	\end{center}
+%}
+%\makeatother
 
 %----------------------------------------------------------------------------------------
 %	COPYRIGHT PAGE
 %----------------------------------------------------------------------------------------
 
 \makeatletter
-\uppertitleback{\@titlehead}
+\uppertitleback{\@titlehead} % Header
 
 \lowertitleback{
 	\textbf{Disclaimer}\\
@@ -169,6 +173,8 @@
 %	TITLE PAGE
 %----------------------------------------------------------------------------------------
 
+% VEL: This needs clearer commenting, I'm not sure what that KOMAoptions do here
+
 % KOMA title
 
 % If you use a cover page, you may want to assign page 3 to the title, so that the cover page gets 1.
@@ -188,9 +194,9 @@
 %----------------------------------------------------------------------------------------
 
 \begingroup
-\etocstandarddisplaystyle
-\etocstandardlines
-%\etocmulticolstyle[2]{\chapter*{Contents}}
+\etocstandarddisplaystyle % VEL: comment this
+\etocstandardlines % VEL: comment this
+%\etocmulticolstyle[2]{\chapter*{Contents}} % VEL: comment this or remove it
 %\setstretch{1}
 %\hypersetup{linkcolor=DarkBlue}
 
@@ -228,7 +234,7 @@
 %\input{chapters/tocs.tex} % Examples of how to add custom ToCs
 \input{chapters/mathematics.tex}
 
-\appendix
+\appendix % From here onwards, chapters are numbered with letters, as is the appendix convention
 
 \pagelayout{wide} % No margins
 \addpart{Appendix}
@@ -248,8 +254,8 @@
 
 % The bibliography needs to be compiled on the command line with 'biber main' from the template directory
 
-%\setbibpreamble{References in citation order\par\bigskip}
-\printbibliography[heading=bibintoc,title=Bibliography]
+%\setbibpreamble{References in citation order\par\bigskip} % VEL: this doesn't seem to do anything when uncommented
+\printbibliography[heading=bibintoc, title=Bibliography] % Add the bibliography heading to the ToC and set the title of the bibliography
 
 %----------------------------------------------------------------------------------------
 %	NOMENCLATURE
@@ -306,8 +312,8 @@
 \newacronym[longplural={Frames per Second}]{fpsLabel}{FPS}{Frame per Second}
 \newacronym[longplural={Tables of Contents}]{tocLabel}{TOC}{Table of Contents}
 
-%\setglossarystyle{listhypergroup}
-\setglossarystyle{listgroup}
+%\setglossarystyle{listhypergroup} % VEL: what does this do when uncommented?
+\setglossarystyle{listgroup} % VEL: comment this
 
 \printglossary[title=Special Terms, toctitle=List of terms] % Output the glossary, 'title'  is the chapter heading for the glossary, toctitle is the table of contents heading
 
@@ -322,6 +328,8 @@
 %----------------------------------------------------------------------------------------
 %	BACK COVER
 %----------------------------------------------------------------------------------------
+
+% VEL: would be better if you include an example cover-back.pdf with the template so uncommenting this does something
 
 %\clearpage
 %\thispagestyle{empty}
