@@ -14,8 +14,13 @@ they are more readable. To insert a sidenote, just use the command
 \Command{sidenote\{Text of the note\}}. You can specify a 
 mark\sidenote[O]{This sidenote has a special mark, a big O!} with \\ 
 \Command{sidenote[mark]\{Text\}}, but you can also specify an offset, 
-which moves the sidenote upwards or downwards, like so: \\ 
-\Command{sidenote[offset][mark]\{Text\}}. You always have to add the 
+which moves the sidenote upwards or downwards, so that the full syntax is:
+
+\begin{lstlisting}[style=kaolstplain]
+\sidenote[offset][mark]{Text}
+\end{lstlisting}
+
+If you use an offset, you always have to add the 
 brackets for the mark, but they can be empty.\sidenote{If you want to 
 know more about the usage of the \Command{sidenote} command, read the 
 documentation of the \Package{snotez} package.} The format of the actual 
@@ -43,7 +48,7 @@ turn relies on the \Package{marginnote} package.
 This command is very similar to the previous one. You can create a 
 marginnote with \Command{marginnote[offset]\{Text\}}, where the offset 
 argument can be left out, or it can be a multiple of 
-\Command{baselineskip},\marginnote[-2.7mm]{While the command for margin 
+\Command{baselineskip},\marginnote[-1cm]{While the command for margin 
 notes comes from the \Package{marginnote} package, it has been redefined 
 in order to change the position of the optional offset argument, which 
 now precedes the text of the note, whereas in the original version it 
@@ -53,7 +58,7 @@ everything more consistent, so that you have to remember less things!}
 \eg
 
 \begin{lstlisting}[style=kaolstplain]
-\marginnote[-12pt]{Text} or \marginnote[*-3]{Text}.
+\marginnote[-12pt]{Text} or \marginnote[*-3]{Text}
 \end{lstlisting}
 
 \begin{kaobox}[frametitle=To Do]
