@@ -6,6 +6,9 @@
 % This template originates from:
 % https://www.LaTeXTemplates.com
 %
+% For the latest template development version and to make contributions:
+% https://github.com/fmarotta/kaobook
+%
 % Authors:
 % Federico Marotta (federicomarotta@mail.com)
 % Based on the doctoral thesis of Ken Arroyo Ohori (https://3d.bk.tudelft.nl/ken/en)
