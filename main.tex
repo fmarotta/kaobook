@@ -6,6 +6,9 @@
 % This template originates from:
 % https://www.LaTeXTemplates.com
 %
+% For the latest template development version and to make contributions:
+% https://github.com/fmarotta/kaobook
+%
 % Authors:
 % Federico Marotta (federicomarotta@mail.com)
 % Based on the doctoral thesis of Ken Arroyo Ohori (https://3d.bk.tudelft.nl/ken/en)
@@ -23,34 +26,34 @@
 
 \documentclass[
 	fontsize=10pt, % Base font size
-	twoside=false, % Use different layouts for even and odd pages (in particular, if twoside=true, the margin column will be always on the outside)
-	%open=any, % If twoside=true, uncomment this to force new chapters to start on any page, not only on right pages
+	twoside=true, % Use different layouts for even and odd pages (in particular, if twoside=true, the margin column will be always on the outside)
+	%open=any, % If twoside=true, uncomment this to force new chapters to start on any page, not only on right (odd) pages
 	%chapterprefix=true, % Uncomment to use the word "Chapter" before chapter numbers everywhere they appear
 	%chapterentrydots=true, % Uncomment to output dots from the chapter name to the page number in the table of contents
 	numbers=noenddot, % Comment to output dots after chapter numbers; the most common values for this option are: enddot, noenddot and auto (see the KOMAScript documentation for an in-depth explanation)
-	%draft=true, % If uncommented, images will be replaced by empty boxes
-	%overfullrule=true, % If uncommented, overly long lines will be marked by a black box
+	%draft=true, % If uncommented, images will be replaced by empty boxes VEL: not true, this adds a ruler in the header and footer but images remain
+	%overfullrule=true, % If uncommented, overly long lines will be marked by a black box; useful for correcting spacing problems
 ]{kaobook}
 
 % Load common packages and commands
 \usepackage{styles/environments}
 \usepackage{styles/mdftheorems}
-%\usepackage{styles/plaintheorems}
+%\usepackage{styles/plaintheorems} % VEL: uncommenting this while commenting the above leads to a compilation error about \openbox already being defined. Once that's fixed, it's worth commenting here that only one of them should be uncommented (there's also a compilation error if both are uncommented).
 
 % Load packages for testing
 \usepackage{blindtext}
-%\usepackage{showframe}
-%\usepackage{showlabels}
+%\usepackage{showframe} % Uncomment to show boxes around the text area, margin, header and footer
+%\usepackage{showlabels} % Uncomment to output the content of \label commands to the document where they are used
 
 \graphicspath{{images/}{./}} % Paths in which to look for images
 
 \addbibresource{main.bib} % Bibliography file
 
-\makeindex[columns=3, title=Alphabetical Index, intoc] % Create an index
+\makeindex[columns=3, title=Alphabetical Index, intoc] % Make LaTeX produce the files required to compile the index
 
-\makeglossaries % Create a glossary
+\makeglossaries % Make LaTeX produce the files required to compile the glossary
 
-\makenomenclature % Create nomenclature
+\makenomenclature % Make LaTeX produce the files required to compile the nomenclature
 
 %----------------------------------------------------------------------------------------
 
@@ -122,7 +125,7 @@
 	\medskip
 	
 	\textbf{Publisher} \\
-	First printed in Jan 2019 by \@publishers
+	First printed in May 2019 by \@publishers
 }
 \makeatother
 
@@ -156,12 +159,12 @@
 %	TABLE OF CONTENTS & LIST OF FIGURES/TABLES
 %----------------------------------------------------------------------------------------
 
-\begingroup
+\begingroup % Local scope for the following commands
 
 % Define the style for the TOC, LOF, and LOT
-%\setstretch{1}
-%\hypersetup{linkcolor=DarkBlue}
-\setlength{\textheight}{23cm}
+%\setstretch{1} % Uncomment to modify line spacing in the ToC
+%\hypersetup{linkcolor=blue} % Uncomment to set the colour of links in the ToC
+\setlength{\textheight}{23cm} % Manually adjust the height of the ToC pages
 
 % Turn on compatibility mode for the etoc package
 \etocstandarddisplaystyle % "toc display" as if etoc was not loaded
@@ -298,7 +301,7 @@
 %	BACK COVER
 %----------------------------------------------------------------------------------------
 
-% If you have a PDF file that you want to use as back cover, uncomment the following lines.
+% If you have a PDF/image file that you want to use as a back cover, uncomment the following lines
 
 %\clearpage
 %\thispagestyle{empty}
