@@ -204,20 +204,15 @@
 			\node[
 				anchor=west,
 				xshift=-3cm,
-				%xshift=\overflowingheadlen,
 				yshift=1.15cm,
 				rectangle,
-				%very thick,
-				%draw=white,
-				%rounded corners=10pt,
 				fill=gray!20!white,
 				fill opacity=0.8,
-				inner sep=14pt,
+				inner ysep=14pt,
+				inner xsep=3cm,
 				text opacity=1,
-				text centered,
-				%minimum width=\textwidth,
-				minimum width=\paperwidth+3cm
-			]{\makebox[\textwidth]{\@hangfrom{##2}{##3}}};
+				text width=\paperwidth+3cm, % Set text width in order to force left-alignment
+			]{\makebox[0pt][l]{\@hangfrom{##2}{##3}}};
 			\node[
 				anchor=west,
 				xshift=-3cm,
