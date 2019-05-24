@@ -2,6 +2,7 @@
 
 % Plain ams* theorems
 
+\let\openbox\relax
 \usepackage{amsmath} % Improved mathematics
 \usepackage{amsfonts} % Mathematical fonts
 \usepackage{amssymb} % AMS symbols and environments
@@ -24,8 +25,8 @@
 
 % Theorem styles
 \declaretheoremstyle[
-	%spaceabove=.5\thm@preskip,
-	%spacebelow=.5\thm@postskip,
+	spaceabove=.5\thm@preskip,
+	spacebelow=.5\thm@postskip,
 	%headfont=\normalfont\bfseries,%\scshape,
 	%notefont=\normalfont, notebraces={ (}{)},
 	bodyfont=\normalfont\itshape,
@@ -36,8 +37,8 @@
 ]{kaoplain}
 
 \declaretheoremstyle[
-	%spaceabove=.5\thm@preskip,
-	%spacebelow=.5\thm@postskip,
+	spaceabove=.5\thm@preskip,
+	spacebelow=.5\thm@postskip,
 	%headfont=\normalfont\bfseries,%\scshape,
 	%notefont=\normalfont, notebraces={ (}{)},
 	bodyfont=\normalfont\itshape,
@@ -48,8 +49,8 @@
 ]{kaodefinition}
 
 \declaretheoremstyle[
-	%spaceabove=.5\thm@preskip,
-	%spacebelow=.5\thm@postskip,
+	spaceabove=.5\thm@preskip,
+	spacebelow=.5\thm@postskip,
 	%headfont=\normalfont\bfseries,
 	%notefont=\normalfont, notebraces={ (}{)},
 	%bodyfont=\normalfont,
@@ -62,8 +63,8 @@
 ]{kaoremark}
 
 \declaretheoremstyle[
-	%spaceabove=.5\thm@preskip,
-	%spacebelow=.5\thm@postskip,
+	spaceabove=.5\thm@preskip,
+	spacebelow=.5\thm@postskip,
 	%headfont=\normalfont\bfseries,
 	%notefont=\normalfont, notebraces={ (}{)},
 	%bodyfont=\normalfont,

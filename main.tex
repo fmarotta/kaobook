@@ -31,14 +31,15 @@
 	%chapterprefix=true, % Uncomment to use the word "Chapter" before chapter numbers everywhere they appear
 	%chapterentrydots=true, % Uncomment to output dots from the chapter name to the page number in the table of contents
 	numbers=noenddot, % Comment to output dots after chapter numbers; the most common values for this option are: enddot, noenddot and auto (see the KOMAScript documentation for an in-depth explanation)
-	%draft=true, % If uncommented, images will be replaced by empty boxes VEL: not true, this adds a ruler in the header and footer but images remain
+	%draft=true, % If uncommented, rulers will be added in the header and footer
 	%overfullrule=true, % If uncommented, overly long lines will be marked by a black box; useful for correcting spacing problems
 ]{kaobook}
 
 % Load common packages and commands
 \usepackage{styles/environments}
-\usepackage{styles/mdftheorems}
-%\usepackage{styles/plaintheorems} % VEL: uncommenting this while commenting the above leads to a compilation error about \openbox already being defined. Once that's fixed, it's worth commenting here that only one of them should be uncommented (there's also a compilation error if both are uncommented).
+% Load mathematical packages for theorems and related environments. NOTE: choose only one between 'mdftheorems' and 'plaintheorems'.
+%\usepackage{styles/mdftheorems}
+\usepackage{styles/plaintheorems}
 
 % Load packages for testing
 \usepackage{blindtext}
