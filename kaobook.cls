@@ -1,7 +1,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % kaobook
 % LaTeX Class
-% Version 1.0 (28/4/19)
+% Version 1.0 (5/6/19)
 %
 % This template originates from:
 % https://www.LaTeXTemplates.com
@@ -25,7 +25,7 @@
 %----------------------------------------------------------------------------------------
 
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesClass{kaobook}[2019/04/28 v1.0 kaobook class v1.0]
+\ProvidesClass{kaobook}[2019/06/05 v1.0 kaobook class v1.0]
 
 \newcommand{\@classname}{kaobook} % Class name
 \newcommand{\@baseclass}{scrbook} % Base class name

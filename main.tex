@@ -1,7 +1,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % kaobook
 % LaTeX Template
-% Version 1.0 (2/2/19)
+% Version 1.0 (5/6/19)
 %
 % This template originates from:
 % https://www.LaTeXTemplates.com
@@ -37,6 +37,7 @@
 
 % Load common packages and commands
 \usepackage{styles/environments}
+
 % Load mathematical packages for theorems and related environments. NOTE: choose only one between 'mdftheorems' and 'plaintheorems'.
 \usepackage{styles/mdftheorems}
 %\usepackage{styles/plaintheorems}
@@ -140,14 +141,15 @@
 }
 
 %----------------------------------------------------------------------------------------
-%	TITLE PAGE
+%	OUTPUT TITLE PAGE AND PREVIOUS
 %----------------------------------------------------------------------------------------
 
-% Note that \maketitle will actually print many pages.
+% Note that \maketitle outputs the pages before here
 
-% If twoside=false, \uppertitleback and \lowertitleback are not printed. To overcome this issue, we set twoside=semi just before printing the title pages, and set it back to false just after the title pages.
+% If twoside=false, \uppertitleback and \lowertitleback are not printed
+% To overcome this issue, we set twoside=semi just before printing the title pages, and set it back to false just after the title pages
 \KOMAoptions{twoside=semi}
-\maketitle[3] % The [3] assigns "page 3" to the title, so that the cover page would get "page 1" (see KOMAScript documentation about maketitle)
+\maketitle
 \KOMAoptions{twoside=false}
 
 %----------------------------------------------------------------------------------------
@@ -225,10 +227,10 @@
 %	BIBLIOGRAPHY
 %----------------------------------------------------------------------------------------
 
-% The bibliography needs to be compiled on the command line with 'biber main' from the template directory
+% The bibliography needs to be compiled with biber using your LaTeX editor, or on the command line with 'biber main' from the template directory
 
 \defbibnote{bibnote}{Here are the references in citation order.\par\bigskip} % Prepend this text to the bibliography
-\printbibliography[heading=bibintoc, title=Bibliography, prenote=bibnote] % Add the bibliography heading to the ToC and set the title of the bibliography
+\printbibliography[heading=bibintoc, title=Bibliography, prenote=bibnote] % Add the bibliography heading to the ToC, set the title of the bibliography and output the bibliography note
 
 %----------------------------------------------------------------------------------------
 %	NOMENCLATURE
@@ -239,8 +241,9 @@
 \nomenclature{$c$}{Speed of light in a vacuum inertial frame}
 \nomenclature{$h$}{Planck constant}
 
-\renewcommand{\nomname}{Notation}
-\renewcommand{\nompreamble}{The next list describes several symbols that will be later used within the body of the document.}
+\renewcommand{\nomname}{Notation} % Rename the default 'Nomenclature'
+\renewcommand{\nompreamble}{The next list describes several symbols that will be later used within the body of the document.} % Prepend this text to the nomenclature
+
 \printnomenclature % Output the nomenclature
 
 %----------------------------------------------------------------------------------------
@@ -248,8 +251,9 @@
 % 	Originally from https://gitlab.com/jim.hefferon/linear-algebra
 %----------------------------------------------------------------------------------------
 
-\vspace{3cm}
-{\usekomafont{chapter}Greek letters with pronounciation} \\[2ex]
+\vspace{1cm}
+
+{\usekomafont{chapter}Greek Letters with Pronounciation} \\[2ex]
 \begin{center}
 	\newcommand{\pronounced}[1]{\hspace*{.2em}\small\textit{#1}}
 	\begin{tabular}{l l @{\hspace*{3em}} l l}
@@ -284,11 +288,12 @@
 	description={is a programmable machine that receives input, stores and manipulates data, and provides output in a useful format}
 }
 
+% Glossary entries (used in text with e.g. \acrfull{fpsLabel} or \acrshort{fpsLabel})
 \newacronym[longplural={Frames per Second}]{fpsLabel}{FPS}{Frame per Second}
 \newacronym[longplural={Tables of Contents}]{tocLabel}{TOC}{Table of Contents}
 
 \setglossarystyle{listgroup} % Set the style of the glossary (see https://en.wikibooks.org/wiki/LaTeX/Glossary for a reference)
-\printglossary[title=Special Terms, toctitle=List of terms] % Output the glossary, 'title'  is the chapter heading for the glossary, toctitle is the table of contents heading
+\printglossary[title=Special Terms, toctitle=List of Terms] % Output the glossary, 'title' is the chapter heading for the glossary, toctitle is the table of contents heading
 
 %----------------------------------------------------------------------------------------
 %	INDEX
