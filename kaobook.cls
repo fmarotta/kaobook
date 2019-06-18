@@ -16,7 +16,7 @@
 % Modified for LaTeX Templates by Vel (vel@latextemplates.com)
 %
 % License:
-% GPL Version 3 (see included LICENSE file)
+% LPPL (see included MANIFEST.md file)
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
