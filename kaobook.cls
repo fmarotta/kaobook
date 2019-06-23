@@ -265,7 +265,7 @@
 \RequirePackage{perpage}
 \let\c@abspage\relax
 \newcommand{\pp@g@sidenote}{}
-\RequirePackage[nomencl=false]{scrhack} % Force KOMA to like floatrow
+%\RequirePackage[nomencl=false]{scrhack} % Force KOMA to like floatrow
 \RequirePackage{floatrow} % Set up captions of floats
 \RequirePackage{dblfloatfix} % Better positioning of wide figures and tables
 
