@@ -51,6 +51,7 @@
 \RequirePackage{xkeyval} % Manage class options
 \RequirePackage{xparse} % Parse arguments for macros
 \RequirePackage{xstring} % Parse strings
+\RequirePackage{afterpage} % Run commands after specific pages
 
 %----------------------------------------------------------------------------------------
 %	TITLE AND AUTHOR MACROS
@@ -133,6 +134,13 @@
 %	FRONT-, MAIN-, BACK- MATTERS BEHAVIOUR
 %----------------------------------------------------------------------------------------
 
+% Command to print a blank page
+\newcommand\blankpage{%
+    \null
+    \thispagestyle{empty}%
+    \addtocounter{page}{-1}%
+	\newpage}
+
 % Front matter
 \let\oldfrontmatter\frontmatter % Store the old command
 \renewcommand{\frontmatter}{
@@ -154,6 +162,13 @@
 % Main matter
 \let\oldmainmatter\mainmatter % Store the old command
 \renewcommand{\mainmatter}{
+
+	% Add a blank page before the main matter if the front matter has an
+	% odd number of pages
+	\ifthispageodd{
+	  \afterpage{\blankpage}
+	}{}
+
 	\oldmainmatter % Call the old command
 
 	% Set some Lengths used for the page headers
