@@ -265,10 +265,8 @@
 %	ENCODING AND FONTS
 %----------------------------------------------------------------------------------------
 
-\RequirePackage[english]{babel} % Load characters and hyphenation
 \RequirePackage[T1]{fontenc} % utf8 encoding in the output (.pdf) file
 \RequirePackage[utf8]{inputenc} % utf8 encoding in the input (.tex) file
-\RequirePackage[english=british]{csquotes}	% English quotes
 
 %\RequirePackage{fourier}
 \usepackage{mathpazo}
@@ -350,14 +348,13 @@
 \PassOptionsToClass{toc=index}{\@baseclass}
 \PassOptionsToClass{toc=bibliography}{\@baseclass}
 
-% List of figures title as "Figures"
-\renewcaptionname{english}{\contentsname}{Detailed Contents}
-\renewcaptionname{english}{\listfigurename}{Figures}
-\renewcaptionname{english}{\listtablename}{Tables}
-\newcaptionname{english}{\listtheoremname}{Theorems}
-
 \DeclareTOCStyleEntry[level=1,indent=0em,numwidth=2em]%
 {tocline}{figure}
 \DeclareTOCStyleEntry[level=1,indent=0em,numwidth=2em]%
 {tocline}{table}
 
+% Define the names for the headings
+% \renewcaptionname{english}{\contentsname}{Detailed Contents}
+% \renewcaptionname{english}{\listfigurename}{Figures}
+% \renewcaptionname{english}{\listtablename}{Tables}
+% \newcaptionname{english}{\listtheoremname}{Theorems}

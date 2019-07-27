@@ -35,21 +35,24 @@
 	%overfullrule=true, % If uncommented, overly long lines will be marked by a black box; useful for correcting spacing problems
 ]{kaobook}
 
-% Load common packages and commands
-\usepackage{styles/environments}
-
-% Load mathematical packages for theorems and related environments. NOTE: choose only one between 'mdftheorems' and 'plaintheorems'.
-\usepackage{styles/mdftheorems}
-%\usepackage{styles/plaintheorems}
+% Choose the language
+\usepackage[english]{babel} % Load characters and hyphenation
+\usepackage[english=british]{csquotes}	% English quotes
 
 % Load packages for testing
 \usepackage{blindtext}
 %\usepackage{showframe} % Uncomment to show boxes around the text area, margin, header and footer
 %\usepackage{showlabels} % Uncomment to output the content of \label commands to the document where they are used
 
-\graphicspath{{images/}{./}} % Paths in which to look for images
-
+% Load the bibliography package
+\usepackage{styles/kaobiblio}
 \addbibresource{main.bib} % Bibliography file
+
+% Load mathematical packages for theorems and related environments. NOTE: choose only one between 'mdftheorems' and 'plaintheorems'.
+\usepackage{styles/mdftheorems}
+%\usepackage{styles/plaintheorems}
+
+\graphicspath{{images/}{./}} % Paths in which to look for images
 
 \makeindex[columns=3, title=Alphabetical Index, intoc] % Make LaTeX produce the files required to compile the index
 
