@@ -462,62 +462,6 @@
 }
 
 %----------------------------------------------------------------------------------------
-%	 BIBLIOGRAPHY
-%----------------------------------------------------------------------------------------
-
-\RequirePackage[
-	%style=numeric-comp,
-	%citestyle=authortitle-icomp,
-	citestyle=numeric-comp,
-	%bibstyle=authoryear,
-	bibstyle=numeric,
-	sorting=none,
-	%sorting=nyt,
-	%sortcites=true,
-	%autocite=footnote,
-	backend=biber, % Compile the bibliography with biber
-	hyperref=true,
-	backref=true,
-	citecounter=true,
-	citetracker=true,
-]{biblatex}
-
-% Remove some unwanted entries from the bibliography
-% TODO: the url should be kept for online resources
-\AtEveryBibitem{
-	\clearfield{url}
-	\clearfield{issn}
-	\clearfield{isbn}
-	\clearfield{archivePrefix}
-	\clearfield{arxivId}
-	\clearfield{pmid}
-	\clearfield{eprint}
-	\ifentrytype{book}{\clearfield{doi}}{}
-}
-
-% Set the back reference strings
-\DefineBibliographyStrings{english}{%
-	backrefpage = {cited on page},
-	backrefpages = {cited on pages},
-}
-
-% Command to print a citation in the margins
-\NewDocumentCommand{\sidecite}{m}{% The parameter is the citation key
-	\cite{#1}% With this we print the marker in the text and add the item to the bibliography at the end
-	\margincitation{#1}% We then pass the cited items to this command, \margincitation
-}
-
-% Command to split the cited items and execute an action for each of them
-\NewDocumentCommand{\margincitation}{ >{\SplitList{,}} m }{% The parameter is a comma-separated list of citation keys, which is splitted into single items
-	\marginnote[-1.2pt]{\ProcessList{#1}{\formatmargincitation}}% Create a marginnote for each item
-}
-
-% Command to format the marginnote created for cited items
-\NewDocumentCommand{\formatmargincitation}{m}{% The parameter is a single citation key
-	\parencite{#1}: \citeauthor*{#1} (\citeyear{#1}), \citetitle{#1}\\
-}
-
-%----------------------------------------------------------------------------------------
 %	HYPERREFERENCES
 %----------------------------------------------------------------------------------------
 
@@ -584,3 +528,4 @@
 \RequirePackage{styles/references}
 \RequirePackage{styles/packages}
 \RequirePackage{styles/style}
+\RequirePackage{styles/environments}

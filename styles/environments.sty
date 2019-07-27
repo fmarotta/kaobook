@@ -107,27 +107,3 @@
 \newcommand*{\listofloiname}{List of Insights}
 \newcommand*{\l@floatingbox}{\l@figure}
 \newcommand*{\listofinsights}{\listoftoc{loi}}
-
-%----------------------------------------------------------------------------------------
-%	CITATION ENVIRONMENT
-%----------------------------------------------------------------------------------------
-
-% TODO: create a fancy environment for this. Perhaps printing also the 
-% abstract.
-
-% Cite commands (assuming biblatex is loaded)
-\DeclareCiteCommand{\fullcite}{%
-	\defcounter{maxnames}{99}%
-	\usebibmacro{prenote}}
-	{\clearfield{url}%
-	\clearfield{pages}%
-	\clearfield{pagetotal}%
-	\clearfield{edition}%
-	\clearfield{issn}%
-	\clearfield{doi}%
-	\usedriver
-	{\DeclareNameAlias{sortname}{default}}
-	{\thefield{entrytype}}
-}
-{\multicitedelim}
-{\usebibmacro{postnote}}
