@@ -11,14 +11,78 @@ use the \Command{sidecite}\index{\Command{sidecite}} command. It does
 not have an offset argument yet, but it probably will in the future. 
 This command supports multiple entries, as you can see, and by default 
 it prints the reference on the margin as well as adding it to the 
-bibliography at the end of the document. For this setup I used biblatex 
-but I think that workarounds are possible.\sidecite{James2013} Note that 
-the citations have nothing to do with the text, they are completely 
+bibliography at the end of the document. Note that the citations have 
+nothing to do with the text,\sidecite{James2013} but they are completely 
 random as they only serve the purpose to illustrate the feature.
 
-To compile a document containing citations, you need to use an external 
-tool, which for this class is biber. You need to run the following 
-(assuming that your tex file is called main.text):
+For this setup I wrote a separate package, \Package{kaobiblio}, which 
+you can find in the \Package{styles} directory and include in your main 
+tex file. This package accepts all the options that you can pass to 
+\Package{biblatex}, and actually it passes them to \Package{biblatex} 
+under the hood. Moreover, it also defines some commands, like 
+\Command{sidecite}, and environments that can be used within a 
+\Class{kao} book.\sidenote{For this reason you should always use 
+\Package{kaobiblio} instead of \Package{biblatex}, but the syntax and 
+the options are exactly the same.}
+
+As you have seen, the \Command{sidecite} command will print a citation 
+in the margin. However, this command would be useless without a way to 
+customise the format of the citation, so the \Class{kaobook} provides 
+also the \Command{formatmargincitation} command. By \enquote{renewing} 
+that command, you can choose which items will be printed in the margins. 
+The best way to understand how it works is to see the actual definition 
+of this command.
+
+\begin{lstlisting}[style=kaolstplain,linewidth=1.5\textwidth]
+\newcommand{\formatmargincitation}[1]{
+	\parencite{#1}: \citeauthor*{#1} (\citeyear{#1}), \citetitle{#1}\\
+}
+\end{lstlisting}
+
+Thus, the \Command{formatmargincitation} accepts one parameter, which is 
+the citation key, and prints the parencite followed by a colon, then the 
+author, then the year (in brackets), and finally the 
+title.\sidecite{Battle2014} Now, suppose that you wish the margin 
+citation to display the year and the author, followed by the title, and 
+finally a fixed arbitrary string; you would add to your document:
+
+\begin{lstlisting}[style=kaolstplain,linewidth=1.5\textwidth]
+\renewcommand{\formatmargincitation}[1]{
+	\citeyear{#1}, \citeauthor*{#1}: \citetitle{#1}; very interesting!\\
+}
+\end{lstlisting}
+
+\renewcommand{\formatmargincitation}[1]{
+	\citeyear{#1}, \citeauthor*{#1}: \citetitle{#1}; very interesting!\\
+}
+
+The above code results in citations that look like the 
+following.\sidecite{Zou2005} Of course, changing the format is most 
+useful when you also change the default bibliography style. For 
+instance, if you want to use the \enquote{philosophy-modern} style for 
+your bibliography, you might have something like this in the preamble:
+
+\begin{lstlisting}[style=kaolstplain,linewidth=1.5\textwidth]
+\usepackage[style=philosophy-modern]{styles/kaobiblio}
+\renewcommand{\formatmargincitation}[1]{
+	\sdcite{#1}\\
+}
+\addbibresource{main.bib}
+\end{lstlisting}
+
+\renewcommand{\formatmargincitation}[1]{
+	\parencite{#1}: \citeauthor*{#1} (\citeyear{#1}), \citetitle{#1}\\
+}
+
+The commands like \Command{citeyear}, \Command{parencite} and 
+\Command{sdcite} are just examples. A full reference of the available 
+commands can be found in this 
+\href{http://tug.ctan.org/info/biblatex-cheatsheet/biblatex-cheatsheet.pdf}{cheatsheet}, 
+under the \enquote{Citations} section.
+
+Finally, to compile a document containing citations, you need to use an 
+external tool, which for this class is biber. You need to run the 
+following (assuming that your tex file is called main.text):
 
 \begin{lstlisting}[style=kaolstplain]
 $ pdflatex main
