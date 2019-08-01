@@ -27,6 +27,16 @@
 %\usepackage{minted}
 \usepackage{morewrites}
 
+\newsavebox\mycap
+\DeclareCaptionFormat{llap}{%
+  \begin{lrbox}{\mycap}
+  \begin{minipage}{\marginparwidth}
+  \@margin@par #1:#2#3
+  \end{minipage}%
+  \end{lrbox}%
+  \marginnote[0.2cm]{\usebox\mycap}}
+\captionsetup[lstlisting]{format=llap,labelsep=space,singlelinecheck=no,belowskip=-0.6cm}
+
 \definecolor{listingkeywords}{rgb}{0.0, 0.5, 0.0}
 \definecolor{listingidentifiers}{rgb}{0, 0, 0}
 \definecolor{listingcomments}{rgb}{0.25, 0.5, 0.5}
@@ -34,7 +44,7 @@
 \definecolor{listingnumbers}{rgb}{0.25, 0.25, 0.25}
 \lstdefinestyle{kaolst}{
 	aboveskip=0.7\topskip,
-	belowskip=-0.05\topskip,
+	belowskip=0.1\topskip,
 	basicstyle=\small\ttfamily,
 	commentstyle=\color{listingcomments}\itshape,
 	keywordstyle=\color{listingkeywords}\bfseries,

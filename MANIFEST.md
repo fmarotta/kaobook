@@ -28,6 +28,7 @@ kaobook/
 |-- kaobook.cls                 - main class file
 |-- styles/
     |-- environments.sty        - definitions for environments
+	|-- kaobiblio.sty			- style of the bibliography
     |-- mdftheorems.sty         - colorful styling of theorems
     |-- packages.sty            - useful packages
     |-- plaintheorems.sty       - minimalistic styling of theorems

@@ -369,6 +369,17 @@
 		facing=yes,
 		capposition=above
 	}
+	\floatsetup[lstlisting]{ % Captions for wide tables
+		margins=hangoutside, % Put captions in the margin
+		facing=yes,
+		capposition=beside,
+		capbesideposition={top,outside},
+		%capbesideposition=outside,
+		capbesideframe=yes,
+		capbesidewidth=\marginparwidth, % Width of the caption equal to the width of the margin
+		capbesidesep=marginparsep,
+		floatwidth=\textwidth, % Width of the figure equal to the width of the text
+	}
 \else
 	\floatsetup[figure]{ % Captions for figueres
 		margins=hangright, % Put captions in the margins
@@ -400,6 +411,17 @@
 		margins=hangright, % Put captions above the table
 		facing=no,
 		capposition=above
+	}
+	\floatsetup[lstlisting]{ % Captions for wide tables
+		margins=hangright, % Put captions in the margin
+		facing=yes,
+		capposition=beside,
+		capbesideposition={top,right},
+		%capbesideposition=outside,
+		capbesideframe=yes,
+		capbesidewidth=\marginparwidth, % Width of the caption equal to the width of the margin
+		capbesidesep=marginparsep,
+		floatwidth=\textwidth, % Width of the figure equal to the width of the text
 	}
 \fi
 

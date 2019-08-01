@@ -37,7 +37,7 @@ mode, the captions are printed in the correct margin.
 Tables can be inserted just as easily as figures, as exemplified by the 
 following code:
 
-\begin{lstlisting}
+\begin{lstlisting}[caption={Caption of a listing.}]
 \begin{table}
 \begin{tabular}{ c c c c }
 	\toprule
@@ -83,7 +83,7 @@ Marginfigures can be inserted with the environment
 to the margin and the caption is below it. \reffig{marginmonalisa} is 
 obtained with something like this:
 
-\begin{lstlisting}
+\begin{lstlisting}[caption={Another caption.}]
 \begin{marginfigure}
 	\includegraphics{monalisa}
 	\caption[The Mona Lisa]{The Mona Lisa.}
