@@ -86,6 +86,9 @@
 	}
 }
 
+% Set the default page layout
+\AtBeginDocument{\pagelayout{margin}}
+
 %----------------------------------------------------------------------------------------
 %	HEADERS AND FOOTERS
 %----------------------------------------------------------------------------------------
@@ -133,133 +136,8 @@
 	{}
 }
 
-%----------------------------------------------------------------------------------------
-%	CHAPTER HEADING STYLES
-%----------------------------------------------------------------------------------------
-
-\DeclareDocumentCommand{\setchapterstyle}{m}{%
-	\ifthenelse{\equal{plain}{#1}}{\chapterstyleplain}{}
-	\ifthenelse{\equal{lines}{#1}}{\chapterstylelines}{}
-	\ifthenelse{\equal{kao}{#1}}{\chapterstylekao}{}
-}
-
-% The default definition in KOMA script
-\DeclareDocumentCommand{\chapterstyleplain}{}{%
-	\renewcommand{\chapterlinesformat}[3]{%
-		\@hangfrom{##2}{##3}}
-	\renewcommand*{\chapterformat}{%
-		\mbox{\chapappifchapterprefix{\nobreakspace}\thechapter%
-		\autodot\IfUsePrefixLine{}{\enskip}}}
-
-	\RedeclareSectionCommand[beforeskip=0cm,afterskip=1cm]{chapter}
-	\setlength{\mtocshift}{-3.2cm}
-}
-
-% The Kao style
-\DeclareDocumentCommand{\chapterstylekao}{}{%
-	\renewcommand*{\chapterformat}{%
-		\mbox{\chapappifchapterprefix{\nobreakspace}\scalebox{2.85}{\thechapter\autodot}}
-	}
-	\renewcommand\chapterlinesformat[3]{%
-		\vspace*{-4.5cm}
-		\makebox[\textwidth+\marginparsep+\marginparwidth]{%
-			\parbox[b]{\textwidth}{\raggedleft ##3}%
-			\makebox[\marginparsep][c]{\rule[-.35cm]{1pt}{5.7cm}}%
-			\parbox[b]{\marginparwidth}{##2}%
-		}
-	}
-
-	\RedeclareSectionCommand[beforeskip=0cm,afterskip=1cm]{chapter}
-	\setlength{\mtocshift}{0mm}
-}
-
-% Lines
-\renewcommand{\hrulefill}[1][0.4pt]{%
-	\leavevmode\leaders\hrule height #1\hfill\kern\z@%
-}
-\DeclareDocumentCommand{\chapterstylelines}{}
-{
-	\renewcommand*{\chapterformat}
-	{
-	  \chapappifchapterprefix{\nobreakspace}\scalebox{3.5}{\thechapter\autodot}
-	}
-	\renewcommand\chapterlinesformat[3]
-	{
-	  %\vspace*{-1cm}%
-	  \leavevmode
-	  \makebox[\textwidth+\marginparsep+\marginparwidth]{%
-		\makebox[\textwidth][l]{\hrulefill[1pt]##2}%\hfill%\par%\bigskip
-		\makebox[\marginparsep][l]{}%
-		\makebox[\marginparwidth][l]{}%
-	  }\\
-	  %\vspace{.5cm}
-	  \makebox[\textwidth+\marginparsep+\marginparwidth]{%
-		\makebox[\textwidth][l]{##3}%
-		\makebox[\marginparsep][l]{}%
-		\makebox[\marginparwidth][l]{}%
-	  }\\
-	  \makebox[\textwidth+\marginparsep+\marginparwidth]{%
-		\hrulefill[1.1pt]%
-		%\makebox[\textwidth][l]{\hrulefill}%
-		%\makebox[\marginparsep][l]{\hrulefill}%
-		%\makebox[\marginparwidth][l]{\hrulefill}%
-	  }
-	}
-
-	\RedeclareSectionCommand[beforeskip=0cm,afterskip=1cm]{chapter}
-	\setlength{\mtocshift}{-2.5cm}
-}
-
-% Image (Used internally for \chapterimage; normal users should not need this command)
-\DeclareDocumentCommand{\chapterstyleimage}{}{%
-	\renewcommand*{\chapterformat}{%
-		\mbox{\chapappifchapterprefix{\nobreakspace}\thechapter%
-		\autodot\IfUsePrefixLine{}{\enskip}}
-	}
-	\renewcommand{\chapterlinesformat}[3]{%
-		\begin{tikzpicture}[remember picture, overlay]
-			\node[
-				anchor=west,
-				xshift=-3cm,
-				yshift=1.15cm,
-				rectangle,
-				fill=gray!20!white,
-				fill opacity=0.8,
-				inner ysep=14pt,
-				inner xsep=3cm,
-				text opacity=1,
-				text width=\paperwidth+3cm, % Set text width in order to force left-alignment
-			]{\makebox[0pt][l]{\@hangfrom{##2}{##3}}};
-			\node[
-				anchor=west,
-				xshift=-3cm,
-				yshift=2mm,
-				rectangle,
-				fill=white,
-				minimum height=.5cm,
-				minimum width=\paperwidth+3cm,
-			]{};
-		\end{tikzpicture}
-	}
-}
-
-% Takes as input the image path and optionally the "beforeskip"
-\DeclareDocumentCommand{\setchapterimage}{O{5.5cm} m}
-{
-	\setchapterpreamble[o]{
-		\vspace*{-2.7cm}\hspace*{-2.56cm}
-		\includegraphics[width=\paperwidth,height=#1+2.7cm,keepaspectratio=false]{#2}
-	}
-
-	\chapterstyleimage
-
-	% beforeskip=-(figure_height-top_margin)
-	\RedeclareSectionCommand[beforeskip=-#1, afterskip=.6cm]{chapter}
-	\setlength{\mtocshift}{0cm}%
-}
-
-% By default start with plain style
-\chapterstyleplain
+% Set the default page style
+\pagestyle{plain.scrheadings}
 
 %----------------------------------------------------------------------------------------
 %	ENCODING AND FONTS
@@ -280,25 +158,31 @@
 %\usepackage[baskervaldx,cmintegrals,bigdelims,vvarbb]{newtxmath} % 
 %math italic letters from Baskervaldx
 
-%\addtokomafont{disposition}{\rmfamily\normalfont\itshape}
-%\addtokomafont{title}{\normalfont\itshape}
-%\addtokomafont{part}{\fontfamily{pplx}\selectfont\itshape\bfseries}
+% When using the Palatino font, it is better to use a slightly larger stretch.
+\setstretch{1.10}
+
+% Set KOMA fonts for book-specific elements
+\ifthenelse{\equal{scrbook}{\@baseclass}}{
 \addtokomafont{part}{\normalfont\scshape\bfseries}
+\addtokomafont{partentry}{\normalfont\scshape\bfseries}
+}{}
+
+% Set KOMA fonts for book- or report- specific elements
+\ifthenelse{\equal{scrreport}{\@baseclass} \OR \equal{scrbook}{\@baseclass}}{
 \addtokomafont{chapter}{\normalfont\bfseries}
+\addtokomafont{chapterentry}{\normalfont\bfseries}
+}{}
+
+% Set KOMA fonts for elements common to all classes
 \addtokomafont{section}{\normalfont\bfseries}
 \addtokomafont{subsection}{\normalfont\bfseries}
 \addtokomafont{subsubsection}{\normalfont\bfseries}
 \addtokomafont{paragraph}{\normalfont\bfseries}
-\addtokomafont{partentry}{\normalfont\scshape\bfseries}
-\addtokomafont{chapterentry}{\normalfont\bfseries}
 \setkomafont{descriptionlabel}{\normalfont\bfseries}
-%\addtokomafont{caption}{\footnotesize}
-%\makeatletter
-%\addtokomafont{captionlabel}{\@margin@par}
-%\makeatother
 
-% When using the Palatino font, it is better to use a slightly larger stretch.
-\setstretch{1.10}
+%\addtokomafont{caption}{\footnotesize}
+%\addtokomafont{disposition}{\rmfamily\normalfont\itshape}
+%\addtokomafont{captionlabel}{\@margin@par}
 
 %----------------------------------------------------------------------------------------
 %	COLOURS
@@ -325,7 +209,7 @@
 	%runcolor=Red,
 	urlcolor=OliveGreen,
 }
-%
+
 %----------------------------------------------------------------------------------------
 %	NUMBERING
 %----------------------------------------------------------------------------------------
