@@ -1,3 +1,7 @@
+## Custom exclusions
+article-template.pdf
+book-template.pdf
+
 ## Core latex/pdflatex auxiliary files:
 *.aux
 *.lof
