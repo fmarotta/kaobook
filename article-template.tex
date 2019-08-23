@@ -1,0 +1,227 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% kaobook
+% LaTeX Template
+% Version 1.0 (5/6/19)
+%
+% This template originates from:
+% https://www.LaTeXTemplates.com
+%
+% For the latest template development version and to make contributions:
+% https://github.com/fmarotta/kaobook
+%
+% Authors:
+% Federico Marotta (federicomarotta@mail.com)
+% Based on the doctoral thesis of Ken Arroyo Ohori (https://3d.bk.tudelft.nl/ken/en)
+% and on the Tufte-LaTeX class.
+% Modified for LaTeX Templates by Vel (vel@latextemplates.com)
+%
+% License:
+% CC0 1.0 Universal (see included MANIFEST.md file)
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%----------------------------------------------------------------------------------------
+%	PACKAGES AND OTHER DOCUMENT CONFIGURATIONS
+%----------------------------------------------------------------------------------------
+
+\documentclass[
+	% fontsize=10pt, % Base font size
+	% twoside=false, % Use different layouts for even and odd pages (in particular, if twoside=true, the margin column will be always on the outside)
+	%open=any, % If twoside=true, uncomment this to force new chapters to start on any page, not only on right (odd) pages
+	%chapterprefix=true, % Uncomment to use the word "Chapter" before chapter numbers everywhere they appear
+	%chapterentrydots=true, % Uncomment to output dots from the chapter name to the page number in the table of contents
+	% numbers=noenddot, % Comment to output dots after chapter numbers; the most common values for this option are: enddot, noenddot and auto (see the KOMAScript documentation for an in-depth explanation)
+	%draft=true, % If uncommented, rulers will be added in the header and footer
+	%overfullrule=true, % If uncommented, overly long lines will be marked by a black box; useful for correcting spacing problems
+]{kaoartcl}
+
+% Choose the language
+\usepackage[english]{babel} % Load characters and hyphenation
+\usepackage[english=british]{csquotes}	% English quotes
+
+% Load packages for testing
+\usepackage{blindtext}
+%\usepackage{showframe} % Uncomment to show boxes around the text area, margin, header and footer
+%\usepackage{showlabels} % Uncomment to output the content of \label commands to the document where they are used
+
+% Load the bibliography package
+\usepackage{styles/kaobiblio}
+\addbibresource{article-template.bib} % Bibliography file
+
+% Load mathematical packages for theorems and related environments. NOTE: choose only one between 'mdftheorems' and 'plaintheorems'.
+% \usepackage{styles/mdftheorems}
+\usepackage{styles/plaintheorems}
+
+%\graphicspath{{images/}{./}} % Paths in which to look for images
+
+%\makeindex[columns=3, title=Alphabetical Index, intoc] % Make LaTeX produce the files required to compile the index
+
+%\makeglossaries % Make LaTeX produce the files required to compile the glossary
+
+%\makenomenclature % Make LaTeX produce the files required to compile the nomenclature
+
+%----------------------------------------------------------------------------------------
+
+\begin{document}
+
+%----------------------------------------------------------------------------------------
+%	BOOK INFORMATION
+%----------------------------------------------------------------------------------------
+
+\title{Example of a kaoarticle}
+
+\author{Federico Marotta}
+
+\date{\today}
+
+%----------------------------------------------------------------------------------------
+%	OUTPUT TITLE AND ABSTRACT
+%----------------------------------------------------------------------------------------
+
+\begin{addmargin}[0cm]{-49.4mm}
+
+\maketitle
+
+\begin{abstract}
+\centering
+\textbf{Abstract}
+\justify
+\blindtext
+\end{abstract}
+
+\end{addmargin}
+
+\medskip
+
+% %----------------------------------------------------------------------------------------
+% %	TABLE OF CONTENTS & LIST OF FIGURES/TABLES
+% %----------------------------------------------------------------------------------------
+% 
+% \begingroup % Local scope for the following commands
+% 
+% % Define the style for the TOC, LOF, and LOT
+% %\setstretch{1} % Uncomment to modify line spacing in the ToC
+% %\hypersetup{linkcolor=blue} % Uncomment to set the colour of links in the ToC
+% \setlength{\textheight}{23cm} % Manually adjust the height of the ToC pages
+% 
+% % Turn on compatibility mode for the etoc package
+% \etocstandarddisplaystyle % "toc display" as if etoc was not loaded
+% \etocstandardlines % "toc lines as if etoc was not loaded
+% 
+% \tableofcontents % Output the table of contents
+% 
+% % \listoffigures % Output the list of figures
+% 
+% % Comment both of the following lines to have the LOF and the LOT on different pages
+% % \let\cleardoublepage\bigskip
+% % \let\clearpage\bigskip
+% 
+% % \listoftables % Output the list of tables
+% 
+% \endgroup
+
+%----------------------------------------------------------------------------------------
+%	MAIN BODY
+%----------------------------------------------------------------------------------------
+
+\section{Introduction}
+
+Write here your introduction,\sidecite{James2013} and make sure to reference your sources.
+
+\blindtext\sidenote[-2.3cm][]{\blindtext}
+
+\section{Methods}
+
+\blindtext
+
+\appendix % From here onwards, chapters are numbered with letters, as is the appendix convention
+
+\section{Appendix}
+
+\blindtext
+
+%----------------------------------------------------------------------------------------
+
+%----------------------------------------------------------------------------------------
+%	BIBLIOGRAPHY
+%----------------------------------------------------------------------------------------
+
+% The bibliography needs to be compiled with biber using your LaTeX editor, or on the command line with 'biber main' from the template directory
+
+% \defbibnote{bibnote}{Here are the references in citation order.\par\bigskip} % Prepend this text to the bibliography
+\printbibliography[heading=bibintoc, title=Bibliography] % Add the bibliography heading to the ToC, set the title of the bibliography and output the bibliography note
+
+% %----------------------------------------------------------------------------------------
+% %	NOMENCLATURE
+% %----------------------------------------------------------------------------------------
+% 
+% % The nomenclature needs to be compiled on the command line with 'makeindex main.nlo -s nomencl.ist -o main.nls' from the template directory
+% 
+% \nomenclature{$c$}{Speed of light in a vacuum inertial frame}
+% \nomenclature{$h$}{Planck constant}
+% 
+% \renewcommand{\nomname}{Notation} % Rename the default 'Nomenclature'
+% \renewcommand{\nompreamble}{The next list describes several symbols that will be later used within the body of the document.} % Prepend this text to the nomenclature
+% 
+% \printnomenclature % Output the nomenclature
+% 
+% %----------------------------------------------------------------------------------------
+% %	GREEK ALPHABET
+% % 	Originally from https://gitlab.com/jim.hefferon/linear-algebra
+% %----------------------------------------------------------------------------------------
+% 
+% \vspace{1cm}
+% 
+% {\usekomafont{chapter}Greek Letters with Pronounciation} \\[2ex]
+% \begin{center}
+% 	\newcommand{\pronounced}[1]{\hspace*{.2em}\small\textit{#1}}
+% 	\begin{tabular}{l l @{\hspace*{3em}} l l}
+% 		\toprule
+% 		Character & Name & Character & Name \\ 
+% 		\midrule
+% 		$\alpha$ & alpha \pronounced{AL-fuh} & $\nu$ & nu \pronounced{NEW} \\
+% 		$\beta$ & beta \pronounced{BAY-tuh} & $\xi$, $\Xi$ & xi \pronounced{KSIGH} \\ 
+% 		$\gamma$, $\Gamma$ & gamma \pronounced{GAM-muh} & o & omicron \pronounced{OM-uh-CRON} \\
+% 		$\delta$, $\Delta$ & delta \pronounced{DEL-tuh} & $\pi$, $\Pi$ & pi \pronounced{PIE} \\
+% 		$\epsilon$ & epsilon \pronounced{EP-suh-lon} & $\rho$ & rho \pronounced{ROW} \\
+% 		$\zeta$ & zeta \pronounced{ZAY-tuh} & $\sigma$, $\Sigma$ & sigma \pronounced{SIG-muh} \\
+% 		$\eta$ & eta \pronounced{AY-tuh} & $\tau$ & tau \pronounced{TOW (as in cow)} \\
+% 		$\theta$, $\Theta$ & theta \pronounced{THAY-tuh} & $\upsilon$, $\Upsilon$ & upsilon \pronounced{OOP-suh-LON} \\
+% 		$\iota$ & iota \pronounced{eye-OH-tuh} & $\phi$, $\Phi$ & phi \pronounced{FEE, or FI (as in hi)} \\
+% 		$\kappa$ & kappa \pronounced{KAP-uh} & $\chi$ & chi \pronounced{KI (as in hi)} \\
+% 		$\lambda$, $\Lambda$ & lambda \pronounced{LAM-duh} & $\psi$, $\Psi$ & psi \pronounced{SIGH, or PSIGH} \\
+% 		$\mu$ & mu \pronounced{MEW} & $\omega$, $\Omega$ & omega \pronounced{oh-MAY-guh} \\
+% 		\bottomrule
+% 	\end{tabular} \\[1.5ex]
+% 	Capitals shown are the ones that differ from Roman capitals.
+% \end{center}
+% 
+% %----------------------------------------------------------------------------------------
+% %	GLOSSARY
+% %----------------------------------------------------------------------------------------
+% 
+% % The glossary needs to be compiled on the command line with 'makeglossaries main' from the template directory
+% 
+% \newglossaryentry{computer}{
+% 	name=computer,
+% 	description={is a programmable machine that receives input, stores and manipulates data, and provides output in a useful format}
+% }
+% 
+% % Glossary entries (used in text with e.g. \acrfull{fpsLabel} or \acrshort{fpsLabel})
+% \newacronym[longplural={Frames per Second}]{fpsLabel}{FPS}{Frame per Second}
+% \newacronym[longplural={Tables of Contents}]{tocLabel}{TOC}{Table of Contents}
+% 
+% \setglossarystyle{listgroup} % Set the style of the glossary (see https://en.wikibooks.org/wiki/LaTeX/Glossary for a reference)
+% \printglossary[title=Special Terms, toctitle=List of Terms] % Output the glossary, 'title' is the chapter heading for the glossary, toctitle is the table of contents heading
+% 
+% %----------------------------------------------------------------------------------------
+% %	INDEX
+% %----------------------------------------------------------------------------------------
+% 
+% % The index needs to be compiled on the command line with 'makeindex main' from the template directory
+% 
+% \printindex % Output the index
+
+%----------------------------------------------------------------------------------------
+
+\end{document}
