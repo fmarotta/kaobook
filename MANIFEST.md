@@ -25,7 +25,9 @@ This work consists of all files listed below.
 
 ```
 kaobook/
-|-- kaobook.cls                 - main class file
+|-- kao.def						- main class file
+|-- kaobook.cls                 - book-specific definitions
+|-- kaoartcl.cls                - article-specific definitions
 |-- styles/
     |-- environments.sty        - definitions for environments
 	|-- kaobiblio.sty			- style of the bibliography
@@ -38,7 +40,7 @@ kaobook/
 
 ---
 
-# Second Work: Example and Documentation of the kaobook Class
+# Second Work: Templates and Examples
 
 This work is released into the public domain using the CC0 code. To the 
 extent possible under law, I waive all copyright and related or 
@@ -52,21 +54,25 @@ This work consists of all files listed below.
 
 ```
 kaobook/
-|-- main.tex
-|-- main.bib
-|-- chapters/
-	|-- appendix.tex
-	|-- figsntabs.tex
-	|-- introduction.tex
-	|-- layout.tex
-	|-- mathematics.tex
-	|-- options.tex
-	|-- preface.tex
-	|-- references.tex
-	|-- textnotes.tex
+|-- article-template.tex
+|-- book-template.tex
+|-- examples
+	|-- documentation
+		|-- main.tex
+		|-- main.bib
+		|-- chapters/
+			|-- appendix.tex
+			|-- figsntabs.tex
+			|-- introduction.tex
+			|-- layout.tex
+			|-- mathematics.tex
+			|-- options.tex
+			|-- preface.tex
+			|-- references.tex
+			|-- textnotes.tex
 ```
 
-As regards the files in the kaobook/images directory, they were 
-downloaded from [Wikimedia 
+As regards the files in the `kaobook/examples/documentation/images` 
+directory, they were downloaded from [Wikimedia 
 Commons](https://commons.wikimedia.org/wiki/Main_Page) and are 
 attributed inside the example book where they are used.
