@@ -37,13 +37,36 @@ A better description can be found at [LaTeX
 Templates](http://www.latextemplates.com/template/kaobook). If you think 
 that a PDF is worth a thousand words, have a look at [this](main.pdf).
 
+## Repository Schema
+
+The main class file is `kaobook.cls`, which is used for books. There is 
+another class file for articles, namely `kaoartcl.cls`, and in the 
+future there may be classes for handouts, reports and theses. The 
+commands common to all classes are in the `kao.def` file, while the 
+class files contain only the class-specific commands.
+
+There are two template files for the two supported classes, and each has 
+its own bibliography file. Further examples are listed in the `examples` 
+directory. The book that documents the class is an example itself, but 
+the pdf is linked in the root of the repository so that it will be found 
+easier.
+
+The `styles` directory contains additional packages that are used by the 
+class, but in principle they are independent of it (even though in 
+practice it is still not so).
+
 ## Usage
 
-The class is documented and exemplified in the [main.pdf](main.pdf) 
-file. To actually use it you can either clone the [Git Hub 
+The class is documented and exemplified in the 
+[example\_and\_documentation.pdf](example_and_documentation.pdf) file. 
+To actually use it you can either clone the [Git Hub 
 repository](https://github.com/fmarotta/kaobook) or, much more easily, 
 find the template at [LaTeX 
 Templates](http://www.latextemplates.com/template/kaobook).
+
+The easiest way to start using the class is to open the [book 
+template](book-template.tex) or the [article 
+template](article-template.tex) and edit them.
 
 ## Contributing
 
@@ -61,10 +84,9 @@ formatted blocks.
 ## License
 
 This repository contains two independent works. On the one hand, the 
-kaobook class, consisting of the `kaobook.cls` file and all of the files 
-listed in the `styles` directory; on the other hand, the example book, 
-consisting of the `main.tex` file and all of the files in the `chapters` 
-directory.
+kaobook class, consisting of `kaobook.cls`, `kaoartcl.cls`, and 
+`kao.def` files plus all of the files listed in the `styles` directory; 
+on the other hand, the examples in the `examples` directory.
 
 The first work is licensed under the Linux Project Public License, so if 
 you want to modify and/or distribute the `*.cls` and `*.sty` files 
