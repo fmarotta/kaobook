@@ -275,7 +275,18 @@
 		facing=yes,
 		capposition=above
 	}
-	\floatsetup[lstlisting]{ % Captions for wide tables
+	\floatsetup[lstlisting]{ % Captions for lstlistings
+		margins=hangoutside, % Put captions in the margin
+		facing=yes,
+		capposition=beside,
+		capbesideposition={top,outside},
+		%capbesideposition=outside,
+		capbesideframe=yes,
+		capbesidewidth=\marginparwidth, % Width of the caption equal to the width of the margin
+		capbesidesep=marginparsep,
+		floatwidth=\textwidth, % Width of the figure equal to the width of the text
+	}
+	\floatsetup[listing]{ % Captions for listings (minted package)
 		margins=hangoutside, % Put captions in the margin
 		facing=yes,
 		capposition=beside,
@@ -318,7 +329,18 @@
 		facing=no,
 		capposition=above
 	}
-	\floatsetup[lstlisting]{ % Captions for wide tables
+	\floatsetup[lstlisting]{ % Captions for lstlisting
+		margins=hangright, % Put captions in the margin
+		facing=yes,
+		capposition=beside,
+		capbesideposition={top,right},
+		%capbesideposition=outside,
+		capbesideframe=yes,
+		capbesidewidth=\marginparwidth, % Width of the caption equal to the width of the margin
+		capbesidesep=marginparsep,
+		floatwidth=\textwidth, % Width of the figure equal to the width of the text
+	}
+	\floatsetup[listing]{ % Captions for listing (minted package)
 		margins=hangright, % Put captions in the margin
 		facing=yes,
 		capposition=beside,
