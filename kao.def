@@ -240,6 +240,21 @@
 	\end{lrbox}
 	\marginpar{\usebox{\@sidenotes@margintablebox}} % Place the table box in the margin
 }
+% Environment to hold a margin listing (from the sidenotes package)
+\newsavebox{\@sidenotes@marginlistingbox}
+\newenvironment{marginlisting}[1][0pt]{ % The optional parameter is the vertical offset
+	\FloatBarrier % Force LaTeX to place previous floats
+	\mparshift{\snotez@if@nblskip{#1}{\@cdr#1\@nil\baselineskip}{#1}} % Move the listing up or down according to the offset argument
+	\begin{lrbox}{\@sidenotes@marginlistingbox}
+		\begin{minipage}{\marginparwidth}
+			%\captionsetup{type=listing,style=marginlisting}
+			\captionsetup{type=listing}
+			\centering
+}{
+		\end{minipage}
+	\end{lrbox}
+	\marginpar{\usebox{\@sidenotes@marginlistingbox}} % Place the listing box in the margin
+}
 
 % Change the position of the captions
 \DeclareFloatSeparators{marginparsep}{\hskip\marginparsep}
