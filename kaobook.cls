@@ -46,14 +46,6 @@
 %	FRONT-, MAIN-, BACK- MATTERS BEHAVIOUR
 %----------------------------------------------------------------------------------------
 
-% Command to print a blank page
-\newcommand\blankpage{%
-    \null
-    \thispagestyle{empty}%
-    \addtocounter{page}{-1}%
-	\newpage%
-}
-
 % Define a LaTeX length used in the page headers
 \newlength{\overflowingheadlen}
 

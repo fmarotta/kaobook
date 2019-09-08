@@ -86,6 +86,14 @@
 	}
 }
 
+% Command to print a blank page
+\newcommand\blankpage{%
+    \null
+    \thispagestyle{empty}%
+    \addtocounter{page}{-1}%
+	\newpage%
+}
+
 % Set the default page layout
 \AtBeginDocument{\pagelayout{margin}}
 
@@ -171,6 +179,11 @@
 \ifthenelse{\equal{scrreport}{\@baseclass} \OR \equal{scrbook}{\@baseclass}}{
 \addtokomafont{chapter}{\normalfont\bfseries}
 \addtokomafont{chapterentry}{\normalfont\bfseries}
+}{}
+
+% Set KOMA fonts for article-specific elements
+\ifthenelse{\equal{scrartcl}{\@baseclass}}{
+\addtokomafont{sectionentry}{\normalfont\bfseries}
 }{}
 
 % Set KOMA fonts for elements common to all classes
