@@ -32,6 +32,7 @@
 \RequirePackage{xifthen} % Easy conditionals
 \RequirePackage{xkeyval} % Manage class options
 \RequirePackage{xparse} % Parse arguments for macros
+\RequirePackage{xpatch} % Patch LaTeX code in external packages
 \RequirePackage{xstring} % Parse strings
 \RequirePackage{afterpage} % Run commands after specific pages
 
@@ -418,8 +419,7 @@
 		% Set the global style of the toc
 		%\etocsettocstyle{}{}
 		%\etocsettocstyle{\normalfont\sffamily\normalsize}{}
-		%\etocsettocstyle{\usekomafont{section}\small}{}
-		\etocsettocstyle{\usekomafont{chapterentry}\small}{}
+		\etocsettocstyle{\usekomafont{section}\small}{}
 		\etocsetnexttocdepth{subsection}
 		% Print the table of contents in the margin
 		\marginnote[#1]{\localtableofcontents}
