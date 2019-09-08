@@ -1,0 +1,155 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% kaobook
+% LaTeX Template
+% Version 1.0 (5/6/19)
+%
+% This template originates from:
+% https://www.LaTeXTemplates.com
+%
+% For the latest template development version and to make contributions:
+% https://github.com/fmarotta/kaobook
+%
+% Authors:
+% Federico Marotta (federicomarotta@mail.com)
+% Based on the doctoral thesis of Ken Arroyo Ohori (https://3d.bk.tudelft.nl/ken/en)
+% and on the Tufte-LaTeX class.
+% Modified for LaTeX Templates by Vel (vel@latextemplates.com)
+%
+% License:
+% CC0 1.0 Universal (see included MANIFEST.md file)
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%----------------------------------------------------------------------------------------
+%	PACKAGES AND OTHER DOCUMENT CONFIGURATIONS
+%----------------------------------------------------------------------------------------
+
+\documentclass[
+	%fontsize=10pt, % Base font size
+	%twoside=false, % If true, use different layouts for even and odd pages (in particular, if twoside=true, the margin column will be always on the outside)
+	%abstract=true, % Uncomment to print the title of the abstract
+	%numbers=noenddot, % Comment to output dots after section numbers; the most common values for this option are: enddot, noenddot and auto (see the KOMAScript documentation for an in-depth explanation)
+	%draft=true, % If uncommented, rulers will be added in the header and footer
+	%overfullrule=true, % If uncommented, overly long lines will be marked by a black box; useful for correcting spacing problems
+]{kaohandt}
+
+% Choose the language
+\usepackage[english]{babel} % Load characters and hyphenation
+\usepackage[english=british]{csquotes}	% English quotes
+
+% Load packages for testing
+\usepackage{blindtext}
+%\usepackage{showframe} % Uncomment to show boxes around the text area, margin, header and footer
+%\usepackage{showlabels} % Uncomment to output the content of \label commands to the document where they are used
+
+%\graphicspath{{images/}{./}} % Paths where images are looked for
+
+% Load mathematical packages for theorems and related environments. NOTE: choose only one between 'mdftheorems' and 'plaintheorems'.
+% \usepackage{styles/mdftheorems}
+\usepackage{styles/plaintheorems}
+
+% Load the bibliography package
+\usepackage{styles/kaobiblio}
+\addbibresource{report-template.bib} % Bibliography file
+
+% Make LaTeX produce the files required to compile the glossary
+%\makeglossaries
+
+% Make LaTeX produce the files required to compile the nomenclature
+%\makenomenclature 
+
+%----------------------------------------------------------------------------------------
+
+\begin{document}
+
+%----------------------------------------------------------------------------------------
+%	BOOK INFORMATION
+%----------------------------------------------------------------------------------------
+
+\title{Template for a Kao\\ Report (or Handout)}
+
+\author{Michael Faraday\thanks{Royal Society of London} \and John McClane \thanks{New York City Police Department}}
+
+\date{\today}
+
+%----------------------------------------------------------------------------------------
+%	TITLE AND ABSTRACT
+%----------------------------------------------------------------------------------------
+
+\maketitle
+
+\margintoc
+
+\begin{abstract}
+\noindent
+\blindtext
+\end{abstract}
+
+{\noindent\textbf{Keywords:} \LaTeX, Kao, handout, article, report}
+
+\medskip
+
+%----------------------------------------------------------------------------------------
+%	MAIN BODY
+%----------------------------------------------------------------------------------------
+
+\section{Introduction}
+
+Write here your introduction,\sidecite{James2013} and make sure to 
+reference your sources.
+
+\blindtext\sidenote[-3.2cm][]{\blindtext}
+
+\section{Methods}
+
+\blindtext
+
+\appendix % From here onwards, chapters are numbered with letters, as is the appendix convention
+
+\section{Appendix}
+
+\blindtext
+
+%----------------------------------------------------------------------------------------
+%	BIBLIOGRAPHY
+%----------------------------------------------------------------------------------------
+
+% The bibliography needs to be compiled with biber using your LaTeX editor, or on the command line with 'biber main' from the template directory
+
+\printbibliography[title=Bibliography] % Set the title of the bibliography and print the references
+
+%----------------------------------------------------------------------------------------
+%	NOMENCLATURE
+%----------------------------------------------------------------------------------------
+% 
+% % The nomenclature needs to be compiled on the command line with 'makeindex main.nlo -s nomencl.ist -o main.nls' from the template directory
+% 
+% \nomenclature{$c$}{Speed of light in a vacuum inertial frame}
+% \nomenclature{$h$}{Planck constant}
+% 
+% \renewcommand{\nomname}{Notation} % Rename the default 'Nomenclature'
+% \renewcommand{\nompreamble}{The next list describes several symbols that will be later used within the body of the document.} % Prepend this text to the nomenclature
+% 
+% \printnomenclature % Output the nomenclature
+
+%----------------------------------------------------------------------------------------
+%	GLOSSARY
+%----------------------------------------------------------------------------------------
+% 
+% % The glossary needs to be compiled on the command line with 'makeglossaries main' from the template directory
+% 
+% \newglossaryentry{computer}{
+% 	name=computer,
+% 	description={is a programmable machine that receives input, stores and manipulates data, and provides output in a useful format}
+% }
+% 
+% % Glossary entries (used in text with e.g. \acrfull{fpsLabel} or \acrshort{fpsLabel})
+% \newacronym[longplural={Frames per Second}]{fpsLabel}{FPS}{Frame per Second}
+% \newacronym[longplural={Tables of Contents}]{tocLabel}{TOC}{Table of Contents}
+% 
+% \setglossarystyle{listgroup} % Set the style of the glossary (see https://en.wikibooks.org/wiki/LaTeX/Glossary for a reference)
+% \printglossary[title=Special Terms, toctitle=List of Terms] % Output the glossary, 'title' is the chapter heading for the glossary, toctitle is the table of contents heading
+
+%----------------------------------------------------------------------------------------
+
+\end{document}
