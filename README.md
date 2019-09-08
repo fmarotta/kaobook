@@ -39,17 +39,16 @@ that a PDF is worth a thousand words, have a look at [this](main.pdf).
 
 ## Repository Schema
 
-The main class file is `kaobook.cls`, which is used for books. There is 
-another class file for articles, namely `kaoartcl.cls`, and in the 
-future there may be classes for handouts, reports and theses. The 
-commands common to all classes are in the `kao.def` file, while the 
-class files contain only the class-specific commands.
+There are two main class files: `kaobook.cls`, used for books, and 
+`kaohandt.cls`, used for reports or handouts; both rely on `kao.def`, 
+which contains the bulk of the definitions that are commont to both 
+classes. In the future there may be another class for theses.
 
 There are two template files for the two supported classes, and each has 
 its own bibliography file. Further examples are listed in the `examples` 
 directory. The book that documents the class is an example itself, but 
-the pdf is linked in the root of the repository so that it will be found 
-easier.
+the pdf has been copied to the root of the repository so that it will be 
+found easier.
 
 The `styles` directory contains additional packages that are used by the 
 class, but in principle they are independent of it (even though in 
@@ -65,8 +64,8 @@ find the template at [LaTeX
 Templates](http://www.latextemplates.com/template/kaobook).
 
 The easiest way to start using the class is to open the [book 
-template](book-template.tex) or the [article 
-template](article-template.tex) and edit them.
+template](book-template.tex) or the [report 
+template](report-template.tex) and edit them.
 
 ## Contributing
 
@@ -84,9 +83,10 @@ formatted blocks.
 ## License
 
 This repository contains two independent works. On the one hand, the 
-kaobook class, consisting of `kaobook.cls`, `kaoartcl.cls`, and 
+kaobook class, consisting of `kaobook.cls`, `kaohandt.cls`, and 
 `kao.def` files plus all of the files listed in the `styles` directory; 
-on the other hand, the examples in the `examples` directory.
+on the other hand, the templates and the examples in the `examples` 
+directory.
 
 The first work is licensed under the Linux Project Public License, so if 
 you want to modify and/or distribute the `*.cls` and `*.sty` files 
