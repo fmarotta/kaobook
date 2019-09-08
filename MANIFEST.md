@@ -27,7 +27,7 @@ This work consists of all files listed below.
 kaobook/
 |-- kao.def						- main class file
 |-- kaobook.cls                 - book-specific definitions
-|-- kaoartcl.cls                - article-specific definitions
+|-- kaohandt.cls                - handout-specific definitions
 |-- styles/
     |-- environments.sty        - definitions for environments
 	|-- kaobiblio.sty			- style of the bibliography
@@ -54,7 +54,7 @@ This work consists of all files listed below.
 
 ```
 kaobook/
-|-- article-template.tex
+|-- report-template.tex
 |-- book-template.tex
 |-- examples
 	|-- documentation
