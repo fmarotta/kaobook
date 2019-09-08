@@ -17,6 +17,14 @@
 
 \ProvidesPackage{styles/kaobiblio}
 
+\RequirePackage{etoolbox} % Easy programming to modify TeX stuff
+\RequirePackage{marginnote} % Provides options for margin notes
+\RequirePackage{perpage} % Reset counters
+\RequirePackage{xkeyval} % Manage class options
+\RequirePackage{xparse} % Parse arguments for macros
+\RequirePackage{xstring} % Parse strings
+\RequirePackage{hyperref} % Required for hyperlinks
+
 
 % Choose the default options, which will be overwritten by the options passed to this package.
 \PassOptionsToPackage{
