@@ -70,14 +70,17 @@
 %	BACK REFERENCES
 %----------------------------------------------------------------------------------------
 
+% Check if a string is in a comma-separated list
+\newcommand\IfStringInList[2]{\IfSubStr{,#2,}{,#1,}}
+
 % Set the back reference strings
-\iflanguage{english}{
+\IfStringInList{english}{\bbl@loaded}{
 	\DefineBibliographyStrings{english}{%
 		backrefpage = {cited on page},
 		backrefpages = {cited on pages},
 	}
 }{}
-\iflanguage{italian}{
+\IfStringInList{italian}{\bbl@loaded}{
 	\DefineBibliographyStrings{italian}{%
 		backrefpage = {citato a pag.},
 		backrefpages = {citato a pagg.},
