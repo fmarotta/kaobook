@@ -161,8 +161,8 @@
 % (b) the offset can also be a multiple of baselineskip, like for snotez's \sidenote
 % Usage: \marginnote[<offset>]{Text of the note.}
 \let\oldmarginnote\marginnote
-\renewcommand{\marginnote}[2][0pt]{
-	\oldmarginnote{#2}[\snotez@if@nblskip{#1}{\@cdr#1\@nil\baselineskip}{#1}]
+\renewcommand{\marginnote}[2][0pt]{%
+	\oldmarginnote{#2}[\snotez@if@nblskip{#1}{\@cdr#1\@nil\baselineskip}{#1}]%
 }
 
 % Formatting sidenotes
@@ -241,6 +241,7 @@
 	\end{lrbox}
 	\marginpar{\usebox{\@sidenotes@margintablebox}} % Place the table box in the margin
 }
+
 % Environment to hold a margin listing (from the sidenotes package)
 \newsavebox{\@sidenotes@marginlistingbox}
 \newenvironment{marginlisting}[1][0pt]{ % The optional parameter is the vertical offset

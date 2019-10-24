@@ -50,7 +50,7 @@
 \setlength{\absleftindent}{0pt} % No indent
 \if@abstrt
   \renewcommand{\abstitlestyle}[1]{%
-	\vspace{-0.6cm}
+	\vspace{-0.6cm}%
     \begin{center}%
 	  {\normalfont\bfseries\hspace{-3em} \abstractname\vspace{-.5em}\vspace{\z@}}%
     \end{center}%

@@ -19,9 +19,11 @@
 
 % Easily label and reference elements
 % Note that \label must appear after \caption
-% hyperref is already loaded
-\usepackage{varioref}
-%\usepackage{cleveref} % Don't use cleveref! It breaks everything
+
+\RequirePackage{hyperref}
+\RequirePackage{varioref}
+%\RequirePackage{cleveref} % Don't use cleveref! It breaks everything
+
 \newcommand{\sectionname}{Section}
 
 \newcommand{\labpage}[1]{\label{page:#1}}

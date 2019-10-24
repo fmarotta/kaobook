@@ -18,23 +18,24 @@
 \ProvidesPackage{styles/packages}
 
 % Productivity
-\usepackage{pdfpages} % Insert PDF pages
-\usepackage{subfiles} % Adopt a modular structure
-\usepackage{todonotes} % Add useful notes in the margins
+\RequirePackage{pdfpages} % Insert PDF pages
+\RequirePackage{subfiles} % Adopt a modular structure
+\RequirePackage{todonotes} % Add useful notes in the margins
 
 % Listings code
-\usepackage{listings} % Code
-%\usepackage{minted}
-\usepackage{morewrites}
+\RequirePackage{listings} % Code
+%\RequirePackage{minted}
+\RequirePackage{morewrites}
 
 \newsavebox\mycap
 \DeclareCaptionFormat{llap}{%
-  \begin{lrbox}{\mycap}
-  \begin{minipage}{\marginparwidth}
-  \@margin@par #1:#2#3
-  \end{minipage}%
-  \end{lrbox}%
-  \marginnote[0.2cm]{\usebox\mycap}}
+	\begin{lrbox}{\mycap}%
+	\begin{minipage}{\marginparwidth}%
+	\@margin@par #1:#2#3%
+	\end{minipage}%
+	\end{lrbox}%
+	\marginnote[0.2cm]{\usebox\mycap}%
+}
 \captionsetup[lstlisting]{format=llap,labelsep=space,singlelinecheck=no,belowskip=-0.6cm}
 
 \definecolor{listingkeywords}{rgb}{0.0, 0.5, 0.0}
@@ -92,21 +93,21 @@
 \lstset{style=kaolst}
 
 % Verbatim
-%\usepackage{fancyvrb} % Customization of verbatim environments
+%\RequirePackage{fancyvrb} % Customization of verbatim environments
 %\fvset{fontsize=\normalsize} % Change here the font size of all 
 %verbatim \preto{\@verbatim}{\topsep=0pt \partopsep=0pt }
 
 % Algorithms
-\usepackage[linesnumbered, ruled, vlined]{algorithm2e} % Algorithms
+\RequirePackage[linesnumbered, ruled, vlined]{algorithm2e} % Algorithms
 
 % Special gliphs
-\usepackage{ccicons} % Creative Commons icons
-\usepackage{metalogo} % XeTeX logo
+\RequirePackage{ccicons} % Creative Commons icons
+\RequirePackage{metalogo} % XeTeX logo
 
 % Index, glossary and nomenclature
-\usepackage{imakeidx}
-\usepackage[xindy,toc]{glossaries}
-\usepackage[intoc]{nomencl}
+\RequirePackage{imakeidx}
+\RequirePackage[xindy,toc]{glossaries}
+\RequirePackage[intoc]{nomencl}
 
 % Commands to print specific wors always in the same way
 % TODO: in \Command, automatically escape braces {} and replace backslashes with \textbackslash

@@ -138,10 +138,10 @@
 % The Kao style
 \DeclareDocumentCommand{\chapterstylekao}{}{%
 	\renewcommand*{\chapterformat}{%
-		\mbox{\chapappifchapterprefix{\nobreakspace}\scalebox{2.85}{\thechapter\autodot}}
+		\mbox{\chapappifchapterprefix{\nobreakspace}\scalebox{2.85}{\thechapter\autodot}}%
 	}
 	\renewcommand\chapterlinesformat[3]{%
-		\vspace*{-4.5cm}
+		\vspace*{-4.5cm}%
 		\makebox[\textwidth+\marginparsep+\marginparwidth]{%
 			\parbox[b]{\textwidth}{\raggedleft ##3}%
 			\makebox[\marginparsep][c]{\rule[-.35cm]{1pt}{5.7cm}}%

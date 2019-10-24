@@ -21,10 +21,10 @@
 %	ITEMS
 %----------------------------------------------------------------------------------------
 
-\usepackage{amssymb}
+\RequirePackage{amssymb}
 \renewcommand{\labelitemi}{\small$\blacktriangleright$}
 \renewcommand{\labelitemii}{\textbullet}
-\usepackage{enumitem}
+\RequirePackage{enumitem}
 \setlist[itemize]{noitemsep}
 \setlist[enumerate]{noitemsep}
 \setlist[description]{noitemsep}
@@ -34,8 +34,8 @@
 %----------------------------------------------------------------------------------------
 
 % kaobox (while tcolorbox may be more rich, I find it too complicated so I prefer mdframed)
-\usepackage{tikz}
-\usepackage[framemethod=TikZ]{mdframed}
+\RequirePackage{tikz}
+\RequirePackage[framemethod=TikZ]{mdframed}
 
 %\mdfsetup{skipabove=\topskip,skipbelow=0pt}
 \mdfdefinestyle{kaoboxstyle}{
@@ -93,7 +93,7 @@
 \newenvironment{kaofloating}{%
 	\@float{kaofloating}%
 }{%
-	\end@float
+	\end@float%
 }
 
 \newcommand*{\fps@floatingbox}{tbph}

@@ -21,7 +21,7 @@
 %	PAGE LAYOUT
 %----------------------------------------------------------------------------------------
 
-\usepackage[
+\RequirePackage[
 	a4paper,
 	%paperwidth=21.0cm,
 	%paperheight=29.7cm,
@@ -44,7 +44,7 @@
 	\ifthenelse{\equal{fullwidth}{#1}}{\fullwidthlayout}{}
 }
 
-\newcommand{\marginlayout}{
+\newcommand{\marginlayout}{%
 	\newgeometry{
 		top=27.4mm,
 		bottom=27.4mm,
@@ -56,10 +56,10 @@
 		marginparwidth=49.4mm,
 		%textheight=49\baselineskip,
 		includemp
-	}
+	}%
 }
 
-\newcommand{\widelayout}{
+\newcommand{\widelayout}{%
 	\newgeometry{
 		top=27.4mm,
 		bottom=27.4mm,
@@ -71,10 +71,10 @@
 		marginparwidth=0mm,
 		%textheight=49\baselineskip,
 		ignoremp,
-	}
+	}%
 }
 
-\newcommand{\fullwidthpage}{
+\newcommand{\fullwidthpage}{%
 	\newgeometry{
 		top=0cm,
 		bottom=0cm,
@@ -83,14 +83,14 @@
 		marginparwidth=0cm,
 		marginparsep=0cm,
 		ignoremp
-	}
+	}%
 }
 
 % Command to print a blank page
 \newcommand\blankpage{%
-    \null
-    \thispagestyle{empty}%
-    \addtocounter{page}{-1}%
+	\null%
+	\thispagestyle{empty}%
+	% \addtocounter{page}{-1}%
 	\newpage%
 }
 
@@ -105,43 +105,43 @@
 \setlength{\headheight}{115pt}			% Enlarge the header
 
 % Headings styles
-\renewpagestyle{scrheadings}{
+\renewpagestyle{scrheadings}{%
 	{\hspace{-\marginparwidth}\hspace{-\marginparsep}\makebox[\overflowingheadlen][l]{%
-		\parbox[t][1.7cm][c]{2em}{\hfill\thepage}
-		\makebox[2em][c]{\rule[-1.15cm]{1pt}{1.55cm}}
+		\parbox[t][1.7cm][c]{2em}{\hfill\thepage}%
+		\makebox[2em][c]{\rule[-1.15cm]{1pt}{1.55cm}}%
 		\parbox[t][1.7cm][c]{\textwidth}{\leftmark}}}%
 	{\makebox[\overflowingheadlen][r]{%
 		\parbox[t][1.7cm][c]{\textwidth}{\hfill\rightmark}%
 		\makebox[2em][c]{\rule[-1.15cm]{1pt}{1.55cm}}%
-		\parbox[t][1.7cm][c]{2em}{\thepage}}}
+		\parbox[t][1.7cm][c]{2em}{\thepage}}}%
 	{\makebox[\overflowingheadlen][r]{%
 		\parbox[t][1.7cm][c]{\textwidth}{\hfill\rightmark}%
 		\makebox[2em][c]{\rule[-1.15cm]{1pt}{1.55cm}}%
-		\parbox[t][1.7cm][c]{2em}{\thepage}}}
-}{
+		\parbox[t][1.7cm][c]{2em}{\thepage}}}%
+}{%
 	{}%
 	{}%
-	{}
+	{}%
 }
 
-\renewpagestyle{plain.scrheadings}{
+\renewpagestyle{plain.scrheadings}{%
 	{}%
 	{}%
-	{}
-}{
+	{}%
+}{%
 	{}%
 	{}%
-	{}
+	{}%
 }
 
-\newpagestyle{pagenum.scrheadings}{
+\newpagestyle{pagenum.scrheadings}{%
 	{}%
 	{}%
-	{}
-}{
+	{}%
+}{%
 	{\thepage}%
 	{\hfill\thepage}%
-	{}
+	{}%
 }
 
 % Set the default page style
@@ -155,15 +155,15 @@
 \RequirePackage[utf8]{inputenc} % utf8 encoding in the input (.tex) file
 
 %\RequirePackage{fourier}
-\usepackage{mathpazo}
-%\usepackage{Baskervaldx}
-\usepackage[scaled]{helvet}
-%\usepackage{avant}
-%\usepackage{courier} % monospace font
-\usepackage[scaled=.85]{beramono} % monospace font
-\usepackage[cal=boondoxo]{mathalfa} % mathcal from STIX, unslanted a bit
-\usepackage[cmintegrals,bigdelims,vvarbb]{newtxmath} % 
-%\usepackage[baskervaldx,cmintegrals,bigdelims,vvarbb]{newtxmath} % 
+\RequirePackage{mathpazo}
+%\RequirePackage{Baskervaldx}
+\RequirePackage[scaled]{helvet}
+%\RequirePackage{avant}
+%\RequirePackage{courier} % monospace font
+\RequirePackage[scaled=.85]{beramono} % monospace font
+\RequirePackage[cal=boondoxo]{mathalfa} % mathcal from STIX, unslanted a bit
+\RequirePackage[cmintegrals,bigdelims,vvarbb]{newtxmath} % 
+%\RequirePackage[baskervaldx,cmintegrals,bigdelims,vvarbb]{newtxmath} % 
 %math italic letters from Baskervaldx
 
 % When using the Palatino font, it is better to use a slightly larger stretch.
@@ -245,10 +245,8 @@
 \PassOptionsToClass{toc=index}{\@baseclass}
 \PassOptionsToClass{toc=bibliography}{\@baseclass}
 
-\DeclareTOCStyleEntry[level=1,indent=0em,numwidth=2em]%
-{tocline}{figure}
-\DeclareTOCStyleEntry[level=1,indent=0em,numwidth=2em]%
-{tocline}{table}
+\DeclareTOCStyleEntry[level=1,indent=0em,numwidth=2em]{tocline}{figure}
+\DeclareTOCStyleEntry[level=1,indent=0em,numwidth=2em]{tocline}{table}
 
 % Define the names for the headings
 % \renewcaptionname{english}{\contentsname}{Detailed Contents}
