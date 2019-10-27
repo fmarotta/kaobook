@@ -20,7 +20,7 @@
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\ProvidesFile{kao.sty}[2015/06/21 v3.5.2 Common code for the kao style]
+\ProvidesPackage{styles/kao}[2015/06/21 v3.5.2 Common code for the kao style]
 
 %----------------------------------------------------------------------------------------
 %	USEFUL PACKAGES AND COMMANDS
@@ -390,6 +390,28 @@
 \captionsetup[ContinuedFloat]{labelformat=cont}
 
 %----------------------------------------------------------------------------------------
+%	TOC, LOF & LOT
+%----------------------------------------------------------------------------------------
+
+\RequirePackage{tocbasic}
+
+% Show an entry for the TOC in the TOC
+\setuptoc{toc}{totoc}
+
+% Choose the levels in table of contents
+\setcounter{tocdepth}{\subsectiontocdepth}
+
+% Define the style for figure and table entries
+\DeclareTOCStyleEntry[level=1,indent=0em,numwidth=2em]{tocline}{figure}
+\DeclareTOCStyleEntry[level=1,indent=0em,numwidth=2em]{tocline}{table}
+
+% Define the names for the headings
+% \renewcaptionname{english}{\contentsname}{Detailed Contents}
+% \renewcaptionname{english}{\listfigurename}{Figures}
+% \renewcaptionname{english}{\listtablename}{Tables}
+% \newcaptionname{english}{\listtheoremname}{Theorems}
+
+%----------------------------------------------------------------------------------------
 %	MARGIN TOC
 %----------------------------------------------------------------------------------------
 
@@ -426,6 +448,161 @@
 		\marginnote[#1]{\localtableofcontents}
 	\endgroup
 }
+
+%----------------------------------------------------------------------------------------
+%	NUMBERING
+%----------------------------------------------------------------------------------------
+
+\setcounter{secnumdepth}{1} % Number only up to sections
+
+%\counterwithin*{sidenote}{chapter} % Uncomment to reset the sidenote counter at each chapter
+%\counterwithout{sidenote}{chapter} % Uncomment to have one sidenote counter for the whole document
+
+%----------------------------------------------------------------------------------------
+%	PAGE LAYOUT
+%----------------------------------------------------------------------------------------
+
+% Set the default page layout
+\RequirePackage[
+	a4paper,
+	bottom=27.4mm,
+	inner=24.8mm,
+	textwidth=107mm,
+	marginparsep=8.2mm,
+	marginparwidth=49.4mm,
+	includemp
+]{geometry}
+
+% Command to print a blank page
+\newcommand\blankpage{%
+	\null%
+	\thispagestyle{empty}%
+	\newpage%
+}
+
+% Command to choose among the three possible layouts
+\DeclareDocumentCommand{\pagelayout}{m}{%
+	\ifthenelse{\equal{margin}{#1}}{\marginlayout}{}%
+	\ifthenelse{\equal{wide}{#1}}{\widelayout}{}%
+	\ifthenelse{\equal{fullwidth}{#1}}{\fullwidthlayout}{}%
+}
+
+% Layout #1: large margins
+\newcommand{\marginlayout}{%
+	\newgeometry{
+		a4paper,
+		top=27.4mm,
+		bottom=27.4mm,
+		inner=24.8mm,
+		textwidth=107mm,
+		marginparsep=8.2mm,
+		marginparwidth=49.4mm,
+		includemp
+	}%
+}
+
+% Layout #2: no margins at all
+\newcommand{\widelayout}{%
+	\newgeometry{
+		a4paper,
+		top=27.4mm,
+		bottom=27.4mm,
+		inner=24.8mm,
+		outer=24.8mm,
+		marginparsep=0mm,
+		marginparwidth=0mm,
+		ignoremp,
+	}%
+}
+
+% Layout #3: no margins and no space above or below the body
+\newcommand{\fullwidthpage}{%
+	\newgeometry{
+		a4paper,
+		top=0cm,
+		bottom=0cm,
+		inner=0cm,
+		outer=0cm,
+		marginparwidth=0cm,
+		marginparsep=0cm,
+		ignoremp
+	}%
+}
+
+% Set the default page layout
+\AtBeginDocument{\pagelayout{margin}}
+
+%----------------------------------------------------------------------------------------
+%	HEADERS AND FOOTERS
+%----------------------------------------------------------------------------------------
+
+\RequirePackage{scrlayer-scrpage}       % Customise head and foot regions
+\setlength{\headheight}{115pt}			% Enlarge the header
+
+% Headings styles
+
+% Style with chapter number, chapter title, and page in the header (used 
+% throughout the document)
+\renewpagestyle{scrheadings}{%
+	{\hspace{-\marginparwidth}\hspace{-\marginparsep}\makebox[\overflowingheadlen][l]{%
+		\parbox[t][1.7cm][c]{2em}{\hfill\thepage}%
+		\makebox[2em][c]{\rule[-1.15cm]{1pt}{1.55cm}}%
+		\parbox[t][1.7cm][c]{\textwidth}{\leftmark}}}%
+	{\makebox[\overflowingheadlen][r]{%
+		\parbox[t][1.7cm][c]{\textwidth}{\hfill\rightmark}%
+		\makebox[2em][c]{\rule[-1.15cm]{1pt}{1.55cm}}%
+		\parbox[t][1.7cm][c]{2em}{\thepage}}}%
+	{\makebox[\overflowingheadlen][r]{%
+		\parbox[t][1.7cm][c]{\textwidth}{\hfill\rightmark}%
+		\makebox[2em][c]{\rule[-1.15cm]{1pt}{1.55cm}}%
+		\parbox[t][1.7cm][c]{2em}{\thepage}}}%
+}{%
+	{}%
+	{}%
+	{}%
+}
+
+% Style with neither header nor footer (used for special pages)
+\renewpagestyle{plain.scrheadings}{%
+	{}%
+	{}%
+	{}%
+}{%
+	{}%
+	{}%
+	{}%
+}
+
+% Style with an empty header and the page number in the footer
+\newpagestyle{pagenum.scrheadings}{%
+	{}%
+	{}%
+	{}%
+}{%
+	{\thepage}%
+	{\hfill\thepage}%
+	{}%
+}
+
+% Set the default page style
+\pagestyle{plain.scrheadings}
+
+%----------------------------------------------------------------------------------------
+%	ENCODING AND FONTS
+%----------------------------------------------------------------------------------------
+
+\RequirePackage[T1]{fontenc} % utf8 encoding in the output (.pdf) file
+\RequirePackage[utf8]{inputenc} % utf8 encoding in the input (.tex) file
+
+\RequirePackage{mathpazo} % Serif font
+\RequirePackage[scaled]{helvet} % Sans-serif font
+\RequirePackage[scaled=.85]{beramono} % Monospace font
+\RequirePackage[cal=boondoxo]{mathalfa} % Mathcal from STIX, unslanted a bit
+\RequirePackage[cmintegrals,bigdelims,vvarbb]{newtxmath} % Maths fonts
+\RequirePackage{esint} % Integral symbols
+
+% When using the Palatino (mathpazo) font, it is better to use a slightly larger stretch.
+\setstretch{1.10}
 
 %----------------------------------------------------------------------------------------
 %	HYPERREFERENCES
@@ -488,10 +665,36 @@
 }
 
 %----------------------------------------------------------------------------------------
+%	COLOURS
+%----------------------------------------------------------------------------------------
+
+% Uncomment to have coloured headings
+%\addtokomafont{title}{\color{Maroon}}
+%\addtokomafont{part}{\color{Maroon}}
+%\addtokomafont{chapter}{\color{Maroon}}
+%\addtokomafont{section}{\color{Maroon}}
+%\addtokomafont{subsection}{\color{Maroon}}
+%\addtokomafont{subsubsection}{\color{Maroon}}
+%\addtokomafont{paragraph}{\color{Maroon}}
+%\addtokomafont{captionlabel}{\color{DarkBlue}}
+%\addtokomafont{pagenumber}{\color{Maroon}}
+
+\hypersetup{
+	%anchorcolor=Red,
+	%citecolor=DarkOrange!70!black,
+	citecolor=OliveGreen,
+	filecolor=OliveGreen,
+	%linkcolor=DarkBlue,
+	linkcolor=Black,
+	%menucolor=Red,
+	%runcolor=Red,
+	urlcolor=OliveGreen,
+}
+
+%----------------------------------------------------------------------------------------
 %	INCLUDE ADDITIONAL PACKAGES
 %----------------------------------------------------------------------------------------
 
-\RequirePackage{styles/references}
-\RequirePackage{styles/packages}
-\RequirePackage{styles/style}
 \RequirePackage{styles/environments}
+\RequirePackage{styles/packages}
+\RequirePackage{styles/references}

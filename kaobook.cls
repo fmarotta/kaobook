@@ -40,7 +40,7 @@
 \ProcessOptions\relax % Process the options
 
 \LoadClass{\@baseclass} % Load the base class
-\input{kao.sty} % Load the code common to all classes
+\input{styles/kao.sty} % Load the code common to all classes
 
 %----------------------------------------------------------------------------------------
 %	FRONT-, MAIN-, BACK- MATTERS BEHAVIOUR
@@ -143,7 +143,7 @@
 	\renewcommand\chapterlinesformat[3]{%
 		\vspace*{-4.5cm}%
 		\makebox[\textwidth+\marginparsep+\marginparwidth]{%
-			\parbox[b]{\textwidth}{\raggedleft ##3}%
+			\parbox[b]{\textwidth}{\flushright{##3}}%
 			\makebox[\marginparsep][c]{\rule[-.35cm]{1pt}{5.7cm}}%
 			\parbox[b]{\marginparwidth}{##2}%
 		}
@@ -240,3 +240,28 @@
 
 % By default start with plain style
 \chapterstyleplain
+
+%----------------------------------------------------------------------------------------
+%	FONTS AND STYLES
+%----------------------------------------------------------------------------------------
+
+% Set KOMA fonts for book-specific elements
+\addtokomafont{part}{\normalfont\scshape\bfseries}
+\addtokomafont{partentry}{\normalfont\scshape\bfseries}
+\addtokomafont{chapter}{\normalfont\bfseries}
+\addtokomafont{chapterentry}{\normalfont\bfseries}
+
+% Set KOMA fonts for elements common to all classes
+\addtokomafont{section}{\normalfont\bfseries}
+\addtokomafont{subsection}{\normalfont\bfseries}
+\addtokomafont{subsubsection}{\normalfont\bfseries}
+\addtokomafont{paragraph}{\normalfont\bfseries}
+\setkomafont{descriptionlabel}{\normalfont\bfseries}
+
+%----------------------------------------------------------------------------------------
+%	TOC, LOF & LOT
+%----------------------------------------------------------------------------------------
+
+\PassOptionsToClass{toc=listof}{\@baseclass}
+\PassOptionsToClass{toc=index}{\@baseclass}
+\PassOptionsToClass{toc=bibliography}{\@baseclass}

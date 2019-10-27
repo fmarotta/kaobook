@@ -119,9 +119,11 @@ left out. These special packages are located in the \Path{style}
 directory, which is organised as follows:
 
 \begin{description}
-	\item[style.sty] This package contains the specifications of page 
-	layout, headers and footers, chapter headings, and the fonts used 
-	throughout the document.
+	\item[kao.sty] This package contains the most important definitions 
+	of macros and specifications of page layout. It is the heart of the 
+	\Class{kaobook}.
+	\item[kaobiblio.sty] Contains commands to add citations and 
+	customise the bibliography.
 	\item[packages.sty] Loads additional packages to decorate the 
 	writing with special contents (for instance, the \Package{listing} 
 	package is loaded here as it is not required in every book). There 
@@ -153,3 +155,36 @@ used in this class for things that are already explained there.
 Moreover, I assume that the reader is willing to make minor edits to the 
 provided packages for styles, environments and commands, if he or she 
 does not like the default settings.
+
+\section{How to Use This Class}
+
+Either if you are using the template from 
+\href{http://latextemplates.org/template/kaobook}{latextemplates}, or if 
+you cloned the GitHub 
+\href{https://www.github.com/fmarotta/kaobook}{repository}, there are 
+infinite ways to use the \Class{kaobook} class in practice, but we will 
+discuss only two of them. The first is to find the \Path{main.tex} file 
+which I used to write this book, and edit it; this will probably involve 
+a lot of text-deleting, copying-and-pasting, and rewriting. The second 
+way is to start almost from scratch and use the \Path{skeleton.tex} 
+file, which is a cleaned-up version of the \Path{main.tex}; even if you 
+choose the second way, you may find it useful to draw inspiration from 
+the \Path{main.tex} file.
+
+To compile the document, assuming that its name is \Path{main.tex}, you 
+will have to run the following sequence of commands:
+
+\begin{lstlisting}[style=kaolstplain,linewidth=1.5\textwidth]
+pdflatex main # Compile template
+makeindex main.nlo -s nomencl.ist -o main.nls # Compile nomenclature
+makeindex main # Compile index
+biber main # Compile bibliography
+makeglossaries main # Compile glossary
+pdflatex main # Compile template again
+pdflatex main # Compile template again
+\end{lstlisting}
+
+You may need to compile the template some more times in order for some 
+errors to disappear. For any support requests, please ask a question on 
+\url{tex.stackexchange.org} with the tag \enquote{kaobook}, open an 
+issue on GitHub, or contact the author via e-mail.
