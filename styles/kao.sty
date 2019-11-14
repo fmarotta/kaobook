@@ -417,6 +417,9 @@
 
 \RequirePackage{etoc} % Required to insert local tables of contents
 
+\newcounter{margintocdepth}
+\setcounter{margintocdepth}{\subsectiontocdepth}
+
 \newlength{\mtocshift} % Length of the vertical offset used for margin tocs
 \setlength{\mtocshift}{-5.2cm}
 
@@ -443,7 +446,7 @@
 		%\etocsettocstyle{}{}
 		%\etocsettocstyle{\normalfont\sffamily\normalsize}{}
 		\etocsettocstyle{\usekomafont{section}\small}{}
-		\etocsetnexttocdepth{subsection}
+		\etocsetnexttocdepth{\themargintocdepth}
 		% Print the table of contents in the margin
 		\marginnote[#1]{\localtableofcontents}
 	\endgroup
