@@ -34,7 +34,7 @@
 \DeclareOption*{\PassOptionsToClass{\CurrentOption}{\@baseclass}} % Pass through any options to the base class
 \ProcessOptions\relax % Process the options
 \LoadClass{\@baseclass} % Load the base class
-\input{kao.def} % Load the code common to all classes
+\input{styles/kao.sty} % Load the code common to all classes
 
 % Left-align title, authors and date
 \xpatchcmd{\@maketitle}{\begin{center}}{\begin{flushleft}}{}{}
@@ -66,3 +66,10 @@
 % Do not add lists to the TOC
 \PassOptionsToClass{toc=nolistof}{\@baseclass}
 \unsettoc{toc}{totoc}
+
+% Set KOMA fonts for elements common to all classes
+\addtokomafont{section}{\normalfont\bfseries}
+\addtokomafont{subsection}{\normalfont\bfseries}
+\addtokomafont{subsubsection}{\normalfont\bfseries}
+\addtokomafont{paragraph}{\normalfont\bfseries}
+\setkomafont{descriptionlabel}{\normalfont\bfseries}
