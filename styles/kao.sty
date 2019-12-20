@@ -131,7 +131,7 @@
 	symbol*,
 	hang,
 	flushmargin,
-	perpage,
+	% perpage,
 	stable,
 ]{footmisc} % Required to set up the footnotes
 \RequirePackage{footnotebackref} % Creates back references from footnotes to text
@@ -148,13 +148,22 @@
 
 \RequirePackage{marginnote} % Provides options for margin notes
 \RequirePackage{marginfix} % Make marginpars float freely
+\RequirePackage{sidenotes} % Use sidenotes
 
 % Justify and format margin notes
 \renewcommand*{\raggedleftmarginnote}{} % Suppress left margin
 \renewcommand*{\raggedrightmarginnote}{} % Suppress right margin
 \renewcommand*{\marginfont}{\@margin@par} % Format marginnotes according to \@marginpar (see above)
-\renewcommand{\marginnotevadjust}{1.8pt} % Bring all marginnotes downward a bit
-\RequirePackage[marginnote=true]{snotez} % Provides options for sidenotes
+\renewcommand{\marginnotevadjust}{2pt} % Bring all marginnotes downward a bit
+%\RequirePackage[marginnote=true]{snotez} % Provides options for sidenotes
+
+\def\snotez@if@nblskip#1{%
+\expandafter\ifx\@car#1\@nil*%
+\expandafter\@firstoftwo
+\else
+\expandafter\@secondoftwo
+\fi
+}
 
 % Redefine the command to print marginnotes:
 % (a) the optional offset argument goes at the first position
@@ -165,11 +174,36 @@
 	\oldmarginnote{#2}[\snotez@if@nblskip{#1}{\@cdr#1\@nil\baselineskip}{#1}]%
 }
 
+% % Formatting sidenotes
+% \setsidenotes{
+% 	text-mark-format=\textsuperscript{\normalfont#1}, % Use a superscript for the marker in the text
+% 	note-mark-format=#1:, % Use a normal font for the marker in the margin; use a colon after the sidenote number
+% 	note-mark-sep=\enskip, % Set the space after the marker
+% }
+
 % Formatting sidenotes
-\setsidenotes{
-	text-mark-format=\textsuperscript{\normalfont#1}, % Use a superscript for the marker in the text
-	note-mark-format=#1:, % Use a normal font for the marker in the margin; use a colon after the sidenote number
-	note-mark-sep=\enskip, % Set the space after the marker
+\RenewDocumentCommand \@sidenotes@thesidenotemark { m }%
+{%
+\leavevmode%
+\ifhmode%
+\edef\@x@sf{\the\spacefactor}%
+\nobreak%
+\fi%
+\hbox{\@textsuperscript{\normalfont#1}}%
+\ifhmode%
+\spacefactor\@x@sf%
+\fi%
+\relax%
+}%
+
+\RenewDocumentCommand\sidenotetext{ o o +m }% number, offset, text
+{%
+\IfNoValueOrEmptyTF{#1}%
+{%
+\@sidenotes@placemarginal{#2}{\@margin@par\thesidenote:\enskip#3}%
+\refstepcounter{sidenote}%
+}%
+{\@sidenotes@placemarginal{#2}{\@margin@par#1:\enskip#3}}%
 }
 
 %----------------------------------------------------------------------------------------
@@ -183,10 +217,10 @@
 \RequirePackage{multirow} % Cells occupying multiple rows in tables
 \RequirePackage{multicol} % Multiple columns in dictionary
 \RequirePackage[hypcap=true]{caption} % Correctly placed anchors for hyperlinks
-\RequirePackage{atbegshi}
-\RequirePackage{perpage}
+% \RequirePackage{atbegshi}
+% \RequirePackage{perpage}
 \let\c@abspage\relax
-\newcommand{\pp@g@sidenote}{}
+% \newcommand{\pp@g@sidenote}{}
 %\RequirePackage[nomencl=false]{scrhack} % Force KOMA to like floatrow
 \RequirePackage{floatrow} % Set up captions of floats
 \RequirePackage{dblfloatfix} % Better positioning of wide figures and tables
@@ -212,14 +246,16 @@
 \setlength\columnseprule{.4pt} % Set the width of vertical rules in tables
 
 % Environment to hold a margin figure (from the sidenotes package)
-\newsavebox{\@sidenotes@marginfigurebox}
-\newenvironment{marginfigure}[1][0pt]{ % The optional parameter is the vertical offset
+% We redefine it here because we want to use our own caption formatting.
+\newsavebox{\@kao@marginfigurebox}
+\renewenvironment{marginfigure}[1][0pt]{ % The optional parameter is the vertical offset
 	%\let\footnotemark\mpfootnotemark
 	\FloatBarrier % Force LaTeX to place previous floats
 	\mparshift{\snotez@if@nblskip{#1}{\@cdr#1\@nil\baselineskip}{#1}} % Move the figure up or down according to the offset argument
 	\begin{lrbox}{\@sidenotes@marginfigurebox}
 		\begin{minipage}{\marginparwidth}
 			\captionsetup{type=figure}
+			\centering
 }{
 		\end{minipage}
 	\end{lrbox}
@@ -227,13 +263,12 @@
 }
 
 % Environment to hold a margin table (from the sidenotes package)
-\newsavebox{\@sidenotes@margintablebox}
-\newenvironment{margintable}[1][0pt]{ % The optional parameter is the vertical offset
+\newsavebox{\@kao@margintablebox}
+\renewenvironment{margintable}[1][0pt]{ % The optional parameter is the vertical offset
 	\FloatBarrier % Force LaTeX to place previous floats
 	\mparshift{\snotez@if@nblskip{#1}{\@cdr#1\@nil\baselineskip}{#1}} % Move the table up or down according to the offset argument
 	\begin{lrbox}{\@sidenotes@margintablebox}
 		\begin{minipage}{\marginparwidth}
-			%\captionsetup{type=table,style=margintable}
 			\captionsetup{type=table}
 			\centering
 }{
@@ -242,14 +277,13 @@
 	\marginpar{\usebox{\@sidenotes@margintablebox}} % Place the table box in the margin
 }
 
-% Environment to hold a margin listing (from the sidenotes package)
+% Environment to hold a margin listing
 \newsavebox{\@sidenotes@marginlistingbox}
 \newenvironment{marginlisting}[1][0pt]{ % The optional parameter is the vertical offset
 	\FloatBarrier % Force LaTeX to place previous floats
 	\mparshift{\snotez@if@nblskip{#1}{\@cdr#1\@nil\baselineskip}{#1}} % Move the listing up or down according to the offset argument
 	\begin{lrbox}{\@sidenotes@marginlistingbox}
 		\begin{minipage}{\marginparwidth}
-			%\captionsetup{type=listing,style=marginlisting}
 			\captionsetup{type=lstlisting}
 			\centering
 }{
