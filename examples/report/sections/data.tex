@@ -1,0 +1,68 @@
+\section{Data}
+\labsec{data}
+
+The Genotype-Tissue Expression (GTEx) project \sidecite{Lonsdale2013a} 
+aims to characterise gene expression and regulation for 54 human healthy 
+tissues across nearly 1000 people. While the results of the analyses are 
+open-access, in order to gain access to the raw data about the DNA and 
+the gene expression of the individuals, it is necessary to go through a 
+long bureaucratic procedure.
+
+Another source of data was the Ensembl project (release 75), 
+\sidecite[-5\baselineskip-2mm]{Zerbino2018} which was used to obtain the 
+coordinates of the regulatory regions for each gene. Regulatory regions 
+are particular positions around a gene where transcription factors can 
+bind; from there, these transcription factors exert a control on gene 
+expression.\sidenote{In this project, I considered 141 genes of a 
+particular type of blood cells, for 95 individuals. Each gene is 
+associated to about 10 regulatory regions on average.} Each 
+transcription factor recognises a specific sequence of DNA, therefore it 
+is possible to compute the affinity of a factor for a given region. The 
+total binding affinity (TBA) 
+\sidecite[-10\baselineskip-2.8mm+1pt]{Molineris2011a} is one of the 
+possible affinity measures.
+
+Gene expression in GTEx was measured with a technique called RNA-seq, 
+which, through the sequencing of the RNA, allows us to count how many 
+molecules there are and to associate them to the gene where they come 
+from. The raw expression files contain, for each gene and each 
+individual, the RPKM, \sidecite[-13\baselineskip-1mm]{Mortazavi2008} 
+that is, the number of sequencing reads normalised by the length of the 
+gene and by the total number of reads.
+
+The gene expression was preprocesed as recommended by the Stephen's 
+Lab.\sidenote{\url{http://stephenslab.github.io/gtex-eqtls/analysis/20170515\_RNASeq\_Analysis.html}} 
+In summary, I applied a quantile normalisation to make sure that the 
+distribution of our response variable was normal, and then I obtained 
+the residuals of a linear model \\
+$Y~\sim~SEX+PEER\_FA+POPULATION+PLATFORM$, so as to disregard the 
+effects of these covariates on the expression. The final result can be 
+seen in \reffig{distrexpr}.
+
+\begin{figure}[b]
+  \centering
+  \includegraphics[height=5.2cm,width=.9\textwidth,keepaspectratio=false]{bid_expr}
+  \caption{Histogram and normal Q\babelhyphen{nobreak}Q plot of the 
+expression of a randomly selected gene called BID. In the histogram, the 
+brown dashed line indicates the mean, while the dotted lines indicate 
+plus and minus one standard deviation. In the Q\babelhyphen{nobreak}Q 
+plot, each point represents an individual.}
+  \labfig{distrexpr}
+\end{figure}
+
+\begin{figure}[t]
+  \centering
+  \includegraphics[height=5.2cm,width=.9\textwidth,keepaspectratio=false]{bid_tba}
+  \caption{Scree plot and biplot of the \textasciitilde800 affinities for the gene 
+BID. In the biplot, each label corresponds to an individual.}
+  \labfig{pcatba}
+\end{figure}
+
+The genotypes were also obtained with a sequencing technique and were 
+provided in VCF format. \sidecite[-22\baselineskip+.4mm]{Danecek2011} I 
+used a software called 
+\nohyphens{VCF\textunderscore\nobreak\hspace{0pt}rider}\sidenote{\url{https://github.com/vodkatad/vcf\_rider}} 
+to compute the total binding affinity of each transcription factor for 
+each regulatory region associated to a gene (the total number of 
+transcription factors is about 800). \reffig{pcatba} reports the PCA of 
+the TBA for the gene BID.
