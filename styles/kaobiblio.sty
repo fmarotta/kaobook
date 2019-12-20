@@ -99,7 +99,7 @@
 
 % Command to split the cited items and execute an action for each of them
 \NewDocumentCommand{\margincitation}{ >{\SplitList{,}} m }{% The parameter is a comma-separated list of citation keys, which is splitted into single items
-	\marginnote[-1.2pt]{\ProcessList{#1}{\formatmargincitation}}% Create a marginnote for each item
+	\marginnote{\ProcessList{#1}{\formatmargincitation}}% Create a marginnote for each item
 }
 
 % Command to format the marginnote created for cited items

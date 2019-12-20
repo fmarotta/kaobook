@@ -17,31 +17,25 @@ mark\sidenote[O]{This sidenote has a special mark, a big O!} with \\
 which moves the sidenote upwards or downwards, so that the full syntax is:
 
 \begin{lstlisting}[style=kaolstplain]
-\sidenote[offset][mark]{Text}
+\sidenote[mark][offset]{Text}
 \end{lstlisting}
 
-If you use an offset, you always have to add the 
-brackets for the mark, but they can be empty.\sidenote{If you want to 
-know more about the usage of the \Command{sidenote} command, read the 
-documentation of the \Package{snotez} package.} The format of the actual 
-sidenote can be changed with the command \Command{setsidenotes}, which 
-allows you to modify, for instance, the format of the markers and the 
-separator between the marker and the text of the sidenote.
+If you use an offset, you always have to add the brackets for the mark, 
+but they can be empty.\sidenote{If you want to know more about the usage 
+of the \Command{sidenote} command, read the documentation of the 
+\Package{sidenotes} package.}
 
-There was an alternative package, \Package{sidenotes}, which we could 
-have used. In the end we went for \Package{snotez} because it was the 
-one used in Ken Ohori's thesis, which inspired this class. The features 
-are very similar, but one additional thing offered by \Package{snotez} 
-is that the offset can be specified as a multiple of 
-\Command{baselineskip}. For example, if you want to enter a sidenote 
-with the normal mark and move it upwards one line, type:
+In \Class{kaobook} we copied a feature from the \Package{snotez} 
+package: the possibility to specify a multiple of \Command{baselineskip} 
+as an offset. For example, if you want to enter a sidenote with the 
+normal mark and move it upwards one line, type:
 
 \begin{lstlisting}[style=kaolstplain]
-\sidenote[*-1][]{Text of the sidenote.}
+\sidenote[][*-1]{Text of the sidenote.}
 \end{lstlisting}
 
-Sidenotes are handled through the \Package{snotez} package, which in 
-turn relies on the \Package{marginnote} package.
+As we said, sidenotes are handled through the \Package{sidenotes} 
+package, which in turn relies on the \Package{marginnote} package.
 
 \section{Marginnotes}
 
@@ -69,7 +63,7 @@ syntax of \Command{sidenote} to resemble that of \Command{marginnote}.
 \end{kaobox}
 
 We load the packages \Package{marginnote}, \Package{marginfix} and 
-\Package{placeins}. Since \Package{snotez} uses \Package{marginnote}, 
+\Package{placeins}. Since \Package{sidenotes} uses \Package{marginnote}, 
 what we said for marginnotes is also valid for sidenotes. Side- and 
 margin- notes are shifted slightly upwards 
 (\Command{renewcommand\{\textbackslash marginnotevadjust\}\{3pt\}}) in 

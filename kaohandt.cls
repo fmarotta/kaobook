@@ -73,3 +73,12 @@
 \addtokomafont{subsubsection}{\normalfont\bfseries}
 \addtokomafont{paragraph}{\normalfont\bfseries}
 \setkomafont{descriptionlabel}{\normalfont\bfseries}
+
+%----------------------------------------------------------------------------------------
+%	NUMBERING
+%----------------------------------------------------------------------------------------
+
+\setcounter{secnumdepth}{2} % Number up to subsections
+
+\counterwithin*{sidenote}{section} % Uncomment to reset the sidenote counter at each section
+%\counterwithout{sidenote}{section} % Uncomment to have one sidenote counter for the whole document

@@ -149,6 +149,7 @@
 \RequirePackage{marginnote} % Provides options for margin notes
 \RequirePackage{marginfix} % Make marginpars float freely
 \RequirePackage{sidenotes} % Use sidenotes
+\RequirePackage{chngcntr} % Reset counters at sections
 
 % Justify and format margin notes
 \renewcommand*{\raggedleftmarginnote}{} % Suppress left margin
@@ -172,6 +173,26 @@
 \let\oldmarginnote\marginnote
 \renewcommand{\marginnote}[2][0pt]{%
 	\oldmarginnote{#2}[\snotez@if@nblskip{#1}{\@cdr#1\@nil\baselineskip}{#1}]%
+}
+
+% Redefine the following sidenotes' command to use the kao version of marginnote
+\RenewDocumentCommand \@sidenotes@placemarginal { m m }
+{
+\IfNoValueOrEmptyTF{#1}
+{\marginpar{#2}}
+{\marginnote[#1]{#2}}
+}
+
+% Initially set the counter to zero instead of 1, and update it before printing the sidenote.
+\setcounter{sidenote}{0}
+\RenewDocumentCommand\sidenote{ o o +m }{%
+\IfNoValueOrEmptyTF{#1}{%
+	\refstepcounter{sidenote}% This command has been moved here
+}{%
+}%
+\sidenotemark[#1]%
+\sidenotetext[#1][#2]{#3}%
+\@sidenotes@multimarker%
 }
 
 % % Formatting sidenotes
@@ -201,7 +222,6 @@
 \IfNoValueOrEmptyTF{#1}%
 {%
 \@sidenotes@placemarginal{#2}{\@margin@par\thesidenote:\enskip#3}%
-\refstepcounter{sidenote}%
 }%
 {\@sidenotes@placemarginal{#2}{\@margin@par#1:\enskip#3}}%
 }
@@ -485,15 +505,6 @@
 		\marginnote[#1]{\localtableofcontents}
 	\endgroup
 }
-
-%----------------------------------------------------------------------------------------
-%	NUMBERING
-%----------------------------------------------------------------------------------------
-
-\setcounter{secnumdepth}{1} % Number only up to sections
-
-%\counterwithin*{sidenote}{chapter} % Uncomment to reset the sidenote counter at each chapter
-%\counterwithout{sidenote}{chapter} % Uncomment to have one sidenote counter for the whole document
 
 %----------------------------------------------------------------------------------------
 %	PAGE LAYOUT

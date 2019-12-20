@@ -25,7 +25,7 @@
 %----------------------------------------------------------------------------------------
 
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesClass{kaobook}[2019/06/05 v1.0 kaobook class v1.0]
+\ProvidesClass{kaobook}[2019/06/05 v1.0 kaobook class v1.1]
 
 \newcommand{\@classname}{kaobook} % Class name
 \newcommand{\@baseclass}{scrbook} % Base class name
@@ -262,3 +262,12 @@
 \PassOptionsToClass{toc=listof}{\@baseclass}
 \PassOptionsToClass{toc=index}{\@baseclass}
 \PassOptionsToClass{toc=bibliography}{\@baseclass}
+
+%----------------------------------------------------------------------------------------
+%	NUMBERING
+%----------------------------------------------------------------------------------------
+
+\setcounter{secnumdepth}{1} % Number only up to sections
+
+\counterwithin*{sidenote}{chapter} % Uncomment to reset the sidenote counter at each chapter
+%\counterwithout{sidenote}{chapter} % Uncomment to have one sidenote counter for the whole document

@@ -19,7 +19,7 @@ of such guide is suggested as it is very instructive.
 Every \KOMAScript\xspace option you pass to the class when you load it 
 is automatically activated. In addition, in \Class{kaobook} some options 
 have modified default values. For instance, the font size is 9.5pt and 
-the paragraphs are separated by space,\sidenote[-7mm][]{To be precise, 
+the paragraphs are separated by space,\sidenote[][-7mm]{To be precise, 
 they are separated by half a line worth of space: the \Option{parskip} 
 value is \enquote{half}.} not marked by indentation.
 
@@ -96,7 +96,7 @@ or somewhere else in the front matter, through the commands
 \Command{@plaintitle} and \Command{@plainauthor}, respectively. The PDF 
 properties \Option{pdftitle} and \Option{pdfauthor} are automatically 
 set by hyperref to the plain values if present, otherwise to the normal 
-values.\sidenote[-1.4cm][]{We think that this is an important point so 
+values.\sidenote[][*-1]{We think that this is an important point so 
 we remark it here. If you compile the document with pdflatex, the PDF 
 metadata will be altered so that they match the plain title and author 
 you have specified; if you did not specify them, the metadata will be 
@@ -106,7 +106,7 @@ There are defined two page layouts, \Option{margin} and \Option{wide},
 and two page styles, \Option{plain} and \Option{fancy}. The layout 
 basically concern the width of the margins, while the style refers to 
 headers and footer; these issues will be 
-discussed in \frefch{layout}.\sidenote{For now, suffice it to say that pages with 
+discussed in \frefch{layout}.\sidenote[][6mm]{For now, suffice it to say that pages with 
 the \Option{margin} layout have wide margins, while with the 
 \Option{wide} layout the margins are absent. In \Option{plain} pages the 
 headers and footer are suppressed, while in \Option{fancy} pages there 
