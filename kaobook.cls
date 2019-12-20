@@ -224,17 +224,14 @@
 }
 
 % Takes as input the image path and optionally the "beforeskip"
-\DeclareDocumentCommand{\setchapterimage}{O{5.5cm} m}
-{
-	\setchapterpreamble[o]{
-		\vspace*{-2.7cm}\hspace*{-2.56cm}
-		\includegraphics[width=\paperwidth,height=#1+2.7cm,keepaspectratio=false]{#2}
-	}
-
-	\chapterstyleimage
-
+\DeclareDocumentCommand{\setchapterimage}{O{5.5cm} m}{%
+	\setchapterpreamble[o]{%
+		\vspace*{-2.7cm}\hspace*{-2.5cm}%
+		\includegraphics[width=\paperwidth,height=#1+2.7cm,keepaspectratio=false]{#2}%
+	}%
+	\chapterstyleimage%
 	% beforeskip=-(figure_height-top_margin)
-	\RedeclareSectionCommand[beforeskip=-#1, afterskip=.6cm]{chapter}
+	\RedeclareSectionCommand[beforeskip=-#1, afterskip=.6cm]{chapter}%
 	\setlength{\mtocshift}{0cm}%
 }
 

@@ -153,7 +153,7 @@
 \renewcommand*{\raggedleftmarginnote}{} % Suppress left margin
 \renewcommand*{\raggedrightmarginnote}{} % Suppress right margin
 \renewcommand*{\marginfont}{\@margin@par} % Format marginnotes according to \@marginpar (see above)
-\renewcommand{\marginnotevadjust}{3pt} % Bring all marginnotes downward a bit
+\renewcommand{\marginnotevadjust}{1.8pt} % Bring all marginnotes downward a bit
 \RequirePackage[marginnote=true]{snotez} % Provides options for sidenotes
 
 % Redefine the command to print marginnotes:
@@ -597,15 +597,15 @@
 \RequirePackage[T1]{fontenc} % utf8 encoding in the output (.pdf) file
 \RequirePackage[utf8]{inputenc} % utf8 encoding in the input (.tex) file
 
-\RequirePackage{mathpazo} % Serif font
-\RequirePackage[scaled]{helvet} % Sans-serif font
+\RequirePackage[scaled=.97,helvratio=.93,p,theoremfont]{newpxtext} % Serif palatino font
+\RequirePackage[vvarbb,smallerops,bigdelims]{newpxmath} % Math palatino font
 \RequirePackage[scaled=.85]{beramono} % Monospace font
-\RequirePackage[cal=boondoxo]{mathalfa} % Mathcal from STIX, unslanted a bit
-\RequirePackage[cmintegrals,bigdelims,vvarbb]{newtxmath} % Maths fonts
-\RequirePackage{esint} % Integral symbols
+\RequirePackage[scr=rsfso,cal=boondoxo]{mathalfa} % Mathcal from STIX, unslanted a bit
+\RequirePackage{bm} % Bold math
 
 % When using the Palatino (mathpazo) font, it is better to use a slightly larger stretch.
-\setstretch{1.10}
+%\setstretch{1.10}
+\linespread{1.07} % Give Palatino more leading (space between lines)
 
 %----------------------------------------------------------------------------------------
 %	HYPERREFERENCES
