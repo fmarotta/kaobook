@@ -275,7 +275,7 @@
 	\begin{lrbox}{\@sidenotes@marginfigurebox}
 		\begin{minipage}{\marginparwidth}
 			\captionsetup{type=figure}
-			\centering
+			% \centering % Better not to center margin figures
 }{
 		\end{minipage}
 	\end{lrbox}
@@ -290,7 +290,6 @@
 	\begin{lrbox}{\@sidenotes@margintablebox}
 		\begin{minipage}{\marginparwidth}
 			\captionsetup{type=table}
-			\centering
 }{
 		\end{minipage}
 	\end{lrbox}
@@ -305,7 +304,6 @@
 	\begin{lrbox}{\@sidenotes@marginlistingbox}
 		\begin{minipage}{\marginparwidth}
 			\captionsetup{type=lstlisting}
-			\centering
 }{
 		\end{minipage}
 	\end{lrbox}
@@ -745,4 +743,4 @@
 
 \RequirePackage{styles/environments}
 \RequirePackage{styles/packages}
-\RequirePackage{styles/references}
+\RequirePackage{styles/kaorefs}

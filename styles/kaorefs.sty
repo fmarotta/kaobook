@@ -1,4 +1,4 @@
-%% references.sty
+%% kaorefs.sty
 %% Copyright 2019 Federico Marotta
 %
 % This work may be distributed and/or modified under the
@@ -15,7 +15,7 @@
 %
 % This work consists of all the files listed in MANIFEST.md.
 
-\ProvidesPackage{styles/references}
+\ProvidesPackage{styles/kaorefs}
 
 % Easily label and reference elements
 % Note that \label must appear after \caption
@@ -34,6 +34,7 @@
 \newcommand{\labsubsec}[1]{\label{subsec:#1}}
 \newcommand{\labfig}[1]{\label{fig:#1}}
 \newcommand{\labtab}[1]{\label{tab:#1}}
+\newcommand{\labeq}[1]{\label{eq:#1}}
 \newcommand{\labdef}[1]{\label{def:#1}}
 \newcommand{\labthm}[1]{\label{thm:#1}}
 \newcommand{\labprop}[1]{\label{prop:#1}}
@@ -74,6 +75,9 @@
 %\newcommand{\reftab}[1]{{\hypersetup{colorlinks=false}\usekomafont{captionlabel}\hyperref[tab:#1]{Table}\xspace\ref{tab:#1}}}
 \newcommand{\reftab}[1]{\hyperref[tab:#1]{\tablename}\xspace\ref{tab:#1}}
 \newcommand{\vreftab}[1]{\hyperref[tab:#1]{\tablename\xspace\vref{tab:#1}}}
+
+\newcommand{\refeq}[1]{\hyperref[eq:#1]{Equation}\xspace\ref{eq:#1}}
+\newcommand{\vrefeq}[1]{\hyperref[eq:#1]{Equation}\xspace\vref{eq:#1}}
 
 \newcommand{\refdef}[1]{\hyperref[def:#1]{Definition}\xspace\ref{def:#1}}
 \newcommand{\vrefdef}[1]{\hyperref[def:#1]{Definition}\xspace\vref{def:#1}}

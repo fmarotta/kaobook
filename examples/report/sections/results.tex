@@ -9,14 +9,15 @@ tune, they rely on a (computationally expensive) netsed cross-validation
 in order not to overestimate the predictive power. Since I needed to run 
 several different models for each of the 140 genes, each with its own 
 parameters, I decided to write an R 
-package\sidenote[4.3cm][]{\url{https://github.com/fmarotta/cvtools}} to perform 
-the nested cross-validation with a heuristic algorithm that does not try 
-all the possible values for the parameters, but rather, independently 
-for each parameter, it starts at one value and explores the adjacent 
-ones; then, it moves in the direction where the error decreases
+package\sidenote[][-2.3cm]{\url{https://github.com/fmarotta/cvtools}} to 
+perform the nested cross-validation with a heuristic algorithm that does 
+not try all the possible values for the parameters, but rather, 
+independently for each parameter, it starts at one value and explores 
+the adjacent ones; then, it moves in the direction where the error 
+decreases
 (\reffig{cv}).
 
-\begin{marginfigure}[-5.55cm]
+\begin{marginfigure}[-3.4cm]
   \centering
   \includegraphics{cv}
   \caption{First, the mtry is tuned while the nodesize is kept fixed; 
@@ -29,20 +30,23 @@ fashion.}
 
 This package requires the user to write a function which takes 
 predefined arguments and returns a predefined output, but except for 
-that, it can be used with any regression model. We evaluated the 
+that, it can be used with any regression model. I evaluated the 
 performances of ridge, BART, random forest, and PCR. 
-\sidecite[1.78cm]{James2013a,Hastie2009}
+\sidecite[-12.9cm]{James2013a,Hastie2009}
 
 \subsection{Model Performance}
 
 The measure of performance is not the MSE nor the $R^2$, but rather the 
 square of the correlation between true and predicted expression 
 ($\rho^2$); indeed, we do not want to penalise errors on single 
-individuals, but we are interested in the general trend of expression.
+individuals, but we are interested in the general trend of expression. I 
+decided to compare my results with those of TIGAR, \cite{Nagpal2019} 
+which is currently most recent paper on this topic.
 
 \begin{table}[b]
   \caption{Mean $\rho^2$ across 141 genes. The t-test was always 
 performed with respect to TIGAR.}
+  \labtab{comp}
   \begin{tabular}{lcc}
   \textbf{Model} & \textbf{Mean} \boldmath$\rho^2$ & \textbf{t-test pval} \\
   \midrule
@@ -58,7 +62,8 @@ Even if it captures only the linear relationships, ridge gave the best
 predictive performance (\reffig{rho2distr}), probably because in this 
 context where $p >> n$, it is a good compromise between bias, variance 
 and overfitting. According to a t-test, the $\rho^2$ achieved by ridge 
-with the TBA values are even higher than those achieved by TIGAR.
+with the TBA values are even higher than those obtained by TIGAR 
+(\reftab{comp}).
 
 \begin{marginfigure}[-2cm]
   \includegraphics{rho2distr}
@@ -85,7 +90,7 @@ is present only in tiny amounts it will not bind many regulatory
 regions. For this reason, we tried to enhance our predictors with 
 information from the expression of the transcription factors.
 
-\marginnote[*-1]{%
+\marginnote{%
 The Hill equation models the rate of expression of a gene:
 \begin{equation*}
   \theta = w \frac{L^n}{K^n + L^n} \approx w \left(\frac{L}{K}\right)^n.
