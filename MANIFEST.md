@@ -34,7 +34,7 @@ kaobook/
     |-- mdftheorems.sty         - colorful styling of theorems
     |-- packages.sty            - useful packages
     |-- plaintheorems.sty       - minimalistic styling of theorems
-    |-- references.sty          - commands for referencing
+	|-- kaorefs.sty             - commands for referencing
     |-- style.sty               - page design
 ```
 
