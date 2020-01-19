@@ -102,13 +102,13 @@
 
 % Command to split the cited items and execute an action for each of them
 \NewDocumentCommand{\margincitation}{O{0pt}>{\SplitList{,}}m}{% The mandatory parameter is a comma-separated list of citation keys, which is splitted into single items
-	\setlength{\sclen}{#1-1pt}
+	\setlength{\sclen}{#1-1pt}%
 	\marginnote[\sclen]{\ProcessList{#2}{\formatmargincitation}}% Create a marginnote for each item
 }
 
 % Command to format the marginnote created for cited items
 \NewDocumentCommand{\formatmargincitation}{m}{% The parameter is a single citation key
-	\parencite{#1}: \citeauthor*{#1} (\citeyear{#1}), \citetitle{#1}\\
+	\parencite{#1}: \citeauthor*{#1} (\citeyear{#1}), \citetitle{#1}\\%
 }
 
 %----------------------------------------------------------------------------------------
