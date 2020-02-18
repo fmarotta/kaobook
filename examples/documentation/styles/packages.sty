@@ -1,0 +1,145 @@
+%% packages.sty
+%% Copyright 2020 Federico Marotta
+%
+% This work may be distributed and/or modified under the
+% conditions of the LaTeX Project Public License, either version 1.3
+% of this license or (at your option) any later version.
+% The latest version of this license is in
+%   http://www.latex-project.org/lppl.txt
+% and version 1.3 or later is part of all distributions of LaTeX
+% version 2005/12/01 or later.
+%
+% This work has the LPPL maintenance status `maintained'.
+%
+% The Current Maintainer of this work is Federico Marotta
+%
+% This work consists of all the files listed in MANIFEST.md.
+
+\ProvidesPackage{styles/packages}
+
+% Productivity
+\RequirePackage{pdfpages} % Insert PDF pages
+\RequirePackage{subfiles} % Adopt a modular structure
+\RequirePackage{todonotes} % Add useful notes in the margins
+
+% Listings code
+\RequirePackage{listings} % Code
+%\RequirePackage{minted}
+\RequirePackage{morewrites}
+
+\newsavebox\mycap
+\DeclareCaptionFormat{llap}{%
+	\begin{lrbox}{\mycap}%
+	\begin{minipage}{\marginparwidth}%
+	\@margin@par #1:#2#3%
+	\end{minipage}%
+	\end{lrbox}%
+	\marginnote[0.2cm]{\usebox\mycap}%
+}
+\captionsetup[lstlisting]{format=llap,labelsep=space,singlelinecheck=no,belowskip=-0.6cm}
+
+\definecolor{listingkeywords}{rgb}{0.0, 0.5, 0.0}
+\definecolor{listingidentifiers}{rgb}{0, 0, 0}
+\definecolor{listingcomments}{rgb}{0.25, 0.5, 0.5}
+\definecolor{listingstrings}{rgb}{0.73, 0.13, 0.13}
+\definecolor{listingnumbers}{rgb}{0.25, 0.25, 0.25}
+\lstdefinestyle{kaolst}{
+	aboveskip=0.7\topskip,
+	belowskip=0.1\topskip,
+	basicstyle=\small\ttfamily,
+	commentstyle=\color{listingcomments}\itshape,
+	keywordstyle=\color{listingkeywords}\bfseries,
+	numberstyle=\scriptsize\color{listingnumbers}\ttfamily,
+	stringstyle=\color{listingstrings},
+	identifierstyle=\color{listingidentifiers},
+	backgroundcolor=\color{White},
+	breakatwhitespace=false,
+	breaklines=true,
+	captionpos=t,
+	keepspaces=true,
+	showspaces=false,
+	showstringspaces=false,
+	showtabs=false,
+	numbers=left,
+	numbersep=1em,
+	%frame=lines,
+	frame=l,
+	framerule=.7pt,
+	tabsize=4,
+	defaultdialect=[LaTeX]Tex,
+}
+\lstdefinestyle{kaolstplain}{
+	aboveskip=0.6\topskip,
+	belowskip=-0.1\topskip,
+	basicstyle=\small\ttfamily,
+	commentstyle=\color{listingcomments}\itshape,
+	keywordstyle=\color{listingkeywords}\bfseries,
+	numberstyle=\scriptsize\color{listingnumbers}\ttfamily,
+	stringstyle=\color{listingstrings},
+	identifierstyle=\color{listingidentifiers},
+	backgroundcolor=\color{White},
+	breakatwhitespace=false,
+	breaklines=true,
+	captionpos=b,
+	keepspaces=true,
+	showspaces=false,
+	showstringspaces=false,
+	showtabs=false,
+	numbers=none,
+	frame=none,
+	tabsize=4,
+	defaultdialect=[LaTeX]Tex,
+}
+\lstset{style=kaolst}
+
+% Verbatim
+%\RequirePackage{fancyvrb} % Customization of verbatim environments
+%\fvset{fontsize=\normalsize} % Change here the font size of all 
+%verbatim \preto{\@verbatim}{\topsep=0pt \partopsep=0pt }
+
+% Algorithms
+\RequirePackage[linesnumbered, ruled, vlined]{algorithm2e} % Algorithms
+
+% Special gliphs
+\RequirePackage{ccicons} % Creative Commons icons
+\RequirePackage{metalogo} % XeTeX logo
+
+% Index, glossary and nomenclature
+\RequirePackage{imakeidx}
+\RequirePackage[xindy,toc]{glossaries}
+\RequirePackage[intoc]{nomencl}
+
+% Commands to print specific wors always in the same way
+% TODO: in \Command, automatically escape braces {} and replace backslashes with \textbackslash
+\newcommand{\Class}[1]{\texttt{#1}}
+\newcommand{\Package}[1]{\texttt{#1}}
+\newcommand{\Option}[1]{\texttt{#1}}
+\newcommand{\Command}[1]{\texttt{\textbackslash#1}}
+\newcommand{\Environment}[1]{\texttt{#1}}
+\newcommand{\Path}[1]{\texttt{#1}}
+
+% Print latin words in italics (The xspace package is required but we already loaded it in the class)
+\newcommand{\hairsp}{\hspace{1pt}} % Command to print a very short space
+\newcommand{\invitro}{\textit{in vitro}\xspace}
+\newcommand{\invivo}{\textit{in vivo}\xspace}
+\newcommand{\cis}{\textit{cis}\xspace}
+\newcommand{\trans}{\textit{trans}\xspace}
+\newcommand{\etal}{\textit{et al.}\xspace}
+\newcommand{\denovo}{\textit{de novo}\xspace}
+\newcommand{\adhoc}{\textit{ad hoc}\xspace}
+\newcommand{\etcetera}{\textit{et cetera}\xspace}
+\newcommand{\etc}{\textit{etc.}\xspace}
+\newcommand{\ie}{\textit{i.\nobreak\hairsp{}e.}\xspace}
+\newcommand{\eg}{\textit{e.\nobreak\hairsp{}g.}\xspace}
+\newcommand{\vs}{\textit{vs}\xspace}
+\newcommand{\cfr}{\textit{cfr.}\xspace}
+
+% Tables
+\newcommand{\na}{\quad--} % Used in tables for N/A cells
+\newcommand{\hangp}[1]{\makebox[0pt][r]{(}#1\makebox[0pt][l]{)}} % Create parentheses around text in tables which take up no horizontal space - this improves column spacing
+\newcommand{\hangstar}{\makebox[0pt][l]{*}} % Create asterisks in tables which take up no horizontal space - this improves column spacing
+
+% A command to print the current month and year (from tufte-latex)
+\newcommand{\monthyear}{\ifcase\month\or January\or February\or March\or 
+April\or May\or June\or July\or August\or September\or October\or 
+November\or December\fi\space\number\year}

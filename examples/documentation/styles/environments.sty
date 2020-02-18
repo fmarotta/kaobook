@@ -1,0 +1,109 @@
+%% environments.sty
+%% Copyright 2020 Federico Marotta
+%
+% This work may be distributed and/or modified under the
+% conditions of the LaTeX Project Public License, either version 1.3
+% of this license or (at your option) any later version.
+% The latest version of this license is in
+%   http://www.latex-project.org/lppl.txt
+% and version 1.3 or later is part of all distributions of LaTeX
+% version 2005/12/01 or later.
+%
+% This work has the LPPL maintenance status `maintained'.
+%
+% The Current Maintainer of this work is Federico Marotta
+%
+% This work consists of all the files listed in MANIFEST.md.
+
+\ProvidesPackage{styles/environments}
+
+%----------------------------------------------------------------------------------------
+%	ITEMS
+%----------------------------------------------------------------------------------------
+
+\RequirePackage{amssymb}
+\renewcommand{\labelitemi}{\small$\blacktriangleright$}
+\renewcommand{\labelitemii}{\textbullet}
+\RequirePackage{enumitem}
+\setlist[itemize]{noitemsep}
+\setlist[enumerate]{noitemsep}
+\setlist[description]{noitemsep}
+
+%----------------------------------------------------------------------------------------
+%	SIMPLE BOXED ENVIRONMENT
+%----------------------------------------------------------------------------------------
+
+% kaobox (while tcolorbox may be more rich, I find it too complicated so I prefer mdframed)
+\RequirePackage{tikz}
+\RequirePackage[framemethod=TikZ]{mdframed}
+
+%\mdfsetup{skipabove=\topskip,skipbelow=0pt}
+\mdfdefinestyle{kaoboxstyle}{
+	skipabove=1.5\topskip,
+	skipbelow=.5\topskip,
+	rightmargin=0pt,
+	leftmargin=0pt,
+	%innertopmargin=3pt,
+	%innerbottommargin=3pt,
+	innerrightmargin=7pt,
+	innerleftmargin=7pt,
+	topline=false,
+	bottomline=false,
+	rightline=false,
+	leftline=false,
+	%linewidth=1pt,
+	%roundcorner=0pt,
+	%font={},
+	%frametitlefont={},
+	frametitlerule=true,
+	linecolor=black,
+	%backgroundcolor=LightBlue,
+	fontcolor=black,
+	%frametitlebackgroundcolor=LightBlue,
+}
+
+\newmdenv[
+	style=kaoboxstyle,
+	backgroundcolor=RoyalBlue!25!White,
+	frametitlebackgroundcolor=RoyalBlue!25!White,
+]{kaobox}
+
+%----------------------------------------------------------------------------------------
+%	ENVIRONMENT WITH A COUNTER
+%----------------------------------------------------------------------------------------
+
+\newenvironment{kaocounter}{
+	\refstepcounter{kaocounter}
+	\begin{kaobox}[frametitle=Comment~\thekaocounter\autodot]
+}{
+	\end{kaobox}
+}
+
+\newcounter{kaocounter}
+\numberwithin{kaocounter}{section}
+\newcommand*{\kaocounterformat}{% Format for the caption
+	Comment~\thekaocounter\csname autodot\endcsname}
+\newcommand*{\fnum@kaocounter}{\kaocounterformat}
+
+
+%----------------------------------------------------------------------------------------
+%	FLOATING ENVIRONMENT WITH TOC ENTRIES
+%----------------------------------------------------------------------------------------
+
+\newenvironment{kaofloating}{%
+	\@float{kaofloating}%
+}{%
+	\end@float%
+}
+
+\newcommand*{\fps@floatingbox}{tbph}
+\newcommand*{\ftype@floatingbox}{5}
+\newcommand*{\floatingboxformat}{%
+	Insight~\thefloatingbox\csname autodot\endcsname}
+\newcommand*{\fnum@floatingbox}{\floatingboxformat}
+\newcommand*{\ext@floatingbox}{loi}
+
+\addtotoclist[float]{loi}
+\newcommand*{\listofloiname}{List of Insights}
+\newcommand*{\l@floatingbox}{\l@figure}
+\newcommand*{\listofinsights}{\listoftoc{loi}}

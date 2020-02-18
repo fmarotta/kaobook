@@ -1,0 +1,198 @@
+%% mdftheorems.sty
+%% Copyright 2020 Federico Marotta
+%
+% This work may be distributed and/or modified under the
+% conditions of the LaTeX Project Public License, either version 1.3
+% of this license or (at your option) any later version.
+% The latest version of this license is in
+%   http://www.latex-project.org/lppl.txt
+% and version 1.3 or later is part of all distributions of LaTeX
+% version 2005/12/01 or later.
+%
+% This work has the LPPL maintenance status `maintained'.
+%
+% The Current Maintainer of this work is Federico Marotta
+%
+% This work consists of all the files listed in MANIFEST.md.
+
+\ProvidesPackage{styles/mdftheorems}
+
+% Use mdframed to shade the background of theorems
+
+\let\openbox\relax
+\usepackage{amsmath} % Improved mathematics
+\usepackage{amsfonts} % Mathematical fonts
+\usepackage{amssymb} % AMS symbols and environments
+\usepackage{amsthm} % Mathematical environments
+\usepackage{thmtools}
+\usepackage{tikz}
+\usepackage[framemethod=TikZ]{mdframed}
+
+% Box style
+\mdfsetup{skipabove=\topskip,skipbelow=0pt}%-.5\topskip}
+\mdfdefinestyle{mdfkao}{
+	skipabove=\topskip,
+	skipbelow=\topskip, % Does not work :(
+	rightmargin=0pt,
+	leftmargin=0pt,
+	innertopmargin=7pt,
+	innerbottommargin=3pt,
+	innerrightmargin=5pt,
+	innerleftmargin=5pt,
+	topline=false,
+	bottomline=false,
+	rightline=false,
+	leftline=false,
+	%linewidth=1pt,
+	%roundcorner=0pt,
+	%font={},
+	%frametitlefont={},
+	frametitlerule=true,
+	%linecolor=black,
+	%backgroundcolor=LightBlue,
+	%fontcolor=black,
+	%frametitlebackgroundcolor=LightBlue,
+}
+
+% Theorem styles
+\declaretheoremstyle[
+	%spaceabove=.5\thm@preskip,
+	%spacebelow=.5\thm@postskip,
+	%headfont=\normalfont\bfseries,%\scshape,
+	%notefont=\normalfont, notebraces={ (}{)},
+	bodyfont=\normalfont\itshape,
+	%headformat={\NAME\space\NUMBER\space\NOTE},
+	headpunct={},
+	%postheadspace={.5em plus .1em minus .1em},
+	%prefoothook={\hfill\qedsymbol}
+]{kaoplain}
+
+\declaretheoremstyle[
+	%spaceabove=.5\thm@preskip,
+	%spacebelow=.5\thm@postskip,
+	%headfont=\normalfont\bfseries,%\scshape,
+	%notefont=\normalfont, notebraces={ (}{)},
+	bodyfont=\normalfont\itshape,
+	%headformat={\NAME\space\NUMBER\space\NOTE},
+	headpunct={},
+	postheadspace={.5em plus .1em minus .1em},
+	%prefoothook={\hfill\qedsymbol}
+]{kaodefinition}
+
+\declaretheoremstyle[
+	%spaceabove=.5\thm@preskip,
+	%spacebelow=.5\thm@postskip,
+	%headfont=\normalfont\bfseries,
+	%notefont=\normalfont, notebraces={ (}{)},
+	%bodyfont=\normalfont,
+	%headformat={\footnotesize$\triangleright$\space\normalsize\NAME\space\NUMBER\space\NOTE},
+	%headformat={\NAME\space\NUMBER\space\NOTE},
+	headpunct={},
+	postheadspace={.5em plus .1em minus .1em},
+	%refname={theorem,theorems},
+	%Refname={Theorem,Theorems},
+]{kaoremark}
+
+\declaretheoremstyle[
+	%spaceabove=.5\thm@preskip,
+	%spacebelow=.5\thm@postskip,
+	%headfont=\normalfont\bfseries,
+	%notefont=\normalfont, notebraces={ (}{)},
+	%bodyfont=\normalfont,
+	%headformat={\NAME\space\NUMBER\space\NOTE},
+	headpunct={},
+	postheadspace={.5em plus .1em minus .1em},
+	%prefoothook={\hfill\qedsymbol}
+	%refname={theorem,theorems},
+	%Refname={Theorem,Theorems},
+]{kaoexample}
+
+\theoremstyle{kaoplain}
+\declaretheorem[
+	name=Theorem,
+	style=kaoplain,
+	refname={theorem,theorems},
+	Refname={Theorem,Theorems},
+	numberwithin=section,
+	mdframed={
+		style=mdfkao,
+		backgroundcolor=Goldenrod!45!white,
+		frametitlebackgroundcolor=Goldenrod!45!white,
+	},
+]{theorem}
+\declaretheorem[
+	name=Proposition,
+	refname={proposition,propositions},
+	Refname={Proposition,Propositions},
+	sibling=theorem,
+	mdframed={
+		style=mdfkao,
+		backgroundcolor=Goldenrod!45!white,
+		frametitlebackgroundcolor=Goldenrod!45!white,
+	},
+]{proposition}
+\declaretheorem[
+	name=Lemma,
+	refname={lemma,lemmas},
+	Refname={Lemma,Lemmas},
+	sibling=theorem,
+	mdframed={
+		style=mdfkao,
+		backgroundcolor=Goldenrod!45!white,
+		frametitlebackgroundcolor=Goldenrod!45!white,
+	},
+]{lemma}
+\declaretheorem[
+	name=Corollary,
+	refname={corollary,corollaries},
+	Refname={Corollary,Corollaries},
+	sibling=theorem,
+	mdframed={
+		style=mdfkao,
+		backgroundcolor=Goldenrod!45!white,
+		frametitlebackgroundcolor=Goldenrod!45!white,
+	},
+]{corollary}
+
+\theoremstyle{kaodefinition}
+\declaretheorem[
+	name=Definition,
+	refname={definition,definitions},
+	Refname={Definition,Definitions},
+	numberwithin=section,
+	mdframed={
+		style=mdfkao,
+		backgroundcolor=Goldenrod!45!white,
+		frametitlebackgroundcolor=Goldenrod!45!white,
+	},
+]{definition}
+
+\theoremstyle{kaoremark}
+\declaretheorem[
+	name=Remark,
+	refname={remark,remarks},
+	Refname={Remark,Remarks},
+	numberwithin=section,
+	mdframed={
+		style=mdfkao,
+		backgroundcolor=Goldenrod!45!white,
+		frametitlebackgroundcolor=Goldenrod!45!white,
+	},
+]{remark}
+
+\theoremstyle{kaoexample}
+\declaretheorem[
+	name=Example,
+	refname={example,examples},
+	Refname={Example,Examples},
+	numberwithin=section,
+	mdframed={
+		style=mdfkao,
+		backgroundcolor=Goldenrod!45!white,
+		frametitlebackgroundcolor=Goldenrod!45!white,
+	},
+]{example}
+
+%\renewcommand{\thetheorem}{\arabic{chapter}.\arabic{section}.\arabic{theorem}}
+%\renewcommand{\thetheorem}{\arabic{subsection}.\arabic{theorem}}
+%\renewcommand{\qedsymbol}{$\blacksquare$}

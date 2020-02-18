@@ -1,0 +1,136 @@
+%% kaobiblio.sty
+%% Copyright 2020 Federico Marotta
+%
+% This work may be distributed and/or modified under the
+% conditions of the LaTeX Project Public License, either version 1.3
+% of this license or (at your option) any later version.
+% The latest version of this license is in
+%   http://www.latex-project.org/lppl.txt
+% and version 1.3 or later is part of all distributions of LaTeX
+% version 2005/12/01 or later.
+%
+% This work has the LPPL maintenance status `maintained'.
+%
+% The Current Maintainer of this work is Federico Marotta
+%
+% This work consists of all the files listed in MANIFEST.md.
+
+\ProvidesPackage{styles/kaobiblio}
+
+\RequirePackage{etoolbox} % Easy programming to modify TeX stuff
+\RequirePackage{calc} % Operations like sums and differences
+\RequirePackage{marginnote} % Provides options for margin notes
+\RequirePackage{perpage} % Reset counters
+\RequirePackage{xkeyval} % Manage class options
+\RequirePackage{xparse} % Parse arguments for macros
+\RequirePackage{xstring} % Parse strings
+\RequirePackage{hyperref} % Required for hyperlinks
+
+
+% Choose the default options, which will be overwritten by the options passed to this package.
+\PassOptionsToPackage{
+	%style=numeric-comp,
+	%citestyle=authortitle-icomp,
+	citestyle=numeric-comp,
+	%bibstyle=authoryear,
+	bibstyle=numeric,
+	sorting=none,
+	%sorting=nyt,
+	%sortcites=true,
+	%autocite=footnote,
+	backend=biber, % Compile the bibliography with biber
+	hyperref=true,
+	backref=true,
+	citecounter=true,
+	citetracker=true,
+	ibidtracker=context,
+}{biblatex}
+
+% Pass this package's options to biblatex, overwriting the previous settings.
+\DeclareOption*{\PassOptionsToPackage{\CurrentOption}{biblatex}}
+
+% Process the options
+\ProcessOptions\relax
+
+% Load biblatex
+\RequirePackage{biblatex}
+
+% Remove some unwanted entries from the bibliography
+\AtEveryBibitem{
+	\clearfield{issn}
+	\clearfield{isbn}
+	\clearfield{archivePrefix}
+	\clearfield{arxivId}
+	\clearfield{pmid}
+	\clearfield{eprint}
+	\ifentrytype{online}{}{\ifentrytype{misc}{}{\clearfield{url}}}
+	\ifentrytype{book}{\clearfield{doi}}{}
+}
+
+%----------------------------------------------------------------------------------------
+%	BACK REFERENCES
+%----------------------------------------------------------------------------------------
+
+% Check if a string is in a comma-separated list
+\newcommand\IfStringInList[2]{\IfSubStr{,#2,}{,#1,}}
+
+% Set the back reference strings
+\IfStringInList{english}{\bbl@loaded}{
+	\DefineBibliographyStrings{english}{%
+		backrefpage = {cited on page},
+		backrefpages = {cited on pages},
+	}
+}{}
+\IfStringInList{italian}{\bbl@loaded}{
+	\DefineBibliographyStrings{italian}{%
+		backrefpage = {citato a pag.},
+		backrefpages = {citato a pagg.},
+	}
+}{}
+
+%----------------------------------------------------------------------------------------
+%	CITATION COMMANDS
+%----------------------------------------------------------------------------------------
+
+\newlength\sclen
+
+% Command to print a citation in the margins
+\NewDocumentCommand{\sidecite}{O{0pt}m}{% The optional parameter is the vertical shift; the mandatory one is the citation key
+	\cite{#2}% With this we print the marker in the text and add the item to the bibliography at the end
+	\margincitation[#1]{#2}% We then pass the cited items to this command, \margincitation
+}
+
+% Command to split the cited items and execute an action for each of them
+\NewDocumentCommand{\margincitation}{O{0pt}>{\SplitList{,}}m}{% The mandatory parameter is a comma-separated list of citation keys, which is splitted into single items
+	\setlength{\sclen}{#1-1pt}%
+	\marginnote[\sclen]{\ProcessList{#2}{\formatmargincitation}}% Create a marginnote for each item
+}
+
+% Command to format the marginnote created for cited items
+\NewDocumentCommand{\formatmargincitation}{m}{% The parameter is a single citation key
+	\parencite{#1}: \citeauthor*{#1} (\citeyear{#1}), \citetitle{#1}\\%
+}
+
+%----------------------------------------------------------------------------------------
+%	CITATION ENVIRONMENTS
+%----------------------------------------------------------------------------------------
+
+% TODO: create a fancy environment for this. Perhaps printing also the 
+% abstract.
+
+% Cite commands (assuming biblatex is loaded)
+\DeclareCiteCommand{\fullcite}{%
+	\defcounter{maxnames}{99}%
+	\usebibmacro{prenote}}
+	{\clearfield{url}%
+	\clearfield{pages}%
+	\clearfield{pagetotal}%
+	\clearfield{edition}%
+	\clearfield{issn}%
+	\clearfield{doi}%
+	\usedriver
+	{\DeclareNameAlias{sortname}{default}}
+	{\thefield{entrytype}}
+}
+{\multicitedelim}
+{\usebibmacro{postnote}}
