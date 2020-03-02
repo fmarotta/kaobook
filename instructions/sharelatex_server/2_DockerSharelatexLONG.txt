@@ -1,0 +1,1468 @@
+To whom it may concern...
+.-)
+
+In this text file you will find a snapshot of a complete Docker / Sharelatexserver installation for Ubuntu-Linux systems. This installation protocol refers to elementary os. This Linux system looks very elegant and is very similar to Mac OSX.
+
+Elementary OS is a beautiful Linuxsystem which looks like Mac OSX.
+
+Snap is a packagemanager which installs Software on Ubuntu systems.
+Snap can be installed on elementary OS (or any Ubuntu based Linux systems)
+from the command line. 
+
+Open Terminal from the Applications launcher and type the following:
+
+sudo apt update 
+
+sudo apt install snapd
+
+Next, make sure we set the correct PATH environment. Continue with this command:
+
+PATH=/snap/bin:$PATH
+
+sudo snap install docker
+There is more to do, here comes the detailed protocol...
+
+
+To run a command as administrator (user "root"), use "sudo <command>".
+See "man sudo_root" for details.
+
+adminelementary@adminelementary-ThinkPad-X220:~$ sudo apt update
+[sudo] Passwort für adminelementary: 
+      
+OK:1 http://de.archive.ubuntu.com/ubuntu bionic InRelease
+OK:2 http://security.ubuntu.com/ubuntu bionic-security InRelease                                               
+OK:3 http://ppa.launchpad.net/elementary-os/stable/ubuntu bionic InRelease                                     
+OK:4 http://de.archive.ubuntu.com/ubuntu bionic-updates InRelease                                              
+OK:5 http://de.archive.ubuntu.com/ubuntu bionic-backports InRelease                                            
+OK:6 http://ppa.launchpad.net/elementary-os/os-patches/ubuntu bionic InRelease                                 
+Holen:7 http://packages.elementary.io/appcenter bionic InRelease [5.894 B]  
+Holen:8 http://packages.elementary.io/appcenter bionic/main amd64 DEP-11 Metadata [225 kB]
+Es wurden 231 kB in 2 s geholt (144 kB/s).
+Paketlisten werden gelesen... Fertig
+Abhängigkeitsbaum wird aufgebaut.       
+Statusinformationen werden eingelesen.... Fertig
+Alle Pakete sind aktuell.
+
+adminelementary@adminelementary-ThinkPad-X220:~$ sudo apt install snapd
+
+Paketlisten werden gelesen... Fertig
+Abhängigkeitsbaum wird aufgebaut.       
+Statusinformationen werden eingelesen.... Fertig
+Die folgenden Pakete wurden automatisch installiert und werden nicht mehr benötigt:
+  gir1.2-vte-2.91 libido3-0.1-0 libllvm8
+Verwenden Sie »sudo apt autoremove«, um sie zu entfernen.
+Die folgenden NEUEN Pakete werden installiert:
+  snapd
+0 aktualisiert, 1 neu installiert, 0 zu entfernen und 0 nicht aktualisiert.
+Es müssen 13,7 MB an Archiven heruntergeladen werden.
+Nach dieser Operation werden 65,3 MB Plattenplatz zusätzlich benutzt.
+Holen:1 http://de.archive.ubuntu.com/ubuntu bionic-updates/main amd64 snapd amd64 2.42.1+18.04 [13,7 MB]
+Es wurden 13,7 MB in 5 s geholt (2.673 kB/s).
+Vormals nicht ausgewähltes Paket snapd wird gewählt.
+(Lese Datenbank ... 182283 Dateien und Verzeichnisse sind derzeit installiert.)
+Vorbereitung zum Entpacken von .../snapd_2.42.1+18.04_amd64.deb ...
+Entpacken von snapd (2.42.1+18.04) ...
+snapd (2.42.1+18.04) wird eingerichtet ...
+Created symlink /etc/systemd/system/multi-user.target.wants/snapd.autoimport.service → /lib/systemd/system/snapd.autoimport.service.
+Created symlink /etc/systemd/system/multi-user.target.wants/snapd.core-fixup.service → /lib/systemd/system/snapd.core-fixup.service.
+Created symlink /etc/systemd/system/multi-user.target.wants/snapd.seeded.service → /lib/systemd/system/snapd.seeded.service.
+Created symlink /etc/systemd/system/cloud-final.service.wants/snapd.seeded.service → /lib/systemd/system/snapd.seeded.service.
+Created symlink /etc/systemd/system/multi-user.target.wants/snapd.service → /lib/systemd/system/snapd.service.
+Created symlink /etc/systemd/system/timers.target.wants/snapd.snap-repair.timer → /lib/systemd/system/snapd.snap-repair.timer.
+Created symlink /etc/systemd/system/sockets.target.wants/snapd.socket → /lib/systemd/system/snapd.socket.
+Created symlink /etc/systemd/system/final.target.wants/snapd.system-shutdown.service → /lib/systemd/system/snapd.system-shutdown.service.
+snapd.failure.service is a disabled or a static unit, not starting it.
+snapd.snap-repair.service is a disabled or a static unit, not starting it.
+Trigger für gnome-menus (3.13.3-11ubuntu1.1) werden verarbeitet ...
+Trigger für mime-support (3.60ubuntu1) werden verarbeitet ...
+Trigger für desktop-file-utils (0.23-1ubuntu3.18.04.2+elementary2~ubuntu5.0.1) werden verarbeitet ...
+Trigger für bamfdaemon (0.5.3+18.04.20180207.2-0ubuntu1) werden verarbeitet ...
+Rebuilding /usr/share/applications/bamf-2.index...
+Trigger für man-db (2.8.3-2ubuntu0.1) werden verarbeitet ...
+adminelementary@adminelementary-ThinkPad-X220:~$ sudo snap install docker
+2020-01-26T18:49:08+01:00 INFO Waiting for restart...
+docker 18.09.9 aus Canonical✓ installiert
+
+adminelementary@adminelementary-ThinkPad-X220:~$ PATH=/snap/bin:$PATH
+
+adminelementary@adminelementary-ThinkPad-X220:~$ docker --version
+Docker version 18.09.9, build 1752eb3
+
+adminelementary@adminelementary-ThinkPad-X220:~$ docker-compose --version
+docker-compose version 1.23.2, build unknown
+
+adminelementary@adminelementary-ThinkPad-X220:~$ sudo docker pull flodointhecloud/sharelatex-texlive2019
+[sudo] Passwort für adminelementary:       
+Using default tag: latest
+latest: Pulling from flodointhecloud/sharelatex-texlive2019
+a3ed95caeb02: Pulling fs layer 
+3b1d42cd9af9: Pulling fs layer 
+d2ff49536f4d: Pulling fs layer 
+f94adccdbb9c: Pulling fs layer 
+ae857e8dd13c: Pulling fs layer 
+327565847940: Pulling fs layer 
+06a74ad2b9a1: Pulling fs layer 
+00edfae546af: Pull complete 
+5fc23f9f4349: Pull complete 
+1a14483ced0a: Pull complete 
+5abb93d65a83: Pull complete 
+fadacd4efaa5: Pull complete 
+97c293dcb65b: Pull complete 
+38ab0d6c8c3e: Pull complete 
+abd57410dbbf: Pull complete 
+d475e45e135e: Pull complete 
+123c71b33204: Pull complete 
+e56fc3a9fa6e: Pull complete 
+257071e7f4d8: Pull complete 
+8a4d42b4460b: Pull complete 
+e1a5da325c2f: Pull complete 
+77d5a0d1523f: Pull complete 
+a7a1abfd9037: Pull complete 
+c4a3da471df4: Pull complete 
+43456e957a56: Pull complete 
+f8554c289c81: Pull complete 
+1cd38c5f6f08: Pull complete 
+2cf1d45c99c6: Pull complete 
+08acd4b6df21: Pull complete 
+f29820b3b5a2: Pull complete 
+b3df8ec097c2: Pull complete 
+c61da397702c: Pull complete 
+177fb508fea8: Pull complete 
+21c96d2089c7: Pull complete 
+f845ee50fba6: Pull complete 
+b32407414b9b: Downloading [=============================>                     ]   2.23GB/3.752GB
+b32407414b9b: Pull complete 
+4f8804c5b423: Pull complete 
+ebec09e523a0: Pull complete 
+Digest: sha256:bd39824ff7ba62b0d1d0b1082527d70d330c14f05b1a605929f4b55461efd6fd
+Status: Downloaded newer image for flodointhecloud/sharelatex-texlive2019:latest
+adminelementary@adminelementary-ThinkPad-X220:~$ 
+adminelementary@adminelementary-ThinkPad-X220:~$ 
+
+adminelementary@adminelementary-ThinkPad-X220:~$ sudo apt install git
+
+Paketlisten werden gelesen... Fertig
+Abhängigkeitsbaum wird aufgebaut.       
+Statusinformationen werden eingelesen.... Fertig
+Die folgenden Pakete wurden automatisch installiert und werden nicht mehr benötigt:
+  gir1.2-vte-2.91 libido3-0.1-0 libllvm8
+Verwenden Sie »sudo apt autoremove«, um sie zu entfernen.
+Die folgenden zusätzlichen Pakete werden installiert:
+  git-man liberror-perl
+Vorgeschlagene Pakete:
+  git-daemon-run | git-daemon-sysvinit git-doc git-el git-email git-gui gitk gitweb git-cvs git-mediawiki
+  git-svn
+Die folgenden NEUEN Pakete werden installiert:
+  git git-man liberror-perl
+0 aktualisiert, 3 neu installiert, 0 zu entfernen und 0 nicht aktualisiert.
+Es müssen 4.738 kB an Archiven heruntergeladen werden.
+Nach dieser Operation werden 33,9 MB Plattenplatz zusätzlich benutzt.
+Möchten Sie fortfahren? [J/n] J
+Holen:1 http://de.archive.ubuntu.com/ubuntu bionic/main amd64 liberror-perl all 0.17025-1 [22,8 kB]
+Holen:2 http://de.archive.ubuntu.com/ubuntu bionic-updates/main amd64 git-man all 1:2.17.1-1ubuntu0.5 [803 kB]
+Holen:3 http://de.archive.ubuntu.com/ubuntu bionic-updates/main amd64 git amd64 1:2.17.1-1ubuntu0.5 [3.912 kB]
+Es wurden 4.738 kB in 2 s geholt (1.901 kB/s).
+Vormals nicht ausgewähltes Paket liberror-perl wird gewählt.
+(Lese Datenbank ... 182358 Dateien und Verzeichnisse sind derzeit installiert.)
+Vorbereitung zum Entpacken von .../liberror-perl_0.17025-1_all.deb ...
+Entpacken von liberror-perl (0.17025-1) ...
+Vormals nicht ausgewähltes Paket git-man wird gewählt.
+Vorbereitung zum Entpacken von .../git-man_1%3a2.17.1-1ubuntu0.5_all.deb ...
+Entpacken von git-man (1:2.17.1-1ubuntu0.5) ...
+Vormals nicht ausgewähltes Paket git wird gewählt.
+Vorbereitung zum Entpacken von .../git_1%3a2.17.1-1ubuntu0.5_amd64.deb ...
+Entpacken von git (1:2.17.1-1ubuntu0.5) ...
+git-man (1:2.17.1-1ubuntu0.5) wird eingerichtet ...
+liberror-perl (0.17025-1) wird eingerichtet ...
+git (1:2.17.1-1ubuntu0.5) wird eingerichtet ...
+Trigger für man-db (2.8.3-2ubuntu0.1) werden verarbeitet ...
+
+adminelementary@adminelementary-ThinkPad-X220:~$ sudo git clone https://github.com/sharelatex/sharelatex
+
+Klone nach 'sharelatex' ...
+remote: Enumerating objects: 33, done.
+remote: Counting objects: 100% (33/33), done.
+remote: Compressing objects: 100% (29/29), done.
+remote: Total 1284 (delta 14), reused 4 (delta 2), pack-reused 1251
+Empfange Objekte: 100% (1284/1284), 1.03 MiB | 1.82 MiB/s, Fertig.
+Löse Unterschiede auf: 100% (680/680), Fertig.
+
+adminelementary@adminelementary-ThinkPad-X220:~$ ls
+Bilder  Dokumente  Downloads  Musik  Öffentlich  sharelatex  snap  Videos  Vorlagen
+
+adminelementary@adminelementary-ThinkPad-X220:~$ cd sharelatex
+
+adminelementary@adminelementary-ThinkPad-X220:~/sharelatex$ ls
+
+bin              doc                       Gruntfile.coffee   LICENSE              package.json
+config           docker-compose.debug.yml  ISSUE_TEMPLATE     migrations           README.md
+CONTRIBUTING.md  docker-compose.yml        ISSUE_TEMPLATE.md  npm-shrinkwrap.json  tasks
+
+adminelementary@adminelementary-ThinkPad-X220:~/sharelatex$ more docker-compose.yml
+version: '2.2'
+services:
+    sharelatex:
+        restart: always
+        # Server Pro users:
+        # image: quay.io/sharelatex/sharelatex-pro
+        image: sharelatex/sharelatex
+        container_name: sharelatex
+        depends_on:
+            mongo:
+                condition: service_healthy
+            redis:
+                condition: service_started
+        privileged: true
+        ports:
+            - 80:80
+        links:
+            - mongo
+            - redis
+        volumes:
+            - ~/sharelatex_data:/var/lib/sharelatex
+            - /var/run/docker.sock:/var/run/docker.sock
+        environment:
+
+            SHARELATEX_APP_NAME: Overleaf Community Edition
+
+            SHARELATEX_MONGO_URL: mongodb://mongo/sharelatex
+
+            # Same property, unfortunately with different names in
+            # different locations
+            SHARELATEX_REDIS_HOST: redis
+            REDIS_HOST: redis
+
+            ENABLED_LINKED_FILE_TYPES: 'url,project_file'
+
+            # Enables Thumbnail generation using ImageMagick
+            ENABLE_CONVERSIONS: 'true'
+            
+            # Disables email confirmation requirement
+            EMAIL_CONFIRMATION_DISABLED: 'true'
+
+            ## Set for SSL via nginx-proxy
+            #VIRTUAL_HOST: 103.112.212.22
+
+            # SHARELATEX_SITE_URL: http://sharelatex.mydomain.com
+            # SHARELATEX_NAV_TITLE: Our ShareLaTeX Instance
+            # SHARELATEX_HEADER_IMAGE_URL: http://somewhere.com/mylogo.png
+            # SHARELATEX_ADMIN_EMAIL: support@it.com
+
+            # SHARELATEX_LEFT_FOOTER: '[{"text": "Powered by <a href=\"https://www.sharelatex.com\">ShareLaTeX</
+a> 2016"},{"text": "Another page I want to link to can be found <a href=\"here\">here</a>"} ]'
+            # SHARELATEX_RIGHT_FOOTER: '[{"text": "Hello I am on the Right"} ]'
+
+            # SHARELATEX_EMAIL_FROM_ADDRESS: "team@sharelatex.com"
+
+            # SHARELATEX_EMAIL_AWS_SES_ACCESS_KEY_ID:
+            # SHARELATEX_EMAIL_AWS_SES_SECRET_KEY:
+
+            # SHARELATEX_EMAIL_SMTP_HOST: smtp.mydomain.com
+            # SHARELATEX_EMAIL_SMTP_PORT: 587
+            # SHARELATEX_EMAIL_SMTP_SECURE: false
+            # SHARELATEX_EMAIL_SMTP_USER:
+            # SHARELATEX_EMAIL_SMTP_PASS:
+            # SHARELATEX_EMAIL_SMTP_TLS_REJECT_UNAUTH: true
+            # SHARELATEX_EMAIL_SMTP_IGNORE_TLS: false
+            # SHARELATEX_CUSTOM_EMAIL_FOOTER: "<div>This system is run by department x </div>"
+
+            ################
+            ## Server Pro ##
+            ################
+
+            # SANDBOXED_COMPILES: 'true'
+
+            # SANDBOXED_COMPILES_SIBLING_CONTAINERS: 'true'
+            # SANDBOXED_COMPILES_HOST_DIR: '/var/sharelatex_data/data/compiles'
+            # SYNCTEX_BIN_HOST_PATH: '/var/sharelatex_data/bin/synctex'
+
+            # DOCKER_RUNNER: 'false'
+
+            ## Works with test LDAP server shown at bottom of docker compose
+            # SHARELATEX_LDAP_URL: 'ldap://ldap:389'
+            # SHARELATEX_LDAP_SEARCH_BASE: 'ou=people,dc=planetexpress,dc=com'
+            # SHARELATEX_LDAP_SEARCH_FILTER: '(uid={{username}})'
+            # SHARELATEX_LDAP_BIND_DN: 'cn=admin,dc=planetexpress,dc=com'
+            # SHARELATEX_LDAP_BIND_CREDENTIALS: 'GoodNewsEveryone'
+            # SHARELATEX_LDAP_EMAIL_ATT: 'mail'
+            # SHARELATEX_LDAP_NAME_ATT: 'cn'
+            # SHARELATEX_LDAP_LAST_NAME_ATT: 'sn'
+            # SHARELATEX_LDAP_UPDATE_USER_DETAILS_ON_LOGIN: 'true'
+
+            # SHARELATEX_TEMPLATES_USER_ID: "578773160210479700917ee5"
+            # SHARELATEX_NEW_PROJECT_TEMPLATE_LINKS: '[ {"name":"All Templates","url":"/templates/all"}]'
+
+
+            # SHARELATEX_PROXY_LEARN: "true"
+
+    mongo:
+        restart: always
+        image: mongo
+        container_name: mongo
+        expose:
+            - 27017
+        volumes:
+            - ~/mongo_data:/data/db
+        healthcheck:
+            test: echo 'db.stats().ok' | mongo localhost:27017/test --quiet
+            interval: 10s
+            timeout: 10s
+            retries: 5
+
+    redis:
+        restart: always
+        image: redis
+        container_name: redis
+        expose:
+            - 6379
+        volumes:
+            - ~/redis_data:/data
+
+    # ldap:
+    #    restart: always
+    #    image: rroemhild/test-openldap
+    #    container_name: ldap
+    #    expose:
+    #        - 389
+    
+    # See https://github.com/jwilder/nginx-proxy for documentation on how to configure the nginx-proxy container
+,
+    # and https://github.com/overleaf/overleaf/wiki/HTTPS-reverse-proxy-using-Nginx for an example of some recom
+mended
+    # settings. We recommend using a properly managed nginx instance outside of the Overleaf Server Pro setup,
+    # but the example here can be used if you'd prefer to run everything with docker-compose
+    
+    # nginx-proxy:
+    #     image: jwilder/nginx-proxy
+    #     container_name: nginx-proxy
+    #     ports:
+    #       #- "80:80"
+    #       - "443:443"
+    #     volumes:
+    #       - /var/run/docker.sock:/tmp/docker.sock:ro
+    #       - /home/sharelatex/tmp:/etc/nginx/certs
+    
+adminelementary@adminelementary-ThinkPad-X220:~/sharelatex$ ls
+
+bin              doc                       Gruntfile.coffee   LICENSE              package.json
+config           docker-compose.debug.yml  ISSUE_TEMPLATE     migrations           README.md
+CONTRIBUTING.md  docker-compose.yml        ISSUE_TEMPLATE.md  npm-shrinkwrap.json  tasks
+
+adminelementary@adminelementary-ThinkPad-X220:~/sharelatex$ sudo nano docker-compose.yml
+
+
+adminelementary@adminelementary-ThinkPad-X220:~/sharelatex$ more docker-compose.yml
+version: '2.2'
+services:
+    sharelatex:
+        restart: always
+        # Server Pro users:
+        # image: quay.io/sharelatex/sharelatex-pro
+        image: flodointhecloud/sharelatex-texlive2019
+        container_name: sharelatex
+        depends_on:
+            mongo:
+                condition: service_healthy
+            redis:
+                condition: service_started
+        privileged: true
+        ports:
+            - 80:80
+        links:
+            - mongo
+            - redis
+        volumes:
+            - ~/sharelatex_data:/var/lib/sharelatex
+            - /var/run/docker.sock:/var/run/docker.sock
+        environment:
+
+            SHARELATEX_APP_NAME: Overleaf Community Edition
+
+            SHARELATEX_MONGO_URL: mongodb://mongo/sharelatex
+
+            # Same property, unfortunately with different names in
+            # different locations
+            SHARELATEX_REDIS_HOST: redis
+            REDIS_HOST: redis
+
+            ENABLED_LINKED_FILE_TYPES: 'url,project_file'
+
+            # Enables Thumbnail generation using ImageMagick
+            ENABLE_CONVERSIONS: 'true'
+            
+            # Disables email confirmation requirement
+            EMAIL_CONFIRMATION_DISABLED: 'true'
+
+            ## Set for SSL via nginx-proxy
+            #VIRTUAL_HOST: 103.112.212.22
+
+            # SHARELATEX_SITE_URL: http://sharelatex.mydomain.com
+            # SHARELATEX_NAV_TITLE: Our ShareLaTeX Instance
+            # SHARELATEX_HEADER_IMAGE_URL: http://somewhere.com/mylogo.png
+            # SHARELATEX_ADMIN_EMAIL: support@it.com
+
+            # SHARELATEX_LEFT_FOOTER: '[{"text": "Powered by <a href=\"https://www.sharelatex.com\">ShareLaTeX</
+a> 2016"},{"text": "Another page I want to link to can be found <a href=\"here\">here</a>"} ]'
+            # SHARELATEX_RIGHT_FOOTER: '[{"text": "Hello I am on the Right"} ]'
+
+            # SHARELATEX_EMAIL_FROM_ADDRESS: "team@sharelatex.com"
+
+            # SHARELATEX_EMAIL_AWS_SES_ACCESS_KEY_ID:
+            # SHARELATEX_EMAIL_AWS_SES_SECRET_KEY:
+
+            # SHARELATEX_EMAIL_SMTP_HOST: smtp.mydomain.com
+            # SHARELATEX_EMAIL_SMTP_PORT: 587
+            # SHARELATEX_EMAIL_SMTP_SECURE: false
+            # SHARELATEX_EMAIL_SMTP_USER:
+            # SHARELATEX_EMAIL_SMTP_PASS:
+            # SHARELATEX_EMAIL_SMTP_TLS_REJECT_UNAUTH: true
+            # SHARELATEX_EMAIL_SMTP_IGNORE_TLS: false
+            # SHARELATEX_CUSTOM_EMAIL_FOOTER: "<div>This system is run by department x </div>"
+
+            ################
+            ## Server Pro ##
+            ################
+
+            # SANDBOXED_COMPILES: 'true'
+
+            # SANDBOXED_COMPILES_SIBLING_CONTAINERS: 'true'
+            # SANDBOXED_COMPILES_HOST_DIR: '/var/sharelatex_data/data/compiles'
+            # SYNCTEX_BIN_HOST_PATH: '/var/sharelatex_data/bin/synctex'
+
+            # DOCKER_RUNNER: 'false'
+
+            ## Works with test LDAP server shown at bottom of docker compose
+            # SHARELATEX_LDAP_URL: 'ldap://ldap:389'
+            # SHARELATEX_LDAP_SEARCH_BASE: 'ou=people,dc=planetexpress,dc=com'
+            # SHARELATEX_LDAP_SEARCH_FILTER: '(uid={{username}})'
+            # SHARELATEX_LDAP_BIND_DN: 'cn=admin,dc=planetexpress,dc=com'
+            # SHARELATEX_LDAP_BIND_CREDENTIALS: 'GoodNewsEveryone'
+            # SHARELATEX_LDAP_EMAIL_ATT: 'mail'
+            # SHARELATEX_LDAP_NAME_ATT: 'cn'
+            # SHARELATEX_LDAP_LAST_NAME_ATT: 'sn'
+            # SHARELATEX_LDAP_UPDATE_USER_DETAILS_ON_LOGIN: 'true'
+
+            # SHARELATEX_TEMPLATES_USER_ID: "578773160210479700917ee5"
+            # SHARELATEX_NEW_PROJECT_TEMPLATE_LINKS: '[ {"name":"All Templates","url":"/templates/all"}]'
+
+
+            # SHARELATEX_PROXY_LEARN: "true"
+
+    mongo:
+        restart: always
+        image: mongo
+        container_name: mongo
+        expose:
+            - 27017
+        volumes:
+            - ~/mongo_data:/data/db
+        healthcheck:
+            test: echo 'db.stats().ok' | mongo localhost:27017/test --quiet
+            interval: 10s
+            timeout: 10s
+            retries: 5
+
+    redis:
+        restart: always
+        image: redis
+        container_name: redis
+        expose:
+            - 6379
+        volumes:
+            - ~/redis_data:/data
+
+    # ldap:
+    #    restart: always
+    #    image: rroemhild/test-openldap
+    #    container_name: ldap
+    #    expose:
+    #        - 389
+    
+    # See https://github.com/jwilder/nginx-proxy for documentation on how to configure the nginx-proxy container
+,
+    # and https://github.com/overleaf/overleaf/wiki/HTTPS-reverse-proxy-using-Nginx for an example of some recom
+mended
+    # settings. We recommend using a properly managed nginx instance outside of the Overleaf Server Pro setup,
+    # but the example here can be used if you'd prefer to run everything with docker-compose
+    
+    # nginx-proxy:
+    #     image: jwilder/nginx-proxy
+    #     container_name: nginx-proxy
+    #     ports:
+    #       #- "80:80"
+    #       - "443:443"
+    #     volumes:
+    #       - /var/run/docker.sock:/tmp/docker.sock:ro
+    #       - /home/sharelatex/tmp:/etc/nginx/certs
+adminelementary@adminelementary-ThinkPad-X220:~/sharelatex$ 
+
+adminelementary@adminelementary-ThinkPad-X220:~/sharelatex$ sudo docker-compose up
+Creating network "sharelatex_default" with the default driver
+Pulling redis (redis:)...
+latest: Pulling from library/redis
+8ec398bc0356: Pull complete
+da01136793fa: Pull complete
+cf1486a2c0b8: Pull complete
+a44f7da98d9e: Pull complete
+c677fde73875: Pull complete
+727f8da63ac2: Pull complete
+Pulling mongo (mongo:)...
+latest: Pulling from library/mongo
+5c939e3a4d10: Pull complete
+c63719cdbe7a: Pull complete
+19a861ea6baf: Pull complete
+651c9d2d6c4f: Pull complete
+85155c6d5fac: Pull complete
+85fb0780fd97: Pull complete
+85b3b1a901f5: Pull complete
+6a882e007bb6: Pull complete
+f7806503a70f: Pull complete
+e23d5068c270: Pull complete
+56eb708963d7: Pull complete
+fc4def32f081: Pull complete
+ea1dc19faea9: Pull complete
+Creating mongo ... done
+Creating redis ... done
+Creating sharelatex ... done
+Attaching to redis, mongo, sharelatex
+redis         | 1:C 26 Jan 2020 19:44:35.278 # oO0OoO0OoO0Oo Redis is starting oO0OoO0OoO0Oo
+redis         | 1:C 26 Jan 2020 19:44:35.278 # Redis version=5.0.7, bits=64, commit=00000000, modified=0, pid=1, just started
+redis         | 1:C 26 Jan 2020 19:44:35.278 # Warning: no config file specified, using the default config. In order to specify a config file use redis-server /path/to/redis.conf
+mongo         | 2020-01-26T19:44:36.207+0000 I  CONTROL  [main] Automatically disabling TLS 1.0, to force-enable TLS 1.0 specify --sslDisabledProtocols 'none'
+redis         | 1:M 26 Jan 2020 19:44:35.279 # You requested maxclients of 10000 requiring at least 10032 max file descriptors.
+redis         | 1:M 26 Jan 2020 19:44:35.279 # Server can't set maximum open files to 10032 because of OS error: Operation not permitted.
+redis         | 1:M 26 Jan 2020 19:44:35.279 # Current maximum open files is 4096. maxclients has been reduced to 4064 to compensate for low ulimit. If you need higher maxclients increase 'ulimit -n'.
+redis         | 1:M 26 Jan 2020 19:44:35.280 * Running mode=standalone, port=6379.
+redis         | 1:M 26 Jan 2020 19:44:35.280 # WARNING: The TCP backlog setting of 511 cannot be enforced because /proc/sys/net/core/somaxconn is set to the lower value of 128.
+redis         | 1:M 26 Jan 2020 19:44:35.280 # Server initialized
+redis         | 1:M 26 Jan 2020 19:44:35.280 # WARNING overcommit_memory is set to 0! Background save may fail under low memory condition. To fix this issue add 'vm.overcommit_memory = 1' to /etc/sysctl.conf and then reboot or run the command 'sysctl vm.overcommit_memory=1' for this to take effect.
+redis         | 1:M 26 Jan 2020 19:44:35.280 # WARNING you have Transparent Huge Pages (THP) support enabled in your kernel. This will create latency and memory usage issues with Redis. To fix this issue run the command 'echo never > /sys/kernel/mm/transparent_hugepage/enabled' as root, and add it to your /etc/rc.local in order to retain the setting after a reboot. Redis must be restarted after THP is disabled.
+redis         | 1:M 26 Jan 2020 19:44:35.280 * Ready to accept connections
+mongo         | 2020-01-26T19:44:36.210+0000 I  CONTROL  [initandlisten] MongoDB starting : pid=1 port=27017 dbpath=/data/db 64-bit host=5637b2e7ec95
+mongo         | 2020-01-26T19:44:36.210+0000 I  CONTROL  [initandlisten] db version v4.2.2
+mongo         | 2020-01-26T19:44:36.210+0000 I  CONTROL  [initandlisten] git version: a0bbbff6ada159e19298d37946ac8dc4b497eadf
+mongo         | 2020-01-26T19:44:36.210+0000 I  CONTROL  [initandlisten] OpenSSL version: OpenSSL 1.1.1  11 Sep 2018
+mongo         | 2020-01-26T19:44:36.210+0000 I  CONTROL  [initandlisten] allocator: tcmalloc
+mongo         | 2020-01-26T19:44:36.210+0000 I  CONTROL  [initandlisten] modules: none
+mongo         | 2020-01-26T19:44:36.210+0000 I  CONTROL  [initandlisten] build environment:
+mongo         | 2020-01-26T19:44:36.210+0000 I  CONTROL  [initandlisten]     distmod: ubuntu1804
+mongo         | 2020-01-26T19:44:36.210+0000 I  CONTROL  [initandlisten]     distarch: x86_64
+mongo         | 2020-01-26T19:44:36.210+0000 I  CONTROL  [initandlisten]     target_arch: x86_64
+mongo         | 2020-01-26T19:44:36.210+0000 I  CONTROL  [initandlisten] options: { net: { bindIp: "*" } }
+mongo         | 2020-01-26T19:44:36.211+0000 I  STORAGE  [initandlisten] 
+mongo         | 2020-01-26T19:44:36.211+0000 I  STORAGE  [initandlisten] ** WARNING: Using the XFS filesystem is strongly recommended with the WiredTiger storage engine
+mongo         | 2020-01-26T19:44:36.211+0000 I  STORAGE  [initandlisten] **          See http://dochub.mongodb.org/core/prodnotes-filesystem
+mongo         | 2020-01-26T19:44:36.211+0000 I  STORAGE  [initandlisten] wiredtiger_open config: create,cache_size=1904M,cache_overflow=(file_max=0M),session_max=33000,eviction=(threads_min=4,threads_max=4),config_base=false,statistics=(fast),log=(enabled=true,archive=true,path=journal,compressor=snappy),file_manager=(close_idle_time=100000,close_scan_interval=10,close_handle_minimum=250),statistics_log=(wait=0),verbose=[recovery_progress,checkpoint_progress],
+mongo         | 2020-01-26T19:44:37.003+0000 I  STORAGE  [initandlisten] WiredTiger message [1580067877:3692][1:0x7f6111e5ab00], txn-recover: Set global recovery timestamp: (0,0)
+mongo         | 2020-01-26T19:44:37.163+0000 I  RECOVERY [initandlisten] WiredTiger recoveryTimestamp. Ts: Timestamp(0, 0)
+mongo         | 2020-01-26T19:44:37.336+0000 I  STORAGE  [initandlisten] Timestamp monitor starting
+mongo         | 2020-01-26T19:44:37.422+0000 I  CONTROL  [initandlisten] 
+mongo         | 2020-01-26T19:44:37.422+0000 I  CONTROL  [initandlisten] ** WARNING: Access control is not enabled for the database.
+mongo         | 2020-01-26T19:44:37.422+0000 I  CONTROL  [initandlisten] **          Read and write access to data and configuration is unrestricted.
+mongo         | 2020-01-26T19:44:37.422+0000 I  CONTROL  [initandlisten] 
+mongo         | 2020-01-26T19:44:37.424+0000 I  STORAGE  [initandlisten] createCollection: admin.system.version with provided UUID: e886abbd-ac1f-4acf-bd96-aaaaebb79481 and options: { uuid: UUID("e886abbd-ac1f-4acf-bd96-aaaaebb79481") }
+mongo         | 2020-01-26T19:44:37.598+0000 I  INDEX    [initandlisten] index build: done building index _id_ on ns admin.system.version
+mongo         | 2020-01-26T19:44:37.599+0000 I  SHARDING [initandlisten] Marking collection admin.system.version as collection version: <unsharded>
+mongo         | 2020-01-26T19:44:37.599+0000 I  COMMAND  [initandlisten] setting featureCompatibilityVersion to 4.2
+mongo         | 2020-01-26T19:44:37.599+0000 I  SHARDING [initandlisten] Marking collection local.system.replset as collection version: <unsharded>
+mongo         | 2020-01-26T19:44:37.599+0000 I  STORAGE  [initandlisten] Flow Control is enabled on this deployment.
+mongo         | 2020-01-26T19:44:37.599+0000 I  SHARDING [initandlisten] Marking collection admin.system.roles as collection version: <unsharded>
+mongo         | 2020-01-26T19:44:37.599+0000 I  STORAGE  [initandlisten] createCollection: local.startup_log with generated UUID: 1df0e65d-8a85-49ba-b909-7c5a49439075 and options: { capped: true, size: 10485760 }
+mongo         | 2020-01-26T19:44:37.782+0000 I  INDEX    [initandlisten] index build: done building index _id_ on ns local.startup_log
+mongo         | 2020-01-26T19:44:37.782+0000 I  SHARDING [initandlisten] Marking collection local.startup_log as collection version: <unsharded>
+mongo         | 2020-01-26T19:44:37.783+0000 I  FTDC     [initandlisten] Initializing full-time diagnostic data capture with directory '/data/db/diagnostic.data'
+mongo         | 2020-01-26T19:44:37.786+0000 I  SHARDING [LogicalSessionCacheRefresh] Marking collection config.system.sessions as collection version: <unsharded>
+mongo         | 2020-01-26T19:44:37.786+0000 I  CONTROL  [LogicalSessionCacheReap] Sessions collection is not set up; waiting until next sessions reap interval: config.system.sessions does not exist
+mongo         | 2020-01-26T19:44:37.787+0000 I  STORAGE  [LogicalSessionCacheRefresh] createCollection: config.system.sessions with provided UUID: 15563bd9-a372-482c-8fc3-2dc5849d9972 and options: { uuid: UUID("15563bd9-a372-482c-8fc3-2dc5849d9972") }
+mongo         | 2020-01-26T19:44:37.787+0000 I  NETWORK  [initandlisten] Listening on /tmp/mongodb-27017.sock
+mongo         | 2020-01-26T19:44:37.787+0000 I  NETWORK  [initandlisten] Listening on 0.0.0.0
+mongo         | 2020-01-26T19:44:37.787+0000 I  NETWORK  [initandlisten] waiting for connections on port 27017
+mongo         | 2020-01-26T19:44:37.982+0000 I  INDEX    [LogicalSessionCacheRefresh] index build: done building index _id_ on ns config.system.sessions
+mongo         | 2020-01-26T19:44:38.001+0000 I  SHARDING [ftdc] Marking collection local.oplog.rs as collection version: <unsharded>
+mongo         | 2020-01-26T19:44:38.136+0000 I  INDEX    [LogicalSessionCacheRefresh] index build: starting on config.system.sessions properties: { v: 2, key: { lastUse: 1 }, name: "lsidTTLIndex", ns: "config.system.sessions", expireAfterSeconds: 1800 } using method: Hybrid
+mongo         | 2020-01-26T19:44:38.136+0000 I  INDEX    [LogicalSessionCacheRefresh] build may temporarily use up to 500 megabytes of RAM
+mongo         | 2020-01-26T19:44:38.136+0000 I  INDEX    [LogicalSessionCacheRefresh] index build: collection scan done. scanned 0 total records in 0 seconds
+mongo         | 2020-01-26T19:44:38.137+0000 I  INDEX    [LogicalSessionCacheRefresh] index build: inserted 0 keys from external sorter into index in 0 seconds
+mongo         | 2020-01-26T19:44:38.172+0000 I  INDEX    [LogicalSessionCacheRefresh] index build: done building index lsidTTLIndex on ns config.system.sessions
+mongo         | 2020-01-26T19:44:38.180+0000 I  COMMAND  [LogicalSessionCacheRefresh] command config.system.sessions command: createIndexes { createIndexes: "system.sessions", indexes: [ { key: { lastUse: 1 }, name: "lsidTTLIndex", expireAfterSeconds: 1800 } ], $db: "config" } numYields:0 reslen:114 locks:{ ParallelBatchWriterMode: { acquireCount: { r: 2 } }, ReplicationStateTransition: { acquireCount: { w: 3 } }, Global: { acquireCount: { r: 1, w: 2 } }, Database: { acquireCount: { r: 1, w: 2, W: 1 } }, Collection: { acquireCount: { r: 4, w: 1, R: 1, W: 2 } }, Mutex: { acquireCount: { r: 3 } } } flowControl:{ acquireCount: 1 } storage:{} protocol:op_msg 393ms
+mongo         | 2020-01-26T19:44:46.529+0000 I  NETWORK  [listener] connection accepted from 127.0.0.1:39406 #1 (1 connection now open)
+mongo         | 2020-01-26T19:44:46.529+0000 I  NETWORK  [conn1] received client metadata from 127.0.0.1:39406 conn1: { application: { name: "MongoDB Shell" }, driver: { name: "MongoDB Internal Client", version: "4.2.2" }, os: { type: "Linux", name: "Ubuntu", architecture: "x86_64", version: "18.04" } }
+mongo         | 2020-01-26T19:44:46.537+0000 I  NETWORK  [conn1] end connection 127.0.0.1:39406 (0 connections now open)
+sharelatex    | *** Running /etc/my_init.d/00_make_sharelatex_data_dirs.sh...
+sharelatex    | *** Running /etc/my_init.d/00_regen_sharelatex_secrets.sh...
+sharelatex    | *** Running /etc/my_init.d/00_regen_ssh_host_keys.sh...
+sharelatex    | *** Running /etc/my_init.d/00_set_docker_host_ipaddress.sh...
+sharelatex    | *** Running /etc/my_init.d/98_check_db_access.sh...
+sharelatex    | Checking can connect to mongo and redis
+sharelatex    | Running "check:redis" task
+sharelatex    | Checking can connect to redis
+sharelatex    | node_redis: Warning: Redis server does not require a password, but a password was supplied.
+sharelatex    | OK.
+sharelatex    | Done, without errors.
+sharelatex    | Running "check:mongo" task
+mongo         | 2020-01-26T19:44:54.981+0000 I  NETWORK  [listener] connection accepted from 172.18.0.4:42208 #2 (1 connection now open)
+mongo         | 2020-01-26T19:44:54.988+0000 I  NETWORK  [conn2] received client metadata from 172.18.0.4:42208 conn2: { driver: { name: "nodejs", version: "2.2.34" }, os: { type: "Linux", name: "linux", architecture: "x64", version: "5.0.0-37-generic" }, platform: "Node.js v6.13.1, LE, mongodb-core: 2.1.18" }
+sharelatex    | Checking can connect to mongoOK.
+sharelatex    | Done, without errors.
+mongo         | 2020-01-26T19:44:55.011+0000 I  NETWORK  [conn2] end connection 172.18.0.4:42208 (0 connections now open)
+sharelatex    | All checks passed
+sharelatex    | *** Running /etc/my_init.d/99_migrate.sh...
+sharelatex    | /usr/bin/node
+sharelatex    | /usr/bin/grunt
+sharelatex    | total 56
+sharelatex    | drwxr-xr-x 1 www-data www-data  4096 Mar  8  2018 .
+sharelatex    | drwxr-xr-x 1 www-data www-data  4096 Mar  8  2018 ..
+sharelatex    | -rw-r--r-- 1 www-data www-data  5031 Mar  8  2018 1_move_doc_lines_to_doc_collection.coffee
+sharelatex    | -rw-r--r-- 1 www-data www-data  5936 Mar  8  2018 2_doc_lines_delete_from_project.coffee
+sharelatex    | -rw-r--r-- 1 www-data www-data 10627 Mar  8  2018 3_pack_docHistory_collection.coffee
+sharelatex    | -rw-r--r-- 1 www-data www-data   788 Mar  8  2018 4_update_user_features.coffee
+sharelatex    | -rw-r--r-- 1 www-data www-data  3526 Mar  8  2018 5_remove_holding_accounts.coffee
+sharelatex    | -rw-r--r-- 1 www-data www-data   652 Mar  8  2018 6_add_track_changes_feature.coffee
+sharelatex    | -rw-r--r-- 1 www-data www-data   733 Mar  8  2018 7_add_track_changes_feature_again.coffee
+sharelatex    | -rw-r--r-- 1 www-data www-data   335 Mar  8  2018 about_migrations.md
+sharelatex    | Initializing
+sharelatex    | Command-line options: --verbose
+sharelatex    | 
+sharelatex    | Reading "Gruntfile.coffee" Gruntfile...OK
+sharelatex    | 
+sharelatex    | Registering Gruntfile tasks.
+sharelatex    | 
+sharelatex    | Registering "grunt-bunyan" local Npm module tasks.
+sharelatex    | Reading /var/www/sharelatex/node_modules/grunt-bunyan/package.json...OK
+sharelatex    | Parsing /var/www/sharelatex/node_modules/grunt-bunyan/package.json...OK
+sharelatex    | Loading "bunyan.js" tasks...OK
+sharelatex    | + bunyan
+sharelatex    | 
+sharelatex    | Registering "grunt-execute" local Npm module tasks.
+sharelatex    | Reading /var/www/sharelatex/node_modules/grunt-execute/package.json...OK
+sharelatex    | Parsing /var/www/sharelatex/node_modules/grunt-execute/package.json...OK
+sharelatex    | Loading "execute.js" tasks...OK
+sharelatex    | + execute
+sharelatex    | 
+sharelatex    | Registering "grunt-available-tasks" local Npm module tasks.
+sharelatex    | Reading /var/www/sharelatex/node_modules/grunt-available-tasks/package.json...OK
+sharelatex    | Parsing /var/www/sharelatex/node_modules/grunt-available-tasks/package.json...OK
+sharelatex    | Loading "available_tasks.js" tasks...OK
+sharelatex    | + availabletasks
+sharelatex    | 
+sharelatex    | Registering "grunt-concurrent" local Npm module tasks.
+sharelatex    | Reading /var/www/sharelatex/node_modules/grunt-concurrent/package.json...OK
+sharelatex    | Parsing /var/www/sharelatex/node_modules/grunt-concurrent/package.json...OK
+sharelatex    | Loading "concurrent.js" tasks...OK
+sharelatex    | + concurrent
+sharelatex    | 
+sharelatex    | Registering "grunt-contrib-coffee" local Npm module tasks.
+sharelatex    | Reading /var/www/sharelatex/node_modules/grunt-contrib-coffee/package.json...OK
+sharelatex    | Parsing /var/www/sharelatex/node_modules/grunt-contrib-coffee/package.json...OK
+sharelatex    | Loading "coffee.js" tasks...OK
+sharelatex    | + coffee
+sharelatex    | 
+sharelatex    | Registering "grunt-shell" local Npm module tasks.
+sharelatex    | Reading /var/www/sharelatex/node_modules/grunt-shell/package.json...OK
+sharelatex    | Parsing /var/www/sharelatex/node_modules/grunt-shell/package.json...OK
+sharelatex    | Loading "shell.js" tasks...OK
+sharelatex    | + shell
+sharelatex    | 
+sharelatex    | Registering "./tasks" tasks.
+sharelatex    | Loading "CreateAndDestoryUsers.coffee" tasks...OK
+sharelatex    | + user:create-admin, user:delete
+sharelatex    | Loading "ProjectSize.coffee" tasks...OK
+sharelatex    | >> No tasks were registered or unregistered.
+sharelatex    | Initializing config...OK
+sharelatex    | Loading "Gruntfile.coffee" tasks...OK
+sharelatex    | + check, check:make, check:mongo, check:redis, default, help, install, install:all, install:chat, install:clsi, install:contacts, install:docstore, install:document-updater, install:filestore, install:notifications, install:real-time, install:spelling, install:tags, install:track-changes, install:web, migrate, postinstall, run, run:all, update, update:all
+sharelatex    | 
+sharelatex    | Running tasks: migrate
+sharelatex    | 
+sharelatex    | Running "migrate" task
+sharelatex    | 
+sharelatex    | Running "coffee:migrate" (coffee) task
+sharelatex    | Verifying property coffee.migrate exists in config...OK
+sharelatex    | Files: migrations/1_move_doc_lines_to_doc_collection.coffee -> migrations/1_move_doc_lines_to_doc_collection.js
+sharelatex    | Files: migrations/2_doc_lines_delete_from_project.coffee -> migrations/2_doc_lines_delete_from_project.js
+sharelatex    | Files: migrations/3_pack_docHistory_collection.coffee -> migrations/3_pack_docHistory_collection.js
+sharelatex    | Files: migrations/4_update_user_features.coffee -> migrations/4_update_user_features.js
+sharelatex    | Files: migrations/5_remove_holding_accounts.coffee -> migrations/5_remove_holding_accounts.js
+sharelatex    | Files: migrations/6_add_track_changes_feature.coffee -> migrations/6_add_track_changes_feature.js
+sharelatex    | Files: migrations/7_add_track_changes_feature_again.coffee -> migrations/7_add_track_changes_feature_again.js
+sharelatex    | Options: bare, join=false, sourceMap=false, joinExt=".src.coffee", separator="\n"
+sharelatex    | Reading migrations/1_move_doc_lines_to_doc_collection.coffee...OK
+sharelatex    | Writing migrations/1_move_doc_lines_to_doc_collection.js...OK
+sharelatex    | Reading migrations/2_doc_lines_delete_from_project.coffee...OK
+sharelatex    | Writing migrations/2_doc_lines_delete_from_project.js...OK
+sharelatex    | Reading migrations/3_pack_docHistory_collection.coffee...OK
+sharelatex    | Writing migrations/3_pack_docHistory_collection.js...OK
+sharelatex    | Reading migrations/4_update_user_features.coffee...OK
+sharelatex    | Writing migrations/4_update_user_features.js...OK
+sharelatex    | Reading migrations/5_remove_holding_accounts.coffee...OK
+sharelatex    | Writing migrations/5_remove_holding_accounts.js...OK
+sharelatex    | Reading migrations/6_add_track_changes_feature.coffee...OK
+sharelatex    | Writing migrations/6_add_track_changes_feature.js...OK
+sharelatex    | Reading migrations/7_add_track_changes_feature_again.coffee...OK
+sharelatex    | Writing migrations/7_add_track_changes_feature_again.js...OK
+sharelatex    | 
+sharelatex    | Running "shell:migrate" (shell) task
+sharelatex    | Verifying property shell.migrate exists in config...OK
+sharelatex    | File: [no files]
+sharelatex    | Options: stdout, stderr, stdin, failOnError, stdinRawMode=false, preferLocal=false, execOptions={"env":null}
+sharelatex    | Command: ./node_modules/east/bin/east migrate --adapter east-mongo --url mongodb://mongo/sharelatex
+mongo         | 2020-01-26T19:44:57.109+0000 I  NETWORK  [listener] connection accepted from 172.18.0.4:42210 #3 (1 connection now open)
+mongo         | 2020-01-26T19:44:57.117+0000 I  NETWORK  [conn3] received client metadata from 172.18.0.4:42210 conn3: { driver: { name: "nodejs", version: "2.2.34" }, os: { type: "Linux", name: "linux", architecture: "x64", version: "5.0.0-37-generic" }, platform: "Node.js v6.13.1, LE, mongodb-core: 2.1.18" }
+mongo         | 2020-01-26T19:44:57.131+0000 I  SHARDING [conn3] Marking collection sharelatex._migrations as collection version: <unsharded>
+sharelatex    | target migrations:
+sharelatex    | 	1_move_doc_lines_to_doc_collection
+sharelatex    | 	2_doc_lines_delete_from_project
+sharelatex    | 	3_pack_docHistory_collection
+sharelatex    | 	4_update_user_features
+sharelatex    | 	5_remove_holding_accounts
+sharelatex    | 	6_add_track_changes_feature
+sharelatex    | 	7_add_track_changes_feature_again
+sharelatex    | mongodb://mongo/sharelatex
+mongo         | 2020-01-26T19:44:57.552+0000 I  NETWORK  [listener] connection accepted from 127.0.0.1:39414 #4 (2 connections now open)
+mongo         | 2020-01-26T19:44:57.553+0000 I  NETWORK  [conn4] received client metadata from 127.0.0.1:39414 conn4: { application: { name: "MongoDB Shell" }, driver: { name: "MongoDB Internal Client", version: "4.2.2" }, os: { type: "Linux", name: "Ubuntu", architecture: "x86_64", version: "18.04" } }
+mongo         | 2020-01-26T19:44:57.564+0000 I  NETWORK  [conn4] end connection 127.0.0.1:39414 (1 connection now open)
+sharelatex    | migrate `1_move_doc_lines_to_doc_collection`
+sharelatex    | finding all project id's - Sun Jan 26 2020 19:44:57 GMT+0000 (UTC)
+mongo         | 2020-01-26T19:44:57.687+0000 I  NETWORK  [listener] connection accepted from 172.18.0.4:42214 #5 (2 connections now open)
+mongo         | 2020-01-26T19:44:57.687+0000 I  NETWORK  [conn5] received client metadata from 172.18.0.4:42214 conn5: { driver: { name: "nodejs", version: "2.2.34" }, os: { type: "Linux", name: "linux", architecture: "x64", version: "5.0.0-37-generic" }, platform: "Node.js v6.13.1, LE, mongodb-core: 2.1.18" }
+mongo         | 2020-01-26T19:44:57.692+0000 I  SHARDING [conn5] Marking collection sharelatex.projects as collection version: <unsharded>
+sharelatex    | total found projects in mongo 0 - Sun Jan 26 2020 19:44:57 GMT+0000 (UTC)
+sharelatex    | finished
+mongo         | 2020-01-26T19:44:57.707+0000 I  STORAGE  [conn3] createCollection: sharelatex._migrations with generated UUID: 31b08ca4-f0b2-45f6-aade-96166c7cbf90 and options: {}
+mongo         | 2020-01-26T19:44:57.923+0000 I  INDEX    [conn3] index build: done building index _id_ on ns sharelatex._migrations
+mongo         | 2020-01-26T19:44:57.924+0000 I  WRITE    [conn3] update sharelatex._migrations command: { q: { _id: "1_move_doc_lines_to_doc_collection" }, u: { _id: "1_move_doc_lines_to_doc_collection" }, multi: false, upsert: true } planSummary: IDHACK keysExamined:0 docsExamined:0 nMatched:0 nModified:0 upsert:1 keysInserted:1 numYields:0 locks:{ ParallelBatchWriterMode: { acquireCount: { r: 4 } }, ReplicationStateTransition: { acquireCount: { w: 4 } }, Global: { acquireCount: { w: 4 } }, Database: { acquireCount: { w: 3, W: 1 } }, Collection: { acquireCount: { r: 2, w: 2, W: 1 } }, Mutex: { acquireCount: { r: 3 } } } flowControl:{ acquireCount: 4 } storage:{} 216ms
+mongo         | 2020-01-26T19:44:57.924+0000 I  COMMAND  [conn3] command sharelatex.$cmd command: update { update: "_migrations", ordered: true, $db: "sharelatex" } numYields:0 reslen:153 locks:{ ParallelBatchWriterMode: { acquireCount: { r: 5 } }, ReplicationStateTransition: { acquireCount: { w: 5 } }, Global: { acquireCount: { r: 1, w: 4 } }, Database: { acquireCount: { w: 3, W: 1 } }, Collection: { acquireCount: { r: 2, w: 2, W: 1 } }, Mutex: { acquireCount: { r: 3 } } } flowControl:{ acquireCount: 4 } storage:{} protocol:op_query 216ms
+sharelatex    | migration done
+sharelatex    | migrate `2_doc_lines_delete_from_project`
+sharelatex    | finding all project id's - Sun Jan 26 2020 19:44:57 GMT+0000 (UTC)
+mongo         | 2020-01-26T19:44:57.934+0000 I  NETWORK  [listener] connection accepted from 172.18.0.4:42216 #6 (3 connections now open)
+mongo         | 2020-01-26T19:44:57.935+0000 I  NETWORK  [conn6] received client metadata from 172.18.0.4:42216 conn6: { driver: { name: "nodejs", version: "2.2.34" }, os: { type: "Linux", name: "linux", architecture: "x64", version: "5.0.0-37-generic" }, platform: "Node.js v6.13.1, LE, mongodb-core: 2.1.18" }
+sharelatex    | total found projects in mongo 0 - Sun Jan 26 2020 19:44:57 GMT+0000 (UTC)
+sharelatex    | finished
+sharelatex    | migration done
+sharelatex    | migrate `3_pack_docHistory_collection`
+sharelatex    | finding all doc id's - Sun Jan 26 2020 19:44:57 GMT+0000 (UTC)
+mongo         | 2020-01-26T19:44:57.963+0000 I  NETWORK  [listener] connection accepted from 172.18.0.4:42218 #7 (4 connections now open)
+mongo         | 2020-01-26T19:44:57.964+0000 I  NETWORK  [conn7] received client metadata from 172.18.0.4:42218 conn7: { driver: { name: "nodejs", version: "2.2.34" }, os: { type: "Linux", name: "linux", architecture: "x64", version: "5.0.0-37-generic" }, platform: "Node.js v6.13.1, LE, mongodb-core: 2.1.18" }
+mongo         | 2020-01-26T19:44:57.965+0000 I  SHARDING [conn7] Marking collection sharelatex.docs as collection version: <unsharded>
+sharelatex    | total found docs in mongo 0 - Sun Jan 26 2020 19:44:57 GMT+0000 (UTC)
+sharelatex    | finished at Sun Jan 26 2020 19:44:57 GMT+0000 (UTC)
+sharelatex    | migration done
+sharelatex    | migrate `4_update_user_features`
+sharelatex    | >> updating all user features:  { '$set': 
+sharelatex    |    { features: 
+sharelatex    |       { collaborators: -1,
+sharelatex    |         dropbox: true,
+sharelatex    |         versioning: true,
+sharelatex    |         references: true,
+sharelatex    |         templates: true,
+sharelatex    |         compileTimeout: 180,
+sharelatex    |         compileGroup: 'standard' } } }
+mongo         | 2020-01-26T19:44:57.976+0000 I  NETWORK  [listener] connection accepted from 172.18.0.4:42220 #8 (5 connections now open)
+mongo         | 2020-01-26T19:44:57.977+0000 I  NETWORK  [conn8] received client metadata from 172.18.0.4:42220 conn8: { driver: { name: "nodejs", version: "2.2.34" }, os: { type: "Linux", name: "linux", architecture: "x64", version: "5.0.0-37-generic" }, platform: "Node.js v6.13.1, LE, mongodb-core: 2.1.18" }
+mongo         | 2020-01-26T19:44:57.978+0000 I  SHARDING [conn8] Marking collection sharelatex.users as collection version: <unsharded>
+sharelatex    | finished updating all user features
+sharelatex    | migration done
+sharelatex    | migrate `5_remove_holding_accounts`
+sharelatex    | [Getting list of holding accounts]
+mongo         | 2020-01-26T19:44:57.983+0000 I  NETWORK  [listener] connection accepted from 172.18.0.4:42222 #9 (6 connections now open)
+mongo         | 2020-01-26T19:44:57.984+0000 I  NETWORK  [conn9] received client metadata from 172.18.0.4:42222 conn9: { driver: { name: "nodejs", version: "2.2.34" }, os: { type: "Linux", name: "linux", architecture: "x64", version: "5.0.0-37-generic" }, platform: "Node.js v6.13.1, LE, mongodb-core: 2.1.18" }
+sharelatex    | [Got 0 holding accounts]
+sharelatex    | [FINISHED]
+sharelatex    | migration done
+sharelatex    | migrate `6_add_track_changes_feature`
+sharelatex    | >> enabling trackChanges feature:  { '$set': { 'features.trackChanges': true } }
+mongo         | 2020-01-26T19:44:57.993+0000 I  NETWORK  [listener] connection accepted from 172.18.0.4:42224 #10 (7 connections now open)
+mongo         | 2020-01-26T19:44:57.993+0000 I  NETWORK  [conn10] received client metadata from 172.18.0.4:42224 conn10: { driver: { name: "nodejs", version: "2.2.34" }, os: { type: "Linux", name: "linux", architecture: "x64", version: "5.0.0-37-generic" }, platform: "Node.js v6.13.1, LE, mongodb-core: 2.1.18" }
+sharelatex    | finished enabling trackChanges feature
+sharelatex    | migration done
+sharelatex    | migrate `7_add_track_changes_feature_again`
+sharelatex    | >> enabling trackChanges feature:  { '$set': { 'features.trackChanges': true } }
+mongo         | 2020-01-26T19:44:58.006+0000 I  NETWORK  [listener] connection accepted from 172.18.0.4:42226 #11 (8 connections now open)
+mongo         | 2020-01-26T19:44:58.011+0000 I  NETWORK  [conn11] received client metadata from 172.18.0.4:42226 conn11: { driver: { name: "nodejs", version: "2.2.34" }, os: { type: "Linux", name: "linux", architecture: "x64", version: "5.0.0-37-generic" }, platform: "Node.js v6.13.1, LE, mongodb-core: 2.1.18" }
+sharelatex    | finished enabling trackChanges feature
+sharelatex    | migration done
+mongo         | 2020-01-26T19:44:58.022+0000 I  NETWORK  [conn3] end connection 172.18.0.4:42210 (7 connections now open)
+mongo         | 2020-01-26T19:44:58.027+0000 I  NETWORK  [conn11] end connection 172.18.0.4:42226 (6 connections now open)
+mongo         | 2020-01-26T19:44:58.027+0000 I  NETWORK  [conn9] end connection 172.18.0.4:42222 (5 connections now open)
+mongo         | 2020-01-26T19:44:58.027+0000 I  NETWORK  [conn8] end connection 172.18.0.4:42220 (0 connections now open)
+mongo         | 2020-01-26T19:44:58.027+0000 I  NETWORK  [conn10] end connection 172.18.0.4:42224 (4 connections now open)
+mongo         | 2020-01-26T19:44:58.027+0000 I  NETWORK  [conn7] end connection 172.18.0.4:42218 (3 connections now open)
+mongo         | 2020-01-26T19:44:58.027+0000 I  NETWORK  [conn6] end connection 172.18.0.4:42216 (2 connections now open)
+mongo         | 2020-01-26T19:44:58.027+0000 I  NETWORK  [conn5] end connection 172.18.0.4:42214 (1 connection now open)
+sharelatex    | 
+sharelatex    | Done, without errors.
+sharelatex    | All migrations finished
+sharelatex    | *** Running /etc/rc.local...
+sharelatex    | *** Booting runit daemon...
+sharelatex    | *** Runit started as PID 101
+sharelatex    | tail: cannot open ‘/var/log/sharelatex/*.log’ for reading: No such file or directory
+sharelatex    | tail: unrecognized file system type 0x794c7630 for ‘/var/log/syslog’. please report this to bug-coreutils@gnu.org. reverting to polling
+sharelatex    | Jan 26 19:44:59 c00b199c8e05 syslog-ng[119]: syslog-ng starting up; version='3.5.3'
+mongo         | 2020-01-26T19:45:08.162+0000 I  NETWORK  [listener] connection accepted from 127.0.0.1:39430 #12 (1 connection now open)
+mongo         | 2020-01-26T19:45:08.162+0000 I  NETWORK  [conn12] received client metadata from 127.0.0.1:39430 conn12: { application: { name: "MongoDB Shell" }, driver: { name: "MongoDB Internal Client", version: "4.2.2" }, os: { type: "Linux", name: "Ubuntu", architecture: "x86_64", version: "18.04" } }
+mongo         | 2020-01-26T19:45:08.169+0000 I  NETWORK  [conn12] end connection 127.0.0.1:39430 (0 connections now open)
+mongo         | 2020-01-26T19:45:19.091+0000 I  NETWORK  [listener] connection accepted from 127.0.0.1:39478 #13 (1 connection now open)
+mongo         | 2020-01-26T19:45:19.091+0000 I  NETWORK  [conn13] received client metadata from 127.0.0.1:39478 conn13: { application: { name: "MongoDB Shell" }, driver: { name: "MongoDB Internal Client", version: "4.2.2" }, os: { type: "Linux", name: "Ubuntu", architecture: "x86_64", version: "18.04" } }
+mongo         | 2020-01-26T19:45:19.100+0000 I  NETWORK  [conn13] end connection 127.0.0.1:39478 (0 connections now open)
+mongo         | 2020-01-26T19:45:25.947+0000 I  NETWORK  [listener] connection accepted from 172.18.0.4:42282 #14 (1 connection now open)
+mongo         | 2020-01-26T19:45:25.947+0000 I  NETWORK  [listener] connection accepted from 172.18.0.4:42284 #15 (2 connections now open)
+mongo         | 2020-01-26T19:45:25.947+0000 I  NETWORK  [listener] connection accepted from 172.18.0.4:42286 #16 (3 connections now open)
+mongo         | 2020-01-26T19:45:25.947+0000 I  NETWORK  [listener] connection accepted from 172.18.0.4:42290 #17 (4 connections now open)
+mongo         | 2020-01-26T19:45:25.947+0000 I  NETWORK  [listener] connection accepted from 172.18.0.4:42294 #18 (5 connections now open)
+mongo         | 2020-01-26T19:45:25.948+0000 I  NETWORK  [listener] connection accepted from 172.18.0.4:42312 #19 (6 connections now open)
+mongo         | 2020-01-26T19:45:25.979+0000 I  NETWORK  [conn14] received client metadata from 172.18.0.4:42282 conn14: { driver: { name: "nodejs", version: "2.2.27" }, os: { type: "Linux", name: "linux", architecture: "x64", version: "5.0.0-37-generic" }, platform: "Node.js v6.13.1, LE, mongodb-core: 2.1.11" }
+mongo         | 2020-01-26T19:45:25.980+0000 I  NETWORK  [conn15] received client metadata from 172.18.0.4:42284 conn15: { driver: { name: "nodejs", version: "2.2.27" }, os: { type: "Linux", name: "linux", architecture: "x64", version: "5.0.0-37-generic" }, platform: "Node.js v6.13.1, LE, mongodb-core: 2.1.11" }
+mongo         | 2020-01-26T19:45:25.980+0000 I  NETWORK  [conn16] received client metadata from 172.18.0.4:42286 conn16: { driver: { name: "nodejs", version: "2.2.27" }, os: { type: "Linux", name: "linux", architecture: "x64", version: "5.0.0-37-generic" }, platform: "Node.js v6.13.1, LE, mongodb-core: 2.1.11" }
+mongo         | 2020-01-26T19:45:25.984+0000 I  NETWORK  [conn17] received client metadata from 172.18.0.4:42290 conn17: { driver: { name: "nodejs", version: "2.2.27" }, os: { type: "Linux", name: "linux", architecture: "x64", version: "5.0.0-37-generic" }, platform: "Node.js v6.13.1, LE, mongodb-core: 2.1.11" }
+mongo         | 2020-01-26T19:45:25.986+0000 I  NETWORK  [conn18] received client metadata from 172.18.0.4:42294 conn18: { driver: { name: "nodejs", version: "2.2.27" }, os: { type: "Linux", name: "linux", architecture: "x64", version: "5.0.0-37-generic" }, platform: "Node.js v6.13.1, LE, mongodb-core: 2.1.11" }
+mongo         | 2020-01-26T19:45:25.988+0000 I  NETWORK  [conn19] received client metadata from 172.18.0.4:42312 conn19: { driver: { name: "nodejs", version: "2.2.27" }, os: { type: "Linux", name: "linux", architecture: "x64", version: "5.0.0-37-generic" }, platform: "Node.js v6.13.1, LE, mongodb-core: 2.1.11" }
+mongo         | 2020-01-26T19:45:29.889+0000 I  NETWORK  [listener] connection accepted from 127.0.0.1:39516 #20 (7 connections now open)
+mongo         | 2020-01-26T19:45:29.889+0000 I  NETWORK  [conn20] received client metadata from 127.0.0.1:39516 conn20: { application: { name: "MongoDB Shell" }, driver: { name: "MongoDB Internal Client", version: "4.2.2" }, os: { type: "Linux", name: "Ubuntu", architecture: "x86_64", version: "18.04" } }
+mongo         | 2020-01-26T19:45:29.897+0000 I  NETWORK  [conn20] end connection 127.0.0.1:39516 (6 connections now open)
+mongo         | 2020-01-26T19:45:40.326+0000 I  NETWORK  [listener] connection accepted from 127.0.0.1:39518 #21 (7 connections now open)
+mongo         | 2020-01-26T19:45:40.326+0000 I  NETWORK  [conn21] received client metadata from 127.0.0.1:39518 conn21: { application: { name: "MongoDB Shell" }, driver: { name: "MongoDB Internal Client", version: "4.2.2" }, os: { type: "Linux", name: "Ubuntu", architecture: "x86_64", version: "18.04" } }
+mongo         | 2020-01-26T19:45:40.334+0000 I  NETWORK  [conn21] end connection 127.0.0.1:39518 (6 connections now open)
+mongo         | 2020-01-26T19:45:50.774+0000 I  NETWORK  [listener] connection accepted from 127.0.0.1:39520 #22 (7 connections now open)
+mongo         | 2020-01-26T19:45:50.775+0000 I  NETWORK  [conn22] received client metadata from 127.0.0.1:39520 conn22: { application: { name: "MongoDB Shell" }, driver: { name: "MongoDB Internal Client", version: "4.2.2" }, os: { type: "Linux", name: "Ubuntu", architecture: "x86_64", version: "18.04" } }
+mongo         | 2020-01-26T19:45:50.787+0000 I  NETWORK  [conn22] end connection 127.0.0.1:39520 (6 connections now open)
+mongo         | 2020-01-26T19:46:01.237+0000 I  NETWORK  [listener] connection accepted from 127.0.0.1:39522 #23 (7 connections now open)
+mongo         | 2020-01-26T19:46:01.238+0000 I  NETWORK  [conn23] received client metadata from 127.0.0.1:39522 conn23: { application: { name: "MongoDB Shell" }, driver: { name: "MongoDB Internal Client", version: "4.2.2" }, os: { type: "Linux", name: "Ubuntu", architecture: "x86_64", version: "18.04" } }
+mongo         | 2020-01-26T19:46:01.248+0000 I  NETWORK  [conn23] end connection 127.0.0.1:39522 (6 connections now open)
+mongo         | 2020-01-26T19:46:11.698+0000 I  NETWORK  [listener] connection accepted from 127.0.0.1:39524 #24 (7 connections now open)
+mongo         | 2020-01-26T19:46:11.698+0000 I  NETWORK  [conn24] received client metadata from 127.0.0.1:39524 conn24: { application: { name: "MongoDB Shell" }, driver: { name: "MongoDB Internal Client", version: "4.2.2" }, os: { type: "Linux", name: "Ubuntu", architecture: "x86_64", version: "18.04" } }
+mongo         | 2020-01-26T19:46:11.707+0000 I  NETWORK  [conn24] end connection 127.0.0.1:39524 (6 connections now open)
+mongo         | 2020-01-26T19:46:22.178+0000 I  NETWORK  [listener] connection accepted from 127.0.0.1:39526 #25 (7 connections now open)
+mongo         | 2020-01-26T19:46:22.178+0000 I  NETWORK  [conn25] received client metadata from 127.0.0.1:39526 conn25: { application: { name: "MongoDB Shell" }, driver: { name: "MongoDB Internal Client", version: "4.2.2" }, os: { type: "Linux", name: "Ubuntu", architecture: "x86_64", version: "18.04" } }
+mongo         | 2020-01-26T19:46:22.188+0000 I  NETWORK  [conn25] end connection 127.0.0.1:39526 (6 connections now open)
+mongo         | 2020-01-26T19:46:32.660+0000 I  NETWORK  [listener] connection accepted from 127.0.0.1:39528 #26 (7 connections now open)
+mongo         | 2020-01-26T19:46:32.660+0000 I  NETWORK  [conn26] received client metadata from 127.0.0.1:39528 conn26: { application: { name: "MongoDB Shell" }, driver: { name: "MongoDB Internal Client", version: "4.2.2" }, os: { type: "Linux", name: "Ubuntu", architecture: "x86_64", version: "18.04" } }
+mongo         | 2020-01-26T19:46:32.671+0000 I  NETWORK  [conn26] end connection 127.0.0.1:39528 (6 connections now open)
+mongo         | 2020-01-26T19:46:43.134+0000 I  NETWORK  [listener] connection accepted from 127.0.0.1:39530 #27 (7 connections now open)
+mongo         | 2020-01-26T19:46:43.134+0000 I  NETWORK  [conn27] received client metadata from 127.0.0.1:39530 conn27: { application: { name: "MongoDB Shell" }, driver: { name: "MongoDB Internal Client", version: "4.2.2" }, os: { type: "Linux", name: "Ubuntu", architecture: "x86_64", version: "18.04" } }
+mongo         | 2020-01-26T19:46:43.143+0000 I  NETWORK  [conn27] end connection 127.0.0.1:39530 (6 connections now open)
+mongo         | 2020-01-26T19:46:53.609+0000 I  NETWORK  [listener] connection accepted from 127.0.0.1:39532 #28 (7 connections now open)
+mongo         | 2020-01-26T19:46:53.609+0000 I  NETWORK  [conn28] received client metadata from 127.0.0.1:39532 conn28: { application: { name: "MongoDB Shell" }, driver: { name: "MongoDB Internal Client", version: "4.2.2" }, os: { type: "Linux", name: "Ubuntu", architecture: "x86_64", version: "18.04" } }
+mongo         | 2020-01-26T19:46:53.618+0000 I  NETWORK  [conn28] end connection 127.0.0.1:39532 (6 connections now open)
+mongo         | 2020-01-26T19:47:04.063+0000 I  NETWORK  [listener] connection accepted from 127.0.0.1:39534 #29 (7 connections now open)
+mongo         | 2020-01-26T19:47:04.063+0000 I  NETWORK  [conn29] received client metadata from 127.0.0.1:39534 conn29: { application: { name: "MongoDB Shell" }, driver: { name: "MongoDB Internal Client", version: "4.2.2" }, os: { type: "Linux", name: "Ubuntu", architecture: "x86_64", version: "18.04" } }
+mongo         | 2020-01-26T19:47:04.072+0000 I  NETWORK  [conn29] end connection 127.0.0.1:39534 (6 connections now open)
+mongo         | 2020-01-26T19:47:14.531+0000 I  NETWORK  [listener] connection accepted from 127.0.0.1:39536 #30 (7 connections now open)
+mongo         | 2020-01-26T19:47:14.531+0000 I  NETWORK  [conn30] received client metadata from 127.0.0.1:39536 conn30: { application: { name: "MongoDB Shell" }, driver: { name: "MongoDB Internal Client", version: "4.2.2" }, os: { type: "Linux", name: "Ubuntu", architecture: "x86_64", version: "18.04" } }
+mongo         | 2020-01-26T19:47:14.544+0000 I  NETWORK  [conn30] end connection 127.0.0.1:39536 (6 connections now open)
+mongo         | 2020-01-26T19:47:24.990+0000 I  NETWORK  [listener] connection accepted from 127.0.0.1:39538 #31 (7 connections now open)
+mongo         | 2020-01-26T19:47:24.990+0000 I  NETWORK  [conn31] received client metadata from 127.0.0.1:39538 conn31: { application: { name: "MongoDB Shell" }, driver: { name: "MongoDB Internal Client", version: "4.2.2" }, os: { type: "Linux", name: "Ubuntu", architecture: "x86_64", version: "18.04" } }
+mongo         | 2020-01-26T19:47:24.998+0000 I  NETWORK  [conn31] end connection 127.0.0.1:39538 (6 connections now open)
+mongo         | 2020-01-26T19:47:35.460+0000 I  NETWORK  [listener] connection accepted from 127.0.0.1:39540 #32 (7 connections now open)
+mongo         | 2020-01-26T19:47:35.460+0000 I  NETWORK  [conn32] received client metadata from 127.0.0.1:39540 conn32: { application: { name: "MongoDB Shell" }, driver: { name: "MongoDB Internal Client", version: "4.2.2" }, os: { type: "Linux", name: "Ubuntu", architecture: "x86_64", version: "18.04" } }
+mongo         | 2020-01-26T19:47:35.469+0000 I  NETWORK  [conn32] end connection 127.0.0.1:39540 (6 connections now open)
+mongo         | 2020-01-26T19:47:45.918+0000 I  NETWORK  [listener] connection accepted from 127.0.0.1:39542 #33 (7 connections now open)
+mongo         | 2020-01-26T19:47:45.919+0000 I  NETWORK  [conn33] received client metadata from 127.0.0.1:39542 conn33: { application: { name: "MongoDB Shell" }, driver: { name: "MongoDB Internal Client", version: "4.2.2" }, os: { type: "Linux", name: "Ubuntu", architecture: "x86_64", version: "18.04" } }
+mongo         | 2020-01-26T19:47:45.926+0000 I  NETWORK  [conn33] end connection 127.0.0.1:39542 (6 connections now open)
+mongo         | 2020-01-26T19:47:56.394+0000 I  NETWORK  [listener] connection accepted from 127.0.0.1:39544 #34 (7 connections now open)
+mongo         | 2020-01-26T19:47:56.395+0000 I  NETWORK  [conn34] received client metadata from 127.0.0.1:39544 conn34: { application: { name: "MongoDB Shell" }, driver: { name: "MongoDB Internal Client", version: "4.2.2" }, os: { type: "Linux", name: "Ubuntu", architecture: "x86_64", version: "18.04" } }
+mongo         | 2020-01-26T19:47:56.406+0000 I  NETWORK  [conn34] end connection 127.0.0.1:39544 (6 connections now open)
+mongo         | 2020-01-26T19:48:06.825+0000 I  NETWORK  [listener] connection accepted from 127.0.0.1:39546 #35 (7 connections now open)
+mongo         | 2020-01-26T19:48:06.825+0000 I  NETWORK  [conn35] received client metadata from 127.0.0.1:39546 conn35: { application: { name: "MongoDB Shell" }, driver: { name: "MongoDB Internal Client", version: "4.2.2" }, os: { type: "Linux", name: "Ubuntu", architecture: "x86_64", version: "18.04" } }
+mongo         | 2020-01-26T19:48:06.834+0000 I  NETWORK  [conn35] end connection 127.0.0.1:39546 (6 connections now open)
+mongo         | 2020-01-26T19:48:17.311+0000 I  NETWORK  [listener] connection accepted from 127.0.0.1:39548 #36 (7 connections now open)
+mongo         | 2020-01-26T19:48:17.311+0000 I  NETWORK  [conn36] received client metadata from 127.0.0.1:39548 conn36: { application: { name: "MongoDB Shell" }, driver: { name: "MongoDB Internal Client", version: "4.2.2" }, os: { type: "Linux", name: "Ubuntu", architecture: "x86_64", version: "18.04" } }
+mongo         | 2020-01-26T19:48:17.321+0000 I  NETWORK  [conn36] end connection 127.0.0.1:39548 (6 connections now open)
+mongo         | 2020-01-26T19:48:27.758+0000 I  NETWORK  [listener] connection accepted from 127.0.0.1:39552 #37 (7 connections now open)
+mongo         | 2020-01-26T19:48:27.759+0000 I  NETWORK  [conn37] received client metadata from 127.0.0.1:39552 conn37: { application: { name: "MongoDB Shell" }, driver: { name: "MongoDB Internal Client", version: "4.2.2" }, os: { type: "Linux", name: "Ubuntu", architecture: "x86_64", version: "18.04" } }
+mongo         | 2020-01-26T19:48:27.766+0000 I  NETWORK  [conn37] end connection 127.0.0.1:39552 (6 connections now open)
+mongo         | 2020-01-26T19:48:38.203+0000 I  NETWORK  [listener] connection accepted from 127.0.0.1:39554 #38 (7 connections now open)
+mongo         | 2020-01-26T19:48:38.203+0000 I  NETWORK  [conn38] received client metadata from 127.0.0.1:39554 conn38: { application: { name: "MongoDB Shell" }, driver: { name: "MongoDB Internal Client", version: "4.2.2" }, os: { type: "Linux", name: "Ubuntu", architecture: "x86_64", version: "18.04" } }
+mongo         | 2020-01-26T19:48:38.214+0000 I  NETWORK  [conn38] end connection 127.0.0.1:39554 (6 connections now open)
+mongo         | 2020-01-26T19:48:48.663+0000 I  NETWORK  [listener] connection accepted from 127.0.0.1:39556 #39 (7 connections now open)
+mongo         | 2020-01-26T19:48:48.663+0000 I  NETWORK  [conn39] received client metadata from 127.0.0.1:39556 conn39: { application: { name: "MongoDB Shell" }, driver: { name: "MongoDB Internal Client", version: "4.2.2" }, os: { type: "Linux", name: "Ubuntu", architecture: "x86_64", version: "18.04" } }
+mongo         | 2020-01-26T19:48:48.671+0000 I  NETWORK  [conn39] end connection 127.0.0.1:39556 (6 connections now open)
+mongo         | 2020-01-26T19:48:59.120+0000 I  NETWORK  [listener] connection accepted from 127.0.0.1:39558 #40 (7 connections now open)
+mongo         | 2020-01-26T19:48:59.121+0000 I  NETWORK  [conn40] received client metadata from 127.0.0.1:39558 conn40: { application: { name: "MongoDB Shell" }, driver: { name: "MongoDB Internal Client", version: "4.2.2" }, os: { type: "Linux", name: "Ubuntu", architecture: "x86_64", version: "18.04" } }
+mongo         | 2020-01-26T19:48:59.132+0000 I  NETWORK  [conn40] end connection 127.0.0.1:39558 (6 connections now open)
+mongo         | 2020-01-26T19:49:09.572+0000 I  NETWORK  [listener] connection accepted from 127.0.0.1:39560 #41 (7 connections now open)
+mongo         | 2020-01-26T19:49:09.573+0000 I  NETWORK  [conn41] received client metadata from 127.0.0.1:39560 conn41: { application: { name: "MongoDB Shell" }, driver: { name: "MongoDB Internal Client", version: "4.2.2" }, os: { type: "Linux", name: "Ubuntu", architecture: "x86_64", version: "18.04" } }
+mongo         | 2020-01-26T19:49:09.581+0000 I  NETWORK  [conn41] end connection 127.0.0.1:39560 (6 connections now open)
+mongo         | 2020-01-26T19:49:20.029+0000 I  NETWORK  [listener] connection accepted from 127.0.0.1:39564 #42 (7 connections now open)
+mongo         | 2020-01-26T19:49:20.029+0000 I  NETWORK  [conn42] received client metadata from 127.0.0.1:39564 conn42: { application: { name: "MongoDB Shell" }, driver: { name: "MongoDB Internal Client", version: "4.2.2" }, os: { type: "Linux", name: "Ubuntu", architecture: "x86_64", version: "18.04" } }
+mongo         | 2020-01-26T19:49:20.037+0000 I  NETWORK  [conn42] end connection 127.0.0.1:39564 (6 connections now open)
+mongo         | 2020-01-26T19:49:30.476+0000 I  NETWORK  [listener] connection accepted from 127.0.0.1:39568 #43 (7 connections now open)
+mongo         | 2020-01-26T19:49:30.477+0000 I  NETWORK  [conn43] received client metadata from 127.0.0.1:39568 conn43: { application: { name: "MongoDB Shell" }, driver: { name: "MongoDB Internal Client", version: "4.2.2" }, os: { type: "Linux", name: "Ubuntu", architecture: "x86_64", version: "18.04" } }
+mongo         | 2020-01-26T19:49:30.484+0000 I  NETWORK  [conn43] end connection 127.0.0.1:39568 (6 connections now open)
+mongo         | 2020-01-26T19:49:37.786+0000 I  SHARDING [LogicalSessionCacheReap] Marking collection config.transactions as collection version: <unsharded>
+mongo         | 2020-01-26T19:49:40.933+0000 I  NETWORK  [listener] connection accepted from 127.0.0.1:39570 #44 (7 connections now open)
+mongo         | 2020-01-26T19:49:40.933+0000 I  NETWORK  [conn44] received client metadata from 127.0.0.1:39570 conn44: { application: { name: "MongoDB Shell" }, driver: { name: "MongoDB Internal Client", version: "4.2.2" }, os: { type: "Linux", name: "Ubuntu", architecture: "x86_64", version: "18.04" } }
+mongo         | 2020-01-26T19:49:40.942+0000 I  NETWORK  [conn44] end connection 127.0.0.1:39570 (6 connections now open)
+mongo         | 2020-01-26T19:49:51.365+0000 I  NETWORK  [listener] connection accepted from 127.0.0.1:39572 #45 (7 connections now open)
+mongo         | 2020-01-26T19:49:51.365+0000 I  NETWORK  [conn45] received client metadata from 127.0.0.1:39572 conn45: { application: { name: "MongoDB Shell" }, driver: { name: "MongoDB Internal Client", version: "4.2.2" }, os: { type: "Linux", name: "Ubuntu", architecture: "x86_64", version: "18.04" } }
+mongo         | 2020-01-26T19:49:51.377+0000 I  NETWORK  [conn45] end connection 127.0.0.1:39572 (6 connections now open)
+mongo         | 2020-01-26T19:50:01.832+0000 I  NETWORK  [listener] connection accepted from 127.0.0.1:39574 #46 (7 connections now open)
+mongo         | 2020-01-26T19:50:01.832+0000 I  NETWORK  [conn46] received client metadata from 127.0.0.1:39574 conn46: { application: { name: "MongoDB Shell" }, driver: { name: "MongoDB Internal Client", version: "4.2.2" }, os: { type: "Linux", name: "Ubuntu", architecture: "x86_64", version: "18.04" } }
+mongo         | 2020-01-26T19:50:01.841+0000 I  NETWORK  [conn46] end connection 127.0.0.1:39574 (6 connections now open)
+mongo         | 2020-01-26T19:50:12.296+0000 I  NETWORK  [listener] connection accepted from 127.0.0.1:39576 #47 (7 connections now open)
+mongo         | 2020-01-26T19:50:12.296+0000 I  NETWORK  [conn47] received client metadata from 127.0.0.1:39576 conn47: { application: { name: "MongoDB Shell" }, driver: { name: "MongoDB Internal Client", version: "4.2.2" }, os: { type: "Linux", name: "Ubuntu", architecture: "x86_64", version: "18.04" } }
+mongo         | 2020-01-26T19:50:12.304+0000 I  NETWORK  [conn47] end connection 127.0.0.1:39576 (6 connections now open)
+mongo         | 2020-01-26T19:50:22.739+0000 I  NETWORK  [listener] connection accepted from 127.0.0.1:39578 #48 (7 connections now open)
+mongo         | 2020-01-26T19:50:22.739+0000 I  NETWORK  [conn48] received client metadata from 127.0.0.1:39578 conn48: { application: { name: "MongoDB Shell" }, driver: { name: "MongoDB Internal Client", version: "4.2.2" }, os: { type: "Linux", name: "Ubuntu", architecture: "x86_64", version: "18.04" } }
+mongo         | 2020-01-26T19:50:22.749+0000 I  NETWORK  [conn48] end connection 127.0.0.1:39578 (6 connections now open)
+mongo         | 2020-01-26T19:50:33.206+0000 I  NETWORK  [listener] connection accepted from 127.0.0.1:39580 #49 (7 connections now open)
+mongo         | 2020-01-26T19:50:33.207+0000 I  NETWORK  [conn49] received client metadata from 127.0.0.1:39580 conn49: { application: { name: "MongoDB Shell" }, driver: { name: "MongoDB Internal Client", version: "4.2.2" }, os: { type: "Linux", name: "Ubuntu", architecture: "x86_64", version: "18.04" } }
+mongo         | 2020-01-26T19:50:33.216+0000 I  NETWORK  [conn49] end connection 127.0.0.1:39580 (6 connections now open)
+mongo         | 2020-01-26T19:50:43.659+0000 I  NETWORK  [listener] connection accepted from 127.0.0.1:39582 #50 (7 connections now open)
+mongo         | 2020-01-26T19:50:43.660+0000 I  NETWORK  [conn50] received client metadata from 127.0.0.1:39582 conn50: { application: { name: "MongoDB Shell" }, driver: { name: "MongoDB Internal Client", version: "4.2.2" }, os: { type: "Linux", name: "Ubuntu", architecture: "x86_64", version: "18.04" } }
+mongo         | 2020-01-26T19:50:43.668+0000 I  NETWORK  [conn50] end connection 127.0.0.1:39582 (6 connections now open)
+mongo         | 2020-01-26T19:50:54.095+0000 I  NETWORK  [listener] connection accepted from 127.0.0.1:39584 #51 (7 connections now open)
+mongo         | 2020-01-26T19:50:54.095+0000 I  NETWORK  [conn51] received client metadata from 127.0.0.1:39584 conn51: { application: { name: "MongoDB Shell" }, driver: { name: "MongoDB Internal Client", version: "4.2.2" }, os: { type: "Linux", name: "Ubuntu", architecture: "x86_64", version: "18.04" } }
+mongo         | 2020-01-26T19:50:54.103+0000 I  NETWORK  [conn51] end connection 127.0.0.1:39584 (6 connections now open)
+mongo         | 2020-01-26T19:50:57.135+0000 I  SHARDING [conn14] Marking collection sharelatex.systemmessages as collection version: <unsharded>
+mongo         | 2020-01-26T19:51:04.577+0000 I  NETWORK  [listener] connection accepted from 127.0.0.1:39612 #52 (7 connections now open)
+mongo         | 2020-01-26T19:51:04.578+0000 I  NETWORK  [conn52] received client metadata from 127.0.0.1:39612 conn52: { application: { name: "MongoDB Shell" }, driver: { name: "MongoDB Internal Client", version: "4.2.2" }, os: { type: "Linux", name: "Ubuntu", architecture: "x86_64", version: "18.04" } }
+mongo         | 2020-01-26T19:51:04.585+0000 I  NETWORK  [conn52] end connection 127.0.0.1:39612 (6 connections now open)
+mongo         | 2020-01-26T19:51:15.051+0000 I  NETWORK  [listener] connection accepted from 127.0.0.1:39614 #53 (7 connections now open)
+mongo         | 2020-01-26T19:51:15.051+0000 I  NETWORK  [conn53] received client metadata from 127.0.0.1:39614 conn53: { application: { name: "MongoDB Shell" }, driver: { name: "MongoDB Internal Client", version: "4.2.2" }, os: { type: "Linux", name: "Ubuntu", architecture: "x86_64", version: "18.04" } }
+mongo         | 2020-01-26T19:51:15.061+0000 I  NETWORK  [conn53] end connection 127.0.0.1:39614 (6 connections now open)
+mongo         | 2020-01-26T19:51:25.492+0000 I  NETWORK  [listener] connection accepted from 127.0.0.1:39616 #54 (7 connections now open)
+mongo         | 2020-01-26T19:51:25.492+0000 I  NETWORK  [conn54] received client metadata from 127.0.0.1:39616 conn54: { application: { name: "MongoDB Shell" }, driver: { name: "MongoDB Internal Client", version: "4.2.2" }, os: { type: "Linux", name: "Ubuntu", architecture: "x86_64", version: "18.04" } }
+mongo         | 2020-01-26T19:51:25.503+0000 I  NETWORK  [conn54] end connection 127.0.0.1:39616 (6 connections now open)
+mongo         | 2020-01-26T19:51:35.924+0000 I  NETWORK  [listener] connection accepted from 127.0.0.1:39618 #55 (7 connections now open)
+mongo         | 2020-01-26T19:51:35.924+0000 I  NETWORK  [conn55] received client metadata from 127.0.0.1:39618 conn55: { application: { name: "MongoDB Shell" }, driver: { name: "MongoDB Internal Client", version: "4.2.2" }, os: { type: "Linux", name: "Ubuntu", architecture: "x86_64", version: "18.04" } }
+mongo         | 2020-01-26T19:51:35.934+0000 I  NETWORK  [conn55] end connection 127.0.0.1:39618 (6 connections now open)
+mongo         | 2020-01-26T19:51:46.404+0000 I  NETWORK  [listener] connection accepted from 127.0.0.1:39620 #56 (7 connections now open)
+mongo         | 2020-01-26T19:51:46.404+0000 I  NETWORK  [conn56] received client metadata from 127.0.0.1:39620 conn56: { application: { name: "MongoDB Shell" }, driver: { name: "MongoDB Internal Client", version: "4.2.2" }, os: { type: "Linux", name: "Ubuntu", architecture: "x86_64", version: "18.04" } }
+mongo         | 2020-01-26T19:51:46.414+0000 I  NETWORK  [conn56] end connection 127.0.0.1:39620 (6 connections now open)
+mongo         | 2020-01-26T19:51:56.846+0000 I  NETWORK  [listener] connection accepted from 127.0.0.1:39622 #57 (7 connections now open)
+mongo         | 2020-01-26T19:51:56.846+0000 I  NETWORK  [conn57] received client metadata from 127.0.0.1:39622 conn57: { application: { name: "MongoDB Shell" }, driver: { name: "MongoDB Internal Client", version: "4.2.2" }, os: { type: "Linux", name: "Ubuntu", architecture: "x86_64", version: "18.04" } }
+mongo         | 2020-01-26T19:51:56.854+0000 I  NETWORK  [conn57] end connection 127.0.0.1:39622 (6 connections now open)
+mongo         | 2020-01-26T19:52:07.297+0000 I  NETWORK  [listener] connection accepted from 127.0.0.1:39624 #58 (7 connections now open)
+mongo         | 2020-01-26T19:52:07.298+0000 I  NETWORK  [conn58] received client metadata from 127.0.0.1:39624 conn58: { application: { name: "MongoDB Shell" }, driver: { name: "MongoDB Internal Client", version: "4.2.2" }, os: { type: "Linux", name: "Ubuntu", architecture: "x86_64", version: "18.04" } }
+mongo         | 2020-01-26T19:52:07.306+0000 I  NETWORK  [conn58] end connection 127.0.0.1:39624 (6 connections now open)
+mongo         | 2020-01-26T19:52:17.777+0000 I  NETWORK  [listener] connection accepted from 127.0.0.1:39630 #59 (7 connections now open)
+mongo         | 2020-01-26T19:52:17.778+0000 I  NETWORK  [conn59] received client metadata from 127.0.0.1:39630 conn59: { application: { name: "MongoDB Shell" }, driver: { name: "MongoDB Internal Client", version: "4.2.2" }, os: { type: "Linux", name: "Ubuntu", architecture: "x86_64", version: "18.04" } }
+mongo         | 2020-01-26T19:52:17.788+0000 I  NETWORK  [conn59] end connection 127.0.0.1:39630 (6 connections now open)
+mongo         | 2020-01-26T19:52:28.220+0000 I  NETWORK  [listener] connection accepted from 127.0.0.1:39632 #60 (7 connections now open)
+mongo         | 2020-01-26T19:52:28.220+0000 I  NETWORK  [conn60] received client metadata from 127.0.0.1:39632 conn60: { application: { name: "MongoDB Shell" }, driver: { name: "MongoDB Internal Client", version: "4.2.2" }, os: { type: "Linux", name: "Ubuntu", architecture: "x86_64", version: "18.04" } }
+mongo         | 2020-01-26T19:52:28.229+0000 I  NETWORK  [conn60] end connection 127.0.0.1:39632 (6 connections now open)
+mongo         | 2020-01-26T19:52:38.674+0000 I  NETWORK  [listener] connection accepted from 127.0.0.1:39636 #61 (7 connections now open)
+mongo         | 2020-01-26T19:52:38.675+0000 I  NETWORK  [conn61] received client metadata from 127.0.0.1:39636 conn61: { application: { name: "MongoDB Shell" }, driver: { name: "MongoDB Internal Client", version: "4.2.2" }, os: { type: "Linux", name: "Ubuntu", architecture: "x86_64", version: "18.04" } }
+mongo         | 2020-01-26T19:52:38.684+0000 I  NETWORK  [conn61] end connection 127.0.0.1:39636 (6 connections now open)
+mongo         | 2020-01-26T19:52:49.145+0000 I  NETWORK  [listener] connection accepted from 127.0.0.1:39638 #62 (7 connections now open)
+mongo         | 2020-01-26T19:52:49.145+0000 I  NETWORK  [conn62] received client metadata from 127.0.0.1:39638 conn62: { application: { name: "MongoDB Shell" }, driver: { name: "MongoDB Internal Client", version: "4.2.2" }, os: { type: "Linux", name: "Ubuntu", architecture: "x86_64", version: "18.04" } }
+mongo         | 2020-01-26T19:52:49.154+0000 I  NETWORK  [conn62] end connection 127.0.0.1:39638 (6 connections now open)
+mongo         | 2020-01-26T19:52:59.617+0000 I  NETWORK  [listener] connection accepted from 127.0.0.1:39640 #63 (7 connections now open)
+mongo         | 2020-01-26T19:52:59.617+0000 I  NETWORK  [conn63] received client metadata from 127.0.0.1:39640 conn63: { application: { name: "MongoDB Shell" }, driver: { name: "MongoDB Internal Client", version: "4.2.2" }, os: { type: "Linux", name: "Ubuntu", architecture: "x86_64", version: "18.04" } }
+mongo         | 2020-01-26T19:52:59.627+0000 I  NETWORK  [conn63] end connection 127.0.0.1:39640 (6 connections now open)
+mongo         | 2020-01-26T19:53:10.095+0000 I  NETWORK  [listener] connection accepted from 127.0.0.1:39642 #64 (7 connections now open)
+mongo         | 2020-01-26T19:53:10.095+0000 I  NETWORK  [conn64] received client metadata from 127.0.0.1:39642 conn64: { application: { name: "MongoDB Shell" }, driver: { name: "MongoDB Internal Client", version: "4.2.2" }, os: { type: "Linux", name: "Ubuntu", architecture: "x86_64", version: "18.04" } }
+mongo         | 2020-01-26T19:53:10.105+0000 I  NETWORK  [conn64] end connection 127.0.0.1:39642 (6 connections now open)
+mongo         | 2020-01-26T19:53:20.558+0000 I  NETWORK  [listener] connection accepted from 127.0.0.1:39644 #65 (7 connections now open)
+mongo         | 2020-01-26T19:53:20.558+0000 I  NETWORK  [conn65] received client metadata from 127.0.0.1:39644 conn65: { application: { name: "MongoDB Shell" }, driver: { name: "MongoDB Internal Client", version: "4.2.2" }, os: { type: "Linux", name: "Ubuntu", architecture: "x86_64", version: "18.04" } }
+mongo         | 2020-01-26T19:53:20.566+0000 I  NETWORK  [conn65] end connection 127.0.0.1:39644 (6 connections now open)
+mongo         | 2020-01-26T19:53:31.020+0000 I  NETWORK  [listener] connection accepted from 127.0.0.1:39652 #66 (7 connections now open)
+mongo         | 2020-01-26T19:53:31.021+0000 I  NETWORK  [conn66] received client metadata from 127.0.0.1:39652 conn66: { application: { name: "MongoDB Shell" }, driver: { name: "MongoDB Internal Client", version: "4.2.2" }, os: { type: "Linux", name: "Ubuntu", architecture: "x86_64", version: "18.04" } }
+mongo         | 2020-01-26T19:53:31.028+0000 I  NETWORK  [conn66] end connection 127.0.0.1:39652 (6 connections now open)
+mongo         | 2020-01-26T19:53:41.507+0000 I  NETWORK  [listener] connection accepted from 127.0.0.1:39656 #67 (7 connections now open)
+mongo         | 2020-01-26T19:53:41.507+0000 I  NETWORK  [conn67] received client metadata from 127.0.0.1:39656 conn67: { application: { name: "MongoDB Shell" }, driver: { name: "MongoDB Internal Client", version: "4.2.2" }, os: { type: "Linux", name: "Ubuntu", architecture: "x86_64", version: "18.04" } }
+mongo         | 2020-01-26T19:53:41.516+0000 I  NETWORK  [conn67] end connection 127.0.0.1:39656 (6 connections now open)
+mongo         | 2020-01-26T19:53:51.941+0000 I  NETWORK  [listener] connection accepted from 127.0.0.1:39658 #68 (7 connections now open)
+mongo         | 2020-01-26T19:53:51.941+0000 I  NETWORK  [conn68] received client metadata from 127.0.0.1:39658 conn68: { application: { name: "MongoDB Shell" }, driver: { name: "MongoDB Internal Client", version: "4.2.2" }, os: { type: "Linux", name: "Ubuntu", architecture: "x86_64", version: "18.04" } }
+mongo         | 2020-01-26T19:53:51.954+0000 I  NETWORK  [conn68] end connection 127.0.0.1:39658 (6 connections now open)
+mongo         | 2020-01-26T19:54:02.404+0000 I  NETWORK  [listener] connection accepted from 127.0.0.1:39664 #69 (7 connections now open)
+mongo         | 2020-01-26T19:54:02.405+0000 I  NETWORK  [conn69] received client metadata from 127.0.0.1:39664 conn69: { application: { name: "MongoDB Shell" }, driver: { name: "MongoDB Internal Client", version: "4.2.2" }, os: { type: "Linux", name: "Ubuntu", architecture: "x86_64", version: "18.04" } }
+mongo         | 2020-01-26T19:54:02.413+0000 I  NETWORK  [conn69] end connection 127.0.0.1:39664 (6 connections now open)
+mongo         | 2020-01-26T19:54:12.862+0000 I  NETWORK  [listener] connection accepted from 127.0.0.1:39666 #70 (7 connections now open)
+mongo         | 2020-01-26T19:54:12.862+0000 I  NETWORK  [conn70] received client metadata from 127.0.0.1:39666 conn70: { application: { name: "MongoDB Shell" }, driver: { name: "MongoDB Internal Client", version: "4.2.2" }, os: { type: "Linux", name: "Ubuntu", architecture: "x86_64", version: "18.04" } }
+mongo         | 2020-01-26T19:54:12.874+0000 I  NETWORK  [conn70] end connection 127.0.0.1:39666 (6 connections now open)
+mongo         | 2020-01-26T19:54:23.344+0000 I  NETWORK  [listener] connection accepted from 127.0.0.1:39670 #71 (7 connections now open)
+mongo         | 2020-01-26T19:54:23.345+0000 I  NETWORK  [conn71] received client metadata from 127.0.0.1:39670 conn71: { application: { name: "MongoDB Shell" }, driver: { name: "MongoDB Internal Client", version: "4.2.2" }, os: { type: "Linux", name: "Ubuntu", architecture: "x86_64", version: "18.04" } }
+mongo         | 2020-01-26T19:54:23.357+0000 I  NETWORK  [conn71] end connection 127.0.0.1:39670 (6 connections now open)
+mongo         | 2020-01-26T19:54:33.798+0000 I  NETWORK  [listener] connection accepted from 127.0.0.1:39672 #72 (7 connections now open)
+mongo         | 2020-01-26T19:54:33.799+0000 I  NETWORK  [conn72] received client metadata from 127.0.0.1:39672 conn72: { application: { name: "MongoDB Shell" }, driver: { name: "MongoDB Internal Client", version: "4.2.2" }, os: { type: "Linux", name: "Ubuntu", architecture: "x86_64", version: "18.04" } }
+mongo         | 2020-01-26T19:54:33.810+0000 I  NETWORK  [conn72] end connection 127.0.0.1:39672 (6 connections now open)
+mongo         | 2020-01-26T19:54:44.291+0000 I  NETWORK  [listener] connection accepted from 127.0.0.1:39676 #73 (7 connections now open)
+mongo         | 2020-01-26T19:54:44.291+0000 I  NETWORK  [conn73] received client metadata from 127.0.0.1:39676 conn73: { application: { name: "MongoDB Shell" }, driver: { name: "MongoDB Internal Client", version: "4.2.2" }, os: { type: "Linux", name: "Ubuntu", architecture: "x86_64", version: "18.04" } }
+mongo         | 2020-01-26T19:54:44.301+0000 I  NETWORK  [conn73] end connection 127.0.0.1:39676 (6 connections now open)
+mongo         | 2020-01-26T19:54:54.750+0000 I  NETWORK  [listener] connection accepted from 127.0.0.1:39678 #74 (7 connections now open)
+mongo         | 2020-01-26T19:54:54.751+0000 I  NETWORK  [conn74] received client metadata from 127.0.0.1:39678 conn74: { application: { name: "MongoDB Shell" }, driver: { name: "MongoDB Internal Client", version: "4.2.2" }, os: { type: "Linux", name: "Ubuntu", architecture: "x86_64", version: "18.04" } }
+mongo         | 2020-01-26T19:54:54.761+0000 I  NETWORK  [conn74] end connection 127.0.0.1:39678 (6 connections now open)
+mongo         | 2020-01-26T19:55:05.203+0000 I  NETWORK  [listener] connection accepted from 127.0.0.1:39680 #75 (7 connections now open)
+mongo         | 2020-01-26T19:55:05.203+0000 I  NETWORK  [conn75] received client metadata from 127.0.0.1:39680 conn75: { application: { name: "MongoDB Shell" }, driver: { name: "MongoDB Internal Client", version: "4.2.2" }, os: { type: "Linux", name: "Ubuntu", architecture: "x86_64", version: "18.04" } }
+mongo         | 2020-01-26T19:55:05.212+0000 I  NETWORK  [conn75] end connection 127.0.0.1:39680 (6 connections now open)
+mongo         | 2020-01-26T19:55:15.656+0000 I  NETWORK  [listener] connection accepted from 127.0.0.1:39682 #76 (7 connections now open)
+mongo         | 2020-01-26T19:55:15.656+0000 I  NETWORK  [conn76] received client metadata from 127.0.0.1:39682 conn76: { application: { name: "MongoDB Shell" }, driver: { name: "MongoDB Internal Client", version: "4.2.2" }, os: { type: "Linux", name: "Ubuntu", architecture: "x86_64", version: "18.04" } }
+mongo         | 2020-01-26T19:55:15.668+0000 I  NETWORK  [conn76] end connection 127.0.0.1:39682 (6 connections now open)
+mongo         | 2020-01-26T19:55:26.119+0000 I  NETWORK  [listener] connection accepted from 127.0.0.1:39684 #77 (7 connections now open)
+mongo         | 2020-01-26T19:55:26.120+0000 I  NETWORK  [conn77] received client metadata from 127.0.0.1:39684 conn77: { application: { name: "MongoDB Shell" }, driver: { name: "MongoDB Internal Client", version: "4.2.2" }, os: { type: "Linux", name: "Ubuntu", architecture: "x86_64", version: "18.04" } }
+mongo         | 2020-01-26T19:55:26.128+0000 I  NETWORK  [conn77] end connection 127.0.0.1:39684 (6 connections now open)
+mongo         | 2020-01-26T19:55:36.569+0000 I  NETWORK  [listener] connection accepted from 127.0.0.1:39686 #78 (7 connections now open)
+mongo         | 2020-01-26T19:55:36.569+0000 I  NETWORK  [conn78] received client metadata from 127.0.0.1:39686 conn78: { application: { name: "MongoDB Shell" }, driver: { name: "MongoDB Internal Client", version: "4.2.2" }, os: { type: "Linux", name: "Ubuntu", architecture: "x86_64", version: "18.04" } }
+mongo         | 2020-01-26T19:55:36.576+0000 I  NETWORK  [conn78] end connection 127.0.0.1:39686 (6 connections now open)
+mongo         | 2020-01-26T19:55:47.016+0000 I  NETWORK  [listener] connection accepted from 127.0.0.1:39688 #79 (7 connections now open)
+mongo         | 2020-01-26T19:55:47.016+0000 I  NETWORK  [conn79] received client metadata from 127.0.0.1:39688 conn79: { application: { name: "MongoDB Shell" }, driver: { name: "MongoDB Internal Client", version: "4.2.2" }, os: { type: "Linux", name: "Ubuntu", architecture: "x86_64", version: "18.04" } }
+mongo         | 2020-01-26T19:55:47.025+0000 I  NETWORK  [conn79] end connection 127.0.0.1:39688 (6 connections now open)
+mongo         | 2020-01-26T19:55:57.491+0000 I  NETWORK  [listener] connection accepted from 127.0.0.1:39690 #80 (7 connections now open)
+mongo         | 2020-01-26T19:55:57.491+0000 I  NETWORK  [conn80] received client metadata from 127.0.0.1:39690 conn80: { application: { name: "MongoDB Shell" }, driver: { name: "MongoDB Internal Client", version: "4.2.2" }, os: { type: "Linux", name: "Ubuntu", architecture: "x86_64", version: "18.04" } }
+mongo         | 2020-01-26T19:55:57.502+0000 I  NETWORK  [conn80] end connection 127.0.0.1:39690 (6 connections now open)
+mongo         | 2020-01-26T19:56:07.959+0000 I  NETWORK  [listener] connection accepted from 127.0.0.1:39692 #81 (7 connections now open)
+mongo         | 2020-01-26T19:56:07.959+0000 I  NETWORK  [conn81] received client metadata from 127.0.0.1:39692 conn81: { application: { name: "MongoDB Shell" }, driver: { name: "MongoDB Internal Client", version: "4.2.2" }, os: { type: "Linux", name: "Ubuntu", architecture: "x86_64", version: "18.04" } }
+mongo         | 2020-01-26T19:56:07.966+0000 I  NETWORK  [conn81] end connection 127.0.0.1:39692 (6 connections now open)
+mongo         | 2020-01-26T19:56:18.393+0000 I  NETWORK  [listener] connection accepted from 127.0.0.1:39694 #82 (7 connections now open)
+mongo         | 2020-01-26T19:56:18.393+0000 I  NETWORK  [conn82] received client metadata from 127.0.0.1:39694 conn82: { application: { name: "MongoDB Shell" }, driver: { name: "MongoDB Internal Client", version: "4.2.2" }, os: { type: "Linux", name: "Ubuntu", architecture: "x86_64", version: "18.04" } }
+mongo         | 2020-01-26T19:56:18.401+0000 I  NETWORK  [conn82] end connection 127.0.0.1:39694 (6 connections now open)
+mongo         | 2020-01-26T19:56:28.833+0000 I  NETWORK  [listener] connection accepted from 127.0.0.1:39696 #83 (7 connections now open)
+mongo         | 2020-01-26T19:56:28.833+0000 I  NETWORK  [conn83] received client metadata from 127.0.0.1:39696 conn83: { application: { name: "MongoDB Shell" }, driver: { name: "MongoDB Internal Client", version: "4.2.2" }, os: { type: "Linux", name: "Ubuntu", architecture: "x86_64", version: "18.04" } }
+mongo         | 2020-01-26T19:56:28.840+0000 I  NETWORK  [conn83] end connection 127.0.0.1:39696 (6 connections now open)
+mongo         | 2020-01-26T19:56:39.292+0000 I  NETWORK  [listener] connection accepted from 127.0.0.1:39698 #84 (7 connections now open)
+mongo         | 2020-01-26T19:56:39.293+0000 I  NETWORK  [conn84] received client metadata from 127.0.0.1:39698 conn84: { application: { name: "MongoDB Shell" }, driver: { name: "MongoDB Internal Client", version: "4.2.2" }, os: { type: "Linux", name: "Ubuntu", architecture: "x86_64", version: "18.04" } }
+mongo         | 2020-01-26T19:56:39.304+0000 I  NETWORK  [conn84] end connection 127.0.0.1:39698 (6 connections now open)
+mongo         | 2020-01-26T19:56:49.764+0000 I  NETWORK  [listener] connection accepted from 127.0.0.1:39700 #85 (7 connections now open)
+mongo         | 2020-01-26T19:56:49.764+0000 I  NETWORK  [conn85] received client metadata from 127.0.0.1:39700 conn85: { application: { name: "MongoDB Shell" }, driver: { name: "MongoDB Internal Client", version: "4.2.2" }, os: { type: "Linux", name: "Ubuntu", architecture: "x86_64", version: "18.04" } }
+mongo         | 2020-01-26T19:56:49.772+0000 I  NETWORK  [conn85] end connection 127.0.0.1:39700 (6 connections now open)
+mongo         | 2020-01-26T19:57:00.216+0000 I  NETWORK  [listener] connection accepted from 127.0.0.1:39702 #86 (7 connections now open)
+mongo         | 2020-01-26T19:57:00.216+0000 I  NETWORK  [conn86] received client metadata from 127.0.0.1:39702 conn86: { application: { name: "MongoDB Shell" }, driver: { name: "MongoDB Internal Client", version: "4.2.2" }, os: { type: "Linux", name: "Ubuntu", architecture: "x86_64", version: "18.04" } }
+mongo         | 2020-01-26T19:57:00.226+0000 I  NETWORK  [conn86] end connection 127.0.0.1:39702 (6 connections now open)
+mongo         | 2020-01-26T19:57:10.673+0000 I  NETWORK  [listener] connection accepted from 127.0.0.1:39704 #87 (7 connections now open)
+mongo         | 2020-01-26T19:57:10.673+0000 I  NETWORK  [conn87] received client metadata from 127.0.0.1:39704 conn87: { application: { name: "MongoDB Shell" }, driver: { name: "MongoDB Internal Client", version: "4.2.2" }, os: { type: "Linux", name: "Ubuntu", architecture: "x86_64", version: "18.04" } }
+mongo         | 2020-01-26T19:57:10.686+0000 I  NETWORK  [conn87] end connection 127.0.0.1:39704 (6 connections now open)
+mongo         | 2020-01-26T19:57:21.141+0000 I  NETWORK  [listener] connection accepted from 127.0.0.1:39706 #88 (7 connections now open)
+mongo         | 2020-01-26T19:57:21.141+0000 I  NETWORK  [conn88] received client metadata from 127.0.0.1:39706 conn88: { application: { name: "MongoDB Shell" }, driver: { name: "MongoDB Internal Client", version: "4.2.2" }, os: { type: "Linux", name: "Ubuntu", architecture: "x86_64", version: "18.04" } }
+mongo         | 2020-01-26T19:57:21.150+0000 I  NETWORK  [conn88] end connection 127.0.0.1:39706 (6 connections now open)
+mongo         | 2020-01-26T19:57:31.610+0000 I  NETWORK  [listener] connection accepted from 127.0.0.1:39708 #89 (7 connections now open)
+mongo         | 2020-01-26T19:57:31.611+0000 I  NETWORK  [conn89] received client metadata from 127.0.0.1:39708 conn89: { application: { name: "MongoDB Shell" }, driver: { name: "MongoDB Internal Client", version: "4.2.2" }, os: { type: "Linux", name: "Ubuntu", architecture: "x86_64", version: "18.04" } }
+mongo         | 2020-01-26T19:57:31.620+0000 I  NETWORK  [conn89] end connection 127.0.0.1:39708 (6 connections now open)
+mongo         | 2020-01-26T19:57:42.070+0000 I  NETWORK  [listener] connection accepted from 127.0.0.1:39710 #90 (7 connections now open)
+mongo         | 2020-01-26T19:57:42.071+0000 I  NETWORK  [conn90] received client metadata from 127.0.0.1:39710 conn90: { application: { name: "MongoDB Shell" }, driver: { name: "MongoDB Internal Client", version: "4.2.2" }, os: { type: "Linux", name: "Ubuntu", architecture: "x86_64", version: "18.04" } }
+mongo         | 2020-01-26T19:57:42.080+0000 I  NETWORK  [conn90] end connection 127.0.0.1:39710 (6 connections now open)
+mongo         | 2020-01-26T19:57:52.533+0000 I  NETWORK  [listener] connection accepted from 127.0.0.1:39712 #91 (7 connections now open)
+mongo         | 2020-01-26T19:57:52.534+0000 I  NETWORK  [conn91] received client metadata from 127.0.0.1:39712 conn91: { application: { name: "MongoDB Shell" }, driver: { name: "MongoDB Internal Client", version: "4.2.2" }, os: { type: "Linux", name: "Ubuntu", architecture: "x86_64", version: "18.04" } }
+mongo         | 2020-01-26T19:57:52.542+0000 I  NETWORK  [conn91] end connection 127.0.0.1:39712 (6 connections now open)
+mongo         | 2020-01-26T19:58:02.992+0000 I  NETWORK  [listener] connection accepted from 127.0.0.1:39714 #92 (7 connections now open)
+mongo         | 2020-01-26T19:58:02.993+0000 I  NETWORK  [conn92] received client metadata from 127.0.0.1:39714 conn92: { application: { name: "MongoDB Shell" }, driver: { name: "MongoDB Internal Client", version: "4.2.2" }, os: { type: "Linux", name: "Ubuntu", architecture: "x86_64", version: "18.04" } }
+mongo         | 2020-01-26T19:58:03.004+0000 I  NETWORK  [conn92] end connection 127.0.0.1:39714 (6 connections now open)
+mongo         | 2020-01-26T19:58:13.453+0000 I  NETWORK  [listener] connection accepted from 127.0.0.1:39716 #93 (7 connections now open)
+mongo         | 2020-01-26T19:58:13.454+0000 I  NETWORK  [conn93] received client metadata from 127.0.0.1:39716 conn93: { application: { name: "MongoDB Shell" }, driver: { name: "MongoDB Internal Client", version: "4.2.2" }, os: { type: "Linux", name: "Ubuntu", architecture: "x86_64", version: "18.04" } }
+mongo         | 2020-01-26T19:58:13.464+0000 I  NETWORK  [conn93] end connection 127.0.0.1:39716 (6 connections now open)
+mongo         | 2020-01-26T19:58:23.909+0000 I  NETWORK  [listener] connection accepted from 127.0.0.1:39720 #94 (7 connections now open)
+mongo         | 2020-01-26T19:58:23.910+0000 I  NETWORK  [conn94] received client metadata from 127.0.0.1:39720 conn94: { application: { name: "MongoDB Shell" }, driver: { name: "MongoDB Internal Client", version: "4.2.2" }, os: { type: "Linux", name: "Ubuntu", architecture: "x86_64", version: "18.04" } }
+mongo         | 2020-01-26T19:58:23.918+0000 I  NETWORK  [conn94] end connection 127.0.0.1:39720 (6 connections now open)
+mongo         | 2020-01-26T19:58:34.347+0000 I  NETWORK  [listener] connection accepted from 127.0.0.1:39722 #95 (7 connections now open)
+mongo         | 2020-01-26T19:58:34.347+0000 I  NETWORK  [conn95] received client metadata from 127.0.0.1:39722 conn95: { application: { name: "MongoDB Shell" }, driver: { name: "MongoDB Internal Client", version: "4.2.2" }, os: { type: "Linux", name: "Ubuntu", architecture: "x86_64", version: "18.04" } }
+mongo         | 2020-01-26T19:58:34.356+0000 I  NETWORK  [conn95] end connection 127.0.0.1:39722 (6 connections now open)
+mongo         | 2020-01-26T19:58:44.811+0000 I  NETWORK  [listener] connection accepted from 127.0.0.1:39724 #96 (7 connections now open)
+mongo         | 2020-01-26T19:58:44.812+0000 I  NETWORK  [conn96] received client metadata from 127.0.0.1:39724 conn96: { application: { name: "MongoDB Shell" }, driver: { name: "MongoDB Internal Client", version: "4.2.2" }, os: { type: "Linux", name: "Ubuntu", architecture: "x86_64", version: "18.04" } }
+mongo         | 2020-01-26T19:58:44.820+0000 I  NETWORK  [conn96] end connection 127.0.0.1:39724 (6 connections now open)
+mongo         | 2020-01-26T19:58:55.248+0000 I  NETWORK  [listener] connection accepted from 127.0.0.1:39726 #97 (7 connections now open)
+mongo         | 2020-01-26T19:58:55.248+0000 I  NETWORK  [conn97] received client metadata from 127.0.0.1:39726 conn97: { application: { name: "MongoDB Shell" }, driver: { name: "MongoDB Internal Client", version: "4.2.2" }, os: { type: "Linux", name: "Ubuntu", architecture: "x86_64", version: "18.04" } }
+mongo         | 2020-01-26T19:58:55.258+0000 I  NETWORK  [conn97] end connection 127.0.0.1:39726 (6 connections now open)
+mongo         | 2020-01-26T19:59:05.704+0000 I  NETWORK  [listener] connection accepted from 127.0.0.1:39728 #98 (7 connections now open)
+mongo         | 2020-01-26T19:59:05.705+0000 I  NETWORK  [conn98] received client metadata from 127.0.0.1:39728 conn98: { application: { name: "MongoDB Shell" }, driver: { name: "MongoDB Internal Client", version: "4.2.2" }, os: { type: "Linux", name: "Ubuntu", architecture: "x86_64", version: "18.04" } }
+mongo         | 2020-01-26T19:59:05.714+0000 I  NETWORK  [conn98] end connection 127.0.0.1:39728 (6 connections now open)
+mongo         | 2020-01-26T19:59:16.189+0000 I  NETWORK  [listener] connection accepted from 127.0.0.1:39730 #99 (7 connections now open)
+mongo         | 2020-01-26T19:59:16.189+0000 I  NETWORK  [conn99] received client metadata from 127.0.0.1:39730 conn99: { application: { name: "MongoDB Shell" }, driver: { name: "MongoDB Internal Client", version: "4.2.2" }, os: { type: "Linux", name: "Ubuntu", architecture: "x86_64", version: "18.04" } }
+mongo         | 2020-01-26T19:59:16.197+0000 I  NETWORK  [conn99] end connection 127.0.0.1:39730 (6 connections now open)
+mongo         | 2020-01-26T19:59:26.641+0000 I  NETWORK  [listener] connection accepted from 127.0.0.1:39732 #100 (7 connections now open)
+mongo         | 2020-01-26T19:59:26.641+0000 I  NETWORK  [conn100] received client metadata from 127.0.0.1:39732 conn100: { application: { name: "MongoDB Shell" }, driver: { name: "MongoDB Internal Client", version: "4.2.2" }, os: { type: "Linux", name: "Ubuntu", architecture: "x86_64", version: "18.04" } }
+mongo         | 2020-01-26T19:59:26.650+0000 I  NETWORK  [conn100] end connection 127.0.0.1:39732 (6 connections now open)
+mongo         | 2020-01-26T19:59:37.106+0000 I  NETWORK  [listener] connection accepted from 127.0.0.1:39734 #101 (7 connections now open)
+mongo         | 2020-01-26T19:59:37.106+0000 I  NETWORK  [conn101] received client metadata from 127.0.0.1:39734 conn101: { application: { name: "MongoDB Shell" }, driver: { name: "MongoDB Internal Client", version: "4.2.2" }, os: { type: "Linux", name: "Ubuntu", architecture: "x86_64", version: "18.04" } }
+mongo         | 2020-01-26T19:59:37.115+0000 I  NETWORK  [conn101] end connection 127.0.0.1:39734 (6 connections now open)
+mongo         | 2020-01-26T19:59:47.583+0000 I  NETWORK  [listener] connection accepted from 127.0.0.1:39736 #102 (7 connections now open)
+mongo         | 2020-01-26T19:59:47.583+0000 I  NETWORK  [conn102] received client metadata from 127.0.0.1:39736 conn102: { application: { name: "MongoDB Shell" }, driver: { name: "MongoDB Internal Client", version: "4.2.2" }, os: { type: "Linux", name: "Ubuntu", architecture: "x86_64", version: "18.04" } }
+mongo         | 2020-01-26T19:59:47.591+0000 I  NETWORK  [conn102] end connection 127.0.0.1:39736 (6 connections now open)
+mongo         | 2020-01-26T19:59:58.032+0000 I  NETWORK  [listener] connection accepted from 127.0.0.1:39738 #103 (7 connections now open)
+mongo         | 2020-01-26T19:59:58.032+0000 I  NETWORK  [conn103] received client metadata from 127.0.0.1:39738 conn103: { application: { name: "MongoDB Shell" }, driver: { name: "MongoDB Internal Client", version: "4.2.2" }, os: { type: "Linux", name: "Ubuntu", architecture: "x86_64", version: "18.04" } }
+mongo         | 2020-01-26T19:59:58.042+0000 I  NETWORK  [conn103] end connection 127.0.0.1:39738 (6 connections now open)
+mongo         | 2020-01-26T20:00:08.506+0000 I  NETWORK  [listener] connection accepted from 127.0.0.1:39740 #104 (7 connections now open)
+mongo         | 2020-01-26T20:00:08.506+0000 I  NETWORK  [conn104] received client metadata from 127.0.0.1:39740 conn104: { application: { name: "MongoDB Shell" }, driver: { name: "MongoDB Internal Client", version: "4.2.2" }, os: { type: "Linux", name: "Ubuntu", architecture: "x86_64", version: "18.04" } }
+mongo         | 2020-01-26T20:00:08.514+0000 I  NETWORK  [conn104] end connection 127.0.0.1:39740 (6 connections now open)
+mongo         | 2020-01-26T20:00:18.961+0000 I  NETWORK  [listener] connection accepted from 127.0.0.1:39742 #105 (7 connections now open)
+mongo         | 2020-01-26T20:00:18.961+0000 I  NETWORK  [conn105] received client metadata from 127.0.0.1:39742 conn105: { application: { name: "MongoDB Shell" }, driver: { name: "MongoDB Internal Client", version: "4.2.2" }, os: { type: "Linux", name: "Ubuntu", architecture: "x86_64", version: "18.04" } }
+mongo         | 2020-01-26T20:00:18.971+0000 I  NETWORK  [conn105] end connection 127.0.0.1:39742 (6 connections now open)
+mongo         | 2020-01-26T20:00:29.456+0000 I  NETWORK  [listener] connection accepted from 127.0.0.1:39744 #106 (7 connections now open)
+mongo         | 2020-01-26T20:00:29.457+0000 I  NETWORK  [conn106] received client metadata from 127.0.0.1:39744 conn106: { application: { name: "MongoDB Shell" }, driver: { name: "MongoDB Internal Client", version: "4.2.2" }, os: { type: "Linux", name: "Ubuntu", architecture: "x86_64", version: "18.04" } }
+mongo         | 2020-01-26T20:00:29.464+0000 I  NETWORK  [conn106] end connection 127.0.0.1:39744 (6 connections now open)
+mongo         | 2020-01-26T20:00:39.914+0000 I  NETWORK  [listener] connection accepted from 127.0.0.1:39746 #107 (7 connections now open)
+mongo         | 2020-01-26T20:00:39.914+0000 I  NETWORK  [conn107] received client metadata from 127.0.0.1:39746 conn107: { application: { name: "MongoDB Shell" }, driver: { name: "MongoDB Internal Client", version: "4.2.2" }, os: { type: "Linux", name: "Ubuntu", architecture: "x86_64", version: "18.04" } }
+mongo         | 2020-01-26T20:00:39.923+0000 I  NETWORK  [conn107] end connection 127.0.0.1:39746 (6 connections now open)
+mongo         | 2020-01-26T20:00:50.395+0000 I  NETWORK  [listener] connection accepted from 127.0.0.1:39748 #108 (7 connections now open)
+mongo         | 2020-01-26T20:00:50.396+0000 I  NETWORK  [conn108] received client metadata from 127.0.0.1:39748 conn108: { application: { name: "MongoDB Shell" }, driver: { name: "MongoDB Internal Client", version: "4.2.2" }, os: { type: "Linux", name: "Ubuntu", architecture: "x86_64", version: "18.04" } }
+mongo         | 2020-01-26T20:00:50.404+0000 I  NETWORK  [conn108] end connection 127.0.0.1:39748 (6 connections now open)
+mongo         | 2020-01-26T20:01:00.852+0000 I  NETWORK  [listener] connection accepted from 127.0.0.1:39750 #109 (7 connections now open)
+mongo         | 2020-01-26T20:01:00.852+0000 I  NETWORK  [conn109] received client metadata from 127.0.0.1:39750 conn109: { application: { name: "MongoDB Shell" }, driver: { name: "MongoDB Internal Client", version: "4.2.2" }, os: { type: "Linux", name: "Ubuntu", architecture: "x86_64", version: "18.04" } }
+mongo         | 2020-01-26T20:01:00.862+0000 I  NETWORK  [conn109] end connection 127.0.0.1:39750 (6 connections now open)
+mongo         | 2020-01-26T20:01:11.328+0000 I  NETWORK  [listener] connection accepted from 127.0.0.1:39752 #110 (7 connections now open)
+mongo         | 2020-01-26T20:01:11.329+0000 I  NETWORK  [conn110] received client metadata from 127.0.0.1:39752 conn110: { application: { name: "MongoDB Shell" }, driver: { name: "MongoDB Internal Client", version: "4.2.2" }, os: { type: "Linux", name: "Ubuntu", architecture: "x86_64", version: "18.04" } }
+mongo         | 2020-01-26T20:01:11.337+0000 I  NETWORK  [conn110] end connection 127.0.0.1:39752 (6 connections now open)
+mongo         | 2020-01-26T20:01:21.792+0000 I  NETWORK  [listener] connection accepted from 127.0.0.1:39754 #111 (7 connections now open)
+mongo         | 2020-01-26T20:01:21.792+0000 I  NETWORK  [conn111] received client metadata from 127.0.0.1:39754 conn111: { application: { name: "MongoDB Shell" }, driver: { name: "MongoDB Internal Client", version: "4.2.2" }, os: { type: "Linux", name: "Ubuntu", architecture: "x86_64", version: "18.04" } }
+mongo         | 2020-01-26T20:01:21.800+0000 I  NETWORK  [conn111] end connection 127.0.0.1:39754 (6 connections now open)
+mongo         | 2020-01-26T20:01:32.245+0000 I  NETWORK  [listener] connection accepted from 127.0.0.1:39756 #112 (7 connections now open)
+mongo         | 2020-01-26T20:01:32.246+0000 I  NETWORK  [conn112] received client metadata from 127.0.0.1:39756 conn112: { application: { name: "MongoDB Shell" }, driver: { name: "MongoDB Internal Client", version: "4.2.2" }, os: { type: "Linux", name: "Ubuntu", architecture: "x86_64", version: "18.04" } }
+mongo         | 2020-01-26T20:01:32.258+0000 I  NETWORK  [conn112] end connection 127.0.0.1:39756 (6 connections now open)
+mongo         | 2020-01-26T20:01:42.718+0000 I  NETWORK  [listener] connection accepted from 127.0.0.1:39758 #113 (7 connections now open)
+mongo         | 2020-01-26T20:01:42.718+0000 I  NETWORK  [conn113] received client metadata from 127.0.0.1:39758 conn113: { application: { name: "MongoDB Shell" }, driver: { name: "MongoDB Internal Client", version: "4.2.2" }, os: { type: "Linux", name: "Ubuntu", architecture: "x86_64", version: "18.04" } }
+mongo         | 2020-01-26T20:01:42.730+0000 I  NETWORK  [conn113] end connection 127.0.0.1:39758 (6 connections now open)
+mongo         | 2020-01-26T20:01:53.182+0000 I  NETWORK  [listener] connection accepted from 127.0.0.1:39760 #114 (7 connections now open)
+mongo         | 2020-01-26T20:01:53.183+0000 I  NETWORK  [conn114] received client metadata from 127.0.0.1:39760 conn114: { application: { name: "MongoDB Shell" }, driver: { name: "MongoDB Internal Client", version: "4.2.2" }, os: { type: "Linux", name: "Ubuntu", architecture: "x86_64", version: "18.04" } }
+mongo         | 2020-01-26T20:01:53.195+0000 I  NETWORK  [conn114] end connection 127.0.0.1:39760 (6 connections now open)
+mongo         | 2020-01-26T20:02:03.661+0000 I  NETWORK  [listener] connection accepted from 127.0.0.1:39762 #115 (7 connections now open)
+mongo         | 2020-01-26T20:02:03.661+0000 I  NETWORK  [conn115] received client metadata from 127.0.0.1:39762 conn115: { application: { name: "MongoDB Shell" }, driver: { name: "MongoDB Internal Client", version: "4.2.2" }, os: { type: "Linux", name: "Ubuntu", architecture: "x86_64", version: "18.04" } }
+mongo         | 2020-01-26T20:02:03.673+0000 I  NETWORK  [conn115] end connection 127.0.0.1:39762 (6 connections now open)
+mongo         | 2020-01-26T20:02:14.141+0000 I  NETWORK  [listener] connection accepted from 127.0.0.1:39764 #116 (7 connections now open)
+mongo         | 2020-01-26T20:02:14.141+0000 I  NETWORK  [conn116] received client metadata from 127.0.0.1:39764 conn116: { application: { name: "MongoDB Shell" }, driver: { name: "MongoDB Internal Client", version: "4.2.2" }, os: { type: "Linux", name: "Ubuntu", architecture: "x86_64", version: "18.04" } }
+mongo         | 2020-01-26T20:02:14.148+0000 I  NETWORK  [conn116] end connection 127.0.0.1:39764 (6 connections now open)
+mongo         | 2020-01-26T20:02:24.611+0000 I  NETWORK  [listener] connection accepted from 127.0.0.1:39766 #117 (7 connections now open)
+mongo         | 2020-01-26T20:02:24.611+0000 I  NETWORK  [conn117] received client metadata from 127.0.0.1:39766 conn117: { application: { name: "MongoDB Shell" }, driver: { name: "MongoDB Internal Client", version: "4.2.2" }, os: { type: "Linux", name: "Ubuntu", architecture: "x86_64", version: "18.04" } }
+mongo         | 2020-01-26T20:02:24.621+0000 I  NETWORK  [conn117] end connection 127.0.0.1:39766 (6 connections now open)
+mongo         | 2020-01-26T20:02:35.096+0000 I  NETWORK  [listener] connection accepted from 127.0.0.1:39768 #118 (7 connections now open)
+mongo         | 2020-01-26T20:02:35.096+0000 I  NETWORK  [conn118] received client metadata from 127.0.0.1:39768 conn118: { application: { name: "MongoDB Shell" }, driver: { name: "MongoDB Internal Client", version: "4.2.2" }, os: { type: "Linux", name: "Ubuntu", architecture: "x86_64", version: "18.04" } }
+mongo         | 2020-01-26T20:02:35.106+0000 I  NETWORK  [conn118] end connection 127.0.0.1:39768 (6 connections now open)
+mongo         | 2020-01-26T20:02:45.598+0000 I  NETWORK  [listener] connection accepted from 127.0.0.1:39770 #119 (7 connections now open)
+mongo         | 2020-01-26T20:02:45.599+0000 I  NETWORK  [conn119] received client metadata from 127.0.0.1:39770 conn119: { application: { name: "MongoDB Shell" }, driver: { name: "MongoDB Internal Client", version: "4.2.2" }, os: { type: "Linux", name: "Ubuntu", architecture: "x86_64", version: "18.04" } }
+mongo         | 2020-01-26T20:02:45.607+0000 I  NETWORK  [conn119] end connection 127.0.0.1:39770 (6 connections now open)
+mongo         | 2020-01-26T20:02:56.088+0000 I  NETWORK  [listener] connection accepted from 127.0.0.1:39772 #120 (7 connections now open)
+mongo         | 2020-01-26T20:02:56.088+0000 I  NETWORK  [conn120] received client metadata from 127.0.0.1:39772 conn120: { application: { name: "MongoDB Shell" }, driver: { name: "MongoDB Internal Client", version: "4.2.2" }, os: { type: "Linux", name: "Ubuntu", architecture: "x86_64", version: "18.04" } }
+mongo         | 2020-01-26T20:02:56.097+0000 I  NETWORK  [conn120] end connection 127.0.0.1:39772 (6 connections now open)
+mongo         | 2020-01-26T20:03:06.572+0000 I  NETWORK  [listener] connection accepted from 127.0.0.1:39774 #121 (7 connections now open)
+mongo         | 2020-01-26T20:03:06.572+0000 I  NETWORK  [conn121] received client metadata from 127.0.0.1:39774 conn121: { application: { name: "MongoDB Shell" }, driver: { name: "MongoDB Internal Client", version: "4.2.2" }, os: { type: "Linux", name: "Ubuntu", architecture: "x86_64", version: "18.04" } }
+mongo         | 2020-01-26T20:03:06.583+0000 I  NETWORK  [conn121] end connection 127.0.0.1:39774 (6 connections now open)
+mongo         | 2020-01-26T20:03:17.049+0000 I  NETWORK  [listener] connection accepted from 127.0.0.1:39776 #122 (7 connections now open)
+mongo         | 2020-01-26T20:03:17.049+0000 I  NETWORK  [conn122] received client metadata from 127.0.0.1:39776 conn122: { application: { name: "MongoDB Shell" }, driver: { name: "MongoDB Internal Client", version: "4.2.2" }, os: { type: "Linux", name: "Ubuntu", architecture: "x86_64", version: "18.04" } }
+mongo         | 2020-01-26T20:03:17.057+0000 I  NETWORK  [conn122] end connection 127.0.0.1:39776 (6 connections now open)
+mongo         | 2020-01-26T20:03:27.505+0000 I  NETWORK  [listener] connection accepted from 127.0.0.1:39780 #123 (7 connections now open)
+mongo         | 2020-01-26T20:03:27.505+0000 I  NETWORK  [conn123] received client metadata from 127.0.0.1:39780 conn123: { application: { name: "MongoDB Shell" }, driver: { name: "MongoDB Internal Client", version: "4.2.2" }, os: { type: "Linux", name: "Ubuntu", architecture: "x86_64", version: "18.04" } }
+mongo         | 2020-01-26T20:03:27.514+0000 I  NETWORK  [conn123] end connection 127.0.0.1:39780 (6 connections now open)
+mongo         | 2020-01-26T20:03:37.984+0000 I  NETWORK  [listener] connection accepted from 127.0.0.1:39782 #124 (7 connections now open)
+mongo         | 2020-01-26T20:03:37.984+0000 I  NETWORK  [conn124] received client metadata from 127.0.0.1:39782 conn124: { application: { name: "MongoDB Shell" }, driver: { name: "MongoDB Internal Client", version: "4.2.2" }, os: { type: "Linux", name: "Ubuntu", architecture: "x86_64", version: "18.04" } }
+mongo         | 2020-01-26T20:03:37.993+0000 I  NETWORK  [conn124] end connection 127.0.0.1:39782 (6 connections now open)
+mongo         | 2020-01-26T20:03:48.436+0000 I  NETWORK  [listener] connection accepted from 127.0.0.1:39784 #125 (7 connections now open)
+mongo         | 2020-01-26T20:03:48.436+0000 I  NETWORK  [conn125] received client metadata from 127.0.0.1:39784 conn125: { application: { name: "MongoDB Shell" }, driver: { name: "MongoDB Internal Client", version: "4.2.2" }, os: { type: "Linux", name: "Ubuntu", architecture: "x86_64", version: "18.04" } }
+mongo         | 2020-01-26T20:03:48.445+0000 I  NETWORK  [conn125] end connection 127.0.0.1:39784 (6 connections now open)
+mongo         | 2020-01-26T20:03:58.880+0000 I  NETWORK  [listener] connection accepted from 127.0.0.1:39786 #126 (7 connections now open)
+mongo         | 2020-01-26T20:03:58.880+0000 I  NETWORK  [conn126] received client metadata from 127.0.0.1:39786 conn126: { application: { name: "MongoDB Shell" }, driver: { name: "MongoDB Internal Client", version: "4.2.2" }, os: { type: "Linux", name: "Ubuntu", architecture: "x86_64", version: "18.04" } }
+mongo         | 2020-01-26T20:03:58.888+0000 I  NETWORK  [conn126] end connection 127.0.0.1:39786 (6 connections now open)
+mongo         | 2020-01-26T20:04:09.334+0000 I  NETWORK  [listener] connection accepted from 127.0.0.1:39788 #127 (7 connections now open)
+mongo         | 2020-01-26T20:04:09.334+0000 I  NETWORK  [conn127] received client metadata from 127.0.0.1:39788 conn127: { application: { name: "MongoDB Shell" }, driver: { name: "MongoDB Internal Client", version: "4.2.2" }, os: { type: "Linux", name: "Ubuntu", architecture: "x86_64", version: "18.04" } }
+mongo         | 2020-01-26T20:04:09.343+0000 I  NETWORK  [conn127] end connection 127.0.0.1:39788 (6 connections now open)
+mongo         | 2020-01-26T20:04:19.799+0000 I  NETWORK  [listener] connection accepted from 127.0.0.1:39790 #128 (7 connections now open)
+mongo         | 2020-01-26T20:04:19.799+0000 I  NETWORK  [conn128] received client metadata from 127.0.0.1:39790 conn128: { application: { name: "MongoDB Shell" }, driver: { name: "MongoDB Internal Client", version: "4.2.2" }, os: { type: "Linux", name: "Ubuntu", architecture: "x86_64", version: "18.04" } }
+mongo         | 2020-01-26T20:04:19.810+0000 I  NETWORK  [conn128] end connection 127.0.0.1:39790 (6 connections now open)
+mongo         | 2020-01-26T20:04:30.269+0000 I  NETWORK  [listener] connection accepted from 127.0.0.1:39792 #129 (7 connections now open)
+mongo         | 2020-01-26T20:04:30.269+0000 I  NETWORK  [conn129] received client metadata from 127.0.0.1:39792 conn129: { application: { name: "MongoDB Shell" }, driver: { name: "MongoDB Internal Client", version: "4.2.2" }, os: { type: "Linux", name: "Ubuntu", architecture: "x86_64", version: "18.04" } }
+mongo         | 2020-01-26T20:04:30.278+0000 I  NETWORK  [conn129] end connection 127.0.0.1:39792 (6 connections now open)
+mongo         | 2020-01-26T20:04:40.728+0000 I  NETWORK  [listener] connection accepted from 127.0.0.1:39794 #130 (7 connections now open)
+mongo         | 2020-01-26T20:04:40.728+0000 I  NETWORK  [conn130] received client metadata from 127.0.0.1:39794 conn130: { application: { name: "MongoDB Shell" }, driver: { name: "MongoDB Internal Client", version: "4.2.2" }, os: { type: "Linux", name: "Ubuntu", architecture: "x86_64", version: "18.04" } }
+mongo         | 2020-01-26T20:04:40.736+0000 I  NETWORK  [conn130] end connection 127.0.0.1:39794 (6 connections now open)
+mongo         | 2020-01-26T20:04:51.212+0000 I  NETWORK  [listener] connection accepted from 127.0.0.1:39796 #131 (7 connections now open)
+mongo         | 2020-01-26T20:04:51.212+0000 I  NETWORK  [conn131] received client metadata from 127.0.0.1:39796 conn131: { application: { name: "MongoDB Shell" }, driver: { name: "MongoDB Internal Client", version: "4.2.2" }, os: { type: "Linux", name: "Ubuntu", architecture: "x86_64", version: "18.04" } }
+mongo         | 2020-01-26T20:04:51.222+0000 I  NETWORK  [conn131] end connection 127.0.0.1:39796 (6 connections now open)
+mongo         | 2020-01-26T20:05:01.695+0000 I  NETWORK  [listener] connection accepted from 127.0.0.1:39798 #132 (7 connections now open)
+mongo         | 2020-01-26T20:05:01.695+0000 I  NETWORK  [conn132] received client metadata from 127.0.0.1:39798 conn132: { application: { name: "MongoDB Shell" }, driver: { name: "MongoDB Internal Client", version: "4.2.2" }, os: { type: "Linux", name: "Ubuntu", architecture: "x86_64", version: "18.04" } }
+mongo         | 2020-01-26T20:05:01.703+0000 I  NETWORK  [conn132] end connection 127.0.0.1:39798 (6 connections now open)
+mongo         | 2020-01-26T20:05:12.155+0000 I  NETWORK  [listener] connection accepted from 127.0.0.1:39800 #133 (7 connections now open)
+mongo         | 2020-01-26T20:05:12.155+0000 I  NETWORK  [conn133] received client metadata from 127.0.0.1:39800 conn133: { application: { name: "MongoDB Shell" }, driver: { name: "MongoDB Internal Client", version: "4.2.2" }, os: { type: "Linux", name: "Ubuntu", architecture: "x86_64", version: "18.04" } }
+mongo         | 2020-01-26T20:05:12.167+0000 I  NETWORK  [conn133] end connection 127.0.0.1:39800 (6 connections now open)
+mongo         | 2020-01-26T20:05:22.652+0000 I  NETWORK  [listener] connection accepted from 127.0.0.1:39802 #134 (7 connections now open)
+mongo         | 2020-01-26T20:05:22.653+0000 I  NETWORK  [conn134] received client metadata from 127.0.0.1:39802 conn134: { application: { name: "MongoDB Shell" }, driver: { name: "MongoDB Internal Client", version: "4.2.2" }, os: { type: "Linux", name: "Ubuntu", architecture: "x86_64", version: "18.04" } }
+mongo         | 2020-01-26T20:05:22.660+0000 I  NETWORK  [conn134] end connection 127.0.0.1:39802 (6 connections now open)
+mongo         | 2020-01-26T20:05:33.117+0000 I  NETWORK  [listener] connection accepted from 127.0.0.1:39804 #135 (7 connections now open)
+mongo         | 2020-01-26T20:05:33.117+0000 I  NETWORK  [conn135] received client metadata from 127.0.0.1:39804 conn135: { application: { name: "MongoDB Shell" }, driver: { name: "MongoDB Internal Client", version: "4.2.2" }, os: { type: "Linux", name: "Ubuntu", architecture: "x86_64", version: "18.04" } }
+mongo         | 2020-01-26T20:05:33.126+0000 I  NETWORK  [conn135] end connection 127.0.0.1:39804 (6 connections now open)
+mongo         | 2020-01-26T20:05:43.596+0000 I  NETWORK  [listener] connection accepted from 127.0.0.1:39806 #136 (7 connections now open)
+mongo         | 2020-01-26T20:05:43.596+0000 I  NETWORK  [conn136] received client metadata from 127.0.0.1:39806 conn136: { application: { name: "MongoDB Shell" }, driver: { name: "MongoDB Internal Client", version: "4.2.2" }, os: { type: "Linux", name: "Ubuntu", architecture: "x86_64", version: "18.04" } }
+mongo         | 2020-01-26T20:05:43.605+0000 I  NETWORK  [conn136] end connection 127.0.0.1:39806 (6 connections now open)
+mongo         | 2020-01-26T20:05:54.068+0000 I  NETWORK  [listener] connection accepted from 127.0.0.1:39808 #137 (7 connections now open)
+mongo         | 2020-01-26T20:05:54.068+0000 I  NETWORK  [conn137] received client metadata from 127.0.0.1:39808 conn137: { application: { name: "MongoDB Shell" }, driver: { name: "MongoDB Internal Client", version: "4.2.2" }, os: { type: "Linux", name: "Ubuntu", architecture: "x86_64", version: "18.04" } }
+mongo         | 2020-01-26T20:05:54.075+0000 I  NETWORK  [conn137] end connection 127.0.0.1:39808 (6 connections now open)
+mongo         | 2020-01-26T20:06:04.545+0000 I  NETWORK  [listener] connection accepted from 127.0.0.1:39810 #138 (7 connections now open)
+mongo         | 2020-01-26T20:06:04.546+0000 I  NETWORK  [conn138] received client metadata from 127.0.0.1:39810 conn138: { application: { name: "MongoDB Shell" }, driver: { name: "MongoDB Internal Client", version: "4.2.2" }, os: { type: "Linux", name: "Ubuntu", architecture: "x86_64", version: "18.04" } }
+mongo         | 2020-01-26T20:06:04.556+0000 I  NETWORK  [conn138] end connection 127.0.0.1:39810 (6 connections now open)
+mongo         | 2020-01-26T20:06:15.034+0000 I  NETWORK  [listener] connection accepted from 127.0.0.1:39812 #139 (7 connections now open)
+mongo         | 2020-01-26T20:06:15.035+0000 I  NETWORK  [conn139] received client metadata from 127.0.0.1:39812 conn139: { application: { name: "MongoDB Shell" }, driver: { name: "MongoDB Internal Client", version: "4.2.2" }, os: { type: "Linux", name: "Ubuntu", architecture: "x86_64", version: "18.04" } }
+mongo         | 2020-01-26T20:06:15.045+0000 I  NETWORK  [conn139] end connection 127.0.0.1:39812 (6 connections now open)
+mongo         | 2020-01-26T20:06:25.497+0000 I  NETWORK  [listener] connection accepted from 127.0.0.1:39816 #140 (7 connections now open)
+mongo         | 2020-01-26T20:06:25.497+0000 I  NETWORK  [conn140] received client metadata from 127.0.0.1:39816 conn140: { application: { name: "MongoDB Shell" }, driver: { name: "MongoDB Internal Client", version: "4.2.2" }, os: { type: "Linux", name: "Ubuntu", architecture: "x86_64", version: "18.04" } }
+mongo         | 2020-01-26T20:06:25.509+0000 I  NETWORK  [conn140] end connection 127.0.0.1:39816 (6 connections now open)
+mongo         | 2020-01-26T20:06:36.026+0000 I  NETWORK  [listener] connection accepted from 127.0.0.1:39818 #141 (7 connections now open)
+mongo         | 2020-01-26T20:06:36.026+0000 I  NETWORK  [conn141] received client metadata from 127.0.0.1:39818 conn141: { application: { name: "MongoDB Shell" }, driver: { name: "MongoDB Internal Client", version: "4.2.2" }, os: { type: "Linux", name: "Ubuntu", architecture: "x86_64", version: "18.04" } }
+mongo         | 2020-01-26T20:06:36.035+0000 I  NETWORK  [conn141] end connection 127.0.0.1:39818 (6 connections now open)
+mongo         | 2020-01-26T20:06:46.492+0000 I  NETWORK  [listener] connection accepted from 127.0.0.1:39820 #142 (7 connections now open)
+mongo         | 2020-01-26T20:06:46.492+0000 I  NETWORK  [conn142] received client metadata from 127.0.0.1:39820 conn142: { application: { name: "MongoDB Shell" }, driver: { name: "MongoDB Internal Client", version: "4.2.2" }, os: { type: "Linux", name: "Ubuntu", architecture: "x86_64", version: "18.04" } }
+mongo         | 2020-01-26T20:06:46.504+0000 I  NETWORK  [conn142] end connection 127.0.0.1:39820 (6 connections now open)
+mongo         | 2020-01-26T20:06:56.960+0000 I  NETWORK  [listener] connection accepted from 127.0.0.1:39822 #143 (7 connections now open)
+mongo         | 2020-01-26T20:06:56.961+0000 I  NETWORK  [conn143] received client metadata from 127.0.0.1:39822 conn143: { application: { name: "MongoDB Shell" }, driver: { name: "MongoDB Internal Client", version: "4.2.2" }, os: { type: "Linux", name: "Ubuntu", architecture: "x86_64", version: "18.04" } }
+mongo         | 2020-01-26T20:06:56.970+0000 I  NETWORK  [conn143] end connection 127.0.0.1:39822 (6 connections now open)
+mongo         | 2020-01-26T20:07:07.435+0000 I  NETWORK  [listener] connection accepted from 127.0.0.1:39824 #144 (7 connections now open)
+mongo         | 2020-01-26T20:07:07.436+0000 I  NETWORK  [conn144] received client metadata from 127.0.0.1:39824 conn144: { application: { name: "MongoDB Shell" }, driver: { name: "MongoDB Internal Client", version: "4.2.2" }, os: { type: "Linux", name: "Ubuntu", architecture: "x86_64", version: "18.04" } }
+mongo         | 2020-01-26T20:07:07.443+0000 I  NETWORK  [conn144] end connection 127.0.0.1:39824 (6 connections now open)
+mongo         | 2020-01-26T20:07:17.910+0000 I  NETWORK  [listener] connection accepted from 127.0.0.1:39826 #145 (7 connections now open)
+mongo         | 2020-01-26T20:07:17.910+0000 I  NETWORK  [conn145] received client metadata from 127.0.0.1:39826 conn145: { application: { name: "MongoDB Shell" }, driver: { name: "MongoDB Internal Client", version: "4.2.2" }, os: { type: "Linux", name: "Ubuntu", architecture: "x86_64", version: "18.04" } }
+mongo         | 2020-01-26T20:07:17.918+0000 I  NETWORK  [conn145] end connection 127.0.0.1:39826 (6 connections now open)
+mongo         | 2020-01-26T20:07:20.227+0000 I  NETWORK  [listener] connection accepted from 172.18.0.4:42630 #146 (7 connections now open)
+mongo         | 2020-01-26T20:07:20.232+0000 I  NETWORK  [conn146] received client metadata from 172.18.0.4:42630 conn146: { driver: { name: "nodejs", version: "2.2.34" }, os: { type: "Linux", name: "linux", architecture: "x64", version: "5.0.0-37-generic" }, platform: "Node.js v6.13.1, LE, mongodb-core: 2.1.18" }
+mongo         | 2020-01-26T20:07:28.384+0000 I  NETWORK  [listener] connection accepted from 127.0.0.1:39838 #147 (8 connections now open)
+mongo         | 2020-01-26T20:07:28.384+0000 I  NETWORK  [conn147] received client metadata from 127.0.0.1:39838 conn147: { application: { name: "MongoDB Shell" }, driver: { name: "MongoDB Internal Client", version: "4.2.2" }, os: { type: "Linux", name: "Ubuntu", architecture: "x86_64", version: "18.04" } }
+mongo         | 2020-01-26T20:07:28.395+0000 I  NETWORK  [conn147] end connection 127.0.0.1:39838 (7 connections now open)
+mongo         | 2020-01-26T20:07:38.853+0000 I  NETWORK  [listener] connection accepted from 127.0.0.1:39840 #148 (8 connections now open)
+mongo         | 2020-01-26T20:07:38.854+0000 I  NETWORK  [conn148] received client metadata from 127.0.0.1:39840 conn148: { application: { name: "MongoDB Shell" }, driver: { name: "MongoDB Internal Client", version: "4.2.2" }, os: { type: "Linux", name: "Ubuntu", architecture: "x86_64", version: "18.04" } }
+mongo         | 2020-01-26T20:07:38.864+0000 I  NETWORK  [conn148] end connection 127.0.0.1:39840 (7 connections now open)
+mongo         | 2020-01-26T20:07:49.344+0000 I  NETWORK  [listener] connection accepted from 127.0.0.1:39842 #149 (8 connections now open)
+mongo         | 2020-01-26T20:07:49.344+0000 I  NETWORK  [conn149] received client metadata from 127.0.0.1:39842 conn149: { application: { name: "MongoDB Shell" }, driver: { name: "MongoDB Internal Client", version: "4.2.2" }, os: { type: "Linux", name: "Ubuntu", architecture: "x86_64", version: "18.04" } }
+mongo         | 2020-01-26T20:07:49.356+0000 I  NETWORK  [conn149] end connection 127.0.0.1:39842 (7 connections now open)
+mongo         | 2020-01-26T20:07:59.854+0000 I  NETWORK  [listener] connection accepted from 127.0.0.1:39844 #150 (8 connections now open)
+mongo         | 2020-01-26T20:07:59.854+0000 I  NETWORK  [conn150] received client metadata from 127.0.0.1:39844 conn150: { application: { name: "MongoDB Shell" }, driver: { name: "MongoDB Internal Client", version: "4.2.2" }, os: { type: "Linux", name: "Ubuntu", architecture: "x86_64", version: "18.04" } }
+mongo         | 2020-01-26T20:07:59.869+0000 I  NETWORK  [conn150] end connection 127.0.0.1:39844 (7 connections now open)
+mongo         | 2020-01-26T20:08:10.304+0000 I  NETWORK  [listener] connection accepted from 127.0.0.1:39846 #151 (8 connections now open)
+mongo         | 2020-01-26T20:08:10.304+0000 I  NETWORK  [conn151] received client metadata from 127.0.0.1:39846 conn151: { application: { name: "MongoDB Shell" }, driver: { name: "MongoDB Internal Client", version: "4.2.2" }, os: { type: "Linux", name: "Ubuntu", architecture: "x86_64", version: "18.04" } }
+mongo         | 2020-01-26T20:08:10.315+0000 I  NETWORK  [conn151] end connection 127.0.0.1:39846 (7 connections now open)
+mongo         | 2020-01-26T20:08:20.759+0000 I  NETWORK  [listener] connection accepted from 127.0.0.1:39848 #152 (8 connections now open)
+mongo         | 2020-01-26T20:08:20.760+0000 I  NETWORK  [conn152] received client metadata from 127.0.0.1:39848 conn152: { application: { name: "MongoDB Shell" }, driver: { name: "MongoDB Internal Client", version: "4.2.2" }, os: { type: "Linux", name: "Ubuntu", architecture: "x86_64", version: "18.04" } }
+mongo         | 2020-01-26T20:08:20.770+0000 I  NETWORK  [conn152] end connection 127.0.0.1:39848 (7 connections now open)
+mongo         | 2020-01-26T20:08:31.247+0000 I  NETWORK  [listener] connection accepted from 127.0.0.1:39852 #153 (8 connections now open)
+mongo         | 2020-01-26T20:08:31.247+0000 I  NETWORK  [conn153] received client metadata from 127.0.0.1:39852 conn153: { application: { name: "MongoDB Shell" }, driver: { name: "MongoDB Internal Client", version: "4.2.2" }, os: { type: "Linux", name: "Ubuntu", architecture: "x86_64", version: "18.04" } }
+mongo         | 2020-01-26T20:08:31.257+0000 I  NETWORK  [conn153] end connection 127.0.0.1:39852 (7 connections now open)
+mongo         | 2020-01-26T20:08:41.737+0000 I  NETWORK  [listener] connection accepted from 127.0.0.1:39854 #154 (8 connections now open)
+mongo         | 2020-01-26T20:08:41.738+0000 I  NETWORK  [conn154] received client metadata from 127.0.0.1:39854 conn154: { application: { name: "MongoDB Shell" }, driver: { name: "MongoDB Internal Client", version: "4.2.2" }, os: { type: "Linux", name: "Ubuntu", architecture: "x86_64", version: "18.04" } }
+mongo         | 2020-01-26T20:08:41.745+0000 I  NETWORK  [conn154] end connection 127.0.0.1:39854 (7 connections now open)
+mongo         | 2020-01-26T20:08:52.212+0000 I  NETWORK  [listener] connection accepted from 127.0.0.1:39856 #155 (8 connections now open)
+mongo         | 2020-01-26T20:08:52.212+0000 I  NETWORK  [conn155] received client metadata from 127.0.0.1:39856 conn155: { application: { name: "MongoDB Shell" }, driver: { name: "MongoDB Internal Client", version: "4.2.2" }, os: { type: "Linux", name: "Ubuntu", architecture: "x86_64", version: "18.04" } }
+mongo         | 2020-01-26T20:08:52.220+0000 I  NETWORK  [conn155] end connection 127.0.0.1:39856 (7 connections now open)
+mongo         | 2020-01-26T20:09:02.696+0000 I  NETWORK  [listener] connection accepted from 127.0.0.1:39858 #156 (8 connections now open)
+mongo         | 2020-01-26T20:09:02.696+0000 I  NETWORK  [conn156] received client metadata from 127.0.0.1:39858 conn156: { application: { name: "MongoDB Shell" }, driver: { name: "MongoDB Internal Client", version: "4.2.2" }, os: { type: "Linux", name: "Ubuntu", architecture: "x86_64", version: "18.04" } }
+mongo         | 2020-01-26T20:09:02.708+0000 I  NETWORK  [conn156] end connection 127.0.0.1:39858 (7 connections now open)
+mongo         | 2020-01-26T20:09:13.182+0000 I  NETWORK  [listener] connection accepted from 127.0.0.1:39860 #157 (8 connections now open)
+mongo         | 2020-01-26T20:09:13.183+0000 I  NETWORK  [conn157] received client metadata from 127.0.0.1:39860 conn157: { application: { name: "MongoDB Shell" }, driver: { name: "MongoDB Internal Client", version: "4.2.2" }, os: { type: "Linux", name: "Ubuntu", architecture: "x86_64", version: "18.04" } }
+mongo         | 2020-01-26T20:09:13.193+0000 I  NETWORK  [conn157] end connection 127.0.0.1:39860 (7 connections now open)
+mongo         | 2020-01-26T20:09:23.663+0000 I  NETWORK  [listener] connection accepted from 127.0.0.1:39862 #158 (8 connections now open)
+mongo         | 2020-01-26T20:09:23.663+0000 I  NETWORK  [conn158] received client metadata from 127.0.0.1:39862 conn158: { application: { name: "MongoDB Shell" }, driver: { name: "MongoDB Internal Client", version: "4.2.2" }, os: { type: "Linux", name: "Ubuntu", architecture: "x86_64", version: "18.04" } }
+mongo         | 2020-01-26T20:09:23.671+0000 I  NETWORK  [conn158] end connection 127.0.0.1:39862 (7 connections now open)
+mongo         | 2020-01-26T20:09:34.103+0000 I  NETWORK  [listener] connection accepted from 127.0.0.1:39864 #159 (8 connections now open)
+mongo         | 2020-01-26T20:09:34.103+0000 I  NETWORK  [conn159] received client metadata from 127.0.0.1:39864 conn159: { application: { name: "MongoDB Shell" }, driver: { name: "MongoDB Internal Client", version: "4.2.2" }, os: { type: "Linux", name: "Ubuntu", architecture: "x86_64", version: "18.04" } }
+mongo         | 2020-01-26T20:09:34.112+0000 I  NETWORK  [conn159] end connection 127.0.0.1:39864 (7 connections now open)
+mongo         | 2020-01-26T20:09:44.589+0000 I  NETWORK  [listener] connection accepted from 127.0.0.1:39866 #160 (8 connections now open)
+mongo         | 2020-01-26T20:09:44.590+0000 I  NETWORK  [conn160] received client metadata from 127.0.0.1:39866 conn160: { application: { name: "MongoDB Shell" }, driver: { name: "MongoDB Internal Client", version: "4.2.2" }, os: { type: "Linux", name: "Ubuntu", architecture: "x86_64", version: "18.04" } }
+mongo         | 2020-01-26T20:09:44.601+0000 I  NETWORK  [conn160] end connection 127.0.0.1:39866 (7 connections now open)
+mongo         | 2020-01-26T20:09:55.079+0000 I  NETWORK  [listener] connection accepted from 127.0.0.1:39868 #161 (8 connections now open)
+mongo         | 2020-01-26T20:09:55.080+0000 I  NETWORK  [conn161] received client metadata from 127.0.0.1:39868 conn161: { application: { name: "MongoDB Shell" }, driver: { name: "MongoDB Internal Client", version: "4.2.2" }, os: { type: "Linux", name: "Ubuntu", architecture: "x86_64", version: "18.04" } }
+mongo         | 2020-01-26T20:09:55.092+0000 I  NETWORK  [conn161] end connection 127.0.0.1:39868 (7 connections now open)
+mongo         | 2020-01-26T20:10:05.564+0000 I  NETWORK  [listener] connection accepted from 127.0.0.1:39870 #162 (8 connections now open)
+mongo         | 2020-01-26T20:10:05.564+0000 I  NETWORK  [conn162] received client metadata from 127.0.0.1:39870 conn162: { application: { name: "MongoDB Shell" }, driver: { name: "MongoDB Internal Client", version: "4.2.2" }, os: { type: "Linux", name: "Ubuntu", architecture: "x86_64", version: "18.04" } }
+mongo         | 2020-01-26T20:10:05.574+0000 I  NETWORK  [conn162] end connection 127.0.0.1:39870 (7 connections now open)
+mongo         | 2020-01-26T20:10:16.017+0000 I  NETWORK  [listener] connection accepted from 127.0.0.1:39872 #163 (8 connections now open)
+mongo         | 2020-01-26T20:10:16.017+0000 I  NETWORK  [conn163] received client metadata from 127.0.0.1:39872 conn163: { application: { name: "MongoDB Shell" }, driver: { name: "MongoDB Internal Client", version: "4.2.2" }, os: { type: "Linux", name: "Ubuntu", architecture: "x86_64", version: "18.04" } }
+mongo         | 2020-01-26T20:10:16.026+0000 I  NETWORK  [conn163] end connection 127.0.0.1:39872 (7 connections now open)
+mongo         | 2020-01-26T20:10:26.505+0000 I  NETWORK  [listener] connection accepted from 127.0.0.1:39874 #164 (8 connections now open)
+mongo         | 2020-01-26T20:10:26.505+0000 I  NETWORK  [conn164] received client metadata from 127.0.0.1:39874 conn164: { application: { name: "MongoDB Shell" }, driver: { name: "MongoDB Internal Client", version: "4.2.2" }, os: { type: "Linux", name: "Ubuntu", architecture: "x86_64", version: "18.04" } }
+mongo         | 2020-01-26T20:10:26.515+0000 I  NETWORK  [conn164] end connection 127.0.0.1:39874 (7 connections now open)
+mongo         | 2020-01-26T20:10:36.976+0000 I  NETWORK  [listener] connection accepted from 127.0.0.1:39876 #165 (8 connections now open)
+mongo         | 2020-01-26T20:10:36.976+0000 I  NETWORK  [conn165] received client metadata from 127.0.0.1:39876 conn165: { application: { name: "MongoDB Shell" }, driver: { name: "MongoDB Internal Client", version: "4.2.2" }, os: { type: "Linux", name: "Ubuntu", architecture: "x86_64", version: "18.04" } }
+mongo         | 2020-01-26T20:10:36.984+0000 I  NETWORK  [conn165] end connection 127.0.0.1:39876 (7 connections now open)
+mongo         | 2020-01-26T20:10:47.461+0000 I  NETWORK  [listener] connection accepted from 127.0.0.1:39878 #166 (8 connections now open)
+mongo         | 2020-01-26T20:10:47.461+0000 I  NETWORK  [conn166] received client metadata from 127.0.0.1:39878 conn166: { application: { name: "MongoDB Shell" }, driver: { name: "MongoDB Internal Client", version: "4.2.2" }, os: { type: "Linux", name: "Ubuntu", architecture: "x86_64", version: "18.04" } }
+mongo         | 2020-01-26T20:10:47.473+0000 I  NETWORK  [conn166] end connection 127.0.0.1:39878 (7 connections now open)
+mongo         | 2020-01-26T20:10:48.014+0000 I  STORAGE  [conn16] createCollection: sharelatex.users with generated UUID: 2a2d683d-22a6-44dc-a8a2-e828869f2a7b and options: {}
+mongo         | 2020-01-26T20:10:48.198+0000 I  INDEX    [conn16] index build: done building index _id_ on ns sharelatex.users
+mongo         | 2020-01-26T20:10:48.198+0000 I  COMMAND  [conn16] command sharelatex.users command: insert { insert: "users", ordered: false, writeConcern: { w: 1 }, $db: "sharelatex" } ninserted:1 keysInserted:1 numYields:0 reslen:60 locks:{ ParallelBatchWriterMode: { acquireCount: { r: 3 } }, ReplicationStateTransition: { acquireCount: { w: 3 } }, Global: { acquireCount: { w: 3 } }, Database: { acquireCount: { w: 3 } }, Collection: { acquireCount: { r: 2, w: 2, W: 1 } }, Mutex: { acquireCount: { r: 5 } } } flowControl:{ acquireCount: 3 } storage:{} protocol:op_query 184ms
+mongo         | 2020-01-26T20:10:57.957+0000 I  NETWORK  [listener] connection accepted from 127.0.0.1:39888 #167 (8 connections now open)
+mongo         | 2020-01-26T20:10:57.957+0000 I  NETWORK  [conn167] received client metadata from 127.0.0.1:39888 conn167: { application: { name: "MongoDB Shell" }, driver: { name: "MongoDB Internal Client", version: "4.2.2" }, os: { type: "Linux", name: "Ubuntu", architecture: "x86_64", version: "18.04" } }
+mongo         | 2020-01-26T20:10:57.966+0000 I  NETWORK  [conn167] end connection 127.0.0.1:39888 (7 connections now open)
+mongo         | 2020-01-26T20:11:08.455+0000 I  NETWORK  [listener] connection accepted from 127.0.0.1:39894 #168 (8 connections now open)
+mongo         | 2020-01-26T20:11:08.455+0000 I  NETWORK  [conn168] received client metadata from 127.0.0.1:39894 conn168: { application: { name: "MongoDB Shell" }, driver: { name: "MongoDB Internal Client", version: "4.2.2" }, os: { type: "Linux", name: "Ubuntu", architecture: "x86_64", version: "18.04" } }
+mongo         | 2020-01-26T20:11:08.465+0000 I  NETWORK  [conn168] end connection 127.0.0.1:39894 (7 connections now open)
+mongo         | 2020-01-26T20:11:18.899+0000 I  NETWORK  [listener] connection accepted from 127.0.0.1:39902 #169 (8 connections now open)
+mongo         | 2020-01-26T20:11:18.899+0000 I  NETWORK  [conn169] received client metadata from 127.0.0.1:39902 conn169: { application: { name: "MongoDB Shell" }, driver: { name: "MongoDB Internal Client", version: "4.2.2" }, os: { type: "Linux", name: "Ubuntu", architecture: "x86_64", version: "18.04" } }
+mongo         | 2020-01-26T20:11:18.910+0000 I  NETWORK  [conn169] end connection 127.0.0.1:39902 (7 connections now open)
+mongo         | 2020-01-26T20:11:29.358+0000 I  NETWORK  [listener] connection accepted from 127.0.0.1:39908 #170 (8 connections now open)
+mongo         | 2020-01-26T20:11:29.358+0000 I  NETWORK  [conn170] received client metadata from 127.0.0.1:39908 conn170: { application: { name: "MongoDB Shell" }, driver: { name: "MongoDB Internal Client", version: "4.2.2" }, os: { type: "Linux", name: "Ubuntu", architecture: "x86_64", version: "18.04" } }
+mongo         | 2020-01-26T20:11:29.368+0000 I  NETWORK  [conn170] end connection 127.0.0.1:39908 (7 connections now open)
+mongo         | 2020-01-26T20:11:39.812+0000 I  NETWORK  [listener] connection accepted from 127.0.0.1:39914 #171 (8 connections now open)
+mongo         | 2020-01-26T20:11:39.813+0000 I  NETWORK  [conn171] received client metadata from 127.0.0.1:39914 conn171: { application: { name: "MongoDB Shell" }, driver: { name: "MongoDB Internal Client", version: "4.2.2" }, os: { type: "Linux", name: "Ubuntu", architecture: "x86_64", version: "18.04" } }
+mongo         | 2020-01-26T20:11:39.823+0000 I  NETWORK  [conn171] end connection 127.0.0.1:39914 (7 connections now open)
+mongo         | 2020-01-26T20:11:50.284+0000 I  NETWORK  [listener] connection accepted from 127.0.0.1:39920 #172 (8 connections now open)
+mongo         | 2020-01-26T20:11:50.285+0000 I  NETWORK  [conn172] received client metadata from 127.0.0.1:39920 conn172: { application: { name: "MongoDB Shell" }, driver: { name: "MongoDB Internal Client", version: "4.2.2" }, os: { type: "Linux", name: "Ubuntu", architecture: "x86_64", version: "18.04" } }
+mongo         | 2020-01-26T20:11:50.295+0000 I  NETWORK  [conn172] end connection 127.0.0.1:39920 (7 connections now open)
+mongo         | 2020-01-26T20:12:00.752+0000 I  NETWORK  [listener] connection accepted from 127.0.0.1:39926 #173 (8 connections now open)
+mongo         | 2020-01-26T20:12:00.753+0000 I  NETWORK  [conn173] received client metadata from 127.0.0.1:39926 conn173: { application: { name: "MongoDB Shell" }, driver: { name: "MongoDB Internal Client", version: "4.2.2" }, os: { type: "Linux", name: "Ubuntu", architecture: "x86_64", version: "18.04" } }
+mongo         | 2020-01-26T20:12:00.763+0000 I  NETWORK  [conn173] end connection 127.0.0.1:39926 (7 connections now open)
+mongo         | 2020-01-26T20:12:11.241+0000 I  NETWORK  [listener] connection accepted from 127.0.0.1:39932 #174 (8 connections now open)
+mongo         | 2020-01-26T20:12:11.241+0000 I  NETWORK  [conn174] received client metadata from 127.0.0.1:39932 conn174: { application: { name: "MongoDB Shell" }, driver: { name: "MongoDB Internal Client", version: "4.2.2" }, os: { type: "Linux", name: "Ubuntu", architecture: "x86_64", version: "18.04" } }
+mongo         | 2020-01-26T20:12:11.252+0000 I  NETWORK  [conn174] end connection 127.0.0.1:39932 (7 connections now open)
+mongo         | 2020-01-26T20:12:21.681+0000 I  NETWORK  [listener] connection accepted from 127.0.0.1:39942 #175 (8 connections now open)
+mongo         | 2020-01-26T20:12:21.681+0000 I  NETWORK  [conn175] received client metadata from 127.0.0.1:39942 conn175: { application: { name: "MongoDB Shell" }, driver: { name: "MongoDB Internal Client", version: "4.2.2" }, os: { type: "Linux", name: "Ubuntu", architecture: "x86_64", version: "18.04" } }
+mongo         | 2020-01-26T20:12:21.693+0000 I  NETWORK  [conn175] end connection 127.0.0.1:39942 (7 connections now open)
+mongo         | 2020-01-26T20:12:32.159+0000 I  NETWORK  [listener] connection accepted from 127.0.0.1:39946 #176 (8 connections now open)
+mongo         | 2020-01-26T20:12:32.159+0000 I  NETWORK  [conn176] received client metadata from 127.0.0.1:39946 conn176: { application: { name: "MongoDB Shell" }, driver: { name: "MongoDB Internal Client", version: "4.2.2" }, os: { type: "Linux", name: "Ubuntu", architecture: "x86_64", version: "18.04" } }
+mongo         | 2020-01-26T20:12:32.170+0000 I  NETWORK  [conn176] end connection 127.0.0.1:39946 (7 connections now open)
+mongo         | 2020-01-26T20:12:42.621+0000 I  NETWORK  [listener] connection accepted from 127.0.0.1:39948 #177 (8 connections now open)
+mongo         | 2020-01-26T20:12:42.622+0000 I  NETWORK  [conn177] received client metadata from 127.0.0.1:39948 conn177: { application: { name: "MongoDB Shell" }, driver: { name: "MongoDB Internal Client", version: "4.2.2" }, os: { type: "Linux", name: "Ubuntu", architecture: "x86_64", version: "18.04" } }
+mongo         | 2020-01-26T20:12:42.631+0000 I  NETWORK  [conn177] end connection 127.0.0.1:39948 (7 connections now open)
+mongo         | 2020-01-26T20:12:47.281+0000 I  SHARDING [conn17] Marking collection sharelatex.subscriptions as collection version: <unsharded>
+mongo         | 2020-01-26T20:12:53.078+0000 I  NETWORK  [listener] connection accepted from 127.0.0.1:39974 #178 (8 connections now open)
+mongo         | 2020-01-26T20:12:53.079+0000 I  NETWORK  [conn178] received client metadata from 127.0.0.1:39974 conn178: { application: { name: "MongoDB Shell" }, driver: { name: "MongoDB Internal Client", version: "4.2.2" }, os: { type: "Linux", name: "Ubuntu", architecture: "x86_64", version: "18.04" } }
+mongo         | 2020-01-26T20:12:53.089+0000 I  NETWORK  [conn178] end connection 127.0.0.1:39974 (7 connections now open)
+mongo         | 2020-01-26T20:13:03.568+0000 I  NETWORK  [listener] connection accepted from 127.0.0.1:39984 #179 (8 connections now open)
+mongo         | 2020-01-26T20:13:03.568+0000 I  NETWORK  [conn179] received client metadata from 127.0.0.1:39984 conn179: { application: { name: "MongoDB Shell" }, driver: { name: "MongoDB Internal Client", version: "4.2.2" }, os: { type: "Linux", name: "Ubuntu", architecture: "x86_64", version: "18.04" } }
+mongo         | 2020-01-26T20:13:03.576+0000 I  NETWORK  [conn179] end connection 127.0.0.1:39984 (7 connections now open)
+mongo         | 2020-01-26T20:13:14.021+0000 I  NETWORK  [listener] connection accepted from 127.0.0.1:39992 #180 (8 connections now open)
+mongo         | 2020-01-26T20:13:14.021+0000 I  NETWORK  [conn180] received client metadata from 127.0.0.1:39992 conn180: { application: { name: "MongoDB Shell" }, driver: { name: "MongoDB Internal Client", version: "4.2.2" }, os: { type: "Linux", name: "Ubuntu", architecture: "x86_64", version: "18.04" } }
+mongo         | 2020-01-26T20:13:14.031+0000 I  NETWORK  [conn180] end connection 127.0.0.1:39992 (7 connections now open)
+mongo         | 2020-01-26T20:13:24.480+0000 I  NETWORK  [listener] connection accepted from 127.0.0.1:40000 #181 (8 connections now open)
+mongo         | 2020-01-26T20:13:24.480+0000 I  NETWORK  [conn181] received client metadata from 127.0.0.1:40000 conn181: { application: { name: "MongoDB Shell" }, driver: { name: "MongoDB Internal Client", version: "4.2.2" }, os: { type: "Linux", name: "Ubuntu", architecture: "x86_64", version: "18.04" } }
+mongo         | 2020-01-26T20:13:24.488+0000 I  NETWORK  [conn181] end connection 127.0.0.1:40000 (7 connections now open)
+mongo         | 2020-01-26T20:13:35.019+0000 I  NETWORK  [listener] connection accepted from 127.0.0.1:40006 #182 (8 connections now open)
+mongo         | 2020-01-26T20:13:35.020+0000 I  NETWORK  [conn182] received client metadata from 127.0.0.1:40006 conn182: { application: { name: "MongoDB Shell" }, driver: { name: "MongoDB Internal Client", version: "4.2.2" }, os: { type: "Linux", name: "Ubuntu", architecture: "x86_64", version: "18.04" } }
+mongo         | 2020-01-26T20:13:35.029+0000 I  NETWORK  [conn182] end connection 127.0.0.1:40006 (7 connections now open)
+mongo         | 2020-01-26T20:13:45.466+0000 I  NETWORK  [listener] connection accepted from 127.0.0.1:40012 #183 (8 connections now open)
+mongo         | 2020-01-26T20:13:45.466+0000 I  NETWORK  [conn183] received client metadata from 127.0.0.1:40012 conn183: { application: { name: "MongoDB Shell" }, driver: { name: "MongoDB Internal Client", version: "4.2.2" }, os: { type: "Linux", name: "Ubuntu", architecture: "x86_64", version: "18.04" } }
+mongo         | 2020-01-26T20:13:45.477+0000 I  NETWORK  [conn183] end connection 127.0.0.1:40012 (7 connections now open)
+mongo         | 2020-01-26T20:13:52.096+0000 I  NETWORK  [listener] connection accepted from 172.18.0.4:42822 #184 (8 connections now open)
+mongo         | 2020-01-26T20:13:52.133+0000 I  NETWORK  [listener] connection accepted from 172.18.0.4:42824 #185 (9 connections now open)
+mongo         | 2020-01-26T20:13:52.140+0000 I  NETWORK  [listener] connection accepted from 172.18.0.4:42826 #186 (10 connections now open)
+mongo         | 2020-01-26T20:13:52.144+0000 I  NETWORK  [conn185] received client metadata from 172.18.0.4:42824 conn185: { driver: { name: "nodejs", version: "2.2.25" }, os: { type: "Linux", name: "linux", architecture: "x64", version: "5.0.0-37-generic" }, platform: "Node.js v6.13.1, LE, mongodb-core: 2.1.9" }
+mongo         | 2020-01-26T20:13:52.150+0000 I  NETWORK  [conn186] received client metadata from 172.18.0.4:42826 conn186: { driver: { name: "nodejs", version: "2.2.25" }, os: { type: "Linux", name: "linux", architecture: "x64", version: "5.0.0-37-generic" }, platform: "Node.js v6.13.1, LE, mongodb-core: 2.1.9" }
+mongo         | 2020-01-26T20:13:52.162+0000 I  SHARDING [conn185] Marking collection sharelatex.tags as collection version: <unsharded>
+mongo         | 2020-01-26T20:13:52.169+0000 I  SHARDING [conn186] Marking collection sharelatex.notifications as collection version: <unsharded>
+mongo         | 2020-01-26T20:13:55.939+0000 I  NETWORK  [listener] connection accepted from 127.0.0.1:40038 #187 (11 connections now open)
+mongo         | 2020-01-26T20:13:55.940+0000 I  NETWORK  [conn187] received client metadata from 127.0.0.1:40038 conn187: { application: { name: "MongoDB Shell" }, driver: { name: "MongoDB Internal Client", version: "4.2.2" }, os: { type: "Linux", name: "Ubuntu", architecture: "x86_64", version: "18.04" } }
+mongo         | 2020-01-26T20:13:55.950+0000 I  NETWORK  [conn187] end connection 127.0.0.1:40038 (10 connections now open)
+mongo         | 2020-01-26T20:14:06.425+0000 I  NETWORK  [listener] connection accepted from 127.0.0.1:40048 #188 (11 connections now open)
+mongo         | 2020-01-26T20:14:06.425+0000 I  NETWORK  [conn188] received client metadata from 127.0.0.1:40048 conn188: { application: { name: "MongoDB Shell" }, driver: { name: "MongoDB Internal Client", version: "4.2.2" }, os: { type: "Linux", name: "Ubuntu", architecture: "x86_64", version: "18.04" } }
+mongo         | 2020-01-26T20:14:06.436+0000 I  NETWORK  [conn188] end connection 127.0.0.1:40048 (10 connections now open)
+mongo         | 2020-01-26T20:14:12.068+0000 I  STORAGE  [conn184] createCollection: sharelatex.projects with generated UUID: 795979c5-cd1c-4f87-a2a3-134db66e5252 and options: {}
+mongo         | 2020-01-26T20:14:12.276+0000 I  INDEX    [conn184] index build: done building index _id_ on ns sharelatex.projects
+mongo         | 2020-01-26T20:14:12.277+0000 I  COMMAND  [conn184] command sharelatex.projects command: insert { insert: "projects", ordered: false, writeConcern: { w: 1 }, $db: "sharelatex" } ninserted:1 keysInserted:1 numYields:0 reslen:60 locks:{ ParallelBatchWriterMode: { acquireCount: { r: 3 } }, ReplicationStateTransition: { acquireCount: { w: 3 } }, Global: { acquireCount: { w: 3 } }, Database: { acquireCount: { w: 3 } }, Collection: { acquireCount: { r: 2, w: 2, W: 1 } }, Mutex: { acquireCount: { r: 5 } } } flowControl:{ acquireCount: 3 } storage:{} protocol:op_query 208ms
+mongo         | 2020-01-26T20:14:12.358+0000 I  NETWORK  [listener] connection accepted from 172.18.0.4:42858 #189 (11 connections now open)
+mongo         | 2020-01-26T20:14:12.366+0000 I  NETWORK  [conn189] received client metadata from 172.18.0.4:42858 conn189: { driver: { name: "nodejs", version: "2.2.35" }, os: { type: "Linux", name: "linux", architecture: "x64", version: "5.0.0-37-generic" }, platform: "Node.js v6.13.1, LE, mongodb-core: 2.1.19" }
+mongo         | 2020-01-26T20:14:12.387+0000 I  STORAGE  [conn189] createCollection: sharelatex.docs with generated UUID: 420f9872-f178-4dd7-abaa-d3d4d954b825 and options: {}
+mongo         | 2020-01-26T20:14:12.610+0000 I  INDEX    [conn189] index build: done building index _id_ on ns sharelatex.docs
+mongo         | 2020-01-26T20:14:12.612+0000 I  WRITE    [conn189] update sharelatex.docs command: { q: { _id: ObjectId('5e2df314379cce00872dd1cb') }, u: { $set: { lines: [ "\documentclass{article}", "\usepackage[utf8]{inputenc}", "", "\title{test}", "\author{kalle }", "\date{January 2020}", "", "\usepackage{natbib}", "\usepackage{graphicx}", "", "\begin{document}", "", "\maketitle", "", "\section{Introduction}", "There is a theory which states that if ever anyone discovers exactly what the Universe is for and why it is here, it will instantly disappear and be r...", "There is another theory which states that this has already happened.", "", "\begin{figure}[h!]", "\centering", "\includegraphics[scale=1.7]{universe}", "\caption{The Universe}", "\label{fig:universe}", "\end{figure}", "", "\section{Conclusion}", "``I always thought something was fundamentally wrong with the universe'' \citep{adams1995hitchhiker}", "", "\bibliographystyle{plain}", "\bibliography{references}", "\end{document}", "" ], ranges: {}, project_id: ObjectId('5e2df314379cce00872dd1ca') }, $inc: { rev: 1 }, $unset: { inS3: true } }, multi: false, upsert: true } planSummary: IDHACK keysExamined:0 docsExamined:0 nMatched:0 nModified:0 upsert:1 keysInserted:1 numYields:0 locks:{ ParallelBatchWriterMode: { acquireCount: { r: 3 } }, ReplicationStateTransition: { acquireCount: { w: 3 } }, Global: { acquireCount: { w: 3 } }, Database: { acquireCount: { w: 3 } }, Collection: { acquireCount: { r: 2, w: 2, W: 1 } }, Mutex: { acquireCount: { r: 5 } } } flowControl:{ acquireCount: 3 } storage:{} 224ms
+mongo         | 2020-01-26T20:14:12.612+0000 I  COMMAND  [conn189] command sharelatex.$cmd command: update { update: "docs", ordered: true, writeConcern: { w: 1 }, $db: "sharelatex" } numYields:0 reslen:126 locks:{ ParallelBatchWriterMode: { acquireCount: { r: 4 } }, ReplicationStateTransition: { acquireCount: { w: 4 } }, Global: { acquireCount: { r: 1, w: 3 } }, Database: { acquireCount: { w: 3 } }, Collection: { acquireCount: { r: 2, w: 2, W: 1 } }, Mutex: { acquireCount: { r: 5 } } } flowControl:{ acquireCount: 3 } storage:{} protocol:op_query 224ms
+mongo         | 2020-01-26T20:14:12.618+0000 I  SHARDING [conn189] Marking collection sharelatex.docOps as collection version: <unsharded>
+mongo         | 2020-01-26T20:14:12.618+0000 I  STORAGE  [conn189] createCollection: sharelatex.docOps with generated UUID: c62c8e4e-3bf5-4ca4-8474-165081644f06 and options: {}
+mongo         | 2020-01-26T20:14:12.801+0000 I  INDEX    [conn189] index build: done building index _id_ on ns sharelatex.docOps
+mongo         | 2020-01-26T20:14:12.801+0000 I  WRITE    [conn189] update sharelatex.docOps command: { q: { doc_id: ObjectId('5e2df314379cce00872dd1cb') }, u: { $set: { version: 0 } }, multi: false, upsert: true } planSummary: COLLSCAN keysExamined:0 docsExamined:0 nMatched:0 nModified:0 upsert:1 keysInserted:1 numYields:0 queryHash:CC98117C planCacheKey:CC98117C locks:{ ParallelBatchWriterMode: { acquireCount: { r: 3 } }, ReplicationStateTransition: { acquireCount: { w: 3 } }, Global: { acquireCount: { w: 3 } }, Database: { acquireCount: { w: 3 } }, Collection: { acquireCount: { r: 2, w: 2, W: 1 } }, Mutex: { acquireCount: { r: 5 } } } flowControl:{ acquireCount: 3 } storage:{} 182ms
+mongo         | 2020-01-26T20:14:12.801+0000 I  COMMAND  [conn189] command sharelatex.$cmd command: update { update: "docOps", ordered: true, writeConcern: { w: 1 }, $db: "sharelatex" } numYields:0 reslen:126 locks:{ ParallelBatchWriterMode: { acquireCount: { r: 4 } }, ReplicationStateTransition: { acquireCount: { w: 4 } }, Global: { acquireCount: { r: 1, w: 3 } }, Database: { acquireCount: { w: 3 } }, Collection: { acquireCount: { r: 2, w: 2, W: 1 } }, Mutex: { acquireCount: { r: 5 } } } flowControl:{ acquireCount: 3 } storage:{} protocol:op_query 182ms
+mongo         | 2020-01-26T20:14:13.141+0000 I  NETWORK  [listener] connection accepted from 172.18.0.4:42866 #190 (12 connections now open)
+mongo         | 2020-01-26T20:14:16.933+0000 I  NETWORK  [listener] connection accepted from 127.0.0.1:40078 #191 (13 connections now open)
+mongo         | 2020-01-26T20:14:16.933+0000 I  NETWORK  [conn191] received client metadata from 127.0.0.1:40078 conn191: { application: { name: "MongoDB Shell" }, driver: { name: "MongoDB Internal Client", version: "4.2.2" }, os: { type: "Linux", name: "Ubuntu", architecture: "x86_64", version: "18.04" } }
+mongo         | 2020-01-26T20:14:16.940+0000 I  NETWORK  [conn191] end connection 127.0.0.1:40078 (12 connections now open)
+mongo         | 2020-01-26T20:14:18.140+0000 I  SHARDING [conn18] Marking collection sharelatex.projectInvites as collection version: <unsharded>
+mongo         | 2020-01-26T20:14:18.192+0000 I  NETWORK  [listener] connection accepted from 172.18.0.4:42894 #192 (13 connections now open)
+mongo         | 2020-01-26T20:14:19.648+0000 I  NETWORK  [listener] connection accepted from 172.18.0.4:42944 #193 (14 connections now open)
+mongo         | 2020-01-26T20:14:19.660+0000 I  NETWORK  [conn193] received client metadata from 172.18.0.4:42944 conn193: { driver: { name: "nodejs", version: "2.2.29" }, os: { type: "Linux", name: "linux", architecture: "x64", version: "5.0.0-37-generic" }, platform: "Node.js v6.13.1, LE, mongodb-core: 2.1.13" }
+mongo         | 2020-01-26T20:14:19.679+0000 I  SHARDING [conn193] Marking collection sharelatex.spellingPreferences as collection version: <unsharded>
+mongo         | 2020-01-26T20:14:27.474+0000 I  NETWORK  [listener] connection accepted from 127.0.0.1:40170 #194 (15 connections now open)
+mongo         | 2020-01-26T20:14:27.474+0000 I  NETWORK  [conn194] received client metadata from 127.0.0.1:40170 conn194: { application: { name: "MongoDB Shell" }, driver: { name: "MongoDB Internal Client", version: "4.2.2" }, os: { type: "Linux", name: "Ubuntu", architecture: "x86_64", version: "18.04" } }
+mongo         | 2020-01-26T20:14:27.482+0000 I  NETWORK  [conn194] end connection 127.0.0.1:40170 (14 connections now open)
+mongo         | 2020-01-26T20:14:37.920+0000 I  NETWORK  [listener] connection accepted from 127.0.0.1:40176 #195 (15 connections now open)
+mongo         | 2020-01-26T20:14:37.920+0000 I  NETWORK  [conn195] received client metadata from 127.0.0.1:40176 conn195: { application: { name: "MongoDB Shell" }, driver: { name: "MongoDB Internal Client", version: "4.2.2" }, os: { type: "Linux", name: "Ubuntu", architecture: "x86_64", version: "18.04" } }
+mongo         | 2020-01-26T20:14:37.929+0000 I  NETWORK  [conn195] end connection 127.0.0.1:40176 (14 connections now open)
+mongo         | 2020-01-26T20:14:48.407+0000 I  NETWORK  [listener] connection accepted from 127.0.0.1:40182 #196 (15 connections now open)
+mongo         | 2020-01-26T20:14:48.408+0000 I  NETWORK  [conn196] received client metadata from 127.0.0.1:40182 conn196: { application: { name: "MongoDB Shell" }, driver: { name: "MongoDB Internal Client", version: "4.2.2" }, os: { type: "Linux", name: "Ubuntu", architecture: "x86_64", version: "18.04" } }
+mongo         | 2020-01-26T20:14:48.416+0000 I  NETWORK  [conn196] end connection 127.0.0.1:40182 (14 connections now open)
+mongo         | 2020-01-26T20:14:58.844+0000 I  NETWORK  [listener] connection accepted from 127.0.0.1:40190 #197 (15 connections now open)
+mongo         | 2020-01-26T20:14:58.844+0000 I  NETWORK  [conn197] received client metadata from 127.0.0.1:40190 conn197: { application: { name: "MongoDB Shell" }, driver: { name: "MongoDB Internal Client", version: "4.2.2" }, os: { type: "Linux", name: "Ubuntu", architecture: "x86_64", version: "18.04" } }
+mongo         | 2020-01-26T20:14:58.854+0000 I  NETWORK  [conn197] end connection 127.0.0.1:40190 (14 connections now open)
+mongo         | 2020-01-26T20:15:06.072+0000 I  NETWORK  [conn193] end connection 172.18.0.4:42944 (13 connections now open)
+mongo         | 2020-01-26T20:15:09.323+0000 I  NETWORK  [listener] connection accepted from 127.0.0.1:40196 #198 (14 connections now open)
+mongo         | 2020-01-26T20:15:09.323+0000 I  NETWORK  [conn198] received client metadata from 127.0.0.1:40196 conn198: { application: { name: "MongoDB Shell" }, driver: { name: "MongoDB Internal Client", version: "4.2.2" }, os: { type: "Linux", name: "Ubuntu", architecture: "x86_64", version: "18.04" } }
+mongo         | 2020-01-26T20:15:09.332+0000 I  NETWORK  [conn198] end connection 127.0.0.1:40196 (13 connections now open)
+mongo         | 2020-01-26T20:15:19.815+0000 I  NETWORK  [listener] connection accepted from 127.0.0.1:40202 #199 (14 connections now open)
+mongo         | 2020-01-26T20:15:19.815+0000 I  NETWORK  [conn199] received client metadata from 127.0.0.1:40202 conn199: { application: { name: "MongoDB Shell" }, driver: { name: "MongoDB Internal Client", version: "4.2.2" }, os: { type: "Linux", name: "Ubuntu", architecture: "x86_64", version: "18.04" } }
+mongo         | 2020-01-26T20:15:19.828+0000 I  NETWORK  [conn199] end connection 127.0.0.1:40202 (13 connections now open)
+mongo         | 2020-01-26T20:15:30.279+0000 I  NETWORK  [listener] connection accepted from 127.0.0.1:40208 #200 (14 connections now open)
+mongo         | 2020-01-26T20:15:30.279+0000 I  NETWORK  [conn200] received client metadata from 127.0.0.1:40208 conn200: { application: { name: "MongoDB Shell" }, driver: { name: "MongoDB Internal Client", version: "4.2.2" }, os: { type: "Linux", name: "Ubuntu", architecture: "x86_64", version: "18.04" } }
+mongo         | 2020-01-26T20:15:30.290+0000 I  NETWORK  [conn200] end connection 127.0.0.1:40208 (13 connections now open)
+mongo         | 2020-01-26T20:15:40.752+0000 I  NETWORK  [listener] connection accepted from 127.0.0.1:40214 #201 (14 connections now open)
+mongo         | 2020-01-26T20:15:40.752+0000 I  NETWORK  [conn201] received client metadata from 127.0.0.1:40214 conn201: { application: { name: "MongoDB Shell" }, driver: { name: "MongoDB Internal Client", version: "4.2.2" }, os: { type: "Linux", name: "Ubuntu", architecture: "x86_64", version: "18.04" } }
+mongo         | 2020-01-26T20:15:40.764+0000 I  NETWORK  [conn201] end connection 127.0.0.1:40214 (13 connections now open)
+mongo         | 2020-01-26T20:15:51.204+0000 I  NETWORK  [listener] connection accepted from 127.0.0.1:40220 #202 (14 connections now open)
+mongo         | 2020-01-26T20:15:51.204+0000 I  NETWORK  [conn202] received client metadata from 127.0.0.1:40220 conn202: { application: { name: "MongoDB Shell" }, driver: { name: "MongoDB Internal Client", version: "4.2.2" }, os: { type: "Linux", name: "Ubuntu", architecture: "x86_64", version: "18.04" } }
+mongo         | 2020-01-26T20:15:51.213+0000 I  NETWORK  [conn202] end connection 127.0.0.1:40220 (13 connections now open)
+mongo         | 2020-01-26T20:16:01.661+0000 I  NETWORK  [listener] connection accepted from 127.0.0.1:40224 #203 (14 connections now open)
+mongo         | 2020-01-26T20:16:01.662+0000 I  NETWORK  [conn203] received client metadata from 127.0.0.1:40224 conn203: { application: { name: "MongoDB Shell" }, driver: { name: "MongoDB Internal Client", version: "4.2.2" }, os: { type: "Linux", name: "Ubuntu", architecture: "x86_64", version: "18.04" } }
+mongo         | 2020-01-26T20:16:01.674+0000 I  NETWORK  [conn203] end connection 127.0.0.1:40224 (13 connections now open)
+mongo         | 2020-01-26T20:16:11.749+0000 I  NETWORK  [listener] connection accepted from 172.18.0.4:43044 #204 (14 connections now open)
+mongo         | 2020-01-26T20:16:11.755+0000 I  NETWORK  [conn204] received client metadata from 172.18.0.4:43044 conn204: { driver: { name: "nodejs", version: "2.2.35" }, os: { type: "Linux", name: "linux", architecture: "x64", version: "5.0.0-37-generic" }, platform: "Node.js v6.13.1, LE, mongodb-core: 2.1.19" }
+mongo         | 2020-01-26T20:16:11.772+0000 I  SHARDING [conn204] Marking collection sharelatex.projectHistoryMetaData as collection version: <unsharded>
+mongo         | 2020-01-26T20:16:11.830+0000 I  STORAGE  [conn204] createCollection: sharelatex.projectHistoryMetaData with generated UUID: 54a56823-ddef-4d97-a5a7-5cc1fb3b643e and options: {}
+mongo         | 2020-01-26T20:16:12.020+0000 I  INDEX    [conn204] index build: done building index _id_ on ns sharelatex.projectHistoryMetaData
+mongo         | 2020-01-26T20:16:12.020+0000 I  WRITE    [conn204] update sharelatex.projectHistoryMetaData command: { q: { project_id: ObjectId('5e2df314379cce00872dd1ca') }, u: { $set: { preserveHistory: true } }, multi: false, upsert: true } planSummary: COLLSCAN keysExamined:0 docsExamined:0 nMatched:0 nModified:0 upsert:1 keysInserted:1 numYields:0 queryHash:E9BB248C planCacheKey:E9BB248C locks:{ ParallelBatchWriterMode: { acquireCount: { r: 3 } }, ReplicationStateTransition: { acquireCount: { w: 3 } }, Global: { acquireCount: { w: 3 } }, Database: { acquireCount: { w: 3 } }, Collection: { acquireCount: { r: 2, w: 2, W: 1 } }, Mutex: { acquireCount: { r: 5 } } } flowControl:{ acquireCount: 3 } storage:{} 190ms
+mongo         | 2020-01-26T20:16:12.020+0000 I  COMMAND  [conn204] command sharelatex.$cmd command: update { update: "projectHistoryMetaData", ordered: true, writeConcern: { w: 1 }, $db: "sharelatex" } numYields:0 reslen:126 locks:{ ParallelBatchWriterMode: { acquireCount: { r: 4 } }, ReplicationStateTransition: { acquireCount: { w: 4 } }, Global: { acquireCount: { r: 1, w: 3 } }, Database: { acquireCount: { w: 3 } }, Collection: { acquireCount: { r: 2, w: 2, W: 1 } }, Mutex: { acquireCount: { r: 5 } } } flowControl:{ acquireCount: 3 } storage:{} protocol:op_query 190ms
+mongo         | 2020-01-26T20:16:12.023+0000 I  SHARDING [conn204] Marking collection sharelatex.docHistory as collection version: <unsharded>
+mongo         | 2020-01-26T20:16:12.125+0000 I  NETWORK  [listener] connection accepted from 127.0.0.1:40250 #205 (15 connections now open)
+mongo         | 2020-01-26T20:16:12.126+0000 I  NETWORK  [conn205] received client metadata from 127.0.0.1:40250 conn205: { application: { name: "MongoDB Shell" }, driver: { name: "MongoDB Internal Client", version: "4.2.2" }, os: { type: "Linux", name: "Ubuntu", architecture: "x86_64", version: "18.04" } }
+mongo         | 2020-01-26T20:16:12.134+0000 I  NETWORK  [conn205] end connection 127.0.0.1:40250 (14 connections now open)
+mongo         | 2020-01-26T20:16:22.584+0000 I  NETWORK  [listener] connection accepted from 127.0.0.1:40288 #206 (15 connections now open)
+mongo         | 2020-01-26T20:16:22.585+0000 I  NETWORK  [conn206] received client metadata from 127.0.0.1:40288 conn206: { application: { name: "MongoDB Shell" }, driver: { name: "MongoDB Internal Client", version: "4.2.2" }, os: { type: "Linux", name: "Ubuntu", architecture: "x86_64", version: "18.04" } }
+mongo         | 2020-01-26T20:16:22.598+0000 I  NETWORK  [conn206] end connection 127.0.0.1:40288 (14 connections now open)
+mongo         | 2020-01-26T20:16:33.059+0000 I  NETWORK  [listener] connection accepted from 127.0.0.1:40298 #207 (15 connections now open)
+mongo         | 2020-01-26T20:16:33.059+0000 I  NETWORK  [conn207] received client metadata from 127.0.0.1:40298 conn207: { application: { name: "MongoDB Shell" }, driver: { name: "MongoDB Internal Client", version: "4.2.2" }, os: { type: "Linux", name: "Ubuntu", architecture: "x86_64", version: "18.04" } }
+mongo         | 2020-01-26T20:16:33.067+0000 I  NETWORK  [conn207] end connection 127.0.0.1:40298 (14 connections now open)
+mongo         | 2020-01-26T20:16:43.520+0000 I  NETWORK  [listener] connection accepted from 127.0.0.1:40308 #208 (15 connections now open)
+mongo         | 2020-01-26T20:16:43.520+0000 I  NETWORK  [conn208] received client metadata from 127.0.0.1:40308 conn208: { application: { name: "MongoDB Shell" }, driver: { name: "MongoDB Internal Client", version: "4.2.2" }, os: { type: "Linux", name: "Ubuntu", architecture: "x86_64", version: "18.04" } }
+mongo         | 2020-01-26T20:16:43.529+0000 I  NETWORK  [conn208] end connection 127.0.0.1:40308 (14 connections now open)
+mongo         | 2020-01-26T20:16:54.000+0000 I  NETWORK  [listener] connection accepted from 127.0.0.1:40310 #209 (15 connections now open)
+mongo         | 2020-01-26T20:16:54.000+0000 I  NETWORK  [conn209] received client metadata from 127.0.0.1:40310 conn209: { application: { name: "MongoDB Shell" }, driver: { name: "MongoDB Internal Client", version: "4.2.2" }, os: { type: "Linux", name: "Ubuntu", architecture: "x86_64", version: "18.04" } }
+mongo         | 2020-01-26T20:16:54.010+0000 I  NETWORK  [conn209] end connection 127.0.0.1:40310 (14 connections now open)
+mongo         | 2020-01-26T20:17:04.465+0000 I  NETWORK  [listener] connection accepted from 127.0.0.1:40312 #210 (15 connections now open)
+mongo         | 2020-01-26T20:17:04.466+0000 I  NETWORK  [conn210] received client metadata from 127.0.0.1:40312 conn210: { application: { name: "MongoDB Shell" }, driver: { name: "MongoDB Internal Client", version: "4.2.2" }, os: { type: "Linux", name: "Ubuntu", architecture: "x86_64", version: "18.04" } }
+mongo         | 2020-01-26T20:17:04.474+0000 I  NETWORK  [conn210] end connection 127.0.0.1:40312 (14 connections now open)
+mongo         | 2020-01-26T20:17:14.954+0000 I  NETWORK  [listener] connection accepted from 127.0.0.1:40314 #211 (15 connections now open)
+mongo         | 2020-01-26T20:17:14.954+0000 I  NETWORK  [conn211] received client metadata from 127.0.0.1:40314 conn211: { application: { name: "MongoDB Shell" }, driver: { name: "MongoDB Internal Client", version: "4.2.2" }, os: { type: "Linux", name: "Ubuntu", architecture: "x86_64", version: "18.04" } }
+mongo         | 2020-01-26T20:17:14.964+0000 I  NETWORK  [conn211] end connection 127.0.0.1:40314 (14 connections now open)
+mongo         | 2020-01-26T20:17:25.418+0000 I  NETWORK  [listener] connection accepted from 127.0.0.1:40316 #212 (15 connections now open)
+mongo         | 2020-01-26T20:17:25.419+0000 I  NETWORK  [conn212] received client metadata from 127.0.0.1:40316 conn212: { application: { name: "MongoDB Shell" }, driver: { name: "MongoDB Internal Client", version: "4.2.2" }, os: { type: "Linux", name: "Ubuntu", architecture: "x86_64", version: "18.04" } }
+mongo         | 2020-01-26T20:17:25.427+0000 I  NETWORK  [conn212] end connection 127.0.0.1:40316 (14 connections now open)
+mongo         | 2020-01-26T20:17:35.896+0000 I  NETWORK  [listener] connection accepted from 127.0.0.1:40318 #213 (15 connections now open)
+mongo         | 2020-01-26T20:17:35.897+0000 I  NETWORK  [conn213] received client metadata from 127.0.0.1:40318 conn213: { application: { name: "MongoDB Shell" }, driver: { name: "MongoDB Internal Client", version: "4.2.2" }, os: { type: "Linux", name: "Ubuntu", architecture: "x86_64", version: "18.04" } }
+mongo         | 2020-01-26T20:17:35.905+0000 I  NETWORK  [conn213] end connection 127.0.0.1:40318 (14 connections now open)
+mongo         | 2020-01-26T20:17:46.368+0000 I  NETWORK  [listener] connection accepted from 127.0.0.1:40320 #214 (15 connections now open)
+mongo         | 2020-01-26T20:17:46.369+0000 I  NETWORK  [conn214] received client metadata from 127.0.0.1:40320 conn214: { application: { name: "MongoDB Shell" }, driver: { name: "MongoDB Internal Client", version: "4.2.2" }, os: { type: "Linux", name: "Ubuntu", architecture: "x86_64", version: "18.04" } }
+mongo         | 2020-01-26T20:17:46.383+0000 I  NETWORK  [conn214] end connection 127.0.0.1:40320 (14 connections now open)
+mongo         | 2020-01-26T20:17:56.816+0000 I  NETWORK  [listener] connection accepted from 127.0.0.1:40322 #215 (15 connections now open)
+mongo         | 2020-01-26T20:17:56.816+0000 I  NETWORK  [conn215] received client metadata from 127.0.0.1:40322 conn215: { application: { name: "MongoDB Shell" }, driver: { name: "MongoDB Internal Client", version: "4.2.2" }, os: { type: "Linux", name: "Ubuntu", architecture: "x86_64", version: "18.04" } }
+mongo         | 2020-01-26T20:17:56.827+0000 I  NETWORK  [conn215] end connection 127.0.0.1:40322 (14 connections now open)
+mongo         | 2020-01-26T20:18:07.272+0000 I  NETWORK  [listener] connection accepted from 127.0.0.1:40324 #216 (15 connections now open)
+mongo         | 2020-01-26T20:18:07.272+0000 I  NETWORK  [conn216] received client metadata from 127.0.0.1:40324 conn216: { application: { name: "MongoDB Shell" }, driver: { name: "MongoDB Internal Client", version: "4.2.2" }, os: { type: "Linux", name: "Ubuntu", architecture: "x86_64", version: "18.04" } }
+mongo         | 2020-01-26T20:18:07.283+0000 I  NETWORK  [conn216] end connection 127.0.0.1:40324 (14 connections now open)
+mongo         | 2020-01-26T20:18:17.733+0000 I  NETWORK  [listener] connection accepted from 127.0.0.1:40326 #217 (15 connections now open)
+mongo         | 2020-01-26T20:18:17.733+0000 I  NETWORK  [conn217] received client metadata from 127.0.0.1:40326 conn217: { application: { name: "MongoDB Shell" }, driver: { name: "MongoDB Internal Client", version: "4.2.2" }, os: { type: "Linux", name: "Ubuntu", architecture: "x86_64", version: "18.04" } }
+mongo         | 2020-01-26T20:18:17.742+0000 I  NETWORK  [conn217] end connection 127.0.0.1:40326 (14 connections now open)
+mongo         | 2020-01-26T20:18:28.215+0000 I  NETWORK  [listener] connection accepted from 127.0.0.1:40330 #218 (15 connections now open)
+mongo         | 2020-01-26T20:18:28.216+0000 I  NETWORK  [conn218] received client metadata from 127.0.0.1:40330 conn218: { application: { name: "MongoDB Shell" }, driver: { name: "MongoDB Internal Client", version: "4.2.2" }, os: { type: "Linux", name: "Ubuntu", architecture: "x86_64", version: "18.04" } }
+mongo         | 2020-01-26T20:18:28.224+0000 I  NETWORK  [conn218] end connection 127.0.0.1:40330 (14 connections now open)
+mongo         | 2020-01-26T20:18:38.689+0000 I  NETWORK  [listener] connection accepted from 127.0.0.1:40332 #219 (15 connections now open)
+mongo         | 2020-01-26T20:18:38.689+0000 I  NETWORK  [conn219] received client metadata from 127.0.0.1:40332 conn219: { application: { name: "MongoDB Shell" }, driver: { name: "MongoDB Internal Client", version: "4.2.2" }, os: { type: "Linux", name: "Ubuntu", architecture: "x86_64", version: "18.04" } }
+mongo         | 2020-01-26T20:18:38.699+0000 I  NETWORK  [conn219] end connection 127.0.0.1:40332 (14 connections now open)
+mongo         | 2020-01-26T20:18:49.187+0000 I  NETWORK  [listener] connection accepted from 127.0.0.1:40334 #220 (15 connections now open)
+mongo         | 2020-01-26T20:18:49.187+0000 I  NETWORK  [conn220] received client metadata from 127.0.0.1:40334 conn220: { application: { name: "MongoDB Shell" }, driver: { name: "MongoDB Internal Client", version: "4.2.2" }, os: { type: "Linux", name: "Ubuntu", architecture: "x86_64", version: "18.04" } }
+mongo         | 2020-01-26T20:18:49.196+0000 I  NETWORK  [conn220] end connection 127.0.0.1:40334 (14 connections now open)
+mongo         | 2020-01-26T20:18:59.667+0000 I  NETWORK  [listener] connection accepted from 127.0.0.1:40336 #221 (15 connections now open)
+mongo         | 2020-01-26T20:18:59.667+0000 I  NETWORK  [conn221] received client metadata from 127.0.0.1:40336 conn221: { application: { name: "MongoDB Shell" }, driver: { name: "MongoDB Internal Client", version: "4.2.2" }, os: { type: "Linux", name: "Ubuntu", architecture: "x86_64", version: "18.04" } }
+mongo         | 2020-01-26T20:18:59.678+0000 I  NETWORK  [conn221] end connection 127.0.0.1:40336 (14 connections now open)
+mongo         | 2020-01-26T20:19:10.163+0000 I  NETWORK  [listener] connection accepted from 127.0.0.1:40338 #222 (15 connections now open)
+mongo         | 2020-01-26T20:19:10.163+0000 I  NETWORK  [conn222] received client metadata from 127.0.0.1:40338 conn222: { application: { name: "MongoDB Shell" }, driver: { name: "MongoDB Internal Client", version: "4.2.2" }, os: { type: "Linux", name: "Ubuntu", architecture: "x86_64", version: "18.04" } }
+mongo         | 2020-01-26T20:19:10.176+0000 I  NETWORK  [conn222] end connection 127.0.0.1:40338 (14 connections now open)
+
+---------- End of installation protocol
+
+Sharelatex server is now running.
+Open a second terminal window and install net-tools
+sudo apt install net-tools
+
+This is necessary to make the common ifconfig available.
+Wirth ifconfig you can find out the ip adress of your running sharelatex server ...
+
+Hint: you can not use the server at all if you have not installed at least one user:
+the administrator user ...
+
+To create the first admin user
+http://192.168.64.47/launchpad
+
+After this other user can register. (Have not tried out yet)
+
+Enjoy
+
+
+
+
