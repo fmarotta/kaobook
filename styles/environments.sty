@@ -80,7 +80,7 @@
 }
 
 \newcounter{kaocounter}
-\numberwithin{kaocounter}{section}
+\counterwithin{kaocounter}{section}
 \newcommand*{\kaocounterformat}{% Format for the caption
 	Comment~\thekaocounter\csname autodot\endcsname}
 \newcommand*{\fnum@kaocounter}{\kaocounterformat}

@@ -20,7 +20,7 @@
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\ProvidesPackage{styles/kao}[2015/06/21 v3.5.2 Common code for the kao style]
+\ProvidesPackage{styles/kao}[2020/03/12 v1.1 kao]
 
 %----------------------------------------------------------------------------------------
 %	USEFUL PACKAGES AND COMMANDS
@@ -29,6 +29,7 @@
 % \RequirePackage[l2tabu,orthodox]{nag} % turn on warnings because of bad style
 \RequirePackage{etoolbox} % Easy programming to modify TeX stuff
 \RequirePackage{calc} % Make calculations
+\RequirePackage{iftex} % Check wether XeTeX is being used
 \RequirePackage{xifthen} % Easy conditionals
 \RequirePackage{xkeyval} % Manage class options
 \RequirePackage{xparse} % Parse arguments for macros
@@ -592,15 +593,15 @@
 \renewpagestyle{scrheadings}{%
 	{\hspace{-\marginparwidth}\hspace{-\marginparsep}\makebox[\overflowingheadlen][l]{%
 		\parbox[t][1.7cm][c]{2em}{\hfill\thepage}%
-		\makebox[2em][c]{\rule[-1.15cm]{1pt}{1.55cm}}%
+		\makebox[2em][c]{\rule[-1.03cm]{1pt}{1.55cm}}%
 		\parbox[t][1.7cm][c]{\textwidth}{\leftmark}}}%
 	{\makebox[\overflowingheadlen][r]{%
 		\parbox[t][1.7cm][c]{\textwidth}{\hfill\rightmark}%
-		\makebox[2em][c]{\rule[-1.15cm]{1pt}{1.55cm}}%
+		\makebox[2em][c]{\rule[-1.03cm]{1pt}{1.55cm}}%
 		\parbox[t][1.7cm][c]{2em}{\thepage}}}%
 	{\makebox[\overflowingheadlen][r]{%
 		\parbox[t][1.7cm][c]{\textwidth}{\hfill\rightmark}%
-		\makebox[2em][c]{\rule[-1.15cm]{1pt}{1.55cm}}%
+		\makebox[2em][c]{\rule[-1.03cm]{1pt}{1.55cm}}%
 		\parbox[t][1.7cm][c]{2em}{\thepage}}}%
 }{%
 	{}%
@@ -637,16 +638,44 @@
 %	ENCODING AND FONTS
 %----------------------------------------------------------------------------------------
 
-\RequirePackage[T1]{fontenc} % utf8 encoding in the output (.pdf) file
-\RequirePackage[utf8]{inputenc} % utf8 encoding in the input (.tex) file
+% https://tex.stackexchange.com/questions/47576/combining-ifxetex-and-ifluatex-with-the-logical-or-operation
+\newif\ifxetexorluatex
+\ifxetex
+	\xetexorluatextrue
+\else
+	\ifluatex
+		\xetexorluatextrue
+	\else
+		\xetexorluatexfalse
+	\fi
+\fi
 
-\RequirePackage[scaled=.97,helvratio=.93,p,theoremfont]{newpxtext} % Serif palatino font
-\RequirePackage[vvarbb,smallerops,bigdelims]{newpxmath} % Math palatino font
-\RequirePackage[scaled=.85]{beramono} % Monospace font
-\RequirePackage[scr=rsfso,cal=boondoxo]{mathalfa} % Mathcal from STIX, unslanted a bit
-\RequirePackage{bm} % Bold math
+\ifxetexorluatex
+	% May require the user to run `tlmgr install tex-gyre'
+	\RequirePackage{fontspec}
+	\setromanfont[
+		BoldFont = texgyrepagella-bold.otf,
+		ItalicFont = texgyrepagella-italic.otf,
+		BoldItalicFont = texgyrepagella-bolditalic.otf
+	]{texgyrepagella-regular.otf}
+	\setsansfont[
+		Scale=.93
+	]{Nimbus Sans}
+	\setmonofont[
+		Scale=.85
+	]{Liberation Mono}
+\else
+	\RequirePackage[T1]{fontenc} % utf8 encoding in the output (.pdf) file
+	\RequirePackage[utf8]{inputenc} % utf8 encoding in the input (.tex) file
+	\RequirePackage[scaled=.97,helvratio=.93,p,theoremfont]{newpxtext} % Serif palatino font
+	\RequirePackage[vvarbb,smallerops,bigdelims]{newpxmath} % Math palatino font
+	\RequirePackage[scaled=.85]{beramono} % Monospace font
+	\RequirePackage[scr=rsfso,cal=boondoxo]{mathalfa} % Mathcal from STIX, unslanted a bit
+	\RequirePackage{bm} % Bold math
+\fi
 
-% When using the Palatino (mathpazo) font, it is better to use a slightly larger stretch.
+
+% When using the Palatino (newpxtext) font, it is better to use a slightly larger stretch.
 %\setstretch{1.10}
 \linespread{1.07} % Give Palatino more leading (space between lines)
 

@@ -25,7 +25,7 @@
 %----------------------------------------------------------------------------------------
 
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesClass{kaobook}[2019/06/05 v1.0 kaobook class v1.1]
+\ProvidesClass{kaobook}[2020/03/12 v1.1 kaobook]
 
 \newcommand{\@classname}{kaobook} % Class name
 \newcommand{\@baseclass}{scrbook} % Base class name
@@ -40,7 +40,7 @@
 \ProcessOptions\relax % Process the options
 
 \LoadClass{\@baseclass} % Load the base class
-\input{styles/kao.sty} % Load the code common to all classes
+\RequirePackage{styles/kao} % Load the code common to all classes
 
 %----------------------------------------------------------------------------------------
 %	FRONT-, MAIN-, BACK- MATTERS BEHAVIOUR
@@ -144,7 +144,7 @@
 		\vspace*{-4.5cm}%
 		\makebox[\textwidth+\marginparsep+\marginparwidth]{%
 			\parbox[b]{\textwidth}{\flushright{##3}}%
-			\makebox[\marginparsep][c]{\rule[-.35cm]{1pt}{5.7cm}}%
+			\makebox[\marginparsep][c]{\rule[-.2cm]{1pt}{5.7cm}}%
 			\parbox[b]{\marginparwidth}{##2}%
 		}
 	}
