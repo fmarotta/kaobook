@@ -652,13 +652,15 @@
 \ifxetexorluatex
 	% May require the user to run `tlmgr install tex-gyre'
 	\RequirePackage{fontspec}
+	\RequirePackage{newpxmath} % maths fonts
 	\setromanfont[
 		BoldFont = texgyrepagella-bold.otf,
 		ItalicFont = texgyrepagella-italic.otf,
-		BoldItalicFont = texgyrepagella-bolditalic.otf
+		BoldItalicFont = texgyrepagella-bolditalic.otf,
+		Scale=.97
 	]{texgyrepagella-regular.otf}
 	\setsansfont[
-		Scale=.93
+		Scale=.92
 	]{Nimbus Sans}
 	\setmonofont[
 		Scale=.85
@@ -672,7 +674,6 @@
 	\RequirePackage[scr=rsfso,cal=boondoxo]{mathalfa} % Mathcal from STIX, unslanted a bit
 	\RequirePackage{bm} % Bold math
 \fi
-
 
 % When using the Palatino (newpxtext) font, it is better to use a slightly larger stretch.
 %\setstretch{1.10}
