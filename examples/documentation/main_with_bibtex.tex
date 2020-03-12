@@ -1,7 +1,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % kaobook
 % LaTeX Template
-% Version 1.3 (18/2/20)
+% Version 1.3 (18/2/2020)
 %
 % This template originates from:
 % https://www.LaTeXTemplates.com
@@ -11,7 +11,6 @@
 %
 % Authors:
 % Federico Marotta (federicomarotta@mail.com)
-% Giuseppe Silano (g.silano89@gmail.com)
 % Based on the doctoral thesis of Ken Arroyo Ohori (https://3d.bk.tudelft.nl/ken/en)
 % and on the Tufte-LaTeX class.
 % Modified for LaTeX Templates by Vel (vel@latextemplates.com)
@@ -46,20 +45,35 @@
 %\usepackage{showlabels} % Uncomment to output the content of \label commands to the document where they are used
 
 % Load the bibliography package
-\usepackage{styles/kaobiblio}
-\addbibresource{book-template.bib} % Bibliography file
+% For the bibliography
+\usepackage[backend=bibtex,style=numeric-comp,maxbibnames=99]{biblatex}
+\bibliography{main.bib} % Bibliography file
+
+% Command to print a citation in the margins
+\newcommand{\sidecite}[1]{% The optional parameter is the 
+%vertical shift; 
+%the mandatory one is the citation key
+	\cite{#1}% With this we print the marker in the text and add the item to the 
+	%bibliography at the end \margincitation
+	\marginnote{\parencite{#1}: \citeauthor*{#1} (\citeyear{#1}), \citetitle{#1}.\\}% 
+	%Create a marginnote for each item
+}
+
 
 % Load mathematical packages for theorems and related environments. NOTE: choose only one between 'mdftheorems' and 'plaintheorems'.
 \usepackage{styles/mdftheorems}
 %\usepackage{styles/plaintheorems}
 
-\graphicspath{{images/}{./}} % Paths in which to look for images
+\graphicspath{{examples/documentation/images/}{images/}} % Paths in which to look for images
 
 \makeindex[columns=3, title=Alphabetical Index, intoc] % Make LaTeX produce the files required to compile the index
 
 \makeglossaries % Make LaTeX produce the files required to compile the glossary
 
 \makenomenclature % Make LaTeX produce the files required to compile the nomenclature
+
+% Reset sidenote counter at chapters
+%\counterwithin*{sidenote}{chapter}
 
 %----------------------------------------------------------------------------------------
 
@@ -69,13 +83,14 @@
 %	BOOK INFORMATION
 %----------------------------------------------------------------------------------------
 
-\titlehead{Document Template}
-% \subject{Subject}
+\titlehead{The \texttt{kaobook} class}
+\subject{Use this document as a template}
 
-\title[Template for the {\normalfont\texttt{kaobook}} Class]{Template for the {\normalfont\texttt{kaobook}} Class}
-% \subtitle{Subtitle}
+\title[Example and documentation of the {\normalfont\texttt{kaobook}} class]{Example and documentation \\ of the {\normalfont\texttt{kaobook}} class}
+\subtitle{Customise this page according to your needs}
 
-\author[JBG]{Johnny B. Goode}
+\author[Federico Marotta, Giuseppe Silano]{Federico Marotta, Giuseppe Silano \thanks{A \LaTeX\ 
+lover}}
 
 \date{\today}
 
@@ -89,17 +104,17 @@
 %	OPENING PAGE
 %----------------------------------------------------------------------------------------
 
-% \makeatletter
-% \extratitle{
-% 	% In the title page, the title is vspaced by 9.5\baselineskip
-% 	\vspace*{9\baselineskip}
-% 	\vspace*{\parskip}
-% 	\begin{center}
-% 		% In the title page, \huge is set after the komafont for title
-% 		\usekomafont{title}\huge\@title
-% 	\end{center}
-% }
-% \makeatother
+%\makeatletter
+%\extratitle{
+%	% In the title page, the title is vspaced by 9.5\baselineskip
+%	\vspace*{9\baselineskip}
+%	\vspace*{\parskip}
+%	\begin{center}
+%		% In the title page, \huge is set after the komafont for title
+%		\usekomafont{title}\huge\@title
+%	\end{center}
+%}
+%\makeatother
 
 %----------------------------------------------------------------------------------------
 %	COPYRIGHT PAGE
@@ -109,12 +124,12 @@
 \uppertitleback{\@titlehead} % Header
 
 \lowertitleback{
-	\textbf{Disclaimer} \\
+	\textbf{Disclaimer}\\
 	You can edit this page to suit your needs. For instance, here we have a no copyright statement, a colophon and some other information. This page is based on the corresponding page of Ken Arroyo Ohori's thesis, with minimal changes.
 	
 	\medskip
 	
-	\textbf{No copyright} \\
+	\textbf{No copyright}\\
 	\cczero\ This book is released into the public domain using the CC0 code. To the extent possible under law, I waive all copyright and related or neighbouring rights to this work.
 	
 	To view a copy of the CC0 code, visit: \\\url{http://creativecommons.org/publicdomain/zero/1.0/}
@@ -123,6 +138,10 @@
 	
 	\textbf{Colophon} \\
 	This document was typeset with the help of \href{https://sourceforge.net/projects/koma-script/}{\KOMAScript} and \href{https://www.latex-project.org/}{\LaTeX} using the \href{https://github.com/fmarotta/kaobook/}{kaobook} class.
+	
+	The source code of this book is available at:\\\url{https://github.com/fmarotta/kaobook}
+	
+	(You are welcome to contribute!)
 	
 	\medskip
 	
@@ -156,9 +175,7 @@
 %	PREFACE
 %----------------------------------------------------------------------------------------
 
-\chapter*{Preface}
-
-\blindtext
+%\input{chapters/preface.tex}
 
 %----------------------------------------------------------------------------------------
 %	TABLE OF CONTENTS & LIST OF FIGURES/TABLES
@@ -194,17 +211,23 @@
 \mainmatter % Denotes the start of the main document content, resets page numbering and uses arabic numbers
 \setchapterstyle{kao} % Choose the default chapter heading style
 
-\chapter{First Chapter}
-
-\blindtext
+\input{chapters/introduction.tex}
 
 \pagelayout{wide} % No margins
-\addpart{Title of the Part}
+\addpart{Class Options, Commands and Environments}
 \pagelayout{margin} % Restore margins
 
-\chapter{Second Chapter}
+\input{chapters/options.tex}
+\input{chapters/textnotes.tex}
+\input{chapters/figsntabs.tex}
+\input{chapters/references.tex}
 
-\blindtext
+\pagelayout{wide} % No margins
+\addpart{Design and Additional Features}
+\pagelayout{margin} % Restore margins
+
+\input{chapters/layout.tex}
+\input{chapters/mathematics.tex}
 
 \appendix % From here onwards, chapters are numbered with letters, as is the appendix convention
 
@@ -212,9 +235,7 @@
 \addpart{Appendix}
 \pagelayout{margin} % Restore margins
 
-\chapter{Some more blindtext}
-
-\blindtext
+\input{chapters/appendix.tex}
 
 %----------------------------------------------------------------------------------------
 

@@ -52,9 +52,9 @@ finally a fixed arbitrary string; you would add to your document:
 }
 \end{lstlisting}
 
-\renewcommand{\formatmargincitation}[1]{
-	\citeyear{#1}, \citeauthor*{#1}: \citetitle{#1}; very interesting!\\
-}
+%\renewcommand{\formatmargincitation}[1]{
+%	\citeyear{#1}, \citeauthor*{#1}: \citetitle{#1}; very interesting!\\
+%}
 
 The above code results in citations that look like the 
 following.\sidecite{Zou2005} Of course, changing the format is most 
@@ -70,9 +70,9 @@ your bibliography, you might have something like this in the preamble:
 \addbibresource{main.bib}
 \end{lstlisting}
 
-\renewcommand{\formatmargincitation}[1]{
-	\parencite{#1}: \citeauthor*{#1} (\citeyear{#1}), \citetitle{#1}\\
-}
+%\renewcommand{\formatmargincitation}[1]{
+%	\parencite{#1}: \citeauthor*{#1} (\citeyear{#1}), \citetitle{#1}\\
+%}
 
 The commands like \Command{citeyear}, \Command{parencite} and 
 \Command{sdcite} are just examples. A full reference of the available 

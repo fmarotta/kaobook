@@ -67,6 +67,9 @@ The easiest way to start using the class is to open the [book
 template](book-template.tex) or the [report 
 template](report-template.tex) and edit them.
 
+Check out the [instructions](instructions) directory for additional 
+guidance.
+
 ## Contributing
 
 Do you like the design, but you found a bug? Is there something you 
@@ -79,6 +82,10 @@ Templates](http://www.latextemplates.com/), if you wish to contribute by
 changing the code you must follow the style guidelines of the site: 
 extensive commenting and clear separation of the code into nicely 
 formatted blocks.
+
+Coffee keeps me awake and helps me writing a better LaTeX template. As 
+another way to contribute, you can buy me a coffee through paypal: 
+https://paypal.me/marofede.
 
 ## License
 
