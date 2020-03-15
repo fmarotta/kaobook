@@ -237,6 +237,7 @@
 \RequirePackage{booktabs} % Nicer tables
 \RequirePackage{multirow} % Cells occupying multiple rows in tables
 \RequirePackage{multicol} % Multiple columns in dictionary
+\RequirePackage{rotating} % Allows tables and figures to be rotated
 \RequirePackage[hypcap=true]{caption} % Correctly placed anchors for hyperlinks
 % \RequirePackage{atbegshi}
 % \RequirePackage{perpage}
@@ -647,32 +648,31 @@
 \fi
 
 \ifxetexorluatex
-	% May require the user to run `tlmgr install tex-gyre'
-	\RequirePackage{fontspec}
-	\RequirePackage{newpxmath} % maths fonts
+	\RequirePackage{unicode-math}
 	\setromanfont[
-		BoldFont = texgyrepagella-bold.otf,
-		ItalicFont = texgyrepagella-italic.otf,
-		BoldItalicFont = texgyrepagella-bolditalic.otf,
-		Scale=.97
-	]{texgyrepagella-regular.otf}
+		Scale=1.04
+	]{Libertinus Serif}
 	\setsansfont[
-		Scale=.92
-	]{Nimbus Sans}
+		Scale=1
+	]{Libertinus Sans}
 	\setmonofont[
-		Scale=.85
+		Scale=.89
 	]{Liberation Mono}
+	\setmathfont{Libertinus Math}
 \else
-	\RequirePackage[T1]{fontenc} % utf8 encoding in the output (.pdf) file
 	\RequirePackage[utf8]{inputenc} % utf8 encoding in the input (.tex) file
+	\RequirePackage[T1]{fontenc} % utf8 encoding in the output (.pdf) file
+
 	\RequirePackage[scaled=.97,helvratio=.93,p,theoremfont]{newpxtext} % Serif palatino font
 	\RequirePackage[vvarbb,smallerops,bigdelims]{newpxmath} % Math palatino font
 	\RequirePackage[scaled=.85]{beramono} % Monospace font
 	\RequirePackage[scr=rsfso,cal=boondoxo]{mathalfa} % Mathcal from STIX, unslanted a bit
-	\RequirePackage{bm} % Bold math
+	\RequirePackage{amsfonts} % Mathematical fonts
+	\RequirePackage{amssymb} % Math symbols, including \blacktriangleright, used for bullets
 \fi
 
-% When using the Palatino (newpxtext) font, it is better to use a slightly larger stretch.
+% When using the Palatino (newpxtext) font, it is better to use a 
+% slightly larger stretch.
 %\setstretch{1.10}
 \linespread{1.07} % Give Palatino more leading (space between lines)
 
