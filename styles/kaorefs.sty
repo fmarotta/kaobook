@@ -47,6 +47,11 @@
 \newcommand{\refpage}[1]{\hyperref[#1]{\pagename}\xspace\pageref{page:#1}} % Page 84
 \newcommand{\vrefpage}[1]{\vpageref*{page:#1}} % on the following page, on page 84
 
+% For unnumbered parts
+\newcommand{\arefpart}[1]{\hyperref[part:#1]{\partname}\xspace`\nameref{part:#1}'} % Part `Name of the Part'
+\newcommand{\avrefpart}[1]{\hyperref[part:#1]{\partname}\xspace`\nameref{part:#1}' \vpageref{part:#1}} % Part `Name of the Part' on page 84
+
+% For numbered parts
 \newcommand{\refpart}[1]{\hyperref[part:#1]{\partname}\xspace\ref{part:#1}} % Part IV
 \newcommand{\vrefpart}[1]{\hyperref[part:#1]{\partname}\xspace\vref{part:#1}} % Part IV, Part IV on the following page, Part IV on page 84
 \newcommand{\nrefpart}[1]{\hyperref[part:#1]{\partname}\xspace\ref{part:#1} (\nameref{part:#1})}
