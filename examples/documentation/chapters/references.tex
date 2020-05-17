@@ -105,8 +105,9 @@ in the backmatter.
 Unless you use \href{https://www.overleaf.com}{Overleaf} or some other 
 fancy IDE for \LaTeX, you need to run an external command from your 
 terminal in order to compile a document with a glossary. In particular, 
-the commands required are:\sidenote{These are the commands you 
-would run in a UNIX system; I have no idea on how it works in Windows.}
+the commands required are:\sidenote{These are the commands you would run 
+in a UNIX system, but see also \nrefsec{compiling}; I have no idea about 
+how it works in Windows.}
 
 \begin{lstlisting}[style=kaolstplain]
 $ pdflatex main
@@ -220,3 +221,43 @@ However, not all elements implement all the four styles. The commands
 provided should be enough, but if you want to see what is available or 
 to add the missing ones, have a look at the 
 \href{styles/kaorefs.sty}{attached package}.
+
+\section{A Final Note on Compilation}
+\labsec{compiling}
+
+Probably the easiest way to compile a latex document is with the 
+\Package{latexmk} script, as it can take care of everything, if properly 
+configured, from the bibliography to the glossary. The command to issue, 
+in general, is:
+
+\begin{lstlisting}
+latexmk [latexmk_options] [filename ...]
+\end{lstlisting}
+
+\Package{latexmk} can be extensively configurated (see 
+\url{https://mg.readthedocs.io/latexmk.html}). For convenience, I print 
+here an example configuration that would cover all the steps described 
+above.
+
+\begin{lstlisting}
+# By default compile only the file called 'main.tex'
+@default_files = ('main.tex');
+
+# Compile the glossary and acronyms list (package 'glossaries')
+add_cus_dep( 'acn', 'acr', 0, 'makeglossaries' );
+add_cus_dep( 'glo', 'gls', 0, 'makeglossaries' );
+$clean_ext .= " acr acn alg glo gls glg";
+sub makeglossaries {
+   my ($base_name, $path) = fileparse( $_[0] );
+   pushd $path;
+   my $return = system "makeglossaries", $base_name;
+   popd;
+   return $return;
+}
+
+# Compile the nomenclature (package 'nomencl')
+add_cus_dep( 'nlo', 'nls', 0, 'makenlo2nls' );
+sub makenlo2nls {
+    system( "makeindex -s nomencl.ist -o \"$_[0].nls\" \"$_[0].nlo\"" );
+}
+\end{lstlisting}
