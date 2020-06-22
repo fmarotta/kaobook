@@ -15,7 +15,7 @@
 %
 % This work consists of all the files listed in MANIFEST.md.
 
-\ProvidesPackage{styles/kaobiblio}[2020/03/12 v1.0 kaobiblio]
+\ProvidesPackage{styles/kaobiblio}[2020/22/06 v1.0.1 kaobiblio]
 
 \RequirePackage{etoolbox} % Easy programming to modify TeX stuff
 \RequirePackage{calc} % Operations like sums and differences
@@ -90,18 +90,21 @@
 		}
 	}{}
 }{
-	\IfStringInList{english}{\bbl@loaded}{%
-		\DefineBibliographyStrings{english}{%
-			backrefpage = {cited on page},
-			backrefpages = {cited on pages},
-		}
-	}{}
-	\IfStringInList{italian}{\bbl@loaded}{%
-		\DefineBibliographyStrings{italian}{%
-			backrefpage = {citato a pag.},
-			backrefpages = {citato a pagg.},
-		}
-	}{}
+	\@ifpackageloaded{babel}{%
+		\IfStringInList{english}{\bbl@loaded}{%
+			\DefineBibliographyStrings{english}{%
+				backrefpage = {cited on page},
+				backrefpages = {cited on pages},
+			}
+		}{}
+		\IfStringInList{italian}{\bbl@loaded}{%
+			\DefineBibliographyStrings{italian}{%
+				backrefpage = {citato a pag.},
+				backrefpages = {citato a pagg.},
+			}
+		}{}
+	}{%
+	}
 }
 
 %----------------------------------------------------------------------------------------
