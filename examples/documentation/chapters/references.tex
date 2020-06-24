@@ -164,14 +164,14 @@ of the above package to gain a full understanding of how they work.}
 \labsec{hyprefs}
 
 \index{hyperreferences}
-In this class we provide a handy sub-package to help you referencing the 
-same elements always in the same way, for consistency across the book. 
-First, you can label each element with a specific command. For instance, 
-should you want to label a chapter, you would put 
+Together with this class we provide a handy package to help you 
+referencing the same elements always in the same way, for consistency 
+across the book. First, you can label each element with a specific 
+command. For instance, should you want to label a chapter, you would put 
 \lstinline|\labch{chapter-title}| right after the \Command{chapter} 
 directive. This is just a convienence, because \Command{labch} is 
 actually just an alias to \lstinline|\label{ch:chapter-title}|, so it 
-spares you the writing of \enquote{ch}. We defined similar commands for 
+spares you the writing of \enquote{ch:}. We defined similar commands for 
 many typically labeled elements, including:
 
 \begin{multicols}{2}
@@ -198,7 +198,7 @@ However, since the style of the reference should depend on the context,
 we provide different commands to reference the same thing. For instance, 
 in some occasions you may want to reference the chapter by name, but 
 other times you want to reference it only by number. In general, there 
-are four reference style, which we call plain, vario, name, and full. 
+are four reference style, which we call plain, vario, name, and full.
 
 The plain style references only by number. It is accessed, for chapters, 
 with \lstinline|\refch{chapter-title}| (for other elements, the syntax 
@@ -221,6 +221,16 @@ However, not all elements implement all the four styles. The commands
 provided should be enough, but if you want to see what is available or 
 to add the missing ones, have a look at the 
 \href{styles/kaorefs.sty}{attached package}.
+
+In order to have access to all these features, the \Package{kaorefs} 
+should be loaded in the preamble of your document. Options can be passed 
+to it like to any other package; in particular, it is possible to 
+specify the language of the captions. For instance, if you specify 
+\enquote{italian} as an option, instead of \enquote{Chapter} it will be 
+printed \enquote{Capitolo}, the Italian analog. If you know other 
+languages, you are welcome to contribute the translations of these 
+captions! Feel free to contact the author of the class for further 
+details.
 
 \section{A Final Note on Compilation}
 \labsec{compiling}
