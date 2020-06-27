@@ -268,48 +268,42 @@
 
 % Environment to hold a margin figure (from the sidenotes package)
 % We redefine it here because we want to use our own caption formatting.
-\newsavebox{\@kao@marginfigurebox}%
-\renewenvironment{marginfigure}[1][0pt]{ % The optional parameter is the vertical offset
-	%\let\footnotemark\mpfootnotemark
-	\FloatBarrier % Force LaTeX to place previous floats
-	\mparshift{\snotez@if@nblskip{#1}{\@cdr#1\@nil\baselineskip}{#1}} % Move the figure up or down according to the offset argument
-	\begin{lrbox}{\@sidenotes@marginfigurebox}%
-		\begin{minipage}{\marginparwidth}%
-			\captionsetup{type=figure}%
-			% \centering % Better not to center margin figures
-}{%
-		\end{minipage}%
-	\end{lrbox}%
-	\marginpar{\usebox{\@sidenotes@marginfigurebox}} % Place the figure box in the margin
+\RenewDocumentEnvironment{marginfigure} { o }
+{
+  \begin{lrbox}{\@sidenotes@marginfigurebox}
+    \begin{minipage}{\marginparwidth}
+      \captionsetup{type=figure}
+}
+{
+    \end{minipage}%
+  \end{lrbox}%
+  \@sidenotes@placemarginal{#1}{\usebox{\@sidenotes@marginfigurebox}} % Place the figure box in the margin
 }
 
 % Environment to hold a margin table (from the sidenotes package)
-\newsavebox{\@kao@margintablebox}%
-\renewenvironment{margintable}[1][0pt]{ % The optional parameter is the vertical offset
-	\FloatBarrier % Force LaTeX to place previous floats
-	\mparshift{\snotez@if@nblskip{#1}{\@cdr#1\@nil\baselineskip}{#1}} % Move the table up or down according to the offset argument
-	\begin{lrbox}{\@sidenotes@margintablebox}%
-		\begin{minipage}{\marginparwidth}%
-			\captionsetup{type=table}%
-}{%
-		\end{minipage}%
-	\end{lrbox}%
-	\marginpar{\usebox{\@sidenotes@margintablebox}} % Place the table box in the margin
+\RenewDocumentEnvironment{margintable} { o } {
+  \begin{lrbox}{\@sidenotes@margintablebox}
+    \begin{minipage}{\marginparwidth}
+	  \captionsetup{type=table}
+}
+{
+    \end{minipage}%
+  \end{lrbox}%
+  \@sidenotes@placemarginal{#1}{\usebox{\@sidenotes@margintablebox}} % Place the table box in the margin
 }
 
 % Environment to hold a margin listing
 \newsavebox{\@sidenotes@marginlistingbox}%
-\newenvironment{marginlisting}[1][0pt]{ % The optional parameter is the vertical offset
-	\FloatBarrier % Force LaTeX to place previous floats
-	\mparshift{\snotez@if@nblskip{#1}{\@cdr#1\@nil\baselineskip}{#1}} % Move the listing up or down according to the offset argument
+\NewDocumentEnvironment{marginlisting} { o }{ % The optional parameter is the vertical offset
 	\begin{lrbox}{\@sidenotes@marginlistingbox}%
 		\begin{minipage}{\marginparwidth}%
 			\captionsetup{type=lstlisting}%
 }{%
 		\end{minipage}%
 	\end{lrbox}%
-	\marginpar{\usebox{\@sidenotes@marginlistingbox}} % Place the listing box in the margin
+	\@sidenotes@placemarginal{#1}{\usebox{\@sidenotes@marginlistingbox}} % Place the listing box in the margin
 }
+
 
 % Change the position of the captions
 \DeclareFloatSeparators{marginparsep}{\hskip\marginparsep}%
