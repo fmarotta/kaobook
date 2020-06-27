@@ -72,6 +72,7 @@
 \makeindex[columns=3, title=Alphabetical Index, intoc] % Make LaTeX produce the files required to compile the index
 
 \makeglossaries % Make LaTeX produce the files required to compile the glossary
+\input{glossary.tex}
 
 \makenomenclature % Make LaTeX produce the files required to compile the nomenclature
 
@@ -304,15 +305,6 @@ lover}}
 %----------------------------------------------------------------------------------------
 
 % The glossary needs to be compiled on the command line with 'makeglossaries main' from the template directory
-
-\newglossaryentry{computer}{
-	name=computer,
-	description={is a programmable machine that receives input, stores and manipulates data, and provides output in a useful format}
-}
-
-% Glossary entries (used in text with e.g. \acrfull{fpsLabel} or \acrshort{fpsLabel})
-\newacronym[longplural={Frames per Second}]{fpsLabel}{FPS}{Frame per Second}
-\newacronym[longplural={Tables of Contents}]{tocLabel}{TOC}{Table of Contents}
 
 \setglossarystyle{listgroup} % Set the style of the glossary (see https://en.wikibooks.org/wiki/LaTeX/Glossary for a reference)
 \printglossary[title=Special Terms, toctitle=List of Terms] % Output the glossary, 'title' is the chapter heading for the glossary, toctitle is the table of contents heading
