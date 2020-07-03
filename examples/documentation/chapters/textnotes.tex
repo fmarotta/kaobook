@@ -67,8 +67,15 @@ We load the packages \Package{marginnote}, \Package{marginfix} and
 what we said for marginnotes is also valid for sidenotes. Side- and 
 margin- notes are shifted slightly upwards 
 (\Command{renewcommand\{\textbackslash marginnotevadjust\}\{3pt\}}) in 
-order to allineate them to the bottom of the line of text where the note 
-is issued.
+order to align them to the bottom of the line of text where the note is 
+issued. Importantly, both sidenotes and marginnotes are defined as 
+floating if the optional argument (\ie the vertical offset) is left 
+blank, but if the offset is specified they are not floating. Recall that 
+floats cannot be nested, so in some rare cases you may encounter errors 
+about lost floats; in those cases, remember that sidenotes and 
+marginnotes are floats. To solve the problem, it may be possible to 
+transform them into non-floating elements by specifying an offset of 
+0pt.
 
 \section{Footnotes}
 

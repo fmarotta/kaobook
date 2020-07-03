@@ -20,7 +20,7 @@
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\ProvidesPackage{styles/kao}[2020/03/12 v1.1 kao]
+\ProvidesPackage{styles/kao}[2020/03/07 v1.1.1 kao]
 
 %----------------------------------------------------------------------------------------
 %	USEFUL PACKAGES AND COMMANDS
@@ -172,8 +172,10 @@
 % (b) the offset can also be a multiple of baselineskip, like for snotez's \sidenote
 % Usage: \marginnote[<offset>]{Text of the note.}
 \let\oldmarginnote\marginnote%
-\renewcommand{\marginnote}[2][0pt]{%
-	\oldmarginnote{#2}[\snotez@if@nblskip{#1}{\@cdr#1\@nil\baselineskip}{#1}]%
+\RenewDocumentCommand\marginnote { o m }{%
+	\IfNoValueOrEmptyTF{#1}%
+	{\marginpar{\@margin@par#2}}%
+	{\oldmarginnote{#2}[\snotez@if@nblskip{#1}{\@cdr#1\@nil\baselineskip}{#1}]}%
 }
 
 % Redefine the following sidenotes' command to use the kao version of marginnote
