@@ -1,7 +1,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % kaobook
 % kao Styling Package
-% Version 1.2 (4/1/2020)
+% Version 1.2.2 (2020/07/03)
 %
 % This template originates from:
 % https://www.LaTeXTemplates.com
@@ -20,7 +20,7 @@
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\ProvidesPackage{styles/kao}[2020/03/07 v1.2.1 kao]
+\ProvidesPackage{styles/kao}[2020/07/03 v1.2.2 kao]
 
 %----------------------------------------------------------------------------------------
 %	USEFUL PACKAGES AND COMMANDS
@@ -571,14 +571,20 @@
 %	PAGE LAYOUT
 %----------------------------------------------------------------------------------------
 
+\newlength{\hpll}
+\newlength{\vpll}
+\setlength{\hpll}{1mm}
+\setlength{\vpll}{1mm}
+
 % Set the default page layout
 \RequirePackage[
 	a4paper,
-	bottom=27.4mm,
-	inner=24.8mm,
-	textwidth=107mm,
-	marginparsep=8.2mm,
-	marginparwidth=49.4mm,
+	top=\vpll*\real{27.4},
+	bottom=\vpll*\real{27.4},
+	inner=\hpll*\real{24.8},
+	textwidth=\hpll*\real{107},
+	marginparsep=\hpll*\real{8.2},
+	marginparwidth=\hpll*\real{49.4},
 	includemp
 ]{geometry}
 
@@ -599,23 +605,22 @@
 % Layout #1: large margins
 \newcommand{\marginlayout}{%
 	\newgeometry{
-		top=27.4mm,
-		bottom=27.4mm,
-		inner=24.8mm,
-		textwidth=107mm,
-		marginparsep=8.2mm,
-		marginparwidth=49.4mm,
-		includemp
+		top=\vpll*\real{27.4},
+		bottom=\vpll*\real{27.4},
+		inner=\hpll*\real{24.8},
+		textwidth=\hpll*\real{107},
+		marginparsep=\hpll*\real{8.2},
+		marginparwidth=\hpll*\real{49.4},
 	}%
 }
 
-% Layout #2: no margins at all
+% Layout #2: small, symmetric margins
 \newcommand{\widelayout}{%
 	\newgeometry{
-		top=27.4mm,
-		bottom=27.4mm,
-		inner=24.8mm,
-		outer=24.8mm,
+		top=\vpll*\real{27.4},
+		bottom=\vpll*\real{27.4},
+		inner=\hpll*\real{24.8},
+		outer=\hpll*\real{24.8},
 		marginparsep=0mm,
 		marginparwidth=0mm,
 		ignoremp,
@@ -625,12 +630,12 @@
 % Layout #3: no margins and no space above or below the body
 \newcommand{\fullwidthpage}{%
 	\newgeometry{
-		top=0cm,
-		bottom=0cm,
-		inner=0cm,
-		outer=0cm,
-		marginparwidth=0cm,
-		marginparsep=0cm,
+		top=0mm,
+		bottom=0mm,
+		inner=0mm,
+		outer=0mm,
+		marginparwidth=0mm,
+		marginparsep=0mm,
 		ignoremp
 	}%
 }
