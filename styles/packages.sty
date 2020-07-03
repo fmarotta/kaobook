@@ -25,18 +25,6 @@
 % Listings code
 \RequirePackage{listings} % Code
 %\RequirePackage{minted}
-\RequirePackage{morewrites}
-
-\newsavebox\mycap
-\DeclareCaptionFormat{llap}{%
-	\begin{lrbox}{\mycap}%
-	\begin{minipage}{\marginparwidth}%
-	\@margin@par #1:#2#3%
-	\end{minipage}%
-	\end{lrbox}%
-	\marginnote[0.2cm]{\usebox\mycap}%
-}
-\captionsetup[lstlisting]{format=llap,labelsep=space,singlelinecheck=no,belowskip=-0.6cm}
 
 \definecolor{listingkeywords}{rgb}{0.0, 0.5, 0.0}
 \definecolor{listingidentifiers}{rgb}{0, 0, 0}

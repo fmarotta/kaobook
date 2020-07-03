@@ -230,7 +230,7 @@
 }
 
 %----------------------------------------------------------------------------------------
-%	FIGURES, TABLES AND CAPTIONS
+%	FIGURES, TABLES, LISTINGS AND CAPTIONS
 %----------------------------------------------------------------------------------------
 
 \RequirePackage{graphicx} % Include figures
@@ -240,6 +240,9 @@
 \RequirePackage{multirow} % Cells occupying multiple rows in tables
 \RequirePackage{multicol} % Multiple columns in dictionary
 \RequirePackage{rotating} % Allows tables and figures to be rotated
+\RequirePackage{listings} % Print code listings
+%\RequirePackage{minted}
+\RequirePackage{morewrites} % Fix some errors related to floats
 \RequirePackage[hypcap=true]{caption} % Correctly placed anchors for hyperlinks
 % \RequirePackage{atbegshi}
 % \RequirePackage{perpage}
@@ -472,7 +475,18 @@
 
 % Change the formatting of the captions
 \addtokomafont{captionlabel}{\bfseries} % Bold font for the figure label
-\DeclareCaptionFormat{margin}{\@margin@par #1#2#3} % Declare a new style to format the caption according to \@margin@par (see above)
+% Declare a new style to format the caption according to \@margin@par (see above)
+\DeclareCaptionFormat{margin}{\@margin@par #1#2#3}
+% Declare a new caption style for lstlistings
+\newsavebox\mycap
+\DeclareCaptionFormat{llap}{%
+	\begin{lrbox}{\mycap}%
+	\begin{minipage}{\marginparwidth}%
+	\@margin@par #1:#2#3%
+	\end{minipage}%
+	\end{lrbox}%
+	\marginnote[0.2cm]{\usebox\mycap}%
+}
 \captionsetup{
 	format=margin, % Use the style previously declared
 	strut=no,%
