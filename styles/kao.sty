@@ -20,7 +20,7 @@
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\ProvidesPackage{styles/kao}[2020/03/07 v1.1.1 kao]
+\ProvidesPackage{styles/kao}[2020/03/07 v1.2.1 kao]
 
 %----------------------------------------------------------------------------------------
 %	USEFUL PACKAGES AND COMMANDS
@@ -309,6 +309,9 @@
 
 % Change the position of the captions
 \DeclareFloatSeparators{marginparsep}{\hskip\marginparsep}%
+
+% Captions for the 'margin' layout
+\NewDocumentCommand{\marginfloatsetup}{}{%
 \if@twoside%
 	\floatsetup[figure]{ % Captions for figueres
 		margins=hangoutside, % Put captions in the margins
@@ -363,7 +366,8 @@
 		capbesidesep=marginparsep,%
 		floatwidth=\textwidth, % Width of the figure equal to the width of the text
 	}
-\else
+	\captionsetup[lstlisting]{format=llap,labelsep=space,singlelinecheck=no,belowskip=-0.6cm}
+\else%
 	\floatsetup[figure]{ % Captions for figueres
 		margins=hangright, % Put captions in the margins
 		facing=yes,%
@@ -417,7 +421,54 @@
 		capbesidesep=marginparsep,%
 		floatwidth=\textwidth, % Width of the figure equal to the width of the text
 	}
-\fi
+	\captionsetup[lstlisting]{format=llap,labelsep=space,singlelinecheck=no,belowskip=-0.6cm}
+\fi%
+}
+
+% Captions for the 'wide' layout
+\NewDocumentCommand{\widefloatsetup}{}{%
+	\floatsetup[figure]{ % Captions for figueres
+		capposition=bottom,%
+		margins=centering,%
+		floatwidth=\textwidth%
+	}
+	\floatsetup[widefigure]{ % Captions for wide figures
+		margins=hangoutside, % Put captions below the figure
+		facing=yes,%
+		capposition=bottom%
+	}
+	\floatsetup[table]{ % Captions for tables
+		capposition=above,%
+		margins=centering,%
+		floatwidth=\textwidth%
+	}
+	\floatsetup[widetable]{ % Captions for wide tables
+		margins=hangoutside, % Put captions above the table
+		facing=yes,%
+		capposition=above%
+	}
+	\floatsetup[lstlisting]{ % Captions for lstlistings
+		capposition=above,%
+		margins=centering,%
+		floatwidth=\textwidth%
+	}
+	\floatsetup[listing]{ % Captions for listings (minted package)
+		capposition=above,%
+		margins=centering,%
+		floatwidth=\textwidth%
+	}
+	\captionsetup[lstlisting]{% Captions style for lstlistings
+		format=margin,%
+		labelsep=colon,%
+		strut=no,%
+		singlelinecheck=false,%
+		indention=0pt,%
+		parindent=0pt,%
+		aboveskip=6pt,%
+		belowskip=6pt,%
+		belowskip=-0.1cm%
+	}
+}
 
 % Change the formatting of the captions
 \addtokomafont{captionlabel}{\bfseries} % Bold font for the figure label
@@ -525,9 +576,9 @@
 
 % Command to choose among the three possible layouts
 \DeclareDocumentCommand{\pagelayout}{m}{%
-	\ifthenelse{\equal{margin}{#1}}{\marginlayout}{}%
-	\ifthenelse{\equal{wide}{#1}}{\widelayout}{}%
-	\ifthenelse{\equal{fullwidth}{#1}}{\fullwidthlayout}{}%
+	\ifthenelse{\equal{margin}{#1}}{\marginlayout\marginfloatsetup}{}%
+	\ifthenelse{\equal{wide}{#1}}{\widelayout\widefloatsetup}{}%
+	\ifthenelse{\equal{fullwidth}{#1}}{\fullwidthlayout\widefloatsetup}{}%
 }
 
 % Layout #1: large margins
