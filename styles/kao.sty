@@ -36,6 +36,7 @@
 \RequirePackage{xpatch} % Patch LaTeX code in external packages
 \RequirePackage{xstring} % Parse strings
 \RequirePackage{afterpage} % Run commands after specific pages
+\RequirePackage{imakeidx} % For the index; must be loaded before the 'caption' and 'hyperref' packages
 
 %----------------------------------------------------------------------------------------
 %	TITLE AND AUTHOR MACROS
@@ -120,8 +121,7 @@
 
 \RequirePackage[section]{placeins} % Prevent floats to cross sections
 
-% Request more floats
-\extrafloats{100}%
+\extrafloats{100} % Require more floats
 
 %------------------------------------------------
 
@@ -487,6 +487,7 @@
 	\end{lrbox}%
 	\marginnote[0.2cm]{\usebox\mycap}%
 }
+% Set the global caption style
 \captionsetup{
 	format=margin, % Use the style previously declared
 	strut=no,%
@@ -531,7 +532,7 @@
 
 \RequirePackage{etoc} % Required to insert local tables of contents
 
-\newcounter{margintocdepth}
+\newcounter{margintocdepth} % Set the depth of the margintoc
 \setcounter{margintocdepth}{\subsectiontocdepth}
 
 \newlength{\mtocshift} % Length of the vertical offset used for margin tocs
