@@ -36,7 +36,12 @@
 ]{kaobook}
 
 % Choose the language
-\usepackage[english]{babel} % Load characters and hyphenation
+\ifxetexorluatex
+	\usepackage{polyglossia}
+	\setmainlanguage{english}
+\else
+	\usepackage[english]{babel} % Load characters and hyphenation
+\fi
 \usepackage[english=british]{csquotes}	% English quotes
 
 % Load packages for testing
@@ -167,6 +172,7 @@
 %----------------------------------------------------------------------------------------
 
 \input{chapters/preface.tex}
+\index{preface}
 
 %----------------------------------------------------------------------------------------
 %	TABLE OF CONTENTS & LIST OF FIGURES/TABLES

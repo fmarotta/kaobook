@@ -20,7 +20,7 @@
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\ProvidesPackage{styles/kao}[2020/07/03 v1.2.2 kao]
+\ProvidesPackage{styles/kao}[2020/07/03 v1.2.3 kao]
 
 %----------------------------------------------------------------------------------------
 %	USEFUL PACKAGES AND COMMANDS
@@ -715,6 +715,7 @@
 \fi
 
 \ifxetexorluatex
+	\RequirePackage[force]{filehook}
 	\RequirePackage{unicode-math}
 	\setromanfont[
 		Scale=1.04

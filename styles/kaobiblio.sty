@@ -15,10 +15,11 @@
 %
 % This work consists of all the files listed in MANIFEST.md.
 
-\ProvidesPackage{styles/kaobiblio}[2020/03/07 v1.1.0 kaobiblio]
+\ProvidesPackage{styles/kaobiblio}[2020/03/07 v1.1.1 kaobiblio]
 
 \RequirePackage{etoolbox} % Easy programming to modify TeX stuff
 \RequirePackage{perpage} % Reset counters
+\RequirePackage{iflang} % Check the document language
 \RequirePackage{xkeyval} % Manage class options
 \RequirePackage{xparse} % Parse arguments for macros
 \RequirePackage{xstring} % Parse strings
@@ -75,13 +76,13 @@
 % Set the language-specific back reference strings
 % #LANGUAGE
 \@ifpackageloaded{polyglossia}{%
-	\iflanguage{english}{%
+	\IfLanguageName{english}{%
 		\DefineBibliographyStrings{english}{%
 			backrefpage = {cited on page},
 			backrefpages = {cited on pages},
 		}
 	}{}
-	\iflanguage{italian}{%
+	\IfLanguageName{italian}{%
 		\DefineBibliographyStrings{italian}{%
 			backrefpage = {citato a pag.},
 			backrefpages = {citato a pagg.},
@@ -101,8 +102,7 @@
 				backrefpages = {citato a pagg.},
 			}
 		}{}
-	}{%
-	}
+	}{}
 }
 
 %----------------------------------------------------------------------------------------
