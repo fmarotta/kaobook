@@ -48,7 +48,7 @@
 \renewcommand{\title}[2][]{
 	\gdef\@title{#2} % Store the full title in @title
 	\ifthenelse{\isempty{#1}}{ % If there is no plain title
-		\renewcommand{\@plaintitle}{\title} % Use full title
+		\renewcommand{\@plaintitle}{\@title} % Use full title
 	}{ % If there is a plain title
 		\renewcommand{\@plaintitle}{#1} % Use provided plain-text title
 	}%
@@ -61,7 +61,7 @@
 \renewcommand{\author}[2][]{
 	\gdef\@author{#2} % Store the full author in @author
 	\ifthenelse{\isempty{#1}}{ % If there is no plain author
-		\renewcommand{\@plainauthor}{\author}% Use full author
+		\renewcommand{\@plainauthor}{\@author}% Use full author
   	}{ % If there is a plain author
 		\renewcommand{\@plainauthor}{#1}% Use provided plain-text author
 	}%
