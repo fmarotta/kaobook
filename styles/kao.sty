@@ -546,7 +546,7 @@
 		{\parindent -5pt \parskip 0pt}%
 		{\leftskip 0pt}%
 		{\makebox[.5cm]{\etocnumber\autodot}%
-		\etocname\nobreak\leaders\hbox{\hbox to 1.5ex {\hss.\hss}}\hfill\nobreak%
+		\xspace\etocname\nobreak\leaders\hbox{\hbox to 1.5ex {\hss.\hss}}\hfill\nobreak%
 		\etocpage\par}%
 		{}%
 		% Set the style for subsection entries
@@ -554,7 +554,7 @@
 		{\parindent -5pt \parskip 0pt}%
 		{\leftskip 0pt}%
 		{\makebox[.5cm]{}%
-		\etocname\nobreak\leaders\hbox{\hbox to 1.5ex {\hss.\hss}}\hfill\nobreak%
+		\xspace\etocname\nobreak\leaders\hbox{\hbox to 1.5ex {\hss.\hss}}\hfill\nobreak%
 		\etocpage\par}%
 		{}%
 		% Set the global style of the toc
@@ -703,6 +703,7 @@
 %----------------------------------------------------------------------------------------
 
 % https://tex.stackexchange.com/questions/47576/combining-ifxetex-and-ifluatex-with-the-logical-or-operation
+% Introduce a command to find out whether the compiler is XeTeX or LuaTeX
 \newif\ifxetexorluatex
 \ifxetex
 	\xetexorluatextrue
@@ -715,8 +716,9 @@
 \fi
 
 \ifxetexorluatex
-	\RequirePackage[force]{filehook}
-	\RequirePackage{unicode-math}
+	\RequirePackage{amssymb} % Must be loaded before unicode-math
+	\RequirePackage[force]{filehook} % Fixes an error
+	\RequirePackage{unicode-math} % Math fonts in xetexorluatex
 	\setromanfont[
 		Scale=1.04
 	]{Libertinus Serif}
@@ -735,7 +737,6 @@
 	\RequirePackage[vvarbb,smallerops,bigdelims]{newpxmath} % Math palatino font
 	\RequirePackage[scaled=.85]{beramono} % Monospace font
 	\RequirePackage[scr=rsfso,cal=boondoxo]{mathalfa} % Mathcal from STIX, unslanted a bit
-	\RequirePackage{amsfonts} % Mathematical fonts
 	\RequirePackage{amssymb} % Math symbols, including \blacktriangleright, used for bullets
 \fi
 
