@@ -108,9 +108,17 @@ We provide two files for the theorem styles:
 include if you do not want coloured boxes around theorems; and 
 \href{style/mdftheorems.sty}{mdftheorems.sty}, which is the one used for 
 this document.\sidenote{The plain one is not showed, but actually it is 
-exactly the same as this one, only without the yellow boxes.} Of course, 
-you will have to edit these files according to your taste and the 
-general style of the book.
+exactly the same as this one, only without the yellow boxes.} You may 
+want to edit these files according to your taste and the general style 
+of the book. However, there is an option to customise the background 
+colour of the boxes in \href{style/mdftheorems.sty}: when you load this 
+package, you can pass it the \Option{background=mycolour} option 
+(replace \enquote{mycolour} with the actual colour, for instance, 
+\enquote{red!35!white}). This will change the colour of all the boxes, 
+but it is also possible to override the default colour only for some 
+elements. For instance, the \Option{propositionbackground=mycolour} 
+option will change the colour for propositions only. There are similar 
+options for theorem, definition, lemma, corollary, remark, and example.
 
 \section[Boxes \& Environments]{Boxes \& Custom Environments
 \sidenote[][*1.8]{Notice that in the table of contents and in the 

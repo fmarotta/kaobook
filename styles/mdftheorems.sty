@@ -15,16 +15,58 @@
 %
 % This work consists of all the files listed in MANIFEST.md.
 
+% Use mdframed to shade the background of theorems
 \ProvidesPackage{styles/mdftheorems}
 
-% Use mdframed to shade the background of theorems
+% Load packages
+\let\openbox\relax % Workaround to get rid of an annoying error
+\RequirePackage{xkeyval} % Manage package options
+\RequirePackage{amsmath} % Improved mathematics
+\RequirePackage{amsthm} % Mathematical environments
+\RequirePackage{thmtools} % Theorem styles
+\RequirePackage{tikz} % Colorful boxes
+\RequirePackage[framemethod=TikZ]{mdframed}
 
-\let\openbox\relax
-\usepackage{amsmath} % Improved mathematics
-\usepackage{amsthm} % Mathematical environments
-\usepackage{thmtools}
-\usepackage{tikz}
-\usepackage[framemethod=TikZ]{mdframed}
+% Define the default colors
+\newcommand{\@background}{Goldenrod!45!white}
+\newcommand{\@theorembackground}{\@background}
+\newcommand{\@propositionbackground}{\@background}
+\newcommand{\@lemmabackground}{\@background}
+\newcommand{\@corollarybackground}{\@background}
+\newcommand{\@definitionbackground}{\@background}
+\newcommand{\@remarkbackground}{\@background}
+\newcommand{\@examplebackground}{\@background}
+
+% Declare the options to change the colors
+\DeclareOptionX{background}{%
+	\renewcommand{\@background}{#1}%
+}
+\DeclareOptionX{theorembackground}{%
+	\renewcommand{\@theorembackground}{#1}%
+}
+\DeclareOptionX{propositionbackground}{%
+	\renewcommand{\@propositionbackground}{#1}%
+}
+\DeclareOptionX{lemmabackground}{%
+	\renewcommand{\@lemmabackground}{#1}%
+}
+\DeclareOptionX{corollarybackground}{%
+	\renewcommand{\@corollarybackground}{#1}%
+}
+\DeclareOptionX{definitionbackground}{%
+	\renewcommand{\@definitionbackground}{#1}%
+}
+\DeclareOptionX{remarkbackground}{%
+	\renewcommand{\@remarkbackground}{#1}%
+}
+\DeclareOptionX{examplebackground}{%
+	\renewcommand{\@examplebackground}{#1}%
+}
+\DeclareOption*{\PassOptionsToPackage{\CurrentOption}{biblatex}}
+
+% Process the options
+\ProcessOptionsX\relax
+\ProcessOptions\relax
 
 % Box style
 \mdfsetup{skipabove=\topskip,skipbelow=0pt}%-.5\topskip}
@@ -114,8 +156,8 @@
 	numberwithin=section,
 	mdframed={
 		style=mdfkao,
-		backgroundcolor=Goldenrod!45!white,
-		frametitlebackgroundcolor=Goldenrod!45!white,
+		backgroundcolor=\@theorembackground,
+		%frametitlebackgroundcolor=\@theorembackground,
 	},
 ]{theorem}
 \declaretheorem[
@@ -125,8 +167,8 @@
 	sibling=theorem,
 	mdframed={
 		style=mdfkao,
-		backgroundcolor=Goldenrod!45!white,
-		frametitlebackgroundcolor=Goldenrod!45!white,
+		backgroundcolor=\@propositionbackground,
+		%frametitlebackgroundcolor=\@theorembackground,
 	},
 ]{proposition}
 \declaretheorem[
@@ -136,8 +178,8 @@
 	sibling=theorem,
 	mdframed={
 		style=mdfkao,
-		backgroundcolor=Goldenrod!45!white,
-		frametitlebackgroundcolor=Goldenrod!45!white,
+		backgroundcolor=\@lemmabackground,
+		%frametitlebackgroundcolor=\@theorembackground,
 	},
 ]{lemma}
 \declaretheorem[
@@ -147,8 +189,8 @@
 	sibling=theorem,
 	mdframed={
 		style=mdfkao,
-		backgroundcolor=Goldenrod!45!white,
-		frametitlebackgroundcolor=Goldenrod!45!white,
+		backgroundcolor=\@corollarybackground,
+		%frametitlebackgroundcolor=\@theorembackground,
 	},
 ]{corollary}
 
@@ -160,8 +202,8 @@
 	numberwithin=section,
 	mdframed={
 		style=mdfkao,
-		backgroundcolor=Goldenrod!45!white,
-		frametitlebackgroundcolor=Goldenrod!45!white,
+		backgroundcolor=\@definitionbackground,
+		%frametitlebackgroundcolor=\@theorembackground,
 	},
 ]{definition}
 
@@ -173,8 +215,8 @@
 	numberwithin=section,
 	mdframed={
 		style=mdfkao,
-		backgroundcolor=Goldenrod!45!white,
-		frametitlebackgroundcolor=Goldenrod!45!white,
+		backgroundcolor=\@remarkbackground,
+		%frametitlebackgroundcolor=\@theorembackground,
 	},
 ]{remark}
 
@@ -186,8 +228,8 @@
 	numberwithin=section,
 	mdframed={
 		style=mdfkao,
-		backgroundcolor=Goldenrod!45!white,
-		frametitlebackgroundcolor=Goldenrod!45!white,
+		backgroundcolor=\@examplebackground,
+		%frametitlebackgroundcolor=\@theorembackground,
 	},
 ]{example}
 
