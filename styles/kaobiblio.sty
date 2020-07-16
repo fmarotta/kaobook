@@ -114,7 +114,7 @@
 % Command to print a citation in the margins
 \NewDocumentCommand{\sidecite}{o m}{% The optional parameter is the vertical shift; the mandatory one is the citation key
 	\cite{#2}% With this we print the marker in the text and add the item to the bibliography at the end
-	\def\itemdelim{---}
+	\def\itemdelim{---}%
 	\margincitation[#1]{#2}% We then pass the cited items to this command, \margincitation
 }
 
@@ -123,8 +123,8 @@
 \newcommand\margincitedelim{\\} % Choose the default separator for multiple citations
 \NewDocumentCommand{\margincitation}{o >{\SplitList{,}}m}{% The mandatory parameter is a comma-separated list of citation keys, which is splitted into single items
 	% Redefine the \margincitedelim with a delay (https://tex.stackexchange.com/questions/110898/package-xparse-splitlist-last-token). Users can 'renew' the \margincitedelim command in their main.tex.
-	\let\origmargincitedelim\margincitedelim
-	\renewcommand\margincitedelim{\renewcommand\margincitedelim{\origmargincitedelim}}
+	\let\origmargincitedelim\margincitedelim%
+	\renewcommand\margincitedelim{\renewcommand\margincitedelim{\origmargincitedelim}}%
 	\marginnote[#1]{\ProcessList{#2}{\formatmargincitation}}% Create a marginnote for each item
 	\let\margincitedelim\origmargincitedelim% Reset
 }
