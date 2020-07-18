@@ -34,6 +34,7 @@
 \newcommand{\@lemmabackground}{\@background}
 \newcommand{\@corollarybackground}{\@background}
 \newcommand{\@definitionbackground}{\@background}
+\newcommand{\@assumptionbackground}{\@background}
 \newcommand{\@remarkbackground}{\@background}
 \newcommand{\@examplebackground}{\@background}
 
@@ -55,6 +56,9 @@
 }
 \DeclareOptionX{definitionbackground}{%
 	\renewcommand{\@definitionbackground}{#1}%
+}
+\DeclareOptionX{assumptionbackground}{%
+	\renewcommand{\@assumptionbackground}{#1}%
 }
 \DeclareOptionX{remarkbackground}{%
 	\renewcommand{\@remarkbackground}{#1}%
@@ -118,6 +122,18 @@
 	postheadspace={.5em plus .1em minus .1em},
 	%prefoothook={\hfill\qedsymbol}
 ]{kaodefinition}
+
+\declaretheoremstyle[
+	%spaceabove=.5\thm@preskip,
+	%spacebelow=.5\thm@postskip,
+	%headfont=\normalfont\bfseries,%\scshape,
+	%notefont=\normalfont, notebraces={ (}{)},
+	bodyfont=\normalfont\itshape,
+	%headformat={\NAME\space\NUMBER\space\NOTE},
+	headpunct={},
+	postheadspace={.5em plus .1em minus .1em},
+	%prefoothook={\hfill\qedsymbol}
+]{kaoassumption}
 
 \declaretheoremstyle[
 	%spaceabove=.5\thm@preskip,
@@ -206,6 +222,19 @@
 		%frametitlebackgroundcolor=\@theorembackground,
 	},
 ]{definition}
+
+\theoremstyle{kaoassumption}
+\declaretheorem[
+	name=Assumption,
+	refname={assumption,assumptions},
+	Refname={Assumption,Assumptions},
+	numberwithin=section,
+	mdframed={
+		style=mdfkao,
+		backgroundcolor=\@assumptionbackground,
+		%frametitlebackgroundcolor=\@theorembackground,
+	},
+]{assumption}
 
 \theoremstyle{kaoremark}
 \declaretheorem[
