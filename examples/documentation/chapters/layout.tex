@@ -164,8 +164,11 @@ example, when I start a new part, I write:
 In this short section we shall see how dispositions, sidenotes and 
 figures are numbered in the \Class{kaobook} class.
 
-By default, dispositions are numbered up to the section. This is 
-achieved by setting: \lstinline|\setcounter{secnumdepth}{1}|.
+By default, dispositions are numbered up to the section in \Class{kaobook}
+and up to the subsection in \Class{kaohandt}. This can be changed by
+passing the option \Option{secnumdepth} to\Class{kaobook} or
+\Class{kaohandt} (e.g. 1 corresponds to section and 2 corresponds to
+subsections).
 
 The sidenotes counter is the same across all the document, but if you 
 want it to reset at each chapter, just uncomment the line

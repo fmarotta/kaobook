@@ -27,6 +27,8 @@
 \NeedsTeXFormat{LaTeX2e}
 \ProvidesClass{kaobook}[2020/03/12 v1.1 kaobook]
 
+\RequirePackage{xkeyval} % Manage class key-value options
+
 \newcommand{\@classname}{kaobook} % Class name
 \newcommand{\@baseclass}{scrbook} % Base class name
 
@@ -35,9 +37,14 @@
 \PassOptionsToClass{parskip=half}{\@baseclass}
 \PassOptionsToClass{headings=optiontoheadandtoc}{\@baseclass}
 
-\DeclareOption*{\PassOptionsToClass{\CurrentOption}{\@baseclass}} % Pass through any options to the base class
+\newcommand{\@secnumdepth}{1} % Set default numbering depth up to sections
+\DeclareOptionX{secnumdepth}{% % Declare secnumdepth as an option
+	\renewcommand{\@secnumdepth}{#1}%
+}
 
-\ProcessOptions\relax % Process the options
+\DeclareOptionX*{\PassOptionsToClass{\CurrentOption}{\@baseclass}} % Pass through any options to the base class
+
+\ProcessOptionsX\relax % Process the options
 
 \LoadClass{\@baseclass} % Load the base class
 \RequirePackage{styles/kao} % Load the code common to all classes
@@ -267,7 +274,7 @@
 %	NUMBERING
 %----------------------------------------------------------------------------------------
 
-\setcounter{secnumdepth}{1} % Number only up to sections
+\setcounter{secnumdepth}{\@secnumdepth} % Set section numbering depth
 
 \counterwithin*{sidenote}{chapter} % Uncomment to reset the sidenote counter at each chapter
 %\counterwithout{sidenote}{chapter} % Uncomment to have one sidenote counter for the whole document
