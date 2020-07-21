@@ -109,13 +109,72 @@
 %	CITATION COMMANDS
 %----------------------------------------------------------------------------------------
 
-% TODO: perhaps use biblatex's \citecommands
+% biblatex-like commands that also print a citation in the margin
+% Usage:
+    % First optional argument is always vertical shift and must be given as an (empty) argument when using following a postnote and/or prenote
+    % Second optional argument is always the postnote if the third argument isn't specified or is the prenote if the third argument is specified (same pattern as the biblatex commands)
+    % Third optional argument is always the postnote
+    % Mandatory argument is always the citation key(s)
 
-% Command to print a citation in the margins
-\NewDocumentCommand{\sidecite}{o m}{% The optional parameter is the vertical shift; the mandatory one is the citation key
-	\cite{#2}% With this we print the marker in the text and add the item to the bibliography at the end
+% Command to \cite and print a citation in the margin
+% First optional argument: vertical shift
+% Second optional argument: postnote if the third argument isn't specified; prenote if the third argument is specified (same pattern as the \textcite command)
+% Third optional argument: postnote
+% Mandatory argument: citation key
+\NewDocumentCommand{\sidecite}{o o o m}{%
+    % With this we print the marker in the text and add the item to the bibliography at the end
+    \IfNoValueOrEmptyTF{#2}
+        {\cite{#4}}
+        {\IfNoValueOrEmptyTF{#3}
+            {\cite[#2]{#4}}
+            {\cite[#2][#3]{#4}}%
+        }%
 	\def\itemdelim{---}%
-	\margincitation[#1]{#2}% We then pass the cited items to this command, \margincitation
+	\margincitation[#1]{#4}% We then pass the cited items to this command, \margincitation
+}
+
+% Command to \textcite and print a citation in the margin
+% First optional argument: vertical shift
+% Second optional argument: postnote if the third argument isn't specified; prenote if the third argument is specified (same pattern as the \textcite command)
+% Third optional argument: postnote
+% Mandatory argument: citation key
+\NewDocumentCommand{\sidetextcite}{o o o m}{%
+    % With this we print the marker in the text and add the item to the bibliography at the end
+    \IfNoValueOrEmptyTF{#2}
+        {\textcite{#4}}
+        {\IfNoValueOrEmptyTF{#3}
+            {\textcite[#2]{#4}}
+            {\textcite[#2][#3]{#4}}%
+        }%
+	\def\itemdelim{---}%
+	\margincitation[#1]{#4}% We then pass the cited items to this command, \margincitation
+}
+
+% Command to \parencite or \parencite* and print a citation in the margin
+% First optional (star) argument: use \parencite* if included; otherwise use \parencite
+% Second optional argument: vertical shift
+% Third optional argument: postnote if the fourth argument isn't specified; prenote if the fourth argument is specified (same pattern as the \parencite command)
+% Fourth optional argument: postnote
+% Mandatory argument: citation key
+\NewDocumentCommand{\sideparencite}{s o o o m}{%
+    % With this we print the marker in the text and add the item to the bibliography at the end
+    \IfBooleanTF#1
+        {\IfNoValueOrEmptyTF{#3}
+            {\parencite*{#5}}
+            {\IfNoValueOrEmptyTF{#4}
+                {\parencite*[#3]{#5}}
+                {\parencite*[#3][#4]{#5}}%
+            }%
+        }%
+        {\IfNoValueOrEmptyTF{#3}
+            {\parencite{#5}}
+            {\IfNoValueOrEmptyTF{#4}
+                {\parencite[#3]{#5}}
+                {\parencite[#3][#4]{#5}}%
+            }%
+        }%
+    \def\itemdelim{---}%
+	\margincitation[#2]{#5}% We then pass the cited items to this command, \margincitation
 }
 
 
