@@ -126,7 +126,10 @@
     \IfNoValueOrEmptyTF{#2}
         {\cite{#4}}
         {\IfNoValueOrEmptyTF{#3}
-            {\cite[#2]{#4}}
+            {\IfNoValueTF{#3}
+                {\cite[#2]{#4}}
+                {\cite[#2][]{#4}}% postnote is empty, so pass empty postnote
+            }
             {\cite[#2][#3]{#4}}%
         }%
 	\def\itemdelim{---}%
@@ -143,7 +146,10 @@
     \IfNoValueOrEmptyTF{#2}
         {\textcite{#4}}
         {\IfNoValueOrEmptyTF{#3}
-            {\textcite[#2]{#4}}
+            {\IfNoValueTF{#3}
+                {\textcite[#2]{#4}}
+                {\textcite[#2][]{#4}}% postnote is empty, so pass empty postnote
+            }
             {\textcite[#2][#3]{#4}}%
         }%
 	\def\itemdelim{---}%
@@ -162,14 +168,20 @@
         {\IfNoValueOrEmptyTF{#3}
             {\parencite*{#5}}
             {\IfNoValueOrEmptyTF{#4}
-                {\parencite*[#3]{#5}}
+                {\IfNoValueTF{#4}
+                    {\parencite*[#3]{#5}}
+                    {\parencite*[#3][]{#5}}% postnote is empty, so pass empty postnote
+                }
                 {\parencite*[#3][#4]{#5}}%
             }%
         }%
         {\IfNoValueOrEmptyTF{#3}
             {\parencite{#5}}
             {\IfNoValueOrEmptyTF{#4}
-                {\parencite[#3]{#5}}
+                {\IfNoValueTF{#4}
+                    {\parencite[#3]{#5}}
+                    {\parencite[#3][]{#5}}% postnote is empty, so pass empty postnote
+                }
                 {\parencite[#3][#4]{#5}}%
             }%
         }%
