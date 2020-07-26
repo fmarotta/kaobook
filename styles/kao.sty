@@ -167,6 +167,15 @@
 	\fi%
 }
 
+% If command to detect whether we are inside an mdframed environment
+\def\@mdframedname{mdframed}
+\def\ifInMdframed{%
+	\ifx\@currenvir\@mdframedname
+		\expandafter\@firstoftwo
+	\else
+		\expandafter\@secondoftwo
+	\fi}
+
 % Redefine the command to print marginnotes:
 % (a) the optional offset argument goes at the first position
 % (b) the offset can also be a multiple of baselineskip, like for snotez's \sidenote
@@ -174,16 +183,30 @@
 \let\oldmarginnote\marginnote%
 \RenewDocumentCommand\marginnote { o m }{%
 	\IfNoValueOrEmptyTF{#1}%
-	{\marginpar{\@margin@par#2}}%
-	{\oldmarginnote{#2}[\snotez@if@nblskip{#1}{\@cdr#1\@nil\baselineskip}{#1}]}%
+	{%
+		\ifInMdframed{%
+			\oldmarginnote{#2}%
+		}{%
+			\marginpar{\@margin@par#2}%
+		}%
+	}{%
+		\oldmarginnote{#2}[\snotez@if@nblskip{#1}{\@cdr#1\@nil\baselineskip}{#1}]%
+	}%
 }
 
 % Redefine the following sidenotes' command to use the kao version of marginnote
 \RenewDocumentCommand \@sidenotes@placemarginal { m m }%
 {%
 	\IfNoValueOrEmptyTF{#1}%
-	{\marginpar{#2}}%
-	{\marginnote[#1]{#2}}%
+	{%
+		\ifInMdframed{%
+			\oldmarginnote{#2}%
+		}{%
+			\marginpar{#2}%
+		}%
+	}{%
+		\marginnote[#1]{#2}%
+	}%
 }
 
 % Initially set the counter to zero instead of 1, and update it before printing the sidenote.
