@@ -247,11 +247,11 @@
 		\spacefactor\@x@sf%
 	\fi%
 	\relax%
-	}%
-	%
-	\RenewDocumentCommand\sidenotetext{ o o +m }% number, offset, text
-	{%
-		\IfNoValueOrEmptyTF{#1}%
+}%
+%
+\RenewDocumentCommand\sidenotetext{ o o +m }% number, offset, text
+{%
+	\IfNoValueOrEmptyTF{#1}%
 	{%
 		\@sidenotes@placemarginal{#2}{\@margin@par\thesidenote:\enskip#3}%
 	}%
@@ -311,7 +311,7 @@
 {
     \end{minipage}%
   \end{lrbox}%
-  \@sidenotes@placemarginal{#1}{\usebox{\@sidenotes@marginfigurebox}} % Place the figure box in the margin
+  \marginnote[#1]{\usebox{\@sidenotes@marginfigurebox}} % Place the table box in the margin
 }
 
 % Environment to hold a margin table (from the sidenotes package)
@@ -323,7 +323,7 @@
 {
     \end{minipage}%
   \end{lrbox}%
-  \@sidenotes@placemarginal{#1}{\usebox{\@sidenotes@margintablebox}} % Place the table box in the margin
+  \marginnote[#1]{\usebox{\@sidenotes@margintablebox}} % Place the table box in the margin
 }
 
 % Environment to hold a margin listing
@@ -335,7 +335,7 @@
 }{%
 		\end{minipage}%
 	\end{lrbox}%
-	\@sidenotes@placemarginal{#1}{\usebox{\@sidenotes@marginlistingbox}} % Place the listing box in the margin
+	\marginnote{#1}{\usebox{\@sidenotes@marginlistingbox}} % Place the listing box in the margin
 }
 
 
