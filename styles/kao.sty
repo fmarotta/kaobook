@@ -167,14 +167,20 @@
 	\fi%
 }
 
-% If command to detect whether we are inside an mdframed environment
+% Command to detect whether we are inside an mdframed environment
 \def\@mdframedname{mdframed}
-\def\ifInMdframed{%
+\def\@minipagename{minipage}
+\def\ifInFloatingEnvir{%
 	\ifx\@currenvir\@mdframedname
 		\expandafter\@firstoftwo
 	\else
-		\expandafter\@secondoftwo
-	\fi}
+	\ifx\@currenvir\@minipagename
+		\expandafter\expandafter\expandafter\@firstoftwo
+	\else
+		\expandafter\expandafter\expandafter\@secondoftwo
+	\fi
+	\fi
+}
 
 % Redefine the command to print marginnotes:
 % (a) the optional offset argument goes at the first position
@@ -184,7 +190,7 @@
 \RenewDocumentCommand\marginnote { o m }{%
 	\IfNoValueOrEmptyTF{#1}%
 	{%
-		\ifInMdframed{%
+		\ifInFloatingEnvir{%
 			\oldmarginnote{#2}%
 		}{%
 			\marginpar{\@margin@par#2}%
@@ -199,7 +205,7 @@
 {%
 	\IfNoValueOrEmptyTF{#1}%
 	{%
-		\ifInMdframed{%
+		\ifInFloatingEnvir{%
 			\oldmarginnote{#2}%
 		}{%
 			\marginpar{#2}%
