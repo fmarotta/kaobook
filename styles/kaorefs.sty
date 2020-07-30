@@ -20,20 +20,16 @@
 
 % Easily label and reference elements
 % Note that \label must appear after \caption
-% Don't use cleveref with this package! It breaks everything
-%\@ifpackageloaded{cleveref}{%
-%	\PackageError{kaorefs}
-%	{cleveref is incompatible with kaorefs}
-%	{Don't load cleveref}
-%}{}
 
 % Pass this package's options to hyperref and varioref
-\DeclareOption*{\PassOptionsToPackage{\CurrentOption}{hyperref}}
 \DeclareOption*{\PassOptionsToPackage{\CurrentOption}{varioref}}
+\DeclareOption*{\PassOptionsToPackage{\CurrentOption}{hyperref}}
+\DeclareOption*{\PassOptionsToPackage{\CurrentOption}{cleveref}}
 \ProcessOptions\relax
 
-\RequirePackage{hyperref}
 \RequirePackage{varioref}
+\RequirePackage{hyperref}
+\RequirePackage{cleveref}
 
 
 % Language-specific strings
