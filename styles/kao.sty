@@ -75,6 +75,12 @@
 %	PARAGRAPH FORMATTING
 %----------------------------------------------------------------------------------------
 
+% Define lengths to set the scale of the document. Changing these lengths should affect all the other pagesize-dependent elements in the layout, such as the geometry of the page, the spacing between paragraphs, and so on. (As of now, not all the elements rely on hpll and vpll; future work will address this shortcoming.)
+\newlength{\hpll}
+\newlength{\vpll}
+\setlength{\hpll}{1mm}
+\setlength{\vpll}{1mm}
+
 \RequirePackage{ragged2e} % Required to achieve better ragged paragraphs
 \RequirePackage{setspace} % Required to easily set the space between lines
 \RequirePackage{hyphenat} % Hyphenation for special fonts
@@ -300,42 +306,51 @@
 
 \setlength\columnseprule{.4pt} % Set the width of vertical rules in tables
 
+\newlength{\kaomarginskipabove} % Specify the space above a marginfigure, margintable or marginlisting
+\newlength{\kaomarginskipbelow} % Specify the space below a marginfigure, margintable or marginlisting
+\setlength{\kaomarginskipabove}{3mm plus 2pt minus 2pt}
+\setlength{\kaomarginskipbelow}{3mm plus 2pt minus 2pt}
+
 % Environment to hold a margin figure (from the sidenotes package)
 % We redefine it here because we want to use our own caption formatting.
 \RenewDocumentEnvironment{marginfigure} { o }
 {
+  \marginskip{\kaomarginskipabove}%
   \begin{lrbox}{\@sidenotes@marginfigurebox}
     \begin{minipage}{\marginparwidth}
       \captionsetup{type=figure}
-}
-{
+}{%
     \end{minipage}%
   \end{lrbox}%
   \@sidenotes@placemarginal{#1}{\usebox{\@sidenotes@marginfigurebox}} % Place the figure box in the margin
+  \marginskip{\kaomarginskipbelow}%
 }
 
 % Environment to hold a margin table (from the sidenotes package)
 \RenewDocumentEnvironment{margintable} { o } {
+  \marginskip{\kaomarginskipabove}%
   \begin{lrbox}{\@sidenotes@margintablebox}
     \begin{minipage}{\marginparwidth}
 	  \captionsetup{type=table}
-}
-{
+}{%
     \end{minipage}%
   \end{lrbox}%
   \@sidenotes@placemarginal{#1}{\usebox{\@sidenotes@margintablebox}} % Place the table box in the margin
+  \marginskip{\kaomarginskipbelow}%
 }
 
 % Environment to hold a margin listing
 \newsavebox{\@sidenotes@marginlistingbox}%
 \NewDocumentEnvironment{marginlisting} { o }{ % The optional parameter is the vertical offset
-	\begin{lrbox}{\@sidenotes@marginlistingbox}%
-		\begin{minipage}{\marginparwidth}%
-			\captionsetup{type=lstlisting}%
+  \marginskip{\kaomarginskipabove}%
+  \begin{lrbox}{\@sidenotes@marginlistingbox}%
+	\begin{minipage}{\marginparwidth}%
+	  \captionsetup{type=lstlisting}%
 }{%
-		\end{minipage}%
-	\end{lrbox}%
-	\@sidenotes@placemarginal{#1}{\usebox{\@sidenotes@marginlistingbox}} % Place the listing box in the margin
+	\end{minipage}%
+  \end{lrbox}%
+  \@sidenotes@placemarginal{#1}{\usebox{\@sidenotes@marginlistingbox}} % Place the listing box in the margin
+  \marginskip{\kaomarginskipbelow}%
 }
 
 
@@ -599,11 +614,6 @@
 %----------------------------------------------------------------------------------------
 %	PAGE LAYOUT
 %----------------------------------------------------------------------------------------
-
-\newlength{\hpll}
-\newlength{\vpll}
-\setlength{\hpll}{1mm}
-\setlength{\vpll}{1mm}
 
 % Set the default page layout
 \RequirePackage[
