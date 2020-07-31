@@ -20,6 +20,7 @@
 
 % Easily label and reference elements
 % Note that \label must appear after \caption
+% Load this package last
 
 % Pass this package's options to hyperref and varioref
 \DeclareOption*{\PassOptionsToPackage{\CurrentOption}{varioref}}
@@ -27,9 +28,10 @@
 \DeclareOption*{\PassOptionsToPackage{\CurrentOption}{cleveref}}
 \ProcessOptions\relax
 
+\let\thmname\relax % Workaround to get rid of an annoying error
 \RequirePackage{varioref}
 \RequirePackage{hyperref}
-\RequirePackage{cleveref}
+\RequirePackage[capitalise,nameinlink]{cleveref}
 
 
 % Language-specific strings
@@ -38,6 +40,7 @@
 \newcommand{\sectionname}{}
 \newcommand{\sectionnameshort}{}
 \newcommand{\subsectionname}{}
+\newcommand{\subsectionnameplural}{}
 \newcommand{\subsectionnameshort}{}
 \newcommand{\figurenameshort}{}
 \newcommand{\tablenameshort}{}
@@ -57,6 +60,7 @@
   \renewcommand{\sectionname}{Section}
   \renewcommand{\sectionnameshort}{Sec.}
   \renewcommand{\subsectionname}{Subsection}
+  \renewcommand{\subsectionnameplural}{Subsections}
   \renewcommand{\subsectionnameshort}{Subsec.}
   \renewcommand{\figurenameshort}{Fig.}
   \renewcommand{\tablenameshort}{Tab.}
@@ -76,6 +80,7 @@
   \renewcommand{\sectionname}{Sezione}
   \renewcommand{\sectionnameshort}{Sez.}
   \renewcommand{\subsectionname}{Sottosezione}
+  \renewcommand{\subsectionnameplural}{Sottosezioni}
   \renewcommand{\subsectionnameshort}{Sottosezione}
   \renewcommand{\figurenameshort}{Fig.}
   \renewcommand{\tablenameshort}{Tab.}
@@ -182,3 +187,12 @@
 
 \newcommand{\refexercise}[1]{\hyperref[exercise:#1]\exercisename\xspace\ref{exercise:#1}}
 \newcommand{\vrefexercise}[1]{\hyperref[exercise:#1]\exercisename\xspace\vref{exercise:#1}}
+
+
+% cleveref customisation
+
+\let\oldvpageref\vpageref
+\renewcommand{\vpageref}[1]{\hyperref[#1]{\oldvpageref{#1}}}
+
+\crefname{subsection}{\subsectionname}{\subsectionnameplural}
+\Crefname{subsection}{\subsectionname}{\subsectionnameplural}
