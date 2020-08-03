@@ -355,7 +355,6 @@
   \marginskip{\kaomarginskipbelow}%
 }
 
-
 % Change the position of the captions
 \DeclareFloatSeparators{marginparsep}{\hskip\marginparsep}%
 
@@ -683,6 +682,34 @@
 
 % Set the default page layout
 \AtBeginDocument{\pagelayout{margin}}
+
+%----------------------------------------------------------------------------------------
+%	WIDE PARAGRAPHS
+%----------------------------------------------------------------------------------------
+
+% Environment for a wide paragraph
+\NewDocumentEnvironment{widepar}{}{%
+  \if@twoside%
+	\ifthispageodd{%
+	  \begin{addmargin}[0cm]{-\marginparwidth-\marginparsep}%
+	}{%
+	  \begin{addmargin}[-\marginparwidth-\marginparsep]{0cm}%
+	}%
+  \else%
+	\begin{addmargin}[0cm]{-\marginparwidth-\marginparsep}%
+  \fi%
+}{%
+	\end{addmargin}%
+}
+
+% Environment for a wide equation
+\NewDocumentEnvironment{wideequation}{}{%
+  \begin{widepar}
+	\begin{equation}
+}{%
+	\end{equation}
+  \end{widepar}
+}
 
 %----------------------------------------------------------------------------------------
 %	HEADERS AND FOOTERS
