@@ -31,7 +31,7 @@
 \let\thmname\relax % Workaround to get rid of an annoying error
 \RequirePackage{varioref}
 \RequirePackage{hyperref}
-\RequirePackage[capitalise,nameinlink]{cleveref}
+\RequirePackage[capitalise,nameinlink,noabbrev]{cleveref}
 
 
 % Language-specific strings
@@ -191,8 +191,13 @@
 
 % cleveref customisation
 
+% Hyperlink the page reference as well
 \let\oldvpageref\vpageref
 \renewcommand{\vpageref}[1]{\hyperref[#1]{\oldvpageref{#1}}}
 
+% Remove parentheses around equations
+\creflabelformat{equation}{#2\textup{#1}#3}
+
+% Set the refname for subsections
 \crefname{subsection}{\subsectionname}{\subsectionnameplural}
 \Crefname{subsection}{\subsectionname}{\subsectionnameplural}
