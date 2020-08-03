@@ -175,17 +175,15 @@
 }
 
 % Command to detect whether we are inside an mdframed environment
-\def\@mdframedname{mdframed}
-\def\@minipagename{minipage}
-\def\ifInFloatingEnvir{%
-	\ifx\@currenvir\@mdframedname
+\newif\ifinfloat
+\AtBeginEnvironment{mdframed}{\infloattrue}
+\AtBeginEnvironment{minipage}{\infloattrue}
+
+\def\IfInFloatingEnvir{%
+	\ifinfloat
 		\expandafter\@firstoftwo
 	\else
-	\ifx\@currenvir\@minipagename
-		\expandafter\expandafter\expandafter\@firstoftwo
-	\else
-		\expandafter\expandafter\expandafter\@secondoftwo
-	\fi
+		\expandafter\@secondoftwo
 	\fi
 }
 
@@ -198,7 +196,7 @@
 \RenewDocumentCommand\marginnote { o m }{%
 	\IfNoValueOrEmptyTF{#1}%
 	{%
-		\ifInFloatingEnvir{%
+		\IfInFloatingEnvir{%
 			\oldmarginnote{#2}%
 		}{%
 			\marginpar{\@margin@par#2}%
@@ -213,7 +211,7 @@
 {%
 	\IfNoValueOrEmptyTF{#1}%
 	{%
-		\ifInFloatingEnvir{%
+		\IfInFloatingEnvir{%
 			\oldmarginnote{#2}%
 		}{%
 			\marginpar{#2}%
@@ -704,11 +702,11 @@
 
 % Environment for a wide equation
 \NewDocumentEnvironment{wideequation}{}{%
-  \begin{widepar}
-	\begin{equation}
+  \begin{widepar}%
+	\begin{equation}%
 }{%
-	\end{equation}
-  \end{widepar}
+	\end{equation}%
+  \end{widepar}%
 }
 
 %----------------------------------------------------------------------------------------
