@@ -53,12 +53,12 @@
 \usepackage{styles/kaobiblio}
 \addbibresource{main.bib} % Bibliography file
 
-% Load the package for hyperreferences
-\usepackage{styles/kaorefs}
-
 % Load mathematical packages for theorems and related environments. NOTE: choose only one between 'mdftheorems' and 'plaintheorems'.
 \usepackage{styles/mdftheorems}
 %\usepackage{styles/plaintheorems}
+
+% Load the package for hyperreferences
+\usepackage{styles/kaorefs}
 
 \graphicspath{{examples/documentation/images/}{images/}} % Paths in which to look for images
 
@@ -214,16 +214,16 @@
 \addpart{Class Options, Commands and Environments}
 \pagelayout{margin} % Restore margins
 
-\input{chapters/options.tex}
-\input{chapters/textnotes.tex}
-\input{chapters/figsntabs.tex}
-\input{chapters/references.tex}
+%\input{chapters/options.tex}
+%\input{chapters/textnotes.tex}
+%\input{chapters/figsntabs.tex}
+%\input{chapters/references.tex}
 
 \pagelayout{wide} % No margins
 \addpart{Design and Additional Features}
 \pagelayout{margin} % Restore margins
 
-\input{chapters/layout.tex}
+%\input{chapters/layout.tex}
 \input{chapters/mathematics.tex}
 
 \appendix % From here onwards, chapters are numbered with letters, as is the appendix convention

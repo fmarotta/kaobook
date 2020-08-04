@@ -224,14 +224,20 @@ to add the missing ones, have a look at the
 \href{styles/kaorefs.sty}{attached package}.
 
 In order to have access to all these features, the \Package{kaorefs} 
-should be loaded in the preamble of your document. Options can be passed 
-to it like to any other package; in particular, it is possible to 
+should be loaded in the preamble of your document. It should be loaded 
+last, or at least after \Package{babel} (or \Package{polyglossia}) and 
+\Package{plaintheorems} (or \Package{mdftheorems}). Options can be 
+passed to it like to any other package; in particular, it is possible to 
 specify the language of the captions. For instance, if you specify 
 \enquote{italian} as an option, instead of \enquote{Chapter} it will be 
 printed \enquote{Capitolo}, the Italian analog. If you know other 
 languages, you are welcome to contribute the translations of these 
 captions! Feel free to contact the author of the class for further 
-details.
+details. 
+
+The \Package{kaorefs} package also include \Package{cleveref}, so it is 
+possible to use \Command{cref} in addition to all the previously 
+described referencing commands.
 
 \section{A Final Note on Compilation}
 \labsec{compiling}

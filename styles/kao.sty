@@ -37,6 +37,7 @@
 \RequirePackage{xstring} % Parse strings
 \RequirePackage{afterpage} % Run commands after specific pages
 \RequirePackage{imakeidx} % For the index; must be loaded before the 'caption' and 'hyperref' packages
+\RequirePackage{varioref} % For the cross-references; must be loaded before the 'hyperref' and 'cleveref' packages
 
 %----------------------------------------------------------------------------------------
 %	TITLE AND AUTHOR MACROS
@@ -74,6 +75,12 @@
 %----------------------------------------------------------------------------------------
 %	PARAGRAPH FORMATTING
 %----------------------------------------------------------------------------------------
+
+% Define lengths to set the scale of the document. Changing these lengths should affect all the other pagesize-dependent elements in the layout, such as the geometry of the page, the spacing between paragraphs, and so on. (As of now, not all the elements rely on hpll and vpll; future work will address this shortcoming.)
+\newlength{\hpll}
+\newlength{\vpll}
+\setlength{\hpll}{1mm}
+\setlength{\vpll}{1mm}
 
 \RequirePackage{ragged2e} % Required to achieve better ragged paragraphs
 \RequirePackage{setspace} % Required to easily set the space between lines
@@ -168,19 +175,18 @@
 }
 
 % Command to detect whether we are inside an mdframed environment
-\def\@mdframedname{mdframed}
-\def\@minipagename{minipage}
-\def\ifInFloatingEnvir{%
-	\ifx\@currenvir\@mdframedname
+\newif\ifinfloat
+\AtBeginEnvironment{mdframed}{\infloattrue}
+\AtBeginEnvironment{minipage}{\infloattrue}
+
+\def\IfInFloatingEnvir{%
+	\ifinfloat
 		\expandafter\@firstoftwo
 	\else
-	\ifx\@currenvir\@minipagename
-		\expandafter\expandafter\expandafter\@firstoftwo
-	\else
-		\expandafter\expandafter\expandafter\@secondoftwo
-	\fi
+		\expandafter\@secondoftwo
 	\fi
 }
+
 
 % Redefine the command to print marginnotes:
 % (a) the optional offset argument goes at the first position
@@ -190,7 +196,7 @@
 \RenewDocumentCommand\marginnote { o m }{%
 	\IfNoValueOrEmptyTF{#1}%
 	{%
-		\ifInFloatingEnvir{%
+		\IfInFloatingEnvir{%
 			\oldmarginnote{#2}%
 		}{%
 			\marginpar{\@margin@par#2}%
@@ -205,7 +211,7 @@
 {%
 	\IfNoValueOrEmptyTF{#1}%
 	{%
-		\ifInFloatingEnvir{%
+		\IfInFloatingEnvir{%
 			\oldmarginnote{#2}%
 		}{%
 			\marginpar{#2}%
@@ -300,44 +306,52 @@
 
 \setlength\columnseprule{.4pt} % Set the width of vertical rules in tables
 
+\newlength{\kaomarginskipabove} % Specify the space above a marginfigure, margintable or marginlisting
+\newlength{\kaomarginskipbelow} % Specify the space below a marginfigure, margintable or marginlisting
+\setlength{\kaomarginskipabove}{3mm plus 2pt minus 2pt}
+\setlength{\kaomarginskipbelow}{3mm plus 2pt minus 2pt}
+
 % Environment to hold a margin figure (from the sidenotes package)
 % We redefine it here because we want to use our own caption formatting.
 \RenewDocumentEnvironment{marginfigure} { o }
 {
+  \marginskip{\kaomarginskipabove}%
   \begin{lrbox}{\@sidenotes@marginfigurebox}
     \begin{minipage}{\marginparwidth}
       \captionsetup{type=figure}
-}
-{
+}{%
     \end{minipage}%
   \end{lrbox}%
   \marginnote[#1]{\usebox{\@sidenotes@marginfigurebox}} % Place the table box in the margin
+  \marginskip{\kaomarginskipbelow}%
 }
 
 % Environment to hold a margin table (from the sidenotes package)
 \RenewDocumentEnvironment{margintable} { o } {
+  \marginskip{\kaomarginskipabove}%
   \begin{lrbox}{\@sidenotes@margintablebox}
     \begin{minipage}{\marginparwidth}
 	  \captionsetup{type=table}
-}
-{
+}{%
     \end{minipage}%
   \end{lrbox}%
   \marginnote[#1]{\usebox{\@sidenotes@margintablebox}} % Place the table box in the margin
+  \marginskip{\kaomarginskipbelow}%
 }
 
 % Environment to hold a margin listing
 \newsavebox{\@sidenotes@marginlistingbox}%
 \NewDocumentEnvironment{marginlisting} { o }{ % The optional parameter is the vertical offset
-	\begin{lrbox}{\@sidenotes@marginlistingbox}%
-		\begin{minipage}{\marginparwidth}%
-			\captionsetup{type=lstlisting}%
+  \marginskip{\kaomarginskipabove}%
+  \begin{lrbox}{\@sidenotes@marginlistingbox}%
+	\begin{minipage}{\marginparwidth}%
+	  \captionsetup{type=lstlisting}%
 }{%
-		\end{minipage}%
-	\end{lrbox}%
-	\marginnote{#1}{\usebox{\@sidenotes@marginlistingbox}} % Place the listing box in the margin
+	\end{minipage}%
+  \end{lrbox}%
+  \marginnote{#1}{\usebox{\@sidenotes@marginlistingbox}} % Place the listing box in the margin
+  \marginskip{\kaomarginskipbelow}%
 }
-
 
 % Change the position of the captions
 \DeclareFloatSeparators{marginparsep}{\hskip\marginparsep}%
@@ -600,11 +614,6 @@
 %	PAGE LAYOUT
 %----------------------------------------------------------------------------------------
 
-\newlength{\hpll}
-\newlength{\vpll}
-\setlength{\hpll}{1mm}
-\setlength{\vpll}{1mm}
-
 % Set the default page layout
 \RequirePackage[
 	a4paper,
@@ -671,6 +680,34 @@
 
 % Set the default page layout
 \AtBeginDocument{\pagelayout{margin}}
+
+%----------------------------------------------------------------------------------------
+%	WIDE PARAGRAPHS
+%----------------------------------------------------------------------------------------
+
+% Environment for a wide paragraph
+\NewDocumentEnvironment{widepar}{}{%
+  \if@twoside%
+	\ifthispageodd{%
+	  \begin{addmargin}[0cm]{-\marginparwidth-\marginparsep}%
+	}{%
+	  \begin{addmargin}[-\marginparwidth-\marginparsep]{0cm}%
+	}%
+  \else%
+	\begin{addmargin}[0cm]{-\marginparwidth-\marginparsep}%
+  \fi%
+}{%
+	\end{addmargin}%
+}
+
+% Environment for a wide equation
+\NewDocumentEnvironment{wideequation}{}{%
+  \begin{widepar}%
+	\begin{equation}%
+}{%
+	\end{equation}%
+  \end{widepar}%
+}
 
 %----------------------------------------------------------------------------------------
 %	HEADERS AND FOOTERS
