@@ -687,7 +687,7 @@
 % Environment for a wide paragraph
 \NewDocumentEnvironment{widepar}{}{%
   \if@twoside%
-	\ifthispageodd{%
+	\Ifthispageodd{%
 	  \begin{addmargin}[0cm]{-\marginparwidth-\marginparsep}%
 	}{%
 	  \begin{addmargin}[-\marginparwidth-\marginparsep]{0cm}%

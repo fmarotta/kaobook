@@ -39,7 +39,7 @@
 
 % Set the default options
 \DeclareOptionX*{\PassOptionsToClass{\CurrentOption}{\@baseclass}} % Pass through any options to the base class
-\ProcessXOptions\relax % Process the options
+\ProcessOptionsX\relax % Process the options
 \LoadClass{\@baseclass} % Load the base class
 \input{styles/kao.sty} % Load the code common to all classes
 
