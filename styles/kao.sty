@@ -313,35 +313,34 @@
 
 % Environment to hold a margin figure (from the sidenotes package)
 % We redefine it here because we want to use our own caption formatting.
-\RenewDocumentEnvironment{marginfigure} { o }
-{
+\RenewDocumentEnvironment{marginfigure}{o}{%
   \marginskip{\kaomarginskipabove}%
-  \begin{lrbox}{\@sidenotes@marginfigurebox}
-    \begin{minipage}{\marginparwidth}
-      \captionsetup{type=figure}
+  \begin{lrbox}{\@sidenotes@marginfigurebox}%
+	\begin{minipage}{\marginparwidth}%
+	  \captionsetup{type=figure}%
 }{%
     \end{minipage}%
   \end{lrbox}%
-  \marginnote[#1]{\usebox{\@sidenotes@marginfigurebox}} % Place the table box in the margin
+  \marginnote[#1]{\usebox{\@sidenotes@marginfigurebox}}% Place the table box in the margin
   \marginskip{\kaomarginskipbelow}%
 }
 
 % Environment to hold a margin table (from the sidenotes package)
-\RenewDocumentEnvironment{margintable} { o } {
+\RenewDocumentEnvironment{margintable}{o}{%
   \marginskip{\kaomarginskipabove}%
-  \begin{lrbox}{\@sidenotes@margintablebox}
-    \begin{minipage}{\marginparwidth}
-	  \captionsetup{type=table}
+  \begin{lrbox}{\@sidenotes@margintablebox}%
+	\begin{minipage}{\marginparwidth}%
+	  \captionsetup{type=table}%
 }{%
     \end{minipage}%
   \end{lrbox}%
-  \marginnote[#1]{\usebox{\@sidenotes@margintablebox}} % Place the table box in the margin
+  \marginnote[#1]{\usebox{\@sidenotes@margintablebox}}% Place the table box in the margin
   \marginskip{\kaomarginskipbelow}%
 }
 
 % Environment to hold a margin listing
 \newsavebox{\@sidenotes@marginlistingbox}%
-\NewDocumentEnvironment{marginlisting} { o }{ % The optional parameter is the vertical offset
+\NewDocumentEnvironment{marginlisting}{o}{% The optional parameter is the vertical offset
   \marginskip{\kaomarginskipabove}%
   \begin{lrbox}{\@sidenotes@marginlistingbox}%
 	\begin{minipage}{\marginparwidth}%
@@ -349,7 +348,7 @@
 }{%
 	\end{minipage}%
   \end{lrbox}%
-  \marginnote{#1}{\usebox{\@sidenotes@marginlistingbox}} % Place the listing box in the margin
+  \marginnote{#1}{\usebox{\@sidenotes@marginlistingbox}}% Place the listing box in the margin
   \marginskip{\kaomarginskipbelow}%
 }
 
