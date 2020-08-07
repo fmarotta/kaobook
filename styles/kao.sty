@@ -585,19 +585,15 @@
 	\begingroup
 		% Set the style for section entries
 		\etocsetstyle{section}%
-		{\parindent -5pt \parskip 0pt}%
-		{\leftskip 0pt}%
-		{\makebox[.5cm]{\etocnumber\autodot}%
-		\xspace\etocname\nobreak\leaders\hbox{\hbox to 1.5ex {\hss.\hss}}\hfill\nobreak%
-		\etocpage\par}%
+		{\parindent -5pt \parskip 3pt}%
+		{\leftskip 20pt \rightskip 12pt} %
+		{\hspace{0.01cm}\llap{\etocnumber\hspace{0.1cm}}\etocname\nobreak\leaders\hbox{\hbox to 1.5ex {\hss.\hss}}\hfill\makebox[-0.1cm][l]{\etocpage}\par}%	
 		{}%
 		% Set the style for subsection entries
 		\etocsetstyle{subsection}%
 		{\parindent -5pt \parskip 0pt}%
-		{\leftskip 0pt}%
-		{\makebox[.5cm]{}%
-		\xspace\etocname\nobreak\leaders\hbox{\hbox to 1.5ex {\hss.\hss}}\hfill\nobreak%
-		\etocpage\par}%
+		{\leftskip 20pt \rightskip 12pt}%
+		{\hspace{0.01cm}\llap{\hspace{0.1cm}}\etocname\nobreak\leaders\hbox{\hbox to 1.5ex {\hss.\hss}}\hfill\makebox[-0.1cm][l]{\etocpage}\par}%
 		{}%
 		% Set the global style of the toc
 		%\etocsettocstyle{}{}
