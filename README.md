@@ -41,12 +41,12 @@ that a PDF is worth a thousand words, have a look at [this](example_and_document
 
 There are two main class files: `kaobook.cls`, used for books, and 
 `kaohandt.cls`, used for reports or handouts; both rely on `kao.def`, 
-which contains the bulk of the definitions that are commont to both 
+which contains the bulk of the definitions that are common to both 
 classes. In the future there may be another class for theses.
 
 There are two template files for the two supported classes, and each has 
 its own bibliography file. Further examples are listed in the `examples` 
-directory. The book that documents the class is an example itself, but 
+directory. The book that documents the class is an example itself, and 
 the pdf has been copied to the root of the repository so that it will be 
 found easier.
 
@@ -84,7 +84,7 @@ extensive commenting and clear separation of the code into nicely
 formatted blocks.
 
 Coffee keeps me awake and helps me writing a better LaTeX template. As 
-another way to contribute, you can buy me a coffee through paypal: 
+another way to contribute, you can buy me a coffee through PayPal: 
 https://paypal.me/marofede.
 
 ## License
