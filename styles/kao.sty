@@ -76,12 +76,6 @@
 %	PARAGRAPH FORMATTING
 %----------------------------------------------------------------------------------------
 
-% Define lengths to set the scale of the document. Changing these lengths should affect all the other pagesize-dependent elements in the layout, such as the geometry of the page, the spacing between paragraphs, and so on. (As of now, not all the elements rely on hpll and vpll; future work will address this shortcoming.)
-\newlength{\hpll}
-\newlength{\vpll}
-\setlength{\hpll}{1mm}
-\setlength{\vpll}{1mm}
-
 \RequirePackage{ragged2e} % Required to achieve better ragged paragraphs
 \RequirePackage{setspace} % Required to easily set the space between lines
 \RequirePackage{hyphenat} % Hyphenation for special fonts
@@ -163,7 +157,7 @@
 \renewcommand*{\raggedleftmarginnote}{} % Suppress left margin
 \renewcommand*{\raggedrightmarginnote}{} % Suppress right margin
 \renewcommand*{\marginfont}{\@margin@par} % Format marginnotes according to \@marginpar (see above)
-\renewcommand{\marginnotevadjust}{2pt} % Bring all marginnotes downward a bit
+\renewcommand{\marginnotevadjust}{0.7\vpll} % Bring all marginnotes downward a bit
 %\RequirePackage[marginnote=true]{snotez} % Provides options for sidenotes
 
 \def\snotez@if@nblskip#1{%
@@ -413,7 +407,7 @@
 	}
 	\captionsetup[lstlisting]{format=llap,labelsep=space,singlelinecheck=no,belowskip=-0.6cm}
 \else%
-	\floatsetup[figure]{ % Captions for figueres
+	\floatsetup[figure]{ % Captions for figures
 		margins=hangright, % Put captions in the margins
 		facing=yes,%
 		capposition=beside,%
@@ -569,45 +563,14 @@
 % \newcaptionname{english}{\listtheoremname}{Theorems}
 
 %----------------------------------------------------------------------------------------
-%	MARGIN TOC
-%----------------------------------------------------------------------------------------
-
-\RequirePackage{etoc} % Required to insert local tables of contents
-
-\newcounter{margintocdepth} % Set the depth of the margintoc
-\setcounter{margintocdepth}{\subsectiontocdepth}
-
-\newlength{\mtocshift} % Length of the vertical offset used for margin tocs
-\setlength{\mtocshift}{-5.2cm}
-
-% Command to print a table of contents in the margin
-\newcommand{\margintoc}[1][\mtocshift]{ % The first parameter is the vertical offset; by default it is \mtocshift
-	\begingroup
-		% Set the style for section entries
-		\etocsetstyle{section}%
-		{\parindent -5pt \parskip 3pt}%
-		{\leftskip 20pt \rightskip 12pt} %
-		{\hspace{0.01cm}\llap{\etocnumber\hspace{0.1cm}}\etocname\nobreak\leaders\hbox{\hbox to 1.5ex {\hss.\hss}}\hfill\makebox[-0.1cm][l]{\etocpage}\par}%	
-		{}%
-		% Set the style for subsection entries
-		\etocsetstyle{subsection}%
-		{\parindent -5pt \parskip 0pt}%
-		{\leftskip 20pt \rightskip 12pt}%
-		{\hspace{0.01cm}\llap{\hspace{0.1cm}}\etocname\nobreak\leaders\hbox{\hbox to 1.5ex {\hss.\hss}}\hfill\makebox[-0.1cm][l]{\etocpage}\par}%
-		{}%
-		% Set the global style of the toc
-		%\etocsettocstyle{}{}
-		%\etocsettocstyle{\normalfont\sffamily\normalsize}{}
-		\etocsettocstyle{\usekomafont{section}\small}{}%
-		\etocsetnexttocdepth{\themargintocdepth}%
-		% Print the table of contents in the margin
-		\marginnote[#1]{\localtableofcontents}%
-	\endgroup%
-}
-
-%----------------------------------------------------------------------------------------
 %	PAGE LAYOUT
 %----------------------------------------------------------------------------------------
+
+% Define lengths to set the scale of the document. Changing these lengths should affect all the other pagesize-dependent elements in the layout, such as the geometry of the page, the spacing between paragraphs, and so on. (As of now, not all the elements rely on hpll and vpll; future work will address this shortcoming.)
+\newlength{\hpll}
+\newlength{\vpll}
+\setlength{\hpll}{1mm}
+\setlength{\vpll}{1mm}
 
 % Set the default page layout
 \RequirePackage[
@@ -708,8 +671,8 @@
 %	HEADERS AND FOOTERS
 %----------------------------------------------------------------------------------------
 
-\RequirePackage{scrlayer-scrpage}       % Customise head and foot regions
-\setlength{\headheight}{115pt}			% Enlarge the header
+\RequirePackage{scrlayer-scrpage}		% Customise head and foot regions
+\setlength{\headheight}{40\vpll}		% Enlarge the header
 
 % Headings styles
 
@@ -758,6 +721,43 @@
 
 % Set the default page style
 \pagestyle{plain.scrheadings}
+
+%----------------------------------------------------------------------------------------
+%	MARGIN TOC
+%----------------------------------------------------------------------------------------
+
+\RequirePackage{etoc} % Required to insert local tables of contents
+
+\newcounter{margintocdepth} % Set the depth of the margintoc
+\setcounter{margintocdepth}{\subsectiontocdepth}
+
+\newlength{\mtocshift} % Length of the vertical offset used for margin tocs
+\setlength{\mtocshift}{-52\vpll}
+
+% Command to print a table of contents in the margin
+\newcommand{\margintoc}[1][\mtocshift]{ % The first parameter is the vertical offset; by default it is \mtocshift
+	\begingroup
+		% Set the style for section entries
+		\etocsetstyle{section}%
+		{\parindent -5pt \parskip 3pt}%
+		{\leftskip 20pt \rightskip 12pt} %
+		{\hspace{0.01cm}\llap{\etocnumber\hspace{0.1cm}}\etocname\nobreak\leaders\hbox{\hbox to 1.5ex {\hss.\hss}}\hfill\makebox[-0.1cm][l]{\etocpage}\par}%	
+		{}%
+		% Set the style for subsection entries
+		\etocsetstyle{subsection}%
+		{\parindent -5pt \parskip 0pt}%
+		{\leftskip 20pt \rightskip 12pt}%
+		{\hspace{0.01cm}\llap{\hspace{0.1cm}}\etocname\nobreak\leaders\hbox{\hbox to 1.5ex {\hss.\hss}}\hfill\makebox[-0.1cm][l]{\etocpage}\par}%
+		{}%
+		% Set the global style of the toc
+		%\etocsettocstyle{}{}
+		%\etocsettocstyle{\normalfont\sffamily\normalsize}{}
+		\etocsettocstyle{\usekomafont{section}\small}{}%
+		\etocsetnexttocdepth{\themargintocdepth}%
+		% Print the table of contents in the margin
+		\marginnote[#1]{\localtableofcontents}%
+	\endgroup%
+}
 
 %----------------------------------------------------------------------------------------
 %	ENCODING AND FONTS

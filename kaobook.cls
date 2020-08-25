@@ -79,7 +79,7 @@
 
 	% Add a blank page before the main matter if the front matter has an
 	% odd number of pages
-	\Ifthispageodd{
+	\ifthispageodd{
 	  \afterpage{\blankpage}
 	}{}
 
@@ -139,7 +139,7 @@
 		\autodot\IfUsePrefixLine{}{\enskip}}}
 
 	\RedeclareSectionCommand[beforeskip=0cm,afterskip=1cm]{chapter}
-	\setlength{\mtocshift}{-3.2cm}
+	\setlength{\mtocshift}{-32\vpll}
 }
 
 % The Kao style
@@ -148,15 +148,15 @@
 		\mbox{\chapappifchapterprefix{\nobreakspace}\scalebox{2.85}{\thechapter\autodot}}%
 	}
 	\renewcommand\chapterlinesformat[3]{%
-		\vspace*{-4.5cm}%
+		\vspace*{-45\vpll}%
 		\makebox[\textwidth+\marginparsep+\marginparwidth]{%
 			\parbox[b]{\textwidth}{\flushright{##3}}%
-			\makebox[\marginparsep][c]{\rule[-.2cm]{1pt}{5.7cm}}%
+			\makebox[\marginparsep][c]{\rule[-.2cm]{1pt}{57\vpll}}%
 			\parbox[b]{\marginparwidth}{##2}%
 		}
 	}
 
-	\RedeclareSectionCommand[beforeskip=0cm,afterskip=1cm]{chapter}
+	\RedeclareSectionCommand[beforeskip=0cm,afterskip=10\vpll]{chapter}
 	\setlength{\mtocshift}{0mm}
 }
 
@@ -193,8 +193,8 @@
 	  }
 	}
 
-	\RedeclareSectionCommand[beforeskip=0cm,afterskip=1cm]{chapter}
-	\setlength{\mtocshift}{-2.5cm}
+	\RedeclareSectionCommand[beforeskip=0cm,afterskip=10\vpll]{chapter}
+	\setlength{\mtocshift}{25\vpll}
 }
 
 % Image (Used internally for \chapterimage; normal users should not need this command)
@@ -208,7 +208,7 @@
 			\node[
 				anchor=west,
 				xshift=-3cm,
-				yshift=1.15cm,
+				yshift=11.5mm,
 				rectangle,
 				fill=gray!20!white,
 				fill opacity=0.8,
@@ -231,14 +231,14 @@
 }
 
 % Takes as input the image path and optionally the "beforeskip"
-\DeclareDocumentCommand{\setchapterimage}{O{5.5cm} m}{%
+\DeclareDocumentCommand{\setchapterimage}{O{55\vpll} m}{%
 	\setchapterpreamble[o]{%
-		\vspace*{-2.7cm}\hspace*{-2.5cm}%
-		\includegraphics[width=\paperwidth,height=#1+2.7cm,keepaspectratio=false]{#2}%
+		\vspace*{-27\vpll}\hspace*{-25\hpll}%
+		\includegraphics[width=\paperwidth,height=#1+27\vpll,keepaspectratio=false]{#2}%
 	}%
 	\chapterstyleimage%
 	% beforeskip=-(figure_height-top_margin)
-	\RedeclareSectionCommand[beforeskip=-#1, afterskip=.6cm]{chapter}%
+	\RedeclareSectionCommand[beforeskip=-#1, afterskip=6\vpll]{chapter}%
 	\setlength{\mtocshift}{0cm}%
 }
 
