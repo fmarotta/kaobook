@@ -35,7 +35,7 @@ The salient features of the class are as follows.
 
 A better description can be found at [LaTeX 
 Templates](http://www.latextemplates.com/template/kaobook). If you think 
-that a PDF is worth a thousand words, have a look at [this](main.pdf).
+that a PDF is worth a thousand words, have a look at [this](example_and_documentation.pdf).
 
 ## Repository Schema
 
