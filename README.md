@@ -95,7 +95,7 @@ kaobook class, consisting of `kaobook.cls`, `kaohandt.cls`, and
 on the other hand, the templates and the examples in the `examples` 
 directory.
 
-The first work is licensed under the Linux Project Public License, so if 
+The first work is licensed under the [LaTeX Project Public License](https://www.latex-project.org/lppl/), so if 
 you want to modify and/or distribute the `*.cls` and `*.sty` files 
 pertaining to this work you have to complain with the terms of the 
 license. However, if you just want to use the class to compile your 
