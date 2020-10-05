@@ -136,6 +136,39 @@ Read the respective documentations if you want to be able to change the
 default \acrshort{tocLabel} style.\sidenote[][*-1]{(And please, send me 
 a copy of what you have done, I'm so curious!)}
 
+\section{Paper Size}
+
+Recent versions of Kaobook support paper sizes different from the
+default A4. It is possible to pass the name of the paper as an option
+to the class, as we are accustomed for any other \LaTeX\ class. For
+example, the class option \Option{b5paper} would set the paper size
+to the B5 format.
+
+We also support the paper sizes specified in
+\href{https://www.bod.de/hilfe/hilfe-und-service.html?cmd=SINGLE\&entryID=2494\_GER\_WSS\&eo=2\&title=welche-buchformate-gibt-es}{this
+web page}, with the option names specified in \reftab{papersizes}.
+
+\begin{margintable}[*-6]
+	\caption{Some non-standard paper sizes supported by kaobook.}
+	\labtab{papersizes}
+	\begin{tabular}{ll}
+		\toprule
+		Dimension & Option name \\
+		\midrule
+		12.0cm x 19.0cm & smallpocketpaper \\
+		13.5cm x 21.5cm & pocketpaper \\
+		14.8cm x 21.0cm & a5paper \\
+		15.5cm x 22.0cm & juvenilepaper \\
+		17.0cm x 17.0cm & smallphotopaper \\
+		21.0cm x 15.0cm & appendixpaper \\
+		17.0cm x 22.0cm & cookpaper \\
+		19.0cm x 27.0cm & illustratedpaper \\
+		17.0cm x 17.0cm & photopaper \\
+		21.0cm x 29.7cm & a4paper \\
+		\bottomrule
+	\end{tabular}
+\end{margintable}
+
 \section{Page Layout}
 
 Besides the page style, you can also change the width of the content of 

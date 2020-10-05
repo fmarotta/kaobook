@@ -569,12 +569,188 @@
 % Define lengths to set the scale of the document. Changing these lengths should affect all the other pagesize-dependent elements in the layout, such as the geometry of the page, the spacing between paragraphs, and so on. (As of now, not all the elements rely on hpll and vpll; future work will address this shortcoming.)
 \newlength{\hpll}
 \newlength{\vpll}
-\setlength{\hpll}{1mm}
-\setlength{\vpll}{1mm}
+
+\@ifclasswith{\@baseclass}{a0paper}{%
+	\setlength{\hpll}{4mm}%
+	\setlength{\vpll}{4mm}%
+}{}
+\@ifclasswith{\@baseclass}{a1paper}{%
+	\setlength{\hpll}{2.828mm}%
+	\setlength{\vpll}{2.828mm}%
+}{}
+\@ifclasswith{\@baseclass}{a2paper}{%
+	\setlength{\hpll}{2mm}%
+	\setlength{\vpll}{2mm}%
+}{}
+\@ifclasswith{\@baseclass}{a3paper}{%
+	\setlength{\hpll}{1.414mm}%
+	\setlength{\vpll}{1.414mm}%
+}{}
+\@ifclasswith{\@baseclass}{a4paper}{%
+	\setlength{\hpll}{1mm}%
+	\setlength{\vpll}{1mm}%
+}{}
+\@ifclasswith{\@baseclass}{a5paper}{%
+	\setlength{\hpll}{0.704mm}%
+	\setlength{\vpll}{0.704mm}%
+}{}
+\@ifclasswith{\@baseclass}{a6paper}{%
+	\setlength{\hpll}{0.5mm}%
+	\setlength{\vpll}{0.5mm}%
+}{}
+\@ifclasswith{\@baseclass}{b0paper}{%
+	\setlength{\hpll}{4.761mm}%
+	\setlength{\vpll}{4.761mm}%
+}{}
+\@ifclasswith{\@baseclass}{b1paper}{%
+	\setlength{\hpll}{3.367mm}%
+	\setlength{\vpll}{3.367mm}%
+}{}
+\@ifclasswith{\@baseclass}{b2paper}{%
+	\setlength{\hpll}{2.380mm}%
+	\setlength{\vpll}{2.380mm}%
+}{}
+\@ifclasswith{\@baseclass}{b3paper}{%
+	\setlength{\hpll}{1.681mm}%
+	\setlength{\vpll}{1.681mm}%
+}{}
+\@ifclasswith{\@baseclass}{b4paper}{%
+	\setlength{\hpll}{1.190mm}%
+	\setlength{\vpll}{1.190mm}%
+}{}
+\@ifclasswith{\@baseclass}{b5paper}{%
+	\setlength{\hpll}{0.837mm}%
+	\setlength{\vpll}{0.837mm}%
+}{}
+\@ifclasswith{\@baseclass}{b6paper}{%
+	\setlength{\hpll}{0.570mm}%
+	\setlength{\vpll}{0.570mm}%
+}{}
+\@ifclasswith{\@baseclass}{c0paper}{%
+	\setlength{\hpll}{4.367mm}%
+	\setlength{\vpll}{4.367mm}%
+}{}
+\@ifclasswith{\@baseclass}{c1paper}{%
+	\setlength{\hpll}{3.085mm}%
+	\setlength{\vpll}{3.085mm}%
+}{}
+\@ifclasswith{\@baseclass}{c2paper}{%
+	\setlength{\hpll}{2.180mm}%
+	\setlength{\vpll}{2.180mm}%
+}{}
+\@ifclasswith{\@baseclass}{c3paper}{%
+	\setlength{\hpll}{1.542mm}%
+	\setlength{\vpll}{1.542mm}%
+}{}
+\@ifclasswith{\@baseclass}{c4paper}{%
+	\setlength{\hpll}{1.090mm}%
+	\setlength{\vpll}{1.090mm}%
+}{}
+\@ifclasswith{\@baseclass}{c5paper}{%
+	\setlength{\hpll}{0.771mm}%
+	\setlength{\vpll}{0.771mm}%
+}{}
+\@ifclasswith{\@baseclass}{c6paper}{%
+	\setlength{\hpll}{0.542mm}%
+	\setlength{\vpll}{0.542mm}%
+}{}
+\@ifclasswith{\@baseclass}{b0j}{%
+	\setlength{\hpll}{4.904mm}%
+	\setlength{\vpll}{4.904mm}%
+}{}
+\@ifclasswith{\@baseclass}{b1j}{%
+	\setlength{\hpll}{3.467mm}%
+	\setlength{\vpll}{3.467mm}%
+}{}
+\@ifclasswith{\@baseclass}{b2j}{%
+	\setlength{\hpll}{2.452mm}%
+	\setlength{\vpll}{2.452mm}%
+}{}
+\@ifclasswith{\@baseclass}{b3j}{%
+	\setlength{\hpll}{1.733mm}%
+	\setlength{\vpll}{1.733mm}%
+}{}
+\@ifclasswith{\@baseclass}{b4j}{%
+	\setlength{\hpll}{1.226mm}%
+	\setlength{\vpll}{1.226mm}%
+}{}
+\@ifclasswith{\@baseclass}{b5j}{%
+	\setlength{\hpll}{0.867mm}%
+	\setlength{\vpll}{0.867mm}%
+}{}
+\@ifclasswith{\@baseclass}{b6j}{%
+	\setlength{\hpll}{0.613mm}%
+	\setlength{\vpll}{0.613mm}%
+}{}
+\@ifclasswith{\@baseclass}{ansiapaper}{%
+	\setlength{\hpll}{1.028mm}%
+	\setlength{\vpll}{0.939mm}%
+}{}
+\@ifclasswith{\@baseclass}{ansibpaper}{%
+	\setlength{\hpll}{1.328mm}%
+	\setlength{\vpll}{1.454mm}%
+}{}
+\@ifclasswith{\@baseclass}{ansicpaper}{%
+	\setlength{\hpll}{2.057mm}%
+	\setlength{\vpll}{1.882mm}%
+}{}
+\@ifclasswith{\@baseclass}{ansidpaper}{%
+	\setlength{\hpll}{2.662mm}%
+	\setlength{\vpll}{2.909mm}%
+}{}
+\@ifclasswith{\@baseclass}{ansiepaper}{%
+	\setlength{\hpll}{4.114mm}%
+	\setlength{\vpll}{3.764mm}%
+}{}
+\@ifclasswith{\@baseclass}{letterpaper}{%
+	\setlength{\hpll}{1.028mm}%
+	\setlength{\vpll}{0.939mm}%
+}{}
+\@ifclasswith{\@baseclass}{executivepaper}{%
+	\setlength{\hpll}{0.876mm}%
+	\setlength{\vpll}{0.898mm}%
+}{}
+\@ifclasswith{\@baseclass}{legalpaper}{%
+	\setlength{\hpll}{1.028mm}%
+	\setlength{\vpll}{1.198mm}%
+}{}
+\@ifclasswith{\@baseclass}{smallpocketpaper}{%
+	\setlength{\hpll}{0.571mm}%
+	\setlength{\vpll}{0.639mm}%
+}{}
+\@ifclasswith{\@baseclass}{pocketpaper}{%
+	\setlength{\hpll}{0.642mm}%
+	\setlength{\vpll}{0.723mm}%
+}{}
+\@ifclasswith{\@baseclass}{juvenilepaper}{%
+	\setlength{\hpll}{0.738mm}%
+	\setlength{\vpll}{0.740mm}%
+}{}
+\@ifclasswith{\@baseclass}{smallphotopaper}{%
+	\setlength{\hpll}{0.809mm}%
+	\setlength{\vpll}{0.572mm}%
+}{}
+\@ifclasswith{\@baseclass}{photopaper}{%
+	\setlength{\hpll}{1.00mm}%
+	\setlength{\vpll}{0.707mm}%
+}{}
+\@ifclasswith{\@baseclass}{appendixpaper}{%
+	\setlength{\hpll}{1.000mm}%
+	\setlength{\vpll}{0.505mm}%
+}{}
+\@ifclasswith{\@baseclass}{cookpaper}{%
+	\setlength{\hpll}{0.809mm}%
+	\setlength{\vpll}{0.740mm}%
+}{}
+\@ifclasswith{\@baseclass}{illustratedpaper}{%
+	\setlength{\hpll}{0.905mm}%
+	\setlength{\vpll}{0.909mm}%
+}{}
 
 % Set the default page layout
 \RequirePackage[
-	a4paper,
+	paperwidth=\vpll*\real{210},
+	paperheight=\vpll*\real{297},
 	top=\vpll*\real{27.4},
 	bottom=\vpll*\real{27.4},
 	inner=\hpll*\real{24.8},

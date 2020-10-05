@@ -54,7 +54,7 @@
 % Customise the abstract
 \RequirePackage[style]{abstract}
 
-\setlength{\absleftindent}{0pt} % No indent
+\setlength{\absleftindent}{0pt}% No indent
 \if@abstrt
   \renewcommand{\abstitlestyle}[1]{%
 	\vspace{-0.6cm}%

@@ -33,6 +33,7 @@
 \newcommand{\@baseclass}{scrbook} % Base class name
 
 % Set the default options
+\PassOptionsToClass{a4paper}{\@baseclass}
 \PassOptionsToClass{fontsize=9.5pt}{\@baseclass}
 \PassOptionsToClass{parskip=half}{\@baseclass}
 \PassOptionsToClass{headings=optiontoheadandtoc}{\@baseclass}
