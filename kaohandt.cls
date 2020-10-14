@@ -38,6 +38,7 @@
 }
 
 % Set the default options
+\PassOptionsToClass{a4paper}{\@baseclass}
 \DeclareOptionX*{\PassOptionsToClass{\CurrentOption}{\@baseclass}} % Pass through any options to the base class
 \ProcessOptionsX\relax % Process the options
 \LoadClass{\@baseclass} % Load the base class
