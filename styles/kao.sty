@@ -29,9 +29,10 @@
 % \RequirePackage[l2tabu,orthodox]{nag} % turn on warnings because of bad style
 \RequirePackage{etoolbox} % Easy programming to modify TeX stuff
 \RequirePackage{calc} % Make calculations
+\RequirePackage[usenames,dvipsnames,table]{xcolor} % Colours
 \RequirePackage{iftex} % Check wether XeTeX is being used
 \RequirePackage{xifthen} % Easy conditionals
-\RequirePackage{xkeyval} % Manage class options
+\RequirePackage{options} % Manage class options
 \RequirePackage{xparse} % Parse arguments for macros
 \RequirePackage{xpatch} % Patch LaTeX code in external packages
 \RequirePackage{xstring} % Parse strings
@@ -73,6 +74,203 @@
 \pretocmd{\maketitle}{\pdfbookmark[1]{\@plaintitle}{title}}{}{}%
 
 %----------------------------------------------------------------------------------------
+%	PAGE LAYOUT
+%----------------------------------------------------------------------------------------
+
+% Define lengths to set the scale of the document. Changing these 
+% lengths should affect all the other pagesize-dependent elements in the 
+% layout, such as the geometry of the page, the spacing between 
+% paragraphs, and so on. (As of now, not all the elements rely on hscale 
+% and vscale; future work will address this shortcoming.)
+\newlength{\hscale}
+\newlength{\vscale}
+
+% By default, the scales are set to work for a4paper
+\setlength{\hscale}{1mm}
+\setlength{\vscale}{1mm}
+
+\@ifclasswith{\@baseclass}{a0paper}{\setlength{\hscale}{4mm}\setlength{\vscale}{4mm}}{}
+\@ifclasswith{\@baseclass}{a1paper}{\setlength{\hscale}{2.828mm}\setlength{\vscale}{2.828mm}}{}
+\@ifclasswith{\@baseclass}{a2paper}{\setlength{\hscale}{2mm}\setlength{\vscale}{2mm}}{}
+\@ifclasswith{\@baseclass}{a3paper}{\setlength{\hscale}{1.414mm}\setlength{\vscale}{1.414mm}}{}
+\@ifclasswith{\@baseclass}{a4paper}{\setlength{\hscale}{1mm}\setlength{\vscale}{1mm}}{}
+\@ifclasswith{\@baseclass}{a5paper}{\setlength{\hscale}{0.704mm}\setlength{\vscale}{0.704mm}}{}
+\@ifclasswith{\@baseclass}{a6paper}{\setlength{\hscale}{0.5mm}\setlength{\vscale}{0.5mm}}{}
+\@ifclasswith{\@baseclass}{b0paper}{\setlength{\hscale}{4.761mm}\setlength{\vscale}{4.761mm}}{}
+\@ifclasswith{\@baseclass}{b1paper}{\setlength{\hscale}{3.367mm}\setlength{\vscale}{3.367mm}}{}
+\@ifclasswith{\@baseclass}{b2paper}{\setlength{\hscale}{2.380mm}\setlength{\vscale}{2.380mm}}{}
+\@ifclasswith{\@baseclass}{b3paper}{\setlength{\hscale}{1.681mm}\setlength{\vscale}{1.681mm}}{}
+\@ifclasswith{\@baseclass}{b4paper}{\setlength{\hscale}{1.190mm}\setlength{\vscale}{1.190mm}}{}
+\@ifclasswith{\@baseclass}{b5paper}{\setlength{\hscale}{0.837mm}\setlength{\vscale}{0.837mm}}{}
+\@ifclasswith{\@baseclass}{b6paper}{\setlength{\hscale}{0.570mm}\setlength{\vscale}{0.570mm}}{}
+\@ifclasswith{\@baseclass}{c0paper}{\setlength{\hscale}{4.367mm}\setlength{\vscale}{4.367mm}}{}
+\@ifclasswith{\@baseclass}{c1paper}{\setlength{\hscale}{3.085mm}\setlength{\vscale}{3.085mm}}{}
+\@ifclasswith{\@baseclass}{c2paper}{\setlength{\hscale}{2.180mm}\setlength{\vscale}{2.180mm}}{}
+\@ifclasswith{\@baseclass}{c3paper}{\setlength{\hscale}{1.542mm}\setlength{\vscale}{1.542mm}}{}
+\@ifclasswith{\@baseclass}{c4paper}{\setlength{\hscale}{1.090mm}\setlength{\vscale}{1.090mm}}{}
+\@ifclasswith{\@baseclass}{c5paper}{\setlength{\hscale}{0.771mm}\setlength{\vscale}{0.771mm}}{}
+\@ifclasswith{\@baseclass}{c6paper}{\setlength{\hscale}{0.542mm}\setlength{\vscale}{0.542mm}}{}
+\@ifclasswith{\@baseclass}{b0j}{\setlength{\hscale}{4.904mm}\setlength{\vscale}{4.904mm}}{}
+\@ifclasswith{\@baseclass}{b1j}{\setlength{\hscale}{3.467mm}\setlength{\vscale}{3.467mm}}{}
+\@ifclasswith{\@baseclass}{b2j}{\setlength{\hscale}{2.452mm}\setlength{\vscale}{2.452mm}}{}
+\@ifclasswith{\@baseclass}{b3j}{\setlength{\hscale}{1.733mm}\setlength{\vscale}{1.733mm}}{}
+\@ifclasswith{\@baseclass}{b4j}{\setlength{\hscale}{1.226mm}\setlength{\vscale}{1.226mm}}{}
+\@ifclasswith{\@baseclass}{b5j}{\setlength{\hscale}{0.867mm}\setlength{\vscale}{0.867mm}}{}
+\@ifclasswith{\@baseclass}{b6j}{\setlength{\hscale}{0.613mm}\setlength{\vscale}{0.613mm}}{}
+\@ifclasswith{\@baseclass}{ansiapaper}{\setlength{\hscale}{1.028mm}\setlength{\vscale}{0.939mm}}{}
+\@ifclasswith{\@baseclass}{ansibpaper}{\setlength{\hscale}{1.328mm}\setlength{\vscale}{1.454mm}}{}
+\@ifclasswith{\@baseclass}{ansicpaper}{\setlength{\hscale}{2.057mm}\setlength{\vscale}{1.882mm}}{}
+\@ifclasswith{\@baseclass}{ansidpaper}{\setlength{\hscale}{2.662mm}\setlength{\vscale}{2.909mm}}{}
+\@ifclasswith{\@baseclass}{ansiepaper}{\setlength{\hscale}{4.114mm}\setlength{\vscale}{3.764mm}}{}
+\@ifclasswith{\@baseclass}{letterpaper}{\setlength{\hscale}{1.028mm}\setlength{\vscale}{0.939mm}}{}
+\@ifclasswith{\@baseclass}{executivepaper}{\setlength{\hscale}{0.876mm}\setlength{\vscale}{0.898mm}}{}
+\@ifclasswith{\@baseclass}{legalpaper}{\setlength{\hscale}{1.028mm}\setlength{\vscale}{1.198mm}}{}
+\@ifclasswith{\@baseclass}{smallpocketpaper}{\setlength{\hscale}{0.571mm}\setlength{\vscale}{0.639mm}}{}
+\@ifclasswith{\@baseclass}{pocketpaper}{\setlength{\hscale}{0.642mm}\setlength{\vscale}{0.723mm}}{}
+\@ifclasswith{\@baseclass}{juvenilepaper}{\setlength{\hscale}{0.738mm}\setlength{\vscale}{0.740mm}}{}
+\@ifclasswith{\@baseclass}{smallphotopaper}{\setlength{\hscale}{0.809mm}\setlength{\vscale}{0.572mm}}{}
+\@ifclasswith{\@baseclass}{photopaper}{\setlength{\hscale}{1.00mm}\setlength{\vscale}{0.707mm}}{}
+\@ifclasswith{\@baseclass}{appendixpaper}{\setlength{\hscale}{1.000mm}\setlength{\vscale}{0.505mm}}{}
+\@ifclasswith{\@baseclass}{cookpaper}{\setlength{\hscale}{0.809mm}\setlength{\vscale}{0.740mm}}{}
+\@ifclasswith{\@baseclass}{illustratedpaper}{\setlength{\hscale}{0.905mm}\setlength{\vscale}{0.909mm}}{}
+
+% Set the default page layout
+\RequirePackage[
+	paperwidth=\vscale*\real{210},
+	paperheight=\vscale*\real{297},
+	top=\vscale*\real{27.4},
+	bottom=\vscale*\real{27.4},
+	inner=\hscale*\real{24.8},
+	textwidth=\hscale*\real{107},
+	marginparsep=\hscale*\real{8.2},
+	marginparwidth=\hscale*\real{49.4},
+	includemp
+]{geometry}
+
+% Command to choose among the three possible layouts
+\DeclareDocumentCommand{\pagelayout}{m}{%
+	\ifthenelse{\equal{margin}{#1}}{\marginlayout\marginfloatsetup}{}%
+	\ifthenelse{\equal{wide}{#1}}{\widelayout\widefloatsetup}{}%
+	\ifthenelse{\equal{fullwidth}{#1}}{\fullwidthlayout\widefloatsetup}{}%
+}
+
+% Layout #1: large margins
+\newcommand{\marginlayout}{%
+	\newgeometry{
+		top=\vscale*\real{27.4},
+		bottom=\vscale*\real{27.4},
+		inner=\hscale*\real{24.8},
+		textwidth=\hscale*\real{107},
+		marginparsep=\hscale*\real{8.2},
+		marginparwidth=\hscale*\real{49.4},
+	}%
+}
+
+% Layout #2: small, symmetric margins
+\newcommand{\widelayout}{%
+	\newgeometry{
+		top=\vscale*\real{27.4},
+		bottom=\vscale*\real{27.4},
+		inner=\hscale*\real{24.8},
+		outer=\hscale*\real{24.8},
+		marginparsep=0mm,
+		marginparwidth=0mm,
+		ignoremp,
+	}%
+}
+
+% Layout #3: no margins and no space above or below the body
+\newcommand{\fullwidthpage}{%
+	\newgeometry{
+		top=0mm,
+		bottom=0mm,
+		inner=0mm,
+		outer=0mm,
+		marginparwidth=0mm,
+		marginparsep=0mm,
+		ignoremp
+	}%
+}
+
+% Set the default page layout
+\AtBeginDocument{\pagelayout{margin}}
+
+%----------------------------------------------------------------------------------------
+%	HEADERS AND FOOTERS
+%----------------------------------------------------------------------------------------
+
+\RequirePackage{scrlayer-scrpage}		% Customise head and foot regions
+
+% Define some LaTeX lengths used in the page headers
+\newlength{\headtextwidth} % Theoretically, this length should be equal to \textwidth
+\setlength{\headtextwidth}{107\hscale}
+\newlength{\headmarginparsep} % Theoretically, this length should be equal to \marginparsep
+\setlength{\headmarginparsep}{8.2\hscale}
+\newlength{\headmarginparwidth} % Theoretically, this length should be equal to \marginparwidth (Check the kaogeom package and make sure that the numbers match)
+\setlength{\headmarginparwidth}{\hscale*\real{49.4}}
+\newlength{\headtotal} % This is the total width of the header
+\setlength{\headtotal}{\headtextwidth}
+\addtolength{\headtotal}{\headmarginparsep}
+\addtolength{\headtotal}{\headmarginparwidth}
+
+% Set the default header height
+\setlength{\headheight}{40\vscale}
+
+% Page styles (header and footer)
+
+% Style with chapter number, chapter title, and page in the header (used throughout the document)
+\renewpagestyle{scrheadings}{%
+	{\hspace{-\headmarginparwidth}\hspace{-\headmarginparsep}\makebox[\headtotal][l]{%
+		\parbox[t][17\vscale][c]{2em}{\hfill\thepage}%
+		\makebox[2em][c]{\rule[-10\vscale]{1pt}{15\vscale}}%
+		\parbox[t][17cm\vscale][c]{107\hscale}{\leftmark}}}%
+	{\makebox[\headtotal][r]{%
+		\parbox[t][17\vscale][c]{107\hscale}{\hfill\rightmark}%
+		\makebox[2em][c]{\rule[-10\vscale]{1pt}{15\vscale}}%
+		\parbox[t][17\vscale][c]{2em}{\thepage}}}%
+	{\makebox[\headtotal][r]{%
+		\parbox[t][17\vscale][c]{107\hscale}{\hfill\rightmark}%
+		\makebox[2em][c]{\rule[-10\vscale]{1pt}{15\vscale}}%
+		\parbox[t][17\vscale][c]{2em}{\thepage}}}%
+}{%
+	{}%
+	{}%
+	{}%
+}
+
+% Style with neither header nor footer (used for special pages)
+\renewpagestyle{plain.scrheadings}{%
+	{}%
+	{}%
+	{}%
+}{%
+	{}%
+	{}%
+	{}%
+}
+
+% Style with an empty header and the page number in the footer
+\newpagestyle{pagenum.scrheadings}{%
+	{}%
+	{}%
+	{}%
+}{%
+	{\thepage}%
+	{\hfill\thepage}%
+	{}%
+}
+
+% Command to print a blank page
+\newcommand\blankpage{%
+	\null%
+	\thispagestyle{empty}%
+	\newpage%
+}
+
+% Set the default page style
+\pagestyle{plain.scrheadings}
+
+%----------------------------------------------------------------------------------------
 %	PARAGRAPH FORMATTING
 %----------------------------------------------------------------------------------------
 
@@ -82,11 +280,8 @@
 \RequirePackage{microtype} % Improves character and word spacing
 \RequirePackage{needspace} % Required to prevent page break right after a sectioning command
 \RequirePackage{xspace} % Better print trailing whitespace
-\RequirePackage[usenames,dvipsnames,table]{xcolor} % Colours
 
 % TODO: recognize space/indent justified/raggedright class options
-
-%------------------------------------------------
 
 % Settings for a normal paragraph
 \newcommand{\@body@par}{%
@@ -96,8 +291,6 @@
 	\normalfont% Use the default font
 	\normalsize% Use the default size
 }
-
-%------------------------------------------------
 
 % Settings for paragraphs in the margins
 \newcommand{\@margin@par}{%
@@ -111,23 +304,50 @@
 	\footnotesize% Use a smaller size
 }
 
-%------------------------------------------------
-
 % By default, use @body@par settings
 \@body@par
+
+%----------------------------------------------------------------------------------------
+%	WIDE PARAGRAPHS
+%----------------------------------------------------------------------------------------
+
+% Environment for a wide paragraph
+\NewDocumentEnvironment{widepar}{}{%
+  \if@twoside%
+	\Ifthispageodd{%
+	  \begin{addmargin}[0cm]{-\marginparwidth-\marginparsep}%
+	}{%
+	  \begin{addmargin}[-\marginparwidth-\marginparsep]{0cm}%
+	}%
+  \else%
+	\begin{addmargin}[0cm]{-\marginparwidth-\marginparsep}%
+  \fi%
+}{%
+	\end{addmargin}%
+}
+
+% Environment for a wide equation
+\NewDocumentEnvironment{wideequation}{}{%
+  \begin{widepar}%
+	\begin{equation}%
+}{%
+	\end{equation}%
+  \end{widepar}%
+}
 
 %----------------------------------------------------------------------------------------
 %	FOOTNOTES, MARGINNOTES AND SIDENOTES
 %----------------------------------------------------------------------------------------
 
 \RequirePackage[section]{placeins} % Prevent floats to cross sections
-
 \extrafloats{100} % Require more floats
 
-%------------------------------------------------
+\RequirePackage{marginnote} % Provides options for margin notes
+\RequirePackage{marginfix} % Make marginpars float freely
+\RequirePackage{sidenotes} % Use sidenotes
+\RequirePackage{chngcntr} % Reset counters at sections
 
 % TODO: see also page 440 of the KOMA-script guide
-
 \RequirePackage[
 	bottom,
 	symbol*,
@@ -146,21 +366,17 @@
 % FIXME: I am not able to choose the paragraph layout of footnotes, probably the footnotes package conflicts with scrbook.
 %\renewcommand{\footnotelayout}{\@margin@par}
 
-%------------------------------------------------
-
-\RequirePackage{marginnote} % Provides options for margin notes
-\RequirePackage{marginfix} % Make marginpars float freely
-\RequirePackage{sidenotes} % Use sidenotes
-\RequirePackage{chngcntr} % Reset counters at sections
+%----------------------------------------------------------------------------------------
 
 % Justify and format margin notes
 \renewcommand*{\raggedleftmarginnote}{} % Suppress left margin
 \renewcommand*{\raggedrightmarginnote}{} % Suppress right margin
 \renewcommand*{\marginfont}{\@margin@par} % Format marginnotes according to \@marginpar (see above)
-\renewcommand{\marginnotevadjust}{0.7\vpll} % Bring all marginnotes downward a bit
+\renewcommand{\marginnotevadjust}{0.7\vscale} % Bring all marginnotes downward a bit
 %\RequirePackage[marginnote=true]{snotez} % Provides options for sidenotes
 
-\def\snotez@if@nblskip#1{%
+% Copied from snotez's \sidenote
+\def\kao@if@nblskip#1{%
 	\expandafter\ifx\@car#1\@nil*%
 		\expandafter\@firstoftwo%
 	\else%
@@ -188,23 +404,20 @@
 % Usage: \marginnote[<offset>]{Text of the note.}
 \let\oldmarginnote\marginnote%
 \RenewDocumentCommand\marginnote { o m }{%
-	\IfNoValueOrEmptyTF{#1}%
-	{%
+	\IfNoValueOrEmptyTF{#1}{%
 		\IfInFloatingEnvir{%
 			\oldmarginnote{#2}%
 		}{%
 			\marginpar{\@margin@par#2}%
 		}%
 	}{%
-		\oldmarginnote{#2}[\snotez@if@nblskip{#1}{\@cdr#1\@nil\baselineskip}{#1}]%
+		\oldmarginnote{#2}[\kao@if@nblskip{#1}{\@cdr#1\@nil\baselineskip}{#1}]%
 	}%
 }
 
 % Redefine the following sidenotes' command to use the kao version of marginnote
-\RenewDocumentCommand \@sidenotes@placemarginal { m m }%
-{%
-	\IfNoValueOrEmptyTF{#1}%
-	{%
+\RenewDocumentCommand \@sidenotes@placemarginal { m m }{%
+	\IfNoValueOrEmptyTF{#1}{%
 		\IfInFloatingEnvir{%
 			\oldmarginnote{#2}%
 		}{%
@@ -235,8 +448,7 @@
 % }
 
 % Formatting sidenotes
-\RenewDocumentCommand \@sidenotes@thesidenotemark { m }%
-{%
+\RenewDocumentCommand \@sidenotes@thesidenotemark { m }{%
 	\leavevmode%
 	\ifhmode%
 		\edef\@x@sf{\the\spacefactor}%
@@ -248,14 +460,13 @@
 	\fi%
 	\relax%
 }%
-%
-\RenewDocumentCommand\sidenotetext{ o o +m }% number, offset, text
-{%
-	\IfNoValueOrEmptyTF{#1}%
-	{%
+
+\RenewDocumentCommand\sidenotetext{ o o +m }{% number, offset, text
+	\IfNoValueOrEmptyTF{#1}{%
 		\@sidenotes@placemarginal{#2}{\@margin@par\thesidenote:\enskip#3}%
+	}{%
+		\@sidenotes@placemarginal{#2}{\@margin@par#1:\enskip#3}%
 	}%
-	{\@sidenotes@placemarginal{#2}{\@margin@par#1:\enskip#3}}%
 }
 
 %----------------------------------------------------------------------------------------
@@ -563,342 +774,6 @@
 % \newcaptionname{english}{\listtheoremname}{Theorems}
 
 %----------------------------------------------------------------------------------------
-%	PAGE LAYOUT
-%----------------------------------------------------------------------------------------
-
-% Define lengths to set the scale of the document. Changing these lengths should affect all the other pagesize-dependent elements in the layout, such as the geometry of the page, the spacing between paragraphs, and so on. (As of now, not all the elements rely on hpll and vpll; future work will address this shortcoming.)
-\newlength{\hpll}
-\newlength{\vpll}
-
-\@ifclasswith{\@baseclass}{a0paper}{%
-	\setlength{\hpll}{4mm}%
-	\setlength{\vpll}{4mm}%
-}{}
-\@ifclasswith{\@baseclass}{a1paper}{%
-	\setlength{\hpll}{2.828mm}%
-	\setlength{\vpll}{2.828mm}%
-}{}
-\@ifclasswith{\@baseclass}{a2paper}{%
-	\setlength{\hpll}{2mm}%
-	\setlength{\vpll}{2mm}%
-}{}
-\@ifclasswith{\@baseclass}{a3paper}{%
-	\setlength{\hpll}{1.414mm}%
-	\setlength{\vpll}{1.414mm}%
-}{}
-\@ifclasswith{\@baseclass}{a4paper}{%
-	\setlength{\hpll}{1mm}%
-	\setlength{\vpll}{1mm}%
-}{}
-\@ifclasswith{\@baseclass}{a5paper}{%
-	\setlength{\hpll}{0.704mm}%
-	\setlength{\vpll}{0.704mm}%
-}{}
-\@ifclasswith{\@baseclass}{a6paper}{%
-	\setlength{\hpll}{0.5mm}%
-	\setlength{\vpll}{0.5mm}%
-}{}
-\@ifclasswith{\@baseclass}{b0paper}{%
-	\setlength{\hpll}{4.761mm}%
-	\setlength{\vpll}{4.761mm}%
-}{}
-\@ifclasswith{\@baseclass}{b1paper}{%
-	\setlength{\hpll}{3.367mm}%
-	\setlength{\vpll}{3.367mm}%
-}{}
-\@ifclasswith{\@baseclass}{b2paper}{%
-	\setlength{\hpll}{2.380mm}%
-	\setlength{\vpll}{2.380mm}%
-}{}
-\@ifclasswith{\@baseclass}{b3paper}{%
-	\setlength{\hpll}{1.681mm}%
-	\setlength{\vpll}{1.681mm}%
-}{}
-\@ifclasswith{\@baseclass}{b4paper}{%
-	\setlength{\hpll}{1.190mm}%
-	\setlength{\vpll}{1.190mm}%
-}{}
-\@ifclasswith{\@baseclass}{b5paper}{%
-	\setlength{\hpll}{0.837mm}%
-	\setlength{\vpll}{0.837mm}%
-}{}
-\@ifclasswith{\@baseclass}{b6paper}{%
-	\setlength{\hpll}{0.570mm}%
-	\setlength{\vpll}{0.570mm}%
-}{}
-\@ifclasswith{\@baseclass}{c0paper}{%
-	\setlength{\hpll}{4.367mm}%
-	\setlength{\vpll}{4.367mm}%
-}{}
-\@ifclasswith{\@baseclass}{c1paper}{%
-	\setlength{\hpll}{3.085mm}%
-	\setlength{\vpll}{3.085mm}%
-}{}
-\@ifclasswith{\@baseclass}{c2paper}{%
-	\setlength{\hpll}{2.180mm}%
-	\setlength{\vpll}{2.180mm}%
-}{}
-\@ifclasswith{\@baseclass}{c3paper}{%
-	\setlength{\hpll}{1.542mm}%
-	\setlength{\vpll}{1.542mm}%
-}{}
-\@ifclasswith{\@baseclass}{c4paper}{%
-	\setlength{\hpll}{1.090mm}%
-	\setlength{\vpll}{1.090mm}%
-}{}
-\@ifclasswith{\@baseclass}{c5paper}{%
-	\setlength{\hpll}{0.771mm}%
-	\setlength{\vpll}{0.771mm}%
-}{}
-\@ifclasswith{\@baseclass}{c6paper}{%
-	\setlength{\hpll}{0.542mm}%
-	\setlength{\vpll}{0.542mm}%
-}{}
-\@ifclasswith{\@baseclass}{b0j}{%
-	\setlength{\hpll}{4.904mm}%
-	\setlength{\vpll}{4.904mm}%
-}{}
-\@ifclasswith{\@baseclass}{b1j}{%
-	\setlength{\hpll}{3.467mm}%
-	\setlength{\vpll}{3.467mm}%
-}{}
-\@ifclasswith{\@baseclass}{b2j}{%
-	\setlength{\hpll}{2.452mm}%
-	\setlength{\vpll}{2.452mm}%
-}{}
-\@ifclasswith{\@baseclass}{b3j}{%
-	\setlength{\hpll}{1.733mm}%
-	\setlength{\vpll}{1.733mm}%
-}{}
-\@ifclasswith{\@baseclass}{b4j}{%
-	\setlength{\hpll}{1.226mm}%
-	\setlength{\vpll}{1.226mm}%
-}{}
-\@ifclasswith{\@baseclass}{b5j}{%
-	\setlength{\hpll}{0.867mm}%
-	\setlength{\vpll}{0.867mm}%
-}{}
-\@ifclasswith{\@baseclass}{b6j}{%
-	\setlength{\hpll}{0.613mm}%
-	\setlength{\vpll}{0.613mm}%
-}{}
-\@ifclasswith{\@baseclass}{ansiapaper}{%
-	\setlength{\hpll}{1.028mm}%
-	\setlength{\vpll}{0.939mm}%
-}{}
-\@ifclasswith{\@baseclass}{ansibpaper}{%
-	\setlength{\hpll}{1.328mm}%
-	\setlength{\vpll}{1.454mm}%
-}{}
-\@ifclasswith{\@baseclass}{ansicpaper}{%
-	\setlength{\hpll}{2.057mm}%
-	\setlength{\vpll}{1.882mm}%
-}{}
-\@ifclasswith{\@baseclass}{ansidpaper}{%
-	\setlength{\hpll}{2.662mm}%
-	\setlength{\vpll}{2.909mm}%
-}{}
-\@ifclasswith{\@baseclass}{ansiepaper}{%
-	\setlength{\hpll}{4.114mm}%
-	\setlength{\vpll}{3.764mm}%
-}{}
-\@ifclasswith{\@baseclass}{letterpaper}{%
-	\setlength{\hpll}{1.028mm}%
-	\setlength{\vpll}{0.939mm}%
-}{}
-\@ifclasswith{\@baseclass}{executivepaper}{%
-	\setlength{\hpll}{0.876mm}%
-	\setlength{\vpll}{0.898mm}%
-}{}
-\@ifclasswith{\@baseclass}{legalpaper}{%
-	\setlength{\hpll}{1.028mm}%
-	\setlength{\vpll}{1.198mm}%
-}{}
-\@ifclasswith{\@baseclass}{smallpocketpaper}{%
-	\setlength{\hpll}{0.571mm}%
-	\setlength{\vpll}{0.639mm}%
-}{}
-\@ifclasswith{\@baseclass}{pocketpaper}{%
-	\setlength{\hpll}{0.642mm}%
-	\setlength{\vpll}{0.723mm}%
-}{}
-\@ifclasswith{\@baseclass}{juvenilepaper}{%
-	\setlength{\hpll}{0.738mm}%
-	\setlength{\vpll}{0.740mm}%
-}{}
-\@ifclasswith{\@baseclass}{smallphotopaper}{%
-	\setlength{\hpll}{0.809mm}%
-	\setlength{\vpll}{0.572mm}%
-}{}
-\@ifclasswith{\@baseclass}{photopaper}{%
-	\setlength{\hpll}{1.00mm}%
-	\setlength{\vpll}{0.707mm}%
-}{}
-\@ifclasswith{\@baseclass}{appendixpaper}{%
-	\setlength{\hpll}{1.000mm}%
-	\setlength{\vpll}{0.505mm}%
-}{}
-\@ifclasswith{\@baseclass}{cookpaper}{%
-	\setlength{\hpll}{0.809mm}%
-	\setlength{\vpll}{0.740mm}%
-}{}
-\@ifclasswith{\@baseclass}{illustratedpaper}{%
-	\setlength{\hpll}{0.905mm}%
-	\setlength{\vpll}{0.909mm}%
-}{}
-
-% Set the default page layout
-\RequirePackage[
-	paperwidth=\vpll*\real{210},
-	paperheight=\vpll*\real{297},
-	top=\vpll*\real{27.4},
-	bottom=\vpll*\real{27.4},
-	inner=\hpll*\real{24.8},
-	textwidth=\hpll*\real{107},
-	marginparsep=\hpll*\real{8.2},
-	marginparwidth=\hpll*\real{49.4},
-	includemp
-]{geometry}
-
-% Command to print a blank page
-\newcommand\blankpage{%
-	\null%
-	\thispagestyle{empty}%
-	\newpage%
-}
-
-% Command to choose among the three possible layouts
-\DeclareDocumentCommand{\pagelayout}{m}{%
-	\ifthenelse{\equal{margin}{#1}}{\marginlayout\marginfloatsetup}{}%
-	\ifthenelse{\equal{wide}{#1}}{\widelayout\widefloatsetup}{}%
-	\ifthenelse{\equal{fullwidth}{#1}}{\fullwidthlayout\widefloatsetup}{}%
-}
-
-% Layout #1: large margins
-\newcommand{\marginlayout}{%
-	\newgeometry{
-		top=\vpll*\real{27.4},
-		bottom=\vpll*\real{27.4},
-		inner=\hpll*\real{24.8},
-		textwidth=\hpll*\real{107},
-		marginparsep=\hpll*\real{8.2},
-		marginparwidth=\hpll*\real{49.4},
-	}%
-}
-
-% Layout #2: small, symmetric margins
-\newcommand{\widelayout}{%
-	\newgeometry{
-		top=\vpll*\real{27.4},
-		bottom=\vpll*\real{27.4},
-		inner=\hpll*\real{24.8},
-		outer=\hpll*\real{24.8},
-		marginparsep=0mm,
-		marginparwidth=0mm,
-		ignoremp,
-	}%
-}
-
-% Layout #3: no margins and no space above or below the body
-\newcommand{\fullwidthpage}{%
-	\newgeometry{
-		top=0mm,
-		bottom=0mm,
-		inner=0mm,
-		outer=0mm,
-		marginparwidth=0mm,
-		marginparsep=0mm,
-		ignoremp
-	}%
-}
-
-% Set the default page layout
-\AtBeginDocument{\pagelayout{margin}}
-
-%----------------------------------------------------------------------------------------
-%	WIDE PARAGRAPHS
-%----------------------------------------------------------------------------------------
-
-% Environment for a wide paragraph
-\NewDocumentEnvironment{widepar}{}{%
-  \if@twoside%
-	\Ifthispageodd{%
-	  \begin{addmargin}[0cm]{-\marginparwidth-\marginparsep}%
-	}{%
-	  \begin{addmargin}[-\marginparwidth-\marginparsep]{0cm}%
-	}%
-  \else%
-	\begin{addmargin}[0cm]{-\marginparwidth-\marginparsep}%
-  \fi%
-}{%
-	\end{addmargin}%
-}
-
-% Environment for a wide equation
-\NewDocumentEnvironment{wideequation}{}{%
-  \begin{widepar}%
-	\begin{equation}%
-}{%
-	\end{equation}%
-  \end{widepar}%
-}
-
-%----------------------------------------------------------------------------------------
-%	HEADERS AND FOOTERS
-%----------------------------------------------------------------------------------------
-
-\RequirePackage{scrlayer-scrpage}		% Customise head and foot regions
-\setlength{\headheight}{40\vpll}		% Enlarge the header
-
-% Headings styles
-
-% Style with chapter number, chapter title, and page in the header (used 
-% throughout the document)
-\renewpagestyle{scrheadings}{%
-	{\hspace{-\marginparwidth}\hspace{-\marginparsep}\makebox[\overflowingheadlen][l]{%
-		\parbox[t][1.7cm][c]{2em}{\hfill\thepage}%
-		\makebox[2em][c]{\rule[-1.03cm]{1pt}{1.55cm}}%
-		\parbox[t][1.7cm][c]{\textwidth}{\leftmark}}}%
-	{\makebox[\overflowingheadlen][r]{%
-		\parbox[t][1.7cm][c]{\textwidth}{\hfill\rightmark}%
-		\makebox[2em][c]{\rule[-1.03cm]{1pt}{1.55cm}}%
-		\parbox[t][1.7cm][c]{2em}{\thepage}}}%
-	{\makebox[\overflowingheadlen][r]{%
-		\parbox[t][1.7cm][c]{\textwidth}{\hfill\rightmark}%
-		\makebox[2em][c]{\rule[-1.03cm]{1pt}{1.55cm}}%
-		\parbox[t][1.7cm][c]{2em}{\thepage}}}%
-}{%
-	{}%
-	{}%
-	{}%
-}
-
-% Style with neither header nor footer (used for special pages)
-\renewpagestyle{plain.scrheadings}{%
-	{}%
-	{}%
-	{}%
-}{%
-	{}%
-	{}%
-	{}%
-}
-
-% Style with an empty header and the page number in the footer
-\newpagestyle{pagenum.scrheadings}{%
-	{}%
-	{}%
-	{}%
-}{%
-	{\thepage}%
-	{\hfill\thepage}%
-	{}%
-}
-
-% Set the default page style
-\pagestyle{plain.scrheadings}
-
-%----------------------------------------------------------------------------------------
 %	MARGIN TOC
 %----------------------------------------------------------------------------------------
 
@@ -908,7 +783,7 @@
 \setcounter{margintocdepth}{\subsectiontocdepth}
 
 \newlength{\mtocshift} % Length of the vertical offset used for margin tocs
-\setlength{\mtocshift}{-52\vpll}
+\setlength{\mtocshift}{-52\vscale}
 
 % Command to print a table of contents in the margin
 \newcommand{\margintoc}[1][\mtocshift]{ % The first parameter is the vertical offset; by default it is \mtocshift

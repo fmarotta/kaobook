@@ -37,38 +37,51 @@ A better description can be found at [LaTeX
 Templates](http://www.latextemplates.com/template/kaobook). If you think 
 that a PDF is worth a thousand words, have a look at [this](example_and_documentation.pdf).
 
+## Usage
+
+### On Overleaf
+
+Browse to the [latextemplates.com page for
+kaobook](https://www.latextemplates.com/template/kaobook) and start 
+editing the `main.tex` file to fill it with your own contents.
+
+### On your computer
+
+Download the latest release from GitHub. At the root of the repository, 
+create a new `.tex` file and make sure that the first line reads 
+`\documentclass{kaobook}` (for books) or `\documentclass{kaohandt}` (for 
+reports). Then, fill the file with your LaTeX contents.
+
+### Other
+
+Check out the [instructions](instructions) directory for additional 
+guidance.
+
+---
+
+The class is documented and exemplified in the 
+[example\_and\_documentation.pdf](example_and_documentation.pdf) file. 
+The easiest way to start using the class is to open one of the examples 
+and start editing them.
+
 ## Repository Schema
 
 There are two main class files: `kaobook.cls`, used for books, and 
-`kaohandt.cls`, used for reports or handouts; both rely on `kao.def`, 
-which contains the bulk of the definitions that are common to both 
-classes. In the future there may be another class for theses.
+`kaohandt.cls`, used for reports or handouts; both heavily rely on 
+`styles/kao.sty`, which contains the bulk of the definitions that are 
+common to both classes. In the future there may be another class for 
+theses.
 
-There are two template files for the two supported classes, and each has 
-its own bibliography file. Further examples are listed in the `examples` 
-directory. The book that documents the class is an example itself, and 
-the pdf has been copied to the root of the repository so that it will be 
-found easier.
+Some examples and templates are listed in the `examples` directory. The 
+book that documents the class is an example itself, and the pdf has been 
+copied to the root of the repository so that it will be found easier.
 
 The `styles` directory contains additional packages that are used by the 
 class, but in principle they are independent of it (even though in 
 practice it is still not so).
 
-## Usage
-
-The class is documented and exemplified in the 
-[example\_and\_documentation.pdf](example_and_documentation.pdf) file. 
-To actually use it you can either clone the [Git Hub 
-repository](https://github.com/fmarotta/kaobook) or, much more easily, 
-find the template at [LaTeX 
-Templates](http://www.latextemplates.com/template/kaobook).
-
-The easiest way to start using the class is to open the [book 
-template](book-template.tex) or the [report 
-template](report-template.tex) and edit them.
-
-Check out the [instructions](instructions) directory for additional 
-guidance.
+If you want to do something more peculiar, the `instructions` directory 
+may contain what you need.
 
 ## Contributing
 

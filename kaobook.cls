@@ -54,18 +54,10 @@
 %	FRONT-, MAIN-, BACK- MATTERS BEHAVIOUR
 %----------------------------------------------------------------------------------------
 
-% Define a LaTeX length used in the page headers
-\newlength{\overflowingheadlen}
-
 % Front matter
 \let\oldfrontmatter\frontmatter % Store the old command
 \renewcommand{\frontmatter}{
 	\oldfrontmatter % First of all, call the old command
-
-	% Set some Lengths used for the page headers
-	\setlength{\overflowingheadlen}{\linewidth}
-	\addtolength{\overflowingheadlen}{\marginparsep}
-	\addtolength{\overflowingheadlen}{\marginparwidth}
 
 	\pagestyle{plain.scrheadings} % Use a plain style for the header and the footer
 	\pagelayout{wide} % Use a wide page layout
@@ -86,11 +78,6 @@
 
 	\oldmainmatter % Call the old command
 
-	% Set some Lengths used for the page headers
-	\setlength{\overflowingheadlen}{\linewidth}
-	\addtolength{\overflowingheadlen}{\marginparsep}
-	\addtolength{\overflowingheadlen}{\marginparwidth}
-
 	\pagestyle{scrheadings} % Use a fancy style for the header and the footer
 	\pagelayout{margin} % Use a 1.5 column layout
 }
@@ -110,11 +97,6 @@
 \let\oldbackmatter\backmatter % Store the old command
 \renewcommand{\backmatter}{
 	\oldbackmatter % Call the old command
-
-	% Set some Lengths used for the page headers
-	\setlength{\overflowingheadlen}{\linewidth}
-	\addtolength{\overflowingheadlen}{\marginparsep}
-	\addtolength{\overflowingheadlen}{\marginparwidth}
 
 	\bookmarksetup{startatroot} % Reset the bookmark depth
 	\pagestyle{plain.scrheadings} % Use a plain style for the header and the footer
@@ -140,7 +122,7 @@
 		\autodot\IfUsePrefixLine{}{\enskip}}}
 
 	\RedeclareSectionCommand[beforeskip=0cm,afterskip=1cm]{chapter}
-	\setlength{\mtocshift}{-32\vpll}
+	\setlength{\mtocshift}{-32\vscale}
 }
 
 % The Kao style
@@ -149,15 +131,15 @@
 		\mbox{\chapappifchapterprefix{\nobreakspace}\scalebox{2.85}{\thechapter\autodot}}%
 	}
 	\renewcommand\chapterlinesformat[3]{%
-		\vspace*{-45\vpll}%
+		\vspace*{-45\vscale}%
 		\makebox[\textwidth+\marginparsep+\marginparwidth]{%
 			\parbox[b]{\textwidth}{\flushright{##3}}%
-			\makebox[\marginparsep][c]{\rule[-.2cm]{1pt}{57\vpll}}%
+			\makebox[\marginparsep][c]{\rule[-.2cm]{1pt}{57\vscale}}%
 			\parbox[b]{\marginparwidth}{##2}%
 		}
 	}
 
-	\RedeclareSectionCommand[beforeskip=0cm,afterskip=10\vpll]{chapter}
+	\RedeclareSectionCommand[beforeskip=0cm,afterskip=10\vscale]{chapter}
 	\setlength{\mtocshift}{0mm}
 }
 
@@ -194,8 +176,8 @@
 	  }
 	}
 
-	\RedeclareSectionCommand[beforeskip=0cm,afterskip=10\vpll]{chapter}
-	\setlength{\mtocshift}{25\vpll}
+	\RedeclareSectionCommand[beforeskip=0cm,afterskip=10\vscale]{chapter}
+	\setlength{\mtocshift}{25\vscale}
 }
 
 % Image (Used internally for \chapterimage; normal users should not need this command)
@@ -232,14 +214,14 @@
 }
 
 % Takes as input the image path and optionally the "beforeskip"
-\DeclareDocumentCommand{\setchapterimage}{O{55\vpll} m}{%
+\DeclareDocumentCommand{\setchapterimage}{O{55\vscale} m}{%
 	\setchapterpreamble[o]{%
-		\vspace*{-27\vpll}\hspace*{-25\hpll}%
-		\includegraphics[width=\paperwidth,height=#1+27\vpll,keepaspectratio=false]{#2}%
+		\vspace*{-27\vscale}\hspace*{-25\hscale}%
+		\includegraphics[width=\paperwidth,height=#1+27\vscale,keepaspectratio=false]{#2}%
 	}%
 	\chapterstyleimage%
 	% beforeskip=-(figure_height-top_margin)
-	\RedeclareSectionCommand[beforeskip=-#1, afterskip=6\vpll]{chapter}%
+	\RedeclareSectionCommand[beforeskip=-#1, afterskip=6\vscale]{chapter}%
 	\setlength{\mtocshift}{0cm}%
 }
 

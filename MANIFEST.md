@@ -25,17 +25,16 @@ This work consists of all files listed below.
 
 ```
 kaobook/
-|-- kao.def						- main class file
 |-- kaobook.cls                 - book-specific definitions
 |-- kaohandt.cls                - handout-specific definitions
-|-- styles/
+`-- styles/
+	|-- kao.sty					- main definitions
     |-- environments.sty        - definitions for environments
 	|-- kaobiblio.sty			- style of the bibliography
     |-- mdftheorems.sty         - colorful styling of theorems
     |-- packages.sty            - useful packages
     |-- plaintheorems.sty       - minimalistic styling of theorems
-	|-- kaorefs.sty             - commands for referencing
-    |-- style.sty               - page design
+	`-- kaorefs.sty             - commands for referencing
 ```
 
 ---
@@ -48,28 +47,34 @@ neighbouring rights to this work. To view a copy of the CC0 code, visit:
 
   http://creativecommons.org/publicdomain/zero/1.0
 
-This work consists of all files listed below.
+This work consists of all files listed below as well as the products of 
+their compilation.
 
 ---
 
 ```
 kaobook/
-|-- report-template.tex
-|-- book-template.tex
-|-- examples
-	|-- documentation
-		|-- main.tex
-		|-- main.bib
-		|-- chapters/
-			|-- appendix.tex
-			|-- figsntabs.tex
-			|-- introduction.tex
-			|-- layout.tex
-			|-- mathematics.tex
-			|-- options.tex
-			|-- preface.tex
-			|-- references.tex
-			|-- textnotes.tex
+`-- examples/
+	|-- books/
+	|	`-- minimal.tex
+	|-- documentation/
+	|	|-- main.bib
+	|	|-- main.tex
+	|	`-- chapters/
+	|		|-- appendix.tex
+	|		|-- figsntabs.tex
+	|		|-- introduction.tex
+	|		|-- layout.tex
+	|		|-- mathematics.tex
+	|		|-- options.tex
+	|		|-- preface.tex
+	|		|-- references.tex
+	|		`-- textnotes.tex
+	`-- reports/
+		|-- minimal/
+		|	`-- minimal.tex
+		`-- machine_learnin_project/
+			`-- main.tex
 ```
 
 As regards the files in the `kaobook/examples/documentation/images` 
