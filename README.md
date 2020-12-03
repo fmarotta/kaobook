@@ -37,7 +37,22 @@ A better description can be found at [LaTeX
 Templates](http://www.latextemplates.com/template/kaobook). If you think 
 that a PDF is worth a thousand words, have a look at [this](example_and_documentation.pdf).
 
-## Usage
+## Getting Started
+
+If you are not familiar with LaTeX, I recommend starting with [this 
+tutorial](https://www.overleaf.com/learn/latex/Learn_LaTeX_in_30_minutes), 
+which will give you a basic understanding of the language. As you will 
+read in the tutorial, all LaTeX documents, including books, start by 
+defining the so-called *class* of the document, for example 'article', 
+or 'book'. Thus, the first line of a LaTeX document will be something 
+like
+```
+\documentclass{book}
+```
+
+Each class provides a unique style and set of commands that can be used 
+throughout the document. `kaobook` is just another class. The following 
+paragraphs will outline how to use it.
 
 ### On Overleaf
 
@@ -52,10 +67,25 @@ create a new `.tex` file and make sure that the first line reads
 `\documentclass{kaobook}` (for books) or `\documentclass{kaohandt}` (for 
 reports). Then, fill the file with your LaTeX contents.
 
+Important: when we say `\documentclass{kaobook}`, LaTeX needs to know 
+where the `kaobook` file is. This means that the `.tex` file should be 
+in the same folder as the `kaobook.cls` file, *i.e.* at the root of the 
+repository. (There are exceptions to this rule. For instance, the 
+kaobook files can be placed in a folder that is automatically searched 
+by LaTeX. This, way, the `.tex` file with your contents can be placed 
+anywhere; check out the [instructions](instructions) directory for 
+hints.)
+
+If you don't want to start from scratch, go to the `examples` directory, 
+and find a template that you like; then, copy the corresponding 
+`main.tex` at the root of the repository, and start editing it, filling 
+it with your contents.
+
 ### Other
 
 Check out the [instructions](instructions) directory for additional 
-guidance.
+guidance. There, you can read about setting up your own sharelatex 
+server or integrating kaobook with your local LaTeX installation.
 
 ---
 
