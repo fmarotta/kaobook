@@ -92,6 +92,16 @@
 %	CITATION COMMANDS
 %----------------------------------------------------------------------------------------
 
+% Command to format the marginnote created for cited items
+\NewDocumentCommand{\formatmargincitation}{m}{% The parameter is a single citation key
+	\parencite{#1}: \citeauthor*{#1} (\citeyear{#1}), \citetitle{#1}%
+}
+
+% The following command needs to be redefined every time \sidecite is called in order for \DeclareCiteCommand's wrapper to work correctly
+\NewDocumentCommand{\kaobiblio@marginnote}{m}{%
+	\marginnote{#1}%
+}
+
 % biblatex-like commands that also print a citation in the margin
 % Usage:
     % First optional argument is always vertical shift and must be given as an (empty) argument when using following a postnote and/or prenote
@@ -105,18 +115,26 @@
 % Third optional argument: postnote
 % Mandatory argument: citation key
 \NewDocumentCommand{\sidecite}{o o o m}{%
+	\RenewDocumentCommand{\kaobiblio@marginnote}{m}{%
+		\marginnote[#1]{##1}%
+	}%
+	\DeclareCiteCommand{\kaobiblio@sidecite}[\kaobiblio@marginnote]{%
+	}{%
+		\formatmargincitation{\thefield{entrykey}}%
+	}{%
+		\\% separator between multiple citations
+	}{%
+	}%
     % With this we print the marker in the text and add the item to the bibliography at the end
-    \IfNoValueOrEmptyTF{#2}
-        {\cite{#4}}
-        {\IfNoValueOrEmptyTF{#3}
-            {\IfNoValueTF{#3}
-                {\cite[#2]{#4}}
-                {\cite[#2][]{#4}}% postnote is empty, so pass empty postnote
-            }
-            {\cite[#2][#3]{#4}}%
+	\IfNoValueOrEmptyTF{#2}%
+		{\cite{#4}\kaobiblio@sidecite{#4}}%
+		{\IfNoValueOrEmptyTF{#3}%
+			{\IfNoValueTF{#3}%
+				{\cite[#2]{#4}\kaobiblio@sidecite{#4}}%
+				{\cite[#2][]{#4}\kaobook@sidecite{#4}}% postnote is empty, so pass empty postnote
+			}%
+			{\cite[#2][#3]{#4}\kaobiblio@sidecite{#4}}%
         }%
-	\def\itemdelim{---}%
-	\margincitation[#1]{#4}% We then pass the cited items to this command, \margincitation
 }
 
 % Command to \textcite and print a citation in the margin
@@ -125,18 +143,26 @@
 % Third optional argument: postnote
 % Mandatory argument: citation key
 \NewDocumentCommand{\sidetextcite}{o o o m}{%
+	\RenewDocumentCommand{\kaobiblio@marginnote}{m}{%
+		\marginnote[#1]{##1}%
+	}%
+	\DeclareCiteCommand{\kaobiblio@sidecite}[\kaobiblio@marginnote]{%
+	}{%
+		\formatmargincitation{\thefield{entrykey}}%
+	}{%
+		\\% separator between multiple citations
+	}{%
+	}%
     % With this we print the marker in the text and add the item to the bibliography at the end
-    \IfNoValueOrEmptyTF{#2}
-        {\textcite{#4}}
-        {\IfNoValueOrEmptyTF{#3}
-            {\IfNoValueTF{#3}
-                {\textcite[#2]{#4}}
-                {\textcite[#2][]{#4}}% postnote is empty, so pass empty postnote
-            }
-            {\textcite[#2][#3]{#4}}%
+	\IfNoValueOrEmptyTF{#2}%
+		{\textcite{#4}\kaobiblio@sidecite{#4}}%
+		{\IfNoValueOrEmptyTF{#3}%
+			{\IfNoValueTF{#3}%
+				{\textcite[#2]{#4}\kaobiblio@sidecite{#4}}%
+				{\textcite[#2][]{#4}\kaobook@sidecite{#4}}% postnote is empty, so pass empty postnote
+			}%
+			{\textcite[#2][#3]{#4}\kaobiblio@sidecite{#4}}%
         }%
-	\def\itemdelim{---}%
-	\margincitation[#1]{#4}% We then pass the cited items to this command, \margincitation
 }
 
 % Command to \parencite or \parencite* and print a citation in the margin
@@ -146,6 +172,16 @@
 % Fourth optional argument: postnote
 % Mandatory argument: citation key
 \NewDocumentCommand{\sideparencite}{s o o o m}{%
+	\RenewDocumentCommand{\kaobiblio@marginnote}{m}{%
+		\marginnote[#2]{##1}%
+	}%
+	\DeclareCiteCommand{\kaobiblio@sidecite}[\kaobiblio@marginnote]{%
+	}{%
+		\formatmargincitation{\thefield{entrykey}}%
+	}{%
+		\\% separator between multiple citations
+	}{%
+	}%
     % With this we print the marker in the text and add the item to the bibliography at the end
     \IfBooleanTF#1
         {\IfNoValueOrEmptyTF{#3}
@@ -168,25 +204,8 @@
                 {\parencite[#3][#4]{#5}}%
             }%
         }%
-    \def\itemdelim{---}%
-	\margincitation[#2]{#5}% We then pass the cited items to this command, \margincitation
 }
 
-
-% Command to split the cited items and execute an action for each of them
-\newcommand\margincitedelim{\\} % Choose the default separator for multiple citations
-\NewDocumentCommand{\margincitation}{o >{\SplitList{,}}m}{% The mandatory parameter is a comma-separated list of citation keys, which is splitted into single items
-	% Redefine the \margincitedelim with a delay (https://tex.stackexchange.com/questions/110898/package-xparse-splitlist-last-token). Users can 'renew' the \margincitedelim command in their main.tex.
-	\let\origmargincitedelim\margincitedelim%
-	\renewcommand\margincitedelim{\renewcommand\margincitedelim{\origmargincitedelim}}%
-	\marginnote[#1]{\ProcessList{#2}{\formatmargincitation}}% Create a marginnote for each item
-	\let\margincitedelim\origmargincitedelim% Reset
-}
-
-% Command to format the marginnote created for cited items
-\NewDocumentCommand{\formatmargincitation}{m}{% The parameter is a single citation key
-	\margincitedelim\parencite{#1}: \citeauthor*{#1} (\citeyear{#1}), \citetitle{#1}%
-}
 
 %----------------------------------------------------------------------------------------
 %	CITATION ENVIRONMENTS
