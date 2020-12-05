@@ -6,7 +6,7 @@ Next release
 ------------
 * Use \DeclareCiteCommand in kaobiblio.sty (fixes #68)
 
-0.9 (2020/12/02)
+0.9.0 (2020/12/02)
 ----------------
 * First official release on GitHub
 * Define \hscale and \vscale, and rescale lengths accordingly
