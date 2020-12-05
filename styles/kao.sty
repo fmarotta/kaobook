@@ -742,8 +742,9 @@
 \setcounter{tocdepth}{\subsectiontocdepth}
 
 % Define the style for toc entries
-\DeclareTOCStyleEntry[level=1,indent=0em,numwidth=2em]{tocline}{figure}
-\DeclareTOCStyleEntry[level=1,indent=0em,numwidth=2em]{tocline}{table}
+\DeclareTOCStyleEntry[level=1,indent=0em,numwidth=2em,dynnumwidth=yes]{tocline}{figure}
+\DeclareTOCStyleEntry[level=1,indent=0em,numwidth=2em,dynnumwidth=yes]{tocline}{table}
+\DeclareTOCStyleEntries[dynnumwidth=yes]{tocline}{subsubsection,subsection,section,chapter,part}
 
 % Define the names for the headings
 % \renewcaptionname{english}{\contentsname}{Detailed Contents}
