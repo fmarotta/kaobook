@@ -21,6 +21,7 @@
 \newcommand{\@assumptionbackground}{\@background}
 \newcommand{\@remarkbackground}{\@background}
 \newcommand{\@examplebackground}{\@background}
+\newcommand{\@exercisebackground}{\@background}
 
 % Declare the options to change the colors
 \DeclareOptionX{background}{%
@@ -49,6 +50,9 @@
 }
 \DeclareOptionX{examplebackground}{%
 	\renewcommand{\@examplebackground}{#1}%
+}
+\DeclareOptionX{exercisebackground}{%
+	\renewcommand{\@exercisebackground}{#1}%
 }
 \DeclareOption*{\PassOptionsToPackage{\CurrentOption}{biblatex}}
 
@@ -146,6 +150,20 @@
 	%refname={theorem,theorems},
 	%Refname={Theorem,Theorems},
 ]{kaoexample}
+
+\declaretheoremstyle[
+	%spaceabove=.5\thm@preskip,
+	%spacebelow=.5\thm@postskip,
+	%headfont=\normalfont\bfseries,
+	%notefont=\normalfont, notebraces={ (}{)},
+	%bodyfont=\small,
+	%headformat={\NAME\space\NUMBER\space\NOTE},
+	headpunct={},
+	postheadspace={.5em plus .1em minus .1em},
+	%prefoothook={\hfill\qedsymbol}
+	%refname={theorem,theorems},
+	%Refname={Theorem,Theorems},
+]{kaoexercise}
 
 \theoremstyle{kaoplain}
 \declaretheorem[
@@ -253,6 +271,20 @@
 		%frametitlebackgroundcolor=\@theorembackground,
 	},
 ]{example}
+
+\theoremstyle{kaoexercise}
+\declaretheorem[
+	name=Exercise,
+	%refname={example,examples},
+	refname={Exercise,Exercises},
+	Refname={Exercise,Exercises},
+	numberwithin=section,
+	mdframed={
+		style=mdfkao,
+		backgroundcolor=\@exercisebackground,
+		%frametitlebackgroundcolor=\@theorembackground,
+	},
+]{exercise}
 
 %\renewcommand{\thetheorem}{\arabic{chapter}.\arabic{section}.\arabic{theorem}}
 %\renewcommand{\thetheorem}{\arabic{subsection}.\arabic{theorem}}

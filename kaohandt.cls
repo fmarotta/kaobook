@@ -29,7 +29,7 @@
 
 \RequirePackage{xkeyval} % Manage class key-value options
 
-\newcommand{\@classname}{kaobook} % Class name
+\newcommand{\@classname}{kaohandt} % Class name
 \newcommand{\@baseclass}{scrartcl} % Base class name
 
 \newcommand{\@secnumdepth}{2} % Set default numbering depth up to subsections
