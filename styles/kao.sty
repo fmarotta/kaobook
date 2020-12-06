@@ -505,7 +505,9 @@
 }{%
     \end{minipage}%
   \end{lrbox}%
-  \marginnote[#1]{\usebox{\@sidenotes@marginfigurebox}}% Place the table box in the margin
+  \IfNoValueOrEmptyTF{#1}%
+    {\marginnote[0pt]{\usebox{\@sidenotes@marginfigurebox}}}%
+	{\marginnote[#1]{\usebox{\@sidenotes@marginfigurebox}}}%
   \marginskip{\kaomarginskipbelow}%
 }
 
@@ -518,7 +520,9 @@
 }{%
     \end{minipage}%
   \end{lrbox}%
-  \marginnote[#1]{\usebox{\@sidenotes@margintablebox}}% Place the table box in the margin
+  \IfNoValueOrEmptyTF{#1}%
+    {\marginnote[0pt]{\usebox{\@sidenotes@margintablebox}}}%
+	{\marginnote[#1]{\usebox{\@sidenotes@margintablebox}}}%
   \marginskip{\kaomarginskipbelow}%
 }
 
@@ -532,7 +536,9 @@
 }{%
 	\end{minipage}%
   \end{lrbox}%
-  \marginnote{#1}{\usebox{\@sidenotes@marginlistingbox}}% Place the listing box in the margin
+  \IfNoValueOrEmptyTF{#1}%
+	{\marginnote[0pt]{\usebox{\@sidenotes@marginlistingbox}}}%
+	{\marginnote[#1]{\usebox{\@sidenotes@marginlistingbox}}}%
   \marginskip{\kaomarginskipbelow}%
 }
 
