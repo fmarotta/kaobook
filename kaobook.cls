@@ -34,7 +34,7 @@
 
 % Set the default options
 \PassOptionsToClass{a4paper}{\@baseclass}
-\PassOptionsToClass{fontsize=9.5pt}{\@baseclass}
+\PassOptionsToClass{fontsize=10pt}{\@baseclass}
 \PassOptionsToClass{parskip=half}{\@baseclass}
 \PassOptionsToClass{headings=optiontoheadandtoc}{\@baseclass}
 
@@ -121,7 +121,7 @@
 		\mbox{\chapappifchapterprefix{\nobreakspace}\thechapter%
 		\autodot\IfUsePrefixLine{}{\enskip}}}
 
-	\RedeclareSectionCommand[beforeskip=0cm,afterskip=1cm]{chapter}
+	\RedeclareSectionCommand[beforeskip=0cm,afterskip=10\vscale]{chapter}
 	\setlength{\mtocshift}{-32\vscale}
 }
 
@@ -129,34 +129,30 @@
 \DeclareDocumentCommand{\chapterstylekao}{}{%
 	\renewcommand*{\chapterformat}{%
 		\mbox{\chapappifchapterprefix{\nobreakspace}\scalebox{2.85}{\thechapter\autodot}}%
-	}
+	}%
 	\renewcommand\chapterlinesformat[3]{%
 		\vspace*{-45\vscale}%
 		\makebox[\textwidth+\marginparsep+\marginparwidth]{%
 			\parbox[b]{\textwidth}{\flushright{##3}}%
-			\makebox[\marginparsep][c]{\rule[-.2cm]{1pt}{57\vscale}}%
+			\makebox[\marginparsep][c]{\rule[-2\vscale]{1pt}{57\vscale}}%
 			\parbox[b]{\marginparwidth}{##2}%
-		}
-	}
-
-	\RedeclareSectionCommand[beforeskip=0cm,afterskip=10\vscale]{chapter}
-	\setlength{\mtocshift}{0mm}
+		}%
+	}%
+	\RedeclareSectionCommand[beforeskip=0cm,afterskip=10\vscale]{chapter}%
+	\setlength{\mtocshift}{0mm}%
 }
 
 % Lines
 \renewcommand{\hrulefill}[1][0.4pt]{%
 	\leavevmode\leaders\hrule height #1\hfill\kern\z@%
 }
-\DeclareDocumentCommand{\chapterstylelines}{}
-{
-	\renewcommand*{\chapterformat}
-	{
-	  \chapappifchapterprefix{\nobreakspace}\scalebox{3.5}{\thechapter\autodot}
-	}
-	\renewcommand\chapterlinesformat[3]
-	{
+\DeclareDocumentCommand{\chapterstylelines}{}{%
+	\renewcommand*{\chapterformat}{%
+		\chapappifchapterprefix{\nobreakspace}\scalebox{3.5}{\thechapter\autodot}%
+	}%
+	\renewcommand\chapterlinesformat[3]{%
 	  %\vspace*{-1cm}%
-	  \leavevmode
+	  \leavevmode%
 	  \makebox[\textwidth+\marginparsep+\marginparwidth]{%
 		\makebox[\textwidth][l]{\hrulefill[1pt]##2}%\hfill%\par%\bigskip
 		\makebox[\marginparsep][l]{}%
@@ -173,11 +169,10 @@
 		%\makebox[\textwidth][l]{\hrulefill}%
 		%\makebox[\marginparsep][l]{\hrulefill}%
 		%\makebox[\marginparwidth][l]{\hrulefill}%
-	  }
-	}
-
+	  }%
+	}%
 	\RedeclareSectionCommand[beforeskip=0cm,afterskip=10\vscale]{chapter}
-	\setlength{\mtocshift}{25\vscale}
+	\setlength{\mtocshift}{25\vscale}%
 }
 
 % Image (Used internally for \chapterimage; normal users should not need this command)
@@ -190,24 +185,24 @@
 		\begin{tikzpicture}[remember picture, overlay]
 			\node[
 				anchor=west,
-				xshift=-3cm,
-				yshift=11.5mm,
+				xshift=-30\hscale,
+				yshift=11.5\vscale,
 				rectangle,
 				fill=gray!20!white,
 				fill opacity=0.8,
-				inner ysep=14pt,
-				inner xsep=3cm,
+				inner ysep=5\vscale,
+				inner xsep=30\hscale,
 				text opacity=1,
-				text width=\paperwidth+3cm, % Set text width in order to force left-alignment
+				text width=\paperwidth+30\hscale, % Set text width in order to force left-alignment
 			]{\makebox[0pt][l]{\@hangfrom{##2}{##3}}};
 			\node[
 				anchor=west,
-				xshift=-3cm,
-				yshift=2mm,
+				xshift=-30\hscale,
+				yshift=2\vscale,
 				rectangle,
 				fill=white,
-				minimum height=.5cm,
-				minimum width=\paperwidth+3cm,
+				minimum height=5\vscale,
+				minimum width=\paperwidth+30\hscale,
 			]{};
 		\end{tikzpicture}
 	}

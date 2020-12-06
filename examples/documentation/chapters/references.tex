@@ -37,8 +37,8 @@ The best way to understand how it works is to see the actual definition
 of this command.
 
 \begin{lstlisting}[style=kaolstplain,linewidth=1.5\textwidth]
-\newcommand{\formatmargincitation}[1]{
-	\parencite{#1}: \citeauthor*{#1} (\citeyear{#1}), \citetitle{#1}\\
+\newcommand{\formatmargincitation}[1]{%
+	\parencite{#1}: \citeauthor*{#1} (\citeyear{#1}), \citetitle{#1}%
 }
 \end{lstlisting}
 
@@ -50,14 +50,14 @@ citation to display the year and the author, followed by the title, and
 finally a fixed arbitrary string; you would add to your document:
 
 \begin{lstlisting}[style=kaolstplain,linewidth=1.5\textwidth]
-\renewcommand{\formatmargincitation}[1]{
-	\citeyear{#1}, \citeauthor*{#1}: \citetitle{#1}; very interesting!\\
+\renewcommand{\formatmargincitation}[1]{%
+	\citeyear{#1}, \citeauthor*{#1}: \citetitle{#1}; very interesting!%
 }
 \end{lstlisting}
 
-%\renewcommand{\formatmargincitation}[1]{
-%	\citeyear{#1}, \citeauthor*{#1}: \citetitle{#1}; very interesting!\\
-%}
+\renewcommand{\formatmargincitation}[1]{%
+	\citeyear{#1}, \citeauthor*{#1}: \citetitle{#1}; very interesting!%
+}
 
 The above code results in citations that look like the 
 following.\sidecite{Zou2005} Of course, changing the format is most 
@@ -67,20 +67,20 @@ your bibliography, you might have something like this in the preamble:
 
 \begin{lstlisting}[style=kaolstplain,linewidth=1.5\textwidth]
 \usepackage[style=philosophy-modern]{styles/kaobiblio}
-\renewcommand{\formatmargincitation}[1]{
-	\sdcite{#1}\\
+\renewcommand{\formatmargincitation}[1]{%
+	\sdcite{#1}%
 }
 \addbibresource{main.bib}
 \end{lstlisting}
 
-%\renewcommand{\formatmargincitation}[1]{
-%	\parencite{#1}: \citeauthor*{#1} (\citeyear{#1}), \citetitle{#1}\\
-%}
+\renewcommand{\formatmargincitation}[1]{%
+	\parencite{#1}: \citeauthor*{#1} (\citeyear{#1}), \citetitle{#1}%
+}
 
-The commands like \Command{citeyear}, \Command{parencite} and 
-\Command{sdcite} are just examples. A full reference of the available 
-commands can be found in this 
-\href{http://tug.ctan.org/info/biblatex-cheatsheet/biblatex-cheatsheet.pdf}{cheatsheet}, 
+The commands like \Command{citeyear}, \Command{parencite}
+and \Command{sdcite} are just examples. A full
+reference of the available commands can be found in this
+\href{http://tug.ctan.org/info/biblatex-cheatsheet/biblatex-cheatsheet.pdf}{cheatsheet},
 under the \enquote{Citations} section.
 
 Finally, to compile a document containing citations, you need to use an 

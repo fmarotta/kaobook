@@ -111,17 +111,18 @@
 \@ifclasswith{\@baseclass}{appendixpaper}{\setlength{\hscale}{1.000mm}\setlength{\vscale}{0.505mm}}{}
 \@ifclasswith{\@baseclass}{cookpaper}{\setlength{\hscale}{0.809mm}\setlength{\vscale}{0.740mm}}{}
 \@ifclasswith{\@baseclass}{illustratedpaper}{\setlength{\hscale}{0.905mm}\setlength{\vscale}{0.909mm}}{}
+\@ifclasswith{\@baseclass}{f24paper}{\setlength{\hscale}{0.762mm}\setlength{\vscale}{0.808mm}}{}
 
 % Set the default page layout
 \RequirePackage[
-	paperwidth=\vscale*\real{210},
-	paperheight=\vscale*\real{297},
-	top=\vscale*\real{27.4},
-	bottom=\vscale*\real{27.4},
-	inner=\hscale*\real{24.8},
-	textwidth=\hscale*\real{107},
-	marginparsep=\hscale*\real{8.2},
-	marginparwidth=\hscale*\real{49.4},
+	paperwidth=210\hscale,
+	paperheight=297\vscale,
+	top=27.4\vscale,
+	bottom=27.4\vscale,
+	inner=24.8\hscale,
+	textwidth=107\hscale,
+	marginparsep=8.2\hscale,
+	marginparwidth=49.4\hscale,
 	includemp
 ]{geometry}
 
@@ -135,22 +136,22 @@
 % Layout #1: large margins
 \newcommand{\marginlayout}{%
 	\newgeometry{
-		top=\vscale*\real{27.4},
-		bottom=\vscale*\real{27.4},
-		inner=\hscale*\real{24.8},
-		textwidth=\hscale*\real{107},
-		marginparsep=\hscale*\real{8.2},
-		marginparwidth=\hscale*\real{49.4},
+		top=27.4\vscale,
+		bottom=27.4\vscale,
+		inner=24.8\hscale,
+		textwidth=107\hscale,
+		marginparsep=8.2\hscale,
+		marginparwidth=49.4\hscale,
 	}%
 }
 
 % Layout #2: small, symmetric margins
 \newcommand{\widelayout}{%
 	\newgeometry{
-		top=\vscale*\real{27.4},
-		bottom=\vscale*\real{27.4},
-		inner=\hscale*\real{24.8},
-		outer=\hscale*\real{24.8},
+		top=27.4\vscale,
+		bottom=27.4\vscale,
+		inner=24.8\hscale,
+		outer=24.8\hscale,
 		marginparsep=0mm,
 		marginparwidth=0mm,
 		ignoremp,
@@ -185,7 +186,7 @@
 \newlength{\headmarginparsep} % Theoretically, this length should be equal to \marginparsep
 \setlength{\headmarginparsep}{8.2\hscale}
 \newlength{\headmarginparwidth} % Theoretically, this length should be equal to \marginparwidth (Check the kaogeom package and make sure that the numbers match)
-\setlength{\headmarginparwidth}{\hscale*\real{49.4}}
+\setlength{\headmarginparwidth}{49.4\hscale}
 \newlength{\headtotal} % This is the total width of the header
 \setlength{\headtotal}{\headtextwidth}
 \addtolength{\headtotal}{\headmarginparsep}

@@ -146,7 +146,8 @@ to the B5 format.
 
 We also support the paper sizes specified in
 \href{https://www.bod.de/hilfe/hilfe-und-service.html?cmd=SINGLE\&entryID=2494\_GER\_WSS\&eo=2\&title=welche-buchformate-gibt-es}{this
-web page}, with the option names specified in \reftab{papersizes}.
+web page} and some additional sizes requested by the users, with the 
+option names specified in \reftab{papersizes}.
 
 \begin{margintable}[*-6]
 	\caption{Some non-standard paper sizes supported by kaobook.}
@@ -164,7 +165,8 @@ web page}, with the option names specified in \reftab{papersizes}.
 		17.0cm x 22.0cm & cookpaper \\
 		19.0cm x 27.0cm & illustratedpaper \\
 		17.0cm x 17.0cm & photopaper \\
-		21.0cm x 29.7cm & a4paper \\
+		16.0cm x 24.0cm & f24paper \\
+		%21.0cm x 29.7cm & a4paper \\
 		\bottomrule
 	\end{tabular}
 \end{margintable}
@@ -231,6 +233,17 @@ tune the white space around objects. There are not fixed rules, each
 object needs its own adjustment. Here we shall see how some spaces are 
 defined at the moment in this class.\marginnote{Attention! This section 
 may be incomplete.}
+
+\textbf{Space around sidenotes and citations marks}
+
+There should be no space before or after sidenotes and citation marks, 
+like so:
+
+sidenote\sidenote{This paragraph can be used to diagnose any problems:
+if you see whitespace around sidenotes or citation marks, probably
+a \% sign is missing somewhere in the definitions of the class
+macros.}sidenote\newline
+citation\cite{James2013}citation
 
 \textbf{Space around figures and tables}
 
