@@ -7,6 +7,7 @@ Next release
 * Use \DeclareCiteCommand in kaobiblio.sty (fixes #68)
 * Support f24paper
 * Fix #77
+* Improve style of header and chapter, esp. for scales different from A4
 
 0.9.0 (2020/12/02)
 ----------------

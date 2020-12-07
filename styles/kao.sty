@@ -112,6 +112,7 @@
 \@ifclasswith{\@baseclass}{cookpaper}{\setlength{\hscale}{0.809mm}\setlength{\vscale}{0.740mm}}{}
 \@ifclasswith{\@baseclass}{illustratedpaper}{\setlength{\hscale}{0.905mm}\setlength{\vscale}{0.909mm}}{}
 \@ifclasswith{\@baseclass}{f24paper}{\setlength{\hscale}{0.762mm}\setlength{\vscale}{0.808mm}}{}
+\@ifclasswith{\@baseclass}{a4paperlandscape}{\setlength{\hscale}{1.414mm}\setlength{\vscale}{0.707mm}}{}
 
 % Set the default page layout
 \RequirePackage[
@@ -192,25 +193,27 @@
 \addtolength{\headtotal}{\headmarginparsep}
 \addtolength{\headtotal}{\headmarginparwidth}
 
-% Set the default header height
-\setlength{\headheight}{40\vscale}
+% Set the header height to prevent a warning
+\setlength{\headheight}{27.4\vscale}
+% Increase the space between header and text
+\setlength{\headsep}{11\vscale}
 
 % Page styles (header and footer)
 
 % Style with chapter number, chapter title, and page in the header (used throughout the document)
 \renewpagestyle{scrheadings}{%
 	{\hspace{-\headmarginparwidth}\hspace{-\headmarginparsep}\makebox[\headtotal][l]{%
-		\parbox[t][17\vscale][c]{2em}{\hfill\thepage}%
-		\makebox[2em][c]{\rule[-10\vscale]{1pt}{15\vscale}}%
-		\parbox[t][17\vscale][c]{107\hscale}{\leftmark}}}%
+		\makebox[7\hscale][r]{\thepage}%
+		\makebox[3\hscale]{}\rule[-1mm]{0.5pt}{19\vscale-1mm}\makebox[3\hscale]{}%
+		\makebox[\headtextwidth][l]{\leftmark}}}%
 	{\makebox[\headtotal][r]{%
-		\parbox[t][17\vscale][c]{107\hscale}{\hfill\rightmark}%
-		\makebox[2em][c]{\rule[-10\vscale]{1pt}{15\vscale}}%
-		\parbox[t][17\vscale][c]{2em}{\thepage}}}%
+		\makebox[\headtextwidth][r]{\hfill\rightmark}%
+		\makebox[3\hscale]{}\rule[-1mm]{0.5pt}{19\vscale-1mm}\makebox[3\hscale]{}%
+		\makebox[7\hscale][l]{\thepage}}}%
 	{\makebox[\headtotal][r]{%
-		\parbox[t][17\vscale][c]{107\hscale}{\hfill\rightmark}%
-		\makebox[2em][c]{\rule[-10\vscale]{1pt}{15\vscale}}%
-		\parbox[t][17\vscale][c]{2em}{\thepage}}}%
+		\makebox[\headtextwidth][r]{\hfill\rightmark}%
+		\makebox[3\hscale]{}\rule[-1mm]{0.5pt}{19\vscale-1mm}\makebox[3\hscale]{}%
+		\makebox[7\hscale][l]{\thepage}}}%
 }{%
 	{}%
 	{}%

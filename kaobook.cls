@@ -1,7 +1,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % kaobook
 % LaTeX Class
-% Version 0.9.1 (2020/12/06)
+% Version 0.9.2 (2020/12/06)
 %
 % This template originates from:
 % https://www.LaTeXTemplates.com
@@ -25,7 +25,7 @@
 %----------------------------------------------------------------------------------------
 
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesClass{kaobook}[2020/12/06 v0.9.1 kaobook]
+\ProvidesClass{kaobook}[2020/12/06 v0.9.2 kaobook]
 
 \RequirePackage{xkeyval} % Manage class key-value options
 
@@ -56,11 +56,10 @@
 
 % Front matter
 \let\oldfrontmatter\frontmatter % Store the old command
-\renewcommand{\frontmatter}{
-	\oldfrontmatter % First of all, call the old command
-
-	\pagestyle{plain.scrheadings} % Use a plain style for the header and the footer
-	\pagelayout{wide} % Use a wide page layout
+\renewcommand{\frontmatter}{%
+	\oldfrontmatter% First of all, call the old command
+	\pagestyle{plain.scrheadings}% Use a plain style for the header and the footer
+	\pagelayout{wide}% Use a wide page layout
 	% \sloppy % Required to better break long lines
 }
 
@@ -68,39 +67,35 @@
 
 % Main matter
 \let\oldmainmatter\mainmatter % Store the old command
-\renewcommand{\mainmatter}{
-
+\renewcommand{\mainmatter}{%
 	% Add a blank page before the main matter if the front matter has an
 	% odd number of pages
-	\ifthispageodd{
-	  \afterpage{\blankpage}
-	}{}
-
-	\oldmainmatter % Call the old command
-
-	\pagestyle{scrheadings} % Use a fancy style for the header and the footer
-	\pagelayout{margin} % Use a 1.5 column layout
+	\ifthispageodd{%
+	  \afterpage{\blankpage}%
+	}{}%
+	\oldmainmatter% Call the old command
+	\pagestyle{scrheadings}% Use a fancy style for the header and the footer
+	\pagelayout{margin}% Use a 1.5 column layout
 }
 
 %------------------------------------------------
 
 % Appendix
-\let\oldappendix\appendix % Store the old command
-\renewcommand{\appendix}{
-	\oldappendix % Call the old command
-	\bookmarksetup{startatroot} % Reset the bookmark depth
+\let\oldappendix\appendix% Store the old command
+\renewcommand{\appendix}{%
+	\oldappendix% Call the old command
+	\bookmarksetup{startatroot}% Reset the bookmark depth
 }
 
 %------------------------------------------------
 
 % Back matter
-\let\oldbackmatter\backmatter % Store the old command
-\renewcommand{\backmatter}{
-	\oldbackmatter % Call the old command
-
-	\bookmarksetup{startatroot} % Reset the bookmark depth
-	\pagestyle{plain.scrheadings} % Use a plain style for the header and the footer
-	\pagelayout{wide} % Use a wide page layout
+\let\oldbackmatter\backmatter% Store the old command
+\renewcommand{\backmatter}{%
+	\oldbackmatter% Call the old command
+	\bookmarksetup{startatroot}% Reset the bookmark depth
+	\pagestyle{plain.scrheadings}% Use a plain style for the header and the footer
+	\pagelayout{wide}% Use a wide page layout
 }
 
 %----------------------------------------------------------------------------------------
@@ -125,16 +120,20 @@
 	\setlength{\mtocshift}{-32\vscale}
 }
 
+\newlength{\kao@chfsize}% Store the dimension of the font used for chapter. It is used to increase the size of the vertical rule of a size equal to that, so that the rule protrudes of that length into the frame of the main text.
+\newlength{\kao@headfsize}% Store the dimension of the font used for chapter. It is used to increase the size of the vertical rule of a size equal to that, so that the rule protrudes of that length into the frame of the main text.
+
 % The Kao style
 \DeclareDocumentCommand{\chapterstylekao}{}{%
 	\renewcommand*{\chapterformat}{%
 		\mbox{\chapappifchapterprefix{\nobreakspace}\scalebox{2.85}{\thechapter\autodot}}%
 	}%
+	\setlength{\kao@chfsize}{\dimexpr 1mm * \f@size}%
 	\renewcommand\chapterlinesformat[3]{%
-		\vspace*{-45\vscale}%
+		\vspace*{-27.4\vscale}%
 		\makebox[\textwidth+\marginparsep+\marginparwidth]{%
 			\parbox[b]{\textwidth}{\flushright{##3}}%
-			\makebox[\marginparsep][c]{\rule[-2\vscale]{1pt}{57\vscale}}%
+			\makebox[\marginparsep][c]{\rule[-2\vscale]{1pt}{27.4\vscale+\kao@chfsize}}%
 			\parbox[b]{\marginparwidth}{##2}%
 		}%
 	}%
