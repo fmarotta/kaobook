@@ -131,7 +131,7 @@
 	\setlength{\kao@chfsize}{\dimexpr 1mm * \f@size}%
 	\renewcommand\chapterlinesformat[3]{%
 		\vspace*{-27.4\vscale}%
-		\makebox[\textwidth+\marginparsep+\marginparwidth]{%
+		\makebox[0pt][l]{%
 			\parbox[b]{\textwidth}{\flushright{##3}}%
 			\makebox[\marginparsep][c]{\rule[-2\vscale]{1pt}{27.4\vscale+\kao@chfsize}}%
 			\parbox[b]{\marginparwidth}{##2}%
@@ -152,19 +152,19 @@
 	\renewcommand\chapterlinesformat[3]{%
 	  %\vspace*{-1cm}%
 	  \leavevmode%
-	  \makebox[\textwidth+\marginparsep+\marginparwidth]{%
+	  \makebox[0pt][l]{%
 		\makebox[\textwidth][l]{\hrulefill[1pt]##2}%\hfill%\par%\bigskip
 		\makebox[\marginparsep][l]{}%
 		\makebox[\marginparwidth][l]{}%
 	  }\\
 	  %\vspace{.5cm}
-	  \makebox[\textwidth+\marginparsep+\marginparwidth]{%
+	  \makebox[0pt][l]{%
 		\makebox[\textwidth][l]{##3}%
 		\makebox[\marginparsep][l]{}%
 		\makebox[\marginparwidth][l]{}%
 	  }\\
-	  \makebox[\textwidth+\marginparsep+\marginparwidth]{%
-		\hrulefill[1.1pt]%
+	  \makebox[0pt][l]{%
+		\makebox[\textwidth+\marginparsep+\marginparwidth][l]{\hrulefill[1.1pt]}%
 		%\makebox[\textwidth][l]{\hrulefill}%
 		%\makebox[\marginparsep][l]{\hrulefill}%
 		%\makebox[\marginparwidth][l]{\hrulefill}%
