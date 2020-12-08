@@ -171,6 +171,18 @@ option names specified in \reftab{papersizes}.
 	\end{tabular}
 \end{margintable}
 
+For instance, to use the \enquote{smallpocketpaper} add the correct 
+description at the beginning of the documentclass instruction:
+\begin{lstlisting}
+\documentclass[
+		smallpocketpaper,
+		fontsize=10pt,
+		twoside=false,
+		%open=any,
+		secnumdepth=1,
+]{kaobook}
+\end{lstlisting}
+
 \section{Page Layout}
 
 Besides the page style, you can also change the width of the content of 
