@@ -175,7 +175,7 @@
 }
 
 % Image (Used internally for \chapterimage; normal users should not need this command)
-\DeclareDocumentCommand{\chapterstyleimage}{}{%
+\DeclareDocumentCommand{\chapterstyleimage}{m}{%
 	\renewcommand*{\chapterformat}{%
 		\mbox{\chapappifchapterprefix{\nobreakspace}\thechapter%
 		\autodot\IfUsePrefixLine{}{\enskip}}
@@ -183,26 +183,17 @@
 	\renewcommand{\chapterlinesformat}[3]{%
 		\begin{tikzpicture}[remember picture, overlay]
 			\node[
-				anchor=west,
+				anchor=south west,
 				xshift=-30\hscale,
-				yshift=11.5\vscale,
+				yshift=4.3\vscale,
 				rectangle,
 				fill=gray!20!white,
 				fill opacity=0.8,
 				inner ysep=5\vscale,
 				inner xsep=30\hscale,
 				text opacity=1,
-				text width=\paperwidth+30\hscale, % Set text width in order to force left-alignment
-			]{\makebox[0pt][l]{\@hangfrom{##2}{##3}}};
-			\node[
-				anchor=west,
-				xshift=-30\hscale,
-				yshift=2\vscale,
-				rectangle,
-				fill=white,
-				minimum height=5\vscale,
-				minimum width=\paperwidth+30\hscale,
-			]{};
+				text width=\paperwidth-50\hscale,
+			]{\@hangfrom{##2}{##3}};
 		\end{tikzpicture}
 	}
 }
@@ -210,10 +201,10 @@
 % Takes as input the image path and optionally the "beforeskip"
 \DeclareDocumentCommand{\setchapterimage}{O{55\vscale} m}{%
 	\setchapterpreamble[o]{%
-		\vspace*{-27\vscale}\hspace*{-25\hscale}%
+		\vspace*{-27\vscale}\hspace*{-24.9\hscale}%
 		\includegraphics[width=\paperwidth,height=#1+27\vscale,keepaspectratio=false]{#2}%
 	}%
-	\chapterstyleimage%
+	\chapterstyleimage{#1}%
 	% beforeskip=-(figure_height-top_margin)
 	\RedeclareSectionCommand[beforeskip=-#1, afterskip=6\vscale]{chapter}%
 	\setlength{\mtocshift}{0cm}%
