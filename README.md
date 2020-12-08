@@ -104,7 +104,14 @@ theses.
 
 Some examples and templates are listed in the `examples` directory. The 
 book that documents the class is an example itself, and the pdf has been 
-copied to the root of the repository so that it will be found easier.
+copied to the root of the repository so that it will be found more 
+easily.
+
+Please make sure that you add the appropiate `styles` directory
+and one of the main class files (`kaobook.cls`, used for books, and
+`kaohandt.cls`, used for reports or handouts) to the folders of the
+examples. This is important if you want to try out the examples by
+yourself. Read the explanations inside the `examples` folder.
 
 The `styles` directory contains additional packages that are used by the 
 class, but in principle they are independent of it (even though in 
