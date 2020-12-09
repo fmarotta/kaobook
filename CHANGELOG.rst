@@ -6,8 +6,11 @@ Next release
 ------------
 * Use \DeclareCiteCommand in kaobiblio.sty (fixes #68)
 * Support f24paper
-* Fix #77
+* Include scrhack
+* Add \FloatBarrier before marginfigures, tables and listings
 * Improve style of header and chapter, esp. for scales different from A4
+* Fix overfull boxes in header and chapter layouts
+* Increase the width of the page number boxes in the toc
 
 0.9.0 (2020/12/02)
 ----------------

@@ -466,11 +466,11 @@
 %\RequirePackage{minted}
 \RequirePackage{morewrites} % Fix some errors related to floats
 \RequirePackage[hypcap=true]{caption} % Correctly placed anchors for hyperlinks
+\RequirePackage{scrhack} % Make packages compatible with KOMA Script
 % \RequirePackage{atbegshi}
 % \RequirePackage{perpage}
 \let\c@abspage\relax
 % \newcommand{\pp@g@sidenote}{}
-%\RequirePackage[nomencl=false]{scrhack} % Force KOMA to like floatrow
 \RequirePackage{floatrow} % Set up captions of floats
 \RequirePackage{dblfloatfix} % Better positioning of wide figures and tables
 
@@ -501,6 +501,7 @@
 % Environment to hold a margin figure (from the sidenotes package)
 % We redefine it here because we want to use our own caption formatting.
 \RenewDocumentEnvironment{marginfigure}{o}{%
+  \FloatBarrier
   \marginskip{\kaomarginskipabove}%
   \begin{lrbox}{\@sidenotes@marginfigurebox}%
 	\begin{minipage}{\marginparwidth}%
@@ -508,14 +509,13 @@
 }{%
     \end{minipage}%
   \end{lrbox}%
-  \IfNoValueOrEmptyTF{#1}%
-    {\marginnote[0pt]{\usebox{\@sidenotes@marginfigurebox}}}%
-	{\marginnote[#1]{\usebox{\@sidenotes@marginfigurebox}}}%
+  \marginnote[#1]{\usebox{\@sidenotes@marginfigurebox}}%
   \marginskip{\kaomarginskipbelow}%
 }
 
 % Environment to hold a margin table (from the sidenotes package)
 \RenewDocumentEnvironment{margintable}{o}{%
+  \FloatBarrier
   \marginskip{\kaomarginskipabove}%
   \begin{lrbox}{\@sidenotes@margintablebox}%
 	\begin{minipage}{\marginparwidth}%
@@ -523,15 +523,14 @@
 }{%
     \end{minipage}%
   \end{lrbox}%
-  \IfNoValueOrEmptyTF{#1}%
-    {\marginnote[0pt]{\usebox{\@sidenotes@margintablebox}}}%
-	{\marginnote[#1]{\usebox{\@sidenotes@margintablebox}}}%
+  \marginnote[#1]{\usebox{\@sidenotes@margintablebox}}%
   \marginskip{\kaomarginskipbelow}%
 }
 
 % Environment to hold a margin listing
 \newsavebox{\@sidenotes@marginlistingbox}%
 \NewDocumentEnvironment{marginlisting}{o}{% The optional parameter is the vertical offset
+  \FloatBarrier
   \marginskip{\kaomarginskipabove}%
   \begin{lrbox}{\@sidenotes@marginlistingbox}%
 	\begin{minipage}{\marginparwidth}%
@@ -539,9 +538,7 @@
 }{%
 	\end{minipage}%
   \end{lrbox}%
-  \IfNoValueOrEmptyTF{#1}%
-	{\marginnote[0pt]{\usebox{\@sidenotes@marginlistingbox}}}%
-	{\marginnote[#1]{\usebox{\@sidenotes@marginlistingbox}}}%
+  \marginnote[#1]{\usebox{\@sidenotes@marginlistingbox}}%
   \marginskip{\kaomarginskipbelow}%
 }
 
@@ -811,9 +808,10 @@
 \setcounter{tocdepth}{\subsectiontocdepth}
 
 % Define the style for toc entries
-\DeclareTOCStyleEntry[level=1,indent=0em,numwidth=2em,dynnumwidth=yes]{tocline}{figure}
-\DeclareTOCStyleEntry[level=1,indent=0em,numwidth=2em,dynnumwidth=yes]{tocline}{table}
+\DeclareTOCStyleEntries[indent=0em,numwidth=2em,dynnumwidth=yes,pagenumberwidth=2.1em]{tocline}{figure,table}
 \DeclareTOCStyleEntries[dynnumwidth=yes]{tocline}{subsubsection,subsection,section,chapter,part}
+\DeclareTOCStyleEntries[pagenumberwidth=2.5em]{tocline}{chapter,part}
+\DeclareTOCStyleEntries[pagenumberwidth=2.1em]{tocline}{subsubsection,subsection,section}
 
 % Define the names for the headings
 % \renewcaptionname{english}{\contentsname}{Detailed Contents}

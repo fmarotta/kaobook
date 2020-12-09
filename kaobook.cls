@@ -1,7 +1,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % kaobook
 % LaTeX Class
-% Version 0.9.2 (2020/12/06)
+% Version 0.9.3 (2020/12/09)
 %
 % This template originates from:
 % https://www.LaTeXTemplates.com
@@ -25,7 +25,7 @@
 %----------------------------------------------------------------------------------------
 
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesClass{kaobook}[2020/12/06 v0.9.2 kaobook]
+\ProvidesClass{kaobook}[2020/12/09 v0.9.3 kaobook]
 
 \RequirePackage{xkeyval} % Manage class key-value options
 
