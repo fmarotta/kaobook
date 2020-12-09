@@ -107,7 +107,7 @@ book that documents the class is an example itself, and the pdf has been
 copied to the root of the repository so that it will be found more 
 easily.
 
-Please make sure that you add the appropiate `styles` directory
+Please make sure that you add the appropriate `styles` directory
 and one of the main class files (`kaobook.cls`, used for books, and
 `kaohandt.cls`, used for reports or handouts) to the folders of the
 examples. This is important if you want to try out the examples by
