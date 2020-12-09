@@ -11,6 +11,7 @@ Next release
 * Improve style of header and chapter, esp. for scales different from A4
 * Fix overfull boxes in header and chapter layouts
 * Increase the width of the page number boxes in the toc
+* Fix typos in the docs (contributor: Martin Michlmayr)
 
 0.9.0 (2020/12/02)
 ----------------
