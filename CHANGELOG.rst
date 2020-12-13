@@ -12,6 +12,7 @@ Next release
 * Fix overfull boxes in header and chapter layouts
 * Increase the width of the page number boxes in the toc
 * Fix typos in the docs (contributor: Martin Michlmayr)
+* Set default chapter styles for front-, main-, and back- matter
 
 0.9.0 (2020/12/02)
 ----------------

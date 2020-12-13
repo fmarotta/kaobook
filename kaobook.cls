@@ -60,6 +60,7 @@
 	\oldfrontmatter% First of all, call the old command
 	\pagestyle{plain.scrheadings}% Use a plain style for the header and the footer
 	\pagelayout{wide}% Use a wide page layout
+	\setchapterstyle{plain} % Choose the default chapter heading style
 	% \sloppy % Required to better break long lines
 }
 
@@ -76,6 +77,7 @@
 	\oldmainmatter% Call the old command
 	\pagestyle{scrheadings}% Use a fancy style for the header and the footer
 	\pagelayout{margin}% Use a 1.5 column layout
+	\setchapterstyle{kao} % Choose the default chapter heading style
 }
 
 %------------------------------------------------
@@ -96,6 +98,7 @@
 	\bookmarksetup{startatroot}% Reset the bookmark depth
 	\pagestyle{plain.scrheadings}% Use a plain style for the header and the footer
 	\pagelayout{wide}% Use a wide page layout
+	\setchapterstyle{plain} % Choose the default chapter heading style
 }
 
 %----------------------------------------------------------------------------------------

@@ -118,12 +118,6 @@
 \RequirePackage[
 	paperwidth=210\hscale,
 	paperheight=297\vscale,
-	top=27.4\vscale,
-	bottom=27.4\vscale,
-	inner=24.8\hscale,
-	textwidth=107\hscale,
-	marginparsep=8.2\hscale,
-	marginparwidth=49.4\hscale,
 	includemp
 ]{geometry}
 
@@ -181,24 +175,23 @@
 
 \RequirePackage{scrlayer-scrpage}		% Customise head and foot regions
 
-% Define some LaTeX lengths used in the page headers
-\newlength{\headtextwidth} % Theoretically, this length should be equal to \textwidth
-\setlength{\headtextwidth}{107\hscale}
-\newlength{\headmarginparsep} % Theoretically, this length should be equal to \marginparsep
-\setlength{\headmarginparsep}{8.2\hscale}
-\newlength{\headmarginparwidth} % Theoretically, this length should be equal to \marginparwidth (Check the kaogeom package and make sure that the numbers match)
-\setlength{\headmarginparwidth}{49.4\hscale}
-\newlength{\headtotal} % This is the total width of the header
-\setlength{\headtotal}{\headtextwidth}
-\addtolength{\headtotal}{\headmarginparsep}
-\addtolength{\headtotal}{\headmarginparwidth}
-
 % Set the header height to prevent a warning
 \setlength{\headheight}{27.4\vscale}
 % Increase the space between header and text
 \setlength{\headsep}{11\vscale}
 
-% Page styles (header and footer)
+% Define some LaTeX lengths used in the page headers
+\newlength{\headtextwidth}
+\newlength{\headmarginparsep}
+\newlength{\headmarginparwidth}
+\newlength{\headtotal} % This is the total width of the header
+
+\AtBeginDocument{% Recalculate the header-related lengths
+	\setlength{\headtextwidth}{\textwidth}%
+	\setlength{\headmarginparsep}{\marginparsep}%
+	\setlength{\headmarginparwidth}{\marginparwidth}%
+	\setlength{\headtotal}{\headtextwidth+\headmarginparsep+\headmarginparwidth}%
+}
 
 % Style with chapter number, chapter title, and page in the header (used throughout the document)
 \renewpagestyle{scrheadings}{%
