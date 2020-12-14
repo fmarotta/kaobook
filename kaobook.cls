@@ -187,13 +187,13 @@
 		\begin{tikzpicture}[remember picture, overlay]
 			\node[
 				anchor=south west,
-				xshift=-30\hscale,
-				yshift=4.3\vscale,
+				xshift=\dimexpr - \hoffset - \oddsidemargin - 1in,%-30\hscale,
+				yshift=4.3mm,
 				rectangle,
 				fill=gray!20!white,
 				fill opacity=0.8,
 				inner ysep=5\vscale,
-				inner xsep=30\hscale,
+				inner xsep=\dimexpr \hoffset + \oddsidemargin + 1in,%30\hscale,
 				text opacity=1,
 				text width=\paperwidth-50\hscale,
 			]{\@hangfrom{##2}{##3}};
@@ -204,7 +204,7 @@
 % Takes as input the image path and optionally the "beforeskip"
 \DeclareDocumentCommand{\setchapterimage}{O{55\vscale} m}{%
 	\setchapterpreamble[o]{%
-		\vspace*{-27\vscale}\hspace*{-24.9\hscale}%
+		\vspace*{-27\vscale}\hspace*{\dimexpr - \hoffset - \oddsidemargin - 1in}%
 		\includegraphics[width=\paperwidth,height=#1+27\vscale,keepaspectratio=false]{#2}%
 	}%
 	\chapterstyleimage{#1}%

@@ -15,6 +15,8 @@
 %	PACKAGES AND OTHER DOCUMENT CONFIGURATIONS
 %----------------------------------------------------------------------------------------
 
+\usepackage{layout}
+
 % Choose the language
 \ifxetexorluatex
 	\usepackage{polyglossia}
@@ -51,6 +53,17 @@
 
 % Reset sidenote counter at chapters
 %\counterwithin*{sidenote}{chapter}
+
+\renewcommand{\marginlayout}{%
+	\newgeometry{
+		top=27.4\vscale,
+		bottom=27.4\vscale,
+		inner=44.8\hscale,
+		textwidth=97\hscale,
+		marginparsep=8.2\hscale,
+		marginparwidth=49.4\hscale,
+	}%
+}
 
 %----------------------------------------------------------------------------------------
 
