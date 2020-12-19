@@ -167,9 +167,6 @@
 	  }\\
 	  \makebox[0pt][l]{%
 		\makebox[\textwidth+\marginparsep+\marginparwidth][l]{\hrulefill[1.1pt]}%
-		%\makebox[\textwidth][l]{\hrulefill}%
-		%\makebox[\marginparsep][l]{\hrulefill}%
-		%\makebox[\marginparwidth][l]{\hrulefill}%
 	  }%
 	}%
 	\RedeclareSectionCommand[beforeskip=0cm,afterskip=10\vscale]{chapter}
@@ -180,13 +177,13 @@
 \DeclareDocumentCommand{\chapterstyleimage}{m}{%
 	\renewcommand*{\chapterformat}{%
 		\mbox{\chapappifchapterprefix{\nobreakspace}\thechapter%
-		\autodot\IfUsePrefixLine{}{\enskip}}
+		\autodot\IfUsePrefixLine{}{\enskip}}%
 	}
 	\renewcommand{\chapterlinesformat}[3]{%
 		\begin{tikzpicture}[remember picture, overlay]
 			\node[
 				anchor=south west,
-				xshift=\dimexpr - \hoffset - \oddsidemargin - 1in,%-30\hscale,
+				xshift=\dimexpr - \hoffset - \oddsidemargin - 1in -1mm,%-30\hscale,
 				yshift=4.3mm,
 				rectangle,
 				fill=gray!20!white,
@@ -194,7 +191,7 @@
 				inner ysep=5\vscale,
 				inner xsep=\dimexpr \hoffset + \oddsidemargin + 1in,%30\hscale,
 				text opacity=1,
-				text width=\paperwidth-50\hscale,
+				text width=\paperwidth-40\hscale,
 			]{\@hangfrom{##2}{##3}};
 		\end{tikzpicture}
 	}
