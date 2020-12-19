@@ -4,7 +4,6 @@
 %	USEFUL PACKAGES AND COMMANDS
 %----------------------------------------------------------------------------------------
 
-% \RequirePackage[l2tabu,orthodox]{nag} % turn on warnings because of bad style
 \RequirePackage{etoolbox} % Easy programming to modify TeX stuff
 \RequirePackage{calc} % Make calculations
 \RequirePackage[usenames,dvipsnames,table]{xcolor} % Colours
@@ -118,7 +117,6 @@
 \RequirePackage[
 	paperwidth=210\hscale,
 	paperheight=297\vscale,
-	includemp
 ]{geometry}
 
 % Command to choose among the three possible layouts
@@ -149,7 +147,6 @@
 		outer=24.8\hscale,
 		marginparsep=0mm,
 		marginparwidth=0mm,
-		ignoremp,
 	}%
 }
 
@@ -162,7 +159,6 @@
 		outer=0mm,
 		marginparwidth=0mm,
 		marginparsep=0mm,
-		ignoremp
 	}%
 }
 
@@ -391,7 +387,7 @@
 }
 
 % Redefine the following sidenotes' command to use the kao version of marginnote
-\RenewDocumentCommand \@sidenotes@placemarginal { m m }{%
+\RenewDocumentCommand\@sidenotes@placemarginal{ m m }{%
 	\IfNoValueOrEmptyTF{#1}{%
 		\IfInFloatingEnvir{%
 			\oldmarginnote{#2}%
@@ -826,7 +822,7 @@
 
 % Command to print a table of contents in the margin
 \newcommand{\margintoc}[1][\mtocshift]{ % The first parameter is the vertical offset; by default it is \mtocshift
-	\begingroup
+	\begingroup%
 		% Set the style for section entries
 		\etocsetstyle{section}%
 		{\parindent -5pt \parskip 3pt}%

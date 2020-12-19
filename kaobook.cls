@@ -1,7 +1,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % kaobook
 % LaTeX Class
-% Version 0.9.3 (2020/12/09)
+% Version 0.9.4 (2020/12/19)
 %
 % This template originates from:
 % https://www.LaTeXTemplates.com
@@ -25,7 +25,7 @@
 %----------------------------------------------------------------------------------------
 
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesClass{kaobook}[2020/12/09 v0.9.3 kaobook]
+\ProvidesClass{kaobook}[2020/12/19 v0.9.4 kaobook]
 
 \RequirePackage{xkeyval} % Manage class key-value options
 
@@ -120,28 +120,27 @@
 		\autodot\IfUsePrefixLine{}{\enskip}}}
 
 	\RedeclareSectionCommand[beforeskip=0cm,afterskip=10\vscale]{chapter}
-	\setlength{\mtocshift}{-32\vscale}
+	\setlength{\mtocshift}{-1\vscale}
 }
 
 \newlength{\kao@chfsize}% Store the dimension of the font used for chapter. It is used to increase the size of the vertical rule of a size equal to that, so that the rule protrudes of that length into the frame of the main text.
-\newlength{\kao@headfsize}% Store the dimension of the font used for chapter. It is used to increase the size of the vertical rule of a size equal to that, so that the rule protrudes of that length into the frame of the main text.
 
 % The Kao style
 \DeclareDocumentCommand{\chapterstylekao}{}{%
 	\renewcommand*{\chapterformat}{%
 		\mbox{\chapappifchapterprefix{\nobreakspace}\scalebox{2.85}{\thechapter\autodot}}%
 	}%
-	\setlength{\kao@chfsize}{\dimexpr 1mm * \f@size}%
+	\setlength{\kao@chfsize}{\dimexpr 1mm * \f@size\relax}%
 	\renewcommand\chapterlinesformat[3]{%
-		\vspace*{-27.4\vscale}%
-		\makebox[0pt][l]{%
+		\vspace{3.5\vscale}%
+		\smash{\makebox[0pt][l]{%
 			\parbox[b]{\textwidth}{\flushright{##3}}%
 			\makebox[\marginparsep][c]{\rule[-2\vscale]{1pt}{27.4\vscale+\kao@chfsize}}%
 			\parbox[b]{\marginparwidth}{##2}%
-		}%
+		}}%
 	}%
 	\RedeclareSectionCommand[beforeskip=0cm,afterskip=10\vscale]{chapter}%
-	\setlength{\mtocshift}{0mm}%
+	\setlength{\mtocshift}{-1\vscale}%
 }
 
 % Lines
@@ -174,7 +173,7 @@
 	  }%
 	}%
 	\RedeclareSectionCommand[beforeskip=0cm,afterskip=10\vscale]{chapter}
-	\setlength{\mtocshift}{25\vscale}%
+	\setlength{\mtocshift}{-1\vscale}%
 }
 
 % Image (Used internally for \chapterimage; normal users should not need this command)
