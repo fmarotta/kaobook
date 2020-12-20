@@ -94,6 +94,31 @@ The class is documented and exemplified in the
 The easiest way to start using the class is to open one of the examples 
 and start editing them.
 
+## Updating kaobook
+
+Until the book will be on CTAN, to update kaobook you should download
+the whole repository (or one of the releases) again, and replace all of
+your old files with the newer ones, *except* for the main.tex and the
+files that you have created, like the chapters of the book. The crucial
+files that pertain to kaobook and that you always have to update are:
+
+1. `kaobook.cls`;
+2. `kaohandt.cls`;
+3. the whole `styles` directory.
+
+Even if a file has not been modified, I would still suggest to replace
+everything because it is easier. In fact, it is probably best to
+create a directory called, for example, "mybook," and put all the
+files that you have written and that do not pertain to kaobook in that
+directory. So, in the "mybook" directory there should be the main.tex
+and the .tex files with all the chapters. Then, you download the
+kaobook repository from github and move the "mybook" directory inside
+the kaobook directory. Finally, you upload everything on sharelatex
+and, through the settings, choose to compile the main.tex of your
+book. When you want to update kaobook, you simply download again the
+repository, and move only the "mybook" directory inside the updated
+kaobook directory.
+
 ## Repository Schema
 
 There are two main class files: `kaobook.cls`, used for books, and 
