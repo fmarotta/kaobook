@@ -580,7 +580,7 @@
 		\RawFloats%
 		\centering%
 	}%
-	\togglefalse{kaocaption}%
+    \togglefalse{kaocaption}%
 }
 
 % Captions for the 'margin' layout
@@ -617,6 +617,10 @@
 		facing=yes,%
 		capposition=above%
 	}%
+    \floatsetup[longtable]{% Captions for longtables
+        margins=raggedright,% Overwrite the hangright setting from the `table' environment
+        %LTcapwidth=table,% Set the width of the caption equal to the table's
+    }%
 	\floatsetup[lstlisting]{% Captions for lstlistings
 		margins=hangoutside,% Put captions in the margin
 		facing=yes,%
@@ -677,6 +681,10 @@
 		facing=no,%
 		capposition=above%
 	}%
+    \floatsetup[longtable]{% Captions for longtables
+        margins=raggedright,% Overwrite the hangright setting from the `table' environment
+        %LTcapwidth=table,% Set the width of the caption equal to the table's
+    }%
 	\floatsetup[lstlisting]{% Captions for lstlisting
 		margins=hangright,% Put captions in the margin
 		facing=yes,%
