@@ -128,17 +128,95 @@ inserted this orange bubble, have a look at the \Package{todo} package.
 
 \section{Wide Figures and Tables}
 
+With the environments \Environment{figure*} and \Environment{table*} you 
+can insert figures which span the whole page width. For example, here 
+are a wide figure and a wide table.
+
 \begin{figure*}[h!]
 	\includegraphics{seaside}
 	\caption[A wide seaside]{A wide seaside, and a wide caption.
 		Credits: By Bushra Feroz, CC BY-SA 4.0, \url{https://commons.wikimedia.org/w/index.php?curid=68724647}}
 \end{figure*}
 
-With the environments \Environment{figure*} and \Environment{table*} you 
-can insert figures which span the whole page width. The caption will be 
-positioned below or above, according to taste.
+\begin{table*}[h!]
+    \caption{A wide table with invented data about three people living in the UK. Note that wide figures and tables are centered and their caption also extends into the margin.}
+    \begin{tabular}{p{2.0cm} p{2.0cm} p{2.0cm} p{2.0cm} p{2.0cm} p{2.0cm} p{1.5cm}}
+        \toprule
+        Name    & Surname   & Job       & Salary           & Age   & Height    & Country \\
+        \midrule
+        Alice   & Red       & Writer    & 4.000 \pounds    & 34    & 167 cm     & England \\
+        Bob     & White     & Bartender & 2.000 \pounds    & 24    & 180 cm     & Scotland \\
+        Drake   & Green     & Scientist & 4.000 \pounds    & 26    & 175 cm     & Wales \\
+        \bottomrule
+    \end{tabular}
+\end{table*}
 
-You may have noticed the full width image at the very beginning of this 
-chapter: that, however, is set up in an entirely different way, which 
-you'll read about in \vrefch{layout}. Now it is time to tackle 
+It is the user's responsibility to adjust the width of the table, if 
+necessary, until it is aesthetically pleasing. The previous table was 
+obtained with the following code:
+
+\begin{lstlisting}[caption=How to typeset a wide table]
+\begin{table*}[h!]
+    \caption{A wide table with invented data about three people living in the UK. Note that wide figures and tables are centered and their caption also extends into the margin.}
+    \begin{tabular}{p{2.0cm} p{2.0cm} p{2.0cm} p{2.0cm} p{2.0cm} p{2.0cm} p{1.5cm}}
+        \toprule
+        Name    & Surname   & Job       & Salary           & Age   & Height    & Country \\
+        \midrule
+        Alice   & Red       & Writer    & 4.000 \pounds    & 34    & 167 cm     & England \\
+        Bob     & White     & Bartender & 2.000 \pounds    & 24    & 180 cm     & Scotland \\
+        Drake   & Green     & Scientist & 4.000 \pounds    & 26    & 175 cm     & Wales \\
+        \bottomrule
+    \end{tabular}
+\end{table*}
+\end{lstlisting}
+
+You may have noticed the full width image at the very beginning of this
+chapter: that, however, is set up in an entirely different way, which
+you'll read about in \vrefch{layout}.
+
+\Class{kaobook} also supports paginated tables (have a look at the 
+\Package{longtable} package). The 
+\Environment{longtable}\sidenote{Interestingly, \Environment{longtable}s 
+may require up to four rounds of compilation before they are typeset 
+correctly.} environment behaves a bit differently from 
+\Environment{table}, in that \Environment{longtable} encompasses both 
+\Environment{table} and \Environment{tabular}, so that you can write, 
+\eg,
+
+\begin{lstlisting}[caption=Example of a longtable]
+\begin{longtable}{|l c c|}
+    \hline
+    One & Two & Three \\
+    Left & Center & Center \\
+    \hline
+    \caption{Caption of the longtable.}
+\end{longtable}
+\end{lstlisting}
+
+to obtain the following table:
+\begin{longtable}{|l c c|}
+    \hline
+    One & Two & Three \\
+    Left & Center & Center \\
+    \hline
+    \caption{Caption of the longtable.}
+\end{longtable}
+
+The caption of a \Environment{longtable} is always positioned below the 
+table, and it has the same width as the text (it doesn't extend into the 
+margin). However, sometimes you may need a \Environment{longtable} that 
+is so wide that it trespass into the margins; in those cases, you may 
+want to also increase the width of the caption. To do so, you'll have to 
+write two additional commands, one before and one after the 
+\Environment{longtable}:
+
+\begin{lstlisting}[caption=Increasing the width of the caption of a \Environment{longtable}.]
+\floatsetup[longtable]{margins=centering,LTcapwidth=table} % Add this line before the longtable to increase the caption width
+\begin{longtable}{lp{8cm}p{5cm}p{2cm}}
+...
+\end{longtable}
+\floatsetup[longtable]{margins=raggedright,LTcapwidth=\textwidth} % Add this line after the longtable to revert the previous change
+\end{lstlisting}
+
+Having seen figures and tables, it is now time to tackle 
 hyperreferences.
