@@ -1,6 +1,6 @@
-# kaobook
+# kaobook-mb
 
-A LaTeX class for books, reports or theses.
+A private derivative of https://github.com/fmarotta/kaobook. See [lastenheft/](lastenheft/).
 
 ## Acknowledgements
 
@@ -93,6 +93,40 @@ The class is documented and exemplified in the
 [example\_and\_documentation.pdf](example_and_documentation.pdf) file. 
 The easiest way to start using the class is to open one of the examples 
 and start editing them.
+
+## Compiling the examples
+
+In the `examples` directory of this repository you can find several
+documents exemplifying the kaobook class. For the sake of simplicity
+I shall list the commands to compile only the documentation, but the
+compilation of the other examples would proceed in the same way. Also,
+you can replace pdflatex with your favorite engine, like *e.g.* xelatex.
+
+### From the command line (Unix-like operating systems)
+
+`cd` into the root of the repository, and run
+```
+pdflatex -output-directory examples/documentation main # The .tex is optional
+biber -output-directory examples/documentation main
+pdflatex -output-directory examples/documentation main
+pdflatex -output-directory examples/documentation main
+pdflatex -output-directory examples/documentation main
+```
+
+To compile the glossary and nomenclature as well, `cd` into the 
+`examples/documentation` directory and run
+```
+makeindex main.nlo -s nomencl.ist -o main.nls
+makeglossaries main
+```
+Then, `cd` back into the root of the repository and re-run pdflatex.
+
+NOTE: sometimes LaTeX needs more than one run to get the correct
+position of each element; this is true in particular for the positioning
+of floating elements like figures, tables, and margin notes.
+Occasionally, LaTeX can need up to four re-runs, so If the alignment of
+margin elements looks odd, or if they bleed into ther main text, try
+runnign pdflatex one more time.
 
 ## Updating kaobook
 

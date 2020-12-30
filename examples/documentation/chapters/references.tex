@@ -281,3 +281,28 @@ sub makenlo2nls {
     system( "makeindex -s nomencl.ist -o \"$_[0].nls\" \"$_[0].nlo\"" );
 }
 \end{lstlisting}
+
+However, if you'd rather not use an external package and want to do 
+everything manually, here are some tips.\sidenote{As the author only 
+uses Linux and compiles everything from the command line, he doesn't 
+know how the compilation works in Windows or Mac. The tips, therefore, 
+refer to the usage with Linux from the command line.}
+
+\minisec{Compiling the examples in the kaobook repository}
+To compile the examples, and in particular the documentation, that are 
+in the \Path{examples} directory of the 
+\href{https://github.com/fmarotta/kaobook}{kaobook repository} on 
+GitHub, do as follows. \lstinline[language=bash]|cd| into the root 
+directory of the repository, and run
+\lstinline|pdflatex -output-directory examples/documentation main.tex|. 
+With this trick, you can compile the documentation using the class files 
+pertaining to the repository (and not, say, those in your texmf tree). 
+The \enquote{-output-directory} option works with the other 
+\LaTeX-related commands such as biber and makeglossaries.
+
+A note of warning: sometimes \LaTeX\ needs more than one run to get the
+correct position of each element; this is true in particular for the
+positioning of floating elements like figures, tables, and margin notes.
+Occasionally, \LaTeX\ can need up to four re-runs, so If the alignment
+of margin elements looks odd, or if they bleed into ther main text, try
+runnign pdflatex one more time.
