@@ -1,6 +1,4 @@
-# kaobook-mb
-
-A private derivative of https://github.com/fmarotta/kaobook. See [lastenheft/](lastenheft/).
+# kaobook
 
 ## Acknowledgements
 

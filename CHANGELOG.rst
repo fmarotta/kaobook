@@ -2,7 +2,7 @@
 Changelog for package kaobook
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Next release
+0.9.5 (2020/12/30)
 ------------
 * Use \DeclareCiteCommand in kaobiblio.sty (fixes #68)
 * Support f24paper
