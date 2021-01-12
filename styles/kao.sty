@@ -453,7 +453,6 @@
 \RequirePackage{rotating} % Allows tables and figures to be rotated
 \RequirePackage{listings} % Print code listings
 %\RequirePackage{minted}
-\RequirePackage{morewrites} % Fix some errors related to floats
 \RequirePackage[hypcap=true]{caption} % Correctly placed anchors for hyperlinks
 \RequirePackage{scrhack} % Make packages compatible with KOMA Script
 % \RequirePackage{atbegshi}
@@ -884,6 +883,10 @@
 		Scale=.89
 	]{Liberation Mono}
 	\setmathfont{Libertinus Math}
+    \ifluatex
+    \else
+        \RequirePackage{morewrites} % Fix some errors related to floats
+    \fi
 \else
 	\RequirePackage[utf8]{inputenc} % utf8 encoding in the input (.tex) file
 	\RequirePackage[T1]{fontenc} % utf8 encoding in the output (.pdf) file
@@ -893,6 +896,7 @@
 	\RequirePackage[scaled=.85]{beramono} % Monospace font
 	\RequirePackage[scr=rsfso,cal=boondoxo]{mathalfa} % Mathcal from STIX, unslanted a bit
 	\RequirePackage{amssymb} % Math symbols, including \blacktriangleright, used for bullets
+    \RequirePackage{morewrites} % Fix some errors related to floats
 \fi
 
 % When using the Palatino (newpxtext) font, it is better to use a 
