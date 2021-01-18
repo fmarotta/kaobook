@@ -460,7 +460,7 @@
 \let\c@abspage\relax
 % \newcommand{\pp@g@sidenote}{}
 \RequirePackage{floatrow} % Set up captions of floats
-\RequirePackage{dblfloatfix} % Better positioning of wide figures and tables
+%\RequirePackage{dblfloatfix} % Better positioning of wide figures and tables
 
 % Improve the figure placing (see https://www.overleaf.com/learn/latex/Tips)
 \def\topfraction{.9}%
@@ -581,6 +581,37 @@
 	}%
     \togglefalse{kaocaption}%
 }
+
+% Change the formatting of the captions
+\addtokomafont{captionlabel}{\bfseries} % Bold font for the figure label
+% Declare a new style to format the caption according to \@margin@par (see above)
+\DeclareCaptionFormat{margin}{\@margin@par #1#2#3}
+% Declare a new caption style for lstlistings
+\newsavebox\mycap
+\DeclareCaptionFormat{llap}{%
+	\begin{lrbox}{\mycap}%
+	\begin{minipage}{\marginparwidth}%
+	\@margin@par #1:#2#3%
+	\end{minipage}%
+	\end{lrbox}%
+	\marginnote[0.2cm]{\usebox\mycap}%
+}
+% Set the global caption style
+\captionsetup{
+	format=margin, % Use the style previously declared
+	strut=no,%
+	%hypcap=true, % Links point to the top of the figure
+	singlelinecheck=false,%
+	%width=\marginparwidth,
+	indention=0pt, % Suppress indentation
+	parindent=0pt, % Suppress space between paragraphs
+	aboveskip=6pt, % Increase the space between the figure and the caption
+	belowskip=6pt, % Increase the space between the caption and the table
+}
+
+% Needed to have continued figures and tables (https://en.wikibooks.org/wiki/LaTeX/Floats,_Figures_and_Captions#Figures_in_multiple_parts)
+\DeclareCaptionLabelFormat{cont}{#1~#2\alph{ContinuedFloat}}
+\captionsetup[ContinuedFloat]{labelformat=cont}
 
 % Captions for the 'margin' layout
 \NewDocumentCommand{\marginfloatsetup}{}{%
@@ -748,48 +779,17 @@
 		floatwidth=\textwidth%
 	}
 	\captionsetup[lstlisting]{% Captions style for lstlistings
-		format=margin,%
+		%format=margin,%
 		labelsep=colon,%
 		strut=no,%
 		singlelinecheck=false,%
 		indention=0pt,%
 		parindent=0pt,%
-		aboveskip=6pt,%
+    	aboveskip=6pt,%
 		belowskip=6pt,%
 		belowskip=-0.1cm%
 	}
 }
-
-% Change the formatting of the captions
-\addtokomafont{captionlabel}{\bfseries} % Bold font for the figure label
-% Declare a new style to format the caption according to \@margin@par (see above)
-\DeclareCaptionFormat{margin}{\@margin@par #1#2#3}
-% Declare a new caption style for lstlistings
-\newsavebox\mycap
-\DeclareCaptionFormat{llap}{%
-	\begin{lrbox}{\mycap}%
-	\begin{minipage}{\marginparwidth}%
-	\@margin@par #1:#2#3%
-	\end{minipage}%
-	\end{lrbox}%
-	\marginnote[0.2cm]{\usebox\mycap}%
-}
-% Set the global caption style
-\captionsetup{
-	format=margin, % Use the style previously declared
-	strut=no,%
-	%hypcap=true, % Links point to the top of the figure
-	singlelinecheck=false,%
-	%width=\marginparwidth,
-	indention=0pt, % Suppress indentation
-	parindent=0pt, % Suppress space between paragraphs
-	aboveskip=6pt, % Increase the space between the figure and the caption
-	belowskip=6pt, % Increase the space between the caption and the table
-}
-
-% Needed to have continued figures and tables (https://en.wikibooks.org/wiki/LaTeX/Floats,_Figures_and_Captions#Figures_in_multiple_parts)
-\DeclareCaptionLabelFormat{cont}{#1~#2\alph{ContinuedFloat}}
-\captionsetup[ContinuedFloat]{labelformat=cont}
 
 %----------------------------------------------------------------------------------------
 %	TOC, LOF & LOT
@@ -950,6 +950,12 @@
 	\hyper@linkend
 	\ifhmode\spacefactor\@x@sf\fi
 	\relax
+}
+
+\let\oldthanks\thanks
+\renewcommand\thanks[1]{%
+    \label{bhfn:0}%
+    \oldthanks{#1}%
 }
 
 % Adjust the colour of the footnotes marks using the colour defined above
