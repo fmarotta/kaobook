@@ -128,28 +128,34 @@ runnign pdflatex one more time.
 
 ## Updating kaobook
 
-Until the book will be on CTAN, to update kaobook you should download
-the whole repository (or one of the releases) again, and replace all of
-your old files with the newer ones, *except* for the main.tex and the
-files that you have created, like the chapters of the book. The crucial
-files that pertain to kaobook and that you always have to update are:
+To update kaobook you should download the whole repository (or one of
+the releases) again, and replace all of your old files with the newer
+ones, *except* for the main.tex and the files that you have created,
+like the chapters of the book. The crucial files that pertain to kaobook
+and that you always have to update are:
 
 1. `kaobook.cls`;
 2. `kaohandt.cls`;
 3. the whole `styles` directory.
 
-Even if a file has not been modified, I would still suggest to replace
-everything because it is easier. In fact, it is probably best to
-create a directory called, for example, "mybook," and put all the
-files that you have written and that do not pertain to kaobook in that
-directory. So, in the "mybook" directory there should be the main.tex
-and the .tex files with all the chapters. Then, you download the
-kaobook repository from github and move the "mybook" directory inside
-the kaobook directory. Finally, you upload everything on sharelatex
-and, through the settings, choose to compile the main.tex of your
-book. When you want to update kaobook, you simply download again the
-repository, and move only the "mybook" directory inside the updated
-kaobook directory.
+These files should be in the same folder as your `main.tex`. Even if a
+file has not been modified, I would still suggest to replace everything
+because it is easier.
+
+In practice, I would do as follows. I would have a directory, called for 
+example 'my\_book', with all the files necessary for the book: 
+`kaobook.cls`, `kaohand.cls`, the `styles` directory, and the 
+`main.tex`. I like to have a separate file for each chapter, so I would 
+also have a directory called `chapters`, with all the `.tex` files with 
+the actual chapters. Then, when I want to update kaobook, I would 
+download the GitHub repository (or one of the releases) into a directory 
+called 'kaobook', and finally copy the `kaobook.cls`, `kaohandt.cls`, 
+and the whole `styles` directory from 'kaobook' to 'my\_book'. Once the 
+update is completed, the whole 'my\_book' directory can be uploaded on 
+Overleaf or on a personal ShareLaTeX server.
+
+Alternatively, advanced users can download the repository in their local 
+texmf tree; see the [instructions](instructions) directory for hints.
 
 ## Repository Schema
 
