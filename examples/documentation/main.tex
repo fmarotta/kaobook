@@ -3,7 +3,7 @@
 %----------------------------------------------------------------------------------------
 
 \documentclass[
-	a4paper, % Page size
+    a4paper, % Page size
 	fontsize=10pt, % Base font size
     twoside=true, % Use different layouts for even and odd pages (in particular, if twoside=true, the margin column will be always on the outside)
 	%open=any, % If twoside=true, uncomment this to force new chapters to start on any page, not only on right (odd) pages
@@ -30,15 +30,15 @@
 %\usepackage{showlabels} % Uncomment to output the content of \label commands to the document where they are used
 
 % Load the bibliography package
-\usepackage{styles/kaobiblio}
+\usepackage{kaobiblio}
 \addbibresource{main.bib} % Bibliography file
 
 % Load mathematical packages for theorems and related environments. NOTE: choose only one between 'mdftheorems' and 'plaintheorems'.
-\usepackage{styles/mdftheorems}
-%\usepackage{styles/plaintheorems}
+\usepackage{mdftheorems}
+%\usepackage{plaintheorems}
 
 % Load the package for hyperreferences
-\usepackage{styles/kaorefs}
+\usepackage{kaorefs}
 
 \graphicspath{{examples/documentation/images/}{images/}} % Paths in which to look for images
 

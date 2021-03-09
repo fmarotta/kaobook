@@ -26,11 +26,15 @@
 
 \NeedsTeXFormat{LaTeX2e}
 \ProvidesClass{kaobook}[2020/12/30 v0.9.5 kaobook]
-
-\RequirePackage{xkeyval} % Manage class key-value options
-
-\newcommand{\@classname}{kaobook} % Class name
 \newcommand{\@baseclass}{scrbook} % Base class name
+
+%\RequirePackage{xkeyval} % Manage class key-value options
+\RequirePackage{kvoptions} % Manage class key-value options
+
+\SetupKeyvalOptions{
+    family = kao,
+    prefix = kao@
+}
 
 % Set the default options
 \PassOptionsToClass{a4paper}{\@baseclass}
@@ -38,14 +42,14 @@
 \PassOptionsToClass{parskip=half}{\@baseclass}
 \PassOptionsToClass{headings=optiontoheadandtoc}{\@baseclass}
 
-\newcommand{\@secnumdepth}{1} % Set default numbering depth up to sections
-\DeclareOptionX{secnumdepth}{% % Declare secnumdepth as an option
-	\renewcommand{\@secnumdepth}{#1}%
-}
+% Define kao-specific options
+\DeclareStringOption[1]{secnumdepth}
 
-\DeclareOptionX*{\PassOptionsToClass{\CurrentOption}{\@baseclass}} % Pass through any options to the base class
+% Pass through any other options to the base class
+\DeclareOption*{\PassOptionsToClass{\CurrentOption}{\@baseclass}} 
 
-\ProcessOptionsX\relax % Process the options
+\ProcessKeyvalOptions*
+\ProcessOptions\relax % Process the options
 
 \LoadClass{\@baseclass} % Load the base class
 \RequirePackage{styles/kao} % Load the code common to all classes
@@ -241,7 +245,7 @@
 %	NUMBERING
 %----------------------------------------------------------------------------------------
 
-\setcounter{secnumdepth}{\@secnumdepth} % Set section numbering depth
+\setcounter{secnumdepth}{\kao@secnumdepth} % Set section numbering depth
 
 \counterwithin*{sidenote}{chapter} % Uncomment to reset the sidenote counter at each chapter
 %\counterwithout{sidenote}{chapter} % Uncomment to have one sidenote counter for the whole document

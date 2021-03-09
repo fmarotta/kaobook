@@ -1,64 +1,36 @@
-\ProvidesPackage{styles/mdftheorems}
+\ProvidesPackage{mdftheorems}
 
 % Use mdframed to shade the background of theorems
 
 % Load packages
 \let\openbox\relax % Workaround to get rid of an annoying error
-\RequirePackage{xkeyval} % Manage package options
+\RequirePackage{kvoptions} % Handle package options
+
+\SetupKeyvalOptions{
+    family = mdftheorems,
+    prefix = mdftheorems@
+}
+
+\newcommand{\mdftheorems@defaultbg}{Goldenrod!45!white}
+\DeclareStringOption[\mdftheorems@defaultbg]{background}
+\DeclareStringOption[\mdftheorems@defaultbg]{theorembackground}
+\DeclareStringOption[\mdftheorems@defaultbg]{propositionbackground}
+\DeclareStringOption[\mdftheorems@defaultbg]{lemmabackground}
+\DeclareStringOption[\mdftheorems@defaultbg]{corollarybackground}
+\DeclareStringOption[\mdftheorems@defaultbg]{definitionbackground}
+\DeclareStringOption[\mdftheorems@defaultbg]{assumptionbackground}
+\DeclareStringOption[\mdftheorems@defaultbg]{remarkbackground}
+\DeclareStringOption[\mdftheorems@defaultbg]{examplebackground}
+\DeclareStringOption[\mdftheorems@defaultbg]{exercisebackground}
+
+\ProcessKeyvalOptions{mdftheorems}
+\ProcessOptions\relax
+
 \RequirePackage{amsmath} % Improved mathematics
 \RequirePackage{amsthm} % Mathematical environments
 \RequirePackage{thmtools} % Theorem styles
 \RequirePackage{tikz} % Colorful boxes
 \RequirePackage[framemethod=TikZ]{mdframed}
-
-% Define the default colors
-\newcommand{\@background}{Goldenrod!45!white}
-\newcommand{\@theorembackground}{\@background}
-\newcommand{\@propositionbackground}{\@background}
-\newcommand{\@lemmabackground}{\@background}
-\newcommand{\@corollarybackground}{\@background}
-\newcommand{\@definitionbackground}{\@background}
-\newcommand{\@assumptionbackground}{\@background}
-\newcommand{\@remarkbackground}{\@background}
-\newcommand{\@examplebackground}{\@background}
-\newcommand{\@exercisebackground}{\@background}
-
-% Declare the options to change the colors
-\DeclareOptionX{background}{%
-	\renewcommand{\@background}{#1}%
-}
-\DeclareOptionX{theorembackground}{%
-	\renewcommand{\@theorembackground}{#1}%
-}
-\DeclareOptionX{propositionbackground}{%
-	\renewcommand{\@propositionbackground}{#1}%
-}
-\DeclareOptionX{lemmabackground}{%
-	\renewcommand{\@lemmabackground}{#1}%
-}
-\DeclareOptionX{corollarybackground}{%
-	\renewcommand{\@corollarybackground}{#1}%
-}
-\DeclareOptionX{definitionbackground}{%
-	\renewcommand{\@definitionbackground}{#1}%
-}
-\DeclareOptionX{assumptionbackground}{%
-	\renewcommand{\@assumptionbackground}{#1}%
-}
-\DeclareOptionX{remarkbackground}{%
-	\renewcommand{\@remarkbackground}{#1}%
-}
-\DeclareOptionX{examplebackground}{%
-	\renewcommand{\@examplebackground}{#1}%
-}
-\DeclareOptionX{exercisebackground}{%
-	\renewcommand{\@exercisebackground}{#1}%
-}
-\DeclareOption*{\PassOptionsToPackage{\CurrentOption}{biblatex}}
-
-% Process the options
-\ProcessOptionsX\relax
-\ProcessOptions\relax
 
 % Box style
 \mdfsetup{skipabove=\topskip,skipbelow=0pt}%-.5\topskip}
@@ -175,7 +147,7 @@
 	numberwithin=section,
 	mdframed={
 		style=mdfkao,
-		backgroundcolor=\@theorembackground,
+        backgroundcolor=\mdftheorems@theorembackground,
 		%frametitlebackgroundcolor=\@theorembackground,
 	},
 ]{theorem}
@@ -187,7 +159,7 @@
 	sibling=theorem,
 	mdframed={
 		style=mdfkao,
-		backgroundcolor=\@propositionbackground,
+        backgroundcolor=\mdftheorems@propositionbackground,
 		%frametitlebackgroundcolor=\@theorembackground,
 	},
 ]{proposition}
@@ -199,7 +171,7 @@
 	sibling=theorem,
 	mdframed={
 		style=mdfkao,
-		backgroundcolor=\@lemmabackground,
+        backgroundcolor=\mdftheorems@lemmabackground,
 		%frametitlebackgroundcolor=\@theorembackground,
 	},
 ]{lemma}
@@ -211,7 +183,7 @@
 	sibling=theorem,
 	mdframed={
 		style=mdfkao,
-		backgroundcolor=\@corollarybackground,
+        backgroundcolor=\mdftheorems@corollarybackground,
 		%frametitlebackgroundcolor=\@theorembackground,
 	},
 ]{corollary}
@@ -225,7 +197,7 @@
 	numberwithin=section,
 	mdframed={
 		style=mdfkao,
-		backgroundcolor=\@definitionbackground,
+        backgroundcolor=\mdftheorems@definitionbackground,
 		%frametitlebackgroundcolor=\@theorembackground,
 	},
 ]{definition}
@@ -239,7 +211,7 @@
 	numberwithin=section,
 	mdframed={
 		style=mdfkao,
-		backgroundcolor=\@assumptionbackground,
+        backgroundcolor=\mdftheorems@assumptionbackground,
 		%frametitlebackgroundcolor=\@theorembackground,
 	},
 ]{assumption}
@@ -253,7 +225,7 @@
 	numberwithin=section,
 	mdframed={
 		style=mdfkao,
-		backgroundcolor=\@remarkbackground,
+        backgroundcolor=\mdftheorems@remarkbackground,
 		%frametitlebackgroundcolor=\@theorembackground,
 	},
 ]{remark}
@@ -267,7 +239,7 @@
 	numberwithin=section,
 	mdframed={
 		style=mdfkao,
-		backgroundcolor=\@examplebackground,
+        backgroundcolor=\mdftheorems@examplebackground,
 		%frametitlebackgroundcolor=\@theorembackground,
 	},
 ]{example}
@@ -281,7 +253,7 @@
 	numberwithin=section,
 	mdframed={
 		style=mdfkao,
-		backgroundcolor=\@exercisebackground,
+        backgroundcolor=\mdftheorems@exercisebackground,
 		%frametitlebackgroundcolor=\@theorembackground,
 	},
 ]{exercise}
