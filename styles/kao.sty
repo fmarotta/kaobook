@@ -852,6 +852,93 @@
 	\endgroup%
 }
 
+% Optional title for margintoc (by hCarlFelix, 
+% https://github.com/fmarotta/kaobook/issues/101)
+% We want to create an additional entries in the toc which is to be used for the margintoc
+% We define these as mtocsection and mtocsubsection for section and subsection`
+\newcommand{\mtocsection}[1]{
+    \etoctoccontentsline{mtocsection}{\protect\numberline{\thesection}#1}
+}
+\newcommand{\mtocsubsection}[1]{
+    \etoctoccontentsline{mtocsubsection}{\protect\numberline{\thesubsection}#1}
+}
+
+% Next, we redefine \section and \subsection so that they accept an additional parameter
+% \section[alternative-title-for-toc]{title-as-written-in-text}[alternative-title-for-margintoc]
+
+% Adapted from Frank Mittelbach's answer at Stackexchange
+% https://tex.stackexchange.com/a/109560/226693
+\let\oldsection\section  % save the old command
+\let\oldsubsection\subsection  % save the old command
+
+\RenewDocumentCommand\section {s o m o}
+  {
+    \IfBooleanTF{#1}
+      { \oldsection*{#3} 
+        \IfNoValueF{#2}            % if TOC arg is given create a TOC entry
+          { \addcontentsline{toc}{section}{#2}  }
+      }
+      {                              % no star given 
+        \IfNoValueTF{#2}
+          { \oldsection {#3} }       % no TOC arg
+          { \oldsection[#2]{#3}  }
+        \IfNoValueTF{#4}     % optional label given, if not we do nothing
+          { \mtocsection {#3} }
+          { \mtocsection {#4} }
+      }
+  }
+
+\RenewDocumentCommand\subsection {s o m o}
+  {
+    \IfBooleanTF{#1}
+      { \oldsubsection*{#3} 
+        \IfNoValueF{#2}            % if TOC arg is given create a TOC entry
+          { \addcontentsline{toc}{subsection}{#2}  }
+      }
+      {                              % no star given 
+        \IfNoValueTF{#2}
+          { \oldsubsection {#3} }       % no TOC arg
+          { \oldsubsection[#2]{#3}  }
+        \IfNoValueTF{#4}     % optional label given, if not we do nothing
+          { \mtocsubsection {#3} }
+          { \mtocsubsection {#4} }
+      }
+  }
+
+\etocsetlevel{mtocsection}{6}% dummy sectioning level
+\etocsetlevel{mtocsubsection}{6}% dummy sectioning level
+
+% We then need to redefine \margintoc so that it takes the mtoc versions instead of the regular section and subsection
+\newcommand{\margintocshort}[1][\mtocshift]{
+    \begingroup
+        % Move regular section and subsection to level 6 so that they won't be included and instead set let the mtoc versions take their place.
+        % Adapted from https://tex.stackexchange.com/a/133559/226693
+        \etocsetlevel{section}{6}
+        \etocsetlevel{subsection}{6}
+        \etocsetlevel{mtocsection}{1}
+        \etocsetlevel{mtocsubsection}{2}
+
+        \etocsetstyle{mtocsection}%
+        	{\parindent -5pt \parskip 3pt}%
+        	{\leftskip 20pt \rightskip 12pt} %
+        	{\hspace{0.01cm}\llap{\etocnumber\hspace{0.1cm}}\etocname\nobreak\leaders\hbox{\hbox to 1.5ex {\hss.\hss}}\hfill\makebox[-0.1cm][l]{\etocpage}\par}%	{}%
+
+        % Set the style for subsection entries
+        \etocsetstyle{mtocsubsection}%
+            {\parindent -5pt \parskip 0pt}%
+            {\leftskip 20pt \rightskip 12pt}%
+            {\hspace{0.01cm}\llap{\hspace{0.1cm}}\etocname\nobreak\leaders\hbox{\hbox to 1.5ex   {\hss.\hss}}\hfill\makebox[-0.1cm][l]{\etocpage}\par}%
+            {}%
+    	% Set the global style of the toc
+    	%\etocsettocstyle{}{}
+    	%\etocsettocstyle{\normalfont\sffamily\normalsize}{}
+    	\etocsettocstyle{\usekomafont{section}\small}{}%
+    	\etocsetnexttocdepth{\themargintocdepth}%
+    	% Print the table of contents in the margin
+    	\marginnote[#1]{\localtableofcontents}%
+    \endgroup%
+}
+
 %----------------------------------------------------------------------------------------
 %	ENCODING AND FONTS
 %----------------------------------------------------------------------------------------
