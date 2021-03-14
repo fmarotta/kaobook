@@ -829,23 +829,57 @@
 
 % Command to print a table of contents in the margin
 \newcommand{\margintoc}[1][\mtocshift]{ % The first parameter is the vertical offset; by default it is \mtocshift
-	\begingroup%
-		% Set the style for section entries
+    \begingroup%
+        \def\margintocnumwidth{15pt}%
+        \def\margintocpagenumwidth{12pt}%
+        \setlength{\RaggedRightParfillskip}{0pt}
+
+        % Dry run to get the widths
+        \etocsetstyle{section}%
+          {}%
+          {\setbox0\hbox{\usekomafont{section}\small\etocthenumber\kern.8mm}%%
+           \setbox1\hbox{\usekomafont{section}\small\etocthepage}}%
+          {\ifdim\wd0>\margintocnumwidth \edef\margintocnumwidth{\the\wd0} \fi%%
+           \ifdim\wd1>\margintocpagenumwidth \edef\margintocpagenumwidth{\the\wd1} \fi}%
+          {}%
+        \etocsetstyle{subsection}%
+          {}%
+          {\setbox0\hbox{\usekomafont{section}\small\etocthenumber\kern.8mm}%
+           \setbox1\hbox{\usekomafont{section}\small\etocthepage}}%
+          {\ifdim\wd0>\margintocnumwidth \edef\margintocnumwidth{\the\wd0} \fi%
+           \ifdim\wd1>\margintocpagenumwidth \edef\margintocpagenumwidth{\the\wd1} \fi}%
+          {}%
+        \etocsetstyle{subsubsection}%
+          {}%
+          {}%
+          {}%
+          {}%
+        \etocsetstyle{paragraph}%
+          {}%
+          {}%
+          {}%
+          {}%
+        \etocsettocstyle{}{%
+          \global\let\margintocnumwidth\margintocnumwidth%
+          \global\let\margintocpagenumwidth\margintocpagenumwidth%
+        }%
+        \etocnopar%
+        \localtableofcontents%
+
+        % Set the style for section entries
 		\etocsetstyle{section}%
-		{\parindent -5pt \parskip 3pt}%
-		{\leftskip 20pt \rightskip 12pt} %
-		{\hspace{0.01cm}\llap{\etocnumber\hspace{0.1cm}}\etocname\nobreak\leaders\hbox{\hbox to 1.5ex {\hss.\hss}}\hfill\makebox[-0.1cm][l]{\etocpage}\par}%	
-		{}%
+        {\parindent 0pt \parskip 2.5pt \parfillskip 0pt \RaggedRight}%
+        {\leftskip \margintocnumwidth \rightskip \margintocpagenumwidth} %
+        {\makebox[0pt][r]{\makebox[\margintocnumwidth][l]{\etocnumber}}\etocname\nobreak\leaders\hbox{\hbox to 1.5ex {\hss.\hss}}\hfill\rlap{\makebox[\margintocpagenumwidth][r]{\etocpage}}\par}%
+        {}%
 		% Set the style for subsection entries
 		\etocsetstyle{subsection}%
-		{\parindent -5pt \parskip 0pt}%
-		{\leftskip 20pt \rightskip 12pt}%
-		{\hspace{0.01cm}\llap{\hspace{0.1cm}}\etocname\nobreak\leaders\hbox{\hbox to 1.5ex {\hss.\hss}}\hfill\makebox[-0.1cm][l]{\etocpage}\par}%
-		{}%
+        {\parindent 0pt \parskip 0pt \parfillskip 0pt \RaggedRight}%
+        {\leftskip \margintocnumwidth \rightskip \margintocpagenumwidth}%
+        {\makebox[0pt][r]{\makebox[\margintocnumwidth][l]{\etocnumber}}\etocname\nobreak\leaders\hbox{\hbox to 1.5ex {\hss.\hss}}\hfill\rlap{\makebox[\margintocpagenumwidth][r]{\etocpage}}\par}%
+        {\parskip 2.5pt}%
 		% Set the global style of the toc
-		%\etocsettocstyle{}{}
-		%\etocsettocstyle{\normalfont\sffamily\normalsize}{}
-		\etocsettocstyle{\usekomafont{section}\small}{}%
+        \etocsettocstyle{\usekomafont{section}\small}{}%
 		\etocsetnexttocdepth{\themargintocdepth}%
 		% Print the table of contents in the margin
 		\marginnote[#1]{\localtableofcontents}%
