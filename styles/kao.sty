@@ -801,19 +801,24 @@
 %	TOC, LOF & LOT
 %----------------------------------------------------------------------------------------
 
-\RequirePackage{tocbasic}%
+\RequirePackage{tocbasic}
 
 % Show an entry for the TOC in the TOC
-\setuptoc{toc}{totoc}%
+\setuptoc{toc}{totoc}
 
 % Choose the levels in table of contents
 \setcounter{tocdepth}{\subsectiontocdepth}
 
 % Define the style for toc entries
-\DeclareTOCStyleEntries[indent=0em,numwidth=2em,dynnumwidth=yes,pagenumberwidth=2.1em]{tocline}{figure,table}
-\DeclareTOCStyleEntries[dynnumwidth=yes]{tocline}{subsubsection,subsection,section,chapter,part}
-\DeclareTOCStyleEntries[pagenumberwidth=2.5em]{tocline}{chapter,part}
-\DeclareTOCStyleEntries[pagenumberwidth=2.1em]{tocline}{subsubsection,subsection,section}
+\@ifpackagelater{scrbase}{2019/10/11}{%
+    \DeclareTOCStyleEntries[indent=0em,numwidth=2em,dynnumwidth=yes,pagenumberwidth=2.1em]{tocline}{figure,table}%
+    \DeclareTOCStyleEntries[dynnumwidth=yes]{tocline}{subsubsection,subsection,section,chapter,part}%
+    \DeclareTOCStyleEntries[pagenumberwidth=2.5em]{tocline}{chapter,part}%
+    \DeclareTOCStyleEntries[pagenumberwidth=2.1em]{tocline}{subsubsection,subsection,section}%
+}{%
+    \DeclareTOCStyleEntries[indent=0em,numwidth=2em,dynnumwidth=yes]{tocline}{figure,table}%
+    \DeclareTOCStyleEntries[dynnumwidth=yes]{tocline}{subsubsection,subsection,section,chapter,part}%
+}
 
 % Define the names for the headings
 % \renewcaptionname{english}{\contentsname}{Detailed Contents}
