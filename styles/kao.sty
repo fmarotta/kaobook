@@ -136,6 +136,7 @@
 		marginparsep=8.2\hscale,
 		marginparwidth=49.4\hscale,
 	}%
+    \recalchead%
 }
 
 % Layout #2: small, symmetric margins
@@ -148,6 +149,7 @@
 		marginparsep=0mm,
 		marginparwidth=0mm,
 	}%
+    \recalchead%
 }
 
 % Layout #3: no margins and no space above or below the body
@@ -160,6 +162,7 @@
 		marginparwidth=0mm,
 		marginparsep=0mm,
 	}%
+    \recalchead%
 }
 
 % Set the default page layout
@@ -181,12 +184,15 @@
 \newlength{\headmarginparsep}
 \newlength{\headmarginparwidth}
 \newlength{\headtotal} % This is the total width of the header
-
-\AtBeginDocument{% Recalculate the header-related lengths
-	\setlength{\headtextwidth}{\textwidth}%
+\newcommand{\recalchead}{%
+    \setlength{\headtextwidth}{\textwidth}%
 	\setlength{\headmarginparsep}{\marginparsep}%
 	\setlength{\headmarginparwidth}{\marginparwidth}%
 	\setlength{\headtotal}{\headtextwidth+\headmarginparsep+\headmarginparwidth}%
+}
+
+\AtBeginDocument{% Recalculate the header-related lengths
+    \recalchead%
 }
 
 % Style with chapter number, chapter title, and page in the header (used throughout the document)
