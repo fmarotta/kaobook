@@ -210,7 +210,7 @@
 		\makebox[3\hscale]{}\rule[-1mm]{0.5pt}{19\vscale-1mm}\makebox[3\hscale]{}%
 		\makebox[7\hscale][l]{\thepage}}}}}%
 }{%
-	{}%
+    {}%
 	{}%
 	{}%
 }
@@ -460,13 +460,13 @@
 \RequirePackage{listings} % Print code listings
 %\RequirePackage{minted}
 \RequirePackage[hypcap=true]{caption} % Correctly placed anchors for hyperlinks
-\RequirePackage{scrhack} % Make packages compatible with KOMA Script
 % \RequirePackage{atbegshi}
 % \RequirePackage{perpage}
 \let\c@abspage\relax
 % \newcommand{\pp@g@sidenote}{}
 \RequirePackage{floatrow} % Set up captions of floats
 %\RequirePackage{dblfloatfix} % Better positioning of wide figures and tables
+\AtEndPreamble{\RequirePackage{scrhack}} % Make packages compatible with KOMA Script (must be loaded last: https://tex.stackexchange.com/questions/156240/latex-packages-minted-and-scrhack)
 
 % Improve the figure placing (see https://www.overleaf.com/learn/latex/Tips)
 \def\topfraction{.9}%
