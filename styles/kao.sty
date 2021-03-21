@@ -309,6 +309,21 @@
 	\end{addmargin}%
 }
 
+% Environment for a full width paragraph
+\NewDocumentEnvironment{fullwidthpar}{}{%
+  \if@twoside%
+    \Ifthispageodd{%
+      \begin{addmargin}[-1in-\hoffset-\oddsidemargin]{-\paperwidth+1in+\hoffset+\oddsidemargin+\textwidth}%
+    }{%
+      \begin{addmargin}[-\paperwidth+1in+\hoffset+\oddsidemargin+\textwidth]{-\paperwidth+1in+\hoffset+\oddsidemargin+\marginparsep+\marginparwidth+\textwidth}%
+    }%
+  \else%
+    \begin{addmargin}[-1in-\hoffset-\oddsidemargin]{-\paperwidth+1in+\hoffset+\oddsidemargin+\textwidth}%
+  \fi% 
+}{%
+    \end{addmargin}%
+}
+
 % Environment for a wide equation
 \NewDocumentEnvironment{wideequation}{}{%
   \begin{widepar}%
