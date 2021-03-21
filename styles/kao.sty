@@ -17,6 +17,12 @@
 \RequirePackage{imakeidx} % For the index; must be loaded before the 'caption' and 'hyperref' packages
 \RequirePackage{varioref} % For the cross-references; must be loaded before the 'hyperref' and 'cleveref' packages
 
+% Define \Ifthispageodd (with a capital 'i') to make kaobook compatible with older KOMAScript versions
+\@ifpackagelater{scrbase}{2019/12/22}{%
+}{%
+    \let\Ifthispageodd\ifthispageodd%
+}
+
 %----------------------------------------------------------------------------------------
 %	TITLE AND AUTHOR MACROS
 %----------------------------------------------------------------------------------------
@@ -24,7 +30,7 @@
 % Provide an optional argument to the \title command in which to store a plain text title, without any formatting
 % Usage: \title[Plain Title]{Actual Title}
 \newcommand{\@plaintitle}{}
-\renewcommand{\title}[2][]{
+\renewcommand{\title}[2][]{%
 	\gdef\@title{#2} % Store the full title in @title
 	\ifthenelse{\isempty{#1}}{ % If there is no plain title
 		\renewcommand{\@plaintitle}{\@title} % Use full title
@@ -37,7 +43,7 @@
 % Provide an optional argument to the \author command in which to store a plain text author, without any formatting
 % Usage: \author[Plain Author]{Actual Author}
 \newcommand{\@plainauthor}{}
-\renewcommand{\author}[2][]{
+\renewcommand{\author}[2][]{%
 	\gdef\@author{#2} % Store the full author in @author
 	\ifthenelse{\isempty{#1}}{ % If there is no plain author
 		\renewcommand{\@plainauthor}{\@author}% Use full author
