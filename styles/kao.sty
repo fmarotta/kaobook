@@ -370,7 +370,8 @@
 \renewcommand*{\raggedleftmarginnote}{} % Suppress left margin
 \renewcommand*{\raggedrightmarginnote}{} % Suppress right margin
 \renewcommand*{\marginfont}{\@margin@par} % Format marginnotes according to \@marginpar (see above)
-\renewcommand{\marginnotevadjust}{0.7\vscale} % Bring all marginnotes downward a bit
+\renewcommand{\marginnotevadjust}{0.7\vscale} % Bring all marginnotes downwards a bit
+\marginposadjustment=0.7\vscale % Bring downwards also the marginpars
 %\RequirePackage[marginnote=true]{snotez} % Provides options for sidenotes
 
 % Copied from snotez's \sidenote
@@ -388,11 +389,11 @@
 \AtBeginEnvironment{minipage}{\infloattrue}
 
 \def\IfInFloatingEnvir{%
-	\ifinfloat
-		\expandafter\@firstoftwo
-	\else
-		\expandafter\@secondoftwo
-	\fi
+    \ifinfloat%
+        \expandafter\@firstoftwo%
+    \else%
+        \expandafter\@secondoftwo%
+    \fi%
 }
 
 
@@ -857,10 +858,10 @@
 \setcounter{margintocdepth}{\subsectiontocdepth}
 
 \newlength{\mtocshift} % Length of the vertical offset used for margin tocs
-\setlength{\mtocshift}{-52\vscale}
+\setlength{\mtocshift}{1\vscale}
 
 % Command to print a table of contents in the margin
-\newcommand{\margintoc}[1][\mtocshift]{ % The first parameter is the vertical offset; by default it is \mtocshift
+\NewDocumentCommand{\margintoc}{O{\mtocshift}}{ % The first parameter is the vertical offset; by default it is \mtocshift
     \begingroup%
         \def\margintocnumwidth{15pt}%
         \def\margintocpagenumwidth{12pt}%
@@ -913,9 +914,9 @@
 		% Set the global style of the toc
         \etocsettocstyle{\usekomafont{section}\small}{}%
 		\etocsetnexttocdepth{\themargintocdepth}%
-		% Print the table of contents in the margin
-		\marginnote[#1]{\localtableofcontents}%
-	\endgroup%
+        % Print the table of contents in the margin
+        \marginnote[#1]{\localtableofcontents}%
+    \endgroup%
 }
 
 % Optional title for margintoc (by hCarlFelix, 
