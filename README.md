@@ -196,6 +196,15 @@ changing the code you must follow the style guidelines of the site:
 extensive commenting and clear separation of the code into nicely 
 formatted blocks.
 
+## Supporting
+
+I am always happy to help as much as I can, and I am glad if someone
+uses the `kaobook` class for their works, so there is no real need to do
+anything: the kaobook can be used just like any other LaTeX package (no 
+need to add copyright statements). However, if you want to aknowledge 
+kaobook, adding somewhere a sentence like 'This book was tyeset with the 
+kaobook class' would suffice.
+
 Coffee keeps me awake and helps me writing a better LaTeX template. As 
 another way to contribute, you can buy me a coffee through PayPal: 
 https://paypal.me/marofede.
