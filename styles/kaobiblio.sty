@@ -1,15 +1,22 @@
-\ProvidesPackage{styles/kaobiblio}
+\ProvidesPackage{kaobiblio}
 
 \RequirePackage{etoolbox} % Easy programming to modify TeX stuff
 \RequirePackage{perpage} % Reset counters
 \RequirePackage{iflang} % Check the document language
-\RequirePackage{xkeyval} % Manage class options
 \RequirePackage{xparse} % Parse arguments for macros
 \RequirePackage{xstring} % Parse strings
 \RequirePackage{hyperref} % Required for hyperlinks
+\RequirePackage{kvoptions} % Handle package options
 
+\SetupKeyvalOptions{
+    family = kaobiblio,
+    prefix = kaobiblio@
+}
 
-% Choose the default options, which will be overwritten by the options passed to this package.
+\DeclareBoolOption{addspace}
+
+% Choose the default options, which will be overwritten by the options 
+% passed to this package.
 \PassOptionsToPackage{
 	%style=numeric-comp,
 	%citestyle=authortitle-icomp,
@@ -26,12 +33,20 @@
 	citecounter=true,
 	citetracker=true,
 	ibidtracker=context,
+    autopunct=true,
+    autocite=plain,
 }{biblatex}
 
 % Pass this package's options to biblatex, overwriting the previous settings.
-\DeclareOption*{\PassOptionsToPackage{\CurrentOption}{biblatex}}
+\DeclareOption*{%
+    \IfBeginWith{\CurrentOption}{addspace}{%
+    }{%
+        \PassOptionsToPackage{\CurrentOption}{biblatex}%
+    }
+}
 
 % Process the options
+\ProcessKeyvalOptions{kaobiblio}
 \ProcessOptions\relax
 
 % Load biblatex
@@ -115,7 +130,7 @@
 % Third optional argument: postnote
 % Mandatory argument: citation key
 \NewDocumentCommand{\sidecite}{o o o m}{%
-	\RenewDocumentCommand{\kaobiblio@marginnote}{m}{%
+    \RenewDocumentCommand{\kaobiblio@marginnote}{m}{%
 		\marginnote[#1]{##1}%
 	}%
 	\DeclareCiteCommand{\kaobiblio@sidecite}[\kaobiblio@marginnote]{%
@@ -126,15 +141,20 @@
 	}{%
 	}%
     % With this we print the marker in the text and add the item to the bibliography at the end
-	\IfNoValueOrEmptyTF{#2}%
-		{\cite{#4}\kaobiblio@sidecite{#4}}%
-		{\IfNoValueOrEmptyTF{#3}%
-			{\IfNoValueTF{#3}%
-				{\cite[#2]{#4}\kaobiblio@sidecite{#4}}%
-				{\cite[#2][]{#4}\kaobook@sidecite{#4}}% postnote is empty, so pass empty postnote
-			}%
-			{\cite[#2][#3]{#4}\kaobiblio@sidecite{#4}}%
+    \IfNoValueOrEmptyTF{#2}%
+    {\def\@tempa{\cite{#4}\kaobiblio@sidecite{#4}}}%
+    {\IfNoValueOrEmptyTF{#3}%
+        {\IfNoValueTF{#3}%
+            {\def\@tempa{\cite[#2]{#4}\kaobiblio@sidecite{#4}}}%
+            {\def\@tempa{\cite[#2][]{#4}\kaobook@sidecite{#4}}}% postnote is empty, so pass empty postnote
         }%
+        {\def\@tempa{\cite[#2][#3]{#4}\kaobiblio@sidecite{#4}}}%
+    }%
+    \ifkaobiblio@addspace%
+        \unskip~\@tempa%
+    \else%
+        \@tempa%
+    \fi%
 }
 
 % Command to \textcite and print a citation in the margin
