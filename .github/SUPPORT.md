@@ -13,4 +13,4 @@ Depending on your type of problem, there are several ways to get help:
 
 ### Bug Reports & Feature requests
 * You want to report a bug? → [Create a bug report here.](https://github.com/fmarotta/kaobook/issues/new?assignees=&labels=&template=bug_report.md)
-* You want to propose a new feature? → [Create a feature request here.](https://github.com/atom/atom/issues/new?assignees=&labels=&template=feature_request.md)
+* You want to propose a new feature? → [Create a feature request here.](https://github.com/fmarotta/kaobook/issues/new?assignees=&labels=&template=feature_request.md)
