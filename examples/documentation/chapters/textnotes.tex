@@ -111,6 +111,17 @@ the chapter preamble, with the following code:
 \chapter{Chapter title}
 \end{lstlisting}
 
+As the space in the margin is a valuable resource, we have defined also 
+the \Command{margintocshort} command, which is roughly equivalent to the 
+normal \Command{margintoc}, except that it prints another version of the 
+section title. This version should be shorter than the real section 
+title and can be specified by the user when creating the section using 
+the following syntax:
+
+\begin{lstlisting}[style=kaolstplain]
+\section[alternative-title-for-toc]{title-as-written-in-text}[alternative-title-for-margintoc]
+\end{lstlisting}
+
 \section{Marginlisting}
 
 On some occasions it may happen that you have a very short piece of code 

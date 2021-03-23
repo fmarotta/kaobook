@@ -1,7 +1,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % kaobook
 % LaTeX Class
-% Version 0.9.5 (2020/12/30)
+% Version 0.9.6 (2021/03/23)
 %
 % This template originates from:
 % https://www.LaTeXTemplates.com
@@ -25,22 +25,29 @@
 %----------------------------------------------------------------------------------------
 
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesClass{kaohandt}[2020/12/30 v0.9.5 kaohandt]
-
-\RequirePackage{xkeyval} % Manage class key-value options
-
+\ProvidesClass{kaohandt}[2021/03/23 v0.9.6 kaohandt]
 \newcommand{\@classname}{kaohandt} % Class name
 \newcommand{\@baseclass}{scrartcl} % Base class name
 
-\newcommand{\@secnumdepth}{2} % Set default numbering depth up to subsections
-\DeclareOptionX{secnumdepth}{% % Declare secnumdepth as an option
-	\renewcommand{\@secnumdepth}{#1}%
+\RequirePackage{kvoptions} % Manage class key-value options
+
+\SetupKeyvalOptions{
+    family = kao,
+    prefix = kao@
 }
 
 % Set the default options
 \PassOptionsToClass{a4paper}{\@baseclass}
-\DeclareOptionX*{\PassOptionsToClass{\CurrentOption}{\@baseclass}} % Pass through any options to the base class
-\ProcessOptionsX\relax % Process the options
+
+% Define kao-specific options
+\DeclareStringOption[1]{secnumdepth}
+
+% Pass through any other options to the base class
+\DeclareOption*{\PassOptionsToClass{\CurrentOption}{\@baseclass}} 
+
+\ProcessKeyvalOptions*
+\ProcessOptions\relax % Process the options
+
 \LoadClass{\@baseclass} % Load the base class
 \input{styles/kao.sty} % Load the code common to all classes
 
@@ -86,7 +93,7 @@
 %	NUMBERING
 %----------------------------------------------------------------------------------------
 
-\setcounter{secnumdepth}{\@secnumdepth} % Set section numbering depth
+\setcounter{secnumdepth}{\kao@secnumdepth} % Set section numbering depth
 
 \counterwithin*{sidenote}{section} % Uncomment to reset the sidenote counter at each section
 %\counterwithout{sidenote}{section} % Uncomment to have one sidenote counter for the whole document
