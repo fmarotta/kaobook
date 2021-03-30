@@ -1,7 +1,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % kaobook
 % LaTeX Class
-% Version 0.9.5 (2020/12/30)
+% Version 0.9.6 (2021/03/23)
 %
 % This template originates from:
 % https://www.LaTeXTemplates.com
@@ -25,10 +25,9 @@
 %----------------------------------------------------------------------------------------
 
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesClass{kaobook}[2020/12/30 v0.9.5 kaobook]
+\ProvidesClass{kaobook}[2021/03/23 v0.9.6 kaobook]
 \newcommand{\@baseclass}{scrbook} % Base class name
 
-%\RequirePackage{xkeyval} % Manage class key-value options
 \RequirePackage{kvoptions} % Manage class key-value options
 
 \SetupKeyvalOptions{
