@@ -49,7 +49,7 @@
 \ProcessOptions\relax % Process the options
 
 \LoadClass{\@baseclass} % Load the base class
-\input{styles/kao.sty} % Load the code common to all classes
+\input{kao.sty} % Load the code common to all classes
 
 % Left-align title, authors and date
 \xpatchcmd{\@maketitle}{\begin{center}}{\begin{flushleft}}{}{}

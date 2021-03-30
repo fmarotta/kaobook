@@ -51,7 +51,7 @@
 \ProcessOptions\relax % Process the options
 
 \LoadClass{\@baseclass} % Load the base class
-\RequirePackage{styles/kao} % Load the code common to all classes
+\RequirePackage{kao} % Load the code common to all classes
 
 %----------------------------------------------------------------------------------------
 %	FRONT-, MAIN-, BACK- MATTERS BEHAVIOUR
