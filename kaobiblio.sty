@@ -132,6 +132,11 @@
 	\parencite{#1}: \citeauthor*{#1} (\citeyear{#1}), \citetitle{#1}%
 }
 
+% Command to format the marginnote created for supercited items
+\NewDocumentCommand{\formatmarginsupercitation}{m}{% The parameter is a single citation key
+    \supercite{#1} \citeauthor*{#1} (\citeyear{#1})%
+}
+
 % The following command needs to be redefined every time \sidecite is called in order for \DeclareCiteCommand's wrapper to work correctly
 \NewDocumentCommand{\kaobiblio@marginnote}{m}{%
     \marginnote{#1}%
@@ -177,6 +182,35 @@
     \fi%
 }
 
+% Command to \supercite and print a citation in the margin
+% First optional argument: vertical shift
+% Second optional argument: postnote if the third argument isn't specified; prenote if the third argument is specified (same pattern as the \textcite command)
+% Third optional argument: postnote
+% Mandatory argument: citation key
+\NewDocumentCommand{\sidesupercite}{o o o m}{%
+    \RenewDocumentCommand{\kaobiblio@marginnote}{m}{%
+        \marginnote[#1]{##1}%
+    }%
+    \DeclareCiteCommand{\kaobiblio@sidesupercite}[\kaobiblio@marginnote]{%
+	}{%
+        \formatmarginsupercitation{\thefield{entrykey}}%
+	}{%
+		\\% separator between multiple citations
+	}{%
+	}%
+    % With this we print the marker in the text and add the item to the bibliography at the end
+    \IfNoValueOrEmptyTF{#2}%
+    {\def\@tempa{\supercite{#4}\kaobiblio@sidesupercite{#4}}}%
+    {\IfNoValueOrEmptyTF{#3}%
+        {\IfNoValueTF{#3}%
+            {\def\@tempa{\supercite[#2]{#4}\kaobiblio@sidesupercite{#4}}}%
+            {\def\@tempa{\supercite[#2][]{#4}\kaobook@sidesupercite{#4}}}% postnote is empty, so pass empty postnote
+        }%
+        {\def\@tempa{\supercite[#2][#3]{#4}\kaobiblio@sidesupercite{#4}}}%
+    }%
+    \@tempa%
+}
+
 % Command to \textcite and print a citation in the margin
 % First optional argument: vertical shift
 % Second optional argument: postnote if the third argument isn't specified; prenote if the third argument is specified (same pattern as the \textcite command)
@@ -198,11 +232,16 @@
 		{\textcite{#4}\kaobiblio@sidecite{#4}}%
 		{\IfNoValueOrEmptyTF{#3}%
 			{\IfNoValueTF{#3}%
-				{\textcite[#2]{#4}\kaobiblio@sidecite{#4}}%
-				{\textcite[#2][]{#4}\kaobook@sidecite{#4}}% postnote is empty, so pass empty postnote
+                {\def\@tempa{\textcite[#2]{#4}\kaobiblio@sidecite{#4}}}%
+                {\def\@tempa{\textcite[#2][]{#4}\kaobook@sidecite{#4}}}% postnote is empty, so pass empty postnote
 			}%
-			{\textcite[#2][#3]{#4}\kaobiblio@sidecite{#4}}%
+            {\def\@tempa{\textcite[#2][#3]{#4}\kaobiblio@sidecite{#4}}}%
         }%
+    \ifkaobiblio@addspace%
+        \unskip~\@tempa%
+    \else%
+        \@tempa%
+    \fi%
 }
 
 % Command to \parencite or \parencite* and print a citation in the margin
@@ -223,27 +262,32 @@
 	}{%
 	}%
     % With this we print the marker in the text and add the item to the bibliography at the end
-    \IfBooleanTF#1
-        {\IfNoValueOrEmptyTF{#3}
-            {\parencite*{#5}}
-            {\IfNoValueOrEmptyTF{#4}
-                {\IfNoValueTF{#4}
-                    {\parencite*[#3]{#5}}
-                    {\parencite*[#3][]{#5}}% postnote is empty, so pass empty postnote
-                }
-                {\parencite*[#3][#4]{#5}}%
+    \IfBooleanTF#1%
+        {\IfNoValueOrEmptyTF{#3}%
+            {\parencite*{#5}}%
+            {\IfNoValueOrEmptyTF{#4}%
+                {\IfNoValueTF{#4}%
+                    {\def\@tempa{\parencite*[#3]{#5}}}%
+                    {\def\@tempa{\parencite*[#3][]{#5}}}% postnote is empty, so pass empty postnote
+                }%
+                {\def\@tempa{\parencite*[#3][#4]{#5}}}%
             }%
         }%
-        {\IfNoValueOrEmptyTF{#3}
-            {\parencite{#5}}
-            {\IfNoValueOrEmptyTF{#4}
-                {\IfNoValueTF{#4}
-                    {\parencite[#3]{#5}}
-                    {\parencite[#3][]{#5}}% postnote is empty, so pass empty postnote
-                }
-                {\parencite[#3][#4]{#5}}%
+        {\IfNoValueOrEmptyTF{#3}%
+            {\def\@tempa{\parencite{#5}}}%
+            {\IfNoValueOrEmptyTF{#4}%
+                {\IfNoValueTF{#4}%
+                    {\def\@tempa{\parencite[#3]{#5}}}%
+                    {\def\@tempa{\parencite[#3][]{#5}}}% postnote is empty, so pass empty postnote
+                }%
+                {\def\@tempa{\parencite[#3][#4]{#5}}}%
             }%
         }%
+    \ifkaobiblio@addspace%
+        \unskip~\@tempa%
+    \else%
+        \@tempa%
+    \fi%
 }
 
 
