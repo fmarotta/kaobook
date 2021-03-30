@@ -27,14 +27,10 @@ This work consists of all files listed below.
 kaobook/
 |-- kaobook.cls                 - book-specific definitions
 |-- kaohandt.cls                - handout-specific definitions
-`-- styles/
-	|-- kao.sty					- main definitions
-    |-- environments.sty        - definitions for environments
-	|-- kaobiblio.sty			- style of the bibliography
-    |-- mdftheorems.sty         - colorful styling of theorems
-    |-- packages.sty            - useful packages
-    |-- plaintheorems.sty       - minimalistic styling of theorems
-	`-- kaorefs.sty             - commands for referencing
+|-- kao.sty	    				- main definitions
+|-- kaobiblio.sty	    		- style of the bibliography
+|-- kaotheorems.sty             - colorful styling of theorems
+`-- kaorefs.sty                 - commands for referencing
 ```
 
 ---
@@ -55,11 +51,14 @@ their compilation.
 ```
 kaobook/
 `-- examples/
-	|-- books/
-	|	`-- minimal.tex
+    |-- minimal_book/
+    |	`-- main.tex
+    |-- minimal_report/
+    |	`-- main.tex
 	|-- documentation/
-	|	|-- main.bib
-	|	|-- main.tex
+    |	|-- main.tex
+    |	|-- main.bib
+    |	|-- glossary.tex
 	|	`-- chapters/
 	|		|-- appendix.tex
 	|		|-- figsntabs.tex
@@ -70,11 +69,14 @@ kaobook/
 	|		|-- preface.tex
 	|		|-- references.tex
 	|		`-- textnotes.tex
-	`-- reports/
-		|-- minimal/
-		|	`-- minimal.tex
-		`-- machine_learnin_project/
-			`-- main.tex
+    `-- machine_learning_project/
+        |-- sections/
+        |	|-- introduction.tex
+        |	|-- data.tex
+        |	|-- results.tex
+        |	`-- discussion.tex
+        |-- main.tex
+        `-- main.bib
 ```
 
 As regards the files in the `kaobook/examples/documentation/images` 

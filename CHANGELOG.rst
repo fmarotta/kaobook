@@ -2,6 +2,10 @@
 Changelog for package kaobook
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Work in progress
+----------------
+* Move the packages to the root of the repository
+
 0.9.6 (2021/03/23)
 ------------------
 * Short margin tocs
