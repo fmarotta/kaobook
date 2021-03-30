@@ -21,7 +21,6 @@
 \DeclareStringOption[\kaotheorems@defaultbg]{exercisebackground}
 
 \ProcessKeyvalOptions{kaotheorems}
-\ProcessOptions\relax
 
 \let\openbox\relax
 \RequirePackage{amsmath} % Improved mathematics
@@ -142,7 +141,7 @@
     	numberwithin=section,
     	mdframed={
     		style=mdfkao,
-            backgroundcolor=\mdftheorems@theorembackground,
+            backgroundcolor=\kaotheorems@theorembackground,
     		%frametitlebackgroundcolor=\@theorembackground,
     	},
     ]{theorem}
@@ -154,7 +153,7 @@
     	sibling=theorem,
     	mdframed={
     		style=mdfkao,
-            backgroundcolor=\mdftheorems@propositionbackground,
+            backgroundcolor=\kaotheorems@propositionbackground,
     		%frametitlebackgroundcolor=\@theorembackground,
     	},
     ]{proposition}
@@ -166,7 +165,7 @@
     	sibling=theorem,
     	mdframed={
     		style=mdfkao,
-            backgroundcolor=\mdftheorems@lemmabackground,
+            backgroundcolor=\kaotheorems@lemmabackground,
     		%frametitlebackgroundcolor=\@theorembackground,
     	},
     ]{lemma}
@@ -178,7 +177,7 @@
     	sibling=theorem,
     	mdframed={
     		style=mdfkao,
-            backgroundcolor=\mdftheorems@corollarybackground,
+            backgroundcolor=\kaotheorems@corollarybackground,
     		%frametitlebackgroundcolor=\@theorembackground,
     	},
     ]{corollary}
@@ -192,7 +191,7 @@
     	numberwithin=section,
     	mdframed={
     		style=mdfkao,
-            backgroundcolor=\mdftheorems@definitionbackground,
+            backgroundcolor=\kaotheorems@definitionbackground,
     		%frametitlebackgroundcolor=\@theorembackground,
     	},
     ]{definition}
@@ -206,7 +205,7 @@
     	numberwithin=section,
     	mdframed={
     		style=mdfkao,
-            backgroundcolor=\mdftheorems@assumptionbackground,
+            backgroundcolor=\kaotheorems@assumptionbackground,
     		%frametitlebackgroundcolor=\@theorembackground,
     	},
     ]{assumption}
@@ -220,7 +219,7 @@
     	numberwithin=section,
     	mdframed={
     		style=mdfkao,
-            backgroundcolor=\mdftheorems@remarkbackground,
+            backgroundcolor=\kaotheorems@remarkbackground,
     		%frametitlebackgroundcolor=\@theorembackground,
     	},
     ]{remark}
@@ -234,7 +233,7 @@
     	numberwithin=section,
     	mdframed={
     		style=mdfkao,
-            backgroundcolor=\mdftheorems@examplebackground,
+            backgroundcolor=\kaotheorems@examplebackground,
     		%frametitlebackgroundcolor=\@theorembackground,
     	},
     ]{example}
@@ -248,7 +247,7 @@
     	numberwithin=section,
     	mdframed={
     		style=mdfkao,
-            backgroundcolor=\mdftheorems@exercisebackground,
+            backgroundcolor=\kaotheorems@exercisebackground,
     		%frametitlebackgroundcolor=\@theorembackground,
     	},
     ]{exercise}
