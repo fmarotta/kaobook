@@ -141,7 +141,7 @@
 		}}%
 	}%
 	\RedeclareSectionCommand[beforeskip=0cm,afterskip=10\vscale]{chapter}%
-    \setlength{\mtocshift}{-.1\vscale}%
+    \setlength{\mtocshift}{-3\vscale}%
 }
 
 % Lines
