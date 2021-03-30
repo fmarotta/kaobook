@@ -139,7 +139,7 @@
 		bottom=27.4\vscale,
 		inner=24.8\hscale,
 		textwidth=107\hscale,
-		marginparsep=8.2\hscale,
+        marginparsep=8.2\hscale,
 		marginparwidth=49.4\hscale,
 	}%
     \recalchead%
@@ -370,8 +370,9 @@
 \renewcommand*{\raggedleftmarginnote}{} % Suppress left margin
 \renewcommand*{\raggedrightmarginnote}{} % Suppress right margin
 \renewcommand*{\marginfont}{\@margin@par} % Format marginnotes according to \@marginpar (see above)
-\renewcommand{\marginnotevadjust}{0.7\vscale} % Bring all marginnotes downwards a bit
-\marginposadjustment=0.7\vscale % Bring downwards also the marginpars
+\renewcommand{\marginnotevadjust}{0.8\vscale} % Bring all marginnotes downwards a bit
+\marginposadjustment=0.1mm % Bring downwards also the marginpars
+\marginheightadjustment=.5cm % Bring downwards also the marginpars
 %\RequirePackage[marginnote=true]{snotez} % Provides options for sidenotes
 
 % Copied from snotez's \sidenote
@@ -402,28 +403,15 @@
 % (b) the offset can also be a multiple of baselineskip, like for snotez's \sidenote
 % Usage: \marginnote[<offset>]{Text of the note.}
 \let\oldmarginnote\marginnote%
-\RenewDocumentCommand\marginnote { o m }{%
+\RenewDocumentCommand\marginnote{ o m }{%
 	\IfNoValueOrEmptyTF{#1}{%
 		\IfInFloatingEnvir{%
 			\oldmarginnote{#2}%
 		}{%
-			\marginpar{\@margin@par#2}%
-		}%
+            \marginpar{\@margin@par#2}%
+        }%
 	}{%
 		\oldmarginnote{#2}[\kao@if@nblskip{#1}{\@cdr#1\@nil\baselineskip}{#1}]%
-	}%
-}
-
-% Redefine the following sidenotes' command to use the kao version of marginnote
-\RenewDocumentCommand\@sidenotes@placemarginal{ m m }{%
-	\IfNoValueOrEmptyTF{#1}{%
-		\IfInFloatingEnvir{%
-			\oldmarginnote{#2}%
-		}{%
-			\marginpar{#2}%
-		}%
-	}{%
-		\marginnote[#1]{#2}%
 	}%
 }
 
@@ -447,7 +435,7 @@
 % }
 
 % Formatting sidenotes
-\RenewDocumentCommand \@sidenotes@thesidenotemark { m }{%
+\RenewDocumentCommand\@sidenotes@thesidenotemark{ m }{%
 	\leavevmode%
 	\ifhmode%
 		\edef\@x@sf{\the\spacefactor}%
@@ -462,10 +450,10 @@
 
 \RenewDocumentCommand\sidenotetext{ o o +m }{% number, offset, text
 	\IfNoValueOrEmptyTF{#1}{%
-		\@sidenotes@placemarginal{#2}{\@margin@par\thesidenote:\enskip#3}%
-	}{%
-		\@sidenotes@placemarginal{#2}{\@margin@par#1:\enskip#3}%
-	}%
+        \marginnote[#2]{\thesidenote:\enskip#3}%
+    }{%
+        \marginnote[#2]{#1:\enskip#3}%
+    }%
 }
 
 %----------------------------------------------------------------------------------------
@@ -517,7 +505,7 @@
 % Environment to hold a margin figure (from the sidenotes package)
 % We redefine it here because we want to use our own caption formatting.
 \RenewDocumentEnvironment{marginfigure}{o}{%
-  \FloatBarrier
+  \FloatBarrier%
   \marginskip{\kaomarginskipabove}%
   \begin{lrbox}{\@sidenotes@marginfigurebox}%
 	\begin{minipage}{\marginparwidth}%
@@ -531,7 +519,7 @@
 
 % Environment to hold a margin table (from the sidenotes package)
 \RenewDocumentEnvironment{margintable}{o}{%
-  \FloatBarrier
+  \FloatBarrier%
   \marginskip{\kaomarginskipabove}%
   \begin{lrbox}{\@sidenotes@margintablebox}%
 	\begin{minipage}{\marginparwidth}%
@@ -546,7 +534,7 @@
 % Environment to hold a margin listing
 \newsavebox{\@sidenotes@marginlistingbox}%
 \NewDocumentEnvironment{marginlisting}{o}{% The optional parameter is the vertical offset
-  \FloatBarrier
+  \FloatBarrier%
   \marginskip{\kaomarginskipabove}%
   \begin{lrbox}{\@sidenotes@marginlistingbox}%
 	\begin{minipage}{\marginparwidth}%
@@ -863,7 +851,7 @@
 % Command to print a table of contents in the margin
 \NewDocumentCommand{\margintoc}{O{\mtocshift}}{ % The first parameter is the vertical offset; by default it is \mtocshift
     \begingroup%
-        \def\margintocnumwidth{15pt}%
+        \def\margintocnumwidth{-.8mm}%
         \def\margintocpagenumwidth{12pt}%
         \setlength{\RaggedRightParfillskip}{0pt}
 
@@ -896,7 +884,6 @@
           \global\let\margintocnumwidth\margintocnumwidth%
           \global\let\margintocpagenumwidth\margintocpagenumwidth%
         }%
-        \etocnopar%
         \localtableofcontents%
 
         % Set the style for section entries
@@ -916,6 +903,7 @@
 		\etocsetnexttocdepth{\themargintocdepth}%
         % Print the table of contents in the margin
         \marginnote[#1]{\localtableofcontents}%
+        \FloatBarrier%
     \endgroup%
 }
 
@@ -1027,7 +1015,7 @@
 	\RequirePackage{amssymb} % Must be loaded before unicode-math
 	\RequirePackage[force]{filehook} % Fixes an error
 	\RequirePackage{unicode-math} % Math fonts in xetexorluatex
-	\setromanfont[
+    \setromanfont[
 		Scale=1.04
 	]{Libertinus Serif}
 	\setsansfont[

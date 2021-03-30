@@ -114,7 +114,7 @@
 
 % The following command needs to be redefined every time \sidecite is called in order for \DeclareCiteCommand's wrapper to work correctly
 \NewDocumentCommand{\kaobiblio@marginnote}{m}{%
-	\marginnote{#1}%
+    \marginnote{#1}%
 }
 
 % biblatex-like commands that also print a citation in the margin
@@ -131,8 +131,8 @@
 % Mandatory argument: citation key
 \NewDocumentCommand{\sidecite}{o o o m}{%
     \RenewDocumentCommand{\kaobiblio@marginnote}{m}{%
-		\marginnote[#1]{##1}%
-	}%
+        \marginnote[#1]{##1}%
+    }%
 	\DeclareCiteCommand{\kaobiblio@sidecite}[\kaobiblio@marginnote]{%
 	}{%
 		\formatmargincitation{\thefield{entrykey}}%
