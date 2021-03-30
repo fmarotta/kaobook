@@ -64,6 +64,26 @@
 	\ifentrytype{book}{\clearfield{doi}}{}
 }
 
+% Convert months to integers
+\DeclareSourcemap{
+    \maps[datatype=bibtex]{
+        \map[overwrite]{
+            \step[fieldsource=month, match={jan}, replace=${1}]
+            \step[fieldsource=month, match={feb}, replace=${2}]
+            \step[fieldsource=month, match={mar}, replace=${3}]
+            \step[fieldsource=month, match={apr}, replace=${4}]
+            \step[fieldsource=month, match={may}, replace=${5}]
+            \step[fieldsource=month, match={jun}, replace=${6}]
+            \step[fieldsource=month, match={jul}, replace=${7}]
+            \step[fieldsource=month, match={aug}, replace=${8}]
+            \step[fieldsource=month, match={sep}, replace=${9}]
+            \step[fieldsource=month, match={oct}, replace=${10}]
+            \step[fieldsource=month, match={nov}, replace=${11}]
+            \step[fieldsource=month, match={dec}, replace=${12}]
+        }
+    }
+}
+
 %----------------------------------------------------------------------------------------
 %	BACK REFERENCES
 %----------------------------------------------------------------------------------------

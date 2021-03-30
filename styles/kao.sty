@@ -1140,8 +1140,210 @@
 }
 
 %----------------------------------------------------------------------------------------
-%	INCLUDE ADDITIONAL PACKAGES
+%	ITEMS
 %----------------------------------------------------------------------------------------
 
-\RequirePackage{styles/environments}
-\RequirePackage{styles/packages}
+\renewcommand{\labelitemi}{\small$\blacktriangleright$}
+\renewcommand{\labelitemii}{\textbullet}
+\RequirePackage{enumitem}
+\setlist[itemize]{noitemsep}
+\setlist[enumerate]{noitemsep}
+\setlist[description]{noitemsep}
+
+%----------------------------------------------------------------------------------------
+%	SIMPLE BOXED ENVIRONMENT
+%----------------------------------------------------------------------------------------
+
+% kaobox (while tcolorbox may be more rich, I find it too complicated so I prefer mdframed)
+\RequirePackage{tikz}
+\RequirePackage[framemethod=TikZ]{mdframed}
+
+%\mdfsetup{skipabove=\topskip,skipbelow=0pt}
+\mdfdefinestyle{kaoboxstyle}{
+	skipabove=1.5\topskip,
+	skipbelow=.5\topskip,
+	rightmargin=0pt,
+	leftmargin=0pt,
+	%innertopmargin=3pt,
+	%innerbottommargin=3pt,
+	innerrightmargin=7pt,
+	innerleftmargin=7pt,
+	topline=false,
+	bottomline=false,
+	rightline=false,
+	leftline=false,
+	%linewidth=1pt,
+	%roundcorner=0pt,
+	%font={},
+	%frametitlefont={},
+	frametitlerule=true,
+	linecolor=black,
+	%backgroundcolor=LightBlue,
+	fontcolor=black,
+	%frametitlebackgroundcolor=LightBlue,
+}
+
+\newmdenv[
+	style=kaoboxstyle,
+	backgroundcolor=RoyalBlue!25!White,
+	frametitlebackgroundcolor=RoyalBlue!25!White,
+]{kaobox}
+
+%----------------------------------------------------------------------------------------
+%	ENVIRONMENT WITH A COUNTER
+%----------------------------------------------------------------------------------------
+
+\newenvironment{kaocounter}{
+	\refstepcounter{kaocounter}
+	\begin{kaobox}[frametitle=Comment~\thekaocounter\autodot]
+}{
+	\end{kaobox}
+}
+
+\newcounter{kaocounter}
+\counterwithin{kaocounter}{section}
+\newcommand*{\kaocounterformat}{% Format for the caption
+	Comment~\thekaocounter\csname autodot\endcsname}
+\newcommand*{\fnum@kaocounter}{\kaocounterformat}
+
+
+%----------------------------------------------------------------------------------------
+%	FLOATING ENVIRONMENT WITH TOC ENTRIES
+%----------------------------------------------------------------------------------------
+
+\newenvironment{kaofloating}{%
+	\@float{kaofloating}%
+}{%
+	\end@float%
+}
+
+\newcommand*{\fps@floatingbox}{tbph}
+\newcommand*{\ftype@floatingbox}{5}
+\newcommand*{\floatingboxformat}{%
+	Insight~\thefloatingbox\csname autodot\endcsname}
+\newcommand*{\fnum@floatingbox}{\floatingboxformat}
+\newcommand*{\ext@floatingbox}{loi}
+
+\addtotoclist[float]{loi}
+\newcommand*{\listofloiname}{List of Insights}
+\newcommand*{\l@floatingbox}{\l@figure}
+\newcommand*{\listofinsights}{\listoftoc{loi}}
+
+%----------------------------------------------------------------------------------------
+%	ADDITIONAL PACKAGES
+%----------------------------------------------------------------------------------------
+
+% Productivity
+\RequirePackage{pdfpages} % Insert PDF pages
+\RequirePackage{subfiles} % Adopt a modular structure
+\RequirePackage{todonotes} % Add useful notes in the margins
+
+% Listings code
+\RequirePackage{listings} % Code
+%\RequirePackage{minted}
+
+\definecolor{listingkeywords}{rgb}{0.0, 0.5, 0.0}
+\definecolor{listingidentifiers}{rgb}{0, 0, 0}
+\definecolor{listingcomments}{rgb}{0.25, 0.5, 0.5}
+\definecolor{listingstrings}{rgb}{0.73, 0.13, 0.13}
+\definecolor{listingnumbers}{rgb}{0.25, 0.25, 0.25}
+\lstdefinestyle{kaolst}{
+	aboveskip=0.7\topskip,
+	belowskip=0.1\topskip,
+	basicstyle=\small\ttfamily,
+	commentstyle=\color{listingcomments}\itshape,
+	keywordstyle=\color{listingkeywords}\bfseries,
+	numberstyle=\scriptsize\color{listingnumbers}\ttfamily,
+	stringstyle=\color{listingstrings},
+	identifierstyle=\color{listingidentifiers},
+	backgroundcolor=\color{White},
+	breakatwhitespace=false,
+	breaklines=true,
+	captionpos=t,
+	keepspaces=true,
+	showspaces=false,
+	showstringspaces=false,
+	showtabs=false,
+	numbers=left,
+	numbersep=1em,
+	%frame=lines,
+	frame=l,
+	framerule=.7pt,
+	tabsize=4,
+	defaultdialect=[LaTeX]Tex,
+}
+\lstdefinestyle{kaolstplain}{
+	aboveskip=0.6\topskip,
+	belowskip=-0.1\topskip,
+	basicstyle=\small\ttfamily,
+	commentstyle=\color{listingcomments}\itshape,
+	keywordstyle=\color{listingkeywords}\bfseries,
+	numberstyle=\scriptsize\color{listingnumbers}\ttfamily,
+	stringstyle=\color{listingstrings},
+	identifierstyle=\color{listingidentifiers},
+	backgroundcolor=\color{White},
+	breakatwhitespace=false,
+	breaklines=true,
+	captionpos=b,
+	keepspaces=true,
+	showspaces=false,
+	showstringspaces=false,
+	showtabs=false,
+	numbers=none,
+	frame=none,
+	tabsize=4,
+	defaultdialect=[LaTeX]Tex,
+}
+\lstset{style=kaolst}
+
+% Verbatim
+%\RequirePackage{fancyvrb} % Customization of verbatim environments
+%\fvset{fontsize=\normalsize} % Change here the font size of all 
+%verbatim \preto{\@verbatim}{\topsep=0pt \partopsep=0pt }
+
+% Algorithms
+\RequirePackage[linesnumbered, ruled, vlined]{algorithm2e} % Algorithms
+
+% Special gliphs
+\RequirePackage{ccicons} % Creative Commons icons
+\RequirePackage{metalogo} % XeTeX logo
+
+% Index, glossary and nomenclature
+\RequirePackage{imakeidx}
+\RequirePackage[xindy,toc,numberedsection=nameref]{glossaries}
+\RequirePackage[intoc]{nomencl}
+
+% Commands to print specific words always in the same way
+% TODO: in \Command, automatically escape braces {} and replace backslashes with \textbackslash
+\newcommand{\Class}[1]{\texttt{#1}}
+\newcommand{\Package}[1]{\texttt{#1}}
+\newcommand{\Option}[1]{\texttt{#1}}
+\newcommand{\Command}[1]{\texttt{\textbackslash#1}}
+\newcommand{\Environment}[1]{\texttt{#1}}
+\newcommand{\Path}[1]{\texttt{#1}}
+
+% Print latin words in italics (The xspace package is required but we already loaded it in the class)
+\newcommand{\hairsp}{\hspace{1pt}} % Command to print a very short space
+\newcommand{\invitro}{\textit{in vitro}\xspace}
+\newcommand{\invivo}{\textit{in vivo}\xspace}
+\newcommand{\cis}{\textit{cis}\xspace}
+\newcommand{\trans}{\textit{trans}\xspace}
+\newcommand{\etal}{\textit{et al.}\xspace}
+\newcommand{\denovo}{\textit{de novo}\xspace}
+\newcommand{\adhoc}{\textit{ad hoc}\xspace}
+\newcommand{\etcetera}{\textit{et cetera}\xspace}
+\newcommand{\etc}{\textit{etc.}\xspace}
+\newcommand{\ie}{\textit{i.\nobreak\hairsp{}e.}\xspace}
+\newcommand{\eg}{\textit{e.\nobreak\hairsp{}g.}\xspace}
+\newcommand{\vs}{\textit{vs}\xspace}
+\newcommand{\cfr}{\textit{cfr.}\xspace}
+
+% Tables
+\newcommand{\na}{\quad--} % Used in tables for N/A cells
+\newcommand{\hangp}[1]{\makebox[0pt][r]{(}#1\makebox[0pt][l]{)}} % Create parentheses around text in tables which take up no horizontal space - this improves column spacing
+\newcommand{\hangstar}{\makebox[0pt][l]{*}} % Create asterisks in tables which take up no horizontal space - this improves column spacing
+
+% A command to print the current month and year (from tufte-latex)
+\newcommand{\monthyear}{\ifcase\month\or January\or February\or March\or 
+April\or May\or June\or July\or August\or September\or October\or 
+November\or December\fi\space\number\year}
