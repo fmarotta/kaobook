@@ -141,7 +141,7 @@
 		}}%
 	}%
 	\RedeclareSectionCommand[beforeskip=0cm,afterskip=10\vscale]{chapter}%
-	\setlength{\mtocshift}{-1\vscale}%
+    \setlength{\mtocshift}{-.1\vscale}%
 }
 
 % Lines
@@ -175,18 +175,24 @@
 }
 
 % Image (Used internally for \chapterimage; normal users should not need this command)
-\DeclareDocumentCommand{\chapterstyleimage}{m}{%
+\DeclareDocumentCommand{\chapterstyleimage}{o m}{%
 	\renewcommand*{\chapterformat}{%
 		\mbox{\chapappifchapterprefix{\nobreakspace}\thechapter%
 		\autodot\IfUsePrefixLine{}{\enskip}}%
 	}
 	\renewcommand{\chapterlinesformat}[3]{%
-		\begin{tikzpicture}[remember picture, overlay]
-			\node[
-				anchor=south west,
-				xshift=\dimexpr - \hoffset - \oddsidemargin - 1in -1mm,%-30\hscale,
-				yshift=4.3mm,
-				rectangle,
+        \begin{tikzpicture}[overlay, x=0pt,y=0pt]
+            \node at (0, 0) [
+                anchor=south west,
+                inner sep=0pt,
+                outer sep=0pt,
+                xshift=\dimexpr - \hoffset - \oddsidemargin - 1in,
+                yshift=\f@size pt,
+            ]{\includegraphics[width=\paperwidth,height=#1,keepaspectratio=false]{#2}};
+            \node at (0, 0) [
+                anchor=south west,
+                xshift=\dimexpr - \hoffset - \oddsidemargin - 1in - .1mm,%-30\hscale,
+                yshift=\dimexpr \f@size pt -.14mm,
 				fill=gray!20!white,
 				fill opacity=0.8,
 				inner ysep=5\vscale,
@@ -199,14 +205,10 @@
 }
 
 % Takes as input the image path and optionally the "beforeskip"
-\DeclareDocumentCommand{\setchapterimage}{O{55\vscale} m}{%
-	\setchapterpreamble[o]{%
-		\vspace*{-27\vscale}\hspace*{\dimexpr - \hoffset - \oddsidemargin - 1in}%
-		\includegraphics[width=\paperwidth,height=#1+27\vscale,keepaspectratio=false]{#2}%
-	}%
-	\chapterstyleimage{#1}%
+\DeclareDocumentCommand{\setchapterimage}{O{92\vscale} m}{%
+    \chapterstyleimage[#1]{#2}%
 	% beforeskip=-(figure_height-top_margin)
-	\RedeclareSectionCommand[beforeskip=-#1, afterskip=6\vscale]{chapter}%
+    \RedeclareSectionCommand[beforeskip=\dimexpr #1 - \voffset - 1in, afterskip=6\vscale]{chapter}%
 	\setlength{\mtocshift}{0cm}%
 }
 
