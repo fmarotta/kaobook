@@ -229,7 +229,7 @@
 	}%
     % With this we print the marker in the text and add the item to the bibliography at the end
 	\IfNoValueOrEmptyTF{#2}%
-		{\textcite{#4}\kaobiblio@sidecite{#4}}%
+        {\def\@tempa{\textcite{#4}\kaobiblio@sidecite{#4}}}%
 		{\IfNoValueOrEmptyTF{#3}%
 			{\IfNoValueTF{#3}%
                 {\def\@tempa{\textcite[#2]{#4}\kaobiblio@sidecite{#4}}}%

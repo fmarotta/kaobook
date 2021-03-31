@@ -846,13 +846,13 @@
 \setcounter{margintocdepth}{\subsectiontocdepth}
 
 \newlength{\mtocshift} % Length of the vertical offset used for margin tocs
-\setlength{\mtocshift}{1\vscale}
+\setlength{\mtocshift}{1\vscale}% \mtocshift is overridden by \setchapterstyle
 
 % Command to print a table of contents in the margin
 \NewDocumentCommand{\margintoc}{O{\mtocshift}}{ % The first parameter is the vertical offset; by default it is \mtocshift
     \begingroup%
         \def\margintocnumwidth{-.8mm}%
-        \def\margintocpagenumwidth{12pt}%
+        \def\margintocpagenumwidth{8pt}%
         \setlength{\RaggedRightParfillskip}{0pt}
 
         % Dry run to get the widths
