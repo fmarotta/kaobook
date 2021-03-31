@@ -21,9 +21,9 @@ about: Create a report to help us improve
 \documentclass{kaobook}
 \usepackage[english]{babel}
 \usepackage{blindtext}
-\usepackage{styles/kaobiblio}
-\usepackage{styles/mdftheorems}
-\usepackage{styles/kaorefs}
+\usepackage{kaobiblio}
+\usepackage{kaotheorems}
+\usepackage{kaorefs}
 
 
 \begin{document}
