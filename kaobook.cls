@@ -180,27 +180,23 @@
 		\mbox{\chapappifchapterprefix{\nobreakspace}\thechapter%
 		\autodot\IfUsePrefixLine{}{\enskip}}%
 	}
-	\renewcommand{\chapterlinesformat}[3]{%
-        \begin{tikzpicture}[overlay, x=0pt,y=0pt]
-            \node at (0, 0) [
-                anchor=south west,
+    \renewcommand{\chapterlinesformat}[3]{%
+        \begin{tikzpicture}[remember picture, overlay]
+            \node (image) at (current page.north west) [
+                anchor=north west,
                 inner sep=0pt,
                 outer sep=0pt,
-                xshift=\dimexpr - \hoffset - \oddsidemargin - 1in,
-                yshift=\f@size pt,
             ]{\includegraphics[width=\paperwidth,height=#1,keepaspectratio=false]{#2}};
-            \node at (0, 0) [
+            \node at (image.south west) [
                 anchor=south west,
-                xshift=\dimexpr - \hoffset - \oddsidemargin - 1in - .1mm,%-30\hscale,
-                yshift=\dimexpr \f@size pt -.14mm,
-				fill=gray!20!white,
-				fill opacity=0.8,
-				inner ysep=5\vscale,
-				inner xsep=\dimexpr \hoffset + \oddsidemargin + 1in,%30\hscale,
-				text opacity=1,
-				text width=\paperwidth-40\hscale,
-			]{\@hangfrom{##2}{##3}};
-		\end{tikzpicture}
+                inner ysep=5\vscale,
+                inner xsep=\hoffset+\oddsidemargin+1in,%30\hscale,
+                outer sep=-0.5pt,
+                fill=gray!20!white,
+                fill opacity=0.8,
+                text width=\textwidth+\marginparsep+\marginparwidth,
+            ]{\@hangfrom{##2}{##3}};
+        \end{tikzpicture}
 	}
 }
 
