@@ -14,40 +14,41 @@
 }
 
 \DeclareBoolOption{addspace}
+\DeclareBoolOption{linkeverything}
 
 % Choose the default options, which will be overwritten by the options 
 % passed to this package.
 \PassOptionsToPackage{
-	%style=numeric-comp,
-	%citestyle=authortitle-icomp,
-	citestyle=numeric-comp,
-	%bibstyle=authoryear,
-	bibstyle=numeric,
-	sorting=none,
-	%sorting=nyt,
-	%sortcites=true,
-	%autocite=footnote,
-	backend=biber, % Compile the bibliography with biber
-	hyperref=true,
-	backref=true,
-	citecounter=true,
-	citetracker=true,
-	ibidtracker=context,
+    %style=numeric-comp,
+    %citestyle=authortitle-icomp,
+    citestyle=numeric-comp,
+    %bibstyle=authoryear,
+    bibstyle=numeric,
+    sorting=none,
+    %sorting=nyt,
+    %sortcites=true,
+    %autocite=footnote,
+    backend=biber, % Compile the bibliography with biber
+    hyperref=true,
+    backref=true,
+    citecounter=true,
+    pagetracker=true,
+    citetracker=true,
+    ibidtracker=context,
     autopunct=true,
     autocite=plain,
 }{biblatex}
 
-% Pass this package's options to biblatex, overwriting the previous settings.
-\DeclareOption*{%
-    \IfBeginWith{\CurrentOption}{addspace}{%
-    }{%
+% Pass the unknown options to biblatex, overwriting the previous settings. Avoid passing the kao-specific options.
+\DeclareDefaultOption{%
+    \IfBeginWith{\CurrentOption}{addspace}{}{%
+    \IfBeginWith{\CurrentOption}{linkeverything}{}{%
         \PassOptionsToPackage{\CurrentOption}{biblatex}%
-    }
+    }}%
 }
 
 % Process the options
 \ProcessKeyvalOptions{kaobiblio}
-\ProcessOptions\relax
 
 % Load biblatex
 \RequirePackage{biblatex}
@@ -290,6 +291,50 @@
     \fi%
 }
 
+
+%----------------------------------------------------------------------------------------
+%	LINKING THE AUTHOR'S NAME
+%----------------------------------------------------------------------------------------
+
+% In biblatex, when citing with the style authoryear or using \textcite, only the year is linked to the reference in the bibliography. Despite the arguments of one of the mantainers of the biblatex package (https://github.com/plk/biblatex/issues/428), some users think that in the author* style the author name should be a link as well. The `linkname' option provides an easy way to activate this behaviour.
+
+\ifkaobiblio@linkeverything
+    \DeclareFieldFormat{citehyperref}{%
+        \DeclareFieldAlias{bibhyperref}{noformat}% Avoid nested links
+        \bibhyperref{#1}%
+    }
+    \DeclareFieldFormat{textcitehyperref}{%
+        \DeclareFieldAlias{bibhyperref}{noformat}% Avoid nested links
+        \bibhyperref{%
+            #1%
+            \ifbool{cbx:parens}%
+                {\bibcloseparen\global\boolfalse{cbx:parens}}%
+                {}}%
+    }
+    \savebibmacro{cite}
+    \savebibmacro{textcite}
+    \renewbibmacro*{cite}{%
+        \printtext[citehyperref]{%
+            \restorebibmacro{cite}%
+            \usebibmacro{cite}}%
+    }
+    \renewbibmacro*{textcite}{%
+        \ifboolexpr{%
+            ( not test {\iffieldundef{prenote}} and%
+              test {\ifnumequal{\value{citecount}}{1}} )%
+            or%
+            ( not test {\iffieldundef{postnote}} and%
+              test {\ifnumequal{\value{citecount}}{\value{citetotal}}} )%
+        }%
+        {\DeclareFieldAlias{textcitehyperref}{noformat}}%
+        {}%
+        \printtext[textcitehyperref]{%
+            \restorebibmacro{textcite}%
+            \usebibmacro{textcite}%
+        }%
+    }
+\else
+\fi
 
 %----------------------------------------------------------------------------------------
 %	CITATION ENVIRONMENTS
