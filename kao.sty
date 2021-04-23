@@ -238,9 +238,20 @@
     {}%
     {}%
 }{%
-    {\parbox[b][][c]{\textwidth}{\thepage}}%
-    {\parbox[b][][c]{\textwidth}{\thepage}}%
-    {\parbox[b][][c]{\textwidth}{\thepage}}%
+    {\makebox[\textwidth][r]{\thepage}}%
+    {\makebox[\textwidth][l]{\thepage}}%
+    {\makebox[\textwidth][l]{\thepage}}%
+}
+
+% Style with an empty header and the page number in the footer
+\newpagestyle{centeredpagenum.scrheadings}{%
+    {}%
+    {}%
+    {}%
+}{%
+    {\hspace{-\headmarginparwidth}\hspace{-\headmarginparsep}\makebox[\headtotal][l]{\hfill\thepage\hfill}}
+    {\makebox[0pt][l]{\makebox[\headtotal][r]{\hfill\thepage\hfill}}}%
+    {\makebox[0pt][l]{\makebox[\headtotal][r]{\hfill\thepage\hfill}}}%
 }
 
 % Command to print a blank page
