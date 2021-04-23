@@ -234,13 +234,13 @@
 
 % Style with an empty header and the page number in the footer
 \newpagestyle{pagenum.scrheadings}{%
-	{}%
-	{}%
-	{}%
+    {}%
+    {}%
+    {}%
 }{%
-	{\thepage}%
-	{\hfill\thepage}%
-	{}%
+    {\parbox[b][][c]{\textwidth}{\thepage}}%
+    {\parbox[b][][c]{\textwidth}{\thepage}}%
+    {\parbox[b][][c]{\textwidth}{\thepage}}%
 }
 
 % Command to print a blank page
