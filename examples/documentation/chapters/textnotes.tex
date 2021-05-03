@@ -122,6 +122,13 @@ the following syntax:
 \section[alternative-title-for-toc]{title-as-written-in-text}[alternative-title-for-margintoc]
 \end{lstlisting}
 
+By default, the margintoc includes sections and subsections.
+If you only want to show sections, add
+\begin{lstlisting}[style=kaolstplain]
+\setcounter{margintocdepth}{\sectiontocdepth}
+\end{lstlisting}
+somewhere in your preamble.
+
 \section{Marginlisting}
 
 On some occasions it may happen that you have a very short piece of code 
