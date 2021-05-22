@@ -95,6 +95,12 @@
 % Set the language-specific back reference strings
 % #LANGUAGE
 \@ifpackageloaded{polyglossia}{%
+	\IfLanguageName{danish}{%
+		\DefineBibliographyStrings{danish}{%
+			backrefpage = {citeret på side},
+			backrefpages = {citeret på sider},
+		}
+	}{}
 	\IfLanguageName{english}{%
 		\DefineBibliographyStrings{english}{%
 			backrefpage = {cited on page},
@@ -109,6 +115,12 @@
 	}{}
 }{
 	\@ifpackageloaded{babel}{%
+		\IfStringInList{danish}{\bbl@loaded}{%
+			\DefineBibliographyStrings{danish}{%
+				backrefpage = {citeret på side},
+				backrefpages = {citeret på sider},
+			}
+		}{}
 		\IfStringInList{english}{\bbl@loaded}{%
 			\DefineBibliographyStrings{english}{%
 				backrefpage = {cited on page},
