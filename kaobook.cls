@@ -134,11 +134,27 @@
 	}%
 	\renewcommand\chapterlinesformat[3]{%
 		\vspace{3.5\vscale}%
-		\smash{\makebox[0pt][l]{%
-			\parbox[b]{\textwidth}{\flushright{##3}}%
-			\makebox[\marginparsep][c]{\rule[-2\vscale]{1pt}{27.4\vscale+\f@size mm}}%
-			\parbox[b]{\marginparwidth}{##2}%
-		}}%
+		\if@twoside%
+			\Ifthispageodd{%
+				\smash{\makebox[0pt][l]{%
+					\parbox[b]{\textwidth}{\flushright{##3}}%
+					\makebox[\marginparsep][c]{\rule[-2\vscale]{1pt}{27.4\vscale+\f@size mm}}%
+					\parbox[b]{\marginparwidth}{##2}%
+				}}%
+			}{
+				\smash{\makebox[\textwidth][r]{%
+					\parbox[b]{\marginparwidth}{\flushright{##2}}%
+					\makebox[\marginparsep][c]{\rule[-2\vscale]{1pt}{27.4\vscale+\f@size mm}}%
+					\parbox[b]{\textwidth}{\flushleft{##3}}%
+				}}%
+			}
+		\else%
+			\smash{\makebox[0pt][l]{%
+				\parbox[b]{\textwidth}{\flushright{##3}}%
+				\makebox[\marginparsep][c]{\rule[-2\vscale]{1pt}{27.4\vscale+\f@size mm}}%
+				\parbox[b]{\marginparwidth}{##2}%
+			}}%
+		\fi%
 	}%
 	\RedeclareSectionCommand[beforeskip=0cm,afterskip=10\vscale]{chapter}%
     \setlength{\mtocshift}{-3\vscale}%
