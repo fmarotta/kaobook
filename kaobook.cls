@@ -72,12 +72,7 @@
 % Main matter
 \let\oldmainmatter\mainmatter % Store the old command
 \renewcommand{\mainmatter}{%
-	% Add a blank page before the main matter if the front matter has an
-	% odd number of pages
-    \Ifthispageodd{%
-	  \afterpage{\blankpage}%
-	}{}%
-	\oldmainmatter% Call the old command
+    \oldmainmatter% Call the old command
 	\pagestyle{scrheadings}% Use a fancy style for the header and the footer
 	\pagelayout{margin}% Use a 1.5 column layout
 	\setchapterstyle{kao} % Choose the default chapter heading style
