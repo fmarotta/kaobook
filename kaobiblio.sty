@@ -311,40 +311,88 @@
 % In biblatex, when citing with the style authoryear or using \textcite, only the year is linked to the reference in the bibliography. Despite the arguments of one of the mantainers of the biblatex package (https://github.com/plk/biblatex/issues/428), some users think that in the author* style the author name should be a link as well. The `linkname' option provides an easy way to activate this behaviour.
 
 \ifkaobiblio@linkeverything
-    \DeclareFieldFormat{citehyperref}{%
-        \DeclareFieldAlias{bibhyperref}{noformat}% Avoid nested links
-        \bibhyperref{#1}%
-    }
-    \DeclareFieldFormat{textcitehyperref}{%
-        \DeclareFieldAlias{bibhyperref}{noformat}% Avoid nested links
-        \bibhyperref{%
-            #1%
-            \ifbool{cbx:parens}%
-                {\bibcloseparen\global\boolfalse{cbx:parens}}%
-                {}}%
-    }
-    \savebibmacro{cite}
-    \savebibmacro{textcite}
-    \renewbibmacro*{cite}{%
-        \printtext[citehyperref]{%
-            \restorebibmacro{cite}%
-            \usebibmacro{cite}}%
-    }
-    \renewbibmacro*{textcite}{%
-        \ifboolexpr{%
-            ( not test {\iffieldundef{prenote}} and%
-              test {\ifnumequal{\value{citecount}}{1}} )%
-            or%
-            ( not test {\iffieldundef{postnote}} and%
-              test {\ifnumequal{\value{citecount}}{\value{citetotal}}} )%
-        }%
-        {\DeclareFieldAlias{textcitehyperref}{noformat}}%
-        {}%
-        \printtext[textcitehyperref]{%
-            \restorebibmacro{textcite}%
-            \usebibmacro{textcite}%
-        }%
-    }
+  \xpatchbibmacro{cite}
+    {\usebibmacro{cite:label}%
+     \setunit{\printdelim{nonameyeardelim}}%
+     \usebibmacro{cite:labeldate+extradate}}
+    {\printtext[bibhyperref]{%
+       \DeclareFieldAlias{bibhyperref}{default}%
+       \usebibmacro{cite:label}%
+       \setunit{\printdelim{nonameyeardelim}}%
+       \usebibmacro{cite:labeldate+extradate}}}
+    {}
+    {\PackageWarning{biblatex-patch}
+       {Failed to patch cite bibmacro}}
+
+  % Include labelname in labelyear link
+  \xpatchbibmacro{cite}
+    {\printnames{labelname}%
+     \setunit{\printdelim{nameyeardelim}}%
+     \usebibmacro{cite:labeldate+extradate}}
+    {\printtext[bibhyperref]{%
+       \DeclareFieldAlias{bibhyperref}{default}%
+       \printnames{labelname}%
+       \setunit{\printdelim{nameyeardelim}}%
+       \usebibmacro{cite:labeldate+extradate}}}
+    {}
+    {\PackageWarning{biblatex-patch}
+       {Failed to patch cite bibmacro}}
+
+  % Access hyperref's citation link start/end commands
+  \makeatletter
+  \protected\def\blx@imc@biblinkstart{%
+    \@ifnextchar[%]
+      {\blx@biblinkstart}
+      {\blx@biblinkstart[\abx@field@entrykey]}}
+  \def\blx@biblinkstart[#1]{%
+    \blx@sfsave\hyper@natlinkstart{\the\c@refsection @#1}\blx@sfrest}
+  \protected\def\blx@imc@biblinkend{%
+    \blx@sfsave\hyper@natlinkend\blx@sfrest}
+  \blx@regimcs{\biblinkstart \biblinkend}
+  \makeatother
+
+  \newbool{cbx:link}
+
+  % Include parentheses around labelyear in \textcite only in
+  % single citations without pre- and postnotes
+  \def\iflinkparens{%
+    \ifboolexpr{ test {\ifnumequal{\value{multicitetotal}}{0}} and
+                 test {\ifnumequal{\value{citetotal}}{1}} and
+                 test {\iffieldundef{prenote}} and
+                 test {\iffieldundef{postnote}} }}
+
+  \xpatchbibmacro{textcite}
+    {\printnames{labelname}}
+    {\iflinkparens
+       {\DeclareFieldAlias{bibhyperref}{default}%
+        \global\booltrue{cbx:link}\biblinkstart%
+        \printnames{labelname}}
+       {\printtext[bibhyperref]{\printnames{labelname}}}}
+    {}
+    {\PackageWarning{biblatex-patch}
+       {Failed to patch textcite bibmacro}}
+
+  \xpatchbibmacro{textcite}
+    {\usebibmacro{cite:label}}
+    {\iflinkparens
+       {\DeclareFieldAlias{bibhyperref}{default}%
+        \global\booltrue{cbx:link}\biblinkstart%
+        \usebibmacro{cite:label}}
+       {\usebibmacro{cite:label}}}
+    {}
+    {\PackageWarning{biblatex-patch}
+       {Failed to patch textcite bibmacro}}
+
+  \xpretobibmacro{textcite:postnote}
+    {\ifbool{cbx:link}
+       {\ifbool{cbx:parens}
+          {\bibcloseparen\global\boolfalse{cbx:parens}}
+          {}%
+        \biblinkend\global\boolfalse{cbx:link}}
+       {}}
+    {}
+    {\PackageWarning{biblatex-patch}
+       {Failed to patch textcite:postnote bibmacro}}
 \else
 \fi
 
