@@ -133,13 +133,13 @@ With the environments \Environment{figure*} and \Environment{table*} you
 can insert figures which span the whole page width. For example, here 
 are a wide figure and a wide table.
 
-\begin{figure*}[H]
+\begin{figure*}[h!]
 	\includegraphics{seaside}
 	\caption[A wide seaside]{A wide seaside, and a wide caption.
 		Credits: By Bushra Feroz, CC BY-SA 4.0, \url{https://commons.wikimedia.org/w/index.php?curid=68724647}}
 \end{figure*}
 
-\begin{table*}[H]
+\begin{table*}[h!]
     \caption{A wide table with invented data about three people living in the UK. Note that wide figures and tables are centered and their caption also extends into the margin.}
     \begin{tabular}{p{2.0cm} p{2.0cm} p{2.0cm} p{2.0cm} p{2.0cm} p{2.0cm} p{1.5cm}}
         \toprule
@@ -157,7 +157,7 @@ necessary, until it is aesthetically pleasing. The previous table was
 obtained with the following code:
 
 \begin{lstlisting}[caption=How to typeset a wide table]
-\begin{table*}[H]
+\begin{table*}[h!]
     \caption{A wide table with invented data about three people living in the UK. Note that wide figures and tables are centered and their caption also extends into the margin.}
     \begin{tabular}{p{2.0cm} p{2.0cm} p{2.0cm} p{2.0cm} p{2.0cm} p{2.0cm} p{1.5cm}}
         \toprule
@@ -170,6 +170,12 @@ obtained with the following code:
     \end{tabular}
 \end{table*}
 \end{lstlisting}
+
+The \Package{floatrow} package provides the \enquote{H} specifier to 
+instruct \LaTeX to position the figure (or table) in precisely the same 
+position it occupies in the source code. However, this specifier does 
+not work with wide figures or tables: you should use \enquote{h!} 
+instead, like so: \lstinline|\begin{figure*}[h!]|.
 
 You may have noticed the full width image at the very beginning of this
 chapter: that, however, is set up in an entirely different way, which
