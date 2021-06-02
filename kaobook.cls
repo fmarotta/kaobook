@@ -28,12 +28,12 @@
 \ProvidesClass{kaobook}[2021/03/23 v0.9.6 kaobook]
 \newcommand{\@baseclass}{scrbook} % Base class name
 
-\RequirePackage{kvoptions} % Manage class key-value options
+%\RequirePackage{kvoptions} % Manage class key-value options
 
-\SetupKeyvalOptions{
-    family = kao,
-    prefix = kao@
-}
+%\SetupKeyvalOptions{
+%    family = kao,
+%    prefix = kao@
+%}
 
 % Set the default options
 \PassOptionsToClass{a4paper}{\@baseclass}
@@ -41,16 +41,21 @@
 \PassOptionsToClass{parskip=half}{\@baseclass}
 \PassOptionsToClass{headings=optiontoheadandtoc}{\@baseclass}
 
-% Define kao-specific options
-\DeclareStringOption[1]{secnumdepth}
-
 % Pass through any other options to the base class
 \DeclareOption*{\PassOptionsToClass{\CurrentOption}{\@baseclass}} 
 
-\ProcessKeyvalOptions*
+%\ProcessKeyvalOptions*
 \ProcessOptions\relax % Process the options
 
 \LoadClass{\@baseclass} % Load the base class
+
+% Define kao-specific options
+%\DeclareStringOption[1]{secnumdepth}
+\DefineFamily{kao}
+\DefineFamilyMember[kaobook]{kao}
+\DefineFamilyKey[kaobook]{kao}{secnumdepth}[1]{\setcounter{secnumdepth}{#1}\FamilyKeyStateProcessed}
+\FamilyProcessOptions[kaobook]{kao}
+
 \RequirePackage{kao} % Load the code common to all classes
 
 %----------------------------------------------------------------------------------------
@@ -254,7 +259,8 @@
 %	NUMBERING
 %----------------------------------------------------------------------------------------
 
-\setcounter{secnumdepth}{\kao@secnumdepth} % Set section numbering depth
+%\setcounter{secnumdepth}{\kao@secnumdepth} % Set section numbering 
+%depth
 
 \counterwithin*{sidenote}{chapter} % Uncomment to reset the sidenote counter at each chapter
 %\counterwithout{sidenote}{chapter} % Uncomment to have one sidenote counter for the whole document
