@@ -111,13 +111,13 @@ the chapter preamble, with the following code:
 \chapter{Chapter title}
 \end{lstlisting}
 
-As the space in the margin is a valuable resource, we have defined also 
-the \Command{margintocshort} command, which is roughly equivalent to the 
-normal \Command{margintoc}, except that it prints another version of the 
-section title. This version should be shorter than the real section 
-title and can be specified by the user when creating the section using 
-the following syntax:
-
+As the space in the margin is a valuable resource, there is the 
+possibility to print a shorter version of the title in the margin toc. 
+Thus, there are in total three possible versions for the title of a 
+section (or subsection): the one for the main text, the one for the main 
+table of contents, and the one for the margintoc. These versions can be 
+specified at the same time when the section is created in the source 
+\TeX file:
 \begin{lstlisting}[style=kaolstplain]
 \section[alternative-title-for-toc]{title-as-written-in-text}[alternative-title-for-margintoc]
 \end{lstlisting}

@@ -860,22 +860,98 @@
 \newlength{\mtocshift} % Length of the vertical offset used for margin tocs
 \setlength{\mtocshift}{1\vscale}% \mtocshift is overridden by \setchapterstyle
 
+% Optional title for margintoc (by hCarlFelix, 
+% https://github.com/fmarotta/kaobook/issues/101)
+% We want to create an additional entries in the toc which is to be used for the margintoc
+% We define these as mtocsection and mtocsubsection for section and subsection`
+\newcommand{\mtocsection}[1]{
+    \addcontentsline{toc}{mtocsection}{%
+        \ifnum\value{secnumdepth}>0 \protect\numberline{\thesection}%
+        \else \protect\nonumberline%
+        \fi #1}%
+}
+\newcommand{\mtocsubsection}[1]{
+    \addcontentsline{toc}{mtocsubsection}{%
+        \ifnum\value{secnumdepth}>1 \protect\numberline{\thesubsection}%
+        \else \protect\nonumberline%
+        \fi #1}%
+}
+
+% Next, we redefine \section and \subsection so that they accept an additional parameter
+% \section[alternative-title-for-toc]{title-as-written-in-text}[alternative-title-for-margintoc]
+
+% Adapted from Frank Mittelbach's answer at Stackexchange
+% https://tex.stackexchange.com/a/109560/226693
+\let\oldsection\section  % save the old command
+\let\oldsubsection\subsection  % save the old command
+
+\RenewDocumentCommand\section{s o m o}{%
+    \IfBooleanTF{#1}{%
+        \oldsection*{#3}
+        \IfNoValueF{#2}{% if TOC arg is given create a TOC entry
+            \addxcontentsline{toc}{section}[\thesection]{#2}%
+        }%
+    }{% no star given
+        \IfNoValueTF{#2}{%
+            \oldsection{#3}%
+        }{% no TOC arg
+            \oldsection[#2]{#3}%
+        }%
+        \IfNoValueTF{#4}{% optional label given, if not we do nothing
+            \mtocsection{#3}%
+        }{%
+            \mtocsection{#4}%
+        }%
+    }%
+}
+
+\RenewDocumentCommand\subsection{s o m o}{
+    \IfBooleanTF{#1}{%
+        \oldsubsection*{#3}%
+        \IfNoValueF{#2}{% if TOC arg is given create a TOC entry
+            \addxcontentsline{toc}{subsection}[\thesubsection]{#2}%
+        }%
+    }{% no star given
+        \IfNoValueTF{#2}{%
+            \oldsubsection{#3}%
+        }{% no TOC arg
+            \oldsubsection[#2]{#3}%
+        }%
+        \IfNoValueTF{#4}{% optional label given, if not we do nothing
+            \mtocsubsection{#3}%
+        }{%
+            \mtocsubsection{#4}%
+        }%
+    }%
+}
+
+\etocsetlevel{mtocsection}{6}% dummy sectioning level
+\etocsetlevel{mtocsubsection}{6}% dummy sectioning level
+
 % Command to print a table of contents in the margin
 \NewDocumentCommand{\margintoc}{O{\mtocshift}}{ % The first parameter is the vertical offset; by default it is \mtocshift
     \begingroup%
+        % Move regular section and subsection to level 6 so that they won't be included and instead set let the mtoc versions take their place.
+        % Adapted from https://tex.stackexchange.com/a/133559/226693
+        \etocsetlevel{section}{6}
+        \etocsetlevel{subsection}{6}
+        \etocsetlevel{mtocsection}{1}
+        \etocsetlevel{mtocsubsection}{2}
+
+        % Define default widths
         \def\margintocnumwidth{-.8mm}%
         \def\margintocpagenumwidth{8pt}%
         \setlength{\RaggedRightParfillskip}{0pt}
 
-        % Dry run to get the widths
-        \etocsetstyle{section}%
+        % Dry run to get the needed widths
+        \etocsetstyle{mtocsection}%
           {}%
           {\setbox0\hbox{\usekomafont{section}\small\etocthenumber\kern.8mm}%%
            \setbox1\hbox{\usekomafont{section}\small\etocthepage}}%
           {\ifdim\wd0>\margintocnumwidth \edef\margintocnumwidth{\the\wd0} \fi%%
            \ifdim\wd1>\margintocpagenumwidth \edef\margintocpagenumwidth{\the\wd1} \fi}%
           {}%
-        \etocsetstyle{subsection}%
+        \etocsetstyle{mtocsubsection}%
           {}%
           {\setbox0\hbox{\usekomafont{section}\small\etocthenumber\kern.8mm}%
            \setbox1\hbox{\usekomafont{section}\small\etocthepage}}%
@@ -899,13 +975,13 @@
         \localtableofcontents%
 
         % Set the style for section entries
-		\etocsetstyle{section}%
+        \etocsetstyle{mtocsection}%
         {\parindent 0pt \parskip 2.5pt \parfillskip 0pt \RaggedRight}%
         {\leftskip \margintocnumwidth \rightskip \margintocpagenumwidth} %
         {\makebox[0pt][r]{\makebox[\margintocnumwidth][l]{\etocnumber}}\etocname\nobreak\leaders\hbox{\hbox to 1.5ex {\hss.\hss}}\hfill\rlap{\makebox[\margintocpagenumwidth][r]{\etocpage}}\par}%
         {}%
 		% Set the style for subsection entries
-		\etocsetstyle{subsection}%
+        \etocsetstyle{mtocsubsection}%
         {\parindent 0pt \parskip 0pt \parfillskip 0pt \RaggedRight}%
         {\leftskip \margintocnumwidth \rightskip \margintocpagenumwidth}%
         {\makebox[0pt][r]{\makebox[\margintocnumwidth][l]{\etocnumber}}\etocname\nobreak\leaders\hbox{\hbox to 1.5ex {\hss.\hss}}\hfill\rlap{\makebox[\margintocpagenumwidth][r]{\etocpage}}\par}%
@@ -916,93 +992,6 @@
         % Print the table of contents in the margin
         \marginnote[#1]{\localtableofcontents}%
         \FloatBarrier%
-    \endgroup%
-}
-
-% Optional title for margintoc (by hCarlFelix, 
-% https://github.com/fmarotta/kaobook/issues/101)
-% We want to create an additional entries in the toc which is to be used for the margintoc
-% We define these as mtocsection and mtocsubsection for section and subsection`
-\newcommand{\mtocsection}[1]{
-    \etoctoccontentsline{mtocsection}{\protect\numberline{\thesection}#1}
-}
-\newcommand{\mtocsubsection}[1]{
-    \etoctoccontentsline{mtocsubsection}{\protect\numberline{\thesubsection}#1}
-}
-
-% Next, we redefine \section and \subsection so that they accept an additional parameter
-% \section[alternative-title-for-toc]{title-as-written-in-text}[alternative-title-for-margintoc]
-
-% Adapted from Frank Mittelbach's answer at Stackexchange
-% https://tex.stackexchange.com/a/109560/226693
-\let\oldsection\section  % save the old command
-\let\oldsubsection\subsection  % save the old command
-
-\RenewDocumentCommand\section {s o m o}
-  {
-    \IfBooleanTF{#1}
-      { \oldsection*{#3} 
-        \IfNoValueF{#2}            % if TOC arg is given create a TOC entry
-          { \addcontentsline{toc}{section}{#2}  }
-      }
-      {                              % no star given 
-        \IfNoValueTF{#2}
-          { \oldsection {#3} }       % no TOC arg
-          { \oldsection[#2]{#3}  }
-        \IfNoValueTF{#4}     % optional label given, if not we do nothing
-          { \mtocsection {#3} }
-          { \mtocsection {#4} }
-      }
-  }
-
-\RenewDocumentCommand\subsection {s o m o}
-  {
-    \IfBooleanTF{#1}
-      { \oldsubsection*{#3} 
-        \IfNoValueF{#2}            % if TOC arg is given create a TOC entry
-          { \addcontentsline{toc}{subsection}{#2}  }
-      }
-      {                              % no star given 
-        \IfNoValueTF{#2}
-          { \oldsubsection {#3} }       % no TOC arg
-          { \oldsubsection[#2]{#3}  }
-        \IfNoValueTF{#4}     % optional label given, if not we do nothing
-          { \mtocsubsection {#3} }
-          { \mtocsubsection {#4} }
-      }
-  }
-
-\etocsetlevel{mtocsection}{6}% dummy sectioning level
-\etocsetlevel{mtocsubsection}{6}% dummy sectioning level
-
-% We then need to redefine \margintoc so that it takes the mtoc versions instead of the regular section and subsection
-\newcommand{\margintocshort}[1][\mtocshift]{
-    \begingroup
-        % Move regular section and subsection to level 6 so that they won't be included and instead set let the mtoc versions take their place.
-        % Adapted from https://tex.stackexchange.com/a/133559/226693
-        \etocsetlevel{section}{6}
-        \etocsetlevel{subsection}{6}
-        \etocsetlevel{mtocsection}{1}
-        \etocsetlevel{mtocsubsection}{2}
-
-        \etocsetstyle{mtocsection}%
-        	{\parindent -5pt \parskip 3pt}%
-        	{\leftskip 20pt \rightskip 12pt} %
-        	{\hspace{0.01cm}\llap{\etocnumber\hspace{0.1cm}}\etocname\nobreak\leaders\hbox{\hbox to 1.5ex {\hss.\hss}}\hfill\makebox[-0.1cm][l]{\etocpage}\par}%	{}%
-
-        % Set the style for subsection entries
-        \etocsetstyle{mtocsubsection}%
-            {\parindent -5pt \parskip 0pt}%
-            {\leftskip 20pt \rightskip 12pt}%
-            {\hspace{0.01cm}\llap{\hspace{0.1cm}}\etocname\nobreak\leaders\hbox{\hbox to 1.5ex   {\hss.\hss}}\hfill\makebox[-0.1cm][l]{\etocpage}\par}%
-            {}%
-    	% Set the global style of the toc
-    	%\etocsettocstyle{}{}
-    	%\etocsettocstyle{\normalfont\sffamily\normalsize}{}
-    	\etocsettocstyle{\usekomafont{section}\small}{}%
-    	\etocsetnexttocdepth{\themargintocdepth}%
-    	% Print the table of contents in the margin
-    	\marginnote[#1]{\localtableofcontents}%
     \endgroup%
 }
 
