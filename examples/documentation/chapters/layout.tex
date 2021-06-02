@@ -1,4 +1,4 @@
-\setchapterimage[7.5cm]{seaside}
+\setchapterimage[6cm]{seaside}
 \setchapterpreamble[u]{\margintoc}
 \chapter{Page Design}
 \labch{layout}
@@ -23,16 +23,17 @@ and new books.
 
 The choice of the style is made simple by the \Command{setchapterstyle} 
 command. It accepts one option, the name of the style, which can be: 
-\enquote{plain}, \enquote{kao}, or \enquote{lines}.\sidenote{Plain is 
-the default \LaTeX\xspace title style; the other ones are self 
-explanatory.} If instead you want the image style, you have to use the 
-command \Command{setchapterimage}, which accepts the path to the image 
-as argument; you can also provide an optional parameter in square 
-brackets to specify the height of the image.
+\enquote{plain}, \enquote{kao}, \enquote{bar}, or 
+\enquote{lines}.\sidenote{Plain is the default \LaTeX\xspace title 
+style; the other ones are self explanatory.} If instead you want the 
+image style, you have to use the command \Command{setchapterimage}, 
+which accepts the path to the image as argument; you can also provide an 
+optional parameter in square brackets to specify the height of the 
+image. \Command{setchapterimage} automatically sets the chapter style to 
+\enquote{bar} for that chapter (and also for subsequent chapters).
 
 Let us make some examples. In this book, I begin a normal chapter with 
 the lines:
-
 \begin{lstlisting}
 \setchapterstyle{kao}
 \setchapterpreamble[u]{\margintoc}

@@ -110,8 +110,9 @@
 
 \DeclareDocumentCommand{\setchapterstyle}{m}{%
 	\ifthenelse{\equal{plain}{#1}}{\chapterstyleplain}{}
+    \ifthenelse{\equal{bar}{#1}}{\chapterstylebar}{}
 	\ifthenelse{\equal{lines}{#1}}{\chapterstylelines}{}
-	\ifthenelse{\equal{kao}{#1}}{\chapterstylekao}{}
+    \ifthenelse{\equal{kao}{#1}}{\chapterstylekao}{}
 }
 
 % The default definition in KOMA script
@@ -121,11 +122,65 @@
 	\renewcommand*{\chapterformat}{%
 		\mbox{\chapappifchapterprefix{\nobreakspace}\thechapter%
 		\autodot\IfUsePrefixLine{}{\enskip}}}
-
-	\RedeclareSectionCommand[beforeskip=0cm,afterskip=10\vscale]{chapter}
+    \RedeclareSectionCommand[beforeskip=0cm,afterskip=10\vscale]{chapter}
 	\setlength{\mtocshift}{-1\vscale}
 }
 
+% Gray bar
+\DeclareDocumentCommand{\chapterstylebar}{}{%
+	\renewcommand*{\chapterformat}{%
+		\mbox{\chapappifchapterprefix{\nobreakspace}\thechapter%
+		\autodot\IfUsePrefixLine{}{\enskip}}%
+	}
+	\renewcommand{\chapterlinesformat}[3]{%
+		\begin{tikzpicture}[remember picture, overlay]
+			\node[
+				anchor=south west,
+				xshift=\dimexpr - \hoffset - \oddsidemargin - 1in -1mm,%-30\hscale,
+				yshift=4.3mm,
+				rectangle,
+				fill=gray!20!white,
+				fill opacity=0.8,
+				inner ysep=5\vscale,
+				inner xsep=\dimexpr \hoffset + \oddsidemargin + 1in,%30\hscale,
+				text opacity=1,
+				text width=\paperwidth-40\hscale,
+			]{\@hangfrom{##2}{##3}};
+		\end{tikzpicture}
+	}
+    \RedeclareSectionCommand[beforeskip=-55\vscale,afterskip=6\vscale]{chapter}
+	\setlength{\mtocshift}{-1\vscale}
+}
+
+% Lines
+\renewcommand{\hrulefill}[1][0.4pt]{%
+	\leavevmode\leaders\hrule height #1\hfill\kern\z@%
+}
+\DeclareDocumentCommand{\chapterstylelines}{}{%
+	\renewcommand*{\chapterformat}{%
+		\chapappifchapterprefix{\nobreakspace}\scalebox{3.5}{\thechapter\autodot}%
+	}%
+	\renewcommand\chapterlinesformat[3]{%
+	  %\vspace*{-1cm}%
+	  \leavevmode%
+	  \makebox[0pt][l]{%
+		\makebox[\textwidth][l]{\hrulefill[1pt]##2}%\hfill%\par%\bigskip
+		\makebox[\marginparsep][l]{}%
+		\makebox[\marginparwidth][l]{}%
+	  }\\
+	  %\vspace{.5cm}
+	  \makebox[0pt][l]{%
+		\makebox[\textwidth][l]{##3}%
+		\makebox[\marginparsep][l]{}%
+		\makebox[\marginparwidth][l]{}%
+	  }\\
+	  \makebox[0pt][l]{%
+		\makebox[\textwidth+\marginparsep+\marginparwidth][l]{\hrulefill[1.1pt]}%
+	  }%
+	}%
+	\RedeclareSectionCommand[beforeskip=0cm,afterskip=10\vscale]{chapter}
+	\setlength{\mtocshift}{-1\vscale}%
+}
 
 % The Kao style
 \DeclareDocumentCommand{\chapterstylekao}{}{%
@@ -160,68 +215,16 @@
     \setlength{\mtocshift}{-3\vscale}%
 }
 
-% Lines
-\renewcommand{\hrulefill}[1][0.4pt]{%
-	\leavevmode\leaders\hrule height #1\hfill\kern\z@%
-}
-\DeclareDocumentCommand{\chapterstylelines}{}{%
-	\renewcommand*{\chapterformat}{%
-		\chapappifchapterprefix{\nobreakspace}\scalebox{3.5}{\thechapter\autodot}%
-	}%
-	\renewcommand\chapterlinesformat[3]{%
-	  %\vspace*{-1cm}%
-	  \leavevmode%
-	  \makebox[0pt][l]{%
-		\makebox[\textwidth][l]{\hrulefill[1pt]##2}%\hfill%\par%\bigskip
-		\makebox[\marginparsep][l]{}%
-		\makebox[\marginparwidth][l]{}%
-	  }\\
-	  %\vspace{.5cm}
-	  \makebox[0pt][l]{%
-		\makebox[\textwidth][l]{##3}%
-		\makebox[\marginparsep][l]{}%
-		\makebox[\marginparwidth][l]{}%
-	  }\\
-	  \makebox[0pt][l]{%
-		\makebox[\textwidth+\marginparsep+\marginparwidth][l]{\hrulefill[1.1pt]}%
-	  }%
-	}%
-	\RedeclareSectionCommand[beforeskip=0cm,afterskip=10\vscale]{chapter}
-	\setlength{\mtocshift}{-1\vscale}%
-}
-
-% Image (Used internally for \chapterimage; normal users should not need this command)
-\DeclareDocumentCommand{\chapterstyleimage}{o m}{%
-	\renewcommand*{\chapterformat}{%
-		\mbox{\chapappifchapterprefix{\nobreakspace}\thechapter%
-		\autodot\IfUsePrefixLine{}{\enskip}}%
-	}
-    \renewcommand{\chapterlinesformat}[3]{%
-        \begin{tikzpicture}[remember picture, overlay]
-            \node (image) at (current page.north west) [
-                anchor=north west,
-                inner sep=0pt,
-                outer sep=0pt,
-            ]{\includegraphics[width=\paperwidth,height=#1,keepaspectratio=false]{#2}};
-            \node at (image.south west) [
-                anchor=south west,
-                inner ysep=5\vscale,
-                inner xsep=\hoffset+\oddsidemargin+1in,%30\hscale,
-                outer sep=-0.5pt,
-                fill=gray!20!white,
-                fill opacity=0.8,
-                text width=\textwidth+\marginparsep+\marginparwidth,
-            ]{\@hangfrom{##2}{##3}};
-        \end{tikzpicture}
-	}
-}
-
 % Takes as input the image path and optionally the "beforeskip"
-\DeclareDocumentCommand{\setchapterimage}{O{92\vscale} m}{%
-    \chapterstyleimage[#1]{#2}%
+\DeclareDocumentCommand{\setchapterimage}{O{55\vscale} m}{%
+	\setchapterpreamble[o]{%
+		\vspace*{-27\vscale}\hspace*{\dimexpr - \hoffset - \oddsidemargin - 1in}%
+		\includegraphics[width=\paperwidth,height=#1+27\vscale,keepaspectratio=false]{#2}%
+	}%
+    \chapterstylebar%
 	% beforeskip=-(figure_height-top_margin)
-    \RedeclareSectionCommand[beforeskip=\dimexpr #1 - \voffset - 1in, afterskip=6\vscale]{chapter}%
-	\setlength{\mtocshift}{0cm}%
+    \RedeclareSectionCommand[beforeskip=-#1, afterskip=6\vscale]{chapter}%
+    \setlength{\mtocshift}{0cm}%
 }
 
 % By default start with plain style
