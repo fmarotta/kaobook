@@ -47,6 +47,7 @@ email or open a pull request!
 
 * [Growing Open Source Projects with a Stable
 Foundation](https://www.cyrius.com/foss-foundations/growing-open-source-projects.pdf)
+* [Cours De Physique - Mécanique Classique](https://femto-physique.fr/mecanique/pdf/book_meca.pdf)
 
 ## Getting Started
 
