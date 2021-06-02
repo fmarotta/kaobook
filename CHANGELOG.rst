@@ -4,7 +4,12 @@ Changelog for package kaobook
 
 Work in progress
 ----------------
+
+0.9.7 (2021/06/02)
+------------------
 * Move the packages to the root of the repository
+* Introduce the 'bar' chapterstyle
+* Fix some issues
 
 0.9.6 (2021/03/23)
 ------------------
