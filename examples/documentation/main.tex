@@ -3,6 +3,7 @@
 %----------------------------------------------------------------------------------------
 
 \documentclass[
+showframe,
     a4paper, % Page size
     fontsize=10pt, % Base font size
     twoside=true, % Use different layouts for even and odd pages (in particular, if twoside=true, the margin column will be always on the outside)
@@ -140,11 +141,7 @@
 
 % Note that \maketitle outputs the pages before here
 
-% If twoside=false, \uppertitleback and \lowertitleback are not printed
-% To overcome this issue, we set twoside=semi just before printing the title pages, and set it back to false just after the title pages
-\KOMAoptions{twoside=semi}
 \maketitle
-\KOMAoptions{twoside=false}
 
 %----------------------------------------------------------------------------------------
 %	PREFACE
