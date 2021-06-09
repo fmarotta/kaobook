@@ -23,7 +23,7 @@ searched by LaTeX.
    hurry, you can copy the whole repository into that directory.
    Alternatively, you can `git clone` the `kaobook` repository into that folder
    and periodically `git pull` to update your `kaobook` installation.
-   In the end, the folder `/home/john/texmf/texmf/tex/latex/kaobook` should contain the 
+   In the end, the folder `/home/john/texmf/tex/latex/kaobook` should contain the 
    following files
    ```
    kao.sty
