@@ -120,30 +120,21 @@ directory, which is organised as follows:
 
 \begin{description}
 	\item[kao.sty] This package contains the most important definitions 
-	of macros and specifications of page layout. It is the heart of the 
-	\Class{kaobook}.
-	\item[kaobiblio.sty] Contains commands to add citations and 
-	customise the bibliography.
-	\item[packages.sty] Loads additional packages to decorate the 
-	writing with special contents (for instance, the \Package{listing} 
-	package is loaded here as it is not required in every book). There 
-	are also defined some useful commands to print the same words always 
-	in the same way, \eg latin words in italics or \Package{packages} in 
-	verbatim.
-	\item[kaorefs.sty] Some useful commands to manage labeling and 
-	referencing, again to ensure that the same elements are referenced 
-	always in a consistent way.
-	\item[environments.sty] Provides special environments, like boxes. 
-	Both simple and complex environments are available; by complex we 
-	mean that they are endowed with a counter, floating and can be put 
-	in a special table of contents.\sidenote[][-2mm]{See 
-	\vrefch{mathematics} for some examples.}
-	\item[theorems.sty] The style of mathematical environments. 
-	Actually, there are two such packages: one is for plain theorems,
-	\ie the theorems are printed in plain text; the other uses 
-	\Package{mdframed} to draw a box around theorems. You can plug the 
-	most appropriate style into its document.
-\end{description}
+    of macros and specifications of page layout. It is the heart of the 
+    \Class{kaobook}. Special features include: most commonly used 
+    \LaTeX\ packages are already loaded; there is some flexibility to 
+    change the default layout; some fancy environments (with coloured 
+    boxes around them, floating, and/or with a counter) are predefined.
+    \item[kaobiblio.sty] Where commands to print citations in the 
+    margins are defined.\sidenote{See \refch{references}.} It is the 
+    \Class{kao-} analog of \Package{biblatex}.
+    \item[kaorefs.sty] It contains some useful commands to manage 
+    labeling and referencing, again to ensure that the same elements are 
+    referenced always in a consistent way.
+    \item[kaotheorems.sty] For the style of mathematical environments, 
+    which can be optionally wrapped in a colourful \Package{mdframed} 
+    environment, like in this document, or not.
+    \end{description}
 
 \marginnote[2mm]{The audacious users might feel tempted to edit some of 
 these packages. I'd be immensely happy if they sent me examples of what 
@@ -166,8 +157,9 @@ infinite ways to use the \Class{kaobook} class in practice, but we will
 discuss only two of them. The first is to find the \Path{main.tex} file 
 which I used to write this book, and edit it; this will probably involve 
 a lot of text-deleting, copying-and-pasting, and rewriting. The second 
-way is to start almost from scratch and use the \Path{./examples/minimal_book/main.tex} 
-file, which is a cleaned-up version of the \Path{./examples/documentation/main.tex}; even if you 
+way is to start almost from scratch and use the 
+\Path{./examples/minimal\_book/main.tex} file, which is a cleaned-up 
+version of the \Path{./examples/documentation/main.tex}; even if you 
 choose the second way, you may find it useful to draw inspiration from 
 the \Path{./examples/documentation/main.tex} file.
 
