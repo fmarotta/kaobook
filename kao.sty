@@ -16,6 +16,7 @@
 \RequirePackage{afterpage} % Run commands after specific pages
 \RequirePackage{imakeidx} % For the index; must be loaded before the 'caption' and 'hyperref' packages
 \RequirePackage{varioref} % For the cross-references; must be loaded before the 'hyperref' and 'cleveref' packages
+\RequirePackage{scrhack} % Make some packages compatible with KOMAScript
 
 % Define \Ifthispageodd (with a capital 'i') to make kaobook compatible with older KOMAScript versions
 \@ifpackagelater{scrbase}{2019/12/22}{%
@@ -488,7 +489,6 @@
 % \newcommand{\pp@g@sidenote}{}
 \RequirePackage{floatrow} % Set up captions of floats
 %\RequirePackage{dblfloatfix} % Better positioning of wide figures and tables
-\AtEndPreamble{\RequirePackage{scrhack}} % Make packages compatible with KOMA Script (must be loaded last: https://tex.stackexchange.com/questions/156240/latex-packages-minted-and-scrhack)
 
 % Improve the figure placing (see https://www.overleaf.com/learn/latex/Tips)
 \def\topfraction{.9}%
@@ -1241,7 +1241,7 @@
 
 % Listings code
 \RequirePackage{listings} % Code
-%\RequirePackage{minted}
+%\RequirePackage{minted} (must be loaded before scrhack)
 
 \definecolor{listingkeywords}{rgb}{0.0, 0.5, 0.0}
 \definecolor{listingidentifiers}{rgb}{0, 0, 0}
