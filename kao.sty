@@ -865,13 +865,13 @@
 % We want to create an additional entries in the toc which is to be used for the margintoc
 % We define these as mtocsection and mtocsubsection for section and subsection`
 \newcommand{\mtocsection}[1]{
-    \addcontentsline{toc}{mtocsection}{%
+    \etoctoccontentsline{mtocsection}{%
         \ifnum\value{secnumdepth}>0 \protect\numberline{\thesection}%
         \else \protect\nonumberline%
         \fi #1}%
 }
 \newcommand{\mtocsubsection}[1]{
-    \addcontentsline{toc}{mtocsubsection}{%
+    \etoctoccontentsline{mtocsubsection}{%
         \ifnum\value{secnumdepth}>1 \protect\numberline{\thesubsection}%
         \else \protect\nonumberline%
         \fi #1}%
