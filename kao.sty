@@ -898,14 +898,19 @@
             \oldsection[#2]{#3}%
         }%
         \IfNoValueTF{#4}{% optional label given, if not we do nothing
-            \mtocsection{#3}%
+            % \mtocsection{#3}%
+            \IfNoValueTF{#2}{%
+                \mtocsection{#3}% when no optional toc title, use main title
+            }{% no TOC arg
+                \mtocsection{#2}% when toc optional title is given, use it
+            }%
         }{%
             \mtocsection{#4}%
         }%
     }%
 }
 
-\RenewDocumentCommand\subsection{s o m o}{
+\RenewDocumentCommand\subsection{s o m o}{%
     \IfBooleanTF{#1}{%
         \oldsubsection*{#3}%
         \IfNoValueF{#2}{% if TOC arg is given create a TOC entry
@@ -918,7 +923,11 @@
             \oldsubsection[#2]{#3}%
         }%
         \IfNoValueTF{#4}{% optional label given, if not we do nothing
-            \mtocsubsection{#3}%
+            \IfNoValueTF{#2}{%
+                \mtocsubsection{#3}% when no optional toc title, use main title
+            }{% no TOC arg
+                \mtocsubsection{#2}% when toc optional title is given, use it
+            }%
         }{%
             \mtocsubsection{#4}%
         }%
