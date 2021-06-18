@@ -79,10 +79,26 @@ also the header is absent (otherwise it wouldn't be so plain\ldots), but
 in the normal style the design is reminiscent of the \enquote{kao} style
 for chapter titles.
 
+\section{\Option{twoside} mode}
+
 \begin{kaobox}[frametitle=To Do]
 The \Option{twoside} class option is still unstable and may lead to 
-unexpected behaviours. As always, any help will be greatly appreciated.
+unexpected behaviours. Great strides have been done since the first 
+version of \Class{kaobook}, but some work still needs to be done. As 
+always, any help will be greatly appreciated.
 \end{kaobox}
+
+By passing the \Option{twoside} option to the \Class{kaobook}, the
+style of left and right pages will be different, similarly to a
+printed book. In digital books, having a simmetrical layout for
+left and right pages is less important, and you may be tempted
+to use the \Option{twoside=false} option. However, keep in mind
+that in \enquote{oneside} mode the \Command{uppertitleback} and
+\Command{lowertitleback} commands are not available.\sidenote{Another
+useful thing to keep in mind is that, when \Option{twoside=true}, an
+extra white page will be added to the frontmatter.} If you want to have 
+the upper/lower titleback in a one-side document, just add manually the 
+contents that you'd put using the upper/lower titleback commands.
 
 \section{Table of Contents}
 
