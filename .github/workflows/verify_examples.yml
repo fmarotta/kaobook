@@ -1,0 +1,37 @@
+name: Verify examples
+on: [push, pull_request]
+
+jobs:
+  find_examples:
+    runs-on: ubuntu-latest
+    outputs:
+      matrix: ${{ steps.find-dirs.outputs.matrix }}
+    steps:
+      - uses: actions/checkout@v2
+      - name: Gather directories inside examples
+        id: find-dirs
+        run: |
+          cd examples
+          echo "::set-output name=matrix::{\"dir\":[$(for dir in $(echo */); do echo -n \"${dir%?}\",; done)]}"
+  build_latex:
+    needs: find_examples
+    runs-on: ubuntu-latest
+    strategy:
+      matrix: ${{fromJson(needs.find_examples.outputs.matrix)}}
+      fail-fast: false
+    steps:
+      - uses: actions/checkout@v2
+      - name: Check that LaTeX example compiles
+        uses: xu-cheng/latex-action@v2
+        with:
+          working_directory: examples/${{ matrix.dir }}
+          pre_compile: |
+            cp ../../* . || true
+            mkdir styles && cp ../../* ./styles/ || true
+          root_file: main.tex
+          latexmk_shell_escape: true
+      - uses: actions/upload-artifact@v2
+        if: ${{ always() }}
+        with:
+          name: Log - ${{ matrix.dir }}
+          path: examples/${{ matrix.dir }}/main.log
