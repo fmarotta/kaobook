@@ -962,8 +962,8 @@
           {}%
         \etocsetstyle{mtocsubsection}%
           {}%
-          {\setbox0\hbox{\usekomafont{section}\small\etocthenumber\kern.8mm}%
-           \setbox1\hbox{\usekomafont{section}\small\etocthepage}}%
+          {\setbox0\hbox{\usekomafont{section}\small\mdseries\etocthenumber\kern.8mm}%
+           \setbox1\hbox{\usekomafont{section}\small\mdseries\etocthepage}}%
           {\ifdim\wd0>\margintocnumwidth \edef\margintocnumwidth{\the\wd0} \fi%
            \ifdim\wd1>\margintocpagenumwidth \edef\margintocpagenumwidth{\the\wd1} \fi}%
           {}%
@@ -986,14 +986,17 @@
         % Set the style for section entries
         \etocsetstyle{mtocsection}%
         {\parindent 0pt \parskip 2.5pt \parfillskip 0pt \RaggedRight}%
-        {\leftskip \margintocnumwidth \rightskip \margintocpagenumwidth} %
+        {\leftskip \margintocnumwidth \rightskip \margintocpagenumwidth}%
         {\makebox[0pt][r]{\makebox[\margintocnumwidth][l]{\etocnumber}}\etocname\nobreak\leaders\hbox{\hbox to 1.5ex {\hss.\hss}}\hfill\rlap{\makebox[\margintocpagenumwidth][r]{\etocpage}}\par}%
         {}%
 		% Set the style for subsection entries
         \etocsetstyle{mtocsubsection}%
         {\parindent 0pt \parskip 0pt \parfillskip 0pt \RaggedRight}%
         {\leftskip \margintocnumwidth \rightskip \margintocpagenumwidth}%
-        {\makebox[0pt][r]{\makebox[\margintocnumwidth][l]{\etocnumber}}\etocname\nobreak\leaders\hbox{\hbox to 1.5ex {\hss.\hss}}\hfill\rlap{\makebox[\margintocpagenumwidth][r]{\etocpage}}\par}%
+
+        {\makebox[0pt][r]{\makebox[\margintocnumwidth][l]{\mdseries\etocnumber}}\mdseries\etocname\nobreak\leaders\hbox{\hbox to 1.5ex {\hss.\hss}}\hfill\rlap{\makebox[\margintocpagenumwidth][r]{\mdseries\etocpage}}\par}%
+        %{{\mdseries\etocname}\nobreak\leaders\hbox{\hbox to 1.5ex {\hss.\hss}}\hfill\rlap{\makebox[\margintocpagenumwidth][r]{\mdseries\etocpage}}\par}%
+
         {\parskip 2.5pt}%
 		% Set the global style of the toc
         \etocsettocstyle{\usekomafont{section}\small}{}%
