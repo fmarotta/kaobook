@@ -26,8 +26,8 @@ jobs:
         with:
           working_directory: examples/${{ matrix.dir }}
           pre_compile: |
-            cp ../../* . || true
-            mkdir styles && cp ../../* ./styles/ || true
+            cp -r ../../* . || true
+            mkdir styles && cp -r ../../* ./styles/ || true
           root_file: main.tex
           latexmk_shell_escape: true
       - uses: actions/upload-artifact@v2
