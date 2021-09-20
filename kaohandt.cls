@@ -35,7 +35,6 @@
 % Pass through any other options to the base class
 \DeclareOption*{\PassOptionsToClass{\CurrentOption}{\@baseclass}} 
 
-\ProcessKeyvalOptions*
 \ProcessOptions\relax % Process the options
 
 \LoadClass{\@baseclass} % Load the base class
