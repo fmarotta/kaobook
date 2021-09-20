@@ -73,6 +73,7 @@
 \setlength{\hscale}{1mm}
 \setlength{\vscale}{1mm}
 
+% Define hscale and vscale for all types of paper
 \@ifclasswith{\@baseclass}{a0paper}{\setlength{\hscale}{4mm}\setlength{\vscale}{4mm}}{}
 \@ifclasswith{\@baseclass}{a1paper}{\setlength{\hscale}{2.828mm}\setlength{\vscale}{2.828mm}}{}
 \@ifclasswith{\@baseclass}{a2paper}{\setlength{\hscale}{2mm}\setlength{\vscale}{2mm}}{}
@@ -187,11 +188,11 @@
 \setlength{\headsep}{11\vscale}
 
 % Define some LaTeX lengths used in the page headers
-\newlength{\headtextwidth}
-\newlength{\headmarginparsep}
-\newlength{\headmarginparwidth}
+\newlength{\headtextwidth} % This is the width of the text
+\newlength{\headmarginparsep} % This is the width of the whitespace between text and margin
+\newlength{\headmarginparwidth} % This is the width of the margin
 \newlength{\headtotal} % This is the total width of the header
-\newcommand{\recalchead}{%
+\newcommand{\recalchead}{% Command to recalculate the header-related length when needed
     \setlength{\headtextwidth}{\textwidth}%
 	\setlength{\headmarginparsep}{\marginparsep}%
 	\setlength{\headmarginparwidth}{\marginparwidth}%
@@ -202,7 +203,7 @@
     \recalchead%
 }
 
-% Style with chapter number, chapter title, and page in the header (used throughout the document)
+% Header style with chapter number, chapter title, and page in the header (used throughout the document)
 \renewpagestyle{scrheadings}{%
     {\smash{\hspace{-\headmarginparwidth}\hspace{-\headmarginparsep}\makebox[\headtotal][l]{%
         \makebox[7\hscale][r]{\thepage}%
@@ -222,7 +223,7 @@
 	{}%
 }
 
-% Style with neither header nor footer (used for special pages)
+% Header style with neither header nor footer (used for special pages)
 \renewpagestyle{plain.scrheadings}{%
 	{}%
 	{}%
@@ -233,7 +234,7 @@
 	{}%
 }
 
-% Style with an empty header and the page number in the footer
+% Header style with an empty header and the page number in the footer
 \newpagestyle{pagenum.scrheadings}{%
     {}%
     {}%
@@ -244,7 +245,7 @@
     {\makebox[\textwidth][l]{\thepage}}%
 }
 
-% Style with an empty header and the page number in the footer
+% Header style with an empty header and the page number in the footer
 \newpagestyle{centeredpagenum.scrheadings}{%
     {}%
     {}%
@@ -397,11 +398,11 @@
 }
 
 % Command to detect whether we are inside an mdframed environment
-\newif\ifinfloat
+\newif\ifinfloat % First, set this flag whenever we are in an mdframed environment...
 \AtBeginEnvironment{mdframed}{\infloattrue}
 \AtBeginEnvironment{minipage}{\infloattrue}
 
-\def\IfInFloatingEnvir{%
+\def\IfInFloatingEnvir{% Then, detect the flag
     \ifinfloat%
         \expandafter\@firstoftwo%
     \else%
@@ -427,7 +428,7 @@
 	}%
 }
 
-% Initially set the counter to zero instead of 1, and update it before printing the sidenote.
+% Initially set the sidenote counter to zero instead of 1, and update it before printing the sidenote.
 \setcounter{sidenote}{0}%
 \RenewDocumentCommand\sidenote{ o o +m }{%
 	\IfNoValueOrEmptyTF{#1}{%
@@ -439,15 +440,8 @@
 	\@sidenotes@multimarker%
 }
 
-% % Formatting sidenotes
-% \setsidenotes{
-% 	text-mark-format=\textsuperscript{\normalfont#1}, % Use a superscript for the marker in the text
-% 	note-mark-format=#1:, % Use a normal font for the marker in the margin; use a colon after the sidenote number
-% 	note-mark-sep=\enskip, % Set the space after the marker
-% }
-
-% Formatting sidenotes
-\RenewDocumentCommand\@sidenotes@thesidenotemark{ m }{%
+% Formatting sidenote markers
+\RenewDocumentCommand\@sidenotes@thesidenotemark{ m }{% Format the marker
 	\leavevmode%
 	\ifhmode%
 		\edef\@x@sf{\the\spacefactor}%
@@ -460,6 +454,7 @@
 	\relax%
 }%
 
+% Formatting the sidenote text
 \RenewDocumentCommand\sidenotetext{ o o +m }{% number, offset, text
 	\IfNoValueOrEmptyTF{#1}{%
         \marginnote[#2]{\thesidenote:\enskip#3}%
@@ -823,7 +818,7 @@
 %	TOC, LOF & LOT
 %----------------------------------------------------------------------------------------
 
-\RequirePackage{tocbasic}
+\RequirePackage{tocbasic} % Required to customise the TOC
 
 % Show an entry for the TOC in the TOC
 \setuptoc{toc}{totoc}
@@ -855,7 +850,7 @@
 \RequirePackage{etoc} % Required to insert local tables of contents
 
 \newcounter{margintocdepth} % Set the depth of the margintoc
-\setcounter{margintocdepth}{\subsectiontocdepth}
+\setcounter{margintocdepth}{\subsectiontocdepth} % By default to subsections
 
 \newlength{\mtocshift} % Length of the vertical offset used for margin tocs
 \setlength{\mtocshift}{1\vscale}% \mtocshift is overridden by \setchapterstyle
@@ -1025,19 +1020,19 @@
 	\RequirePackage{amssymb} % Must be loaded before unicode-math
 	\RequirePackage[force]{filehook} % Fixes an error
 	\RequirePackage{unicode-math} % Math fonts in xetexorluatex
-    \setromanfont[
+    \setromanfont[ % Libertinus Serif font
 		Scale=1.04
 	]{Libertinus Serif}
-	\setsansfont[
+    \setsansfont[ % Libertinus Sans font
 		Scale=1
 	]{Libertinus Sans}
-	\setmonofont[
+    \setmonofont[ % Libertinus Mono font
 		Scale=.89
 	]{Liberation Mono}
-	\setmathfont{Libertinus Math}
+    \setmathfont{Libertinus Math} % Libertinus Math font
     \ifluatex
     \else
-        \RequirePackage{morewrites} % Fix some errors related to floats
+        \RequirePackage{morewrites} % Fix some errors related to floats (not necessary with LuaLaTeX
     \fi
 \else
 	\RequirePackage[utf8]{inputenc} % utf8 encoding in the input (.tex) file
@@ -1104,6 +1099,7 @@
 	\relax
 }
 
+% Redefine the \thanks command to allow users to use \label within \thanks without getting warnings
 \let\oldthanks\thanks
 \renewcommand\thanks[1]{%
     \label{bhfn:0}%
@@ -1137,6 +1133,7 @@
 %\addtokomafont{captionlabel}{\color{Blue}}
 %\addtokomafont{pagenumber}{\color{Maroon}}
 
+% Choose the default colors
 \hypersetup{
 	%anchorcolor=Red,
 	%citecolor=DarkOrange!70!black,
@@ -1153,9 +1150,9 @@
 %	ITEMS
 %----------------------------------------------------------------------------------------
 
-\renewcommand{\labelitemi}{\small$\blacktriangleright$}
-\renewcommand{\labelitemii}{\textbullet}
-\RequirePackage[inline]{enumitem}
+\renewcommand{\labelitemi}{\small$\blacktriangleright$} % Use a black triangle for the first level of \item's
+\renewcommand{\labelitemii}{\textbullet} % Use a bullet for the second level of \item's
+\RequirePackage[inline]{enumitem} % Used to customise lists (in particular, we don't want to put whitespace between items)
 \setlist[itemize]{noitemsep}
 \setlist[enumerate]{noitemsep}
 \setlist[description]{noitemsep}
@@ -1168,6 +1165,7 @@
 \RequirePackage{tikz}
 \RequirePackage[framemethod=TikZ]{mdframed}
 
+% Define a new style for mdframed boxes
 %\mdfsetup{skipabove=\topskip,skipbelow=0pt}
 \mdfdefinestyle{kaoboxstyle}{
 	skipabove=1.5\topskip,
@@ -1193,6 +1191,7 @@
 	%frametitlebackgroundcolor=LightBlue,
 }
 
+% Define a new environment using the style created above
 \newmdenv[
 	style=kaoboxstyle,
 	backgroundcolor=RoyalBlue!25!White,
@@ -1203,6 +1202,7 @@
 %	ENVIRONMENT WITH A COUNTER
 %----------------------------------------------------------------------------------------
 
+% Define an environment titled 'Comment' and numbered incrementally
 \newenvironment{kaocounter}{
 	\refstepcounter{kaocounter}
 	\begin{kaobox}[frametitle=Comment~\thekaocounter\autodot]
@@ -1210,6 +1210,7 @@
 	\end{kaobox}
 }
 
+% Define the commands to manage the counter for the 'kaocounter' environment
 \newcounter{kaocounter}
 \counterwithin{kaocounter}{section}
 \newcommand*{\kaocounterformat}{% Format for the caption
@@ -1221,23 +1222,25 @@
 %	FLOATING ENVIRONMENT WITH TOC ENTRIES
 %----------------------------------------------------------------------------------------
 
+% Define a floating environment
 \newenvironment{kaofloating}{%
 	\@float{kaofloating}%
 }{%
 	\end@float%
 }
 
-\newcommand*{\fps@floatingbox}{tbph}
-\newcommand*{\ftype@floatingbox}{5}
-\newcommand*{\floatingboxformat}{%
+% Configure the 'kaofloating' environment
+\newcommand*{\fps@floatingbox}{tbph}% Allowed positions for the environment (top, bottom, own page, here)
+\newcommand*{\ftype@floatingbox}{5}% Set the type of float (floats of the same type cannot change their order; figures and tables are type 1 and 2 respectively)
+\newcommand*{\floatingboxformat}{% Set a title of the environment
 	Insight~\thefloatingbox\csname autodot\endcsname}
-\newcommand*{\fnum@floatingbox}{\floatingboxformat}
-\newcommand*{\ext@floatingbox}{loi}
+\newcommand*{\fnum@floatingbox}{\floatingboxformat}% Use the environment title
+\newcommand*{\ext@floatingbox}{loi}% Choose the extension of the auxiliary file for this environment
 
-\addtotoclist[float]{loi}
-\newcommand*{\listofloiname}{List of Insights}
-\newcommand*{\l@floatingbox}{\l@figure}
-\newcommand*{\listofinsights}{\listoftoc{loi}}
+\addtotoclist[float]{loi}% Keep track of 'kaofloating' environments for a "List of Insights"
+\newcommand*{\listofloiname}{List of Insights}% Choose the title for the "List of Insights"
+\newcommand*{\l@floatingbox}{\l@figure}% Format the LOI
+\newcommand*{\listofinsights}{\listoftoc{loi}}% User-friendly command to print the LOI
 
 %----------------------------------------------------------------------------------------
 %	ADDITIONAL PACKAGES
@@ -1252,11 +1255,13 @@
 \RequirePackage{listings} % Code
 %\RequirePackage{minted} (must be loaded before scrhack)
 
+% Configure the listings
 \definecolor{listingkeywords}{rgb}{0.0, 0.5, 0.0}
 \definecolor{listingidentifiers}{rgb}{0, 0, 0}
 \definecolor{listingcomments}{rgb}{0.25, 0.5, 0.5}
 \definecolor{listingstrings}{rgb}{0.73, 0.13, 0.13}
 \definecolor{listingnumbers}{rgb}{0.25, 0.25, 0.25}
+% Define a fancy style
 \lstdefinestyle{kaolst}{
 	aboveskip=0.7\topskip,
 	belowskip=0.1\topskip,
@@ -1282,6 +1287,7 @@
 	tabsize=4,
 	defaultdialect=[LaTeX]Tex,
 }
+% Define a plain style as well
 \lstdefinestyle{kaolstplain}{
 	aboveskip=0.6\topskip,
 	belowskip=-0.1\topskip,
@@ -1304,7 +1310,7 @@
 	tabsize=4,
 	defaultdialect=[LaTeX]Tex,
 }
-\lstset{style=kaolst}
+\lstset{style=kaolst}% Use the fancy style
 
 % Verbatim
 %\RequirePackage{fancyvrb} % Customization of verbatim environments

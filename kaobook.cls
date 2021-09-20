@@ -1,7 +1,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % kaobook
 % LaTeX Class
-% Version 0.9.7 (2021/06/02)
+% Version 0.9.8 (2021/08/23)
 %
 % This template originates from:
 % https://www.LaTeXTemplates.com
@@ -25,15 +25,8 @@
 %----------------------------------------------------------------------------------------
 
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesClass{kaobook}[2021/06/02 v0.9.7 kaobook]
+\ProvidesClass{kaobook}[2021/08/23 v0.9.8 kaobook]
 \newcommand{\@baseclass}{scrbook} % Base class name
-
-%\RequirePackage{kvoptions} % Manage class key-value options
-
-%\SetupKeyvalOptions{
-%    family = kao,
-%    prefix = kao@
-%}
 
 % Set the default options
 \PassOptionsToClass{a4paper}{\@baseclass}
@@ -50,7 +43,6 @@
 \LoadClass{\@baseclass} % Load the base class
 
 % Define kao-specific options
-%\DeclareStringOption[1]{secnumdepth}
 \DefineFamily{kao}
 \DefineFamilyMember[kaobook]{kao}
 \DefineFamilyKey[kaobook]{kao}{secnumdepth}[1]{\setcounter{secnumdepth}{#1}\FamilyKeyStateProcessed}
@@ -108,6 +100,7 @@
 %	CHAPTER HEADING STYLES
 %----------------------------------------------------------------------------------------
 
+% Command to easily switch between chapter styles
 \DeclareDocumentCommand{\setchapterstyle}{m}{%
 	\ifthenelse{\equal{plain}{#1}}{\chapterstyleplain}{}
     \ifthenelse{\equal{bar}{#1}}{\chapterstylebar}{}
@@ -227,7 +220,7 @@
     \setlength{\mtocshift}{0cm}%
 }
 
-% By default start with plain style
+% By default start with the plain style
 \chapterstyleplain
 
 %----------------------------------------------------------------------------------------
@@ -251,6 +244,7 @@
 %	TOC, LOF & LOT
 %----------------------------------------------------------------------------------------
 
+% Set default options regarding the table of contents
 \PassOptionsToClass{toc=listof}{\@baseclass}
 \PassOptionsToClass{toc=index}{\@baseclass}
 \PassOptionsToClass{toc=bibliography}{\@baseclass}
@@ -259,8 +253,7 @@
 %	NUMBERING
 %----------------------------------------------------------------------------------------
 
-%\setcounter{secnumdepth}{\kao@secnumdepth} % Set section numbering 
-%depth
+%\setcounter{secnumdepth}{\kao@secnumdepth} % Set section numbering depth
 
 \counterwithin*{sidenote}{chapter} % Uncomment to reset the sidenote counter at each chapter
 %\counterwithout{sidenote}{chapter} % Uncomment to have one sidenote counter for the whole document

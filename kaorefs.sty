@@ -1,7 +1,11 @@
 \ProvidesPackage{kaorefs}
 
-% Easily label and reference elements
-% Note that \label must appear after \caption
+%----------------------------------------------------------------------------------------
+%	PACKAGE OPTIONS AND DEPENDENCIES
+%----------------------------------------------------------------------------------------
+
+% Easily label and reference elements with this package
+% Note that, in figures and tables, \label must appear after \caption
 % Load this package last
 
 % Pass this package's options to hyperref and varioref
@@ -16,7 +20,10 @@
 \RequirePackage[capitalise,nameinlink,noabbrev]{cleveref}
 
 
-% Language-specific strings
+%----------------------------------------------------------------------------------------
+%	LANGUAGE-SPECIFIC STRINGS
+%----------------------------------------------------------------------------------------
+
 % #LANGUAGE
 \newcommand{\chapternameshort}{}
 \newcommand{\sectionname}{}
@@ -100,7 +107,10 @@
 % Do you speak other languages? Please, feel free to add the captions!
 
 
-% Labelling commands
+%----------------------------------------------------------------------------------------
+%	LABELLING COMMANDS
+%----------------------------------------------------------------------------------------
+
 \newcommand{\labpage}[1]{\label{page:#1}}
 \newcommand{\labpart}[1]{\label{part:#1}}
 \newcommand{\labch}[1]{\label{ch:#1}}
@@ -119,7 +129,10 @@
 \newcommand{\labexercise}[1]{\label{exercise:#1}}
 
 
-% Referencing commands
+%----------------------------------------------------------------------------------------
+%	REFERENCING COMMANDS
+%----------------------------------------------------------------------------------------
+
 \newcommand{\refpage}[1]{\hyperref[#1]{\pagename}\xspace\pageref{page:#1}} % Page 84
 \newcommand{\vrefpage}[1]{\vpageref*{page:#1}} % on the following page, on page 84
 
@@ -191,7 +204,9 @@
 \newcommand{\vrefexercise}[1]{\hyperref[exercise:#1]\exercisename\xspace\vref{exercise:#1}}
 
 
-% cleveref customisation
+%----------------------------------------------------------------------------------------
+%	CLEVEREF CUSTOMISATION
+%----------------------------------------------------------------------------------------
 
 % Hyperlink the page reference as well
 \let\oldvpageref\vpageref

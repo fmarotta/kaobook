@@ -2,8 +2,9 @@
 Changelog for package kaobook
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Work in progress
+0.9.8 (2021/08/23)
 ----------------
+* Fix some issues
 
 0.9.7 (2021/06/02)
 ------------------

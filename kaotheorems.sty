@@ -1,13 +1,19 @@
 \ProvidesPackage{kaotheorems}
 
+%----------------------------------------------------------------------------------------
+%	PACKAGE OPTIONS AND DEPENDENCIES
+%----------------------------------------------------------------------------------------
+
 \RequirePackage{kvoptions} % Handle package options
 \SetupKeyvalOptions{
     family = kaotheorems,
     prefix = kaotheorems@
 }
 
-\DeclareBoolOption{framed}
+\DeclareBoolOption{framed}% If true, put theorems into colorful boxes, otherwise write them like normal text
 
+% Define the options to finely tune the background color of each element.
+% If only the 'background' option is specified, all types of theorem will have that background. If more specific options are set, the previous option will be overwritten.
 \newcommand{\kaotheorems@defaultbg}{Goldenrod!45!white}
 \DeclareStringOption[\kaotheorems@defaultbg]{background}
 \DeclareStringOption[\kaotheorems@defaultbg]{theorembackground}
@@ -20,16 +26,20 @@
 \DeclareStringOption[\kaotheorems@defaultbg]{examplebackground}
 \DeclareStringOption[\kaotheorems@defaultbg]{exercisebackground}
 
-\ProcessKeyvalOptions{kaotheorems}
+\ProcessKeyvalOptions{kaotheorems} % Process the options
 
-\let\openbox\relax
+\let\openbox\relax % Workaround to avoid a nasty error
 \RequirePackage{amsmath} % Improved mathematics
 \RequirePackage{amsthm} % Mathematical environments
 \RequirePackage{thmtools} % Theorem styles
 
-\ifkaotheorems@framed%
-    \RequirePackage{tikz} % Colorful boxes
-    \RequirePackage[framemethod=TikZ]{mdframed}
+%----------------------------------------------------------------------------------------
+%	STYLE DEFINITIONS
+%----------------------------------------------------------------------------------------
+
+\ifkaotheorems@framed% Define the style of the mdframed boxes for theorems
+    \RequirePackage{tikz} % Required by mdframed
+    \RequirePackage[framemethod=TikZ]{mdframed} % Required for colorful boxes
 
     % Box style
     \mdfsetup{skipabove=\topskip,skipbelow=0pt}%-.5\topskip}
@@ -131,6 +141,7 @@
     	%Refname={Theorem,Theorems},
     ]{kaoexercise}
 
+    % Theorems using the 'kaoplain' style
     \theoremstyle{kaoplain}
     \declaretheorem[
     	name=Theorem,
@@ -182,6 +193,7 @@
     	},
     ]{corollary}
 
+    % Theorems using the 'kaodefinition' style
     \theoremstyle{kaodefinition}
     \declaretheorem[
     	name=Definition,
@@ -196,6 +208,7 @@
     	},
     ]{definition}
 
+    % Theorems using the 'kaoassumption' style
     \theoremstyle{kaoassumption}
     \declaretheorem[
     	name=Assumption,
@@ -210,6 +223,7 @@
     	},
     ]{assumption}
 
+    % Theorems using the 'kaoremark' style
     \theoremstyle{kaoremark}
     \declaretheorem[
     	name=Remark,
@@ -224,6 +238,7 @@
     	},
     ]{remark}
 
+    % Theorems using the 'kaoexample' style
     \theoremstyle{kaoexample}
     \declaretheorem[
     	name=Example,
@@ -238,6 +253,7 @@
     	},
     ]{example}
 
+    % Theorems using the 'kaoexercise' style
     \theoremstyle{kaoexercise}
     \declaretheorem[
     	name=Exercise,
@@ -255,8 +271,7 @@
     %\renewcommand{\thetheorem}{\arabic{chapter}.\arabic{section}.\arabic{theorem}}
     %\renewcommand{\thetheorem}{\arabic{subsection}.\arabic{theorem}}
     %\renewcommand{\qedsymbol}{$\blacksquare$}
-\else
-
+\else % If not using mdframed
     % Theorem styles
     \declaretheoremstyle[
     	spaceabove=.6\thm@preskip,
@@ -320,6 +335,7 @@
     	%Refname={Theorem,Theorems},
     ]{kaoexercise}
 
+    % Theorems using the 'kaoplain' style
     \theoremstyle{kaoplain}
     \declaretheorem[
     	name=Theorem,
@@ -346,6 +362,7 @@
     	sibling=theorem,
     ]{corollary}
 
+    % Theorems using the 'kaodefinition' style
     \theoremstyle{kaodefinition}
     \declaretheorem[
     	name=Definition,
@@ -354,6 +371,7 @@
     	numberwithin=section,
     ]{definition}
 
+    % Theorems using the 'kaoremark' style
     \theoremstyle{kaoremark}
     \declaretheorem[
     	name=Remark,
@@ -362,6 +380,7 @@
     	numberwithin=section,
     ]{remark}
 
+    % Theorems using the 'kaoexample' style
     \theoremstyle{kaoexample}
     \declaretheorem[
     	name=Example,
@@ -370,6 +389,7 @@
     	numberwithin=section,
     ]{example}
 
+    % Theorems using the 'kaoexercise' style
     \theoremstyle{kaoexercise}
     \declaretheorem[
     	name=Exercise,
