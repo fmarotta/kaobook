@@ -21,7 +21,7 @@
 % Define \Ifthispageodd (with a capital 'i') to make kaobook compatible with older KOMAScript versions
 \@ifpackagelater{scrbase}{2019/12/22}{%
 }{%
-    \let\Ifthispageodd\ifthispageodd%
+	\let\Ifthispageodd\ifthispageodd%
 }
 
 %----------------------------------------------------------------------------------------
@@ -48,7 +48,7 @@
 	\gdef\@author{#2} % Store the full author in @author
 	\ifthenelse{\isempty{#1}}{ % If there is no plain author
 		\renewcommand{\@plainauthor}{\@author}% Use full author
-  	}{ % If there is a plain author
+	}{ % If there is a plain author
 		\renewcommand{\@plainauthor}{#1}% Use provided plain-text author
 	}%
 	\hypersetup{pdfauthor={\@plainauthor}} % Set the PDF metadata author
@@ -141,10 +141,10 @@
 		bottom=27.4\vscale,
 		inner=24.8\hscale,
 		textwidth=107\hscale,
-        marginparsep=6.2\hscale,
+		marginparsep=6.2\hscale,
 		marginparwidth=47.7\hscale,
-    }%
-    \recalchead%
+	}%
+	\recalchead%
 }
 
 % Layout #2: small, symmetric margins
@@ -157,7 +157,7 @@
 		marginparsep=0mm,
 		marginparwidth=0mm,
 	}%
-    \recalchead%
+	\recalchead%
 }
 
 % Layout #3: no margins and no space above or below the body
@@ -170,7 +170,7 @@
 		marginparwidth=0mm,
 		marginparsep=0mm,
 	}%
-    \recalchead%
+	\recalchead%
 }
 
 % Set the default page layout
@@ -193,20 +193,20 @@
 \newlength{\headmarginparwidth} % This is the width of the margin
 \newlength{\headtotal} % This is the total width of the header
 \newcommand{\recalchead}{% Command to recalculate the header-related length when needed
-    \setlength{\headtextwidth}{\textwidth}%
+	\setlength{\headtextwidth}{\textwidth}%
 	\setlength{\headmarginparsep}{\marginparsep}%
 	\setlength{\headmarginparwidth}{\marginparwidth}%
 	\setlength{\headtotal}{\headtextwidth+\headmarginparsep+\headmarginparwidth}%
 }
 
 \AtBeginDocument{% Recalculate the header-related lengths
-    \recalchead%
+	\recalchead%
 }
 
 % Header style with chapter number, chapter title, and page in the header (used throughout the document)
 \renewpagestyle{scrheadings}{%
-    {\smash{\hspace{-\headmarginparwidth}\hspace{-\headmarginparsep}\makebox[\headtotal][l]{%
-        \makebox[7\hscale][r]{\thepage}%
+	{\smash{\hspace{-\headmarginparwidth}\hspace{-\headmarginparsep}\makebox[\headtotal][l]{%
+		\makebox[7\hscale][r]{\thepage}%
 		\makebox[3\hscale]{}\rule[-1mm]{0.5pt}{19\vscale-1mm}\makebox[3\hscale]{}%
 		\makebox[\headtextwidth][l]{\leftmark}}}}%
 	{\smash{\makebox[0pt][l]{\makebox[\headtotal][r]{%
@@ -218,7 +218,7 @@
 		\makebox[3\hscale]{}\rule[-1mm]{0.5pt}{19\vscale-1mm}\makebox[3\hscale]{}%
 		\makebox[7\hscale][l]{\thepage}}}}}%
 }{%
-    {}%
+	{}%
 	{}%
 	{}%
 }
@@ -236,24 +236,24 @@
 
 % Header style with an empty header and the page number in the footer
 \newpagestyle{pagenum.scrheadings}{%
-    {}%
-    {}%
-    {}%
+	{}%
+	{}%
+	{}%
 }{%
-    {\makebox[\textwidth][r]{\thepage}}%
-    {\makebox[\textwidth][l]{\thepage}}%
-    {\makebox[\textwidth][l]{\thepage}}%
+	{\makebox[\textwidth][r]{\thepage}}%
+	{\makebox[\textwidth][l]{\thepage}}%
+	{\makebox[\textwidth][l]{\thepage}}%
 }
 
 % Header style with an empty header and the page number in the footer
 \newpagestyle{centeredpagenum.scrheadings}{%
-    {}%
-    {}%
-    {}%
+	{}%
+	{}%
+	{}%
 }{%
-    {\hspace{-\headmarginparwidth}\hspace{-\headmarginparsep}\makebox[\headtotal][l]{\hfill\thepage\hfill}}
-    {\makebox[0pt][l]{\makebox[\headtotal][r]{\hfill\thepage\hfill}}}%
-    {\makebox[0pt][l]{\makebox[\headtotal][r]{\hfill\thepage\hfill}}}%
+	{\hspace{-\headmarginparwidth}\hspace{-\headmarginparsep}\makebox[\headtotal][l]{\hfill\thepage\hfill}}
+	{\makebox[0pt][l]{\makebox[\headtotal][r]{\hfill\thepage\hfill}}}%
+	{\makebox[0pt][l]{\makebox[\headtotal][r]{\hfill\thepage\hfill}}}%
 }
 
 % Command to print a blank page
@@ -354,7 +354,7 @@
 \extrafloats{100} % Require more floats
 
 \RequirePackage{marginnote} % Provides options for margin notes
-\RequirePackage{marginfix} % Make marginpars float freely
+%\RequirePackage{marginfix} % Make marginpars float freely; it should not be loaded as it prevents the marginnotes to stay aligned with the main text
 \RequirePackage{sidenotes} % Use sidenotes
 \RequirePackage{chngcntr} % Reset counters at sections
 
@@ -384,8 +384,8 @@
 \renewcommand*{\raggedrightmarginnote}{} % Suppress right margin
 \renewcommand*{\marginfont}{\@margin@par} % Format marginnotes according to \@marginpar (see above)
 \renewcommand{\marginnotevadjust}{0.8\vscale} % Bring all marginnotes downwards a bit
-\marginposadjustment=0.1mm % Bring downwards also the marginpars
-\marginheightadjustment=.5cm % Bring downwards also the marginpars
+%\marginposadjustment=1\vscale % Bring downwards also the marginpars
+%\marginheightadjustment=10cm % Adjust the height of the margins for each page
 %\RequirePackage[marginnote=true]{snotez} % Provides options for sidenotes
 
 % Copied from snotez's \sidenote
@@ -402,12 +402,12 @@
 \AtBeginEnvironment{mdframed}{\infloattrue}
 \AtBeginEnvironment{minipage}{\infloattrue}
 
-\def\IfInFloatingEnvir{% Then, detect the flag
-    \ifinfloat%
-        \expandafter\@firstoftwo%
-    \else%
-        \expandafter\@secondoftwo%
-    \fi%
+\def\IfInFloatingEnvir{% ...Then, detect the flag
+	\ifinfloat%
+		\expandafter\@firstoftwo%
+	\else%
+		\expandafter\@secondoftwo%
+	\fi%
 }
 
 
@@ -421,8 +421,8 @@
 		\IfInFloatingEnvir{%
 			\oldmarginnote{#2}%
 		}{%
-            \marginpar{\@margin@par#2}%
-        }%
+			\marginpar{\@margin@par#2}%
+		}%
 	}{%
 		\oldmarginnote{#2}[\kao@if@nblskip{#1}{\@cdr#1\@nil\baselineskip}{#1}]%
 	}%
@@ -457,10 +457,10 @@
 % Formatting the sidenote text
 \RenewDocumentCommand\sidenotetext{ o o +m }{% number, offset, text
 	\IfNoValueOrEmptyTF{#1}{%
-        \marginnote[#2]{\thesidenote:\enskip#3}%
-    }{%
-        \marginnote[#2]{#1:\enskip#3}%
-    }%
+		\marginnote[#2]{\thesidenote:\enskip#3}%
+	}{%
+		\marginnote[#2]{#1:\enskip#3}%
+	}%
 }
 
 %----------------------------------------------------------------------------------------
@@ -504,6 +504,11 @@
 
 \setlength\columnseprule{.4pt} % Set the width of vertical rules in tables
 
+% The marginfix package prevents the margin notes to stay aligned with the main text, so it cannot be used. However, we define the \marginskip command, which is the only command we need from that package.
+\newcommand\marginskip[1]{%
+	\marginpar{\@margin@par\vspace{#1 - \baselineskip}}% We subtract the \baselineskip that we have in margin pars.
+}
+
 \newlength{\kaomarginskipabove} % Specify the space above a marginfigure, margintable or marginlisting
 \newlength{\kaomarginskipbelow} % Specify the space below a marginfigure, margintable or marginlisting
 \setlength{\kaomarginskipabove}{3mm plus 2pt minus 2pt}
@@ -518,7 +523,7 @@
 	\begin{minipage}{\marginparwidth}%
 	  \captionsetup{type=figure}%
 }{%
-    \end{minipage}%
+	\end{minipage}%
   \end{lrbox}%
   \marginnote[#1]{\usebox{\@sidenotes@marginfigurebox}}%
   \marginskip{\kaomarginskipbelow}%
@@ -532,7 +537,7 @@
 	\begin{minipage}{\marginparwidth}%
 	  \captionsetup{type=table}%
 }{%
-    \end{minipage}%
+	\end{minipage}%
   \end{lrbox}%
   \marginnote[#1]{\usebox{\@sidenotes@margintablebox}}%
   \marginskip{\kaomarginskipbelow}%
@@ -602,7 +607,7 @@
 		\RawFloats%
 		\centering%
 	}%
-    \togglefalse{kaocaption}%
+	\togglefalse{kaocaption}%
 }
 
 % Change the formatting of the captions
@@ -670,10 +675,10 @@
 		facing=yes,%
 		capposition=above%
 	}%
-    \floatsetup[longtable]{% Captions for longtables
-        margins=raggedright,% Overwrite the hangright setting from the `table' environment
-        %LTcapwidth=table,% Set the width of the caption equal to the table's
-    }%
+	\floatsetup[longtable]{% Captions for longtables
+		margins=raggedright,% Overwrite the hangright setting from the `table' environment
+		%LTcapwidth=table,% Set the width of the caption equal to the table's
+	}%
 	\floatsetup[lstlisting]{% Captions for lstlistings
 		margins=hangoutside,% Put captions in the margin
 		facing=yes,%

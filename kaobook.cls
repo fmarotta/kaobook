@@ -205,7 +205,7 @@
 		\fi%
 	}%
 	\RedeclareSectionCommand[beforeskip=0cm,afterskip=10\vscale]{chapter}%
-    \setlength{\mtocshift}{-3\vscale}%
+    \setlength{\mtocshift}{-4\vscale}%
 }
 
 % Takes as input the image path and optionally the "beforeskip"
