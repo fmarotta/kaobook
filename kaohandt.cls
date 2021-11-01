@@ -97,7 +97,7 @@
 %	NUMBERING
 %----------------------------------------------------------------------------------------
 
-\setcounter{secnumdepth}{\kao@secnumdepth} % Set section numbering depth
+%\setcounter{secnumdepth}{\kao@secnumdepth} % Set section numbering depth
 
 \counterwithin*{sidenote}{section} % Uncomment to reset the sidenote counter at each section
 %\counterwithout{sidenote}{section} % Uncomment to have one sidenote counter for the whole document
