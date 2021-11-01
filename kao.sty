@@ -831,14 +831,20 @@
 % Choose the levels in table of contents
 \setcounter{tocdepth}{\subsectiontocdepth}
 
+% Customise the list of listings
+\renewcommand{\lstlistlistingname}{List of Listings}% Change the title
+\newcommand{\lstlistingtocdepth}{\sectiontocdepth}% Set the depth
+\newcommand{\listoflistings}{\lstlistoflistings}% Provide the alias \listoflistings
+\newcommand{\listoflstlistings}{\lstlistoflistings}% Provide the alias \listoflstlistings
+
 % Define the style for toc entries
 \@ifpackagelater{scrbase}{2019/10/11}{%
-    \DeclareTOCStyleEntries[indent=0em,numwidth=2em,dynnumwidth=yes,pagenumberwidth=2.1em]{tocline}{figure,table}%
+    \DeclareTOCStyleEntries[indent=0em,numwidth=2em,dynnumwidth=yes,pagenumberwidth=2.1em]{tocline}{figure,table,lstlisting}%
     \DeclareTOCStyleEntries[dynnumwidth=yes]{tocline}{subsubsection,subsection,section,chapter,part}%
     \DeclareTOCStyleEntries[pagenumberwidth=2.5em]{tocline}{chapter,part}%
     \DeclareTOCStyleEntries[pagenumberwidth=2.1em]{tocline}{subsubsection,subsection,section}%
 }{%
-    \DeclareTOCStyleEntries[indent=0em,numwidth=2em,dynnumwidth=yes]{tocline}{figure,table}%
+    \DeclareTOCStyleEntries[indent=0em,numwidth=2em,dynnumwidth=yes]{tocline}{figure,table,lstlisting}%
     \DeclareTOCStyleEntries[dynnumwidth=yes]{tocline}{subsubsection,subsection,section,chapter,part}%
 }
 
