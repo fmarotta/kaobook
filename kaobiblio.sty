@@ -14,8 +14,8 @@
 
 % Set up the package options
 \SetupKeyvalOptions{
-    family = kaobiblio,
-    prefix = kaobiblio@
+	family = kaobiblio,
+	prefix = kaobiblio@
 }
 
 \DeclareBoolOption{addspace}% If true, automatically add a space before printing the citation marker
@@ -24,32 +24,32 @@
 % Choose the default options, which will be overwritten by the options 
 % passed to this package.
 \PassOptionsToPackage{
-    %style=numeric-comp,
-    %citestyle=authortitle-icomp,
-    citestyle=numeric-comp,
-    %bibstyle=authoryear,
-    bibstyle=numeric,
-    sorting=none,
-    %sorting=nyt,
-    %sortcites=true,
-    %autocite=footnote,
-    backend=biber, % Compile the bibliography with biber
-    hyperref=true,
-    backref=true,
-    citecounter=true,
-    pagetracker=true,
-    citetracker=true,
-    ibidtracker=context,
-    autopunct=true,
-    autocite=plain,
+	%style=numeric-comp,
+	%citestyle=authortitle-icomp,
+	citestyle=numeric-comp,
+	%bibstyle=authoryear,
+	bibstyle=numeric,
+	sorting=none,
+	%sorting=nyt,
+	%sortcites=true,
+	%autocite=footnote,
+	backend=biber, % Compile the bibliography with biber
+	hyperref=true,
+	backref=true,
+	citecounter=true,
+	pagetracker=true,
+	citetracker=true,
+	ibidtracker=context,
+	autopunct=true,
+	autocite=plain,
 }{biblatex}
 
 % Pass the unknown options to biblatex, overwriting the previous settings. Avoid passing the kao-specific options.
 \DeclareDefaultOption{%
-    \IfBeginWith{\CurrentOption}{addspace}{}{%
-    \IfBeginWith{\CurrentOption}{linkeverything}{}{%
-        \PassOptionsToPackage{\CurrentOption}{biblatex}%
-    }}%
+	\IfBeginWith{\CurrentOption}{addspace}{}{%
+	\IfBeginWith{\CurrentOption}{linkeverything}{}{%
+		\PassOptionsToPackage{\CurrentOption}{biblatex}%
+	}}%
 }
 
 % Process the options
@@ -72,22 +72,22 @@
 
 % Convert months to integers
 \DeclareSourcemap{
-    \maps[datatype=bibtex]{
-        \map[overwrite]{
-            \step[fieldsource=month, match={jan}, replace=${1}]
-            \step[fieldsource=month, match={feb}, replace=${2}]
-            \step[fieldsource=month, match={mar}, replace=${3}]
-            \step[fieldsource=month, match={apr}, replace=${4}]
-            \step[fieldsource=month, match={may}, replace=${5}]
-            \step[fieldsource=month, match={jun}, replace=${6}]
-            \step[fieldsource=month, match={jul}, replace=${7}]
-            \step[fieldsource=month, match={aug}, replace=${8}]
-            \step[fieldsource=month, match={sep}, replace=${9}]
-            \step[fieldsource=month, match={oct}, replace=${10}]
-            \step[fieldsource=month, match={nov}, replace=${11}]
-            \step[fieldsource=month, match={dec}, replace=${12}]
-        }
-    }
+	\maps[datatype=bibtex]{
+		\map[overwrite]{
+			\step[fieldsource=month, match={jan}, replace=${1}]
+			\step[fieldsource=month, match={feb}, replace=${2}]
+			\step[fieldsource=month, match={mar}, replace=${3}]
+			\step[fieldsource=month, match={apr}, replace=${4}]
+			\step[fieldsource=month, match={may}, replace=${5}]
+			\step[fieldsource=month, match={jun}, replace=${6}]
+			\step[fieldsource=month, match={jul}, replace=${7}]
+			\step[fieldsource=month, match={aug}, replace=${8}]
+			\step[fieldsource=month, match={sep}, replace=${9}]
+			\step[fieldsource=month, match={oct}, replace=${10}]
+			\step[fieldsource=month, match={nov}, replace=${11}]
+			\step[fieldsource=month, match={dec}, replace=${12}]
+		}
+	}
 }
 
 %----------------------------------------------------------------------------------------
@@ -152,20 +152,20 @@
 
 % Command to format the marginnote created for supercited items
 \NewDocumentCommand{\formatmarginsupercitation}{m}{% The parameter is a single citation key
-    \supercite{#1} \citeauthor*{#1} (\citeyear{#1})%
+	\supercite{#1} \citeauthor*{#1} (\citeyear{#1})%
 }
 
 % The following command needs to be redefined every time \sidecite is called in order for \DeclareCiteCommand's wrapper to work correctly
 \NewDocumentCommand{\kaobiblio@marginnote}{m}{%
-    \marginnote{#1}%
+	\marginnote{#1}%
 }
 
 % biblatex-like commands that also print a citation in the margin
 % Usage:
-    % First optional argument is always vertical shift and must be given as an (empty) argument when using following a postnote and/or prenote
-    % Second optional argument is always the postnote if the third argument isn't specified or is the prenote if the third argument is specified (same pattern as the biblatex commands)
-    % Third optional argument is always the postnote
-    % Mandatory argument is always the citation key(s)
+	% First optional argument is always vertical shift and must be given as an (empty) argument when using following a postnote and/or prenote
+	% Second optional argument is always the postnote if the third argument isn't specified or is the prenote if the third argument is specified (same pattern as the biblatex commands)
+	% Third optional argument is always the postnote
+	% Mandatory argument is always the citation key(s)
 
 % Command to \cite and print a citation in the margin
 % First optional argument: vertical shift
@@ -173,9 +173,9 @@
 % Third optional argument: postnote
 % Mandatory argument: citation key
 \NewDocumentCommand{\sidecite}{o o o m}{%
-    \RenewDocumentCommand{\kaobiblio@marginnote}{m}{%
-        \marginnote[#1]{##1}%
-    }%
+	\RenewDocumentCommand{\kaobiblio@marginnote}{m}{%
+		\marginnote[#1]{##1}%
+	}%
 	\DeclareCiteCommand{\kaobiblio@sidecite}[\kaobiblio@marginnote]{%
 	}{%
 		\formatmargincitation{\thefield{entrykey}}%
@@ -183,21 +183,21 @@
 		\\% separator between multiple citations
 	}{%
 	}%
-    % With this we print the marker in the text and add the item to the bibliography at the end
-    \IfNoValueOrEmptyTF{#2}%
-    {\def\@tempa{\cite{#4}\kaobiblio@sidecite{#4}}}%
-    {\IfNoValueOrEmptyTF{#3}%
-        {\IfNoValueTF{#3}%
-            {\def\@tempa{\cite[#2]{#4}\kaobiblio@sidecite{#4}}}%
-            {\def\@tempa{\cite[#2][]{#4}\kaobook@sidecite{#4}}}% postnote is empty, so pass empty postnote
-        }%
-        {\def\@tempa{\cite[#2][#3]{#4}\kaobiblio@sidecite{#4}}}%
-    }%
-    \ifkaobiblio@addspace%
-        \unskip~\@tempa%
-    \else%
-        \@tempa%
-    \fi%
+	% With this we print the marker in the text and add the item to the bibliography at the end
+	\IfNoValueOrEmptyTF{#2}%
+	{\def\@tempa{\cite{#4}\kaobiblio@sidecite{#4}}}%
+	{\IfNoValueOrEmptyTF{#3}%
+		{\IfNoValueTF{#3}%
+			{\def\@tempa{\cite[#2]{#4}\kaobiblio@sidecite{#4}}}%
+			{\def\@tempa{\cite[#2][]{#4}\kaobook@sidecite{#4}}}% postnote is empty, so pass empty postnote
+		}%
+		{\def\@tempa{\cite[#2][#3]{#4}\kaobiblio@sidecite{#4}}}%
+	}%
+	\ifkaobiblio@addspace%
+		\unskip~\@tempa%
+	\else%
+		\@tempa%
+	\fi%
 }
 
 % Command to \supercite and print a citation in the margin
@@ -206,27 +206,27 @@
 % Third optional argument: postnote
 % Mandatory argument: citation key
 \NewDocumentCommand{\sidesupercite}{o o o m}{%
-    \RenewDocumentCommand{\kaobiblio@marginnote}{m}{%
-        \marginnote[#1]{##1}%
-    }%
-    \DeclareCiteCommand{\kaobiblio@sidesupercite}[\kaobiblio@marginnote]{%
+	\RenewDocumentCommand{\kaobiblio@marginnote}{m}{%
+		\marginnote[#1]{##1}%
+	}%
+	\DeclareCiteCommand{\kaobiblio@sidesupercite}[\kaobiblio@marginnote]{%
 	}{%
-        \formatmarginsupercitation{\thefield{entrykey}}%
+		\formatmarginsupercitation{\thefield{entrykey}}%
 	}{%
 		\\% separator between multiple citations
 	}{%
 	}%
-    % With this we print the marker in the text and add the item to the bibliography at the end
-    \IfNoValueOrEmptyTF{#2}%
-    {\def\@tempa{\supercite{#4}\kaobiblio@sidesupercite{#4}}}%
-    {\IfNoValueOrEmptyTF{#3}%
-        {\IfNoValueTF{#3}%
-            {\def\@tempa{\supercite[#2]{#4}\kaobiblio@sidesupercite{#4}}}%
-            {\def\@tempa{\supercite[#2][]{#4}\kaobook@sidesupercite{#4}}}% postnote is empty, so pass empty postnote
-        }%
-        {\def\@tempa{\supercite[#2][#3]{#4}\kaobiblio@sidesupercite{#4}}}%
-    }%
-    \@tempa%
+	% With this we print the marker in the text and add the item to the bibliography at the end
+	\IfNoValueOrEmptyTF{#2}%
+	{\def\@tempa{\supercite{#4}\kaobiblio@sidesupercite{#4}}}%
+	{\IfNoValueOrEmptyTF{#3}%
+		{\IfNoValueTF{#3}%
+			{\def\@tempa{\supercite[#2]{#4}\kaobiblio@sidesupercite{#4}}}%
+			{\def\@tempa{\supercite[#2][]{#4}\kaobook@sidesupercite{#4}}}% postnote is empty, so pass empty postnote
+		}%
+		{\def\@tempa{\supercite[#2][#3]{#4}\kaobiblio@sidesupercite{#4}}}%
+	}%
+	\@tempa%
 }
 
 % Command to \textcite and print a citation in the margin
@@ -245,21 +245,21 @@
 		\\% separator between multiple citations
 	}{%
 	}%
-    % With this we print the marker in the text and add the item to the bibliography at the end
+	% With this we print the marker in the text and add the item to the bibliography at the end
 	\IfNoValueOrEmptyTF{#2}%
-        {\def\@tempa{\textcite{#4}\kaobiblio@sidecite{#4}}}%
+		{\def\@tempa{\textcite{#4}\kaobiblio@sidecite{#4}}}%
 		{\IfNoValueOrEmptyTF{#3}%
 			{\IfNoValueTF{#3}%
-                {\def\@tempa{\textcite[#2]{#4}\kaobiblio@sidecite{#4}}}%
-                {\def\@tempa{\textcite[#2][]{#4}\kaobook@sidecite{#4}}}% postnote is empty, so pass empty postnote
+				{\def\@tempa{\textcite[#2]{#4}\kaobiblio@sidecite{#4}}}%
+				{\def\@tempa{\textcite[#2][]{#4}\kaobook@sidecite{#4}}}% postnote is empty, so pass empty postnote
 			}%
-            {\def\@tempa{\textcite[#2][#3]{#4}\kaobiblio@sidecite{#4}}}%
-        }%
-    \ifkaobiblio@addspace%
-        \unskip~\@tempa%
-    \else%
-        \@tempa%
-    \fi%
+			{\def\@tempa{\textcite[#2][#3]{#4}\kaobiblio@sidecite{#4}}}%
+		}%
+	\ifkaobiblio@addspace%
+		\unskip~\@tempa%
+	\else%
+		\@tempa%
+	\fi%
 }
 
 % Command to \parencite or \parencite* and print a citation in the margin
@@ -279,33 +279,33 @@
 		\\% separator between multiple citations
 	}{%
 	}%
-    % With this we print the marker in the text and add the item to the bibliography at the end
-    \IfBooleanTF#1%
-        {\IfNoValueOrEmptyTF{#3}%
-            {\parencite*{#5}}%
-            {\IfNoValueOrEmptyTF{#4}%
-                {\IfNoValueTF{#4}%
-                    {\def\@tempa{\parencite*[#3]{#5}}}%
-                    {\def\@tempa{\parencite*[#3][]{#5}}}% postnote is empty, so pass empty postnote
-                }%
-                {\def\@tempa{\parencite*[#3][#4]{#5}}}%
-            }%
-        }%
-        {\IfNoValueOrEmptyTF{#3}%
-            {\def\@tempa{\parencite{#5}}}%
-            {\IfNoValueOrEmptyTF{#4}%
-                {\IfNoValueTF{#4}%
-                    {\def\@tempa{\parencite[#3]{#5}}}%
-                    {\def\@tempa{\parencite[#3][]{#5}}}% postnote is empty, so pass empty postnote
-                }%
-                {\def\@tempa{\parencite[#3][#4]{#5}}}%
-            }%
-        }%
-    \ifkaobiblio@addspace%
-        \unskip~\@tempa%
-    \else%
-        \@tempa%
-    \fi%
+	% With this we print the marker in the text and add the item to the bibliography at the end
+	\IfBooleanTF#1%
+		{\IfNoValueOrEmptyTF{#3}%
+			{\parencite*{#5}}%
+			{\IfNoValueOrEmptyTF{#4}%
+				{\IfNoValueTF{#4}%
+					{\def\@tempa{\parencite*[#3]{#5}}}%
+					{\def\@tempa{\parencite*[#3][]{#5}}}% postnote is empty, so pass empty postnote
+				}%
+				{\def\@tempa{\parencite*[#3][#4]{#5}}}%
+			}%
+		}%
+		{\IfNoValueOrEmptyTF{#3}%
+			{\def\@tempa{\parencite{#5}}}%
+			{\IfNoValueOrEmptyTF{#4}%
+				{\IfNoValueTF{#4}%
+					{\def\@tempa{\parencite[#3]{#5}}}%
+					{\def\@tempa{\parencite[#3][]{#5}}}% postnote is empty, so pass empty postnote
+				}%
+				{\def\@tempa{\parencite[#3][#4]{#5}}}%
+			}%
+		}%
+	\ifkaobiblio@addspace%
+		\unskip~\@tempa%
+	\else%
+		\@tempa%
+	\fi%
 }
 
 
@@ -358,13 +358,13 @@
 
 	\newbool{cbx:link}
 
-    % Include parentheses around labelyear in \textcite only in
-    % single citations without pre- and postnotes
-    \def\iflinkparens{%
-        \ifboolexpr{ test {\ifnumequal{\value{multicitetotal}}{0}} and
-                     test {\ifnumequal{\value{citetotal}}{1}} and
-                     test {\iffieldundef{prenote}} and
-                     test {\iffieldundef{postnote}} }}
+	% Include parentheses around labelyear in \textcite only in
+	% single citations without pre- and postnotes
+	\def\iflinkparens{%
+		\ifboolexpr{ test {\ifnumequal{\value{multicitetotal}}{0}} and
+					 test {\ifnumequal{\value{citetotal}}{1}} and
+					 test {\iffieldundef{prenote}} and
+					 test {\iffieldundef{postnote}} }}
 
 	\xpatchbibmacro{textcite}
 		{\printnames{labelname}}

@@ -57,14 +57,14 @@
 
 \setlength{\absleftindent}{0pt}% No indentation in the abstract
 \if@abstrt
-  \renewcommand{\abstitlestyle}[1]{%
+	\renewcommand{\abstitlestyle}[1]{%
 	\vspace{-0.6cm}%
-    \begin{center}%
-	  {\normalfont\bfseries\hspace{-3em} \abstractname\vspace{-.5em}\vspace{\z@}}%
-    \end{center}%
-  }
+	\begin{center}%
+		{\normalfont\bfseries\hspace{-3em} \abstractname\vspace{-.5em}\vspace{\z@}}%
+	\end{center}%
+	}
 \else
-  \renewcommand{\abstitlestyle}[1]{\vspace{-.5em}\vspace{\z@}}%
+	\renewcommand{\abstitlestyle}[1]{\vspace{-.5em}\vspace{\z@}}%
 \fi
 
 % Set KOMA fonts

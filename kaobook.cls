@@ -62,7 +62,7 @@
 % Main matter
 \let\oldmainmatter\mainmatter % Store the old command
 \renewcommand{\mainmatter}{%
-    \oldmainmatter% Call the old command
+	\oldmainmatter% Call the old command
 	\pagestyle{scrheadings}% Use a fancy style for the header and the footer
 	\pagelayout{margin}% Use a 1.5 column layout
 	\setchapterstyle{kao} % Choose the default chapter heading style
@@ -96,9 +96,9 @@
 % Command to easily switch between chapter styles
 \DeclareDocumentCommand{\setchapterstyle}{m}{%
 	\ifthenelse{\equal{plain}{#1}}{\chapterstyleplain}{}
-    \ifthenelse{\equal{bar}{#1}}{\chapterstylebar}{}
+	\ifthenelse{\equal{bar}{#1}}{\chapterstylebar}{}
 	\ifthenelse{\equal{lines}{#1}}{\chapterstylelines}{}
-    \ifthenelse{\equal{kao}{#1}}{\chapterstylekao}{}
+	\ifthenelse{\equal{kao}{#1}}{\chapterstylekao}{}
 }
 
 % The default definition in KOMA script
@@ -108,7 +108,7 @@
 	\renewcommand*{\chapterformat}{%
 		\mbox{\chapappifchapterprefix{\nobreakspace}\thechapter%
 		\autodot\IfUsePrefixLine{}{\enskip}}}
-    \RedeclareSectionCommand[beforeskip=0cm,afterskip=10\vscale]{chapter}
+	\RedeclareSectionCommand[beforeskip=0cm,afterskip=10\vscale]{chapter}
 	\setlength{\mtocshift}{-1\vscale}
 }
 
@@ -134,7 +134,7 @@
 			]{\@hangfrom{##2}{##3}};
 		\end{tikzpicture}
 	}
-    \RedeclareSectionCommand[beforeskip=-55\vscale,afterskip=6\vscale]{chapter}
+	\RedeclareSectionCommand[beforeskip=-55\vscale,afterskip=6\vscale]{chapter}
 	\setlength{\mtocshift}{-1\vscale}
 }
 
@@ -147,22 +147,22 @@
 		\chapappifchapterprefix{\nobreakspace}\scalebox{3.5}{\thechapter\autodot}%
 	}%
 	\renewcommand\chapterlinesformat[3]{%
-	  %\vspace*{-1cm}%
-	  \leavevmode%
-	  \makebox[0pt][l]{%
+		%\vspace*{-1cm}%
+		\leavevmode%
+		\makebox[0pt][l]{%
 		\makebox[\textwidth][l]{\hrulefill[1pt]##2}%\hfill%\par%\bigskip
 		\makebox[\marginparsep][l]{}%
 		\makebox[\marginparwidth][l]{}%
-	  }\\
-	  %\vspace{.5cm}
-	  \makebox[0pt][l]{%
+		}\\
+		%\vspace{.5cm}
+		\makebox[0pt][l]{%
 		\makebox[\textwidth][l]{##3}%
 		\makebox[\marginparsep][l]{}%
 		\makebox[\marginparwidth][l]{}%
-	  }\\
-	  \makebox[0pt][l]{%
+		}\\
+		\makebox[0pt][l]{%
 		\makebox[\textwidth+\marginparsep+\marginparwidth][l]{\hrulefill[1.1pt]}%
-	  }%
+		}%
 	}%
 	\RedeclareSectionCommand[beforeskip=0cm,afterskip=10\vscale]{chapter}
 	\setlength{\mtocshift}{-1\vscale}%
@@ -198,7 +198,7 @@
 		\fi%
 	}%
 	\RedeclareSectionCommand[beforeskip=0cm,afterskip=10\vscale]{chapter}%
-    \setlength{\mtocshift}{-3.5\vscale}%
+	\setlength{\mtocshift}{-3.5\vscale}%
 }
 
 % Takes as input the image path and optionally the "beforeskip"
@@ -207,10 +207,10 @@
 		\vspace*{-27\vscale}\hspace*{\dimexpr - \hoffset - \oddsidemargin - 1in}%
 		\includegraphics[width=\paperwidth,height=#1+27\vscale,keepaspectratio=false]{#2}%
 	}%
-    \chapterstylebar%
+	\chapterstylebar%
 	% beforeskip=-(figure_height-top_margin)
-    \RedeclareSectionCommand[beforeskip=-#1, afterskip=6\vscale]{chapter}%
-    \setlength{\mtocshift}{0cm}%
+	\RedeclareSectionCommand[beforeskip=-#1, afterskip=6\vscale]{chapter}%
+	\setlength{\mtocshift}{0cm}%
 }
 
 % By default start with the plain style
