@@ -202,11 +202,13 @@
 \newlength{\headmarginparsep} % This is the width of the whitespace between text and margin
 \newlength{\headmarginparwidth} % This is the width of the margin
 \newlength{\headtotal} % This is the total width of the header
+\newlength{\contentwidth} % An alias for \headtotal
 \newcommand{\recalchead}{% Command to recalculate the header-related length when needed
 	\setlength{\headtextwidth}{\textwidth}%
 	\setlength{\headmarginparsep}{\marginparsep}%
 	\setlength{\headmarginparwidth}{\marginparwidth}%
 	\setlength{\headtotal}{\headtextwidth+\headmarginparsep+\headmarginparwidth}%
+    \setlength{\contentwidth}{\headtotal}%
 }
 
 \AtBeginDocument{% Recalculate the header-related lengths
