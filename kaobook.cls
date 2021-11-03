@@ -37,16 +37,9 @@
 % Pass through any other options to the base class
 \DeclareOption*{\PassOptionsToClass{\CurrentOption}{\@baseclass}} 
 
-%\ProcessKeyvalOptions*
 \ProcessOptions\relax % Process the options
 
 \LoadClass{\@baseclass} % Load the base class
-
-% Define kao-specific options
-\DefineFamily{kao}
-\DefineFamilyMember[kaobook]{kao}
-\DefineFamilyKey[kaobook]{kao}{secnumdepth}[1]{\setcounter{secnumdepth}{#1}\FamilyKeyStateProcessed}
-\FamilyProcessOptions[kaobook]{kao}
 
 \RequirePackage{kao} % Load the code common to all classes
 
@@ -205,7 +198,7 @@
 		\fi%
 	}%
 	\RedeclareSectionCommand[beforeskip=0cm,afterskip=10\vscale]{chapter}%
-    \setlength{\mtocshift}{-4\vscale}%
+    \setlength{\mtocshift}{-3.5\vscale}%
 }
 
 % Takes as input the image path and optionally the "beforeskip"

@@ -26,7 +26,6 @@
 
 \NeedsTeXFormat{LaTeX2e}
 \ProvidesClass{kaohandt}[2021/08/23 v0.9.8 kaohandt]
-\newcommand{\@classname}{kaohandt} % Class name
 \newcommand{\@baseclass}{scrartcl} % Base class name
 
 % Set the default options
@@ -38,12 +37,6 @@
 \ProcessOptions\relax % Process the options
 
 \LoadClass{\@baseclass} % Load the base class
-
-% Define kao-specific options
-\DefineFamily{kao}
-\DefineFamilyMember[kaobook]{kao}
-\DefineFamilyKey[kaobook]{kao}{secnumdepth}[1]{\setcounter{secnumdepth}{#1}\FamilyKeyStateProcessed}
-\FamilyProcessOptions[kaobook]{kao}
 
 \RequirePackage{kao} % Load the code common to all classes
 

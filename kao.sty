@@ -1,6 +1,15 @@
 \ProvidesPackage{kao}
 
 %----------------------------------------------------------------------------------------
+%	KAO-SPECIFIC OPTIONS
+%----------------------------------------------------------------------------------------
+
+\DefineFamily{kao}
+\DefineFamilyMember{kao}
+\DefineFamilyKey{kao}{secnumdepth}[1]{\setcounter{secnumdepth}{#1}\FamilyKeyStateProcessed}
+\FamilyProcessOptions{kao}
+
+%----------------------------------------------------------------------------------------
 %	USEFUL PACKAGES AND COMMANDS
 %----------------------------------------------------------------------------------------
 
@@ -23,6 +32,7 @@
 }{%
 	\let\Ifthispageodd\ifthispageodd%
 }
+
 
 %----------------------------------------------------------------------------------------
 %	TITLE AND AUTHOR MACROS
