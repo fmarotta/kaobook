@@ -4,10 +4,10 @@
 %	KAO-SPECIFIC OPTIONS
 %----------------------------------------------------------------------------------------
 
-\DefineFamily{kao}
-\DefineFamilyMember{kao}
-\DefineFamilyKey{kao}{secnumdepth}[1]{\setcounter{secnumdepth}{#1}\FamilyKeyStateProcessed}
-\FamilyProcessOptions{kao}
+\DefineFamily{kao}% Define the family name
+\DefineFamilyMember{kao}% Add a member to the family
+\DefineFamilyKey{kao}{secnumdepth}[1]{\setcounter{secnumdepth}{#1}\FamilyKeyStateProcessed}% Define a key and a default value
+\FamilyProcessOptions{kao}% Process the options
 
 %----------------------------------------------------------------------------------------
 %	USEFUL PACKAGES AND COMMANDS
@@ -144,6 +144,15 @@
 	\ifthenelse{\equal{fullwidth}{#1}}{\fullwidthlayout\widefloatsetup}{}%
 }
 
+\newif\ifwidelayout%
+\def\IfWideLayout{%
+    \ifwidelayout%
+		\expandafter\@firstoftwo%
+	\else%
+		\expandafter\@secondoftwo%
+	\fi%
+}
+
 % Layout #1: large margins
 \newcommand{\marginlayout}{%
 	\newgeometry{
@@ -154,7 +163,8 @@
 		marginparsep=6.2\hscale,
 		marginparwidth=47.7\hscale,
 	}%
-	\recalchead%
+    \recalchead%
+    \widelayoutfalse%
 }
 
 % Layout #2: small, symmetric margins
@@ -168,6 +178,7 @@
 		marginparwidth=0mm,
 	}%
 	\recalchead%
+    \widelayouttrue%
 }
 
 % Layout #3: no margins and no space above or below the body
@@ -181,6 +192,7 @@
 		marginparsep=0mm,
 	}%
 	\recalchead%
+    \widelayouttrue%
 }
 
 % Set the default page layout
