@@ -146,7 +146,7 @@
 
 \newif\ifwidelayout%
 \def\IfWideLayout{%
-    \ifwidelayout%
+	\ifwidelayout%
 		\expandafter\@firstoftwo%
 	\else%
 		\expandafter\@secondoftwo%
@@ -163,8 +163,8 @@
 		marginparsep=6.2\hscale,
 		marginparwidth=47.7\hscale,
 	}%
-    \recalchead%
-    \widelayoutfalse%
+	\recalchead%
+	\widelayoutfalse%
 }
 
 % Layout #2: small, symmetric margins
@@ -178,7 +178,7 @@
 		marginparwidth=0mm,
 	}%
 	\recalchead%
-    \widelayouttrue%
+	\widelayouttrue%
 }
 
 % Layout #3: no margins and no space above or below the body
@@ -192,7 +192,7 @@
 		marginparsep=0mm,
 	}%
 	\recalchead%
-    \widelayouttrue%
+	\widelayouttrue%
 }
 
 % Set the default page layout
@@ -985,15 +985,15 @@
 		% Dry run to get the needed widths
 		\etocsetstyle{mtocsection}%
 			{}%
-			{\setbox0\hbox{\usekomafont{section}\small\etocthenumber\kern.8mm}%%
-			 \setbox1\hbox{\usekomafont{section}\small\etocthepage}}%
+			{\setbox0\hbox{{\usekomafont{section}\small\etocthenumber\kern.8mm}}%%
+			 \setbox1\hbox{{\usekomafont{section}\small\etocthepage}}}%
 			{\ifdim\wd0>\margintocnumwidth \edef\margintocnumwidth{\the\wd0} \fi%%
 			 \ifdim\wd1>\margintocpagenumwidth \edef\margintocpagenumwidth{\the\wd1} \fi}%
 			{}%
 		\etocsetstyle{mtocsubsection}%
 			{}%
-			{\setbox0\hbox{\usekomafont{section}\small\mdseries\etocthenumber\kern.8mm}%
-			 \setbox1\hbox{\usekomafont{section}\small\mdseries\etocthepage}}%
+			{\setbox0\hbox{{\usekomafont{section}\small\mdseries\etocthenumber\kern.8mm}}%
+			 \setbox1\hbox{{\usekomafont{section}\small\mdseries\etocthepage}}}%
 			{\ifdim\wd0>\margintocnumwidth \edef\margintocnumwidth{\the\wd0} \fi%
 			 \ifdim\wd1>\margintocpagenumwidth \edef\margintocpagenumwidth{\the\wd1} \fi}%
 			{}%
