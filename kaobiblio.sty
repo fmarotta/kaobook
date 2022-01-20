@@ -189,7 +189,7 @@
 	{\IfNoValueOrEmptyTF{#3}%
 		{\IfNoValueTF{#3}%
 			{\def\@tempa{\cite[#2]{#4}\kaobiblio@sidecite{#4}}}%
-			{\def\@tempa{\cite[#2][]{#4}\kaobook@sidecite{#4}}}% postnote is empty, so pass empty postnote
+			{\def\@tempa{\cite[#2][]{#4}\kaobiblio@sidecite{#4}}}% postnote is empty, so pass empty postnote
 		}%
 		{\def\@tempa{\cite[#2][#3]{#4}\kaobiblio@sidecite{#4}}}%
 	}%
