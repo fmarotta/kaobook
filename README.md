@@ -44,9 +44,10 @@ documents, but here are some more books or reports created with the
 kaobook class. If you want to add a link to your work, please send me an 
 email or open a pull request!
 
-* [Growing Open Source Projects with a Stable
-Foundation](https://www.cyrius.com/foss-foundations/growing-open-source-projects.pdf)
-* [Cours De Physique - Mécanique Classique](https://femto-physique.fr/mecanique/pdf/book_meca.pdf)
+* [Growing Open Source Projects with a Stable Foundation (short book)](https://www.cyrius.com/foss-foundations/growing-open-source-projects.pdf)
+* [Cours De Physique - Mécanique Classique (textbook)](https://femto-physique.fr/mecanique/pdf/book_meca.pdf)
+* [Introduction to Causal Inference (textbook)](https://www.bradyneal.com/Introduction_to_Causal_Inference-Dec17_2020-Neal.pdf)
+* [Formalisation and Meta-Theory of Type Theory (PhD thesis)](https://github.com/TheoWinterhalter/phd-thesis/releases/latest)
 
 ## Getting Started
 
