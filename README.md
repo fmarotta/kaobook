@@ -49,6 +49,7 @@ email or open a pull request!
 * [Introduction to Causal Inference (textbook)](https://www.bradyneal.com/Introduction_to_Causal_Inference-Dec17_2020-Neal.pdf)
 * [Formalisation and Meta-Theory of Type Theory (PhD thesis)](https://github.com/TheoWinterhalter/phd-thesis/releases/latest)
 * [Computational modelling of terrains (textbook)](https://github.com/tudelft3d/terrainbook/releases/latest)
+* [Meta-analysis of Type Theories with an Application to the Design of Formal Proofs (PhD thesis)](https://anjapetkovic.com/img/doctoralThesis.pdf)
 
 ## Getting Started
 
