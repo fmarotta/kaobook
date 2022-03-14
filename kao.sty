@@ -370,6 +370,9 @@
 	\end{widepar}%
 }
 
+% Fix for the subequation environment (https://tex.stackexchange.com/questions/27053/too-much-space-between-full-paragraph-and-subequations-env)
+\preto\subequations{\ifhmode\unskip\fi}
+
 %----------------------------------------------------------------------------------------
 %	FOOTNOTES, MARGINNOTES AND SIDENOTES
 %----------------------------------------------------------------------------------------
