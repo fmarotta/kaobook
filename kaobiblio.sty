@@ -147,7 +147,7 @@
 
 % Command to format the marginnote created for cited items
 \NewDocumentCommand{\formatmargincitation}{m}{% The parameter is a single citation key
-	\parencite{#1}: \citeauthor*{#1} (\citeyear{#1}), \citetitle{#1}%
+	\parencite{#1}: \citeauthor*{#1} (\citeyear{#1}), \citefield{#1}[emph]{title}%
 }
 
 % Command to format the marginnote created for supercited items
