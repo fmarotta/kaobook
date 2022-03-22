@@ -548,7 +548,7 @@
 	\marginskip{\kaomarginskipabove}%
 	\begin{lrbox}{\@sidenotes@marginfigurebox}%
 	\begin{minipage}{\marginparwidth}%
-		\captionsetup{type=figure}%
+	\captionsetup{type=figure,labelsep=space}%
 }{%
 	\end{minipage}%
 	\end{lrbox}%
@@ -655,6 +655,7 @@
 \captionsetup{
 	format=margin, % Use the style previously declared
 	strut=no,%
+  labelsep=space, % to avoid .: in figure captions
 	%hypcap=true, % Links point to the top of the figure
 	singlelinecheck=false,%
 	%width=\marginparwidth,
