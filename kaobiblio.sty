@@ -282,23 +282,23 @@
 	% With this we print the marker in the text and add the item to the bibliography at the end
 	\IfBooleanTF#1%
 		{\IfNoValueOrEmptyTF{#3}%
-			{\parencite*{#5}}%
+			{\parencite*{#5}\kaobiblio@sidecite{#5}}%
 			{\IfNoValueOrEmptyTF{#4}%
 				{\IfNoValueTF{#4}%
-					{\def\@tempa{\parencite*[#3]{#5}}}%
-					{\def\@tempa{\parencite*[#3][]{#5}}}% postnote is empty, so pass empty postnote
+					{\def\@tempa{\parencite*[#3]{#5}\kaobiblio@sidecite{#5}}}%
+					{\def\@tempa{\parencite*[#3][]{#5}\kaobiblio@sidecite{#5}}}% postnote is empty, so pass empty postnote
 				}%
-				{\def\@tempa{\parencite*[#3][#4]{#5}}}%
+				{\def\@tempa{\parencite*[#3][#4]{#5}\kaobiblio@sidecite{#5}}}%
 			}%
 		}%
 		{\IfNoValueOrEmptyTF{#3}%
-			{\def\@tempa{\parencite{#5}}}%
+			{\def\@tempa{\parencite{#5}\kaobiblio@sidecite{#5}}}%
 			{\IfNoValueOrEmptyTF{#4}%
 				{\IfNoValueTF{#4}%
-					{\def\@tempa{\parencite[#3]{#5}}}%
-					{\def\@tempa{\parencite[#3][]{#5}}}% postnote is empty, so pass empty postnote
+					{\def\@tempa{\parencite[#3]{#5}\kaobiblio@sidecite{#5}}}%
+					{\def\@tempa{\parencite[#3][]{#5}\kaobiblio@sidecite{#5}}}% postnote is empty, so pass empty postnote
 				}%
-				{\def\@tempa{\parencite[#3][#4]{#5}}}%
+				{\def\@tempa{\parencite[#3][#4]{#5}\kaobiblio@sidecite{#5}}}%
 			}%
 		}%
 	\ifkaobiblio@addspace%
