@@ -370,9 +370,6 @@
 	\end{widepar}%
 }
 
-% Fix for the subequation environment (https://tex.stackexchange.com/questions/27053/too-much-space-between-full-paragraph-and-subequations-env)
-\preto\subequations{\ifhmode\unskip\fi}
-
 %----------------------------------------------------------------------------------------
 %	FOOTNOTES, MARGINNOTES AND SIDENOTES
 %----------------------------------------------------------------------------------------
@@ -1088,6 +1085,9 @@
 % slightly larger stretch.
 %\setstretch{1.10}
 \linespread{1.07} % Give Palatino more leading (space between lines)
+
+% Fix for the subequation environment (https://tex.stackexchange.com/questions/27053/too-much-space-between-full-paragraph-and-subequations-env)
+\preto\subequations{\ifhmode\unskip\fi}
 
 %----------------------------------------------------------------------------------------
 %	HYPERREFERENCES
