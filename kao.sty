@@ -1098,6 +1098,7 @@
 
 \PassOptionsToPackage{hyphens}{url} % Break long URLs and use hyphens to separate the pieces
 
+% Color settings should be done in the next \hypersetup
 \hypersetup{ % Set up hyperref options
 	unicode, % Use unicode for links
 	pdfborder={0 0 0}, % Suppress border around pdf
@@ -1110,11 +1111,6 @@
 	linktoc=all, % Toc entries and numbers links to pages
 	breaklinks=true,
 	colorlinks=true,
-	%allcolors=DarkGreen,
-	citecolor = DarkOrange,
-	linkcolor = Blue,
-	%pagecolor = Blue,
-	urlcolor = OliveGreen,
 }
 
 % Define a new color for the footnote marks
@@ -1173,12 +1169,14 @@
 
 % Choose the default colors
 \hypersetup{
+	%allcolors=DarkGreen,
 	%anchorcolor=Red,
 	%citecolor=DarkOrange!70!black,
 	citecolor=OliveGreen,
 	filecolor=OliveGreen,
 	%linkcolor=Blue,
 	linkcolor=Black,
+	%pagecolor = Blue,
 	%menucolor=Red,
 	%runcolor=Red,
 	urlcolor=OliveGreen,
