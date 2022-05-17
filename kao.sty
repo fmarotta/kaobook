@@ -531,7 +531,7 @@
 
 % The marginfix package prevents the margin notes to stay aligned with the main text, so it cannot be used. However, we define the \marginskip command, which is the only command we need from that package.
 \newcommand\marginskip[1]{%
-	\marginpar{\@margin@par\vspace{#1 - \baselineskip}}% We subtract the \baselineskip that we have in margin pars.
+	\marginpar{\@margin@par\vspace{\dimexpr#1 - \baselineskip\relax}}% We subtract the \baselineskip that we have in margin pars.
 }
 
 \newlength{\kaomarginskipabove} % Specify the space above a marginfigure, margintable or marginlisting
