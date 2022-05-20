@@ -298,6 +298,17 @@
 	\declaretheoremstyle[
 		spaceabove=.6\thm@preskip,
 		spacebelow=.1\thm@postskip,
+		%headfont=\normalfont\bfseries,%\scshape,
+		%notefont=\normalfont, notebraces={ (}{)},
+		bodyfont=\normalfont\itshape,
+		%headformat={\NAME\space\NUMBER\space\NOTE},
+		headpunct={},
+		%postheadspace={.5em plus .1em minus .1em},
+		%prefoothook={\hfill\qedsymbol}
+	]{kaoassumption}
+	\declaretheoremstyle[
+		spaceabove=.6\thm@preskip,
+		spacebelow=.1\thm@postskip,
 		%headfont=\normalfont\bfseries,
 		%notefont=\normalfont, notebraces={ (}{)},
 		%bodyfont=\normalfont,
@@ -370,6 +381,15 @@
 		Refname={Definition,Definitions},
 		numberwithin=section,
 	]{definition}
+	
+	% Theorems using the 'kaoassumption' style
+	\theoremstyle{kaoassumption}
+	\declaretheorem[
+		name=Assumption,
+		refname={Assumption,Assumptions},
+		Refname={Assumption,Assumptions},
+		numberwithin=section,
+	]{assumption}
 
 	% Theorems using the 'kaoremark' style
 	\theoremstyle{kaoremark}
