@@ -422,9 +422,9 @@
 	\fi%
 }
 
-% Command to detect whether we are inside an mdframed environment
-\newif\ifinfloat % First, set this flag whenever we are in an mdframed environment...
-\AtBeginEnvironment{mdframed}{\infloattrue}
+% Command to detect whether we are inside a tcolorbox environment
+\newif\ifinfloat % First, set this flag whenever we are in a tcolorbox environment...
+\AtBeginEnvironment{tcolorbox}{\infloattrue\renewcommand{\marginnotevadjust}{-1.4\vscale}}
 \AtBeginEnvironment{minipage}{\infloattrue}
 
 \def\IfInFloatingEnvir{% ...Then, detect the flag
