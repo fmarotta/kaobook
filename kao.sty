@@ -1,7 +1,7 @@
 \ProvidesPackage{kao}
 
 %----------------------------------------------------------------------------------------
-%	KAO-SPECIFIC OPTIONS
+%	DECLARE KAO
 %----------------------------------------------------------------------------------------
 
 \DefineFamily{kao}% Define the family name
@@ -13,10 +13,11 @@
 %	USEFUL PACKAGES AND COMMANDS
 %----------------------------------------------------------------------------------------
 
+\RequirePackage{kvoptions} % Handle package options
 \RequirePackage{etoolbox} % Easy programming to modify TeX stuff
 \RequirePackage{calc} % Make calculations
 \RequirePackage[usenames,dvipsnames,table]{xcolor} % Colours
-\RequirePackage{iftex} % Check wether XeTeX is being used
+\RequirePackage{iftex} % Check whether XeTeX is being used
 \RequirePackage{xifthen} % Easy conditionals
 \RequirePackage{options} % Manage class options
 \RequirePackage{xparse} % Parse arguments for macros
@@ -33,6 +34,39 @@
 	\let\Ifthispageodd\ifthispageodd%
 }
 
+%----------------------------------------------------------------------------------------
+%	KAO-SPECIFIC OPTIONS
+%----------------------------------------------------------------------------------------
+
+% Set up the package options
+\SetupKeyvalOptions{
+	family = kao,
+	prefix = kao@
+}
+
+% https://tex.stackexchange.com/questions/47576/combining-ifxetex-and-ifluatex-with-the-logical-or-operation
+% Introduce a command to find out whether the compiler is XeTeX or LuaTeX
+\newif\ifxetexorluatex
+\ifxetex
+	\xetexorluatextrue
+\else
+	\ifluatex
+		\xetexorluatextrue
+	\else
+		\xetexorluatexfalse
+	\fi
+\fi
+
+\ifxetexorluatex
+	\newcommand{\kao@defaultfontmethod}{modern}
+\else
+	\newcommand{\kao@defaultfontmethod}{tex}
+\fi
+
+% Set default based on rendering engine
+\DeclareStringOption[\kao@defaultfontmethod]{fontmethod}
+
+\ProcessKeyvalOptions{kao}
 
 %----------------------------------------------------------------------------------------
 %	TITLE AND AUTHOR MACROS
@@ -1039,20 +1073,7 @@
 %	ENCODING AND FONTS
 %----------------------------------------------------------------------------------------
 
-% https://tex.stackexchange.com/questions/47576/combining-ifxetex-and-ifluatex-with-the-logical-or-operation
-% Introduce a command to find out whether the compiler is XeTeX or LuaTeX
-\newif\ifxetexorluatex
-\ifxetex
-	\xetexorluatextrue
-\else
-	\ifluatex
-		\xetexorluatextrue
-	\else
-		\xetexorluatexfalse
-	\fi
-\fi
-
-\ifxetexorluatex
+\newcommand{\kao@fontmethodModern}{%
 	\RequirePackage{amssymb} % Must be loaded before unicode-math
 	\RequirePackage[force]{filehook} % Fixes an error
 	\RequirePackage{unicode-math} % Math fonts in xetexorluatex
@@ -1069,8 +1090,9 @@
 	\ifluatex
 	\else
 		\RequirePackage{morewrites} % Fix some errors related to floats (not necessary with LuaLaTeX
-	\fi
-\else
+	\fi%
+}
+\newcommand{\kao@fontmethodTex}{%
 	\RequirePackage[utf8]{inputenc} % utf8 encoding in the input (.tex) file
 	\RequirePackage[T1]{fontenc} % utf8 encoding in the output (.pdf) file
 
@@ -1080,7 +1102,19 @@
 	\RequirePackage[scaled=.85]{beramono} % Monospace font
 	\RequirePackage[scr=rsfso,cal=boondoxo]{mathalfa} % Mathcal from STIX, unslanted a bit
 	\RequirePackage{morewrites} % Fix some errors related to floats
-\fi
+}
+
+\ifthenelse%
+	{\equal{modern}{\kao@fontmethod}}{\kao@fontmethodModern}%
+{\ifthenelse%
+	{\equal{tex}{\kao@fontmethod}}{\kao@fontmethodTex}%
+{
+	\PackageError{kao}{%
+		Invalid fontmethod choice \kao@fontmethod.%
+	}{%
+		Should be one of "modern" or "tex"%
+	}
+}}
 
 % When using the Palatino (newpxtext) font, it is better to use a 
 % slightly larger stretch.
@@ -1359,7 +1393,6 @@
 
 % Special gliphs
 \RequirePackage{ccicons} % Creative Commons icons
-\RequirePackage{metalogo} % XeTeX logo
 
 % Index, glossary and nomenclature
 \RequirePackage{imakeidx}
