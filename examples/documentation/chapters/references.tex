@@ -6,13 +6,13 @@
 \section{Citations}
 
 \index{citations}
-To cite someone \sidecite{Visscher2008,James2013} is very simple: just 
+To cite someone \sidecite{James2013} is very simple: just 
 use the \Command{sidecite}\index{\Command{sidecite}} command. It does 
 not have an offset argument yet, but it probably will in the future. 
 This command supports multiple entries, as you can see, and by default 
 it prints the reference on the margin as well as adding it to the 
 bibliography at the end of the document. Note that the citations have 
-nothing to do with the text,\sidecite{James2013} but they are completely 
+nothing to do with the text, \sidecite{James2013} but they are completely 
 random as they only serve the purpose to illustrate the feature.
 
 For this setup I wrote a separate package, \Package{kaobiblio}, which 
@@ -25,8 +25,8 @@ under the hood. Moreover, it also defines some commands, like
 use \Package{kaobiblio} instead of \Package{biblatex}, but the syntax 
 and the options are exactly the same.}
 
-If you want to use \Package{bibtex} instead of \Package{biblatex},
-pass the option \Option{backend=bibtex} to \Package{kaobiblio}.
+Pass the option \Option{backend=bibtex} to \Package{kaobiblio}, if you want to use \Package{bibtex} instead of \Package{biblatex},
+.
 \Package{kaobiblio} also supports two options that are not shared with
 \Package{biblatex}: \Option{addspace} and \Option{linkeverything},
 both of which are boolean options, meaning that they can take

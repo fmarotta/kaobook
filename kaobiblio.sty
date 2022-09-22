@@ -172,13 +172,30 @@
 % Second optional argument: postnote if the third argument isn't specified; prenote if the third argument is specified (same pattern as the \textcite command)
 % Third optional argument: postnote
 % Mandatory argument: citation key
+\NewDocumentCommand{\registerkey}{}{%
+  \ifcsundef{cbx@instcount@curr@\the\c@refsection @\thefield{entrykey}}
+    {\csnumgdef{cbx@instcount@curr@\the\c@refsection @\thefield{entrykey}}{0}}
+    {}%
+  \csnumgdef{cbx@instcount@last@\the\c@refsection @\thefield{entrykey}}{%
+    \csuse{cbx@instcount@curr@\the\c@refsection @\thefield{entrykey}}}%
+  \csnumgdef{cbx@instcount@curr@\the\c@refsection @\thefield{entrykey}}{\value{instcount}}}
+
+\def\iflastciteonsamepage{
+  \ifsamepage
+    {\number\csuse{cbx@instcount@curr@\the\c@refsection @\thefield{entrykey}}}
+    {\number\csuse{cbx@instcount@last@\the\c@refsection @\thefield{entrykey}}}
+}
 \NewDocumentCommand{\sidecite}{o o o m}{%
 	\RenewDocumentCommand{\kaobiblio@marginnote}{m}{%
 		\marginnote[#1]{##1}%
 	}%
 	\DeclareCiteCommand{\kaobiblio@sidecite}[\kaobiblio@marginnote]{%
 	}{%
-		\formatmargincitation{\thefield{entrykey}}%
+		\registerkey
+		\iflastciteonsamepage
+     	{}
+     	{\formatmargincitation{\thefield{entrykey}}}
+		
 	}{%
 		\\% separator between multiple citations
 	}{%
@@ -193,68 +210,6 @@
 		}%
 		{\def\@tempa{\cite[#2][#3]{#4}\kaobiblio@sidecite{#4}}}%
 	}%
-	\ifkaobiblio@addspace%
-		\unskip~\@tempa%
-	\else%
-		\@tempa%
-	\fi%
-}
-
-% Command to \supercite and print a citation in the margin
-% First optional argument: vertical shift
-% Second optional argument: postnote if the third argument isn't specified; prenote if the third argument is specified (same pattern as the \textcite command)
-% Third optional argument: postnote
-% Mandatory argument: citation key
-\NewDocumentCommand{\sidesupercite}{o o o m}{%
-	\RenewDocumentCommand{\kaobiblio@marginnote}{m}{%
-		\marginnote[#1]{##1}%
-	}%
-	\DeclareCiteCommand{\kaobiblio@sidesupercite}[\kaobiblio@marginnote]{%
-	}{%
-		\formatmarginsupercitation{\thefield{entrykey}}%
-	}{%
-		\\% separator between multiple citations
-	}{%
-	}%
-	% With this we print the marker in the text and add the item to the bibliography at the end
-	\IfNoValueOrEmptyTF{#2}%
-	{\def\@tempa{\supercite{#4}\kaobiblio@sidesupercite{#4}}}%
-	{\IfNoValueOrEmptyTF{#3}%
-		{\IfNoValueTF{#3}%
-			{\def\@tempa{\supercite[#2]{#4}\kaobiblio@sidesupercite{#4}}}%
-			{\def\@tempa{\supercite[#2][]{#4}\kaobook@sidesupercite{#4}}}% postnote is empty, so pass empty postnote
-		}%
-		{\def\@tempa{\supercite[#2][#3]{#4}\kaobiblio@sidesupercite{#4}}}%
-	}%
-	\@tempa%
-}
-
-% Command to \textcite and print a citation in the margin
-% First optional argument: vertical shift
-% Second optional argument: postnote if the third argument isn't specified; prenote if the third argument is specified (same pattern as the \textcite command)
-% Third optional argument: postnote
-% Mandatory argument: citation key
-\NewDocumentCommand{\sidetextcite}{o o o m}{%
-	\RenewDocumentCommand{\kaobiblio@marginnote}{m}{%
-		\marginnote[#1]{##1}%
-	}%
-	\DeclareCiteCommand{\kaobiblio@sidecite}[\kaobiblio@marginnote]{%
-	}{%
-		\formatmargincitation{\thefield{entrykey}}%
-	}{%
-		\\% separator between multiple citations
-	}{%
-	}%
-	% With this we print the marker in the text and add the item to the bibliography at the end
-	\IfNoValueOrEmptyTF{#2}%
-		{\def\@tempa{\textcite{#4}\kaobiblio@sidecite{#4}}}%
-		{\IfNoValueOrEmptyTF{#3}%
-			{\IfNoValueTF{#3}%
-				{\def\@tempa{\textcite[#2]{#4}\kaobiblio@sidecite{#4}}}%
-				{\def\@tempa{\textcite[#2][]{#4}\kaobook@sidecite{#4}}}% postnote is empty, so pass empty postnote
-			}%
-			{\def\@tempa{\textcite[#2][#3]{#4}\kaobiblio@sidecite{#4}}}%
-		}%
 	\ifkaobiblio@addspace%
 		\unskip~\@tempa%
 	\else%
