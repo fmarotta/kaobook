@@ -38,34 +38,23 @@
 %----------------------------------------------------------------------------------------
 
 \ifkaotheorems@framed% Define the style of the mdframed boxes for theorems
-	\RequirePackage{tikz} % Required by mdframed
-	\RequirePackage[framemethod=TikZ]{mdframed} % Required for colorful boxes
+	\RequirePackage[most]{tcolorbox}
 
 	% Box style
-	\mdfsetup{skipabove=\topskip,skipbelow=0pt}%-.5\topskip}
-	\mdfdefinestyle{mdfkao}{
-		skipabove=\topskip,
-		skipbelow=\topskip, % Does not work :(
-		rightmargin=0pt,
-		leftmargin=0pt,
-		innertopmargin=7pt,
-		innerbottommargin=3pt,
-		innerrightmargin=5pt,
-		innerleftmargin=5pt,
-		topline=false,
-		bottomline=false,
-		rightline=false,
-		leftline=false,
-		%linewidth=1pt,
-		%roundcorner=0pt,
-		%font={},
-		%frametitlefont={},
-		frametitlerule=true,
-		%linecolor=black,
-		%backgroundcolor=LightBlue,
-		%fontcolor=black,
-		%frametitlebackgroundcolor=LightBlue,
-	}
+	\tcbset{tcbkao/.style={
+		breakable,
+		before skip=\topskip,
+		after skip=\topskip,
+		left skip=0pt,
+		right skip=0pt,
+		top=5pt,
+		bottom=3pt,
+		left=2pt,
+		right=2pt,
+		sharp corners,
+		boxrule=0pt,
+		frame hidden,
+	}}
 
 	% Theorem styles
 	\declaretheoremstyle[
@@ -150,48 +139,40 @@
 		refname={Theorem,Theorems},
 		Refname={Theorem,Theorems},
 		numberwithin=section,
-		mdframed={
-			style=mdfkao,
-			backgroundcolor=\kaotheorems@theorembackground,
-			%frametitlebackgroundcolor=\@theorembackground,
-		},
 	]{theorem}
+	\tcolorboxenvironment{theorem}{
+		colback=\kaotheorems@theorembackground,tcbkao
+	}
 	\declaretheorem[
 		name=Proposition,
 		%refname={proposition,propositions},
 		refname={Proposition,Propositions},
 		Refname={Proposition,Propositions},
 		sibling=theorem,
-		mdframed={
-			style=mdfkao,
-			backgroundcolor=\kaotheorems@propositionbackground,
-			%frametitlebackgroundcolor=\@theorembackground,
-		},
 	]{proposition}
+	\tcolorboxenvironment{proposition}{
+		colback=\kaotheorems@propositionbackground,tcbkao
+	}
 	\declaretheorem[
 		name=Lemma,
 		%refname={lemma,lemmas},
 		refname={Lemma,Lemmas},
 		Refname={Lemma,Lemmas},
 		sibling=theorem,
-		mdframed={
-			style=mdfkao,
-			backgroundcolor=\kaotheorems@lemmabackground,
-			%frametitlebackgroundcolor=\@theorembackground,
-		},
 	]{lemma}
+	\tcolorboxenvironment{lemma}{
+		colback=\kaotheorems@lemmabackground,tcbkao
+	}
 	\declaretheorem[
 		name=Corollary,
 		%refname={corollary,corollaries},
 		refname={Corollary,Corollaries},
 		Refname={Corollary,Corollaries},
 		sibling=theorem,
-		mdframed={
-			style=mdfkao,
-			backgroundcolor=\kaotheorems@corollarybackground,
-			%frametitlebackgroundcolor=\@theorembackground,
-		},
 	]{corollary}
+	\tcolorboxenvironment{corollary}{
+		colback=\kaotheorems@corollarybackground,tcbkao
+	}
 
 	% Theorems using the 'kaodefinition' style
 	\theoremstyle{kaodefinition}
@@ -201,12 +182,10 @@
 		refname={Definition,Definitions},
 		Refname={Definition,Definitions},
 		numberwithin=section,
-		mdframed={
-			style=mdfkao,
-			backgroundcolor=\kaotheorems@definitionbackground,
-			%frametitlebackgroundcolor=\@theorembackground,
-		},
 	]{definition}
+	\tcolorboxenvironment{definition}{
+		colback=\kaotheorems@definitionbackground,tcbkao
+	}
 
 	% Theorems using the 'kaoassumption' style
 	\theoremstyle{kaoassumption}
@@ -216,12 +195,10 @@
 		refname={Assumption,Assumptions},
 		Refname={Assumption,Assumptions},
 		numberwithin=section,
-		mdframed={
-			style=mdfkao,
-			backgroundcolor=\kaotheorems@assumptionbackground,
-			%frametitlebackgroundcolor=\@theorembackground,
-		},
 	]{assumption}
+	\tcolorboxenvironment{assumption}{
+		colback=\kaotheorems@assumptionbackground,tcbkao
+	}
 
 	% Theorems using the 'kaoremark' style
 	\theoremstyle{kaoremark}
@@ -231,12 +208,10 @@
 		refname={Remark,Remarks},
 		Refname={Remark,Remarks},
 		numberwithin=section,
-		mdframed={
-			style=mdfkao,
-			backgroundcolor=\kaotheorems@remarkbackground,
-			%frametitlebackgroundcolor=\@theorembackground,
-		},
 	]{remark}
+	\tcolorboxenvironment{remark}{
+		colback=\kaotheorems@remarkbackground,tcbkao
+	}
 
 	% Theorems using the 'kaoexample' style
 	\theoremstyle{kaoexample}
@@ -246,27 +221,23 @@
 		refname={Example,Examples},
 		Refname={Example,Examples},
 		numberwithin=section,
-		mdframed={
-			style=mdfkao,
-			backgroundcolor=\kaotheorems@examplebackground,
-			%frametitlebackgroundcolor=\@theorembackground,
-		},
 	]{example}
+	\tcolorboxenvironment{example}{
+		colback=\kaotheorems@examplebackground,tcbkao
+	}
 
 	% Theorems using the 'kaoexercise' style
 	\theoremstyle{kaoexercise}
 	\declaretheorem[
 		name=Exercise,
-		%refname={example,examples},
+		%refname={exercise,exercises},
 		refname={Exercise,Exercises},
 		Refname={Exercise,Exercises},
 		numberwithin=section,
-		mdframed={
-			style=mdfkao,
-			backgroundcolor=\kaotheorems@exercisebackground,
-			%frametitlebackgroundcolor=\@theorembackground,
-		},
 	]{exercise}
+	\tcolorboxenvironment{exercise}{
+		colback=\kaotheorems@exercisebackground,tcbkao
+	}
 
 	%\renewcommand{\thetheorem}{\arabic{chapter}.\arabic{section}.\arabic{theorem}}
 	%\renewcommand{\thetheorem}{\arabic{subsection}.\arabic{theorem}}
@@ -350,25 +321,25 @@
 	\theoremstyle{kaoplain}
 	\declaretheorem[
 		name=Theorem,
-		refname={theorem,theorems},
+		refname={Theorem,Theorems},
 		Refname={Theorem,Theorems},
 		numberwithin=section,
 	]{theorem}
 	\declaretheorem[
 		name=Proposition,
-		refname={proposition,propositions},
+		refname={Proposition,Propositions},
 		Refname={Proposition,Propositions},
 		sibling=theorem,
 	]{proposition}
 	\declaretheorem[
 		name=Lemma,
-		refname={lemma,lemmas},
+		refname={Lemma,Lemmas},
 		Refname={Lemma,Lemmas},
 		sibling=theorem,
 	]{lemma}
 	\declaretheorem[
 		name=Corollary,
-		refname={corollary,corollaries},
+		refname={Corollary,Corollaries},
 		Refname={Corollary,Corollaries},
 		sibling=theorem,
 	]{corollary}
@@ -377,7 +348,7 @@
 	\theoremstyle{kaodefinition}
 	\declaretheorem[
 		name=Definition,
-		refname={definition,definitions},
+		refname={Definition,Definitions},
 		Refname={Definition,Definitions},
 		numberwithin=section,
 	]{definition}
@@ -395,7 +366,7 @@
 	\theoremstyle{kaoremark}
 	\declaretheorem[
 		name=Remark,
-		refname={remark,remarks},
+		refname={Remark,Remarks},
 		Refname={Remark,Remarks},
 		numberwithin=section,
 	]{remark}
@@ -404,7 +375,7 @@
 	\theoremstyle{kaoexample}
 	\declaretheorem[
 		name=Example,
-		refname={example,examples},
+		refname={Example,Examples},
 		Refname={Example,Examples},
 		numberwithin=section,
 	]{example}
@@ -413,15 +384,9 @@
 	\theoremstyle{kaoexercise}
 	\declaretheorem[
 		name=Exercise,
-		%refname={example,examples},
 		refname={Exercise,Exercises},
 		Refname={Exercise,Exercises},
 		numberwithin=section,
-		mdframed={
-			style=mdfkao,
-			backgroundcolor=\@exercisebackground,
-			%frametitlebackgroundcolor=\@theorembackground,
-		},
 	]{exercise}
 
 	%\renewcommand{\thetheorem}{\arabic{chapter}.\arabic{section}.\arabic{theorem}}

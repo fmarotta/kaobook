@@ -456,9 +456,9 @@
 	\fi%
 }
 
-% Command to detect whether we are inside an mdframed environment
-\newif\ifinfloat % First, set this flag whenever we are in an mdframed environment...
-\AtBeginEnvironment{mdframed}{\infloattrue}
+% Command to detect whether we are inside a tcolorbox environment
+\newif\ifinfloat % First, set this flag whenever we are in a tcolorbox environment...
+\AtBeginEnvironment{tcolorbox}{\infloattrue\renewcommand{\marginnotevadjust}{-1.4\vscale}}
 \AtBeginEnvironment{minipage}{\infloattrue}
 
 \def\IfInFloatingEnvir{% ...Then, detect the flag
@@ -1232,42 +1232,34 @@
 %	SIMPLE BOXED ENVIRONMENT
 %----------------------------------------------------------------------------------------
 
-% kaobox (while tcolorbox may be more rich, I find it too complicated so I prefer mdframed)
-\RequirePackage{tikz}
-\RequirePackage[framemethod=TikZ]{mdframed}
-
-% Define a new style for mdframed boxes
-%\mdfsetup{skipabove=\topskip,skipbelow=0pt}
-\mdfdefinestyle{kaoboxstyle}{
-	skipabove=1.5\topskip,
-	skipbelow=.5\topskip,
-	rightmargin=0pt,
-	leftmargin=0pt,
-	%innertopmargin=3pt,
-	%innerbottommargin=3pt,
-	innerrightmargin=7pt,
-	innerleftmargin=7pt,
-	topline=false,
-	bottomline=false,
-	rightline=false,
-	leftline=false,
-	%linewidth=1pt,
-	%roundcorner=0pt,
-	%font={},
-	%frametitlefont={},
-	frametitlerule=true,
-	linecolor=black,
-	%backgroundcolor=LightBlue,
-	fontcolor=black,
-	%frametitlebackgroundcolor=LightBlue,
-}
+% kaobox
+\RequirePackage[most]{tcolorbox}
 
 % Define a new environment using the style created above
-\newmdenv[
-	style=kaoboxstyle,
-	backgroundcolor=RoyalBlue!25!White,
-	frametitlebackgroundcolor=RoyalBlue!25!White,
-]{kaobox}
+\newtcolorbox{kaobox}[1][]{
+	breakable,
+	before skip=1.5\topskip,
+	after skip=1.5\topskip,
+	left skip=0pt,
+	right skip=0pt,
+	left=4pt,
+	right=4pt,
+	top=2pt,
+	bottom=2pt,
+	lefttitle=4pt,
+	righttitle=4pt,
+	toptitle=2pt,
+	bottomtitle=2pt,
+	sharp corners,
+	boxrule=0pt,
+	titlerule=.4pt,
+	colback=RoyalBlue!25!White,
+	colbacktitle=RoyalBlue!25!White,
+	coltitle=black,
+	colframe=black,
+	fonttitle=\bfseries,
+	#1
+}
 
 %----------------------------------------------------------------------------------------
 %	ENVIRONMENT WITH A COUNTER
@@ -1276,7 +1268,7 @@
 % Define an environment titled 'Comment' and numbered incrementally
 \newenvironment{kaocounter}{
 	\refstepcounter{kaocounter}
-	\begin{kaobox}[frametitle=Comment~\thekaocounter\autodot]
+	\begin{kaobox}[title=Comment~\thekaocounter\autodot]
 }{
 	\end{kaobox}
 }
