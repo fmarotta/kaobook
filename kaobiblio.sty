@@ -172,6 +172,52 @@
 % Second optional argument: postnote if the third argument isn't specified; prenote if the third argument is specified (same pattern as the \textcite command)
 % Third optional argument: postnote
 % Mandatory argument: citation key
+\NewDocumentCommand{\registerkey}{}{%
+  \ifcsundef{cbx@instcount@curr@\the\c@refsection @\thefield{entrykey}}
+    {\csnumgdef{cbx@instcount@curr@\the\c@refsection @\thefield{entrykey}}{0}}
+    {}%
+  \csnumgdef{cbx@instcount@last@\the\c@refsection @\thefield{entrykey}}{%
+    \csuse{cbx@instcount@curr@\the\c@refsection @\thefield{entrykey}}}%
+  \csnumgdef{cbx@instcount@curr@\the\c@refsection @\thefield{entrykey}}{\value{instcount}}}
+
+\def\iflastciteonsamepage{
+  \ifsamepage
+    {\number\csuse{cbx@instcount@curr@\the\c@refsection @\thefield{entrykey}}}
+    {\number\csuse{cbx@instcount@last@\the\c@refsection @\thefield{entrykey}}}
+}
+
+\NewDocumentCommand{\sideciteonce}{o o o m}{%
+	\RenewDocumentCommand{\kaobiblio@marginnote}{m}{%
+		\marginnote[#1]{##1}%
+	}%
+	\DeclareCiteCommand{\kaobiblio@sideciteonce}[\kaobiblio@marginnote]{%
+	}{%
+		\registerkey
+		\iflastciteonsamepage
+     	{}
+     	{\formatmargincitation{\thefield{entrykey}}}
+		
+	}{%
+		
+	}{%
+	}%
+	% With this we print the marker in the text and add the item to the bibliography at the end
+	\IfNoValueOrEmptyTF{#2}%
+	{\def\@tempa{\cite{#4}\kaobiblio@sideciteonce{#4}}}%
+	{\IfNoValueOrEmptyTF{#3}%
+		{\IfNoValueTF{#3}%
+			{\def\@tempa{\cite[#2]{#4}\kaobiblio@sideciteonce{#4}}}%
+			{\def\@tempa{\cite[#2][]{#4}\kaobiblio@sideciteonce{#4}}}% postnote is empty, so pass empty postnote
+		}%
+		{\def\@tempa{\cite[#2][#3]{#4}\kaobiblio@sideciteonce{#4}}}%
+	}%
+	\ifkaobiblio@addspace%
+		\unskip~\@tempa%
+	\else%
+		\@tempa%
+	\fi%
+}
+
 \NewDocumentCommand{\sidecite}{o o o m}{%
 	\RenewDocumentCommand{\kaobiblio@marginnote}{m}{%
 		\marginnote[#1]{##1}%
