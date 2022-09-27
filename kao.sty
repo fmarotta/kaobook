@@ -609,7 +609,7 @@
 	\marginskip{\kaomarginskipabove}%
 	\begin{lrbox}{\@sidenotes@marginlistingbox}%
 	\begin{minipage}{\marginparwidth}%
-		\captionsetup{type=lstlisting}%
+		\captionsetup{type=lstlisting, format=margin}%
 }{%
 	\end{minipage}%
 	\end{lrbox}%
@@ -678,7 +678,7 @@
 \DeclareCaptionFormat{llap}{%
 	\begin{lrbox}{\mycap}%
 	\begin{minipage}{\marginparwidth}%
-	\@margin@par #1:#2#3%
+	\@margin@par #1#2#3%
 	\end{minipage}%
 	\end{lrbox}%
 	\marginnote[0.2cm]{\usebox\mycap}%
@@ -686,6 +686,7 @@
 % Set the global caption style
 \captionsetup{
 	format=margin, % Use the style previously declared
+        labelsep=colon,
 	strut=no,%
 	%hypcap=true, % Links point to the top of the figure
 	singlelinecheck=false,%
@@ -749,6 +750,11 @@
 		capbesidesep=marginparsep,%
 		floatwidth=\textwidth,% Width of the figure equal to the width of the text
 	}%
+	\captionsetup*[lstlisting]{%
+		format=llap,%
+		singlelinecheck=no,%
+		belowskip=-0.6cm,%
+	}%
 	\floatsetup[listing]{% Captions for listings (minted package)
 		margins=hangoutside,% Put captions in the margin
 		facing=yes,%
@@ -759,12 +765,6 @@
 		capbesidewidth=\marginparwidth,% Width of the caption equal to the width of the margin
 		capbesidesep=marginparsep,%
 		floatwidth=\textwidth,%Width of the figure equal to the width of the text
-	}%
-	\captionsetup*[lstlisting]{%
-		format=llap,%
-		labelsep=space,%
-		singlelinecheck=no,%
-		belowskip=-0.6cm,%
 	}%
 \else%
 	\floatsetup[figure]{% Captions for figures
@@ -813,6 +813,11 @@
 		capbesidesep=marginparsep,%
 		floatwidth=\textwidth,% Width of the figure equal to the width of the text
 	}%
+	\captionsetup*[lstlisting]{%
+		format=llap,%
+		singlelinecheck=no,%
+		belowskip=-0.6cm,%
+	}%
 	\floatsetup[listing]{% Captions for listing (minted package)
 		margins=hangright,% Put captions in the margin
 		facing=yes,%
@@ -823,12 +828,6 @@
 		capbesidewidth=\marginparwidth,% Width of the caption equal to the width of the margin
 		capbesidesep=marginparsep,%
 		floatwidth=\textwidth,% Width of the figure equal to the width of the text
-	}%
-	\captionsetup*[lstlisting]{%
-		format=llap,%
-		labelsep=space,%
-		singlelinecheck=no,%
-		belowskip=-0.6cm,%
 	}%
 \fi%
 }
@@ -867,7 +866,6 @@
 	}
 	\captionsetup*[lstlisting]{% Captions style for lstlistings
 		%format=margin,%
-		labelsep=colon,%
 		strut=no,%
 		singlelinecheck=false,%
 		indention=0pt,%
