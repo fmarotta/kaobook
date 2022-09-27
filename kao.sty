@@ -526,6 +526,28 @@
 %	FIGURES, TABLES, LISTINGS AND CAPTIONS
 %----------------------------------------------------------------------------------------
 
+\DeclareStringOption[listings]{listing}
+
+\ProcessKeyvalOptions{kao}
+
+\newif\iflistings
+\newif\ifminted
+\ifthenelse{\equal{listings}{\kao@listing}}{
+	\listingstrue
+	\mintedfalse
+	\newcommand{\kao@listingfloattype}{lstlisting}
+}{\ifthenelse{\equal{minted}{\kao@listing}}{
+	\listingsfalse
+	\mintedtrue
+	\newcommand{\kao@listingfloattype}{listing}
+}{
+	\PackageError{kao}{%
+		Invalid listing choice \kao@listing.%
+	}{%
+		Should be one of "listings" or "minted"%
+	}
+}}
+
 \RequirePackage{graphicx} % Include figures
 \setkeys{Gin}{width=\linewidth,totalheight=\textheight,keepaspectratio} % Improves figure scaling
 \RequirePackage{tikz} % Allows to draw custom shapes
@@ -536,8 +558,13 @@
 \RequirePackage{multirow} % Cells occupying multiple rows in tables
 \RequirePackage{multicol} % Multiple columns in dictionary
 \RequirePackage{rotating} % Allows tables and figures to be rotated
-\RequirePackage{listings} % Print code listings
-\RequirePackage{minted} % (must be loaded after floatrow and before scrhack)
+\iflistings
+	\RequirePackage{listings} % Print code listings
+\fi
+\ifminted
+	\RequirePackage{minted} % (must be loaded after floatrow and before scrhack)
+	\AtBeginDocument{\counterwithin{listing}{chapter}}
+\fi
 % \RequirePackage{atbegshi}
 % \RequirePackage{perpage}
 \let\c@abspage\relax
@@ -609,7 +636,7 @@
 	\marginskip{\kaomarginskipabove}%
 	\begin{lrbox}{\@sidenotes@marginlistingbox}%
 	\begin{minipage}{\marginparwidth}%
-		\captionsetup{type=lstlisting, format=margin}%
+		\captionsetup{type=\kao@listingfloattype, format=margin}%
 }{%
 	\end{minipage}%
 	\end{lrbox}%
@@ -750,6 +777,11 @@
 		facing=yes,%
 		capbesideposition={top,outside},% Put captions in the margin
 	}%
+	\floatsetup[widelisting]{ % Captions for wide listings (minted package)
+		margins=hangoutside,%
+		facing=yes,%
+		capposition=above% Put captions above the listings
+	}%
 \else%
 	\floatsetup[figure]{% Captions for figures
 		style=kaofloat,%
@@ -788,6 +820,11 @@
 		margins=hangright,%
 		facing=yes,%
 		capbesideposition={top,right},% Put captions in the margin
+	}%
+	\floatsetup[widelisting]{ % Captions for wide listings (minted package)
+		margins=hangright,%
+		facing=no,%
+		capposition=above% Put captions above the listings
 	}%
 \fi%
 \captionsetup*[lstlisting]{%
@@ -841,6 +878,7 @@
 	}
 }
 
+\iflistings
 % Configure the listings
 \definecolor{listingkeywords}{rgb}{0.0, 0.5, 0.0}
 \definecolor{listingidentifiers}{rgb}{0, 0, 0}
@@ -897,6 +935,7 @@
 	defaultdialect=[LaTeX]Tex,
 }
 \lstset{style=kaolst}% Use the fancy style
+\fi
 
 %----------------------------------------------------------------------------------------
 %	TOC, LOF & LOT
@@ -911,19 +950,25 @@
 \setcounter{tocdepth}{\subsectiontocdepth}
 
 % Customise the list of listings
-\renewcommand{\lstlistlistingname}{List of Listings}% Change the title
 \newcommand{\lstlistingtocdepth}{\sectiontocdepth}% Set the depth
-\renewcommand{\listoflistings}{\lstlistoflistings}% Provide the alias \listoflistings
-\newcommand{\listoflstlistings}{\lstlistoflistings}% Provide the alias \listoflstlistings
+\iflistings
+	\renewcommand{\lstlistlistingname}{List of Listings}% Change the title
+	\newcommand{\listoflistings}{\lstlistoflistings}% Provide the alias \listoflistings
+	\newcommand{\listoflstlistings}{\lstlistoflistings}% Provide the alias \listoflstlistings
+\fi
+\ifminted
+	\newcommand{\lstlistoflistings}{\listoflistings}% Provide the alias \lstlistoflistings
+	\newcommand{\listoflstlistings}{\listoflistings}% Provide the alias \listoflstlistings
+\fi
 
 % Define the style for toc entries
 \@ifpackagelater{scrbase}{2019/10/11}{%
-	\DeclareTOCStyleEntries[indent=0em,numwidth=2em,dynnumwidth=yes,pagenumberwidth=2.1em]{tocline}{figure,table,lstlisting}%
+	\DeclareTOCStyleEntries[level=1,indent=0em,numwidth=2em,dynnumwidth=yes,pagenumberwidth=2.1em]{tocline}{figure,table,lstlisting,listing}%
 	\DeclareTOCStyleEntries[dynnumwidth=yes]{tocline}{subsubsection,subsection,section,chapter,part}%
 	\DeclareTOCStyleEntries[pagenumberwidth=2.5em]{tocline}{chapter,part}%
 	\DeclareTOCStyleEntries[pagenumberwidth=2.1em]{tocline}{subsubsection,subsection,section}%
 }{%
-	\DeclareTOCStyleEntries[indent=0em,numwidth=2em,dynnumwidth=yes]{tocline}{figure,table,lstlisting}%
+	\DeclareTOCStyleEntries[indent=0em,numwidth=2em,dynnumwidth=yes]{tocline}{figure,table,lstlisting,listing}%
 	\DeclareTOCStyleEntries[dynnumwidth=yes]{tocline}{subsubsection,subsection,section,chapter,part}%
 }
 
