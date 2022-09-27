@@ -530,18 +530,18 @@
 \setkeys{Gin}{width=\linewidth,totalheight=\textheight,keepaspectratio} % Improves figure scaling
 \RequirePackage{tikz} % Allows to draw custom shapes
 \RequirePackage{tikzpagenodes} % Allows to anchor tikz nodes to page elements
+\RequirePackage[hypcap=true]{caption} % Correctly placed anchors for hyperlinks
+\RequirePackage{floatrow} % Set up captions of floats
 \RequirePackage{booktabs} % Nicer tables
 \RequirePackage{multirow} % Cells occupying multiple rows in tables
 \RequirePackage{multicol} % Multiple columns in dictionary
 \RequirePackage{rotating} % Allows tables and figures to be rotated
 \RequirePackage{listings} % Print code listings
-%\RequirePackage{minted}
-\RequirePackage[hypcap=true]{caption} % Correctly placed anchors for hyperlinks
+\RequirePackage{minted} % (must be loaded after floatrow and before scrhack)
 % \RequirePackage{atbegshi}
 % \RequirePackage{perpage}
 \let\c@abspage\relax
 % \newcommand{\pp@g@sidenote}{}
-\RequirePackage{floatrow} % Set up captions of floats
 %\RequirePackage{dblfloatfix} % Better positioning of wide figures and tables
 
 % Improve the figure placing (see https://www.overleaf.com/learn/latex/Tips)
@@ -876,6 +876,63 @@
 	}
 }
 
+% Configure the listings
+\definecolor{listingkeywords}{rgb}{0.0, 0.5, 0.0}
+\definecolor{listingidentifiers}{rgb}{0, 0, 0}
+\definecolor{listingcomments}{rgb}{0.25, 0.5, 0.5}
+\definecolor{listingstrings}{rgb}{0.73, 0.13, 0.13}
+\definecolor{listingnumbers}{rgb}{0.25, 0.25, 0.25}
+% Define a fancy style
+\lstdefinestyle{kaolst}{
+	aboveskip=0.7\topskip,
+	belowskip=0.1\topskip,
+	basicstyle=\small\ttfamily,
+	commentstyle=\color{listingcomments}\itshape,
+	keywordstyle=\color{listingkeywords}\bfseries,
+	numberstyle=\scriptsize\color{listingnumbers}\ttfamily,
+	stringstyle=\color{listingstrings},
+	identifierstyle=\color{listingidentifiers},
+	backgroundcolor=\color{White},
+	breakatwhitespace=false,
+	breaklines=true,
+	captionpos=t,
+	keepspaces=true,
+	showspaces=false,
+	showstringspaces=false,
+	showtabs=false,
+	numbers=left,
+	numbersep=1em,
+	%frame=lines,
+	frame=l,
+	framerule=.7pt,
+	tabsize=4,
+	defaultdialect=[LaTeX]Tex,
+}
+% Define a plain style as well
+\lstdefinestyle{kaolstplain}{
+	aboveskip=0.6\topskip,
+	belowskip=-0.1\topskip,
+	basicstyle=\small\ttfamily,
+	commentstyle=\color{listingcomments}\itshape,
+	keywordstyle=\color{listingkeywords}\bfseries,
+	numberstyle=\scriptsize\color{listingnumbers}\ttfamily,
+	stringstyle=\color{listingstrings},
+	identifierstyle=\color{listingidentifiers},
+	backgroundcolor=\color{White},
+	breakatwhitespace=false,
+	breaklines=true,
+	captionpos=b,
+	keepspaces=true,
+	showspaces=false,
+	showstringspaces=false,
+	showtabs=false,
+	numbers=none,
+	frame=none,
+	tabsize=4,
+	defaultdialect=[LaTeX]Tex,
+}
+\lstset{style=kaolst}% Use the fancy style
+
 %----------------------------------------------------------------------------------------
 %	TOC, LOF & LOT
 %----------------------------------------------------------------------------------------
@@ -891,7 +948,7 @@
 % Customise the list of listings
 \renewcommand{\lstlistlistingname}{List of Listings}% Change the title
 \newcommand{\lstlistingtocdepth}{\sectiontocdepth}% Set the depth
-\newcommand{\listoflistings}{\lstlistoflistings}% Provide the alias \listoflistings
+\renewcommand{\listoflistings}{\lstlistoflistings}% Provide the alias \listoflistings
 \newcommand{\listoflstlistings}{\lstlistoflistings}% Provide the alias \listoflstlistings
 
 % Define the style for toc entries
@@ -1311,67 +1368,6 @@
 \RequirePackage{pdfpages} % Insert PDF pages
 \RequirePackage{subfiles} % Adopt a modular structure
 \RequirePackage{todonotes} % Add useful notes in the margins
-
-% Listings code
-\RequirePackage{listings} % Code
-%\RequirePackage{minted} (must be loaded before scrhack)
-
-% Configure the listings
-\definecolor{listingkeywords}{rgb}{0.0, 0.5, 0.0}
-\definecolor{listingidentifiers}{rgb}{0, 0, 0}
-\definecolor{listingcomments}{rgb}{0.25, 0.5, 0.5}
-\definecolor{listingstrings}{rgb}{0.73, 0.13, 0.13}
-\definecolor{listingnumbers}{rgb}{0.25, 0.25, 0.25}
-% Define a fancy style
-\lstdefinestyle{kaolst}{
-	aboveskip=0.7\topskip,
-	belowskip=0.1\topskip,
-	basicstyle=\small\ttfamily,
-	commentstyle=\color{listingcomments}\itshape,
-	keywordstyle=\color{listingkeywords}\bfseries,
-	numberstyle=\scriptsize\color{listingnumbers}\ttfamily,
-	stringstyle=\color{listingstrings},
-	identifierstyle=\color{listingidentifiers},
-	backgroundcolor=\color{White},
-	breakatwhitespace=false,
-	breaklines=true,
-	captionpos=t,
-	keepspaces=true,
-	showspaces=false,
-	showstringspaces=false,
-	showtabs=false,
-	numbers=left,
-	numbersep=1em,
-	%frame=lines,
-	frame=l,
-	framerule=.7pt,
-	tabsize=4,
-	defaultdialect=[LaTeX]Tex,
-}
-% Define a plain style as well
-\lstdefinestyle{kaolstplain}{
-	aboveskip=0.6\topskip,
-	belowskip=-0.1\topskip,
-	basicstyle=\small\ttfamily,
-	commentstyle=\color{listingcomments}\itshape,
-	keywordstyle=\color{listingkeywords}\bfseries,
-	numberstyle=\scriptsize\color{listingnumbers}\ttfamily,
-	stringstyle=\color{listingstrings},
-	identifierstyle=\color{listingidentifiers},
-	backgroundcolor=\color{White},
-	breakatwhitespace=false,
-	breaklines=true,
-	captionpos=b,
-	keepspaces=true,
-	showspaces=false,
-	showstringspaces=false,
-	showtabs=false,
-	numbers=none,
-	frame=none,
-	tabsize=4,
-	defaultdialect=[LaTeX]Tex,
-}
-\lstset{style=kaolst}% Use the fancy style
 
 % Verbatim
 %\RequirePackage{fancyvrb} % Customization of verbatim environments
