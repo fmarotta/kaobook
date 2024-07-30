@@ -50,6 +50,7 @@ email or open a pull request!
 * [Formalisation and Meta-Theory of Type Theory (PhD thesis)](https://github.com/TheoWinterhalter/phd-thesis/releases/latest)
 * [Computational modelling of terrains (textbook)](https://github.com/tudelft3d/terrainbook/releases/latest)
 * [Meta-analysis of Type Theories with an Application to the Design of Formal Proofs (PhD thesis)](https://anjapetkovic.com/img/doctoralThesis.pdf)
+* [Deep Inference for Graphical Theorem Proving (PhD thesis)](https://github.com/Champitoad/thesis/releases/tag/v1.0.0)
 
 ## Getting Started
 
