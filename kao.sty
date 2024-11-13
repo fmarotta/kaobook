@@ -565,6 +565,9 @@
 	\RequirePackage{minted} % (must be loaded after floatrow and before scrhack)
 	\AtBeginDocument{\counterwithin{listing}{chapter}}
 \fi
+\RequirePackage[linesnumbered, plain, vlined]{algorithm2e} % Algorithms
+\DeclareNewFloatType{algorithm}{placement=tbp,name=Algorithm,fileext=loa,within=chapter}
+
 % \RequirePackage{atbegshi}
 % \RequirePackage{perpage}
 \let\c@abspage\relax
@@ -782,6 +785,19 @@
 		facing=yes,%
 		capposition=above% Put captions above the listings
 	}%
+	\floatsetup[algorithm]{% Captions for algorithms
+		style=kaofloat,%
+		margins=hangoutside,%
+		facing=yes,%
+		capbesideposition={top,outside},% Put captions in the margin
+		objectset=RaggedRight,%
+	}%
+	\floatsetup[widealgorithm]{% Captions for wide algorithms
+		margins=hangoutside,%
+		facing=yes,%
+		capposition=above,% Put captions above the algorithm
+		objectset=RaggedRight,%
+	}%
 \else%
 	\floatsetup[figure]{% Captions for figures
 		style=kaofloat,%
@@ -826,6 +842,19 @@
 		facing=no,%
 		capposition=above% Put captions above the listings
 	}%
+	\floatsetup[algorithm]{% Captions for algorithms
+		style=kaofloat,%
+		margins=hangright,%
+		facing=yes,%
+		capbesideposition={top,right},% Put captions in the margin
+		objectset=RaggedRight,%
+	}%
+	\floatsetup[widealgorithm]{% Captions for wide algorithms
+		margins=hangright,%
+		facing=no,%
+		capposition=above,% Put captions above the algorithm
+		objectset=RaggedRight,%
+	}%
 \fi%
 \captionsetup*[lstlisting]{%
 	format=llap,%
@@ -839,32 +868,32 @@
 	\floatsetup[figure]{ % Captions for figures
 		capposition=bottom,%
 		margins=centering,%
-		floatwidth=\textwidth%
+		floatwidth=\textwidth,%
 	}
 	\floatsetup[widefigure]{ % Captions for wide figures
 		margins=hangoutside, % Put captions below the figure
 		facing=yes,%
-		capposition=bottom%
+		capposition=bottom,%
 	}
 	\floatsetup[table]{ % Captions for tables
 		capposition=above,%
 		margins=centering,%
-		floatwidth=\textwidth%
+		floatwidth=\textwidth,%
 	}
 	\floatsetup[widetable]{ % Captions for wide tables
 		margins=hangoutside, % Put captions above the table
 		facing=yes,%
-		capposition=above%
+		capposition=above,%
 	}
 	\floatsetup[lstlisting]{ % Captions for lstlistings
 		capposition=above,%
 		margins=centering,%
-		floatwidth=\textwidth%
+		floatwidth=\textwidth,%
 	}
 	\floatsetup[listing]{ % Captions for listings (minted package)
 		capposition=above,%
 		margins=centering,%
-		floatwidth=\textwidth%
+		floatwidth=\textwidth,%
 	}
 	\captionsetup*[lstlisting]{% Captions style for lstlistings
 		%format=margin,%
@@ -874,7 +903,13 @@
 		parindent=0pt,%
 		aboveskip=6pt,%
 		belowskip=6pt,%
-		belowskip=-0.1cm%
+		belowskip=-0.1cm,%
+	}
+	\floatsetup[algorithm]{ % Captions for algorithms
+		capposition=above,%
+		margins=centering,%
+		floatwidth=\textwidth,%
+		objectset=RaggedRight,%
 	}
 }
 
@@ -1383,9 +1418,6 @@
 %\RequirePackage{fancyvrb} % Customization of verbatim environments
 %\fvset{fontsize=\normalsize} % Change here the font size of all 
 %verbatim \preto{\@verbatim}{\topsep=0pt \partopsep=0pt }
-
-% Algorithms
-\RequirePackage[linesnumbered, ruled, vlined]{algorithm2e} % Algorithms
 
 % Special gliphs
 \RequirePackage{ccicons} % Creative Commons icons
