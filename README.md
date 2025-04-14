@@ -51,7 +51,8 @@ email or open a pull request!
 * [Computational modelling of terrains (textbook)](https://github.com/tudelft3d/terrainbook/releases/latest)
 * [Meta-analysis of Type Theories with an Application to the Design of Formal Proofs (PhD thesis)](https://anjapetkovic.com/img/doctoralThesis.pdf)
 * [Deep Inference for Graphical Theorem Proving (PhD thesis)](https://github.com/Champitoad/thesis/releases/tag/v1.0.0)
-* [Psychedelic therapy in practice. Case studies of self-treatment, individual therapy, and group therapy (academic book)](https://www.researchgate.net/publication/385040342_Psychedelic_therapy_in_practice_Case_studies_of_self-treatment_individual_therapy_and_group_therapy)
+* [Psychedelic therapy in practice. Case studies of self-treatment, individual therapy, and group therapy (academic book)](https://www.researchgate.net/publication/389998402)
+* [Ayahuasca revisited: Case studies & observations (academic book)](https://www.researchgate.net/publication/389998045)
 * [From Underactuation to Quasi-Full Actuation: A Unifying Control Framework for Rigid and Elastic Joint Robots (PhD thesis)](https://mediatum.ub.tum.de/1662418)
 
 ## Getting Started
