@@ -1,0 +1,591 @@
+% \iffalse meta-comment
+%
+% Copyright 2017, 2018	Maurice Leclaire <leclaire@in.tum.de>
+%
+% This work may be distributed and/or modified under the
+% conditions of the LaTeX Project Public License, either
+% version 1.3 of this license or (at your option) any later
+% version. The latest version of this license is in:
+%
+%   http://www.latex-project.org/lppl.txt
+%
+% and version 1.3 or later is part of all distributions of LaTeX
+% version 2005/12/01 or later.
+%
+% This work has the LPPL maintenance status `author-maintained'.
+%
+% This work consists of the files marginfit.dtx and marginfit.ins
+% and the derived file marginfit.sty.
+%
+% \fi
+%
+% \iffalse
+%<package>\NeedsTeXFormat{LaTeX2e}
+%<package>\ProvidesPackage{marginfit}[2018/06/08 v1.1 Fit Margin Paragraphs]
+%
+%<*driver>
+\documentclass{ltxdoc}
+\CheckSum{0}
+\makeatletter
+\usepackage{mparhack}
+\let\mparhack@addmarginpar\@addmarginpar
+\let\@addmarginpar\mph@orig@addmarginpar
+\let\marginfix@orig@marginpar\marginpar
+\let\marginfix@orig@addmarginpar\@addmarginpar
+\let\marginfix@orig@combinefloats\@combinefloats
+\usepackage{marginfix}
+\let\marginfix@marginpar\marginpar
+\let\marginfix@addmarginpar\@addmarginpar
+\let\marginfix@combinefloats\@combinefloats
+\let\marginpar\marginfix@orig@marginpar
+\let\@addmarginpar\marginfix@orig@addmarginpar
+\let\@combinefloats\marginfix@orig@combinefloats
+\let\marginfit@orig@marginpar\marginpar
+\usepackage{marginfit}
+\let\marginfit@marginpar\marginpar
+\let\marginpar\marginfit@orig@marginpar
+\makeatother
+\usepackage[pass]{geometry}
+\usepackage{minidocument}
+\usepackage{blindtext}
+\EnableCrossrefs
+\CodelineIndex
+\RecordChanges
+\begin{document}
+\DocInput{marginfit.dtx}
+\end{document}
+%</driver>
+% \fi
+%
+% \changes{v1.0}{2017/07/07}{Initial version}
+%
+% \GetFileInfo{marginfit.sty}
+%
+% \DoNotIndex{\def,\let,\global,\long,\expandafter}
+% \DoNotIndex{\csname,\endcsname,\advance,\string}
+% \DoNotIndex{\if,\else,\fi,\ifdim,\ifodd,\ifvoid,\ifcsname,\@ifnextchar}
+% \DoNotIndex{\chardef,\count,\dimen,\skip,\box,\setbox,\lastbox,\copy}
+% \DoNotIndex{\hbox,\vbox,\unhbox,\unvbox,\hskip,\vskip,\hss,\hrule,\vfill}
+% \DoNotIndex{\the,\ht,\dp,\@ne,\z@,\maxdimen}
+%
+% \title{The \textsf{marginfit} package}
+% \author{Maurice Leclaire\\\texttt{leclaire@in.tum.de}}
+% \date{\fileversion\ -- \filedate}
+% \maketitle
+%
+% \begin{abstract}
+% The \textsf{marginfit} package fixes various bugs with the margin paragraph
+% implementation of \LaTeX. Those bugs include margin notes that are attached
+% to the wrong side as well as those that stick out of the bottom of the page.
+% This package provides a drop-in replacement solution.
+% \end{abstract}
+%
+% \tableofcontents
+%
+% \def\minidocumentscale{0.3}
+%
+% \newcounter{margin}
+% \def\testmargin{\stepcounter{margin}\rule{0.7em}{0.7em}\marginpar[{
+%     \hfill\rule[-0.3em]{\marginparwidth}{1.2em}\hbox to 0pt {\rule[-0.1em]{3\marginparsep}{0.1em}\hss}\hfill\null\\
+%     \null\hfill\rule[-0.3em]{\marginparwidth}{1.2em}\hfill\null\\
+%     \null\hfill\rule[-0.3em]{\marginparwidth}{1.2em}\hfill\null\\[-0.1em]
+%     \null\hfill\rule[-0.3em]{0.3\marginparwidth}{2.5em}\hbox to 0.4\marginparwidth {\hfill\Huge\themargin\hfill}\rule[-0.3em]{0.3\marginparwidth}{2.5em}\hfill\null\\
+%     \null\hfill\rule[-0.3em]{\marginparwidth}{1.2em}\hfill\null\\
+%     \null\hfill\rule[-0.3em]{\marginparwidth}{1.2em}\hfill\null\\
+%     \null\hfill\rule[-0.3em]{\marginparwidth}{1.2em}\hfill\null\\
+%     \null\hfill\rule[-0.3em]{\marginparwidth}{1.2em}\hfill\null\\
+%     \null\hfill\rule[-0.3em]{\marginparwidth}{1.2em}\hfill\null\\
+%     \null\hfill\rule[-0.3em]{\marginparwidth}{1.2em}\hfill\null
+% }]{
+%     \hfill\hbox to 0pt {\hss\rule[-0.1em]{3\marginparsep}{0.1em}}\rule[-0.3em]{\marginparwidth}{1.2em}\hfill\null\\
+%     \null\hfill\rule[-0.3em]{\marginparwidth}{1.2em}\hfill\null\\
+%     \null\hfill\rule[-0.3em]{\marginparwidth}{1.2em}\hfill\null\\[-0.1em]
+%     \null\hfill\rule[-0.3em]{0.3\marginparwidth}{2.5em}\hbox to 0.4\marginparwidth {\hfill\Huge\themargin\hfill}\rule[-0.3em]{0.3\marginparwidth}{2.5em}\hfill\null\\
+%     \null\hfill\rule[-0.3em]{\marginparwidth}{1.2em}\hfill\null\\
+%     \null\hfill\rule[-0.3em]{\marginparwidth}{1.2em}\hfill\null\\
+%     \null\hfill\rule[-0.3em]{\marginparwidth}{1.2em}\hfill\null\\
+%     \null\hfill\rule[-0.3em]{\marginparwidth}{1.2em}\hfill\null\\
+%     \null\hfill\rule[-0.3em]{\marginparwidth}{1.2em}\hfill\null\\
+%     \null\hfill\rule[-0.3em]{\marginparwidth}{1.2em}\hfill\null
+% }}
+%
+% \def\testdocument{
+%     \begin{minidocument}
+%     \newgeometry{
+%         twoside,
+%         inner=1in,
+%         outer=2in,
+%         top=1in,
+%         bottom=1in,
+%         marginparwidth=1in,
+%         marginparsep=0.5in
+%     }
+%     \normalmarginpar
+%     \setlength{\marginparpush}{1em}
+%     \setcounter{page}{2}
+%     \setcounter{margin}{0}
+%     \blindtext\par
+%     \blindtext\par
+%     \blindtext\par
+%     \testmargin
+%     \blindtext\par
+%     \blindtext\par
+%     \begin{itemize}
+%     \item First formula $$ f(x) = 1 / x$$
+%     \item Second formula $$ f(x) = 1 / x$$
+%     \item Third formula $$ f(x) = 1 / x$$
+%     \end{itemize}
+%     \testmargin
+%     \blindtext
+%     \vfill
+%     \blindtext
+%     \testmargin
+%     \blindtext
+%     \blindtext
+%     \testmargin
+%     \blindtext
+%     \testmargin
+%     \blindtext
+%     \clearpage
+%     \end{minidocument}
+% }
+%
+% \newbox\doclatex
+% \newbox\docmparhack
+% \newbox\docmarginfix
+% \newbox\docmarginfit
+%
+% \makeatletter
+% \begingroup
+% \testdocument
+% \endgroup
+% \setbox\doclatex\hbox{\lastminidocument}
+% \Gm@changelayout
+% \makeatother
+%
+% \makeatletter
+% \begingroup
+% \let\@addmarginpar\mparhack@addmarginpar
+% \mph@setcol{ii:2}{1}
+% \mph@setcol{ii:3}{5}
+% \testdocument
+% \endgroup
+% \setbox\docmparhack\hbox{\lastminidocument}
+% \Gm@changelayout
+% \makeatother
+%
+% \makeatletter
+% \begingroup
+% \let\marginpar\marginfix@marginpar
+% \let\@addmarginpar\marginfix@addmarginpar
+% \let\@combinefloats\marginfix@combinefloats
+% \testdocument
+% \endgroup
+% \setbox\docmarginfix\hbox{\lastminidocument}
+% \Gm@changelayout
+% \makeatother
+%
+% \makeatletter
+% \begingroup
+% \let\marginpar\marginfit@marginpar
+% \testdocument
+% \endgroup
+% \setbox\docmarginfit\hbox{\lastminidocument}
+% \Gm@changelayout
+% \makeatother
+%
+% \begin{figure}[p]
+%     \hbox to \textwidth {\hss\unhbox\doclatex}
+%     \caption{Plain \LaTeX}
+%     \label{fig:latex}
+% \end{figure}
+%
+% \begin{figure}[p]
+%     \hbox to \textwidth {\hss\unhbox\docmparhack}
+%     \caption{\textsf{mparhack} package}
+%     \label{fig:mparhack}
+% \end{figure}
+%
+% \begin{figure}[p]
+%     \hbox to \textwidth {\hss\unhbox\docmarginfix}
+%     \caption{\textsf{marginfix} package}
+%     \label{fig:marginfix}
+% \end{figure}
+%
+% \begin{figure}[p]
+%     \hbox to \textwidth {\hss\unhbox\docmarginfit}
+%     \caption{\textsf{marginfit} package}
+%     \label{fig:marginfit}
+% \end{figure}
+%
+% \section{Motivation}
+%
+% The margin paragraph mechanism of \LaTeX\ has two main problems:
+% \begin{enumerate}
+%     \item Near after a page break, it can happen that a margin note is placed
+%     at the wrong side. See Margin Note~2 in Figure~\ref{fig:latex}.
+%     \item Margin notes can stick out the bottom of the page. See Margin
+%     Note~5 in Figure~\ref{fig:latex}. This happens if margin notes are too
+%     large for the remaining space on the page or if they are shifted down,
+%     because they do not fit at the callout position.  However, \LaTeX\ does
+%     not shift margin notes upwards, even if there would be enough space.
+% \end{enumerate}
+% Those problems are caused by calling the output routine for each margin
+% paragraph and placing it separately, only considering previously placed
+% margin notes.  This can lead to wrong assumptions concerning the actual page
+% break, which then results in Problem~1. Further, this mechanism prevents look
+% ahead, which is the reason for Problem~2. Margin notes can be shifted down
+% based on the previous margin notes, but there is no possibility to shift them
+% up, if that would be necessary for later margin notes.
+%
+% The \textsf{mparhack} package\cite{mparhack} addresses Problem~1. This is
+% demonstrated in Figure~\ref{fig:mparhack}. Problem~1 is completely fixed by
+% this package without any known drawbacks and it also works in twocolumn mode.
+% However, the package does not consider problem~2.
+%
+% On the other hand, the \textsf{marginfix} package\cite{marginfix} addresses
+% Problem~2. This is shown in Figure~\ref{fig:marginfix}. However, this comes
+% with a lot of disadvantages:
+% \begin{itemize}
+%     \item The \textsf{marginfix} package does not support twocolumn mode.
+%     \item The \LaTeX\ Problem~1 manifests itself in another way: Margin notes
+%     are attached to the wrong page instead of the wrong side.
+%     \item The baseline (of the first line) of the margin note is not aligned
+%     with the baseline of the callout position. Instead the top of the margin
+%     note is aligned with the top of a strut at the callout position. This
+%     gives us the misalignement seen for Margin Note~1 as the height of this
+%     margin note is a bit more than that of a strut.
+%     \item The margin notes are positioned at the natural height of the
+%     callout position. However, the actual height can be different depending on
+%     the glue on the page. The \textsf{marginfix} package does not consider
+%     this glue and the effect can be seen for Margin Note~3.
+% \end{itemize}
+%
+% In contrast to the packages above, the \textsf{marginfit} package is not a
+% hack to the margin paragraph mechanism of \LaTeX\ but a complete
+% reimplementation. Instead of calling the output routine for each margin note,
+% it uses \TeX\ insertions. Hence, the margin notes are not placed individually
+% at callout time but together at the time a complete column is assembled.
+% Therefore, it does not suffer from the problems described above. The result
+% can be observed in Figure~\ref{fig:marginfit}.
+%
+% \section{Usage}
+%
+% The \textsf{marginfit} package is a drop-in replacement for the normal margin
+% paragraph mechanism. Therefore, putting \verb|\usepackage{marginfit}| into the
+% preamble of your document is sufficient. This package requires the
+% \verb|\pdfsavepos| functionality from pdf\TeX.
+%
+% \StopEventually{
+%     \begin{thebibliography}{1}
+%         \raggedright
+%         \bibitem{mparhack}
+%         Tom Sgouros and Stefan Ulrich.
+%         \newblock \texttt{mparhack.sty}.
+%         \newblock \textsc{ctan}: \url{http://ctan.org/pkg/mparhack}
+%         \bibitem{marginfix}
+%         Stephen Hicks.
+%         \newblock \textsf{marginfix} package documentation.
+%         \newblock \textsc{ctan}: \url{http://ctan.org/pkg/marginfix}
+%     \end{thebibliography}
+%     \PrintChanges
+%     \setcounter{IndexColumns}{2}
+%     \PrintIndex
+% }
+%
+% \section{Implementation}
+%
+% \begin{macro}{\marginfit@insert}
+% We define a new insertion class named \verb|\marginfit@insert|. All margin
+% paragraphs will be inserted there. At shipout time the respective box will
+% hold all the inserted margins for the respective page or column.
+%    \begin{macrocode}
+\newinsert\marginfit@insert
+%    \end{macrocode}
+% As a margin note does not account for the page goal, we set the corresponding
+% magnification count to zero.
+%    \begin{macrocode}
+\count\marginfit@insert0
+%    \end{macrocode}
+% Also the respective skip with the amount of fixed size material is set to
+% 0\,pt.
+%    \begin{macrocode}
+\skip\marginfit@insert\z@
+%    \end{macrocode}
+% As the magnification factor is zero, we can not track the amount of margin
+% material. Also, we do not want margins to be shifted to another page. Hence,
+% the corresponding dimension with the maximum amount of insertions per page is
+% set to the maximum.
+%    \begin{macrocode}
+\dimen\marginfit@insert\maxdimen
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}{\marginfit@reverse}
+% We allocate a new box register were we store the margin notes in reverse
+% order.
+%    \begin{macrocode}
+\newbox\marginfit@reverse
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\marginfit@box}
+% \begin{macro}{\marginfit@left}
+% \begin{macro}{\marginfit@right}
+% We also define a few aliases for temporary box registers.
+%    \begin{macrocode}
+\chardef\marginfit@box0
+\chardef\marginfit@left0
+\chardef\marginfit@right1
+%    \end{macrocode}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+%
+% \begin{macro}{\c@marginfit@w}
+% \begin{macro}{\c@marginfit@r}
+% \begin{macro}{\c@marginfit@t}
+% A few counters are needed to enumerate labels. The first counter is used when
+% writing the positions of margin notes to the aux file and the second is used
+% when reading them in again. The third counter is used for the top positions of
+% margin columns.
+%    \begin{macrocode}
+\newcount\c@marginfit@w
+\newcount\c@marginfit@r
+\newcount\c@marginfit@t
+%    \end{macrocode}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+%
+% \begin{macro}{\marginfit@top}
+% \begin{macro}{\marginfit@min}
+% \begin{macro}{\marginfit@pos}
+% We need some dimension registers to compute the placement of margin notes.
+% Those are the current top of the margin column, the minimal position the
+% current margin note can be placed in and the callout position of the current
+% margin note.
+%    \begin{macrocode}
+\newdimen\marginfit@top
+\newdimen\marginfit@min
+\newdimen\marginfit@pos
+%    \end{macrocode}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+%
+% \begin{macro}{\marginfit@writepos}
+% The following macro saves the current position as a label to the aux file. The
+% parameter takes the number\,/\,name of the label in already expanded form.
+%    \begin{macrocode}
+\def\marginfit@writepos#1{%
+    \pdfsavepos%
+    \write\@auxout{\string\@newl@bel{label@marginfit}{#1}{\the\pdflastypos}}%
+}
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\marginfit@boxforeach}
+% We define a macro that loops over a vbox to execute code for each hbox in
+% that vbox. Due to the limited possibilities to access the inner boxes, we
+% must do that in reverse order. The first parameter is the box register number
+% and the second parameter is the code that should be executed for each hbox.
+% During execution \verb|\marginfit@box| holds the current hbox.
+%    \begin{macrocode}
+\def\marginfit@boxforeach#1#2{%
+    \setbox#1\vbox{\unvbox#1 \global\setbox\marginfit@box\lastbox}%
+    \ifvoid\marginfit@box\else%
+        #2%
+        \marginfit@boxforeach#1{#2}%
+    \fi%
+}
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\marginfit@pass@i}
+% This is the first pass of the margin positioning routine. For each margin
+% note, the following macro splits the packed hbox to get the left and right
+% version of the margin paragraph. In the following we will use the correct
+% version, due to the setting of \verb|\marginfit@side|. The minimum position
+% is updated based on the size of the margin. The margin notes will be saved in
+% reverse order in the reverse box.
+%    \begin{macrocode}
+\def\marginfit@pass@i{%
+    \setbox\marginfit@left\hbox{\unhbox\marginfit@box%
+                                \global\setbox\marginfit@right\lastbox}%
+    \setbox\marginfit@right\hbox{\box\marginfit@right}%
+    \advance\marginfit@min\ht\marginfit@side%
+    \advance\marginfit@min\dp\marginfit@side%
+    \advance\marginfit@min\marginparpush%
+    \setbox\marginfit@reverse\vbox{\unvbox\marginfit@reverse%
+                                   \box\marginfit@side}%
+}
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\marginfit@pass@ii}
+% This is the second pass of the margin positioning routine. For each margin
+% note, the callout position is read from the aux file. We compute the glue
+% above the margin note. If the minimum position requires it, we shift the
+% margin note upwards. If the current top position requires it, we shift the
+% margin note downwards. Afterwards we update the top and minimum positions.
+% Finally, the margin note is attached to the margin box.
+%    \begin{macrocode}
+\def\marginfit@pass@ii{%
+    \global\advance\c@marginfit@r\@ne%
+    \ifcsname label@marginfit@\the\c@marginfit@r @m\endcsname%
+        \marginfit@pos\csname label@marginfit@\the\c@marginfit@r @m\endcsname sp%
+    \fi%
+    \advance\marginfit@pos\ht\marginfit@box%
+    \ifdim\marginfit@pos<\marginfit@min%
+        \marginfit@pos\marginfit@min%
+    \fi%
+    \advance\marginfit@top-\marginfit@pos%
+    \ifdim\marginfit@top<\marginparpush%
+        \advance\marginfit@pos\marginfit@top%
+        \advance\marginfit@pos-\marginparpush%
+        \marginfit@top\marginparpush%
+    \fi%
+    \vskip\marginfit@top%
+    \marginfit@top\marginfit@pos%
+    \advance\marginfit@top-\ht\marginfit@box%
+    \advance\marginfit@top-\dp\marginfit@box%
+    \advance\marginfit@min-\ht\marginfit@box%
+    \advance\marginfit@min-\dp\marginfit@box%
+    \advance\marginfit@min-\marginparpush%
+    \hrule height\z@%
+    \box\marginfit@box%
+    \hrule height\z@%
+}%
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\marginfit@marginbox}
+% The following macro constructs the margin box. First, at the top of the box
+% the position is saved and read in as \verb|\marginfit@top| if available. Then,
+% \verb|\marginfit@min| is computed as the bottom of the box. The first
+% boxforeach loop is executed on the box with the margin insertions. It computes
+% the real \verb|\marginfit@min| for the first margin note and saves the margin
+% notes in reverse order into the reverse box. The second pass is executed on
+% that reverse box and puts the margins into the right positions.
+%    \begin{macrocode}
+\def\marginfit@marginbox{%
+    \vbox to\@colht {%
+        \global\advance\c@marginfit@t\@ne%
+        \expandafter\marginfit@writepos\expandafter{\the\c@marginfit@t @t}%
+        \ifcsname label@marginfit@\the\c@marginfit@t @t\endcsname%
+            \marginfit@top\csname label@marginfit@\the\c@marginfit@t @t\endcsname sp%
+        \fi%
+        \marginfit@min\marginfit@top%
+        \advance\marginfit@min-\@colht%
+        \advance\marginfit@min-\marginparpush%
+        \advance\marginfit@top\marginparpush%
+        \vskip-\marginparpush%
+        \marginfit@boxforeach\marginfit@insert\marginfit@pass@i%
+        \marginfit@boxforeach\marginfit@reverse\marginfit@pass@ii%
+        \vfill%
+    }%
+}%
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\marginfit@leftmargin}
+% The following macro appends a left margin to the current column.
+%    \begin{macrocode}
+\def\marginfit@leftmargin{%
+    \let\marginfit@side\marginfit@left%
+    \hss%
+    \marginfit@marginbox%
+    \hskip\marginparsep%
+    \box\@outputbox%
+}
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\marginfit@rightmargin}
+% The following macro appends a right margin to the current column.
+%    \begin{macrocode}
+\def\marginfit@rightmargin{%
+    \let\marginfit@side\marginfit@right%
+    \box\@outputbox%
+    \hskip\marginparsep%
+    \marginfit@marginbox%
+    \hss%
+}
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\@makecol}
+% We redefine \verb|\@makecol| and add the procedure to append a margin to the
+% current column. First, the original \verb|\@makecol| is executed. Then, the
+% width of \verb|\@outputbox| is set to \verb|\columnwidth| (added in v1.1).
+% \changes{v1.1}{2018/06/07}{Fix width of \texttt{\symbol{`\\}@outputbox}}
+% This is necessary as a \verb|\parshape| that overflows on the right will
+% enlarge \verb|\@outputbox|. If we have margin material, we decide on which
+% side the margin column will be and add it to that side. A check for onesided
+% documents was added in v1.1.
+% \changes{v1.1}{2018/06/08}{Margin placement in onesided documents}
+%    \begin{macrocode}
+\let\marginfit@makecol\@makecol
+\def\@makecol{%
+    \marginfit@makecol%
+    \wd\@outputbox\columnwidth%
+    \ifvoid\marginfit@insert\else%
+        \setbox\@outputbox\vbox to\@colht {%
+            \hbox to\columnwidth {%
+                \if@twocolumn%
+                    \if@firstcolumn%
+                        \marginfit@leftmargin%
+                    \else%
+                        \marginfit@rightmargin%
+                    \fi%
+                \else%
+                    \if@twoside%
+                        \ifodd\c@page%
+                            \marginfit@rightmargin%
+                        \else%
+                            \marginfit@leftmargin%
+                        \fi%
+                    \else%
+                        \marginfit@rightmargin%
+                    \fi%
+                \fi%
+            }%
+        }%
+    \fi%
+}
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\marginpar}
+% We redefine \verb|\marginpar| to do an insertion instead of a call to the
+% output routine. First, we save the callout position to the aux file. Then, we
+% combine the left and right versions of the margin paragraph into an hbox and,
+% finally, make an insertion with that hbox.
+%    \begin{macrocode}
+\def\marginpar{%
+    \global\advance\c@marginfit@w\@ne%
+    \expandafter\marginfit@writepos\expandafter{\the\c@marginfit@w @m}%
+    \@ifnextchar[\marginfit@mpar@ii\marginfit@mpar@i%
+}
+\long\def\marginfit@mpar@i#1{%
+    \@savemarbox\marginfit@box{#1}%
+    \setbox\marginfit@box\hbox{\copy\marginfit@box\box\marginfit@box}%
+    \marginfit@mpar@iii%
+}
+\long\def\marginfit@mpar@ii[#1]#2{%
+    \@savemarbox\marginfit@left{#1}%
+    \@savemarbox\marginfit@right{#2}%
+    \setbox\marginfit@box\hbox{\box\marginfit@left\box\marginfit@right}%
+    \marginfit@mpar@iii%
+}
+\def\marginfit@mpar@iii{%
+    \insert\marginfit@insert{\box\marginfit@box}%
+}
+%    \end{macrocode}
+% \end{macro}
+%
+% \iffalse
+\endinput
+% \fi
+%
+% \Finale
