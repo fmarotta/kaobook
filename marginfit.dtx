@@ -360,15 +360,18 @@
 % \begin{macro}{\marginfit@top}
 % \begin{macro}{\marginfit@min}
 % \begin{macro}{\marginfit@pos}
+% \begin{macro}{\marginfit@minoffset}
 % We need some dimension registers to compute the placement of margin notes.
 % Those are the current top of the margin column, the minimal position the
 % current margin note can be placed in and the callout position of the current
-% margin note.
+% margin note. \verb|\marginfit@minoffset| is a constant (by default 0\,pt) that is added to every computed minimal position.
 %    \begin{macrocode}
 \newdimen\marginfit@top
 \newdimen\marginfit@min
 \newdimen\marginfit@pos
+\newdimen\marginfit@minoffset
 %    \end{macrocode}
+% \end{macro}
 % \end{macro}
 % \end{macro}
 % \end{macro}
@@ -478,6 +481,7 @@
         \marginfit@min\marginfit@top%
         \advance\marginfit@min-\@colht%
         \advance\marginfit@min-\marginparpush%
+        \advance\marginfit@min\marginfit@minoffset%
         \advance\marginfit@top\marginparpush%
         \vskip-\marginparpush%
         \marginfit@boxforeach\marginfit@insert\marginfit@pass@i%
