@@ -25,6 +25,10 @@
 %% 
 \NeedsTeXFormat{LaTeX2e}
 \ProvidesPackage{marginfit}[2018/06/08 v1.1 Fit Margin Paragraphs]
+\RequirePackage{eso-pic}
+\newif\ifmarginfit@debug
+\DeclareOption{debug}{\marginfit@debugtrue}
+\ProcessOptions\relax
 \newinsert\marginfit@insert
 \count\marginfit@insert0
 \skip\marginfit@insert\z@
@@ -106,45 +110,72 @@
     }%
 }%
 \def\marginfit@leftmargin{%
-    \let\marginfit@side\marginfit@left%
-    \hss%
-    \marginfit@marginbox%
-    \hskip\marginparsep%
-    \box\@outputbox%
+    \AddToShipoutPictureBG*{%
+      \InLeftMargin{%
+        \let\marginfit@side\marginfit@left%
+        \marginfit@marginbox%
+      }%
+    }%
 }
 \def\marginfit@rightmargin{%
-    \let\marginfit@side\marginfit@right%
-    \box\@outputbox%
-    \hskip\marginparsep%
-    \marginfit@marginbox%
-    \hss%
+    \AddToShipoutPictureBG*{%
+      \InRightMargin{%
+        \let\marginfit@side\marginfit@right%
+        \marginfit@marginbox%
+      }%
+    }%
+}
+\providecommand*{\InLeftMargin}[1]{%
+  \put(%
+    \LenToUnit{1in+\hoffset+\evensidemargin-\marginparwidth-\marginparsep-0.5pt}, % X: left margin (we have to subtract 0.5pt as it's otherwise a little bit too right)
+    \LenToUnit{\paperheight-(1in+\voffset+\topmargin+\headheight+\headsep+\@colht)} % Y: bottom of main text
+  ){%
+    \ifmarginfit@debug%
+        \setlength{\fboxsep}{0pt}% set padding to zero
+        \fcolorbox{white}{yellow}{%
+            #1%
+        }%
+    \else%
+        #1%
+    \fi%
+  }%
+}
+\providecommand*{\InRightMargin}[1]{%
+  \put(%
+    \LenToUnit{\paperwidth-(1in+\hoffset+\oddsidemargin+\marginparwidth)+1pt}, % X: right margin (we have to add 1pt as it's otherwise a little bit too left)
+    \LenToUnit{\paperheight-(1in+\voffset+\topmargin+\headheight+\headsep+\@colht)} % Y: bottom of main text
+  ){%
+    \ifmarginfit@debug%
+        \setlength{\fboxsep}{0pt}% set padding to zero
+        \fcolorbox{white}{yellow}{%
+            #1%
+        }%
+    \else%
+        #1%
+    \fi%
+  }%
 }
 \let\marginfit@makecol\@makecol
 \def\@makecol{%
-    \marginfit@makecol%
-    \wd\@outputbox\columnwidth%
+    \marginfit@makecol % Build the main text as usual (sets marks)
     \ifvoid\marginfit@insert\else%
-        \setbox\@outputbox\vbox to\@colht {%
-            \hbox to\columnwidth {%
-                \if@twocolumn%
-                    \if@firstcolumn%
-                        \marginfit@leftmargin%
-                    \else%
-                        \marginfit@rightmargin%
-                    \fi%
+        \if@twocolumn%
+            \if@firstcolumn%
+                \marginfit@leftmargin%
+            \else%
+                \marginfit@rightmargin%
+            \fi%
+        \else%
+            \if@twoside%
+                \ifodd\c@page%
+                    \marginfit@rightmargin%
                 \else%
-                    \if@twoside%
-                        \ifodd\c@page%
-                            \marginfit@rightmargin%
-                        \else%
-                            \marginfit@leftmargin%
-                        \fi%
-                    \else%
-                        \marginfit@rightmargin%
-                    \fi%
+                    \marginfit@leftmargin%
                 \fi%
-            }%
-        }%
+            \else%
+                \marginfit@rightmargin%
+            \fi%
+        \fi%
     \fi%
 }
 \def\marginpar{%
