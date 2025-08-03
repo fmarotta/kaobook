@@ -24,8 +24,7 @@
 %% and the derived file marginfit.sty.
 %% 
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesPackage{marginfit}[2018/06/08 v1.1 Fit Margin Paragraphs]
-\RequirePackage{eso-pic}
+\ProvidesPackage{marginfit}[2025/08/04 v1.2 Fit Margin Paragraphs]
 \newif\ifmarginfit@debug
 \DeclareOption{debug}{\marginfit@debugtrue}
 \ProcessOptions\relax
@@ -110,7 +109,7 @@
     }%
 }%
 \def\marginfit@leftmargin{%
-    \AddToShipoutPictureBG*{%
+    \AddToHookNext{shipout/background}{%
       \InLeftMargin{%
         \let\marginfit@side\marginfit@left%
         \marginfit@marginbox%
@@ -118,7 +117,7 @@
     }%
 }
 \def\marginfit@rightmargin{%
-    \AddToShipoutPictureBG*{%
+    \AddToHookNext{shipout/background}{%
       \InRightMargin{%
         \let\marginfit@side\marginfit@right%
         \marginfit@marginbox%
@@ -127,8 +126,8 @@
 }
 \providecommand*{\InLeftMargin}[1]{%
   \put(%
-    \LenToUnit{1in+\hoffset+\evensidemargin-\marginparwidth-\marginparsep-0.5pt}, % X: left margin (we have to subtract 0.5pt as it's otherwise a little bit too right)
-    \LenToUnit{\paperheight-(1in+\voffset+\topmargin+\headheight+\headsep+\@colht)} % Y: bottom of main text
+    \dimeval{1in + \hoffset + \evensidemargin - \marginparsep - \marginparwidth - 0.5pt},% X: left margin (we have to subtract 0.5pt as it's otherwise a little bit too right)
+    \dimeval{-1in - \voffset - \topmargin - \headheight - \headsep - \@colht}% Y: bottom of main text
   ){%
     \ifmarginfit@debug%
         \setlength{\fboxsep}{0pt}% set padding to zero
@@ -142,8 +141,8 @@
 }
 \providecommand*{\InRightMargin}[1]{%
   \put(%
-    \LenToUnit{\paperwidth-(1in+\hoffset+\oddsidemargin+\marginparwidth)+1pt}, % X: right margin (we have to add 1pt as it's otherwise a little bit too left)
-    \LenToUnit{\paperheight-(1in+\voffset+\topmargin+\headheight+\headsep+\@colht)} % Y: bottom of main text
+    \dimeval{1in + \hoffset + \oddsidemargin + \textwidth + \marginparsep - 0.5pt},% X: right margin (we have to subtract 0.5pt as it's otherwise a little bit too right)
+    \dimeval{-1in - \voffset - \topmargin - \headheight - \headsep - \@colht}% Y: bottom of main text
   ){%
     \ifmarginfit@debug%
         \setlength{\fboxsep}{0pt}% set padding to zero

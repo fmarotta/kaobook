@@ -21,8 +21,7 @@
 %
 % \iffalse
 %<package>\NeedsTeXFormat{LaTeX2e}
-%<package>\ProvidesPackage{marginfit}[2018/06/08 v1.1 Fit Margin Paragraphs]
-%<package>\RequirePackage{eso-pic}
+%<package>\ProvidesPackage{marginfit}[2025/08/04 v1.2 Fit Margin Paragraphs]
 %<package>\newif\ifmarginfit@debug
 %<package>\DeclareOption{debug}{\marginfit@debugtrue}
 %<package>\ProcessOptions\relax
@@ -497,10 +496,11 @@
 % \end{macro}
 %
 % \begin{macro}{\marginfit@leftmargin}
-% The following macro appends a left margin to the current column.
+% The following macro appends a left margin to the current column. Since v1.2, this macro no longer accesses `\@outputbox`.
+% Credits to @jlab for using `\AddToHookNext` (cf. https://tex.stackexchange.com/a/749175/91923)
 %    \begin{macrocode}
 \def\marginfit@leftmargin{%
-    \AddToShipoutPictureBG*{%
+    \AddToHookNext{shipout/background}{%
       \InLeftMargin{%
         \let\marginfit@side\marginfit@left%
         \marginfit@marginbox%
@@ -511,10 +511,11 @@
 % \end{macro}
 %
 % \begin{macro}{\marginfit@rightmargin}
-% The following macro appends a right margin to the current column.
+% The following macro appends a right margin to the current column. Since v1.2, this macro no longer accesses `\@outputbox`.
+% Credits to @jlab for using `\AddToHookNext` (cf. https://tex.stackexchange.com/a/749175/91923)
 %    \begin{macrocode}
 \def\marginfit@rightmargin{%
-    \AddToShipoutPictureBG*{%
+    \AddToHookNext{shipout/background}{%
       \InRightMargin{%
         \let\marginfit@side\marginfit@right%
         \marginfit@marginbox%
@@ -526,19 +527,22 @@
 %
 % \begin{macro}{\@makecol}
 % We redefine \verb|\@makecol| and add the procedure to append a margin to the
-% current column. First, the original \verb|\@makecol| is executed. Then, the
-% width of \verb|\@outputbox| is set to \verb|\columnwidth| (added in v1.1).
+% current column. First, the original \verb|\@makecol| is executed.
+% Previously (in v1.1), the
+% width of \verb|\@outputbox| is set to \verb|\columnwidth|.
 % \changes{v1.1}{2018/06/07}{Fix width of \texttt{\symbol{`\\}@outputbox}}
 % This is necessary as a \verb|\parshape| that overflows on the right will
 % enlarge \verb|\@outputbox|. If we have margin material, we decide on which
 % side the margin column will be and add it to that side. A check for onesided
 % documents was added in v1.1.
 % \changes{v1.1}{2018/06/08}{Margin placement in onesided documents}
+% Since v1.2, we leave `\@outputbox` unmodified and add the margin column independently via a hook at the background layer during the shipout process.
+% \changes{v1.2}{2025/08/04}{Place margin columns without wrapping the main text in vertical and horizontal boxes}
 %    \begin{macrocode}
 \providecommand*{\InLeftMargin}[1]{%
   \put(%
-    \LenToUnit{1in+\hoffset+\evensidemargin-\marginparwidth-\marginparsep-0.5pt}, % X: left margin (we have to subtract 0.5pt as it's otherwise a little bit too right)
-    \LenToUnit{\paperheight-(1in+\voffset+\topmargin+\headheight+\headsep+\@colht)} % Y: bottom of main text
+    \dimeval{1in + \hoffset + \evensidemargin - \marginparsep - \marginparwidth - 0.5pt},% X: left margin (we have to subtract 0.5pt as it's otherwise a little bit too right)
+    \dimeval{-1in - \voffset - \topmargin - \headheight - \headsep - \@colht}% Y: bottom of main text
   ){%
     \ifmarginfit@debug%
         \setlength{\fboxsep}{0pt}% set padding to zero
@@ -552,8 +556,8 @@
 }
 \providecommand*{\InRightMargin}[1]{%
   \put(%
-    \LenToUnit{\paperwidth-(1in+\hoffset+\oddsidemargin+\marginparwidth)+1pt}, % X: right margin (we have to add 1pt as it's otherwise a little bit too left)
-    \LenToUnit{\paperheight-(1in+\voffset+\topmargin+\headheight+\headsep+\@colht)} % Y: bottom of main text
+    \dimeval{1in + \hoffset + \oddsidemargin + \textwidth + \marginparsep - 0.5pt},% X: right margin (we have to subtract 0.5pt as it's otherwise a little bit too right)
+    \dimeval{-1in - \voffset - \topmargin - \headheight - \headsep - \@colht}% Y: bottom of main text
   ){%
     \ifmarginfit@debug%
         \setlength{\fboxsep}{0pt}% set padding to zero
