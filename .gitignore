@@ -1,6 +1,5 @@
-## Custom exclusions
-article-template.pdf
-book-template.pdf
+# generated files
+tex
 
 ## Core latex/pdflatex auxiliary files:
 *.aux
@@ -244,3 +243,9 @@ TSWLatexianTemp*
 
 # generated if using elsarticle.cls
 *.spl
+
+# scrlayer-notecolumn
+*.slnc
+
+# localtoc
+*.klt
