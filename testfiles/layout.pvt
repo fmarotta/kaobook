@@ -1,0 +1,6 @@
+\input{regression-test.tex}
+\documentclass{kaobook}
+\usepackage{blindtext}
+\begin{document}
+\blinddocument
+\end{document}
