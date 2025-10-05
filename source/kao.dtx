@@ -1,0 +1,210 @@
+% \iffalse meta-comment
+%
+% Copyright (C) 2025- by Federico Marotta
+%
+% This file may be distributed and/or modified under the
+% conditions of the LaTeX Project Public License, either
+% version 1.3 of this license or (at your option) any later
+% version. The latest version of this license is in:
+%
+%     http://www.latex-project.org/lppl.txt
+%
+% and version 1.3 or later is part of all distributions of
+% LaTeX version 2005/12/01 or later.
+%
+% \fi
+%
+% \iffalse
+%<*driver>
+\ProvidesFile{kao.dtx}
+%</driver>
+%<kaobook>\NeedsTeXFormat{LaTeX2e}[2018/01/01]
+%<kaobook>\ProvidesClass{kaobook}
+%<*kaobook>
+    [2025/10/04 v0.1.0 kaobook]
+
+%</kaobook>
+%<*driver>
+\documentclass{ltxdoc}
+\usepackage{blindtext}
+\EnableCrossrefs
+\CodelineIndex
+\RecordChanges
+%\OnlyDescription
+\NewDocElement[%
+  macrolike = false,
+  toplevel = true,
+  idxtype = style,
+  idxgroup = Styles,
+]{Style}{style}
+\NewDocElement[%
+  macrolike = false,
+  toplevel = true,
+  idxtype = config,
+  idxgroup = Configs,
+]{Config}{config}
+\begin{document}
+    \DocInput{kao.dtx}
+\end{document}
+%</driver>
+% \fi
+%
+%
+% \CheckSum{0}
+%
+% \CharacterTable
+%  {Upper-case    \A\B\C\D\E\F\G\H\I\J\K\L\M\N\O\P\Q\R\S\T\U\V\W\X\Y\Z
+%   Lower-case    \a\b\c\d\e\f\g\h\i\j\k\l\m\n\o\p\q\r\s\t\u\v\w\x\y\z
+%   Digits        \0\1\2\3\4\5\6\7\8\9
+%   Exclamation   \!     Double quote  \"     Hash (number) \#
+%   Dollar        \$     Percent       \%     Ampersand     \&
+%   Acute accent  \'     Left paren    \(     Right paren   \)
+%   Asterisk      \*     Plus          \+     Comma         \,
+%   Minus         \-     Point         \.     Solidus       \/
+%   Colon         \:     Semicolon     \;     Less than     \<
+%   Equals        \=     Greater than  \>     Question mark \?
+%   Commercial at \@     Left bracket  \[     Backslash     \\
+%   Right bracket \]     Circumflex    \^     Underscore    \_
+%   Grave accent  \`     Left brace    \{     Vertical bar  \|
+%   Right brace   \}     Tilde         \~}
+%
+% \changes{v1.0.0}{2025/10/04}{Initial version of kaobook}
+%
+% \GetFileInfo{kao.dtx}
+%
+% \DoNotIndex{\#,\$,\%,\&,\@,\\,\{,\},\^,\_,\~,\ }
+% \DoNotIndex{\@ne}
+% \DoNotIndex{\advance,\begingroup,\catcode,\closein}
+% \DoNotIndex{\closeout,\day,\def,\edef,\else,\empty,\endgroup,\the,\let}
+% \DoNotIndex{\if,\else,\fi}
+%
+% \title{\textsf{kao} internals (\fileversion)}
+% \author{Federico Marotta}
+% \maketitle
+%
+% \section{Introduction}
+%
+% You are reading the technical documentation for the \textsf{kao} bundle.
+%
+% \section{Class options}
+%
+% kaobook loads scrbook with some default options.
+% Options passed to kaobook are automatically passed to scrbook and override the defaults.
+%
+% \iffalse
+%<*kaohandt>
+% \fi
+% \begin{macro}{\incrementexample}
+% Describe the macro in plain text, using vertical bars for verbatim
+%    \begin{macrocode}
+\newcommand\incrementexample{%
+%    \end{macrocode}
+% This macro just increments the counter "example"
+%    \begin{macrocode}
+  \addtocounter{example}{1}%
+}
+%    \end{macrocode}
+% \end{macro}
+% \iffalse
+%</kaohandt>
+% \fi
+%
+% \iffalse
+%% Set the default options concerning page geometry and layout
+\PassOptionsToClass{fontsize=10pt}{scrbook}
+\PassOptionsToClass{parskip=half}{scrbook}
+\PassOptionsToClass{toc=listof}{scrbook}
+\PassOptionsToClass{toc=bibliography}{scrbook}
+\PassOptionsToClass{toc=index}{scrbook}
+\PassOptionsToClass{headings=optiontoheadandtoc}{scrbook}
+\PassOptionsToClass{captions=nooneline}{scrbook}
+\PassOptionsToClass{captions=outerbeside}{scrbook}
+\PassOptionsToClass{captions=tableheading}{scrbook}
+%% Override default options with user-specified ones
+\DeclareOption*{\PassOptionsToClass{\CurrentOption}{scrbook}}
+\ProcessOptions\relax
+%% Load the base class
+%<kaobook>\LoadClass{scrbook}
+
+% \fi
+
+% \section{Page layout}
+%
+% \iffalse
+
+%% We need to set the font *before* typearea, otherwise use \recalctypearea
+\RequirePackage[scaled=.97,helvratio=.93,p,theoremfont]{newpxtext} % Serif palatino font
+\linespread{1.07}
+\KOMAoptions{
+    mpinclude=yes,
+    headinclude=no,
+    footinclude=no,
+    BCOR=0pt,
+    DIV=default,
+}
+\setlength{\marginparwidth}{47.7\vscale}
+\setlength{\textheight}{1.06\textheight}
+% \fi
+%
+% \section{Core macros}
+% 
+% \DescribeMacro{\sayhi}
+% This macro is very simple: it just prints hi.
+%
+% \section{Stopping eventually}
+%
+% \MaybeStop{
+% A block of text to typeset after the user-part of the documentation.
+% \PrintChanges
+% \PrintIndex
+% }
+%
+% \section{Implementation}
+%
+% \begin{macro}{sayhi}
+% Let's try to define a macro called |sayhi|.
+%    \begin{macrocode}
+\newcommand{\sayhi}{hi}
+%    \end{macrocode}
+% \end{macro}
+%
+% Another silly macro.
+%
+% \iffalse
+%<*kaobook>
+% \fi
+% \begin{macro}{\incrementexample}
+% Describe the macro in plain text, using vertical bars for verbatim.
+%    \begin{macrocode}
+\newcommand\incrementexample{%
+%    \end{macrocode}
+% This macro just increments the counter "example"
+%    \begin{macrocode}
+  \addtocounter{example}{1}%
+}
+%    \end{macrocode}
+% \end{macro}
+% \iffalse
+%</kaobook>
+% \fi
+%
+% \begin{config}{layout}
+% Set the default options for |kaobook|.
+%    \begin{macrocode}
+\KOMAoptions{
+    mpinclude=yes,
+    headinclude=no,
+    footinclude=no,
+    BCOR=0pt,
+    DIV=default,
+}
+\setlength{\marginparwidth}{47.7\vscale}
+\setlength{\textheight}{1.06\textheight}
+\recalctypearea
+%    \end{macrocode}
+% \end{config}
+%
+% \Finale
+% Text that is printed if OnlyDescription is false or commented out.
+\endinput
+
