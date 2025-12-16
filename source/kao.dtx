@@ -116,36 +116,123 @@
 \PassOptionsToClass{toc=listof}{scrbook}
 \PassOptionsToClass{toc=bibliography}{scrbook}
 \PassOptionsToClass{toc=index}{scrbook}
+\PassOptionToClass{toc=graduated}{scrbook}
 \PassOptionsToClass{headings=optiontoheadandtoc}{scrbook}
 \PassOptionsToClass{captions=nooneline}{scrbook}
 \PassOptionsToClass{captions=outerbeside}{scrbook}
 \PassOptionsToClass{captions=tableheading}{scrbook}
+\PassOptionsToClass{footnotes=multiple}{scrbook}
+\PassOptionsToClass{DIV=9}{scrbook}
 %% Override default options with user-specified ones
 \DeclareOption*{\PassOptionsToClass{\CurrentOption}{scrbook}}
 \ProcessOptions\relax
 %% Load the base class
+%% TODO: check out /RequirePackageWithOptions in scrgui
 %<kaobook>\LoadClass{scrbook}
 
 % \fi
 
 % \section{Page layout}
-%
-% \iffalse
 
+% Before setting the page layout, we need to address some decisions made by the author, as they will have an impact on the layout itself.
+% These decisions are very much opinionated and not everyone may like them.
+% If you don't like them, probably kaobook is not for you and you shouldn't use it.
+% However, I will describe later how to revert all these decisions, so that users can go back to a more ``plain \LaTeX'' experience.
+% The first of these decision is the main serif font: Palatino.
+% Then we have some choices about the styling of lists: triangles for the first level, bullets for the second level, and very compact spacing.
+
+% \iffalse
 %% We need to set the font *before* typearea, otherwise use \recalctypearea
 \RequirePackage[scaled=.97,helvratio=.93,p,theoremfont]{newpxtext} % Serif palatino font
+\RequirePackage[scaled=.97]{newpxmath} % Math palatino font
 \linespread{1.07}
-\KOMAoptions{
-    mpinclude=yes,
-    headinclude=no,
-    footinclude=no,
-    BCOR=0pt,
-    DIV=default,
+\RequirePackage[classico] % sans-serif font: URW classico
+%%
+\addtokomafont{disposition}{\rmfamily}
+%%
+%% Here we also set some font-adjacent settings, such as the style of the bullet points
+\renewcommand{\labelitemi}{\small$\blacktriangleright$} % Use a black triangle for the first level of \item's
+\renewcommand{\labelitemii}{\textbullet} % Use a bullet for the second level of \item's
+\RequirePackage[inline]{enumitem} % Used to customise lists (in particular, we don't want to put whitespace between items)
+\setlist[itemize]{noitemsep}
+\setlist[enumerate]{noitemsep}
+\setlist[description]{noitemsep}
+%%
+%% \flushbottom (this is already the default in books and reports (but it's ragged in articles)
+%%
+%% The default in books is subsection
+\setcounter{tocdepth}{\sectiontocdepth}
+%%
+\deffootnote[1em]{1em}{2em}{%
+    \textsuperscript{\thefootnotemark}%
 }
-\setlength{\marginparwidth}{47.7\vscale}
-\setlength{\textheight}{1.06\textheight}
+\fi
+
+% Now we are ready to talk about the page layout.
+% There are two layouts you can choose from: default, which corresponds to the plain \LaTeX\ style, and margin, which is the Tufte-inspired layout with large margins adopted by kaobook.
+
+% \iffalse
+\DeclareDocumentCommand{\defaultlayout}{}{%
+    \KOMAoptions{%
+        mpinclude=no,%
+        headinclude=no,%
+        footinclude=no,%
+        DIV=last,%
+    }%
+    \typearea[current]{last}%
+    % \expandafter\showthe\dimexpr1in+\topmargin+\headheight+\headsep\relax
+    \addtolength{\headsep}{0.24\headsep}%
+    \addtolength{\textheight}{.5\footskip}
+    \activateareas%
+}
+\DeclareDocumentCommand{\marginlayout}{}{%
+    \KOMAoptions{%
+        mpinclude=no,%
+        headinclude=no,%
+        footinclude=no,%
+        DIV=last,%
+    }%
+    \typearea[current]{last}%
+    \addtolength{\headsep}{0.24\headsep}%
+    \addtolength{\textheight}{.5\footskip}
+    \addtolength{\marginparwidth}{.11\textwidth}%
+    \addtolength{\evensidemargin}{.20\textwidth}%
+    \addtolength{\textwidth}{-.20\textwidth}%
+    \renewcommand{\coverpageleftmargin}{\dimexpr\hoffset+2in+\oddsidemargin\relax}%
+    \renewcommand{\coverpagerightmargin}{\dimexpr\paperwidth-1in-\hoffset-\oddsidemargin-\textwidth\relax}%
+    \activateareas%
+}
 % \fi
-%
+
+% The headings in kaobook are also peculiar.
+% There are more arbitrary decisions here.
+% First, currently we redefine the scrheadings style instead of creating a new one.
+% Similarly, we redefine the partpagestyle, chapterpagestyle, and indexpagestyle.
+% Users may want to opt in or out of our headings.
+%% TODO: consider not changing the default header and footer styles.
+
+\iffalse
+\RequirePackage{scrlayer-scrpage}
+%%
+\def\kao@headrule{\makebox[1.5em][c]{\smash{\rule[-\dp\strutbox]{0.5pt}{\dimexpr\dp\strutbox+1in+\voffset+\topmargin+\headheight\relax}}}}
+\def\kao@headboxright{\makebox[\dimexpr\textwidth+\marginparwidth+\marginparsep-1.5em-3em\relax][r]{\rightmark}}
+\def\kao@headboxleft{\leftmark}
+%%
+\renewpagestyle{scrheadings}{%
+    {\hspace{\dimexpr-\marginparwidth-\marginparsep\relax}\makebox[3em][r]{\thepage}\kao@headrule\kao@headboxleft}%
+    {\makebox[0pt][l]{\kao@headboxright\kao@headrule\makebox[3em][l]{\thepage}}}%
+    {\makebox[0pt][l]{\kao@headboxright\kao@headrule\makebox[3em][l]{\thepage}}}%
+}{%
+    {}%
+    {}%
+    {}%
+}
+%%
+\renewcommand\partpagestyle{empty}
+\renewcommand\chapterpagestyle{empty}
+\renewcommand\indexpagestyle{empty}
+\fi
+
 % \section{Core macros}
 % 
 % \DescribeMacro{\sayhi}
