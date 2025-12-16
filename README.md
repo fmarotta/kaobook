@@ -9,7 +9,7 @@ Test files and corresponding expectations are in the `testfiles` directory.
 Here is a typical development workflow.
 
 1. Make your own fork of the repository and clone it, e.g. `git clone git@github.com/fmarotta/kaobook`
-1. Edit the .dtx file and add a feature or fix a bug
+1. Edit the .dtx or one of the other files in `./source` to add a feature or fix a bug
 1. Compile the .dtx into local .cls and .sty files: `l3build unpack`, they will be saved under `build/unpacked`
 1. Generate the documentation and the manual: `l3build doc`, they will be saved in `docs`
 1. Create a new test file, e.g. `testfiles/mytest.pvt` (for PDF comparison) or `testfiles/mytest.lvt` (for log comparison)
@@ -29,7 +29,7 @@ Further reading on l3build:
 The first time it only looks at the uncommented `<driver>` code.
 This creates a "template" for the .tex file with the documentation, which has the line `\DocInput{kao.dtx}` at its core.
 The second time it looks at the commented code and generates the documentation.
-Blocks between `\iffalse`-`\fi` are read by docstrip and may be sent to output files, but they are not included of the documentation.
+Blocks between `\iffalse`-`\fi` are read by docstrip and may be sent to output files, but they are not included in the documentation.
 
 Traditionally, the .dtx file is supposed to be divided in two parts.
 The initial part describes the usage of a package's macros for users.
