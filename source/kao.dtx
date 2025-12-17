@@ -236,6 +236,28 @@
 \renewcommand\indexpagestyle{empty}
 \fi
 
+% The last topic in this section is the style of chapter titles.
+% So far, the following definition works only without what KOMA calls the ``chapter prefix''.
+% Basically, in KOMA you can customize the chapter number by adding the literal word ``Chapter'' (or ``Appendix'') before it.
+% In this case, the chapter number sits on a line by itself.
+% Currently, this option is useless in kaobook.
+% I'd like to address that by designing a layout that looks good with the word ``Chapter''.
+
+\renewcommand*{\chapterformat}{%
+    \smash{\chapappifchapterprefix\enskip\scalebox{2.85}{\thechapter\autodot}}%
+}
+\renewcommand\chapterlinesformat[3]{%
+    \savebox\kao@chapterbox{\parbox[b]{\textwidth}{\raggedchapter#3}}%
+    \makebox[0pt][l]{%
+        \usebox\kao@chapterbox%
+        \makebox[\marginparsep]{\smash{\rule[-\dp\strutbox]{1pt}{\maxdimen}}}%
+        \parbox[b]{\marginparwidth}{#2}%
+    }%
+}
+\renewcommand\chapterlineswithprefixformat[3]{\chapterlinesformat{#1}{#2}{#3}}
+\renewcommand\raggedchapter{\raggedleft}
+\RedeclareSectionCommand[beforeskip=.5\baselineskip plus .25\baselineskip minus .25\baselineskip,afterskip=3\baselineskip plus .5\baselineskip minus .5\baselineskip]{chapter}%
+
 % \section{Core macros}
 % 
 % \DescribeMacro{\sayhi}
