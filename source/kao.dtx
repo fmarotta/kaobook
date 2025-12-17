@@ -181,8 +181,9 @@
     }%
     \typearea[current]{last}%
     % \expandafter\showthe\dimexpr1in+\topmargin+\headheight+\headsep\relax
-    \addtolength{\headsep}{0.24\headsep}%
-    \addtolength{\textheight}{.5\footskip}
+    \addtolength\topmargin{-0.5\headsep}%
+    \addtolength{\headsep}{0.5\headsep}%
+    \addtolength{\textheight}{\footskip}%
     \activateareas%
 }
 \DeclareDocumentCommand{\marginlayout}{}{%
@@ -193,9 +194,11 @@
         DIV=last,%
     }%
     \typearea[current]{last}%
-    \addtolength{\headsep}{0.24\headsep}%
-    \addtolength{\textheight}{.5\footskip}
+    \addtolength\topmargin{-0.5\headsep}%
+    \addtolength{\headsep}{0.5\headsep}%
+    \addtolength{\textheight}{\footskip}%
     \addtolength{\marginparwidth}{.11\textwidth}%
+    \addtolength{\marginparsep}{.01\textwidth}%
     \addtolength{\evensidemargin}{.20\textwidth}%
     \addtolength{\textwidth}{-.20\textwidth}%
     \renewcommand{\coverpageleftmargin}{\dimexpr\hoffset+2in+\oddsidemargin\relax}%
