@@ -1,0 +1,230 @@
+% \iffalse meta-comment
+%
+% Copyright (C) 2025- by Federico Marotta
+%
+% This file may be distributed and/or modified under the
+% conditions of the LaTeX Project Public License, either
+% version 1.3 of this license or (at your option) any later
+% version. The latest version of this license is in:
+%
+%     http://www.latex-project.org/lppl.txt
+%
+% and version 1.3 or later is part of all distributions of
+% LaTeX version 2005/12/01 or later.
+%
+% \fi
+%
+% \iffalse
+%<*driver>
+\ProvidesFile{kao.dtx}
+\documentclass{scrbook}
+\usepackage{doc}
+\MakeShortVerb{\|}
+\usepackage{localtoc}
+\EnableCrossrefs
+\CodelineIndex
+\RecordChanges
+%\OnlyDescription
+\begin{document}
+    \DocInput{localtoc.dtx}
+\end{document}
+%</driver>
+%<*localtoc>
+\NeedsTeXFormat{LaTeX2e}[2018/01/01]
+\ProvidesPackage{localtoc}
+    [2025/12/18 v0.1.0 localtoc]
+
+%</localtoc>
+% \fi
+%
+%
+% \CheckSum{0}
+%
+% \CharacterTable
+%  {Upper-case    \A\B\C\D\E\F\G\H\I\J\K\L\M\N\O\P\Q\R\S\T\U\V\W\X\Y\Z
+%   Lower-case    \a\b\c\d\e\f\g\h\i\j\k\l\m\n\o\p\q\r\s\t\u\v\w\x\y\z
+%   Digits        \0\1\2\3\4\5\6\7\8\9
+%   Exclamation   \!     Double quote  \"     Hash (number) \#
+%   Dollar        \$     Percent       \%     Ampersand     \&
+%   Acute accent  \'     Left paren    \(     Right paren   \)
+%   Asterisk      \*     Plus          \+     Comma         \,
+%   Minus         \-     Point         \.     Solidus       \/
+%   Colon         \:     Semicolon     \;     Less than     \<
+%   Equals        \=     Greater than  \>     Question mark \?
+%   Commercial at \@     Left bracket  \[     Backslash     \\
+%   Right bracket \]     Circumflex    \^     Underscore    \_
+%   Grave accent  \`     Left brace    \{     Vertical bar  \|
+%   Right brace   \}     Tilde         \~}
+%
+% \changes{v1.0.0}{2025/12/18}{Initial version of localtoc}
+%
+% \GetFileInfo{localtoc.dtx}
+%
+% \DoNotIndex{\#,\$,\%,\&,\@,\\,\{,\},\^,\_,\~,\ }
+% \DoNotIndex{\@ne}
+% \DoNotIndex{\advance,\begingroup,\catcode,\closein}
+% \DoNotIndex{\closeout,\day,\def,\edef,\else,\empty,\endgroup,\the,\let}
+% \DoNotIndex{\if,\else,\fi}
+%
+% \title{Creating local tables of contents with \textsf{localtoc}}
+% \author{Federico Marotta}
+% \maketitle
+%
+% \section{Introduction}
+% This package creates local tables of contents.
+% \iffalse
+\RequirePackage{tocbasic}
+\def\lt@name{localtoc}
+\def\lt@ext{klt}
+%% From scrguide chapter 15
+\Ifattoclist{\lt@ext}{%
+	\PackageError{\lt@name}{%
+		extension `\lt@ext' already in use%
+	}{%
+		Each extension may be used only once.\MessageBreak
+		The class or another package already uses extension `\lt@ext'.\MessageBreak
+		This error is fatal!\MessageBreak
+		You should not continue!%
+	}%
+}{%
+	\PackageInfo{\lt@name}{using extension `\lt@ext'.}%
+}
+
+\addtotoclist{\lt@ext}
+%% \newcommand*{\listofkaoltname}{\listoftocname}% title for the local toc
+
+\providecommand*\@currentlocaltocentry{\relax}
+\providecommand*\@currentlocallevel{\relax}
+\FamilyStringKey[.section]{KOMAarg}{localtoc}{\@currentlocaltocentry}
+\FamilyStringKey[.dsc]{KOMAarg}{localtoc}{\@currentlocaltocentry}
+\newcommand*\lt@preinit[1]{%
+	\def\@currentlocallevel{#1local}%
+	\def\@currentlocaltocentry{\@currenttocentry}%
+}
+\AddtoDoHook{heading/preinit}{\lt@preinit}
+%% \AddtoDoHook{heading/begingroup}{\@currenttocentry\@currentlocaltocentry} % For debugging
+
+% \fi
+
+% \begin{macro}{\if@skiplocaltocentry}
+% Here apparently I made a classic rookie mistake and I wanted to highlight it.
+% DocStrip tries to keep track of the conditionals, i.e. it pairs every |fi| with the corresponding |if|.
+% However, in a |newif| definition, the subsequent |if| makes the parser expect a closing |fi|.
+% Thus, the |fi| that closes the previous |iffalse| is essentially ignored.
+% To prevent this, one could use |expandafter| and |csname|.
+% Or, as I just did, wrap the |newif| in a macro environment.
+%    \begin{macrocode}
+\newif\if@skiplocaltocentry
+%    \end{macrocode}
+% \end{macro}
+
+
+% \iffalse
+\newcommand*\lt@headingstar[1]{%
+	\@skiplocaltocentrytrue%
+	\addxcontentsline{\lt@ext}{#1localstar}{}%
+}
+
+\AddtoDoHook{heading/branch/star}{\lt@headingstar}
+\AddtoDoHook{heading/branch/nostar}{\@skiplocaltocentryfalse\@gobble} % the hook code expects a command that takes one argument; if we don't gobble it, #1 will occur in the document % instead of @gobble we could also define a command (outside of the hook) that takes one argument and just pass it to the hook.
+
+\newcommand*{\addlocalcontentsline}[1]{%
+	\if@skiplocaltocentry
+	\else
+		\IfUseNumber{%
+			\addxcontentsline{\lt@ext}{#1local}[\csname the#1\endcsname]{\@currentlocaltocentry}%
+		}{%
+			\addxcontentsline{\lt@ext}{#1local}{\@currentlocaltocentry}%
+		}%
+	\fi
+}
+\AddtoDoHook{heading/endgroup}{\addlocalcontentsline}
+
+%% The following macro writes the aux file; we need it because we redefine @starttoc and the file is never really opened.
+%% We make sure that it's written only if the user issues \localtoc (otherwise it's a waste)
+%% TODO: delete the file if not necessary anymore
+%% TODO: etoc reads the file only once at the beginning in memory, maybe we should do it as well. We could use the catchfile package (egreg-approved!)
+\newcommand*{\lt@writeauxfile}{%
+	%% Update the .kao file even though @starttoc is not really called
+	\expandafter\newwrite\csname tf@\lt@ext\endcsname%
+	\immediate\openout\csname tf@\lt@ext\endcsname\jobname.\lt@ext\relax%
+}
+\newcommand*{\lt@writeauxfileifneeded}{\relax}
+\AtEndDocument{\lt@writeauxfileifneeded}
+
+%% TODO: consider whether we should allow users to print the full .klt file
+%% UPDATE: nope, we shouldn't. There are additional commands there (like \startlocaltoc) that are undefined unless within \localtoc
+
+\newcounter{localtoc}
+\setcounter{localtoc}{0}
+\newcounter{localtocdepth}
+\setcounter{localtocdepth}{\subsectiontocdepth}
+\newcommand*\startlocaltoc[1]{%
+	\csname startlocaltoc#1\endcsname%
+}
+\DeclareRobustCommand*\marklocaltoc{%
+  \global\let\lt@writeauxfileifneeded\lt@writeauxfile%
+  \stepcounter{localtoc}%
+  \addtocontents{\lt@ext}{\string\startlocaltoc{\thelocaltoc}}%
+}
+%% TODO: allow a title (i.e. don't hard-code listof* with the star)
+\DeclareRobustCommand*\printlocaltoc[1]{%
+  \begingroup%
+    \let\oldcontentsline\contentsline%
+    \makeatletter%
+    \renewcommand\contentsline[4]{}%
+    \expandafter\def\csname startlocaltoc#1\endcsname{%
+      \ifx\@currentlocallevel\relax%
+        \PackageWarning{\lt@name}{Cannot create a `localtoc' before adding headings.}%
+      \else%
+        \renewcommand\contentsline[4]{%
+          \ifnum\csname toclevel@####1\endcsname>\csname toclevel@\@currentlocallevel\endcsname%
+            \oldcontentsline{####1}{####2}{####3}{####4}%
+          \else%
+            \renewcommand\contentsline[4]{}%
+          \fi%
+        }%
+      \fi%
+    }%
+    \edef\oldtocdepth{\value{tocdepth}}%
+    \setcounter{tocdepth}{\thelocaltocdepth}%
+    \renewcommand\@starttoc[1]{%
+      \@input{\jobname.##1}%
+      \@nobreakfalse%
+    }%
+    \listoftoc*{\lt@ext}%
+    \setcounter{tocdepth}{\oldtocdepth}%
+    \makeatother%
+  \endgroup%
+}
+
+\DeclareRobustCommand*\localtoc{%
+  \marklocaltoc%
+  \printlocaltoc{\thelocaltoc}%
+}
+
+\setuptoc{\lt@ext}{%
+	noparskipfake,
+	leveldown,
+	% onecolumn,
+	% chapteratlist,% maybe we can use this separation for the local toc
+}
+
+%% \newcommand*{\localtocformat}[1]{{\usekomafont{section}#1}}
+
+\newcommand*\pagenumberbox[1]{\makebox[\@pnumwidth]{#1}}
+
+%% NOTE: if user defines new headings with \DeclareSectionCommand, they'll have to add corresponding styles.
+\CloneTOCEntryStyle{tocline}{localtocline}
+\DeclareTOCStyleEntries[level:=chapter,numwidth:=chapter,dynnumwidth=true,indent=0pt,numsep=.5em,raggedentrytext=true,entryformat=\bfseries,pagenumberformat=\bfseries,pagenumberbox=\pagenumberbox]{localtocline}{chapterlocal}
+\DeclareTOCStyleEntries[level:=section,numwidth:=section,dynnumwidth=true,indent=0pt,numsep=.5em,raggedentrytext=true,entryformat=\bfseries,pagenumberformat=\bfseries,pagenumberbox=\pagenumberbox]{localtocline}{sectionlocal}
+\DeclareTOCStyleEntries[level:=subsection,numwidth:=subsection,dynnumwidth=true,indent=0pt,numsep=.5em,raggedentrytext=true,entryformat=\bfseries,pagenumberformat=\bfseries,pagenumberbox=\pagenumberbox]{localtocline}{subsectionlocal}
+\DeclareTOCStyleEntries[level:=subsubsection,numwidth:=subsubsection,dynnumwidth=true,indent=0pt,numsep=.5em,raggedentrytext=true,entryformat=\bfseries,pagenumberformat=\bfseries,pagenumberbox=\pagenumberbox]{localtocline}{subsubsectionlocal}
+\DeclareTOCStyleEntries[level:=paragraph,numwidth:=paragraph,dynnumwidth=true,indent=0pt,numsep=.5em,raggedentrytext=true,entryformat=\bfseries,pagenumberformat=\bfseries,pagenumberbox=\pagenumberbox]{localtocline}{paragraphlocal}
+\DeclareTOCStyleEntries[level:=subparagraph,numwidth:=subparagraph,dynnumwidth=true,indent=0pt,numsep=.5em,raggedentrytext=true,entryformat=\bfseries,pagenumberformat=\bfseries,pagenumberbox=\pagenumberbox]{localtocline}{subparagraphlocal}
+
+\DeclareTOCStyleEntries[level=99]{gobble}{partlocalstar,chapterlocalstar,sectionlocalstar,subsectionlocalstar,subsubsectionlocalstar,paragraphlocalstar,subparagraphlocalstar}
+% \fi
+% \Finale
+% Text that is printed only if OnlyDescription is false or commented out (apparently this is not true).
+\endinput

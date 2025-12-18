@@ -9,7 +9,7 @@ Test files and corresponding expectations are in the `testfiles` directory.
 Here is a typical development workflow.
 
 1. Make your own fork of the repository and clone it, e.g. `git clone git@github.com/fmarotta/kaobook`
-1. Edit the .dtx or one of the other files in `./source` to add a feature or fix a bug
+1. Edit one of the .dtx or other files in `./source` to add a feature or fix a bug
 1. Compile the .dtx into local .cls and .sty files: `l3build unpack`, they will be saved under `build/unpacked`
 1. Generate the documentation and the manual: `l3build doc`, they will be saved in `docs`
 1. Create a new test file, e.g. `testfiles/mytest.pvt` (for PDF comparison) or `testfiles/mytest.lvt` (for log comparison)
