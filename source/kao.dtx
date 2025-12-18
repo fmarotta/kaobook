@@ -223,20 +223,20 @@
 % \end{macro}
 
 % The headings in kaobook are also peculiar.
-% There are more arbitrary decisions here.
-% First, currently we redefine the scrheadings style instead of creating a new one.
-% Similarly, we redefine the partpagestyle, chapterpagestyle, and indexpagestyle.
-% Users may want to opt in or out of our headings.
-%% TODO: consider not changing the default header and footer styles.
+% We achieve that by defining new pagestyles using the package |scrlayer-scrpage|.
+% It's actually a pair of pagestyles, |kaoheadings| and |plain.kaoheadings|.
+% We activate the kaoheadings style by default and redefine the partpagestyle, chapterpagestyle, and indexpagestyle macro so that the plain.kaoheadings is used on those pages.
+% If you want to revert to the default KOMA-Script headings or use your own, please set |\pagestyle| to something else and redefine the other three macros as appropriate.
 
-\iffalse
+% \iffalse
 \RequirePackage{scrlayer-scrpage}
 %%
 \def\kao@headrule{\makebox[1.5em][c]{\smash{\rule[-\dp\strutbox]{0.5pt}{\dimexpr\dp\strutbox+1in+\voffset+\topmargin+\headheight\relax}}}}
 \def\kao@headboxright{\makebox[\dimexpr\textwidth+\marginparwidth+\marginparsep-1.5em-3em\relax][r]{\rightmark}}
 \def\kao@headboxleft{\leftmark}
 %%
-\renewpagestyle{scrheadings}{%
+\newpairofpagestyles[scrheadings]{kaoheadings}{}
+\renewpagestyle{kaoheadings}{%
     {\hspace{\dimexpr-\marginparwidth-\marginparsep\relax}\makebox[3em][r]{\thepage}\kao@headrule\kao@headboxleft}%
     {\makebox[0pt][l]{\kao@headboxright\kao@headrule\makebox[3em][l]{\thepage}}}%
     {\makebox[0pt][l]{\kao@headboxright\kao@headrule\makebox[3em][l]{\thepage}}}%
@@ -245,11 +245,21 @@
     {}%
     {}%
 }
+\renewpagestyle{plain.kaoheadings}{%
+    {}%
+    {}%
+    {}%
+}{%
+    {}%
+    {}%
+    {}%
+}
 %%
-\renewcommand\partpagestyle{empty}
-\renewcommand\chapterpagestyle{empty}
-\renewcommand\indexpagestyle{empty}
-\fi
+\pagestyle{kaoheadings}
+\renewcommand*\chapterpagestyle{plain.kaoheadings}
+\renewcommand*\partpagestyle{plain.kaoheadings}
+\renewcommand*\indexpagestyle{plain.kaoheadings}
+% \fi
 
 % The last topic in this section is the style of chapter titles.
 % So far, the following definition works only without what KOMA calls the ``chapter prefix''.
