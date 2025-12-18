@@ -21,7 +21,7 @@
 %<kaobook>\NeedsTeXFormat{LaTeX2e}[2018/01/01]
 %<kaobook>\ProvidesClass{kaobook}
 %<*kaobook>
-    [2025/10/04 v0.1.0 kaobook]
+    [2025/12/18 v0.1.1 kaobook]
 
 %</kaobook>
 %<*driver>
@@ -116,7 +116,7 @@
 \PassOptionsToClass{toc=listof}{scrbook}
 \PassOptionsToClass{toc=bibliography}{scrbook}
 \PassOptionsToClass{toc=index}{scrbook}
-\PassOptionToClass{toc=graduated}{scrbook}
+\PassOptionsToClass{toc=graduated}{scrbook}
 \PassOptionsToClass{headings=optiontoheadandtoc}{scrbook}
 \PassOptionsToClass{captions=nooneline}{scrbook}
 \PassOptionsToClass{captions=outerbeside}{scrbook}
@@ -141,32 +141,37 @@
 % The first of these decision is the main serif font: Palatino.
 % Then we have some choices about the styling of lists: triangles for the first level, bullets for the second level, and very compact spacing.
 
-% \iffalse
-%% We need to set the font *before* typearea, otherwise use \recalctypearea
+% \begin{macro}{\setup}
+% We need to set the font before typearea, otherwise use |\recalctypearea|
+%    \begin{macrocode}
 \RequirePackage[scaled=.97,helvratio=.93,p,theoremfont]{newpxtext} % Serif palatino font
 \RequirePackage[scaled=.97]{newpxmath} % Math palatino font
 \linespread{1.07}
-\RequirePackage[classico] % sans-serif font: URW classico
-%%
+\RequirePackage{classico} % sans-serif font: URW classico
+
 \addtokomafont{disposition}{\rmfamily}
-%%
-%% Here we also set some font-adjacent settings, such as the style of the bullet points
+%    \end{macrocode}
+
+% Here we also set some font-adjacent settings, such as the style of the bullet points
+%    \begin{macrocode}
 \renewcommand{\labelitemi}{\small$\blacktriangleright$} % Use a black triangle for the first level of \item's
 \renewcommand{\labelitemii}{\textbullet} % Use a bullet for the second level of \item's
 \RequirePackage[inline]{enumitem} % Used to customise lists (in particular, we don't want to put whitespace between items)
 \setlist[itemize]{noitemsep}
 \setlist[enumerate]{noitemsep}
 \setlist[description]{noitemsep}
-%%
+
+
 %% \flushbottom (this is already the default in books and reports (but it's ragged in articles)
-%%
+
 %% The default in books is subsection
 \setcounter{tocdepth}{\sectiontocdepth}
 %%
 \deffootnote[1em]{1em}{2em}{%
     \textsuperscript{\thefootnotemark}%
 }
-\fi
+%    \end{macrocode}
+% \end{macro}
 
 % Now we are ready to talk about the page layout.
 % There are two layouts you can choose from: default, which corresponds to the plain \LaTeX\ style, and margin, which is the Tufte-inspired layout with large margins adopted by kaobook.
@@ -268,6 +273,8 @@
 % For this version, I've maintained that design and tried to design a chapter format that works also with the ``chapterprefix'' option, but I'm still experimenting with it.
 
 % \iffalse
+\RequirePackage{graphicx} % for \scalebox
+
 \newcommand\kaochapterformatscale{2.85}
 \renewcommand*{\chapterformat}{%
     \IfUsePrefixLine{\centering\chapapp\par\vskip\scr@chapter@innerskip}{}\scalebox{\kaochapterformatscale}{\thechapter\autodot}%
@@ -340,16 +347,13 @@
 % \begin{config}{layout}
 % Set the default options for |kaobook|.
 %    \begin{macrocode}
-\KOMAoptions{
-    mpinclude=yes,
-    headinclude=no,
-    footinclude=no,
-    BCOR=0pt,
-    DIV=default,
-}
-\setlength{\marginparwidth}{47.7\vscale}
-\setlength{\textheight}{1.06\textheight}
-\recalctypearea
+%% \KOMAoptions{
+%%     mpinclude=yes,
+%%     headinclude=no,
+%%     footinclude=no,
+%%     BCOR=0pt,
+%%     DIV=default,
+%% }
 %    \end{macrocode}
 % \end{config}
 %
