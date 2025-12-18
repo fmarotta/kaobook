@@ -180,12 +180,17 @@
         DIV=last,%
     }%
     \typearea[current]{last}%
-    % \expandafter\showthe\dimexpr1in+\topmargin+\headheight+\headsep\relax
     \addtolength\topmargin{-0.5\headsep}%
     \addtolength{\headsep}{0.5\headsep}%
     \addtolength{\textheight}{\footskip}%
     \activateareas%
 }
+% \fi
+% \begin{macro}{\marginlayout}
+% Some considerations about this macro.
+% First, we pass some options to the |typearea| package, which calculates the page geometry.
+% Then we tweak the geometry by modifying the raw LaTeX lengths.
+%    \begin{macrocode}
 \DeclareDocumentCommand{\marginlayout}{}{%
     \KOMAoptions{%
         mpinclude=no,%
@@ -194,6 +199,15 @@
         DIV=last,%
     }%
     \typearea[current]{last}%
+%    \end{macrocode}
+% Most of these tweaks are arbitrary decisions, so there is not much to explain.
+% I wanted to mention something though, for the sake of documenting a behaviour which to me was surprising.
+% One of the arbitrary decisions is to increase the space between the header and the page content, and consequently move the header a bit higher towards the top margin.
+% There are two ways to do this by modifying the LaTeX lengths: we either change |\voffset| or we change |\topmargin|.
+% Initially I decided to change |\voffset| and I was surprised that the notes made with |\makenote| were all shifted.
+% It seems that |scrlayer-notecolum| relies on |\voffset| for the absolute positioning of the notes.
+% Thus, it's better to not change |\voffset|.
+%    \begin{macrocode}
     \addtolength\topmargin{-0.5\headsep}%
     \addtolength{\headsep}{0.5\headsep}%
     \addtolength{\textheight}{\footskip}%
@@ -205,7 +219,8 @@
     \renewcommand{\coverpagerightmargin}{\dimexpr\paperwidth-1in-\hoffset-\oddsidemargin-\textwidth\relax}%
     \activateareas%
 }
-% \fi
+%    \end{macrocode}
+% \end{macro}
 
 % The headings in kaobook are also peculiar.
 % There are more arbitrary decisions here.
