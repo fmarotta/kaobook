@@ -21,7 +21,7 @@
 %<kaobook>\NeedsTeXFormat{LaTeX2e}[2018/01/01]
 %<kaobook>\ProvidesClass{kaobook}
 %<*kaobook>
-    [2025/12/18 v0.1.1 kaobook]
+    [2025/12/18 v0.1.0 kaotex]
 
 %</kaobook>
 %<*driver>
@@ -80,6 +80,7 @@
 %
 % \title{\textsf{kao} internals (\fileversion)}
 % \author{Federico Marotta}
+% \date{\filedate}
 % \maketitle
 %
 % \section{Introduction}
@@ -141,7 +142,7 @@
 % The first of these decision is the main serif font: Palatino.
 % Then we have some choices about the styling of lists: triangles for the first level, bullets for the second level, and very compact spacing.
 
-% \begin{macro}{\setup}
+% \begin{style}{typearea}
 % We need to set the font before typearea, otherwise use |\recalctypearea|
 %    \begin{macrocode}
 \RequirePackage[scaled=.97,helvratio=.93,p,theoremfont]{newpxtext} % Serif palatino font
@@ -171,7 +172,7 @@
     \textsuperscript{\thefootnotemark}%
 }
 %    \end{macrocode}
-% \end{macro}
+% \end{style}
 
 % Now we are ready to talk about the page layout.
 % There are two layouts you can choose from: default, which corresponds to the plain \LaTeX\ style, and margin, which is the Tufte-inspired layout with large margins adopted by kaobook.
@@ -300,6 +301,21 @@
 }
 \renewcommand*\raggedchapter{\raggedleft}
 \RedeclareSectionCommand[beforeskip=.5\baselineskip plus .25\baselineskip minus .25\baselineskip,afterskip=3\baselineskip plus .5\baselineskip minus .5\baselineskip]{chapter}
+% \fi
+
+% \section{Margin stuff}
+% Here we define and explain the macros for putting stuff in the margin.
+% Let's begin with margin table of contents.
+
+% \iffalse
+\RequirePackage{scrlayer-scrpage}
+\RequirePackage{scrlayer-notecolumn}
+\RequirePackage{localtoc}
+
+\DeclareDocumentCommand{\sidetoc}{}{%
+    \marklocaltoc%
+    \ifvmode\vbox{}\vskip -\baselineskip\makenote{\vskip\the\parskip\printlocaltoc\thelocaltoc}\else\makenote{\printlocaltoc\thelocaltoc}\fi
+}
 % \fi
 
 % \section{Core macros}
