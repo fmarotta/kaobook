@@ -316,6 +316,25 @@
     \marklocaltoc%
     \ifvmode\vbox{}\vskip -\baselineskip\makenote{\vskip\the\parskip\printlocaltoc\thelocaltoc}\else\makenote{\printlocaltoc\thelocaltoc}\fi
 }
+
+\NewDocumentEnvironment{sidefigure}{b}{%
+	\makenote*{%
+		\begin{minipage}{\marginparwidth}%
+			\def\@captype{figure}%
+			#1%
+		\end{minipage}%
+	}%
+}{}
+
+\NewDocumentEnvironment{sidetable}{b}{%
+	\makenote*{%
+		\begin{minipage}{\marginparwidth}%
+			\def\@captype{table}%
+			#1%
+		\end{minipage}%
+	}%
+}{}
+
 % \fi
 
 % \section{Core macros}
