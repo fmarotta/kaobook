@@ -13,10 +13,18 @@
 % LaTeX version 2005/12/01 or later.
 %
 % \fi
-%
+
 % \iffalse
 %<*driver>
-\ProvidesFile{kao.dtx}
+\ProvidesFile{localtoc.dtx}
+%</driver>
+%<localtoc>\NeedsTeXFormat{LaTeX2e}[2018/01/01]
+%<localtoc>\ProvidesClass{localtoc}
+%<*localtoc>
+    [2025/12/18 v0.1.0 kaotex]
+
+%</localtoc>
+%<*driver>
 \documentclass{scrbook}
 \usepackage{doc}
 \MakeShortVerb{\|}
@@ -29,12 +37,6 @@
     \DocInput{localtoc.dtx}
 \end{document}
 %</driver>
-%<*localtoc>
-\NeedsTeXFormat{LaTeX2e}[2018/01/01]
-\ProvidesPackage{localtoc}
-    [2025/12/18 v0.1.0 localtoc]
-
-%</localtoc>
 % \fi
 %
 %
@@ -56,7 +58,7 @@
 %   Grave accent  \`     Left brace    \{     Vertical bar  \|
 %   Right brace   \}     Tilde         \~}
 %
-% \changes{v1.0.0}{2025/12/18}{Initial version of localtoc}
+% \changes{v0.1.0}{2025/12/18}{Initial version of localtoc}
 %
 % \GetFileInfo{localtoc.dtx}
 %
@@ -66,16 +68,37 @@
 % \DoNotIndex{\closeout,\day,\def,\edef,\else,\empty,\endgroup,\the,\let}
 % \DoNotIndex{\if,\else,\fi}
 %
-% \title{Creating local tables of contents with \textsf{localtoc}}
+% \title{Creating local tables of contents with \textsf{localtoc} (\fileversion)}
 % \author{Federico Marotta}
+% \date{\filedate}
 % \maketitle
 %
 % \section{Introduction}
 % This package creates local tables of contents.
 % \iffalse
+%% Make sure we are using KOMAScript
+\@ifundefined{KOMAClassName}{%
+	\PackageError{\lt@name}{%
+		Package localtoc is only compatible with KOMA-Script classes.%
+	}{%
+		You are loading a class which is incompatible with localtoc.\MessageBreak
+		This package only works with one of the KOMA-Script classes, such as\MessageBreak
+		scrbook, scrartcl, or scrreport. Please use one of those or remove\MessageBreak
+		localtoc from your dependencies.%
+	}%
+}
 \RequirePackage{tocbasic}
+% \fi
+
+% \begin{macro}{\lt@ext}
+% These two macros store the name of the package and the extension of the auxiliary file it creates.
+% If a conflict with another package arises, try to redefine the extension to something else.
+%    \begin{macrocode}
 \def\lt@name{localtoc}
 \def\lt@ext{klt}
+%    \end{macrocode}
+% \end{macro}
+% \iffalse
 %% From scrguide chapter 15
 \Ifattoclist{\lt@ext}{%
 	\PackageError{\lt@name}{%
@@ -89,10 +112,12 @@
 }{%
 	\PackageInfo{\lt@name}{using extension `\lt@ext'.}%
 }
-
 \addtotoclist{\lt@ext}
 %% \newcommand*{\listofkaoltname}{\listoftocname}% title for the local toc
+% \fi
 
+% \iffalse
+%% Add optional argument localtoc to heading commands
 \providecommand*\@currentlocaltocentry{\relax}
 \providecommand*\@currentlocallevel{\relax}
 \FamilyStringKey[.section]{KOMAarg}{localtoc}{\@currentlocaltocentry}
@@ -103,10 +128,35 @@
 }
 \AddtoDoHook{heading/preinit}{\lt@preinit}
 %% \AddtoDoHook{heading/begingroup}{\@currenttocentry\@currentlocaltocentry} % For debugging
-
 % \fi
 
+% \begin{macro}{starred sections}
+% In \KOMAScript there are many ways to add a section, depending on whether you want the section number or not and whether you want to add the section to the table of contents or not.
+% Here is a summary:
+% \begin{description}
+%   \item[\texttt{\textbackslash section}] Numbered, TOC, running head
+%   \item[\texttt{\textbackslash section*}] Not numbered, no TOC, no running head (the previous section appears in the running head)
+%   \item[\texttt{\textbackslash addsec}] Not numbered, TOC, running head
+%   \item[\texttt{\textbackslash addsec*}] Not numbered, no TOC, empty running head
+% \end{description}
+% The localtoc package follows this behaviour, meaning that starred versions will not contribute to the local table of contents.
+% If we notice the starred version, we set a flag to skip the |\addcontentsline|.
+% You may ask, why don't we just use |\addcontentsline| inside the |heading/branch/star| hook?
+% Well, it's because we need to use the |\IfUseNumber| macro, which is not available yet when that hook is called (it is only available between the |heading/begingroup| and |heading/endgroup| hooks).
+%    \begin{macrocode}
+\newcommand*\lt@headingstar[1]{%
+	\@skiplocaltocentrytrue%
+	\addxcontentsline{\lt@ext}{#1localstar}{}%
+}
+\AddtoDoHook{heading/branch/star}{\lt@headingstar}
+\AddtoDoHook{heading/branch/nostar}{\@skiplocaltocentryfalse\@gobble}
+%    \end{macrocode}
+% Explanation for the |\@gobble|: the hook code expects a command that takes one argument; if we don't gobble it, |#1| will occur in the document.
+% Instead of |\@gobble| we could also define a command (outside of the hook) that takes one argument and just pass it to the hook.
+% \end{macro}
+
 % \begin{macro}{\if@skiplocaltocentry}
+% The previous macros rely on an if macro, which I define now.
 % Here apparently I made a classic rookie mistake and I wanted to highlight it.
 % DocStrip tries to keep track of the conditionals, i.e. it pairs every |fi| with the corresponding |if|.
 % However, in a |newif| definition, the subsequent |if| makes the parser expect a closing |fi|.
@@ -118,47 +168,70 @@
 %    \end{macrocode}
 % \end{macro}
 
-
-% \iffalse
-\newcommand*\lt@headingstar[1]{%
-	\@skiplocaltocentrytrue%
-	\addxcontentsline{\lt@ext}{#1localstar}{}%
-}
-
-\AddtoDoHook{heading/branch/star}{\lt@headingstar}
-\AddtoDoHook{heading/branch/nostar}{\@skiplocaltocentryfalse\@gobble} % the hook code expects a command that takes one argument; if we don't gobble it, #1 will occur in the document % instead of @gobble we could also define a command (outside of the hook) that takes one argument and just pass it to the hook.
-
+% \begin{macro}{\addlocalcontentsline}
+% This macro wraps |\addxcontentsline| to produce entries for the local table of contents in the auxiliary file.
+%    \begin{macrocode}
 \newcommand*{\addlocalcontentsline}[1]{%
-	\if@skiplocaltocentry
-	\else
+	\if@skiplocaltocentry%
+	\else%
 		\IfUseNumber{%
 			\addxcontentsline{\lt@ext}{#1local}[\csname the#1\endcsname]{\@currentlocaltocentry}%
 		}{%
 			\addxcontentsline{\lt@ext}{#1local}{\@currentlocaltocentry}%
 		}%
-	\fi
+	\fi%
 }
 \AddtoDoHook{heading/endgroup}{\addlocalcontentsline}
-
-%% The following macro writes the aux file; we need it because we redefine @starttoc and the file is never really opened.
-%% We make sure that it's written only if the user issues \localtoc (otherwise it's a waste)
-%% TODO: delete the file if not necessary anymore
-%% TODO: etoc reads the file only once at the beginning in memory, maybe we should do it as well. We could use the catchfile package (egreg-approved!)
+%    \end{macrocode}
+% The following macro writes the aux file; we need it because we redefine |\@starttoc| and the file is never really opened.
+% We make sure that it's written only if the user issues |\localtoc| (otherwise it's a waste).
+% \\TODO: delete the file if not necessary anymore
+% \\TODO: etoc reads the file only once at the beginning in memory, maybe we should do it as well. We could use the catchfile package (egreg-approved!)
+%    \begin{macrocode}
 \newcommand*{\lt@writeauxfile}{%
-	%% Update the .kao file even though @starttoc is not really called
+	%% Update our aux file even though @starttoc is not really called
 	\expandafter\newwrite\csname tf@\lt@ext\endcsname%
 	\immediate\openout\csname tf@\lt@ext\endcsname\jobname.\lt@ext\relax%
 }
 \newcommand*{\lt@writeauxfileifneeded}{\relax}
 \AtEndDocument{\lt@writeauxfileifneeded}
+%    \end{macrocode}
+% TODO: consider whether we should allow users to print the full .klt file
+% \\UPDATE: nope, we shouldn't. There are additional commands there (like |\startlocaltoc|) that are undefined unless within |\localtoc|
+% \end{macro}
 
-%% TODO: consider whether we should allow users to print the full .klt file
-%% UPDATE: nope, we shouldn't. There are additional commands there (like \startlocaltoc) that are undefined unless within \localtoc
-
+% \begin{macro}{marklocaltoc}
+% \begin{macro}{printlocaltoc}
+% \begin{macro}{localtoc}
+% First, we define two counters.
+% |localtoc| is a sequential index of all the local tables of contents in the document.
+% |localtocdepth| is the maximum sectioning level that is displayed in the local tocs (analogous to |tocdepth|).
+%    \begin{macrocode}
 \newcounter{localtoc}
 \setcounter{localtoc}{0}
 \newcounter{localtocdepth}
 \setcounter{localtocdepth}{\subsectiontocdepth}
+%    \end{macrocode}
+%
+% The basic idea is as follows.
+% The auxiliary file stores the same information as the normal aux file for the regular table of contents.
+% This means that for every sectioning command we add a line to our aux file with the command |\contentsline| and its arguments (the current level, number, and title).
+% In addition, whenever we want to start a localtoc, we add the string |\startlocaltoc<id>| to our aux file.
+% Here, |<id>| is the sequential number of the localtoc.
+% When we print the table of contents, we simply redefine the |\contentline| macro so that outside of the local table of contents it prints nothing, while inside the local table of contents it prints the contentline.
+% Each localtoc is delimited by the |\startlocaltoc<id>| command on the one hand, and on the other hand by a |\contentline| of a level equal to or lower than the level where the localtoc was called.
+% One advantage of this design is that |localtoc|s can be nested arbitrarily, and still produce the expected result.
+% One disadvantage is that aux file is re-read every time a |\localtoc| is printed.
+%
+% In practice, you often want to start the localtoc from the moment you issue the |\localtoc| command.
+% However, the internal implementation splits the task in two macros: |\marklocaltoc| and |\printlocaltoc|.
+% The former simply adds the |\startlocaltoc| line to our aux file; the latter parses the aux file and prints the corresponding localtoc.
+% This separation was necessary in order to put |\localtoc|'s in margin notes made with the |scrlayer-notecolumn| package.
+% The issue with |\makenote| is that its content is not executed immediately but only when the page is shipped out or maybe even later.
+% Therefore, marking the local toc (i.e. adding the \startlocaltoc line to the aux file) is not done until the chapter is over.
+% But at that point the local toc will be empty, because no sections are defined anymore\ldots.
+% Using |\clearnotecolumn| is not a solution, because that would also clear the main page.
+%    \begin{macrocode}
 \newcommand*\startlocaltoc[1]{%
 	\csname startlocaltoc#1\endcsname%
 }
@@ -197,24 +270,33 @@
     \makeatother%
   \endgroup%
 }
-
+%    \end{macrocode}
+%
+% For convenience, we still provide the |\localtoc| macro, which simply calls |\startlocaltoc| followed by |\printlocaltoc| with the current |<id>|.
+%    \begin{macrocode}
 \DeclareRobustCommand*\localtoc{%
   \marklocaltoc%
   \printlocaltoc{\thelocaltoc}%
 }
+%    \end{macrocode}
+% \end{macro}
+% \end{macro}
+% \end{macro}
 
+% \begin{macro}{localtoc format}
+% Last, we customize the style of localtocs using the |tocbasic| package.
+% Entries in the localtoc are equivalent to entries in the main toc, except that their level is added a ``local'' suffix (\textit{e.g.}, chapter becomes chapterlocal, section becomese sectionlocal, and so on.
+% Thus, we can customize the style of localtoc entries separately from main toc entries.
+% Important: if a user defines new headings with |\DeclareSectionCommand|, they'll have to add corresponding styles for the local table of contents.
+%    \begin{macrocode}
 \setuptoc{\lt@ext}{%
 	noparskipfake,
 	leveldown,
 	% onecolumn,
 	% chapteratlist,% maybe we can use this separation for the local toc
 }
-
-%% \newcommand*{\localtocformat}[1]{{\usekomafont{section}#1}}
-
+%% \@pnumwidth stores the maximum width of all page numbers
 \newcommand*\pagenumberbox[1]{\makebox[\@pnumwidth]{#1}}
-
-%% NOTE: if user defines new headings with \DeclareSectionCommand, they'll have to add corresponding styles.
 \CloneTOCEntryStyle{tocline}{localtocline}
 \DeclareTOCStyleEntries[level:=chapter,numwidth:=chapter,dynnumwidth=true,indent=0pt,numsep=.5em,raggedentrytext=true,entryformat=\bfseries,pagenumberformat=\bfseries,pagenumberbox=\pagenumberbox]{localtocline}{chapterlocal}
 \DeclareTOCStyleEntries[level:=section,numwidth:=section,dynnumwidth=true,indent=0pt,numsep=.5em,raggedentrytext=true,entryformat=\bfseries,pagenumberformat=\bfseries,pagenumberbox=\pagenumberbox]{localtocline}{sectionlocal}
@@ -224,7 +306,8 @@
 \DeclareTOCStyleEntries[level:=subparagraph,numwidth:=subparagraph,dynnumwidth=true,indent=0pt,numsep=.5em,raggedentrytext=true,entryformat=\bfseries,pagenumberformat=\bfseries,pagenumberbox=\pagenumberbox]{localtocline}{subparagraphlocal}
 
 \DeclareTOCStyleEntries[level=99]{gobble}{partlocalstar,chapterlocalstar,sectionlocalstar,subsectionlocalstar,subsubsectionlocalstar,paragraphlocalstar,subparagraphlocalstar}
-% \fi
+%    \end{macrocode}
+% \end{macro}
 % \Finale
 % Text that is printed only if OnlyDescription is false or commented out (apparently this is not true).
 \endinput

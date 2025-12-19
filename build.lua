@@ -31,10 +31,10 @@ function update_tag(file, content, tagname, tagdate)
   end
 
   if file:match("%.dtx$") then
-    -- Example match: [2025/10/04 v0.1.0 kaobook]
+    -- Example match: [2025/10/04 v0.1.0 kaotex]
     content = content:gsub(
-      "%[%d%d%d%d%/%d%d%/%d%d%s+v[%d%.]+%s+kaobook%]",
-      string.format("[%s %s kaobook]", tagdate, version)
+      "%[%d%d%d%d%/%d%d%/%d%d%s+v[%d%.]+%s+kaotex%]",
+      string.format("[%s %s kaotex]", tagdate, version)
     )
 
   elseif file:match("%.tex$") then

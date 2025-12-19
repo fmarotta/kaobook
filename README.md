@@ -16,7 +16,7 @@ Here is a typical development workflow.
 1. Save the expectation for that test: `l3build save mytest`, this creates the raw PDF at `build/test/mytest.pdf` and the expectation file at `testfiles/mytest.tpf` (for PDF comparison) or `testfiles/mytest.tlg` (for log comparison)
 1. Run the tests: `l3build check`, this will compare the new .tpf or .tlg with the saved ones and raise errors if they differ
 1. Install the .cls and .sty files in your local texmf directory: `l3build install`
-1. Verify that everything works, then bump the package version: `l3build tag --date <YYYY-MM-DD> --version <MAJOR.MINOR.PATCH>`
+1. Verify that everything works, then bump the package version: `l3build tag --date <YYYY/MM/DD> --version <MAJOR.MINOR.PATCH>`
 1. Prepare release for CTAN: TODO
 
 Further reading on l3build:
