@@ -335,6 +335,35 @@
 	}%
 }{}
 
+\NewDocumentEnvironment{sidelstlisting}{}{%
+	\begin{sidepage}{\def\@captype{lstlisting}}%
+}{%
+	\end{sidepage}%
+}
+
+\NewDocumentEnvironment{sidelisting}{}{%
+	\begin{sidepage}{\def\@captype{listing}}%
+}{%
+	\end{sidepage}%
+}
+
+\newcounter{kao@sidepage@in}
+\newcounter{kao@sidepage@out}
+\setcounter{kao@sidepage@in}{0}
+\setcounter{kao@sidepage@out}{0}
+\NewDocumentEnvironment{sidepage}{O{}}{%
+	\stepcounter{kao@sidepage@in}%
+	\global\expandafter\newsavebox\csname kao@sidepage\thekao@sidepage@in\endcsname%
+	\begin{lrbox}{\@kao@sidebox}%
+	\begin{minipage}{\marginparwidth}%
+	#1%
+}{
+	\end{minipage}%
+	\end{lrbox}%
+	\global\expandafter\setbox\csname kao@sidepage\thekao@sidepage@in\endcsname\box\the\@kao@sidebox%
+	\makenote*{\stepcounter{kao@sidepage@out}\usebox{\csname kao@sidepage\thekao@sidepage@out\endcsname}}%
+}
+
 % \fi
 
 % \section{Core macros}
