@@ -352,11 +352,17 @@
 	\end{sidepage}%
 }
 
+%% The problem with verbatim environment is they are difficult to tame.
+%% Putting them directly in a \makenote{} is not possible because they are intrinsically fragile and cannot be used as arguments to macro.
+%% Moreover, makenote does something to catcodes and \dospecials.
+%% Wrapping them inside other environments is also challenging.
+%% So we seal them into a box and pass that box to \makenote.
+%% We need two counters because all the notes for a page are processed together, so if there are multiple sidepage environments on the same page, only the last value of the counter would be used.
 \newcounter{kao@sidepage@in}
 \newcounter{kao@sidepage@out}
 \setcounter{kao@sidepage@in}{0}
 \setcounter{kao@sidepage@out}{0}
-\NewDocumentEnvironment{sidepage}{O{}}{%
+\NewDocumentEnvironment{sidepage}{o}{%
 	\stepcounter{kao@sidepage@in}%
 	\global\expandafter\newsavebox\csname kao@sidepage\thekao@sidepage@in\endcsname%
 	\begin{lrbox}{\@kao@sidebox}%
