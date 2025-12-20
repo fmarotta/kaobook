@@ -375,6 +375,54 @@
 	\makenote*{\stepcounter{kao@sidepage@out}\usebox{\csname kao@sidepage\thekao@sidepage@out\endcsname}}%
 }
 
+\newcounter{sidenote}
+\setcounter{sidenote}{0}
+% mark
+\NewDocumentCommand{\sidenotemark}{o}{%
+	\IfNoValueTF{#1}{%
+		\stepcounter{sidenote}%
+		\protected@xdef\@thesnmark{\thesidenote}%
+	}{%
+		\protected@xdef\@thesnmark{#1}%
+	}%
+	\leavevmode%
+	\ifhmode\edef\@x@sf{\the\spacefactor}\nobreak\fi%
+	\sidenote@writemark{\sidenotemarkformat{\@thesnmark}}%
+	\ifhmode\spacefactor\@x@sf\fi%
+	\relax%
+}
+
+\newcommand\sidenotemarkformat[1]{\textsuperscript{#1}}
+\newcommand\sidenotelabelformat[1]{#1:\enskip}
+\newcommand\sidenote@font[1]{\normalfont#1}
+\newcommand\sidenote@writemark[1]{%
+	\hbox{\sidenote@font{#1}}%
+}
+
+% TODO: counterwithin chapter for sidenotes, counter perpage for sidenotes.
+% TODO: koma has footref, where you can use a label to refer multiple times to the same footnote. We should have the same for sidenotes AND ESPECIALLY FOR BIBLIOGRAPHY!!!
+
+% star - offset - mark - text
+\NewDocumentCommand{\sidenotetext}{s o o m}{%
+	\IfNoValueTF{#3}{%
+	}{%
+		\protected@xdef\@thesnmark{#3}%
+	}%
+	\IfBooleanTF{#1}{%
+		% \makenote*{\sidenote@writemark{\sidenotelabelformat{\@thesnmark}}#4}%
+		\let\sidenote@makenote\makenote*%
+	}{%
+		\let\sidenote@makenote\makenote%
+	}%
+	\sidenote@makenote{\sidenote@writemark{\sidenotelabelformat{\@thesnmark}}#4}%
+}
+
+% offset - mark - text
+\NewDocumentCommand{\sidenote}{o o m}{%
+	\sidenotemark[#2]%
+	\sidenotetext[#1][#2]{#3}%
+}
+
 % \fi
 
 % \section{Core macros}
