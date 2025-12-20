@@ -313,9 +313,13 @@
 \RequirePackage{scrlayer-notecolumn}
 \RequirePackage{localtoc}
 
-\DeclareDocumentCommand{\sidetoc}{}{%
+\NewDocumentCommand{\sidetoc}{}{%
     \marklocaltoc%
-    \ifvmode\vbox{}\vskip -\baselineskip\makenote{\vskip\the\parskip\printlocaltoc\thelocaltoc}\else\makenote{\printlocaltoc\thelocaltoc}\fi
+    \ifvmode\vbox{}\makenote{\vskip1sp\printlocaltoc\thelocaltoc}\vskip-\parskip%\vskip-\dimexpr\baselineskip+\parskip\else\makenote{\printlocaltoc\thelocaltoc}\fi%
+}
+
+\NewDocumentCommand{\sidepar}{m}{%
+	\ifvmode\vskip\the\parskip\vbox{}\makenote{#1}\vskip-\dimexpr\baselineskip+\parskip\relax\else\makenote{#1}\fi%
 }
 
 \NewDocumentEnvironment{sidefigure}{b}{%
