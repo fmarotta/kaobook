@@ -331,6 +331,26 @@
 	}%
 }{}
 
+\NewDocumentEnvironment{widefigure}{o b}{%
+	\begin{figure}[#1]
+	\if@twoside%
+		\Ifthispageodd{}{\hspace*{-\dimexpr\marginparwidth+\marginparsep}}%
+	\fi%
+	\addtolength{\textwidth}{\dimexpr\marginparwidth+\marginparsep}%
+	\parbox{\dimexpr\marginparwidth+\marginparsep+\textwidth}{#2}
+	\end{figure}
+}{}
+
+\NewDocumentEnvironment{widetable}{o b}{%
+	\begin{table}[#1]
+	\if@twoside%
+		\Ifthispageodd{}{\hspace*{-\dimexpr\marginparwidth+\marginparsep}}%
+	\fi%
+	\addtolength{\textwidth}{\dimexpr\marginparwidth+\marginparsep}%
+	\parbox{\dimexpr\marginparwidth+\marginparsep+\textwidth}{#2}
+	\end{table}
+}{}
+
 \NewDocumentEnvironment{sidetable}{b}{%
 	\makenote*{%
 		\begin{minipage}{\marginparwidth}%
@@ -399,8 +419,9 @@
 	\hbox{\sidenote@font{#1}}%
 }
 
-% TODO: counterwithin chapter for sidenotes, counter perpage for sidenotes.
-% TODO: koma has footref, where you can use a label to refer multiple times to the same footnote. We should have the same for sidenotes AND ESPECIALLY FOR BIBLIOGRAPHY!!!
+%% TODO: counterwithin chapter for sidenotes, counter perpage for sidenotes.
+%% TODO: koma has footref, where you can use a label to refer multiple times to the same footnote. We should have the same for sidenotes AND ESPECIALLY FOR BIBLIOGRAPHY!!!
+%% TODO: consider whether we need the floatbytocbasic package, in case some other package loads float.
 
 % star - offset - mark - text
 \NewDocumentCommand{\sidenotetext}{s o o m}{%
@@ -421,6 +442,49 @@
 \NewDocumentCommand{\sidenote}{o o m}{%
 	\sidenotemark[#2]%
 	\sidenotetext[#1][#2]{#3}%
+}
+
+% \fi
+
+% \section{Wide paragraphs}
+% \iffalse
+
+\NewDocumentEnvironment{widepar}{}{%
+	\if@twoside%
+	\Ifthispageodd{%
+		\begin{addmargin}[0cm]{-\dimexpr\marginparwidth+\marginparsep}%
+	}{%
+		\begin{addmargin}[-\dimexpr\marginparwidth+\marginparsep]{0cm}%
+	}%
+	\else%
+	\begin{addmargin}[0cm]{-\dimexpr\marginparwidth+\marginparsep}%
+	\fi%
+}{%
+	\end{addmargin}%
+}
+
+% Environment for a full width paragraph
+\NewDocumentEnvironment{fullwidthpar}{}{%
+	\if@twoside%
+	\Ifthispageodd{%
+		\begin{addmargin}[-\dimexpr 1in+\hoffset+\oddsidemargin]{\dimexpr-\paperwidth+1in+\hoffset+\oddsidemargin+\textwidth}%
+	}{%
+		\begin{addmargin}[\dimexpr-\paperwidth+1in+\hoffset+\oddsidemargin+\textwidth]{\dimexpr-\paperwidth+1in+\hoffset+\oddsidemargin+\marginparsep+\marginparwidth+\textwidth}%
+	}%
+	\else%
+	\begin{addmargin}[-\dimexpr1in+\hoffset+\oddsidemargin]{\dimexpr-\paperwidth+1in+\hoffset+\oddsidemargin+\textwidth}%
+	\fi%
+}{%
+	\end{addmargin}%
+}
+
+% Environment for a wide equation
+\NewDocumentEnvironment{wideequation}{}{%
+	\begin{widepar}%
+	\begin{equation}%
+}{%
+	\end{equation}%
+	\end{widepar}%
 }
 
 % \fi
