@@ -1,0 +1,456 @@
+% \iffalse meta-comment
+%
+% Copyright (C) 2025- by Federico Marotta
+%
+% This file may be distributed and/or modified under the
+% conditions of the LaTeX Project Public License, either
+% version 1.3 of this license or (at your option) any later
+% version. The latest version of this license is in:
+%
+%     http://www.latex-project.org/lppl.txt
+%
+% and version 1.3 or later is part of all distributions of
+% LaTeX version 2005/12/01 or later.
+%
+% \fi
+
+% \iffalse
+%<*driver>
+\ProvidesFile{kaobiblio.dtx}
+%</driver>
+%<kaobiblio>\NeedsTeXFormat{LaTeX2e}[2018/01/01]
+%<kaobiblio>\ProvidesClass{kaobiblio}
+%<*kaobiblio>
+    [2025/12/18 v0.1.0 kaotex]
+
+%</kaobiblio>
+%<*driver>
+\documentclass{ltxdoc}
+\usepackage[citestyle=numeric-comp,addspace=false]{kaobiblio}
+\addbibresource{../../testfiles/test.bib}
+\kaobibliocleanup
+\usepackage[italian]{babel}
+\usepackage{blindtext}
+\EnableCrossrefs
+\CodelineIndex
+\RecordChanges
+%\OnlyDescription
+\begin{document}
+    \DocInput{kaobiblio.dtx}
+\end{document}
+%</driver>
+% \fi
+%
+%
+% \CheckSum{0}
+%
+% \CharacterTable
+%  {Upper-case    \A\B\C\D\E\F\G\H\I\J\K\L\M\N\O\P\Q\R\S\T\U\V\W\X\Y\Z
+%   Lower-case    \a\b\c\d\e\f\g\h\i\j\k\l\m\n\o\p\q\r\s\t\u\v\w\x\y\z
+%   Digits        \0\1\2\3\4\5\6\7\8\9
+%   Exclamation   \!     Double quote  \"     Hash (number) \#
+%   Dollar        \$     Percent       \%     Ampersand     \&
+%   Acute accent  \'     Left paren    \(     Right paren   \)
+%   Asterisk      \*     Plus          \+     Comma         \,
+%   Minus         \-     Point         \.     Solidus       \/
+%   Colon         \:     Semicolon     \;     Less than     \<
+%   Equals        \=     Greater than  \>     Question mark \?
+%   Commercial at \@     Left bracket  \[     Backslash     \\
+%   Right bracket \]     Circumflex    \^     Underscore    \_
+%   Grave accent  \`     Left brace    \{     Vertical bar  \|
+%   Right brace   \}     Tilde         \~}
+%
+% \changes{v0.1.0}{2025/12/18}{Initial version of kaobiblio}
+%
+% \GetFileInfo{kaobiblio.dtx}
+%
+% \DoNotIndex{\#,\$,\%,\&,\@,\\,\{,\},\^,\_,\~,\ }
+% \DoNotIndex{\@ne}
+% \DoNotIndex{\advance,\begingroup,\catcode,\closein}
+% \DoNotIndex{\closeout,\day,\def,\edef,\else,\empty,\endgroup,\the,\let}
+% \DoNotIndex{\if,\else,\fi}
+%
+% \title{Bibliographic citations in the margin---\textsf{kaobiblio} (\fileversion)}
+% \author{Federico Marotta}
+% \date{\filedate}
+% \maketitle
+%
+% \section{Introduction}
+% This package adds citation information in the margin.
+% \iffalse
+
+\RequirePackage{kvoptions} % Handle package options
+\RequirePackage{etoolbox} % Easy programming to modify TeX stuff
+
+% Set up the package options
+\SetupKeyvalOptions{
+	family = kaobiblio,
+	prefix = kaobiblio@
+}
+
+\DeclareBoolOption{addspace}% If true, automatically add a space before printing the citation marker
+\DeclareBoolOption{linkeverything}% If true, the author name is a hyperlink in citation styles that support it
+
+% Choose the default options, which will be overwritten by the options 
+% passed to this package.
+\PassOptionsToPackage{
+	%style=numeric-comp,
+	%citestyle=authortitle-icomp,
+	citestyle=numeric-comp,
+	%bibstyle=authoryear,
+	bibstyle=numeric,
+	sorting=none,
+	%sorting=nyt,
+	%sortcites=true,
+	%autocite=footnote,
+	backend=biber, % Compile the bibliography with biber
+	hyperref=true,
+	backref=true,
+	citecounter=true,
+	pagetracker=true,
+	citetracker=true,
+	ibidtracker=context,
+	autopunct=true,
+	autocite=plain,
+}{biblatex}
+
+% Pass the unknown options to biblatex, overwriting the previous settings.
+\DeclareDefaultOption{%
+	\PassOptionsToPackage{\CurrentOption}{biblatex}%
+}
+
+% Process the options
+\ProcessKeyvalOptions{kaobiblio}
+
+% Load biblatex
+\RequirePackage{biblatex}
+
+% \fi
+
+% Now we simply test whether the citations work~\cite{Visscher2008}.
+% \begin{macro}{\margincitationformat}
+% Command to format the marginnote created for cited items
+%    \begin{macrocode}
+\newcommand{\margincitationformat}[1]{% The parameter is a single citation key
+	\parencite{#1}:\enskip\citeauthor*{#1} (\iffieldundef{year}{\bibsstring{nodate}}{\printfield{year}}), \citefield{#1}[emph]{title}%
+}
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}{\marginsupercitationformat}
+% Command to format the marginnote created for supercited items
+%    \begin{macrocode}
+\newcommand{\marginsupercitationformat}[1]{% The parameter is a single citation key
+	\supercite{#1} \citeauthor*{#1} (\iffieldundef{year}{\bibsstring{nodate}}{\printfield{year}})%
+}
+%    \end{macrocode}
+% \end{macro}
+
+% \begin{macro}{\kaobibliomarginwrapper}
+% We need a command to put stuff in the margin.
+% Users can choose their own method and I want to be flexible.
+% For my own use cases I need starred version and optional argument as well.
+% The star and the first optional argument of |\sidecite| will be passed on to the wrapper.
+% The wrapper is free to make use of or ignore such extra arguments, but it should use the mandatory argument (which is the citation string to be printed).
+% By default it's just |\marginpar|, and the star and optional arguments are ignored.
+% It is important to protect the potential newlines with comments, otherwise there will be unwanted spaces around the citation marks.
+%    \begin{macrocode}
+\NewDocumentCommand{\kaobibliomarginwrapper}{s o m}{%
+	\marginpar{#3}%
+}
+%    \end{macrocode}
+% We provide a utility function to convert the wrapper into a macro that takes only one mandatory argument.
+%    \begin{macrocode}
+\newcommand\kaobiblio@wrapper[1]{}
+\NewDocumentCommand{\kaobiblio@makewrapper}{m m}{%
+	\renewcommand\kaobiblio@wrapper[1]{%
+		\IfBooleanTF{#1}{%
+			\IfNoValueTF{#2}{%
+				\kaobibliomarginwrapper*{##1}%
+			}{%
+				\kaobibliomarginwrapper*[#2]{##1}%
+			}%
+		}{%
+			\IfNoValueTF{#2}{%
+				\kaobibliomarginwrapper{##1}%
+			}{%
+				\kaobibliomarginwrapper[#2]{##1}%
+			}%
+		}%
+	}%
+}
+%    \end{macrocode}
+% \end{macro}
+
+% The citations are backreferenced.
+% babel and polyglossia are supported, so if you load those packages the backreference string will be in your language.
+% However, if you still want to change that, use this code.
+% \begin{verbatim}
+% \DefineBibliographyStrings{italian}{
+%     backrefpage = {citato a pag.},
+%     backrefpages = {citato a pagg.},
+% }
+% \end{verbatim}
+
+% \begin{macro}{\kaobiblio@makecitecommand}
+% A wrapper to typeset citations with arguments.
+%    \begin{macrocode}
+\newcommand\kaobiblio@citecommand{}
+\NewDocumentCommand{\kaobiblio@makecitecommand}{m m m m m}{%
+	\renewcommand\kaobiblio@citecommand{%
+		\ifkaobiblio@addspace%
+			\unskip~%
+		\fi%
+		\IfNoValueTF{#3}{%
+			#1{#5}%
+		}{%
+			\IfNoValueTF{#4}{%
+				#1[#3]{#5}%
+			}{%
+				#1[#3][#4]{#5}%
+			}%
+		}%
+		#2{#5}%
+	}%
+}
+%    \end{macrocode}
+% \end{macro}
+
+% \begin{macro}{\sidecite}
+% \begin{macro}{\sidesupercite}
+% \begin{macro}{\sidetextcite}
+% \begin{macro}{\sideparencite}
+% Some biblatex-like commands that also print a citation in the margin.
+% Usage: |\command<opt. star>[opt. arg1][opt. arg2][opt. arg3]{mand. arg}|
+% \begin{itemize}
+%   \item The optional star is passed down to the wrapper
+%   \item First optional argument is also passed down to the wrapper and must be given as an (empty) argument when using following a postnote and/or prenote (typically it controls the vertical shift of the margin material)
+%   \item Second optional argument is always the postnote if the third argument isn't specified or is the prenote if the third argument is specified (same pattern as the biblatex commands)
+%   \item Third optional argument is always the postnote
+%   \item Mandatory argument is always the citation key(s)
+% \end{itemize}
+%    \begin{macrocode}
+\NewDocumentCommand{\sidecite}{s o o o m}{%
+	\kaobiblio@makewrapper{#1}{#2}%
+	\DeclareCiteCommand{\kaobiblio@sidecite}[\kaobiblio@wrapper]{% precode
+	}{% loopcode
+		\margincitationformat{\thefield{entrykey}}%
+	}{% sepcode
+		\\% separator between multiple citations
+	}{% postcode
+	}%
+	% With this we print the marker in the text and add the item to the bibliography at the end
+	\kaobiblio@makecitecommand{\cite}{\kaobiblio@sidecite}{#3}{#4}{#5}%
+	\kaobiblio@citecommand%
+}
+%    \end{macrocode}
+%    \begin{macrocode}
+\NewDocumentCommand{\sidesupercite}{s o o o m}{%
+	\kaobiblio@makewrapper{#1}{#2}%
+	\DeclareCiteCommand{\kaobiblio@sidesupercite}[\kaobiblio@wrapper]{%
+	}{%
+		\marginsupercitationformat{\thefield{entrykey}}%
+	}{%
+		\\% separator between multiple citations
+	}{%
+	}%
+	\kaobiblio@makecitecommand{\supercite}{\kaobiblio@sidesupercite}{#3}{#4}{#5}%
+	\kaobiblio@citecommand%
+}
+%    \end{macrocode}
+%    \begin{macrocode}
+\NewDocumentCommand{\sidetextcite}{s o o o m}{%
+	\kaobiblio@makewrapper{#1}{#2}%
+	\DeclareCiteCommand{\kaobiblio@sidetextcite}[\kaobiblio@wrapper]{%
+	}{%
+		\margincitationformat{\thefield{entrykey}}%
+	}{%
+		\\% separator between multiple citations
+	}{%
+	}%
+	\kaobiblio@makecitecommand{\textcite}{\kaobiblio@sidetextcite}{#3}{#4}{#5}%
+	\kaobiblio@citecommand%
+}
+%    \end{macrocode}
+%    \begin{macrocode}
+\NewDocumentCommand{\sideparencite}{s o o o m}{%
+	\kaobiblio@makewrapper{#1}{#2}%
+	\DeclareCiteCommand{\kaobiblio@sideparencite}[\kaobiblio@wrapper]{%
+	}{%
+		\margincitationformat{\thefield{entrykey}}%
+	}{%
+		\\% separator between multiple citations
+	}{%
+	}%
+	\kaobiblio@makecitecommand{\parencite}{\kaobiblio@sideparencite}{#3}{#4}{#5}%
+	\kaobiblio@citecommand%
+}
+%    \end{macrocode}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+
+% \begin{macro}{\fullcite}
+% TODO: create a fancy environment for this. Perhaps printing also the 
+% abstract.
+%    \begin{macrocode}
+\DeclareCiteCommand{\fullcite}{%
+	\defcounter{maxnames}{99}%
+	\usebibmacro{prenote}}
+	{\clearfield{url}%
+	\clearfield{pages}%
+	\clearfield{pagetotal}%
+	\clearfield{edition}%
+	\clearfield{issn}%
+	\clearfield{doi}%
+	\usedriver
+	{\DeclareNameAlias{sortname}{default}}
+	{\thefield{entrytype}}
+}
+{\multicitedelim}
+{\usebibmacro{postnote}}
+%    \end{macrocode}
+% \end{macro}
+
+% It seems that normal biblatex functionality works fine\sidecite{Visscher2008}, but what about kaobiblio?
+
+% It seems that normal biblatex functionality works fine\cite{Visscher2008}, but what about kaobiblio?
+
+% \begin{macro}{\kaobibliocleanup}
+% Macro to remove unwanted or redundant fields from the bibliography.
+%    \begin{macrocode}
+\newcommand*{\kaobibliocleanup}{%
+	\AtEveryBibitem{
+		\clearfield{issn}
+		\clearfield{isbn}
+		\clearfield{archivePrefix}
+		\clearfield{arxivId}
+		\clearfield{pmid}
+		\clearfield{eprint}
+		\ifentrytype{online}{}{\ifentrytype{misc}{}{\clearfield{url}}}
+		\ifentrytype{book}{\clearfield{doi}}{}
+	}
+}
+%    \end{macrocode}
+% \end{macro}
+
+% \iffalse
+\DeclareSourcemap{
+	\maps[datatype=bibtex]{
+		\map[overwrite]{
+			\step[fieldsource=month, match={jan}, replace=${1}]
+			\step[fieldsource=month, match={feb}, replace=${2}]
+			\step[fieldsource=month, match={mar}, replace=${3}]
+			\step[fieldsource=month, match={apr}, replace=${4}]
+			\step[fieldsource=month, match={may}, replace=${5}]
+			\step[fieldsource=month, match={jun}, replace=${6}]
+			\step[fieldsource=month, match={jul}, replace=${7}]
+			\step[fieldsource=month, match={aug}, replace=${8}]
+			\step[fieldsource=month, match={sep}, replace=${9}]
+			\step[fieldsource=month, match={oct}, replace=${10}]
+			\step[fieldsource=month, match={nov}, replace=${11}]
+			\step[fieldsource=month, match={dec}, replace=${12}]
+		}
+	}
+}
+% \fi
+
+
+% \begin{macro}{linkeverything}
+% In biblatex, when citing with the style authoryear or using \textcite, only the year is linked to the reference in the bibliography.
+% Despite the arguments of one of the mantainers of the biblatex package (https://github.com/plk/biblatex/issues/428), some users think that in the author* style the author name should be a link as well.
+% The `linkeverything' option provides an easy way to activate this behaviour.
+%    \begin{macrocode}
+\ifkaobiblio@linkeverything
+	\xpatchbibmacro{cite}
+		{\usebibmacro{cite:label}%
+		 \setunit{\printdelim{nonameyeardelim}}%
+		 \usebibmacro{cite:labeldate+extradate}}
+		{\printtext[bibhyperref]{%
+			 \DeclareFieldAlias{bibhyperref}{default}%
+			 \usebibmacro{cite:label}%
+			 \setunit{\printdelim{nonameyeardelim}}%
+			 \usebibmacro{cite:labeldate+extradate}}}
+		{}
+		{\PackageWarning{biblatex-patch}
+			 {Failed to patch cite bibmacro}}
+
+	% Include labelname in labelyear link
+	\xpatchbibmacro{cite}
+		{\printnames{labelname}%
+		 \setunit{\printdelim{nameyeardelim}}%
+		 \usebibmacro{cite:labeldate+extradate}}
+		{\printtext[bibhyperref]{%
+			 \DeclareFieldAlias{bibhyperref}{default}%
+			 \printnames{labelname}%
+			 \setunit{\printdelim{nameyeardelim}}%
+			 \usebibmacro{cite:labeldate+extradate}}}
+		{}
+		{\PackageWarning{biblatex-patch}
+			 {Failed to patch cite bibmacro}}
+
+	% Access hyperref's citation link start/end commands
+	\makeatletter
+	\protected\def\blx@imc@biblinkstart{%
+		\@ifnextchar[%]
+			{\blx@biblinkstart}
+			{\blx@biblinkstart[\abx@field@entrykey]}}
+	\def\blx@biblinkstart[#1]{%
+		\blx@sfsave\hyper@natlinkstart{\the\c@refsection @#1}\blx@sfrest}
+	\protected\def\blx@imc@biblinkend{%
+		\blx@sfsave\hyper@natlinkend\blx@sfrest}
+	\blx@regimcs{\biblinkstart \biblinkend}
+	\makeatother
+
+	\newbool{cbx:link}
+
+	% Include parentheses around labelyear in \textcite only in
+	% single citations without pre- and postnotes
+	\def\iflinkparens{%
+		\ifboolexpr{ test {\ifnumequal{\value{multicitetotal}}{0}} and
+					 test {\ifnumequal{\value{citetotal}}{1}} and
+					 test {\iffieldundef{prenote}} and
+					 test {\iffieldundef{postnote}} }}
+
+	\xpatchbibmacro{textcite}
+		{\printnames{labelname}}
+		{\iflinkparens
+			 {\DeclareFieldAlias{bibhyperref}{default}%
+				\global\booltrue{cbx:link}\biblinkstart%
+				\printnames{labelname}}
+			 {\printtext[bibhyperref]{\printnames{labelname}}}}
+		{}
+		{\PackageWarning{biblatex-patch}
+			 {Failed to patch textcite bibmacro}}
+
+	\xpatchbibmacro{textcite}
+		{\usebibmacro{cite:label}}
+		{\iflinkparens
+			 {\DeclareFieldAlias{bibhyperref}{default}%
+				\global\booltrue{cbx:link}\biblinkstart%
+				\usebibmacro{cite:label}}
+			 {\usebibmacro{cite:label}}}
+		{}
+		{\PackageWarning{biblatex-patch}
+			 {Failed to patch textcite bibmacro}}
+
+	\xpretobibmacro{textcite:postnote}
+		{\ifbool{cbx:link}
+			 {\ifbool{cbx:parens}
+					{\bibcloseparen\global\boolfalse{cbx:parens}}
+					{}%
+				\biblinkend\global\boolfalse{cbx:link}}
+			 {}}
+		{}
+		{\PackageWarning{biblatex-patch}
+			 {Failed to patch textcite:postnote bibmacro}}
+\else
+\fi
+%    \end{macrocode}
+% \end{macro}
+
+% \printbibliography
+
+% \Finale
+% Text that is printed only if OnlyDescription is false or commented out (apparently this is not true).
+\endinput
