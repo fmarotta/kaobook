@@ -318,6 +318,7 @@
     \ifvmode\vbox{}\makenote{\vskip1sp\printlocaltoc\thelocaltoc}\vskip-\parskip%\vskip-\dimexpr\baselineskip+\parskip\else\makenote{\printlocaltoc\thelocaltoc}\fi%
 }
 
+%% If issued in vmode, align the note with the next paragraph
 \NewDocumentCommand{\sidepar}{m}{%
 	\ifvmode\vskip\the\parskip\vbox{}\makenote{#1}\vskip-\dimexpr\baselineskip+\parskip\relax\else\makenote{#1}\fi%
 }
@@ -415,6 +416,7 @@
 
 \newcommand\sidenotemarkformat[1]{\textsuperscript{#1}}
 \newcommand\sidenotelabelformat[1]{#1:\enskip}
+%% TODO: \show\setkomafont and implement a KOMA font for sidenotes. it's not hard.
 \newcommand\sidenote@font[1]{\normalfont#1}
 \newcommand\sidenote@writemark[1]{%
 	\hbox{\sidenote@font{#1}}%
@@ -423,6 +425,7 @@
 %% TODO: counterwithin chapter for sidenotes, counter perpage for sidenotes.
 %% TODO: koma has footref, where you can use a label to refer multiple times to the same footnote. We should have the same for sidenotes AND ESPECIALLY FOR BIBLIOGRAPHY!!!
 %% TODO: consider whether we need the floatbytocbasic package, in case some other package loads float.
+%% TODO: the notecolumn may be offset a bit; from lua-visual-debug it looks like I may have to reposition it after shifting headsep and topmargin. No, even in scrbook it's like this. Boh.
 
 % star - offset - mark - text
 \NewDocumentCommand{\sidenotetext}{s o o m}{%
@@ -431,6 +434,8 @@
 		\protected@xdef\@thesnmark{#3}%
 	}%
 	\IfBooleanTF{#1}{%
+		% I don't know if using \let like this will work
+		% The commented out version was confirmed to work
 		% \makenote*{\sidenote@writemark{\sidenotelabelformat{\@thesnmark}}#4}%
 		\let\sidenote@makenote\makenote*%
 	}{%

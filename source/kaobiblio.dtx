@@ -332,9 +332,8 @@
 	}
 }
 %    \end{macrocode}
-% \end{macro}
-
-% \iffalse
+% In any case, we map months to integers so that biblatex can properly parse them.
+%    \begin{macrocode}
 \DeclareSourcemap{
 	\maps[datatype=bibtex]{
 		\map[overwrite]{
@@ -353,7 +352,8 @@
 		}
 	}
 }
-% \fi
+%    \end{macrocode}
+% \end{macro}
 
 
 % \begin{macro}{linkeverything}
