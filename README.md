@@ -107,3 +107,44 @@ Further reading on .dtx files:
 - https://www.texdev.net/2009/10/05/the-dtx-format/
 - https://www.texdev.net/2009/10/06/a-model-dtx-file/
 
+## Roadmap
+
+The goal is to reach feature parity with the old kaobook version, then try to upload the package to CTAN.
+
+* [x] page layout with typearea
+  * [x] widepar
+  * [x] widefigure
+  * [x] widetable
+* [ ] chapterformat
+  * [x] kao signature
+  * [ ] image
+  * [ ] lines
+* [x] header and footer
+* [ ] listing style
+* [x] kaobiblio
+* [x] localtoc
+* [ ] margin stuff
+  * [x] sidepar
+  * [x] sidenote
+  * [x] sidetoc
+  * [x] sidefigure
+  * [x] sidetable
+  * [x] sidelisting
+  * [ ] sidecaption
+  * [x] sidepage
+  * [ ] sidecite
+* [ ] boxes
+* [ ] theorem environments
+* [ ] pdf bookmarks
+* [ ] clever zref
+* [ ] kaohandt
+* [ ] kaoreprt
+* [ ] non-english languages
+
+### Ideas
+
+* [ ] separate package for margin material with the following interface
+  * `\sidepar{<text>}` uses notecolumn: it floats and it breaks across pages
+  * `\sidepar*{<text>}` uses marginpar: it floats but does not break (consider also the marginfit package)
+  * `\sidepar[<offset>]{<text>}` uses marginnote: its position is fixed
+* [ ] ability to refer to the same citation multiple times (similar to `\footref` in KOMA-Script)
