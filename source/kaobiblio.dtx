@@ -194,23 +194,20 @@
 % \begin{macro}{\kaobiblio@makecitecommand}
 % A wrapper to typeset citations with arguments.
 %    \begin{macrocode}
-\newcommand\kaobiblio@citecommand{}
 \NewDocumentCommand{\kaobiblio@makecitecommand}{m m m m m}{%
-	\renewcommand\kaobiblio@citecommand{%
-		\ifkaobiblio@addspace%
-			\unskip~%
-		\fi%
-		\IfNoValueTF{#3}{%
-			#1{#5}%
+	\ifkaobiblio@addspace%
+		\unskip~%
+	\fi%
+	\IfNoValueTF{#3}{%
+		#1{#5}%
+	}{%
+		\IfNoValueTF{#4}{%
+			#1[#3]{#5}%
 		}{%
-			\IfNoValueTF{#4}{%
-				#1[#3]{#5}%
-			}{%
-				#1[#3][#4]{#5}%
-			}%
+			#1[#3][#4]{#5}%
 		}%
-		#2{#5}%
 	}%
+	#2{#5}%
 }
 %    \end{macrocode}
 % \end{macro}
@@ -240,7 +237,6 @@
 	}%
 	% With this we print the marker in the text and add the item to the bibliography at the end
 	\kaobiblio@makecitecommand{\cite}{\kaobiblio@sidecite}{#3}{#4}{#5}%
-	\kaobiblio@citecommand%
 }
 %    \end{macrocode}
 %    \begin{macrocode}
@@ -254,7 +250,6 @@
 	}{%
 	}%
 	\kaobiblio@makecitecommand{\supercite}{\kaobiblio@sidesupercite}{#3}{#4}{#5}%
-	\kaobiblio@citecommand%
 }
 %    \end{macrocode}
 %    \begin{macrocode}
@@ -268,7 +263,6 @@
 	}{%
 	}%
 	\kaobiblio@makecitecommand{\textcite}{\kaobiblio@sidetextcite}{#3}{#4}{#5}%
-	\kaobiblio@citecommand%
 }
 %    \end{macrocode}
 %    \begin{macrocode}
@@ -282,7 +276,6 @@
 	}{%
 	}%
 	\kaobiblio@makecitecommand{\parencite}{\kaobiblio@sideparencite}{#3}{#4}{#5}%
-	\kaobiblio@citecommand%
 }
 %    \end{macrocode}
 % \end{macro}
@@ -318,6 +311,7 @@
 
 % \begin{macro}{\kaobibliocleanup}
 % Macro to remove unwanted or redundant fields from the bibliography.
+% TODO: check out biblatex-ext, there must be better ways to configure the fields to show.
 %    \begin{macrocode}
 \newcommand*{\kaobibliocleanup}{%
 	\AtEveryBibitem{
