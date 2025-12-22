@@ -326,40 +326,49 @@
 \NewDocumentEnvironment{sidefigure}{b}{%
 	\makenote*{%
 		\begin{minipage}{\marginparwidth}%
+			\usekomafont{notecolumn.marginpar}%
 			\def\@captype{figure}%
 			#1%
 		\end{minipage}%
 	}%
 }{}
 
-\NewDocumentEnvironment{widefigure}{o b}{%
-	\begin{figure}[#1]
-	\if@twoside%
-		\Ifthispageodd{}{\hspace*{-\dimexpr\marginparwidth+\marginparsep}}%
-	\fi%
-	\addtolength{\textwidth}{\dimexpr\marginparwidth+\marginparsep}%
-	\parbox{\dimexpr\marginparwidth+\marginparsep+\textwidth}{#2}
-	\end{figure}
-}{}
-
-\NewDocumentEnvironment{widetable}{o b}{%
-	\begin{table}[#1]
-	\if@twoside%
-		\Ifthispageodd{}{\hspace*{-\dimexpr\marginparwidth+\marginparsep}}%
-	\fi%
-	\addtolength{\textwidth}{\dimexpr\marginparwidth+\marginparsep}%
-	\parbox{\dimexpr\marginparwidth+\marginparsep+\textwidth}{#2}
-	\end{table}
-}{}
-
 \NewDocumentEnvironment{sidetable}{b}{%
 	\makenote*{%
 		\begin{minipage}{\marginparwidth}%
+			\usekomafont{notecolumn.marginpar}%
 			\def\@captype{table}%
 			#1%
 		\end{minipage}%
 	}%
 }{}
+
+\newif\if@widefloat\@widefloatfalse
+\newsavebox\@widefloat
+\NewDocumentEnvironment{widefigure}{O{tbhp}}{%
+	\@widefloattrue%
+	\begin{figure}[#1]%
+		\setlength{\@tempdima}{\dimexpr\textwidth+\marginparwidth+\marginparsep}%
+		\if@twoside%
+			\Ifthispageodd{}{\hspace*{-\dimexpr\marginparwidth+\marginparsep}}%
+		\fi%
+		\begin{minipage}{\@tempdima}%
+}{%
+		\end{minipage}%
+	\end{figure}%
+}
+\NewDocumentEnvironment{widetable}{O{bthp}}{%
+	\@widefloattrue%
+	\begin{table}[#1]%
+		\setlength{\@tempdima}{\dimexpr\textwidth+\marginparwidth+\marginparsep}%
+		\if@twoside%
+			\Ifthispageodd{}{\hspace*{-\dimexpr\marginparwidth+\marginparsep}}%
+		\fi%
+		\begin{minipage}{\@tempdima}%
+}{%
+		\end{minipage}%
+	\end{table}%
+}
 
 \NewDocumentEnvironment{sidelstlisting}{}{%
 	\begin{sidepage}{\def\@captype{lstlisting}}%
@@ -389,6 +398,7 @@
 	\global\expandafter\newsavebox\csname kao@sidepage\thekao@sidepage@in\endcsname%
 	\begin{lrbox}{\@kao@sidebox}%
 	\begin{minipage}{\marginparwidth}%
+	\usekomafont{notecolumn.marginpar}%
 	#1%
 }{
 	\end{minipage}%
