@@ -123,16 +123,16 @@ The goal is to reach feature parity with the old kaobook version, then try to up
 * [ ] listing style
 * [x] kaobiblio
 * [x] localtoc
-* [ ] margin stuff
+* [x] margin stuff
   * [x] sidepar
   * [x] sidenote
   * [x] sidetoc
   * [x] sidefigure
   * [x] sidetable
   * [x] sidelisting
-  * [ ] sidecaption
   * [x] sidepage
-  * [ ] sidecite
+  * [x] sidecite
+* [x] sidecaption
 * [ ] boxes
 * [ ] theorem environments
 * [ ] pdf bookmarks
@@ -147,4 +147,11 @@ The goal is to reach feature parity with the old kaobook version, then try to up
   * `\sidepar{<text>}` uses notecolumn: it floats and it breaks across pages
   * `\sidepar*{<text>}` uses marginpar: it floats but does not break (consider also the marginfit package)
   * `\sidepar[<offset>]{<text>}` uses marginnote: its position is fixed
+* [ ] automatic detection of floating environments (through `\if@minipage`, see ltfloat.dtx in standard LaTeX) and use of the fixed version of `\sidenote`. Old kaobook had this, now I'm not sure we need it since `\makenote` is not floating like `\marginpar`.
+* [ ] make space for sidecaptions with notecolumn
+  * using makenote for captions is tricky because of floating. the figure may end up just after a very long note, which would push the caption down. is it possible to put a barrier or reserve some space so that the sidecaption has priority over other notes? We can use `\syncwithnotecolumn` before and after the sidecaption's content, but it's a big tradeoff since the figure will shift down.
+  * in order to get sidecaptions we modify the \\@float environment deep in the latex kernel; we need to provide a better escape hatch (more general than \\@widefloat). Moreover, the captions shouldn't go in the margin with the default layout, only with the margin layout.
 * [ ] ability to refer to the same citation multiple times (similar to `\footref` in KOMA-Script)
+* [ ] check out biblatex-ext to modify bibliography styles
+* [ ] special environments, such as ContinuedFloat (see latex wikibook), longtable, and widelisting (from the minted package)
+  * actually old kaobook had another feature: using floatrow, captions could be placed above or below regardless of where the user wrote it (e.g. it was always above listings and tables, but below figures). KOMA has an option `atbegin` in `\DeclareNewFloat` IIRC, maybe we can use it to set `\@captionabovetrue` for listing environments.

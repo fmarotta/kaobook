@@ -128,6 +128,7 @@
 %% Override default options with user-specified ones
 \DeclareOption*{\PassOptionsToClass{\CurrentOption}{scrbook}}
 \ProcessOptions\relax
+
 %% Load the base class
 %% TODO: check out /RequirePackageWithOptions in scrgui
 %<kaobook>\LoadClass{scrbook}
@@ -343,7 +344,8 @@
 	}%
 }{}
 
-\newif\if@widefloat\@widefloatfalse
+\expandafter\newif\csname if@widefloat\endcsname
+\@widefloatfalse
 \newsavebox\@widefloat
 \NewDocumentEnvironment{widefigure}{O{tbhp}}{%
 	\@widefloattrue%
@@ -461,6 +463,75 @@
 }
 
 % \fi
+
+% \begin{macro}{\caption}
+%    \begin{macrocode}
+%% Modifies every float environment so that captions are placed in the margin.
+%% It respects \captionabove, \captionof, and \captionaboveof (as well as the corresponding below's).
+%% XXX: currently not compatible with the caption package. KOMAScript claims to be compatible, so we need to do something heh.
+%% NOTE: \@widefloat is also an escape hatch: users can set it to true and recover ALMOST the normal LaTeX float. We should probably give a proper escape hatch and give the possibility to use the raw original definition. Maybe we should rename @widefloat to @normalfloat or something like this, and use our own kao@float environment rather than redefining @float.
+\RequirePackage{zref-savepos}
+\RequirePackage{zref-user}
+\newif\ifkao@captionused
+\newif\ifkao@captionabove
+\newsavebox\kao@float@box
+\let\kao@orig@float\@float
+\let\kao@orig@endfloat\end@float
+\RenewDocumentEnvironment{@float}{m o}{%
+	\IfNoValueTF{#2}{\kao@orig@float{#1}[\csname fps@#1\endcsname]}{\kao@orig@float{#1}[#2]}%
+    \global\kao@captionusedfalse%
+    \global\kao@captionabovefalse%
+	\begin{lrbox}{\kao@float@box}%
+	\begin{minipage}[b]{\linewidth}%
+    \if@widefloat%
+        % leave the caption alone
+    \else%
+		\def\@caption##1[##2]##3{%
+            \xdef\kao@captiontype{##1}%
+            \gdef\kao@captionentry{##2}%
+            \gdef\kao@captioncontent{##3}%
+            \if@captionabove%
+                \global\kao@captionabovetrue%
+            \fi%
+            \global\kao@captionusedtrue%
+        }%
+    \fi%
+}{%
+	\end{minipage}%
+	\end{lrbox}%
+	\usebox{\kao@float@box}%
+    \ifkao@captionused%
+        \kao@makesidecaption%
+    \fi%
+	\kao@orig@endfloat%
+}%
+\newlength{\kao@sidecaption@offset}
+\newcounter{@sidecaption@counter}
+\newcommand*\kao@makesidecaption{%
+	\zsavepos{kao@\the@sidecaption@counter}%
+	\setlength{\kao@sidecaption@offset}{\dimexpr-\zposx{kao@\the@sidecaption@counter}sp+1in+\hoffset+\oddsidemargin+\textwidth+\marginparsep}%
+	\Ifthispageodd{}{%
+		\if@twoside%
+			\setlength{\kao@sidecaption@offset}{\dimexpr-\zposx{kao@\the@sidecaption@counter}sp+1in+\hoffset+\evensidemargin-\marginparsep-\marginparwidth}%
+		\fi%
+	}%
+	\zrefused{kao@\the@sidecaption@counter}%
+	\stepcounter{@sidecaption@counter}%
+	\def\kao@float@align{b}%
+	\let\kao@float@caption\captionbelowof%
+	\ifkao@captionabove%
+		\def\kao@float@align{t}%
+		\let\kao@float@caption\captionaboveof%
+	\fi%
+	\makebox[0sp][l]{%
+        \hspace{\kao@sidecaption@offset}%
+        \parbox[b][\ht\kao@float@box][\kao@float@align]{\marginparwidth}{%
+            \kao@float@caption{\kao@captiontype}[\kao@captionentry]{\kao@captioncontent}%
+        }%
+    }%
+}
+%    \end{macrocode}
+% \end{macro}
 
 % \section{Wide paragraphs}
 % \iffalse
