@@ -192,6 +192,8 @@
     \addtolength{\headsep}{0.5\headsep}%
     \addtolength{\textheight}{\footskip}%
     \activateareas%
+%% Side effects of default layout
+	\kaosidecaptionfalse%
 }
 % \fi
 % \begin{macro}{\marginlayout}
@@ -226,6 +228,8 @@
     \renewcommand{\coverpageleftmargin}{\dimexpr\hoffset+2in+\oddsidemargin\relax}%
     \renewcommand{\coverpagerightmargin}{\dimexpr\paperwidth-1in-\hoffset-\oddsidemargin-\textwidth\relax}%
     \activateareas%
+%% Now the side effects
+	\kaosidecaptiontrue%
 }
 %    \end{macrocode}
 % \end{macro}
@@ -344,11 +348,8 @@
 	}%
 }{}
 
-\expandafter\newif\csname if@widefloat\endcsname
-\@widefloatfalse
-\newsavebox\@widefloat
 \NewDocumentEnvironment{widefigure}{O{tbhp}}{%
-	\@widefloattrue%
+	\kaosidecaptionfalse
 	\begin{figure}[#1]%
 		\setlength{\@tempdima}{\dimexpr\textwidth+\marginparwidth+\marginparsep}%
 		\if@twoside%
@@ -360,7 +361,7 @@
 	\end{figure}%
 }
 \NewDocumentEnvironment{widetable}{O{bthp}}{%
-	\@widefloattrue%
+	\kaosidecaptionfalse%
 	\begin{table}[#1]%
 		\setlength{\@tempdima}{\dimexpr\textwidth+\marginparwidth+\marginparsep}%
 		\if@twoside%
@@ -469,39 +470,72 @@
 %% Modifies every float environment so that captions are placed in the margin.
 %% It respects \captionabove, \captionof, and \captionaboveof (as well as the corresponding below's).
 %% XXX: currently not compatible with the caption package. KOMAScript claims to be compatible, so we need to do something heh.
-%% NOTE: \@widefloat is also an escape hatch: users can set it to true and recover ALMOST the normal LaTeX float. We should probably give a proper escape hatch and give the possibility to use the raw original definition. Maybe we should rename @widefloat to @normalfloat or something like this, and use our own kao@float environment rather than redefining @float.
+%% NOTE: calling \kaosidecaptionfalse makes it use almost the "regular" captions, either above or below. the difference is that the captions are as wide as the float (we need this for widefigure and widetable environments).
+%% NOTE: calling \kaofloatfalse is the escape hatch: floats will be the regular LaTeX floats, instead of the redefined ones.
+%% Our redefinition places the captions either above or below depending on the configuration, regardless of where the user writes the caption.
 \RequirePackage{zref-savepos}
 \RequirePackage{zref-user}
+\setcapindent{0pt}
+\setkomafont{captionlabel}{\bfseries}
+\newif\ifkaofloat\kaofloattrue
+\newif\ifkaosidecaption\kaosidecaptionfalse
+\let\kao@orig@float\@float
+\let\kao@orig@endfloat\end@float
 \newif\ifkao@captionused
 \newif\ifkao@captionabove
 \newsavebox\kao@float@box
-\let\kao@orig@float\@float
-\let\kao@orig@endfloat\end@float
 \RenewDocumentEnvironment{@float}{m o}{%
+	\ifkaofloat%
+		\IfNoValueTF{#2}{\kao@float{#1}[\csname fps@#1\endcsname]}{\kao@float{#1}[#2]}%
+	\else%
+		\IfNoValueTF{#2}{\kao@orig@float{#1}[\csname fps@#1\endcsname]}{\kao@orig@float{#1}[#2]}%
+	\fi%
+}{%
+	\ifkaofloat%
+		\endkao@float%
+	\else%
+		\kao@orig@endfloat%
+	\fi%
+}
+
+\NewDocumentEnvironment{kao@float}{m o}{%
 	\IfNoValueTF{#2}{\kao@orig@float{#1}[\csname fps@#1\endcsname]}{\kao@orig@float{#1}[#2]}%
     \global\kao@captionusedfalse%
     \global\kao@captionabovefalse%
 	\begin{lrbox}{\kao@float@box}%
 	\begin{minipage}[b]{\linewidth}%
-    \if@widefloat%
-        % leave the caption alone
-    \else%
-		\def\@caption##1[##2]##3{%
-            \xdef\kao@captiontype{##1}%
-            \gdef\kao@captionentry{##2}%
-            \gdef\kao@captioncontent{##3}%
-            \if@captionabove%
-                \global\kao@captionabovetrue%
-            \fi%
-            \global\kao@captionusedtrue%
-        }%
-    \fi%
+	\def\@caption##1[##2]##3{%
+        \xdef\kao@captiontype{##1}%
+        \gdef\kao@captionentry{##2}%
+        \gdef\kao@captioncontent{##3}%
+		\xdef\kao@captionlinewidth{\the\linewidth}%
+        \if@captionabove%
+            \global\kao@captionabovetrue%
+        \fi%
+        \global\kao@captionusedtrue%
+    }%
 }{%
 	\end{minipage}%
 	\end{lrbox}%
-	\usebox{\kao@float@box}%
     \ifkao@captionused%
-        \kao@makesidecaption%
+	    \ifkaosidecaption%
+			\usebox{\kao@float@box}%
+	        \kao@makesidecaption%
+	    \else%
+			\ifkao@captionabove%
+				\hspace*{\dimexpr\linewidth-\kao@captionlinewidth}%
+				\begin{minipage}[t]{\kao@captionlinewidth}%
+			        \captionaboveof{\kao@captiontype}[\kao@captionentry]{\kao@captioncontent}%
+				\end{minipage}
+				\usebox{\kao@float@box}%
+			\else%
+				\usebox{\kao@float@box}
+				\hspace*{\dimexpr\linewidth-\kao@captionlinewidth}%
+				\begin{minipage}[t]{\kao@captionlinewidth}%
+			        \captionbelowof{\kao@captiontype}[\kao@captionentry]{\kao@captioncontent}%
+				\end{minipage}%
+			\fi%
+	    \fi%
     \fi%
 	\kao@orig@endfloat%
 }%
