@@ -567,6 +567,56 @@
         }%
     }%
 }
+
+\RequirePackage{zref-savepos}
+\RequirePackage{zref-user}
+\newcounter{kao@fixednote@counter}
+\setcounter{kao@fixednote@counter}{0}
+\newlength{\kao@fixednote@hoffset}
+\newlength{\kao@fixednote@voffset}
+\newcommand\fixednote[2][t]{%
+	\zsavepos{kao@fixednote@\thekao@fixednote@counter}%
+	\setlength{\kao@fixednote@hoffset}{\dimexpr-\zposx{kao@fixednote@\thekao@fixednote@counter}sp+1in+\hoffset+\oddsidemargin+\textwidth+\marginparsep\relax}%
+	\if@twoside%
+		\Ifthispageodd{}{%
+			\setlength{\kao@fixednote@hoffset}{\dimexpr-\zposx{kao@fixednote@\thekao@fixednote@counter}sp+1in+\hoffset+\evensidemargin-\marginparsep-\marginparwidth\relax}%
+		}%
+	\fi%
+	\makebox[0pt][l]{\hspace{\kao@fixednote@hoffset}\smash{\parbox[#1]{\marginparwidth}{#2}}}%
+	\zrefused{kao@fixednote@\thekao@fixednote@counter}%
+	\stepcounter{kao@fixednote@counter}%
+}
+
+%% KOMAScript is only compatible with newfloat=true, according to minted documentation.
+%% XXX: alignment between caption and code is not pixel-perfect; for the time being I add 4pt but would like to find out exactly where the space is coming from.
+\PassOptionsToPackage{newfloat=true}{minted}
+\DeclareNewTOC[float,listname={List of listings},counterwithin=chapter,name=Listing,type=kaolisting,atbegin={\@captionabovetrue\vskip4pt}]{klol}
+
+\let\kao@orig@makemultilinecaption\scr@makemultilinecaption%
+\let\kao@orig@makesinglelinecaption\scr@makesinglelinecaption%
+\long\def\kao@lst@makemultilinecaption#1#2#3{%
+	\fixednote[\lst@captionpos]{\vskip\lst@aboveskip\kao@orig@makemultilinecaption#1#2{#3}\vskip\lst@belowskip}%
+}
+\long\def\kao@lst@makesinglelinecaption#1#2#3{%
+	\fixednote[\lst@captionpos]{\vskip\lst@aboveskip\kao@orig@makesinglelinecaption#1#2{#3}\vskip\lst@belowskip}%
+}
+\long\def\kao@lst@@makesinglelinecaption#1#2#3{%
+	\fixednote[\lst@captionpos]{\vskip\lst@aboveskip\kao@orig@@makesinglelinecaption#1#2{#3}\vskip\lst@belowskip}%
+}
+\AtBeginDocument{\@ifpackageloaded{listings}%
+	{%
+		\lst@AddToHook{PreSet}{%
+			\let\scr@makemultilinecaption\kao@lst@makemultilinecaption%
+			\let\scr@makesinglelinecaption\kao@lst@makesinglelinecaption%
+			\let\scr@makesinglelinecaption\kao@lst@@makesinglelinecaption%
+			\kaofloatfalse%
+			\vskip-\baselineskip%
+		}%
+	}%
+	{}%
+}
+
+
 %    \end{macrocode}
 % \end{macro}
 
