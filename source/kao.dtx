@@ -589,8 +589,24 @@
 
 %% KOMAScript is only compatible with newfloat=true, according to minted documentation.
 %% XXX: alignment between caption and code is not pixel-perfect; for the time being I add 4pt but would like to find out exactly where the space is coming from.
+%% Good resource: https://resources.latex-cloud-studio.com/learn/latex/formatting/code-listings-minted
 \PassOptionsToPackage{newfloat=true}{minted}
 \DeclareNewTOC[float,listname={List of listings},counterwithin=chapter,name=Listing,type=kaolisting,atbegin={\@captionabovetrue\vskip4pt}]{klol}
+\AtBeginDocument{\@ifpackageloaded{minted}%
+	{%
+		\setminted{
+			fontsize=\small,
+			linenos=true,
+			breaklines=true,
+			numbersep=.7em,
+			frame=leftline,
+			% framesep=.4em
+		}
+		\newcommand{\lstlistoflistings}{\listoflistings}% Provide the alias \lstlistoflistings
+		\newcommand{\listoflstlistings}{\listoflistings}% Provide the alias \listoflstlistings
+	}%
+	{}%
+}
 
 \let\kao@orig@makemultilinecaption\scr@makemultilinecaption%
 \let\kao@orig@makesinglelinecaption\scr@makesinglelinecaption%
@@ -612,6 +628,64 @@
 			\kaofloatfalse%
 			\vskip-\baselineskip%
 		}%
+		\definecolor{listingkeywords}{rgb}{0.0, 0.5, 0.0}
+		\definecolor{listingidentifiers}{rgb}{0, 0, 0}
+		\definecolor{listingcomments}{rgb}{0.25, 0.5, 0.5}
+		\definecolor{listingstrings}{rgb}{0.73, 0.13, 0.13}
+		\definecolor{listingnumbers}{rgb}{0.25, 0.25, 0.25}
+		% Define a fancy style
+		\lstdefinestyle{kaolst}{
+			% aboveskip=0.7\topskip,
+			% belowskip=0.1\topskip,
+			basicstyle=\small\ttfamily,
+			commentstyle=\color{listingcomments}\itshape,
+			keywordstyle=\color{listingkeywords}\bfseries,
+			numberstyle=\scriptsize\color{listingnumbers}\ttfamily,
+			stringstyle=\color{listingstrings},
+			identifierstyle=\color{listingidentifiers},
+			% backgroundcolor=\color{white},
+			breakatwhitespace=false,
+			breaklines=true,
+			captionpos=t,
+			keepspaces=true,
+			showspaces=false,
+			showstringspaces=false,
+			showtabs=false,
+			numbers=left,
+			numbersep=1em,
+			%frame=lines,
+			frame=l,
+			framerule=.7pt,
+			tabsize=4,
+			defaultdialect=[LaTeX]Tex,
+		}
+		% Define a plain style as well
+		\lstdefinestyle{kaolstplain}{
+			% aboveskip=0.6\topskip,
+			% belowskip=-0.1\topskip,
+			basicstyle=\small\ttfamily,
+			commentstyle=\color{listingcomments}\itshape,
+			keywordstyle=\color{listingkeywords}\bfseries,
+			numberstyle=\scriptsize\color{listingnumbers}\ttfamily,
+			stringstyle=\color{listingstrings},
+			identifierstyle=\color{listingidentifiers},
+			backgroundcolor=\color{white},
+			breakatwhitespace=false,
+			breaklines=true,
+			captionpos=b,
+			keepspaces=true,
+			showspaces=false,
+			showstringspaces=false,
+			showtabs=false,
+			numbers=none,
+			frame=none,
+			tabsize=4,
+			defaultdialect=[LaTeX]Tex,
+		}
+		\lstset{style=kaolst}% Use the fancy style
+		\renewcommand{\lstlistlistingname}{List of Listings}% Change the title
+		\newcommand{\listoflistings}{\lstlistoflistings}% Provide the alias \listoflistings
+		\newcommand{\listoflstlistings}{\lstlistoflistings}% Provide the alias \listoflstlistings
 	}%
 	{}%
 }
