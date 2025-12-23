@@ -519,6 +519,8 @@
 	\end{minipage}%
 	\end{lrbox}%
     \ifkao@captionused%
+		% Counter was already incremented by user-supplied \caption
+		\addtocounter{\@captype}{\m@ne}%
 	    \ifkaosidecaption%
 			\usebox{\kao@float@box}%
 	        \kao@makesidecaption%
