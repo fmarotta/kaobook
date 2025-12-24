@@ -282,43 +282,49 @@
 % \iffalse
 \RequirePackage{graphicx} % for \scalebox
 
+\let\kao@orig@beforeskip\scr@chapter@beforeskip%
+\let\kao@orig@afterskip\scr@chapter@afterskip%
+\def\kao@curr@chapterstyle{plain}
+
 % The default definition in KOMA script
 \newcommand*\chapterstyleplain{%
 	\renewcommand*{\chapterformat}{%
 		\mbox{\chapappifchapterprefix{\nobreakspace}\thechapter%
 		\autodot\IfUsePrefixLine{}{\enskip}}}%
-	\renewcommand{\chapterlinesformat}[3]{%
+	\renewcommand*{\chapterlinesformat}[3]{%
 		\@hangfrom{##2}{##3}}%
-	\newcommand{\chapterlineswithprefixformat}[3]{%
+	\renewcommand*{\chapterlineswithprefixformat}[3]{%
 		##2##3}%
+	\RedeclareSectionCommand[beforeskip=\dimexpr\kao@orig@beforeskip,afterskip=\dimexpr\kao@orig@afterskip]{chapter}%
+	\def\kao@curr@chapterstyle{plain}
 }
 
+\newsavebox\tempboxa%
+\newsavebox\tempboxb%
 \newcommand*\chapterstylekao{%
-	\newcommand*\kaochapterformatscale{2.85}%
+	\def\kaochapterformatscale{2.85}%
 	\renewcommand*{\chapterformat}{%
 	    \IfUsePrefixLine{\centering\chapapp\par\vskip\scr@chapter@innerskip}{}\scalebox{\kaochapterformatscale}{\thechapter\autodot}%
 	}%
 	\renewcommand*\chapterlinesformat[3]{%
 	    \makebox[0pt][l]{%
-	        \parbox[b]{\textwidth}{\raggedchapter##3}%
+	        \parbox[b]{\textwidth}{\raggedleft##3}%
 	        \makebox[\marginparsep]{\smash{\rule[-\dp\strutbox]{1pt}{\maxdimen}}}%
 	        \smash{\parbox[b]{\marginparwidth}{##2\unskip}}%
 	        %% do \showtokens{##2}: the chapter number ends with a \par and then vertical glue corresponding to the innerskip option in RedeclareSectionCommand. By adding \unskip, we remove the extra glue and empty paragraph, because we don't need it.
 	    }%
 	}%
-	\newsavebox\tempboxa%
-	\newsavebox\tempboxb%
 	\renewcommand*\chapterlineswithprefixformat[3]{%
 	    \savebox\tempboxa{\chapappifchapterprefix}%
 	    \savebox\tempboxb{\scalebox{\kaochapterformatscale}{\thechapter\autodot}}%
 	    \makebox[0pt][l]{%
-	        \parbox[b]{\textwidth}{\raggedchapter##3}%
+	        \parbox[b]{\textwidth}{\raggedleft##3}%
 	        \makebox[\marginparsep]{\smash{\rule[.5\dimexpr-\ht\tempboxa-\dp\tempboxa-\ht\tempboxb-\dp\tempboxb-\scr@chapter@innerskip]{1pt}{\maxdimen}}}%
 	        \smash{\parbox[c]{\ifdim\wd\tempboxa>\wd\tempboxb \wd\tempboxa \else \wd\tempboxb\fi}{##2\unskip}}%
 	    }%
 	}%
-	\renewcommand*\raggedchapter{\raggedleft}%
-	\RedeclareSectionCommand[beforeskip=.5\baselineskip plus .25\baselineskip minus .25\baselineskip,afterskip=3\baselineskip plus .5\baselineskip minus .5\baselineskip]{chapter}%
+	\RedeclareSectionCommand[beforeskip=-.5\baselineskip plus .25\baselineskip minus .25\baselineskip,afterskip=3\baselineskip plus .5\baselineskip minus .5\baselineskip]{chapter}%
+	\def\kao@curr@chapterstyle{kao}
 }
 
 % Lines
@@ -340,32 +346,62 @@
 		\def\@@par{\relax}##3\\
 		\makebox[\dimexpr\textwidth+\marginparsep+\marginparwidth][l]{\hrulefill[1.1pt]}%
 	}%
-	\RedeclareSectionCommand[beforeskip=0sp,afterskip=2.5\baselineskip plus .5\baselineskip minus .5\baselineskip]{chapter}%
+	\RedeclareSectionCommand[beforeskip=-1sp,afterskip=2.5\baselineskip plus .5\baselineskip minus .5\baselineskip]{chapter}%
+	\def\kao@curr@chapterstyle{lines}
 }
 
 % Gray bar
 \RequirePackage{pgf}%
-\DeclareDocumentCommand{\chapterstylebar}{}{%
+\newcommand*\chapterstylebar{%
 	\renewcommand*{\chapterformat}{%
 		\mbox{\chapappifchapterprefix{\nobreakspace}\thechapter%
 		\autodot\IfUsePrefixLine{}{\enskip}}%
 	}
-	\newsavebox\tempboxa%
-	\renewcommand{\chapterlinesformat}[3]{%
+	\renewcommand*{\chapterlinesformat}[3]{%
 		\hspace*{-\dimexpr1in+\hoffset+\oddsidemargin}%
-		\pgfsetfillopacity{0.8}%
-		\savebox{\tempboxa}{\@hangfrom{##2}{##3\strut}}%
-		\makebox[\dimexpr1in+\hoffset+\oddsidemargin][l]{\colorbox{lightgray!50}{\phantom{\rule[-\dimexpr\dp\tempboxa+.3ex]{\paperwidth}{\dimexpr\dp\tempboxa+\ht\tempboxa+.8ex}}}}\usebox{\tempboxa}%
-		\pgfsetfillopacity{1}%
+		\savebox{\tempboxa}{\parbox{\linewidth}{\strut\def\@@par{\strut}\@hangfrom{##2}{##3}}}% ##3 normally ends with \@@par, which we replace with \strut
+		\raisebox{\totalheight}[\dimexpr\height-1pt]{% why -1pt? no idea
+			\makebox[\dimexpr1in+\hoffset+\oddsidemargin][l]{%
+				\pgfsetfillopacity{0.8}% from package pgf
+				\colorbox{lightgray!50}{\makebox[\paperwidth]{\rule[-\dp\tempboxa]{0sp}{\dimexpr\dp\tempboxa+\ht\tempboxa}}}%
+				\pgfsetfillopacity{1}% from package pgf
+			}%
+			\usebox{\tempboxa}%
+		}%
 	}
-	% \RedeclareSectionCommand[beforeskip=-55mm,afterskip=6mm]{chapter}
+	\renewcommand*{\chapterlineswithprefixformat}[3]{%
+		\hspace*{-\dimexpr1in+\hoffset+\oddsidemargin}%
+		\savebox{\tempboxa}{\parbox{\linewidth}{\strut\def\@@par{\strut}##2##3}}% ##3 normally ends with \@@par, which we replace with \strut
+		\raisebox{\totalheight}[\dimexpr\height-1pt]{% why -1pt? no idea
+			\makebox[\dimexpr1in+\hoffset+\oddsidemargin][l]{%
+				\pgfsetfillopacity{0.8}% from package pgf
+				\colorbox{lightgray!50}{\makebox[\paperwidth]{\rule[-\dp\tempboxa]{0sp}{\dimexpr\dp\tempboxa+\ht\tempboxa}}}%
+				\pgfsetfillopacity{1}% from package pgf
+			}%
+			\usebox{\tempboxa}%
+		}%
+	}
+	\RedeclareSectionCommand[beforeskip=\dimexpr\kao@orig@beforeskip,afterskip=\dimexpr\kao@orig@afterskip]{chapter}%
+	\def\kao@curr@chapterstyle{bar}
 }
-\chapterstylebar
 
-\setchapterpreamble[o]{%
-	\vspace*{-\dimexpr\headsep+1.01in+\voffset}\hspace*{-\dimexpr1in+\hoffset+\oddsidemargin}%
-	\includegraphics[width=\paperwidth,height=8cm,keepaspectratio=false]{../../testfiles/La_Gioconda_Leonardo_Da_Vinci.jpg}%
-}%
+\NewDocumentCommand{\setchapterimage}{O{\dimexpr\headheight+\headsep+\topmargin+3in+\voffset\relax} m}{%
+	% Revert to previous style after next chapter
+	\edef\kao@temp{\kao@curr@chapterstyle}%
+	\AddtoOneTimeDoHook{heading/postinit/chapter}{%
+		\AddtoOneTimeDoHook{heading/preinit/chapter}{\csname chapterstyle\kao@temp\endcsname}%
+	}%
+	\AddtoOneTimeDoHook{heading/preinit/chapter}{%
+		\chapterstylebar%
+		\setchapterpreamble[o]{%
+			\vspace*{-\dimexpr\headheight+\headsep+\topmargin+1in+\voffset}%
+			\hspace*{-\dimexpr1in+\hoffset+\oddsidemargin}%
+			\includegraphics[width=\paperwidth,height=#1,keepaspectratio=false]{#2}%
+		}%
+		\RedeclareSectionCommand[beforeskip=\dimexpr#1-\headheight-\headsep-\topmargin-1in-\voffset,afterskip=1.5\baselineskip plus .5\baselineskip minus .5\baselineskip]{chapter}%
+	}%
+}
+
 
 % \fi
 
