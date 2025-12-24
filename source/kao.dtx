@@ -591,6 +591,7 @@
 %% XXX: alignment between caption and code is not pixel-perfect; for the time being I add 4pt but would like to find out exactly where the space is coming from.
 %% Good resource: https://resources.latex-cloud-studio.com/learn/latex/formatting/code-listings-minted
 \PassOptionsToPackage{newfloat=true}{minted}
+%% XXX Consider using the forcenames option; on one hand it's good to keep our own floating environment separate from the minted one, on the other hand it's convenient to keep the same name...
 \DeclareNewTOC[float,listname={List of listings},counterwithin=chapter,name=Listing,type=kaolisting,atbegin={\@captionabovetrue\vskip4pt}]{klol}
 \AtBeginDocument{\@ifpackageloaded{minted}%
 	{%
@@ -736,6 +737,70 @@
 }
 
 % \fi
+
+% \section{tcolorful Boxes}
+%
+% \begin{macro}{kaobox}
+% \begin{macro}{kaocomment}
+% \begin{macro}{kaoinsight}
+% \begin{macrocode}
+\RequirePackage[most]{tcolorbox}
+\RequirePackage[dvipsnames,table]{xcolor} % Colours
+\RequirePackage{tocbasic}
+
+\newtcolorbox{kaobox}[1][]{
+	breakable,
+	before skip=1.5\topskip,
+	after skip=1.5\topskip,
+	left skip=0pt,
+	right skip=0pt,
+	left=4pt,
+	right=4pt,
+	top=2pt,
+	bottom=2pt,
+	lefttitle=4pt,
+	righttitle=4pt,
+	toptitle=2pt,
+	bottomtitle=2pt,
+	sharp corners,
+	boxrule=0pt,
+	titlerule=.4pt,
+	colback=RoyalBlue!25!White,
+	colbacktitle=RoyalBlue!25!White,
+	coltitle=black,
+	colframe=black,
+	fonttitle=\bfseries,
+	#1
+}
+
+\DeclareNewTOC[
+	atbegin={\begin{kaobox}[title=Comment~\thekaocomment]},%\autodot]\@captionabovetrue},
+	atend={\end{kaobox}},
+	counterwithin=section,
+	name=Comment,
+	nonfloat,
+	type=kaocomment,
+]{kcm}
+
+\DeclareNewTOC[
+	% atbegin={\begin{kaobox}[title=Comment~\thekaocomment]},
+	% atend={\end{kaobox}},
+	counterwithin=chapter,
+	name=Insight,
+	float,
+	nonfloat,
+	floatpos=tbhp,
+	floattype=7,
+	listname=List of Insights,
+	name=Insight,
+	type=kaoinsight,
+	types=kaoinsights,
+]{kig}
+
+%    \end{macrocode}
+% \end{macro}
+% \end{macro}
+% \end{macro}
 
 % \section{Core macros}
 % 
