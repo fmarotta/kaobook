@@ -1,0 +1,201 @@
+%%
+%% This is file `marginfit.sty',
+%% generated with the docstrip utility.
+%%
+%% The original source files were:
+%%
+%% marginfit.dtx  (with options: `package')
+%% 
+%% Copyright 2017, 2018 Maurice Leclaire <leclaire@in.tum.de>
+%% 
+%% This work may be distributed and/or modified under the
+%% conditions of the LaTeX Project Public License, either
+%% version 1.3 of this license or (at your option) any later
+%% version. The latest version of this license is in:
+%% 
+%%   http://www.latex-project.org/lppl.txt
+%% 
+%% and version 1.3 or later is part of all distributions of LaTeX
+%% version 2005/12/01 or later.
+%% 
+%% This work has the LPPL maintenance status `author-maintained'.
+%% 
+%% This work consists of the files marginfit.dtx and marginfit.ins
+%% and the derived file marginfit.sty.
+%% 
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{marginfit}[2025/08/04 v1.2 Fit Margin Paragraphs]
+\newif\ifmarginfit@debug
+\DeclareOption{debug}{\marginfit@debugtrue}
+\ProcessOptions\relax
+\newinsert\marginfit@insert
+\count\marginfit@insert0
+\skip\marginfit@insert\z@
+\dimen\marginfit@insert\maxdimen
+\newbox\marginfit@reverse
+\chardef\marginfit@box0
+\chardef\marginfit@left0
+\chardef\marginfit@right1
+\newcount\c@marginfit@w
+\newcount\c@marginfit@r
+\newcount\c@marginfit@t
+\newdimen\marginfit@top
+\newdimen\marginfit@min
+\newdimen\marginfit@pos
+\newdimen\marginfit@minoffset
+\def\marginfit@writepos#1{%
+    \pdfsavepos%
+    \write\@auxout{\string\@newl@bel{label@marginfit}{#1}{\the\pdflastypos}}%
+}
+\def\marginfit@boxforeach#1#2{%
+    \setbox#1\vbox{\unvbox#1 \global\setbox\marginfit@box\lastbox}%
+    \ifvoid\marginfit@box\else%
+        #2%
+        \marginfit@boxforeach#1{#2}%
+    \fi%
+}
+\def\marginfit@pass@i{%
+    \setbox\marginfit@left\hbox{\unhbox\marginfit@box%
+                                \global\setbox\marginfit@right\lastbox}%
+    \setbox\marginfit@right\hbox{\box\marginfit@right}%
+    \advance\marginfit@min\ht\marginfit@side%
+    \advance\marginfit@min\dp\marginfit@side%
+    \advance\marginfit@min\marginparpush%
+    \setbox\marginfit@reverse\vbox{\unvbox\marginfit@reverse%
+                                   \box\marginfit@side}%
+}
+\def\marginfit@pass@ii{%
+    \global\advance\c@marginfit@r\@ne%
+    \ifcsname label@marginfit@\the\c@marginfit@r @m\endcsname%
+        \marginfit@pos\csname label@marginfit@\the\c@marginfit@r @m\endcsname sp%
+    \fi%
+    \advance\marginfit@pos\ht\marginfit@box%
+    \ifdim\marginfit@pos<\marginfit@min%
+        \marginfit@pos\marginfit@min%
+    \fi%
+    \advance\marginfit@top-\marginfit@pos%
+    \ifdim\marginfit@top<\marginparpush%
+        \advance\marginfit@pos\marginfit@top%
+        \advance\marginfit@pos-\marginparpush%
+        \marginfit@top\marginparpush%
+    \fi%
+    \vskip\marginfit@top%
+    \marginfit@top\marginfit@pos%
+    \advance\marginfit@top-\ht\marginfit@box%
+    \advance\marginfit@top-\dp\marginfit@box%
+    \advance\marginfit@min-\ht\marginfit@box%
+    \advance\marginfit@min-\dp\marginfit@box%
+    \advance\marginfit@min-\marginparpush%
+    \hrule height\z@%
+    \box\marginfit@box%
+    \hrule height\z@%
+}%
+\def\marginfit@marginbox{%
+    \vbox to\@colht {%
+        \global\advance\c@marginfit@t\@ne%
+        \expandafter\marginfit@writepos\expandafter{\the\c@marginfit@t @t}%
+        \ifcsname label@marginfit@\the\c@marginfit@t @t\endcsname%
+            \marginfit@top\csname label@marginfit@\the\c@marginfit@t @t\endcsname sp%
+        \fi%
+        \marginfit@min\marginfit@top%
+        \advance\marginfit@min-\@colht%
+        \advance\marginfit@min-\marginparpush%
+        \advance\marginfit@min\marginfit@minoffset%
+        \advance\marginfit@top\marginparpush%
+        \vskip-\marginparpush%
+        \marginfit@boxforeach\marginfit@insert\marginfit@pass@i%
+        \marginfit@boxforeach\marginfit@reverse\marginfit@pass@ii%
+        \vfill%
+    }%
+}%
+\def\marginfit@leftmargin{%
+    \AddToHookNext{shipout/background}{%
+      \InLeftMargin{%
+        \let\marginfit@side\marginfit@left%
+        \marginfit@marginbox%
+      }%
+    }%
+}
+\def\marginfit@rightmargin{%
+    \AddToHookNext{shipout/background}{%
+      \InRightMargin{%
+        \let\marginfit@side\marginfit@right%
+        \marginfit@marginbox%
+      }%
+    }%
+}
+\providecommand*{\InLeftMargin}[1]{%
+  \put(%
+    \dimeval{1in + \hoffset + \evensidemargin - \marginparsep - \marginparwidth - 0.5pt},% X: left margin (we have to subtract 0.5pt as it's otherwise a little bit too right)
+    \dimeval{-1in - \voffset - \topmargin - \headheight - \headsep - \@colht}% Y: bottom of main text
+  ){%
+    \ifmarginfit@debug%
+        \setlength{\fboxsep}{0pt}% set padding to zero
+        \fcolorbox{white}{yellow}{%
+            #1%
+        }%
+    \else%
+        #1%
+    \fi%
+  }%
+}
+\providecommand*{\InRightMargin}[1]{%
+  \put(%
+    \dimeval{1in + \hoffset + \oddsidemargin + \textwidth + \marginparsep - 0.5pt},% X: right margin (we have to subtract 0.5pt as it's otherwise a little bit too right)
+    \dimeval{-1in - \voffset - \topmargin - \headheight - \headsep - \@colht}% Y: bottom of main text
+  ){%
+    \ifmarginfit@debug%
+        \setlength{\fboxsep}{0pt}% set padding to zero
+        \fcolorbox{white}{yellow}{%
+            #1%
+        }%
+    \else%
+        #1%
+    \fi%
+  }%
+}
+\let\marginfit@makecol\@makecol
+\def\@makecol{%
+    \marginfit@makecol % Build the main text as usual (sets marks)
+    \ifvoid\marginfit@insert\else%
+        \if@twocolumn%
+            \if@firstcolumn%
+                \marginfit@leftmargin%
+            \else%
+                \marginfit@rightmargin%
+            \fi%
+        \else%
+            \if@twoside%
+                \ifodd\c@page%
+                    \marginfit@rightmargin%
+                \else%
+                    \marginfit@leftmargin%
+                \fi%
+            \else%
+                \marginfit@rightmargin%
+            \fi%
+        \fi%
+    \fi%
+}
+\def\marginpar{%
+    \global\advance\c@marginfit@w\@ne%
+    \expandafter\marginfit@writepos\expandafter{\the\c@marginfit@w @m}%
+    \@ifnextchar[\marginfit@mpar@ii\marginfit@mpar@i%
+}
+\long\def\marginfit@mpar@i#1{%
+    \@savemarbox\marginfit@box{#1}%
+    \setbox\marginfit@box\hbox{\copy\marginfit@box\box\marginfit@box}%
+    \marginfit@mpar@iii%
+}
+\long\def\marginfit@mpar@ii[#1]#2{%
+    \@savemarbox\marginfit@left{#1}%
+    \@savemarbox\marginfit@right{#2}%
+    \setbox\marginfit@box\hbox{\box\marginfit@left\box\marginfit@right}%
+    \marginfit@mpar@iii%
+}
+\def\marginfit@mpar@iii{%
+    \insert\marginfit@insert{\box\marginfit@box}%
+}
+\endinput
+%%
+%% End of file `marginfit.sty'.

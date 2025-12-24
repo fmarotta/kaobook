@@ -414,6 +414,7 @@
 
 \RequirePackage{marginnote} % Provides options for margin notes
 %\RequirePackage{marginfix} % Make marginpars float freely; it should not be loaded as it prevents the marginnotes to stay aligned with the main text
+\RequirePackage{marginfit} % Make marginpars float freely while addressing some of the issues of `marginfix`
 \RequirePackage{sidenotes} % Use sidenotes
 \RequirePackage{chngcntr} % Reset counters at sections
 
@@ -442,10 +443,9 @@
 \renewcommand*{\raggedleftmarginnote}{} % Suppress left margin
 \renewcommand*{\raggedrightmarginnote}{} % Suppress right margin
 \renewcommand*{\marginfont}{\@margin@par} % Format marginnotes according to \@marginpar (see above)
-\renewcommand{\marginnotevadjust}{0.8\vscale} % Bring all marginnotes downwards a bit
-%\marginposadjustment=1\vscale % Bring downwards also the marginpars
-%\marginheightadjustment=10cm % Adjust the height of the margins for each page
-%\RequirePackage[marginnote=true]{snotez} % Provides options for sidenotes
+\renewcommand{\marginnotevadjust}{0.8\vscale} % Bring all marginnotes downwards a bit; Adjusts the top position where marginpars start but seems to affect margintoc only (larger values mean lower marginpars); Note that there's a separate value for adjusting the margintoc (see \mtocshift)
+\marginfit@minoffset=-0.675\vscale % Shifts the calculated minimum position of marginpars (larger values mean higher marginpars); `-0.75\vscale` would be perfect for non-chapter-start-pages and `-0.6\vscale` for chapter-start-pages. We pick their average.
+% \RequirePackage[marginnote=true]{snotez} % Provides options for sidenotes
 
 % Copied from snotez's \sidenote
 \def\kao@if@nblskip#1{%
