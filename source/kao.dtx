@@ -282,31 +282,91 @@
 % \iffalse
 \RequirePackage{graphicx} % for \scalebox
 
-\newcommand\kaochapterformatscale{2.85}
-\renewcommand*{\chapterformat}{%
-    \IfUsePrefixLine{\centering\chapapp\par\vskip\scr@chapter@innerskip}{}\scalebox{\kaochapterformatscale}{\thechapter\autodot}%
+% The default definition in KOMA script
+\newcommand*\chapterstyleplain{%
+	\renewcommand*{\chapterformat}{%
+		\mbox{\chapappifchapterprefix{\nobreakspace}\thechapter%
+		\autodot\IfUsePrefixLine{}{\enskip}}}%
+	\renewcommand{\chapterlinesformat}[3]{%
+		\@hangfrom{##2}{##3}}%
+	\newcommand{\chapterlineswithprefixformat}[3]{%
+		##2##3}%
 }
-\renewcommand*\chapterlinesformat[3]{%
-    \makebox[0pt][l]{%
-        \parbox[b]{\textwidth}{\raggedchapter#3}%
-        \makebox[\marginparsep]{\smash{\rule[-\dp\strutbox]{1pt}{\maxdimen}}}%
-        \smash{\parbox[b]{\marginparwidth}{#2\unskip}}%
-        %% do \showtokens{#2}: the chapter number ends with a \par and then vertical glue corresponding to the innerskip option in RedeclareSectionCommand. By adding \unskip, we remove the extra glue and empty paragraph, because we don't need it.
-    }%
+
+\newcommand*\chapterstylekao{%
+	\newcommand*\kaochapterformatscale{2.85}%
+	\renewcommand*{\chapterformat}{%
+	    \IfUsePrefixLine{\centering\chapapp\par\vskip\scr@chapter@innerskip}{}\scalebox{\kaochapterformatscale}{\thechapter\autodot}%
+	}%
+	\renewcommand*\chapterlinesformat[3]{%
+	    \makebox[0pt][l]{%
+	        \parbox[b]{\textwidth}{\raggedchapter##3}%
+	        \makebox[\marginparsep]{\smash{\rule[-\dp\strutbox]{1pt}{\maxdimen}}}%
+	        \smash{\parbox[b]{\marginparwidth}{##2\unskip}}%
+	        %% do \showtokens{##2}: the chapter number ends with a \par and then vertical glue corresponding to the innerskip option in RedeclareSectionCommand. By adding \unskip, we remove the extra glue and empty paragraph, because we don't need it.
+	    }%
+	}%
+	\newsavebox\tempboxa%
+	\newsavebox\tempboxb%
+	\renewcommand*\chapterlineswithprefixformat[3]{%
+	    \savebox\tempboxa{\chapappifchapterprefix}%
+	    \savebox\tempboxb{\scalebox{\kaochapterformatscale}{\thechapter\autodot}}%
+	    \makebox[0pt][l]{%
+	        \parbox[b]{\textwidth}{\raggedchapter##3}%
+	        \makebox[\marginparsep]{\smash{\rule[.5\dimexpr-\ht\tempboxa-\dp\tempboxa-\ht\tempboxb-\dp\tempboxb-\scr@chapter@innerskip]{1pt}{\maxdimen}}}%
+	        \smash{\parbox[c]{\ifdim\wd\tempboxa>\wd\tempboxb \wd\tempboxa \else \wd\tempboxb\fi}{##2\unskip}}%
+	    }%
+	}%
+	\renewcommand*\raggedchapter{\raggedleft}%
+	\RedeclareSectionCommand[beforeskip=.5\baselineskip plus .25\baselineskip minus .25\baselineskip,afterskip=3\baselineskip plus .5\baselineskip minus .5\baselineskip]{chapter}%
 }
-\newsavebox\tempboxa
-\newsavebox\tempboxb
-\renewcommand*\chapterlineswithprefixformat[3]{%
-    \savebox\tempboxa{\chapappifchapterprefix}%
-    \savebox\tempboxb{\scalebox{\kaochapterformatscale}{\thechapter\autodot}}%
-    \makebox[0pt][l]{%
-        \parbox[b]{\textwidth}{\raggedchapter#3}%
-        \makebox[\marginparsep]{\smash{\rule[.5\dimexpr-\ht\tempboxa-\dp\tempboxa-\ht\tempboxb-\dp\tempboxb-\scr@chapter@innerskip]{1pt}{\maxdimen}}}%
-        \smash{\parbox[c]{\ifdim\wd\tempboxa>\wd\tempboxb \wd\tempboxa \else \wd\tempboxb\fi}{#2\unskip}}%
-    }%
+
+% Lines
+% https://tex.stackexchange.com/a/65734/198249
+\renewcommand*{\hrulefill}[1][0.4pt]{%
+	\leavevmode\leaders\hrule height #1\hfill\kern\z@%
 }
-\renewcommand*\raggedchapter{\raggedleft}
-\RedeclareSectionCommand[beforeskip=.5\baselineskip plus .25\baselineskip minus .25\baselineskip,afterskip=3\baselineskip plus .5\baselineskip minus .5\baselineskip]{chapter}
+\newcommand*\chapterstylelines{%
+	\renewcommand*{\chapterformat}{%
+	    \IfUsePrefixLine{\chapapp\enskip}{}\scalebox{3}{\thechapter\autodot}%
+	}%
+	\renewcommand*\chapterlinesformat[3]{%
+		\hrulefill[1pt]##2\\
+		\def\@@par{\relax}##3\\
+		\makebox[\dimexpr\textwidth+\marginparsep+\marginparwidth][l]{\hrulefill[1.1pt]}%
+	}%
+	\renewcommand*\chapterlineswithprefixformat[3]{%
+		\def\chapterheadmidvskip{\relax}\hrulefill[1pt]##2\\%
+		\def\@@par{\relax}##3\\
+		\makebox[\dimexpr\textwidth+\marginparsep+\marginparwidth][l]{\hrulefill[1.1pt]}%
+	}%
+	\RedeclareSectionCommand[beforeskip=0sp,afterskip=2.5\baselineskip plus .5\baselineskip minus .5\baselineskip]{chapter}%
+}
+
+% Gray bar
+\RequirePackage{pgf}%
+\DeclareDocumentCommand{\chapterstylebar}{}{%
+	\renewcommand*{\chapterformat}{%
+		\mbox{\chapappifchapterprefix{\nobreakspace}\thechapter%
+		\autodot\IfUsePrefixLine{}{\enskip}}%
+	}
+	\newsavebox\tempboxa%
+	\renewcommand{\chapterlinesformat}[3]{%
+		\hspace*{-\dimexpr1in+\hoffset+\oddsidemargin}%
+		\pgfsetfillopacity{0.8}%
+		\savebox{\tempboxa}{\@hangfrom{##2}{##3\strut}}%
+		\makebox[\dimexpr1in+\hoffset+\oddsidemargin][l]{\colorbox{lightgray!50}{\phantom{\rule[-\dimexpr\dp\tempboxa+.3ex]{\paperwidth}{\dimexpr\dp\tempboxa+\ht\tempboxa+.8ex}}}}\usebox{\tempboxa}%
+		\pgfsetfillopacity{1}%
+	}
+	% \RedeclareSectionCommand[beforeskip=-55mm,afterskip=6mm]{chapter}
+}
+\chapterstylebar
+
+\setchapterpreamble[o]{%
+	\vspace*{-\dimexpr\headsep+1.01in+\voffset}\hspace*{-\dimexpr1in+\hoffset+\oddsidemargin}%
+	\includegraphics[width=\paperwidth,height=8cm,keepaspectratio=false]{../../testfiles/La_Gioconda_Leonardo_Da_Vinci.jpg}%
+}%
+
 % \fi
 
 % \section{Margin stuff}
@@ -414,6 +474,7 @@
 \newcounter{sidenote}
 \setcounter{sidenote}{0}
 % mark
+% XXX: consider using \@bsphack and @esphack to restore the spacefactor
 \NewDocumentCommand{\sidenotemark}{o}{%
 	\IfNoValueTF{#1}{%
 		\stepcounter{sidenote}%
