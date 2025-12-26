@@ -824,10 +824,9 @@
 %% KOMAScript is only compatible with newfloat=true, according to minted documentation.
 %% XXX: alignment between caption and code is not pixel-perfect; for the time being I add 4pt but would like to find out exactly where the space is coming from.
 %% Good resource: https://resources.latex-cloud-studio.com/learn/latex/formatting/code-listings-minted
-\PassOptionsToPackage{newfloat=true}{minted}
 %% XXX Consider using the forcenames option; on one hand it's good to keep our own floating environment separate from the minted one, on the other hand it's convenient to keep the same name...
-\DeclareNewTOC[float,listname={List of listings},counterwithin=chapter,name=Listing,type=kaolisting,atbegin={\@captionabovetrue\vskip4pt}]{klol}
-\AtBeginDocument{\@ifpackageloaded{minted}%
+\DeclareNewTOC[float,listname={List of listings},counterwithin=chapter,name=Listing,type=kaolisting,atbegin={\@captionabovetrue}]{klol}
+\AtEndPreamble{\@ifpackageloaded{minted}%
 	{%
 		\setminted{
 			fontsize=\small,
@@ -837,12 +836,14 @@
 			frame=leftline,
 			% framesep=.4em
 		}
-		\newcommand{\lstlistoflistings}{\listoflistings}% Provide the alias \lstlistoflistings
-		\newcommand{\listoflstlistings}{\listoflistings}% Provide the alias \listoflstlistings
+		\counterwithin{listing}{chapter}%
+		% \newcommand{\lstlistoflistings}{\listoflistings}% Provide the alias \lstlistoflistings
+		% \newcommand{\listoflstlistings}{\listoflistings}% Provide the alias \listoflstlistings
 	}%
 	{}%
 }
 
+%% XXX listings has a weird behaviour: its environments can be broken by other floats such as figures.
 \let\kao@orig@makemultilinecaption\scr@makemultilinecaption%
 \let\kao@orig@makesinglelinecaption\scr@makesinglelinecaption%
 \long\def\kao@lst@makemultilinecaption#1#2#3{%
@@ -854,14 +855,16 @@
 \long\def\kao@lst@@makesinglelinecaption#1#2#3{%
 	\fixednote[\lst@captionpos]{\vskip\lst@aboveskip\kao@orig@@makesinglelinecaption#1#2{#3}\vskip\lst@belowskip}%
 }
-\AtBeginDocument{\@ifpackageloaded{listings}%
+\AtEndPreamble{\@ifpackageloaded{listings}%
 	{%
 		\lst@AddToHook{PreSet}{%
 			\let\scr@makemultilinecaption\kao@lst@makemultilinecaption%
 			\let\scr@makesinglelinecaption\kao@lst@makesinglelinecaption%
 			\let\scr@makesinglelinecaption\kao@lst@@makesinglelinecaption%
 			\kaofloatfalse%
-			\vskip-\baselineskip%
+			\expandafter\ifx\lst@captionpos t
+				\vskip-\baselineskip%
+			\fi
 		}%
 		\definecolor{listingkeywords}{rgb}{0.0, 0.5, 0.0}
 		\definecolor{listingidentifiers}{rgb}{0, 0, 0}
@@ -919,8 +922,8 @@
 		}
 		\lstset{style=kaolst}% Use the fancy style
 		\renewcommand{\lstlistlistingname}{List of Listings}% Change the title
-		\newcommand{\listoflistings}{\lstlistoflistings}% Provide the alias \listoflistings
-		\newcommand{\listoflstlistings}{\lstlistoflistings}% Provide the alias \listoflstlistings
+		% \newcommand{\listoflistings}{\lstlistoflistings}% Provide the alias \listoflistings
+		% \newcommand{\listoflstlistings}{\lstlistoflistings}% Provide the alias \listoflstlistings
 	}%
 	{}%
 }
