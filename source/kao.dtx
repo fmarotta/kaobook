@@ -147,13 +147,62 @@
 % \begin{style}{typearea}
 % We need to set the font before typearea, otherwise use |\recalctypearea|
 %    \begin{macrocode}
-\RequirePackage[scaled=.97,helvratio=.93,p,theoremfont]{newpxtext} % Serif palatino font
-\RequirePackage[scaled=.97]{newpxmath} % Math palatino font
-\linespread{1.07}
-\RequirePackage{classico} % sans-serif font: URW classico
+\RequirePackage{iftex} % Check whether XeTeX is being used
+% https://tex.stackexchange.com/questions/47576/combining-ifxetex-and-ifluatex-with-the-logical-or-operation
+% Introduce a command to find out whether the compiler is XeTeX or LuaTeX
+\newif\ifxetexorluatex
+\ifxetex
+	\xetexorluatextrue
+\else
+	\ifluatex
+		\xetexorluatextrue
+	\else
+		\xetexorluatexfalse
+	\fi
+\fi
+
+\ifxetexorluatex
+	\RequirePackage{fontspec}
+	% \RequirePackage{unicode-math}
+	%% NOTE: some of these fonts may need to be installed
+	\setmainfont{TeX Gyre Pagella}[Scale=.97]
+	\setmathfont{TeX Gyre Pagella Math}[Scale=.97]
+	\setsansfont{URW Classico}[Scale=MatchLowercase]
+	\setmonofont{Bitstream Vera Sans Mono}[Scale=.85]
+	\setromanfont[ % Libertinus Serif font
+		Scale=1.04
+	]{Libertinus Serif}
+	\setsansfont[ % Libertinus Sans font
+		Scale=1
+	]{Libertinus Sans}
+	\setmonofont[ % Libertinus Mono font
+		Scale=.89
+	]{Liberation Mono}
+	\setmathfont{Libertinus Math} % Libertinus Math font
+	\linespread{1.07}
+\else
+	\RequirePackage[utf8]{inputenc} % utf8 encoding in the input (.tex) file
+	\RequirePackage[T1]{fontenc} % utf8 encoding in the output (.pdf) file
+	\RequirePackage[scaled=.97,helvratio=.93,p,theoremfont]{newpxtext} % Serif palatino font
+	\RequirePackage[scaled=.97,vvarbb,smallerops,bigdelims]{newpxmath} % Math palatino font
+	% \RequirePackage{amssymb} % Math symbols
+	\RequirePackage[scaled=.85]{beramono} % Monospace font
+	\RequirePackage[scr=rsfso,cal=boondoxo]{mathalfa} % Mathcal from STIX, unslanted a bit
+	\linespread{1.07}
+	\RequirePackage{classico} % sans-serif font: URW classico
+\fi
 
 \addtokomafont{disposition}{\rmfamily}
+\addtokomafont{part}{\normalfont\scshape\bfseries}
+\addtokomafont{partentry}{\normalfont\scshape\bfseries}
+\addtokomafont{paragraph}{\normalfont\bfseries}
+\setkomafont{descriptionlabel}{\normalfont\bfseries}
 %    \end{macrocode}
+
+% \RequirePackage{hyphenat} % Hyphenation for special fonts
+
+% Fix for the subequation environment (https://tex.stackexchange.com/questions/27053/too-much-space-between-full-paragraph-and-subequations-env)
+\preto\subequations{\ifhmode\unskip\fi}
 
 % Here we also set some font-adjacent settings, such as the style of the bullet points
 %    \begin{macrocode}
