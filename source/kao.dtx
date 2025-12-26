@@ -112,19 +112,18 @@
 %
 % \iffalse
 %% Set the default options concerning page geometry and layout
+\PassOptionsToClass{DIV=9}{scrbook}
+\PassOptionsToClass{captions=nooneline}{scrbook}
+\PassOptionsToClass{captions=outerbeside}{scrbook}
+\PassOptionsToClass{captions=tableheading}{scrbook}
 \PassOptionsToClass{fontsize=10pt}{scrbook}
+\PassOptionsToClass{headings=optiontoheadandtoc}{scrbook}
+\PassOptionsToClass{listof=flat}{scrbook}
 \PassOptionsToClass{parskip=half}{scrbook}
 \PassOptionsToClass{toc=listof}{scrbook}
 \PassOptionsToClass{toc=bibliography}{scrbook}
 \PassOptionsToClass{toc=index}{scrbook}
 \PassOptionsToClass{toc=graduated}{scrbook}
-\PassOptionsToClass{listof=flat}{scrbook}
-\PassOptionsToClass{headings=optiontoheadandtoc}{scrbook}
-\PassOptionsToClass{captions=nooneline}{scrbook}
-\PassOptionsToClass{captions=outerbeside}{scrbook}
-\PassOptionsToClass{captions=tableheading}{scrbook}
-\PassOptionsToClass{footnotes=multiple}{scrbook}
-\PassOptionsToClass{DIV=9}{scrbook}
 %% Override default options with user-specified ones
 \DeclareOption*{\PassOptionsToClass{\CurrentOption}{scrbook}}
 \ProcessOptions\relax
@@ -132,6 +131,9 @@
 %% Load the base class
 %% TODO: check out /RequirePackageWithOptions in scrgui
 %<kaobook>\LoadClass{scrbook}
+
+%% Add entry for toc in the toc (this mechanism should be used also for lists of custom floats)
+%% \setuptoc{toc}{totoc}
 
 % \fi
 
@@ -237,6 +239,11 @@
 % There are two layouts you can choose from: default, which corresponds to the plain \LaTeX\ style, and margin, which is the Tufte-inspired layout with large margins adopted by kaobook.
 
 % \iffalse
+
+\NewDocumentCommand{\pagelayout}{m}{%
+	\csname #1layout\endcsname%
+}
+
 \DeclareDocumentCommand{\defaultlayout}{}{%
     \KOMAoptions{%
         mpinclude=no,%
@@ -328,6 +335,42 @@
 \renewcommand*\chapterpagestyle{plain.kaoheadings}
 \renewcommand*\partpagestyle{plain.kaoheadings}
 \renewcommand*\indexpagestyle{plain.kaoheadings}
+% Header style with neither header nor footer (used for special pages)
+\renewpagestyle{plain.scrheadings}{%
+	{}%
+	{}%
+	{}%
+}{%
+	{}%
+	{}%
+	{}%
+}
+% Header style with an empty header and the page number in the footer
+\newpagestyle{pagenum.scrheadings}{%
+	{}%
+	{}%
+	{}%
+}{%
+	{\makebox[\textwidth][r]{\thepage}}%
+	{\makebox[\textwidth][l]{\thepage}}%
+	{\makebox[\textwidth][l]{\thepage}}%
+}
+% Header style with an empty header and the page number in the footer
+\newpagestyle{centeredpagenum.scrheadings}{%
+	{}%
+	{}%
+	{}%
+}{%
+	{\hspace{-\headmarginparwidth}\hspace{-\headmarginparsep}\makebox[\headtotal][l]{\hfill\thepage\hfill}}
+	{\makebox[0pt][l]{\makebox[\headtotal][r]{\hfill\thepage\hfill}}}%
+	{\makebox[0pt][l]{\makebox[\headtotal][r]{\hfill\thepage\hfill}}}%
+}
+% Command to print a blank page
+\newcommand\blankpage{%
+	\null%
+	\thispagestyle{empty}%
+	\newpage%
+}
 % \fi
 
 % The last topic in this section is the style of chapter titles.
@@ -352,7 +395,7 @@
 		\@hangfrom{##2}{##3}}%
 	\renewcommand*{\chapterlineswithprefixformat}[3]{%
 		##2##3}%
-	\RedeclareSectionCommand[beforeskip=\dimexpr\kao@orig@beforeskip,afterskip=\dimexpr\kao@orig@afterskip]{chapter}%
+	\RedeclareSectionCommand[beforeskip=\dimexpr\kao@orig@beforeskip,afterskip=\kao@orig@afterskip]{chapter}%
 	\def\kao@curr@chapterstyle{plain}
 }
 
@@ -438,7 +481,7 @@
 			\usebox{\tempboxa}%
 		}%
 	}
-	\RedeclareSectionCommand[beforeskip=\dimexpr\kao@orig@beforeskip,afterskip=\dimexpr\kao@orig@afterskip]{chapter}%
+	\RedeclareSectionCommand[beforeskip=\dimexpr\kao@orig@beforeskip,afterskip=\kao@orig@afterskip]{chapter}%
 	\def\kao@curr@chapterstyle{bar}
 }
 
@@ -459,6 +502,11 @@
 	}%
 }
 
+
+% \fi
+
+% \section{Front, main, and back matters}
+% \iffalse
 
 % \fi
 
@@ -955,6 +1003,153 @@
 % \end{macro}
 % \end{macro}
 % \end{macro}
+
+% \section{Hyperreferences and bookmarks}
+% \iffalse
+
+\RequirePackage{hyperref} % Required for hyperlinks
+\RequirePackage{bookmark} % Required for pdf bookmarks
+
+\PassOptionsToPackage{hyphens}{url} % Break long URLs and use hyphens to separate the pieces
+
+% Provide an optional argument to the \title command in which to store a plain text title, without any formatting
+% Usage: \title[Plain Title]{Actual Title}
+\RenewDocumentCommand{\title}{o m}{%
+	\gdef\@title{#2} % Store the full title in @title
+	\IfNoValueTF{#1}{%
+		\def\@plaintitle{\@title} % Use full title
+	}{ % If there is a plain title
+		\def\@plaintitle{#1} % Use provided plain-text title
+	}%
+	\hypersetup{pdftitle={\@plaintitle}} % Set the PDF metadata title
+}
+
+% Provide an optional argument to the \author command in which to store a plain text author, without any formatting
+% Usage: \author[Plain Author]{Actual Author}
+\RenewDocumentCommand{\author}{o m}{%
+	\gdef\@author{#2} % Store the full author in @author
+	\IfNoValueTF{#1}{ % If there is no plain author
+		\def\@plainauthor{\@author}% Use full author
+	}{ % If there is a plain author
+		\def\@plainauthor{#1}% Use provided plain-text author
+	}%
+	\hypersetup{pdfauthor={\@plainauthor}} % Set the PDF metadata author
+}
+
+% Make a bookmark to the title page
+\pretocmd{\maketitle}{\pdfbookmark[1]{\@plaintitle}{title}}{}{}%
+% Make a bookmark to the toc (can be useful in pdf even if the toc entry is not in the toc)
+% We need the conditional otherwise the toc bookmark will appear twice
+\Iftocfeature{toc}{totoc}{}{\pretocmd{\tableofcontents}{\pdfbookmark[1]{\contentsname}{toc}}{}{}}%
+\pretocmd{\appendix}{\pdfbookmark[0]{\appendixname}{appendix}}{}{}%
+
+% Color settings should be done in the next \hypersetup
+\hypersetup{ % Set up hyperref options
+	unicode, % Use unicode for links
+	naturalnames,% Remove unwanted characters from titles
+	pdfborder={0 0 0}, % Suppress border around pdf
+	%xetex,
+	%pagebackref=true,
+	%hyperfootnotes=false, % We already use footmisc
+	bookmarksdepth=section,
+	bookmarksopen=true, % Expand the bookmarks as soon as the pdf file is opened
+	%bookmarksopenlevel=4,
+	linktoc=all, % Toc entries and numbers links to pages
+	breaklinks=true,
+	colorlinks=true,
+}
+
+\hypersetup{
+	%allcolors=DarkGreen,
+	%anchorcolor=Red,
+	%citecolor=DarkOrange!70!black,
+	citecolor=OliveGreen,
+	filecolor=OliveGreen,
+	%linkcolor=Blue,
+	linkcolor=Black,
+	%pagecolor = Blue,
+	%menucolor=Red,
+	%runcolor=Red,
+	urlcolor=OliveGreen,
+}
+
+% Front matter
+\let\oldfrontmatter\frontmatter % Store the old command
+\renewcommand{\frontmatter}{%
+	\oldfrontmatter% First of all, call the old command
+	\pagestyle{plain.scrheadings}% Use a plain style for the header and the footer
+	\pagelayout{default}% Use a wide page layout
+	\setchapterstyle{plain} % Choose the default chapter heading style
+	% \sloppy % Required to better break long lines
+}
+
+% Main matter
+\let\oldmainmatter\mainmatter % Store the old command
+\renewcommand{\mainmatter}{%
+	\oldmainmatter% Call the old command
+	\pagestyle{scrheadings}% Use a fancy style for the header and the footer
+	\pagelayout{margin}% Use a 1.5 column layout
+	\setchapterstyle{kao} % Choose the default chapter heading style
+}
+
+% Appendix
+\let\oldappendix\appendix% Store the old command
+\renewcommand{\appendix}{%
+	\oldappendix% Call the old command
+	\bookmarksetup{startatroot}% Reset the bookmark depth
+}
+
+% Back matter
+\let\oldbackmatter\backmatter% Store the old command
+\renewcommand{\backmatter}{%
+	\oldbackmatter% Call the old command
+	\bookmarksetup{startatroot}% Reset the bookmark depth
+	\pagestyle{plain.scrheadings}% Use a plain style for the header and the footer
+	\pagelayout{default}% Use a wide page layout
+	\setchapterstyle{plain} % Choose the default chapter heading style
+}
+
+\RequirePackage[linesnumbered, ruled, vlined]{algorithm2e} % Algorithms
+\RequirePackage{imakeidx}
+\RequirePackage[xindy,toc,numberedsection=nameref]{glossaries}
+\RequirePackage[intoc]{nomencl}
+
+% Commands to print specific words always in the same way
+% TODO: in \Command, automatically escape braces {} and replace backslashes with \textbackslash
+\newcommand{\Class}[1]{\texttt{#1}}
+\newcommand{\Package}[1]{\texttt{#1}}
+\newcommand{\Option}[1]{\texttt{#1}}
+\newcommand{\Command}[1]{\texttt{\textbackslash#1}}
+\newcommand{\Environment}[1]{\texttt{#1}}
+\newcommand{\Path}[1]{\texttt{#1}}
+
+% Print latin words in italics (The xspace package is required but we already loaded it in the class)
+\newcommand{\hairsp}{\kern1pt} % Command to print a very short space
+\newcommand{\invitro}{\textit{in vitro}}
+\newcommand{\invivo}{\textit{in vivo}}
+\newcommand{\cis}{\textit{cis}}
+\newcommand{\trans}{\textit{trans}}
+\newcommand{\etal}{\textit{et al.}}
+\newcommand{\denovo}{\textit{de novo}}
+\newcommand{\adhoc}{\textit{ad hoc}}
+\newcommand{\etcetera}{\textit{et cetera}}
+\newcommand{\etc}{\textit{etc.}}
+\newcommand{\ie}{\textit{i.\hairsp{}e.}}
+\newcommand{\eg}{\textit{e.\hairsp{}g.}}
+\newcommand{\vs}{\textit{vs}}
+\newcommand{\cfr}{\textit{cfr.}}
+
+% Tables
+\newcommand{\na}{\quad--} % Used in tables for N/A cells
+\newcommand{\hangp}[1]{\makebox[0pt][r]{(}#1\makebox[0pt][l]{)}} % Create parentheses around text in tables which take up no horizontal space - this improves column spacing
+\newcommand{\hangstar}{\makebox[0pt][l]{*}} % Create asterisks in tables which take up no horizontal space - this improves column spacing
+
+% A command to print the current month and year (from tufte-latex)
+% TODO: check out datetime from Markus Kohm
+\newcommand{\monthyear}{\ifcase\month\or January\or February\or March\or 
+April\or May\or June\or July\or August\or September\or October\or 
+November\or December\fi\space\number\year}
+% \fi
 
 % \section{Core macros}
 % 
