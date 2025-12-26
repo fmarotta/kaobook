@@ -218,9 +218,17 @@
 
 %% The default in books is subsection
 \setcounter{tocdepth}{\sectiontocdepth}
+
+%% Footnotes setup
+\RequirePackage{perpage}
+\counterwithout{footnote}{chapter}%% Prevent first footnote to start from 2 together with makeperpage
+\MakePerPage{footnote}
 %%
-\deffootnote[1em]{1em}{2em}{%
-    \textsuperscript{\thefootnotemark}%
+\RequirePackage[symbol*,bottom,stable]{footmisc}
+\newcounter{bhfn@abs@cnt}
+\deffootnote[1em]{1em}{1em}{\hyperlink{BHFN:\thebhfn@abs@cnt}{\textsuperscript{\thefootnotemark}}\stepcounter{bhfn@abs@cnt}}
+\deffootnotemark{%
+  \MakeLinkTarget*{BHFN:\thebhfn@abs@cnt}\textsuperscript{\thefootnotemark}%
 }
 %    \end{macrocode}
 % \end{style}
