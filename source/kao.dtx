@@ -381,10 +381,34 @@
 
 % \iffalse
 \RequirePackage{graphicx} % for \scalebox
+\setkeys{Gin}{width=\linewidth,totalheight=\textheight,keepaspectratio} % Improves figure scaling
+% Improve the figure placing (see https://www.overleaf.com/learn/latex/Tips)
+\def\topfraction{.9}%
+\def\textfraction{0.35}%
+\def\floatpagefraction{0.8}%
+
+% % Set the space between floats and main text (requires floatrow)
+% \renewcommand\FBaskip{.4\topskip}%
+% \renewcommand\FBbskip{\FBaskip}%
+
+% Tighten up space between displays (e.g., equations) and make symmetric (from tufte-latex)
+\setlength\abovedisplayskip{6pt plus 2pt minus 4pt}%
+\setlength\belowdisplayskip{6pt plus 2pt minus 4pt}%
+\abovedisplayskip 10\p@ \@plus2\p@ \@minus5\p@%
+\abovedisplayshortskip \z@ \@plus3\p@%
+\belowdisplayskip \abovedisplayskip%
+\belowdisplayshortskip 6\p@ \@plus3\p@ \@minus3\p@%
+
+\setlength\columnseprule{.4pt} % Set the width of vertical rules in tables
 
 \let\kao@orig@beforeskip\scr@chapter@beforeskip%
 \let\kao@orig@afterskip\scr@chapter@afterskip%
 \def\kao@curr@chapterstyle{plain}
+
+% Command to easily switch between chapter styles
+\NewDocumentCommand{\setchapterstyle}{m}{%
+	\csname chapterstyle#1\endcsname%
+}
 
 % The default definition in KOMA script
 \newcommand*\chapterstyleplain{%
@@ -787,6 +811,14 @@
 	\makebox[0pt][l]{\hspace{\kao@fixednote@hoffset}\smash{\parbox[#1]{\marginparwidth}{#2}}}%
 	\zrefused{kao@fixednote@\thekao@fixednote@counter}%
 	\stepcounter{kao@fixednote@counter}%
+}
+% Inspired by snotez's \sidenote
+\def\kao@voffset#1{%
+	\expandafter\ifx\@car#1\@nil*%
+		\@cdr#1\@nil\baselineskip%
+	\else%
+		#1%
+	\fi%
 }
 
 %% KOMAScript is only compatible with newfloat=true, according to minted documentation.
