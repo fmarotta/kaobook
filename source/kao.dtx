@@ -101,6 +101,7 @@
 \PassOptionsToClass{fontsize=10pt}{scrbook}
 \PassOptionsToClass{headings=optiontoheadandtoc}{scrbook}
 \PassOptionsToClass{listof=flat}{scrbook}
+\PassOptionsToClass{numbers=noenddot}{scrbook}
 \PassOptionsToClass{parskip=half}{scrbook}
 \PassOptionsToClass{toc=listof}{scrbook}
 \PassOptionsToClass{toc=bibliography}{scrbook}
@@ -121,10 +122,8 @@
 
 % \section{Page layout}
 
-% Before setting the page layout, we need to address some decisions made by the author, as they will have an impact on the layout itself.
-% These decisions are very much opinionated and not everyone may like them.
-% If you don't like them, probably kaobook is not for you and you shouldn't use it.
-% However, I will describe later how to revert all these decisions, so that users can go back to a more ``plain \LaTeX'' experience.
+% Before setting the page layout, we need to address some decisions made by the author of this class, as they will have an impact on the layout itself.
+% I will describe later how to revert all these decisions, so that users can go back to a more ``plain \LaTeX'' experience.
 % The first of these decision is the main serif font: Palatino.
 % Then we have some choices about the styling of lists: triangles for the first level, bullets for the second level, and very compact spacing.
 
@@ -147,33 +146,33 @@
 
 \ifxetexorluatex
 	\RequirePackage{fontspec}
-	% \RequirePackage{unicode-math}
-	%% NOTE: some of these fonts may need to be installed
+	\RequirePackage{amsmath}
+	\RequirePackage{unicode-math} % use \mathbfit for bold italics, or \mathbf, or \mathit
+	\defaultfontfeatures{Scale=MatchLowercase}
 	\setmainfont{TeX Gyre Pagella}[Scale=.97]
-	\setmathfont{TeX Gyre Pagella Math}[Scale=.97]
-	\setsansfont{URW Classico}[Scale=MatchLowercase]
-	\setmonofont{Bitstream Vera Sans Mono}[Scale=.85]
-	\setromanfont[ % Libertinus Serif font
-		Scale=1.04
-	]{Libertinus Serif}
-	\setsansfont[ % Libertinus Sans font
-		Scale=1
-	]{Libertinus Sans}
-	\setmonofont[ % Libertinus Mono font
-		Scale=.89
-	]{Liberation Mono}
-	\setmathfont{Libertinus Math} % Libertinus Math font
+	\setmathfont{TeX Gyre Pagella Math}
+	\setmathfont{Stix Two Math}[
+	    range={scr,bfscr},
+	    StylisticSet=01
+	]
+	\setmathfont{Euler Math}[
+	    range={cal,bfcal},
+	]
+	\setsansfont{URW Classico}
+	\setmonofont{DejaVu Sans Mono}[Scale=.85]
 	\linespread{1.07}
 \else
 	\RequirePackage[utf8]{inputenc} % utf8 encoding in the input (.tex) file
 	\RequirePackage[T1]{fontenc} % utf8 encoding in the output (.pdf) file
+	\RequirePackage{amsmath} % math environments
+	\RequirePackage{amssymb} % additional maths symbols
+	\RequirePackage{bm} % use \bm
 	\RequirePackage[scaled=.97,helvratio=.93,p,theoremfont]{newpxtext} % Serif palatino font
 	\RequirePackage[scaled=.97,vvarbb,smallerops,bigdelims]{newpxmath} % Math palatino font
-	% \RequirePackage{amssymb} % Math symbols
-	\RequirePackage[scaled=.85]{beramono} % Monospace font
-	\RequirePackage[scr=rsfso,cal=boondoxo]{mathalfa} % Mathcal from STIX, unslanted a bit
-	\linespread{1.07}
+	\RequirePackage[cal=pxtx,scr=stixtwofancy,bb=ncmbbr]{mathalfa} % Mathscr from STIX
 	\RequirePackage{classico} % sans-serif font: URW classico
+	\RequirePackage[scaled=0.85]{DejaVuSansMono} % Monospace font
+	\linespread{1.07}
 \fi
 
 \addtokomafont{disposition}{\rmfamily}
@@ -183,25 +182,14 @@
 \setkomafont{descriptionlabel}{\normalfont\bfseries}
 %    \end{macrocode}
 
-% \RequirePackage{hyphenat} % Hyphenation for special fonts
-
-% Fix for the subequation environment (https://tex.stackexchange.com/questions/27053/too-much-space-between-full-paragraph-and-subequations-env)
-\preto\subequations{\ifhmode\unskip\fi}
-
-% Here we also set some font-adjacent settings, such as the style of the bullet points
+% Here we also set some font-adjacent settings, such as the style of the bullet points and footnotes
 %    \begin{macrocode}
-\renewcommand{\labelitemi}{\small$\blacktriangleright$} % Use a black triangle for the first level of \item's
-\renewcommand{\labelitemii}{\textbullet} % Use a bullet for the second level of \item's
+\renewcommand*{\labelitemi}{\small$\blacktriangleright$} % Use a black triangle for the first level of \item's
+\renewcommand*{\labelitemii}{\textbullet} % Use a bullet for the second level of \item's
 \RequirePackage[inline]{enumitem} % Used to customise lists (in particular, we don't want to put whitespace between items)
 \setlist[itemize]{noitemsep}
 \setlist[enumerate]{noitemsep}
 \setlist[description]{noitemsep}
-
-
-%% \flushbottom (this is already the default in books and reports (but it's ragged in articles)
-
-%% The default in books is subsection
-\setcounter{tocdepth}{\sectiontocdepth}
 
 %% Footnotes setup
 \RequirePackage{perpage}
@@ -214,6 +202,22 @@
 \deffootnotemark{%
   \MakeLinkTarget*{BHFN:\thebhfn@abs@cnt}\textsuperscript{\thefootnotemark}%
 }
+
+%% \flushbottom (this is already the default in books and reports (but it's ragged in articles)
+%    \end{macrocode}
+
+% Finally, we set some options which may not have an immediately visible effect.
+
+%    \begin{macrocode}
+%% The default in books is subsection
+\setcounter{tocdepth}{\sectiontocdepth}
+
+\RequirePackage{microtype}
+% \RequirePackage{hyphenat} % Hyphenation for special fonts
+
+% Fix for the subequation environment
+% https://tex.stackexchange.com/questions/27053/too-much-space-between-full-paragraph-and-subequations-env
+\preto\subequations{\ifhmode\unskip\fi}
 %    \end{macrocode}
 % \end{style}
 
@@ -1024,10 +1028,10 @@
 % \section{Hyperreferences and bookmarks}
 % \iffalse
 
+\RequirePackage[hyphens]{url} % Allow hyphens as breakpoints in URLs (this option must be passed before hyperref, because hyperref loads url)
 \RequirePackage{hyperref} % Required for hyperlinks
 \RequirePackage{bookmark} % Required for pdf bookmarks
-
-\PassOptionsToPackage{hyphens}{url} % Break long URLs and use hyphens to separate the pieces
+\RequirePackage{ifdraft} % Detect whether draft mode is enabled
 
 % Provide an optional argument to the \title command in which to store a plain text title, without any formatting
 % Usage: \title[Plain Title]{Actual Title}
@@ -1127,7 +1131,7 @@
 }
 
 \RequirePackage[linesnumbered, ruled, vlined]{algorithm2e} % Algorithms
-\RequirePackage{imakeidx}
+\RequirePackage{imakeidx}% must be loaded before hyperref
 \RequirePackage[xindy,toc,numberedsection=nameref]{glossaries}
 \RequirePackage[intoc]{nomencl}
 
