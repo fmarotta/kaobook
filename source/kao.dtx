@@ -224,8 +224,8 @@
 % Now we are ready to talk about the page layout.
 % There are two layouts you can choose from: default, which corresponds to the plain \LaTeX\ style, and margin, which is the Tufte-inspired layout with large margins adopted by kaobook.
 
-% \iffalse
-
+% \begin{macro}{\pagelayout}
+%    \begin{macrocode}
 \NewDocumentCommand{\pagelayout}{m}{%
 	\csname #1layout\endcsname%
 }
@@ -245,9 +245,8 @@
 %% Side effects of default layout
 	\kaosidecaptionfalse%
 }
-% \fi
-% \begin{macro}{\marginlayout}
-% Some considerations about this macro.
+%    \end{macrocode}
+% Some considerations about the |\marginlayout| macro.
 % First, we pass some options to the |typearea| package, which calculates the page geometry.
 % Then we tweak the geometry by modifying the raw LaTeX lengths.
 %    \begin{macrocode}
@@ -358,7 +357,34 @@
 	\thispagestyle{empty}%
 	\newpage%
 }
-% \fi
+%    \end{macrocode}
+
+% Here we load graphicx (we will need its \scalebox macro later on), and set some options for floats and displays.
+
+% \begin{macro}{graphicx, displays, floats}
+%    \begin{macrocode}
+\RequirePackage{graphicx} % for \scalebox
+\setkeys{Gin}{width=\linewidth,totalheight=\textheight,keepaspectratio} % Improves figure scaling
+% Improve the figure placing (see https://www.overleaf.com/learn/latex/Tips)
+\renewcommand*{\topfraction}{.9}%
+\renewcommand*{\textfraction}{0.35}%
+\renewcommand*{\floatpagefraction}{0.8}%
+
+% % Set the space between floats and main text (requires floatrow)
+% \renewcommand\FBaskip{.4\topskip}%
+% \renewcommand\FBbskip{\FBaskip}%
+
+% Tighten up space between displays (e.g., equations) and make symmetric (from tufte-latex)
+% Actually these lengths are reset in \normalsize; we'd need to patch that command... otherwise it doesn't work.
+% https://tex.stackexchange.com/questions/605915/abovedisplayskip-and-belowdisplayskip-why-doesnt-it-work
+% \abovedisplayskip 10\p@ \@plus2\p@ \@minus5\p@%
+% \abovedisplayshortskip \z@ \@plus3\p@%
+% \belowdisplayskip \abovedisplayskip%
+% \belowdisplayshortskip 6\p@ \@plus3\p@ \@minus3\p@%
+
+\setlength\columnseprule{.4pt} % Set the width of vertical rules in tables
+%    \end{macrocode}
+% \end{macro}
 
 % The last topic in this section is the style of chapter titles.
 % One complication is that in KOMA-Script you can customize the chapter number by adding the literal word ``Chapter'' (or ``Appendix'') before it.
@@ -366,28 +392,8 @@
 % The original kaobook chapter design doesn't consider the prefix.
 % For this version, I've maintained that design and tried to design a chapter format that works also with the ``chapterprefix'' option, but I'm still experimenting with it.
 
-% \iffalse
-\RequirePackage{graphicx} % for \scalebox
-\setkeys{Gin}{width=\linewidth,totalheight=\textheight,keepaspectratio} % Improves figure scaling
-% Improve the figure placing (see https://www.overleaf.com/learn/latex/Tips)
-\def\topfraction{.9}%
-\def\textfraction{0.35}%
-\def\floatpagefraction{0.8}%
-
-% % Set the space between floats and main text (requires floatrow)
-% \renewcommand\FBaskip{.4\topskip}%
-% \renewcommand\FBbskip{\FBaskip}%
-
-% Tighten up space between displays (e.g., equations) and make symmetric (from tufte-latex)
-\setlength\abovedisplayskip{6pt plus 2pt minus 4pt}%
-\setlength\belowdisplayskip{6pt plus 2pt minus 4pt}%
-\abovedisplayskip 10\p@ \@plus2\p@ \@minus5\p@%
-\abovedisplayshortskip \z@ \@plus3\p@%
-\belowdisplayskip \abovedisplayskip%
-\belowdisplayshortskip 6\p@ \@plus3\p@ \@minus3\p@%
-
-\setlength\columnseprule{.4pt} % Set the width of vertical rules in tables
-
+% \begin{macro}{\setchapterstyle}
+%    \begin{macrocode}
 \let\kao@orig@beforeskip\scr@chapter@beforeskip%
 \let\kao@orig@afterskip\scr@chapter@afterskip%
 \def\kao@curr@chapterstyle{plain}
@@ -527,7 +533,12 @@
 
 \NewDocumentCommand{\sidetoc}{}{%
     \marklocaltoc%
-    \ifvmode\vbox{}\makenote{\vskip1sp\printlocaltoc\thelocaltoc}\vskip-\parskip%\vskip-\dimexpr\baselineskip+\parskip\else\makenote{\printlocaltoc\thelocaltoc}\fi%
+	\makenote{\printlocaltoc\thelocaltoc}%
+ %    \ifvmode%
+	% 	\raisebox{-\dimexpr\parskip}[0sp][0sp]{\makenote{\printlocaltoc\thelocaltoc}}%
+	% \else%
+	% 	\raisebox{\dimexpr\baselineskip}[0sp][0sp]{\makenote{\printlocaltoc\thelocaltoc}}%
+	% \fi%
 }
 
 %% If issued in vmode, align the note with the next paragraph
@@ -539,9 +550,14 @@
 
 \NewDocumentEnvironment{sidefigure}{b}{%
 	\makenote*{%
+		\vspace{1em}%
 		\begin{minipage}{\marginparwidth}%
-			\usekomafont{notecolumn.marginpar}%
+			\def\caption{%
+			    \if@figurecaptionabove\expandafter\captionabove%
+			    \else\expandafter\captionbelow\fi%
+			}%
 			\def\@captype{figure}%
+			\usekomafont{notecolumn.marginpar}%
 			#1%
 		\end{minipage}%
 	}%
@@ -550,8 +566,12 @@
 \NewDocumentEnvironment{sidetable}{b}{%
 	\makenote*{%
 		\begin{minipage}{\marginparwidth}%
-			\usekomafont{notecolumn.marginpar}%
+			\def\caption{%
+			    \if@tablecaptionabove\expandafter\captionabove%
+			    \else\expandafter\captionbelow\fi%
+			}%
 			\def\@captype{table}%
+			\usekomafont{notecolumn.marginpar}%
 			#1%
 		\end{minipage}%
 	}%
@@ -714,6 +734,8 @@
 	\begin{lrbox}{\kao@float@box}%
 	\begin{minipage}[b]{\linewidth}%
 	\def\@caption##1[##2]##3{%
+		% Counter will be incremented again by kao-supplied \caption
+		\addtocounter{##1}{\m@ne}%
         \xdef\kao@captiontype{##1}%
         \gdef\kao@captionentry{##2}%
         \gdef\kao@captioncontent{##3}%
@@ -727,8 +749,6 @@
 	\end{minipage}%
 	\end{lrbox}%
     \ifkao@captionused%
-		% Counter was already incremented by user-supplied \caption
-		\addtocounter{\@captype}{\m@ne}%
 	    \ifkaosidecaption%
 			\usebox{\kao@float@box}%
 	        \kao@makesidecaption%
