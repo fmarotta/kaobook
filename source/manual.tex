@@ -1,18 +1,34 @@
-\documentclass{kaobook}
+\documentclass[draft,appendixprefix=true,headings=big]{kaobook}
+
+\usepackage{kaoconfig}
+\usepackage{showframe}
+% \usepackage{kaobiblio}
+\usepackage{blindtext}
+% \usepackage{minted}
+% \usepackage{listings}
 
 \begin{document}
 
 \title{Example and documentation, v0.1.1}
-\author{Federico Marotta}
+\author{Federico Marotta\thanks{A \LaTeX\ lover}}
 % \date{2025/12/18}
 
 \maketitle
 
-\mainmatter
-\marginlayout
+\frontmatter
 
-\chapter{Layout and fonts}
+\tableofcontents
+\listoffigures
+\listoftables
+
+\mainmatter
+
+\chapter{Layout and fonts but making it veri lonc so it overflows}
 \sidetoc
+
+\url{https://verylong.urlwhich.should~probably.most.likely.longerb.evenl.breakac-across_the.line.com}
+
+\url{https://verylong.urlwhich.should~probably.most.likely.longerrr-across_the.line.com}
 
 Describe the choices, the use of typearea, and the configuration options.
 
@@ -22,29 +38,188 @@ Describe the choices, the use of typearea, and the configuration options.
 
 \subsection{testtest}
 
+\setchapterimage{../../testfiles/La_Gioconda_Leonardo_Da_Vinci.jpg}
 \chapter{Figures and tables}
 
 How to use figures and tables.
 There is some overlap with margin stuff: sidecaption, sidefigures and sidetables belong to both.
 
+\begin{figure}[h]
+	\includegraphics[width=.4\textwidth]{../../testfiles/La_Gioconda_Leonardo_Da_Vinci.jpg}
+	\captionaboveof{table}{Mona Lisa. Leonardo da Vinci, Public domain, via \href{https://commons.wikimedia.org/wiki/File:La_Gioconda,_Leonardo_Da_Vinci.jpg}{Wikimedia Commons}.}
+\end{figure}
+
+\begin{figure}
+	\includegraphics[width=.4\textwidth]{../../testfiles/La_Gioconda_Leonardo_Da_Vinci.jpg}
+	\captionaboveof{table}{Mona Lisa. Leonardo da Vinci, Public domain, via \href{https://commons.wikimedia.org/wiki/File:La_Gioconda,_Leonardo_Da_Vinci.jpg}{Wikimedia Commons}.}
+\end{figure}
+
+
+\begin{widefigure}
+	\centering
+	\includegraphics[width=.4\textwidth]{../../testfiles/La_Gioconda_Leonardo_Da_Vinci.jpg}
+	\captionbelowof{table}{Mona Lisa. Leonardo da Vinci, Public domain, via \href{https://commons.wikimedia.org/wiki/File:La_Gioconda,_Leonardo_Da_Vinci.jpg}{Wikimedia Commons}.}
+\end{widefigure}
+
+
+% \begin{kaolisting}
+% 	\caption{Lasting listing impression.}
+% 	\begin{minted}{Python}
+% import pandas as np
+% import pandas as np
+% import pandas as np
+% import pandas as np
+% 	\end{minted}
+% \end{kaolisting}
+
+\blindtext
+
+% \begin{lstlisting}[language=Python,caption={Wa, it works also with this caption? How is this possible?},captionpos=t]
+% import numpy as pd
+% import numpy as pd
+% import numpy as pd
+% import numpy as pd
+% import numpy as pd
+% import numpy as pd
+% import numpy as pd
+% import numpy as pd
+% import numpy as pd
+% import numpy as pd
+% import numpy as pd
+% import numpy as pd
+% import numpy as pd
+% import numpy as pd
+% \end{lstlisting}
+
+% \begin{kaolisting}
+% \caption{Wa, it works also with this caption? How is this possible?}
+% \begin{minted}{Python}
+% import numpy as pd
+% import numpy as pd
+% import numpy as pd
+% import numpy as pd
+% import numpy as pd
+% import numpy as pd
+% import numpy as pd
+% import numpy as pd
+% import numpy as pd
+% import numpy as pd
+% import numpy as pd
+% import numpy as pd
+% import numpy as pd
+% import numpy as pd
+% \end{minted}
+% \end{kaolisting}
+
+\blindtext
+
+
+\def\shortpar{Just some text to fill the margin column. It should be long enough to fill about three or four lines.}
+
 \chapter{Margin stuff}
+\sidetoc
+
+\blindtext
+
+Now we test sidetoc in the middle\sidetoc\ of a paragraph. what is going on?
+
+\blindtext
+
+\blindtext
+
+\section{sidetoc}
+
+Hello?
 
 \begin{itemize}
 	\item sidetoc
-	\item sidenote
 	\item sidepar
+	\item sidenote
 	\item sidecite
 	\item sidecaption
 	\item sidefigure
 	\item sidetable
 \end{itemize}
 
-\chapter{References}
+Sidetoc in horizontal\sidetoc\ mode text text text text text text text text text text text text \blindtext
 
+\section{sidepar}
+
+All these side items.\footnote{Are you sure you want them?}\footnote{Yes, I want them all, and I want them now.}\footnote{\blindtext\par Hello, what's the indentation?}
+
+Testing\sidepar{\shortpar} sidepar \blindtext.
+
+\section{sidenote}
+
+Testing\sidenote{\shortpar} sidenote \blindtext.
+
+Testing\sidenote{\shortpar} sidenote \blindtext.
+
+Testing\sidenote[1em]{\shortpar} sidenote with offset \blindtext.
+
+Testing sidenote\sidenote[0sp][1]{mark}. Asare.\\
+Testing sidenote.\sidenote[0sp][1]{mark} Asare.
+
+Testing sidenote\footnote[1]{mark}. Asare.\\
+Testing sidenote.\footnote[1]{mark} Asare.
+
+\blindtext
+
+Ciao\fixednote{Meow}.
+
+\section{sidefigure}
+
+\blindtext
+
+% \begin{sidefigure}
+% 	\includegraphics[width=\textwidth]{../../testfiles/La_Gioconda_Leonardo_Da_Vinci.jpg}
+% 	\caption{Mona Lisa. Leonardo da Vinci, Public domain, via \href{https://commons.wikimedia.org/wiki/File:La_Gioconda,_Leonardo_Da_Vinci.jpg}{Wikimedia Commons}.}
+% \end{sidefigure}
+
+% \blindtext
+
+% \begin{sidetable}
+% 	\caption{A useless table.}
+% 	\begin{tabular}{c c c}
+% 		1 & 2 & 3\\
+% 		4 & 5 & 6\\
+% 		7 & 8 & 9\\
+% 	\end{tabular}
+% \end{sidetable}
+
+% \chapterstylelines
+\chapter{References}
+% \sidetoc
+
+\section{glossaries}
 Glossaries, bibliography, indices.
+
+\section{bibliography}
 
 \chapter{Mathematics and boxes}
 
-Because why not.
+% Because why not.
+% Math is beautiful and should be typed beautifully.
+% \begin{equation}
+% 	S = \int_{t_1}^{t_2} L(q, \dot{q}, t) \, dt
+% \end{equation}
+% Below display.
+% This line is useless, I just want to see the space between equation and surrounding text.
+% \begin{description}
+% 	\item[normal math] $x, y, z, \alpha, \beta, \gamma$; \textit{x}, \textit{y}, \textit{z}
+% 	% \item[bold math] $\mathbfit{x}, \mathbfit{y}$; \textit{\textbf{x}}, \textit{\textbf{y}}
+% 	\item[text in math] $\text{just some text}$; just some text
+% 	\item[mathcal] $\mathcal{D}$, $\mathcal{R}$
+% 	\item[mathscr] $\mathscr{D}$, $\mathscr{R}$
+% 	\item[mathbb] $\mathbb{P}$
+% \end{description}
+
+\appendix
+
+\chapter{Test in the app}
+
+\backmatter
+
+% \printbibliography
 
 \end{document}

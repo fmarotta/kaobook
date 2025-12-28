@@ -7,7 +7,7 @@ docfiledir = "./doc"
 -- directory with source files
 sourcefiledir = "./source"
 -- source files that should be either unpacked or typeset
-sourcefiles = {"*.dtx", "*.ins", "*.tex"}
+sourcefiles = {"*.dtx", "*.ins", "*.tex", "*.sty"}
 -- files that should be typeset as pdf
 typesetfiles = {"*.dtx", "*.tex"}
 -- number of runs for typesetting (we need 3 to get the labels and notecolumns right)

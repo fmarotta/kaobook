@@ -1,0 +1,29 @@
+\ProvidesPackage{kaoconfig}[2025/12/28 v1.0 my custom macros]
+
+% Uncomment to have coloured headings
+%\addtokomafont{title}{\color{Maroon}}
+%\addtokomafont{part}{\color{Maroon}}
+%\addtokomafont{chapter}{\color{Maroon}}
+%\addtokomafont{section}{\color{Maroon}}
+%\addtokomafont{subsection}{\color{Maroon}}
+%\addtokomafont{subsubsection}{\color{Maroon}}
+%\addtokomafont{paragraph}{\color{Maroon}}
+%\addtokomafont{captionlabel}{\color{Blue}}
+%\addtokomafont{pagenumber}{\color{Maroon}}
+
+% Commands to print specific words always in the same way
+% TODO: in \Command, automatically escape braces {} and replace backslashes with \textbackslash
+\newcommand{\Class}[1]{\texttt{#1}}
+\newcommand{\Package}[1]{\texttt{#1}}
+\newcommand{\Option}[1]{\texttt{#1}}
+\newcommand{\Command}[1]{\texttt{\textbackslash#1}}
+\newcommand{\Environment}[1]{\texttt{#1}}
+\newcommand{\Path}[1]{\texttt{#1}}
+
+% Special gliphs
+\RequirePackage{ccicons} % Creative Commons icons
+
+% Productivity
+\RequirePackage{pdfpages} % Insert PDF pages
+\RequirePackage{subfiles} % Adopt a modular structure
+\RequirePackage{todonotes} % Add useful notes in the margins
