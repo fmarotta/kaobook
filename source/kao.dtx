@@ -375,7 +375,7 @@
 % \renewcommand\FBbskip{\FBaskip}%
 
 % Tighten up space between displays (e.g., equations) and make symmetric (from tufte-latex)
-% Actually these lengths are reset in \normalsize; we'd need to patch that command... otherwise it doesn't work.
+% Actually these lengths are reset in \normalsize; we'd need to patch that command... otherwise it doesn't work. The annoying thing is that \normalsize depends on the base document font size. what's the point of relative units such as em?
 % https://tex.stackexchange.com/questions/605915/abovedisplayskip-and-belowdisplayskip-why-doesnt-it-work
 % \abovedisplayskip 10\p@ \@plus2\p@ \@minus5\p@%
 % \abovedisplayshortskip \z@ \@plus3\p@%
@@ -579,6 +579,7 @@
 	}%
 }{}
 
+%% FIXME: \captionbelowof{table} puts the caption above.
 \NewDocumentEnvironment{widefigure}{O{tbhp}}{%
 	\kaosidecaptionfalse
 	\begin{figure}[#1]%
@@ -824,11 +825,11 @@
 	\fi%
 }
 
-%% KOMAScript is only compatible with newfloat=true, according to minted documentation.
+%% minted: KOMAScript is only compatible with newfloat=true, according to minted documentation.
 %% XXX: alignment between caption and code is not pixel-perfect; for the time being I add 4pt but would like to find out exactly where the space is coming from.
 %% Good resource: https://resources.latex-cloud-studio.com/learn/latex/formatting/code-listings-minted
 %% XXX Consider using the forcenames option; on one hand it's good to keep our own floating environment separate from the minted one, on the other hand it's convenient to keep the same name...
-\DeclareNewTOC[float,listname={List of listings},counterwithin=chapter,name=Listing,type=kaolisting,atbegin={\@captionabovetrue}]{klol}
+\DeclareNewTOC[float,nonfloat,listname={List of listings},counterwithin=chapter,name=Listing,type=kaolisting,atbegin={\@captionabovetrue}]{klol}
 \AtEndPreamble{\@ifpackageloaded{minted}%
 	{%
 		\setminted{
@@ -1042,6 +1043,11 @@
 % \end{macro}
 % \end{macro}
 
+\RequirePackage[linesnumbered, ruled, vlined]{algorithm2e} % Algorithms
+\RequirePackage{imakeidx}% must be loaded before hyperref
+\RequirePackage[xindy,toc,numberedsection=nameref]{glossaries}
+\RequirePackage[intoc]{nomencl}
+
 % \section{Hyperreferences and bookmarks}
 % \iffalse
 
@@ -1114,6 +1120,11 @@
 	}
 }
 
+% activate default layout
+\pagelayout{default}
+\pagestyle{plain.kaoheadings}
+\setchapterstyle{plain}
+
 % Front matter
 \let\oldfrontmatter\frontmatter % Store the old command
 \renewcommand{\frontmatter}{%
@@ -1137,8 +1148,11 @@
 \let\oldappendix\appendix% Store the old command
 \renewcommand{\appendix}{%
 	\oldappendix% Call the old command
-	% XXX: is clearpage the right one?
-	\clearpage%
+	\if@twoside%
+		\cleardoublepage%
+	\else%
+		\clearpage%
+	\fi%
 	\bookmarksetup{startatroot}% Reset the bookmark depth
 	\pdfbookmark[1]{\appendixname}{appendix}%
 }
@@ -1152,20 +1166,6 @@
 	\pagelayout{default}% Use a wide page layout
 	\setchapterstyle{plain} % Choose the default chapter heading style
 }
-
-\RequirePackage[linesnumbered, ruled, vlined]{algorithm2e} % Algorithms
-\RequirePackage{imakeidx}% must be loaded before hyperref
-\RequirePackage[xindy,toc,numberedsection=nameref]{glossaries}
-\RequirePackage[intoc]{nomencl}
-
-% Commands to print specific words always in the same way
-% TODO: in \Command, automatically escape braces {} and replace backslashes with \textbackslash
-\newcommand{\Class}[1]{\texttt{#1}}
-\newcommand{\Package}[1]{\texttt{#1}}
-\newcommand{\Option}[1]{\texttt{#1}}
-\newcommand{\Command}[1]{\texttt{\textbackslash#1}}
-\newcommand{\Environment}[1]{\texttt{#1}}
-\newcommand{\Path}[1]{\texttt{#1}}
 
 % Print latin words in italics (The xspace package is required but we already loaded it in the class)
 \newcommand{\hairsp}{\kern1pt} % Command to print a very short space
@@ -1195,11 +1195,6 @@ April\or May\or June\or July\or August\or September\or October\or
 November\or December\fi\space\number\year}
 % \fi
 
-% \section{Core macros}
-% 
-% \DescribeMacro{\sayhi}
-% This macro is very simple: it just prints hi.
-%
 % \section{Stopping eventually}
 %
 % \MaybeStop{
@@ -1210,47 +1205,6 @@ November\or December\fi\space\number\year}
 %
 % \section{Implementation}
 %
-% \begin{macro}{sayhi}
-% Let's try to define a macro called |sayhi|.
-%    \begin{macrocode}
-\newcommand{\sayhi}{hi}
-%    \end{macrocode}
-% \end{macro}
-%
-% Another silly macro.
-%
-% \iffalse
-%<*kaobook>
-% \fi
-% \begin{macro}{\incrementexample}
-% Describe the macro in plain text, using vertical bars for verbatim.
-%    \begin{macrocode}
-\newcommand\incrementexample{%
-%    \end{macrocode}
-% This macro just increments the counter "example"
-%    \begin{macrocode}
-  \addtocounter{example}{1}%
-}
-%    \end{macrocode}
-% \end{macro}
-% \iffalse
-%</kaobook>
-% \fi
-%
-% \begin{config}{layout}
-% Set the default options for |kaobook|.
-%    \begin{macrocode}
-%% \KOMAoptions{
-%%     mpinclude=yes,
-%%     headinclude=no,
-%%     footinclude=no,
-%%     BCOR=0pt,
-%%     DIV=default,
-%% }
-%    \end{macrocode}
-% \end{config}
-%
 % \Finale
 % Text that is printed if OnlyDescription is false or commented out.
 \endinput
-
