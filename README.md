@@ -115,12 +115,14 @@ The goal is to reach feature parity with the old kaobook version, then try to up
   * [x] widepar
   * [x] widefigure
   * [x] widetable
-* [ ] chapterformat
+* [x] chapterformat
   * [x] kao signature
-  * [ ] image
-  * [ ] lines
+  * [x] image
+  * [x] lines
+  * [x] plain
+  * [ ] make them work for even pages
 * [x] header and footer
-* [ ] listing style
+* [x] listing style
 * [x] kaobiblio
 * [x] localtoc
 * [x] margin stuff
@@ -133,9 +135,9 @@ The goal is to reach feature parity with the old kaobook version, then try to up
   * [x] sidepage
   * [x] sidecite
 * [x] sidecaption
-* [ ] boxes
-* [ ] theorem environments
-* [ ] pdf bookmarks
+* [x] boxes
+* [x] theorem environments
+* [x] pdf bookmarks
 * [ ] clever zref
 * [ ] kaohandt
 * [ ] kaoreprt
@@ -143,10 +145,14 @@ The goal is to reach feature parity with the old kaobook version, then try to up
 
 ### Ideas
 
+* [ ] we have redefined the `\@float` environment to provide our own caption style; in the original kaobook we used the floatrow package. Explore the tradeoffs of the approaches.
 * [ ] separate package for margin material with the following interface
   * `\sidepar{<text>}` uses notecolumn: it floats and it breaks across pages
   * `\sidepar*{<text>}` uses marginpar: it floats but does not break (consider also the marginfit package)
   * `\sidepar[<offset>]{<text>}` uses marginnote: its position is fixed
+* [ ] prevent side citations to break (https://github.com/fmarotta/kaobook/pull/306#issuecomment-3689017924)
+* [ ] consider extending the marginpar layer beyond textheight, to emulate marginpar
+* [ ] the footmisc documentation discusses the limitations of marginpar, compare with makenote.
 * [ ] automatic detection of floating environments (through `\if@minipage`, see ltfloat.dtx in standard LaTeX) and use of the fixed version of `\sidenote`. Old kaobook had this, now I'm not sure we need it since `\makenote` is not floating like `\marginpar`.
 * [ ] make space for sidecaptions with notecolumn
   * using makenote for captions is tricky because of floating. the figure may end up just after a very long note, which would push the caption down. is it possible to put a barrier or reserve some space so that the sidecaption has priority over other notes? We can use `\syncwithnotecolumn` before and after the sidecaption's content, but it's a big tradeoff since the figure will shift down.
