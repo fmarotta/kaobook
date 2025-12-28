@@ -1094,18 +1094,22 @@
 	colorlinks=true,
 }
 
-\hypersetup{
-	%allcolors=DarkGreen,
-	%anchorcolor=Red,
-	%citecolor=DarkOrange!70!black,
-	citecolor=OliveGreen,
-	filecolor=OliveGreen,
-	%linkcolor=Blue,
-	linkcolor=Black,
-	%pagecolor = Blue,
-	%menucolor=Red,
-	%runcolor=Red,
-	urlcolor=OliveGreen,
+\ifdraft{%
+	\hypersetup{final,allcolors=red}
+}{%
+	\hypersetup{
+		%allcolors=DarkGreen,
+		%anchorcolor=Red,
+		%citecolor=DarkOrange!70!black,
+		citecolor=OliveGreen,
+		filecolor=OliveGreen,
+		%linkcolor=Blue,
+		linkcolor=Black,
+		%pagecolor = Blue,
+		%menucolor=Red,
+		%runcolor=Red,
+		urlcolor=OliveGreen,
+	}
 }
 
 % Front matter
