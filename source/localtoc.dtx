@@ -119,11 +119,9 @@
 % \iffalse
 %% Add optional argument localtoc to heading commands
 \providecommand*\@currentlocaltocentry{\relax}
-\providecommand*\@currentlocallevel{\relax}
 \FamilyStringKey[.section]{KOMAarg}{localtoc}{\@currentlocaltocentry}
 \FamilyStringKey[.dsc]{KOMAarg}{localtoc}{\@currentlocaltocentry}
 \newcommand*\lt@preinit[1]{%
-	\def\@currentlocallevel{#1local}%
 	\def\@currentlocaltocentry{\@currenttocentry}%
 }
 \AddtoDoHook{heading/preinit}{\lt@preinit}
@@ -173,6 +171,7 @@
 %    \begin{macrocode}
 \newcommand*{\addlocalcontentsline}[1]{%
 	\if@skiplocaltocentry%
+		% An entry for #1localstar will be appended by lt@headginstar
 	\else%
 		\IfUseNumber{%
 			\addxcontentsline{\lt@ext}{#1local}[\csname the#1\endcsname]{\@currentlocaltocentry}%
@@ -220,15 +219,16 @@
 % Here, |<id>| is the sequential number of the localtoc.
 % When we print the table of contents, we simply redefine the |\contentline| macro so that outside of the local table of contents it prints nothing, while inside the local table of contents it prints the contentline.
 % Each localtoc is delimited by the |\startlocaltoc<id>| command on the one hand, and on the other hand by a |\contentline| of a level equal to or lower than the level where the localtoc was called.
+% The level where the localtoc was called is identified by the entry in the aux file immediately before |\startlocaltoc<id>|; this means that we need to write starred headings as well.
 % One advantage of this design is that |localtoc|s can be nested arbitrarily, and still produce the expected result.
 % One disadvantage is that aux file is re-read every time a |\localtoc| is printed.
 %
 % In practice, you often want to start the localtoc from the moment you issue the |\localtoc| command.
 % However, the internal implementation splits the task in two macros: |\marklocaltoc| and |\printlocaltoc|.
-% The former simply adds the |\startlocaltoc| line to our aux file; the latter parses the aux file and prints the corresponding localtoc.
+% The former simply adds the |\startlocaltoc<id>| line to our aux file; the latter parses the aux file and prints the corresponding localtoc.
 % This separation was necessary in order to put |\localtoc|'s in margin notes made with the |scrlayer-notecolumn| package.
 % The issue with |\makenote| is that its content is not executed immediately but only when the page is shipped out or maybe even later.
-% Therefore, marking the local toc (i.e. adding the \startlocaltoc line to the aux file) is not done until the chapter is over.
+% Therefore, marking the local toc (i.e. adding the |\startlocaltoc| line to the aux file) is not done until the chapter is over.
 % But at that point the local toc will be empty, because no sections are defined anymore\ldots.
 % Using |\clearnotecolumn| is not a solution, because that would also clear the main page.
 %    \begin{macrocode}
@@ -242,10 +242,9 @@
 }
 %% TODO: allow a title (i.e. don't hard-code listof* with the star)
 \DeclareRobustCommand*\printlocaltoc[1]{%
-  \begingroup%
+  \begingroup% avoid polluting env with startlocaltoc<n> macros
     \let\oldcontentsline\contentsline%
-    \makeatletter%
-    \renewcommand\contentsline[4]{}%
+    \renewcommand\contentsline[4]{\def\@currentlocallevel{##1}}%
     \expandafter\def\csname startlocaltoc#1\endcsname{%
       \ifx\@currentlocallevel\relax%
         \PackageWarning{\lt@name}{Cannot create a `localtoc' before adding headings.}%
@@ -265,9 +264,10 @@
       \@input{\jobname.##1}%
       \@nobreakfalse%
     }%
+    \makeatletter% this is for the tocbasic@end@toc@file which would otherwise be printed in the document text
     \listoftoc*{\lt@ext}%
-    \setcounter{tocdepth}{\oldtocdepth}%
     \makeatother%
+    \setcounter{tocdepth}{\oldtocdepth}%
   \endgroup%
 }
 %    \end{macrocode}
@@ -305,7 +305,13 @@
 \DeclareTOCStyleEntries[level:=paragraph,numwidth:=paragraph,dynnumwidth=true,indent=0pt,numsep=.5em,raggedentrytext=true,entryformat=\bfseries,pagenumberformat=\bfseries,pagenumberbox=\pagenumberbox]{localtocline}{paragraphlocal}
 \DeclareTOCStyleEntries[level:=subparagraph,numwidth:=subparagraph,dynnumwidth=true,indent=0pt,numsep=.5em,raggedentrytext=true,entryformat=\bfseries,pagenumberformat=\bfseries,pagenumberbox=\pagenumberbox]{localtocline}{subparagraphlocal}
 
-\DeclareTOCStyleEntries[level=99]{gobble}{partlocalstar,chapterlocalstar,sectionlocalstar,subsectionlocalstar,subsubsectionlocalstar,paragraphlocalstar,subparagraphlocalstar}
+% We need to give a level to the *localstar entries so that we know when the localtoc should run its course
+\DeclareTOCStyleEntries[level:=chapter]{gobble}{chapterlocalstar}
+\DeclareTOCStyleEntries[level:=section]{gobble}{sectionlocalstar}
+\DeclareTOCStyleEntries[level:=subsection]{gobble}{subsectionlocalstar}
+\DeclareTOCStyleEntries[level:=subsubsection]{gobble}{subsubsectionlocalstar}
+\DeclareTOCStyleEntries[level:=paragraph]{gobble}{paragraphlocalstar}
+\DeclareTOCStyleEntries[level:=subparagraph]{gobble}{subparagraphlocalstar}
 %    \end{macrocode}
 % \end{macro}
 % \Finale

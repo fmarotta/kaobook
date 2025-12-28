@@ -533,12 +533,14 @@
 
 \NewDocumentCommand{\sidetoc}{}{%
     \marklocaltoc%
-	\makenote{\printlocaltoc\thelocaltoc}%
- %    \ifvmode%
-	% 	\raisebox{-\dimexpr\parskip}[0sp][0sp]{\makenote{\printlocaltoc\thelocaltoc}}%
-	% \else%
-	% 	\raisebox{\dimexpr\baselineskip}[0sp][0sp]{\makenote{\printlocaltoc\thelocaltoc}}%
-	% \fi%
+    \ifvmode%
+		\vbox{\hbox{\raisebox{\baselineskip}{\makenote{\printlocaltoc\thelocaltoc}}}}%
+		\vskip-\dimexpr\baselineskip+\parskip\relax%
+	\else%
+		\@bsphack%
+		\raisebox{\baselineskip}{\makenote{\printlocaltoc\thelocaltoc}}%
+		\@esphack%
+	\fi%
 }
 
 %% If issued in vmode, align the note with the next paragraph
