@@ -536,7 +536,9 @@
 
 %% If issued in vmode, align the note with the next paragraph
 \NewDocumentCommand{\sidepar}{m}{%
+	\@bsphack%
 	\ifvmode\vskip\the\parskip\vbox{}\makenote{#1}\vskip-\dimexpr\baselineskip+\parskip\relax\else\makenote{#1}\fi%
+	\@esphack%
 }
 
 \NewDocumentEnvironment{sidefigure}{b}{%
@@ -622,52 +624,50 @@
 	\makenote*{\stepcounter{kao@sidepage@out}\usebox{\csname kao@sidepage\thekao@sidepage@out\endcsname}}%
 }
 
-\newcounter{sidenote}
+\newcounter{sidenote}[chapter]
+\renewcommand*{\thesidenote}{\arabic{sidenote}}
 \setcounter{sidenote}{0}
-% mark
-% XXX: consider using \@bsphack and @esphack to restore the spacefactor
+% optional arg for custom mark
 \NewDocumentCommand{\sidenotemark}{o}{%
+	\@bsphack%
 	\IfNoValueTF{#1}{%
 		\stepcounter{sidenote}%
-		\protected@xdef\@thesnmark{\thesidenote}%
+		\xdef\@thesnmark{\thesidenote}%
 	}{%
-		\protected@xdef\@thesnmark{#1}%
+		\xdef\@thesnmark{#1}%
 	}%
-	\leavevmode%
-	\ifhmode\edef\@x@sf{\the\spacefactor}\nobreak\fi%
-	\sidenote@writemark{\sidenotemarkformat{\@thesnmark}}%
-	\ifhmode\spacefactor\@x@sf\fi%
-	\relax%
+	{\usekomafont{sidenotemark}\sidenotemarkformat{\@thesnmark}}%
+	\@esphack%
 }
 
-\newcommand\sidenotemarkformat[1]{\textsuperscript{#1}}
-\newcommand\sidenotelabelformat[1]{#1:\enskip}
-%% TODO: \show\setkomafont and implement a KOMA font for sidenotes. it's not hard.
-\newcommand\sidenote@font[1]{\normalfont#1}
-\newcommand\sidenote@writemark[1]{%
-	\hbox{\sidenote@font{#1}}%
-}
+\newcommand*\sidenotemarkformat[1]{\textsuperscript{#1}}
+\newcommand*\sidenotelabelformat[1]{#1:\enskip}
+% Allow to use \setkomafont{sidenotelabel} or \setkomafont{sidenote}
+\newcommand*\scr@fnt@sidenotemark{\normalfont}
+\newcommand*\scr@fnt@sidenotelabel{\normalfont}
+\newcommand*\scr@fnt@sidenote{\normalfont}
 
-%% TODO: counterwithin chapter for sidenotes, counter perpage for sidenotes.
-%% TODO: koma has footref, where you can use a label to refer multiple times to the same footnote. We should have the same for sidenotes AND ESPECIALLY FOR BIBLIOGRAPHY!!!
 %% TODO: consider whether we need the floatbytocbasic package, in case some other package loads float.
-%% TODO: the notecolumn may be offset a bit; from lua-visual-debug it looks like I may have to reposition it after shifting headsep and topmargin. No, even in scrbook it's like this. Boh.
+%% TODO: multiple sidenotes side by side have the same problem of footnotes solved by multifootsep.
 
 % star - offset - mark - text
 \NewDocumentCommand{\sidenotetext}{s o o m}{%
+	\@bsphack%
 	\IfNoValueTF{#3}{%
 	}{%
-		\protected@xdef\@thesnmark{#3}%
+		\xdef\@thesnmark{#3}%
 	}%
 	\IfBooleanTF{#1}{%
-		% I don't know if using \let like this will work
-		% The commented out version was confirmed to work
-		% \makenote*{\sidenote@writemark{\sidenotelabelformat{\@thesnmark}}#4}%
-		\let\sidenote@makenote\makenote*%
+		\def\sidenote@makenote{\makenote*}%
 	}{%
-		\let\sidenote@makenote\makenote%
+		\IfNoValueTF{#2}{%
+			\def\sidenote@makenote{\makenote}%
+		}{%
+			\def\sidenote@makenote{\fixednote[#2]}%
+		}%
 	}%
-	\sidenote@makenote{\sidenote@writemark{\sidenotelabelformat{\@thesnmark}}#4}%
+	\sidenote@makenote{{\usekomafont{sidenotelabel}\sidenotelabelformat{\@thesnmark}}\usekomafont{sidenote}#4}%
+	\@esphack%
 }
 
 % offset - mark - text
@@ -785,8 +785,7 @@
 \newcounter{kao@fixednote@counter}
 \setcounter{kao@fixednote@counter}{0}
 \newlength{\kao@fixednote@hoffset}
-\newlength{\kao@fixednote@voffset}
-\newcommand\fixednote[2][t]{%
+\NewDocumentCommand\fixednote{O{0pt} O{t} m}{%
 	\zsavepos{kao@fixednote@\thekao@fixednote@counter}%
 	\setlength{\kao@fixednote@hoffset}{\dimexpr-\zposx{kao@fixednote@\thekao@fixednote@counter}sp+1in+\hoffset+\oddsidemargin+\textwidth+\marginparsep\relax}%
 	\if@twoside%
@@ -794,7 +793,7 @@
 			\setlength{\kao@fixednote@hoffset}{\dimexpr-\zposx{kao@fixednote@\thekao@fixednote@counter}sp+1in+\hoffset+\evensidemargin-\marginparsep-\marginparwidth\relax}%
 		}%
 	\fi%
-	\makebox[0pt][l]{\hspace{\kao@fixednote@hoffset}\smash{\parbox[#1]{\marginparwidth}{#2}}}%
+	\makebox[0pt][l]{\raisebox{-\kao@voffset{#1}}[0pt][0pt]{\hspace*{\kao@fixednote@hoffset}\parbox[#2]{\marginparwidth}{#3}}}%
 	\zrefused{kao@fixednote@\thekao@fixednote@counter}%
 	\stepcounter{kao@fixednote@counter}%
 }
