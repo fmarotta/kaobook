@@ -21,7 +21,7 @@
 %<kaobiblio>\NeedsTeXFormat{LaTeX2e}[2018/01/01]
 %<kaobiblio>\ProvidesPackage{kaobiblio}
 %<*kaobiblio>
-    [2025/12/18 v0.1.0 kaotex]
+	[2025/12/18 v0.1.0 kaotex]
 
 %</kaobiblio>
 %<*driver>
@@ -36,7 +36,7 @@
 \RecordChanges
 %\OnlyDescription
 \begin{document}
-    \DocInput{kaobiblio.dtx}
+	\DocInput{kaobiblio.dtx}
 \end{document}
 %</driver>
 % \fi
@@ -361,13 +361,13 @@
 		 \setunit{\printdelim{nonameyeardelim}}%
 		 \usebibmacro{cite:labeldate+extradate}}
 		{\printtext[bibhyperref]{%
-			 \DeclareFieldAlias{bibhyperref}{default}%
-			 \usebibmacro{cite:label}%
-			 \setunit{\printdelim{nonameyeardelim}}%
-			 \usebibmacro{cite:labeldate+extradate}}}
+			\DeclareFieldAlias{bibhyperref}{default}%
+			\usebibmacro{cite:label}%
+			\setunit{\printdelim{nonameyeardelim}}%
+			\usebibmacro{cite:labeldate+extradate}}}
 		{}
 		{\PackageWarning{biblatex-patch}
-			 {Failed to patch cite bibmacro}}
+			{Failed to patch cite bibmacro}}
 
 	% Include labelname in labelyear link
 	\xpatchbibmacro{cite}
@@ -375,13 +375,13 @@
 		 \setunit{\printdelim{nameyeardelim}}%
 		 \usebibmacro{cite:labeldate+extradate}}
 		{\printtext[bibhyperref]{%
-			 \DeclareFieldAlias{bibhyperref}{default}%
-			 \printnames{labelname}%
-			 \setunit{\printdelim{nameyeardelim}}%
-			 \usebibmacro{cite:labeldate+extradate}}}
+			\DeclareFieldAlias{bibhyperref}{default}%
+			\printnames{labelname}%
+			\setunit{\printdelim{nameyeardelim}}%
+			\usebibmacro{cite:labeldate+extradate}}}
 		{}
 		{\PackageWarning{biblatex-patch}
-			 {Failed to patch cite bibmacro}}
+			{Failed to patch cite bibmacro}}
 
 	% Access hyperref's citation link start/end commands
 	\makeatletter
@@ -409,35 +409,35 @@
 	\xpatchbibmacro{textcite}
 		{\printnames{labelname}}
 		{\iflinkparens
-			 {\DeclareFieldAlias{bibhyperref}{default}%
+			{\DeclareFieldAlias{bibhyperref}{default}%
 				\global\booltrue{cbx:link}\biblinkstart%
 				\printnames{labelname}}
-			 {\printtext[bibhyperref]{\printnames{labelname}}}}
+			{\printtext[bibhyperref]{\printnames{labelname}}}}
 		{}
 		{\PackageWarning{biblatex-patch}
-			 {Failed to patch textcite bibmacro}}
+			{Failed to patch textcite bibmacro}}
 
 	\xpatchbibmacro{textcite}
 		{\usebibmacro{cite:label}}
 		{\iflinkparens
-			 {\DeclareFieldAlias{bibhyperref}{default}%
+			{\DeclareFieldAlias{bibhyperref}{default}%
 				\global\booltrue{cbx:link}\biblinkstart%
 				\usebibmacro{cite:label}}
-			 {\usebibmacro{cite:label}}}
+			{\usebibmacro{cite:label}}}
 		{}
 		{\PackageWarning{biblatex-patch}
-			 {Failed to patch textcite bibmacro}}
+			{Failed to patch textcite bibmacro}}
 
 	\xpretobibmacro{textcite:postnote}
 		{\ifbool{cbx:link}
-			 {\ifbool{cbx:parens}
+			{\ifbool{cbx:parens}
 					{\bibcloseparen\global\boolfalse{cbx:parens}}
 					{}%
 				\biblinkend\global\boolfalse{cbx:link}}
-			 {}}
+			{}}
 		{}
 		{\PackageWarning{biblatex-patch}
-			 {Failed to patch textcite:postnote bibmacro}}
+			{Failed to patch textcite:postnote bibmacro}}
 \else
 \fi
 %    \end{macrocode}

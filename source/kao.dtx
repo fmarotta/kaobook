@@ -32,19 +32,19 @@
 \RecordChanges
 %\OnlyDescription
 \NewDocElement[%
-  macrolike = false,
-  toplevel = true,
-  idxtype = style,
-  idxgroup = Styles,
+	macrolike = false,
+	toplevel = true,
+	idxtype = style,
+	idxgroup = Styles,
 ]{Style}{style}
 \NewDocElement[%
-  macrolike = false,
-  toplevel = true,
-  idxtype = config,
-  idxgroup = Configs,
+	macrolike = false,
+	toplevel = true,
+	idxtype = config,
+	idxgroup = Configs,
 ]{Config}{config}
 \begin{document}
-    \DocInput{kao.dtx}
+	\DocInput{kao.dtx}
 \end{document}
 %</driver>
 % \fi
@@ -152,11 +152,11 @@
 	\setmainfont{TeX Gyre Pagella}[Scale=.97]
 	\setmathfont{TeX Gyre Pagella Math}
 	\setmathfont{Stix Two Math}[
-	    range={scr,bfscr},
-	    StylisticSet=01
+		range={scr,bfscr},
+		StylisticSet=01
 	]
 	\setmathfont{Euler Math}[
-	    range={cal,bfcal},
+		range={cal,bfcal},
 	]
 	\setsansfont{URW Classico}
 	\setmonofont{DejaVu Sans Mono}[Scale=.85]
@@ -200,7 +200,7 @@
 \newcounter{bhfn@abs@cnt}
 \deffootnote[1em]{1em}{1em}{\hyperlink{BHFN:\thebhfn@abs@cnt}{\textsuperscript{\thefootnotemark}}\stepcounter{bhfn@abs@cnt}}
 \deffootnotemark{%
-  \MakeLinkTarget*{BHFN:\thebhfn@abs@cnt}\textsuperscript{\thefootnotemark}%
+	\MakeLinkTarget*{BHFN:\thebhfn@abs@cnt}\textsuperscript{\thefootnotemark}%
 }
 
 %% \flushbottom (this is already the default in books and reports (but it's ragged in articles)
@@ -231,17 +231,17 @@
 }
 
 \DeclareDocumentCommand{\defaultlayout}{}{%
-    \KOMAoptions{%
-        mpinclude=no,%
-        headinclude=no,%
-        footinclude=no,%
-        DIV=last,%
-    }%
-    \typearea[current]{last}%
-    \addtolength\topmargin{-0.5\headsep}%
-    \addtolength{\headsep}{0.5\headsep}%
-    \addtolength{\textheight}{\footskip}%
-    \activateareas%
+	\KOMAoptions{%
+		mpinclude=no,%
+		headinclude=no,%
+		footinclude=no,%
+		DIV=last,%
+	}%
+	\typearea[current]{last}%
+	\addtolength\topmargin{-0.5\headsep}%
+	\addtolength{\headsep}{0.5\headsep}%
+	\addtolength{\textheight}{\footskip}%
+	\activateareas%
 %% Side effects of default layout
 	\kaosidecaptionfalse%
 }
@@ -251,13 +251,13 @@
 % Then we tweak the geometry by modifying the raw LaTeX lengths.
 %    \begin{macrocode}
 \DeclareDocumentCommand{\marginlayout}{}{%
-    \KOMAoptions{%
-        mpinclude=no,%
-        headinclude=no,%
-        footinclude=no,%
-        DIV=last,%
-    }%
-    \typearea[current]{last}%
+	\KOMAoptions{%
+		mpinclude=no,%
+		headinclude=no,%
+		footinclude=no,%
+		DIV=last,%
+	}%
+	\typearea[current]{last}%
 %    \end{macrocode}
 % Most of these tweaks are arbitrary decisions, so there is not much to explain.
 % I wanted to mention something though, for the sake of documenting a behaviour which to me was surprising.
@@ -267,16 +267,16 @@
 % It seems that |scrlayer-notecolum| relies on |\voffset| for the absolute positioning of the notes.
 % Thus, it's better to not change |\voffset|.
 %    \begin{macrocode}
-    \addtolength\topmargin{-0.5\headsep}%
-    \addtolength{\headsep}{0.5\headsep}%
-    \addtolength{\textheight}{\footskip}%
-    \addtolength{\marginparwidth}{.11\textwidth}%
-    \addtolength{\marginparsep}{.01\textwidth}%
-    \addtolength{\evensidemargin}{.20\textwidth}%
-    \addtolength{\textwidth}{-.20\textwidth}%
-    \renewcommand{\coverpageleftmargin}{\dimexpr\hoffset+2in+\oddsidemargin\relax}%
-    \renewcommand{\coverpagerightmargin}{\dimexpr\paperwidth-1in-\hoffset-\oddsidemargin-\textwidth\relax}%
-    \activateareas%
+	\addtolength\topmargin{-0.5\headsep}%
+	\addtolength{\headsep}{0.5\headsep}%
+	\addtolength{\textheight}{\footskip}%
+	\addtolength{\marginparwidth}{.11\textwidth}%
+	\addtolength{\marginparsep}{.01\textwidth}%
+	\addtolength{\evensidemargin}{.20\textwidth}%
+	\addtolength{\textwidth}{-.20\textwidth}%
+	\renewcommand{\coverpageleftmargin}{\dimexpr\hoffset+2in+\oddsidemargin\relax}%
+	\renewcommand{\coverpagerightmargin}{\dimexpr\paperwidth-1in-\hoffset-\oddsidemargin-\textwidth\relax}%
+	\activateareas%
 %% Now the side effects
 	\kaosidecaptiontrue%
 }
@@ -299,22 +299,22 @@
 %%
 \newpairofpagestyles[scrheadings]{kaoheadings}{}
 \renewpagestyle{kaoheadings}{%
-    {\hspace{\dimexpr-\marginparwidth-\marginparsep\relax}\makebox[3em][r]{\thepage}\kao@headrule\kao@headboxleft}%
-    {\makebox[0pt][l]{\kao@headboxright\kao@headrule\makebox[3em][l]{\thepage}}}%
-    {\makebox[0pt][l]{\kao@headboxright\kao@headrule\makebox[3em][l]{\thepage}}}%
+	{\hspace{\dimexpr-\marginparwidth-\marginparsep\relax}\makebox[3em][r]{\thepage}\kao@headrule\kao@headboxleft}%
+	{\makebox[0pt][l]{\kao@headboxright\kao@headrule\makebox[3em][l]{\thepage}}}%
+	{\makebox[0pt][l]{\kao@headboxright\kao@headrule\makebox[3em][l]{\thepage}}}%
 }{%
-    {}%
-    {}%
-    {}%
+	{}%
+	{}%
+	{}%
 }
 \renewpagestyle{plain.kaoheadings}{%
-    {}%
-    {}%
-    {}%
+	{}%
+	{}%
+	{}%
 }{%
-    {}%
-    {}%
-    {}%
+	{}%
+	{}%
+	{}%
 }
 %%
 % \pagestyle{kaoheadings}
@@ -421,24 +421,24 @@
 \newcommand*\chapterstylekao{%
 	\def\kaochapterformatscale{2.85}%
 	\renewcommand*{\chapterformat}{%
-	    \IfUsePrefixLine{\centering\chapapp\par\vskip\scr@chapter@innerskip}{}\scalebox{\kaochapterformatscale}{\thechapter\autodot}%
+		\IfUsePrefixLine{\centering\chapapp\par\vskip\scr@chapter@innerskip}{}\scalebox{\kaochapterformatscale}{\thechapter\autodot}%
 	}%
 	\renewcommand*\chapterlinesformat[3]{%
-	    \makebox[0pt][l]{%
-	        \parbox[b]{\textwidth}{\raggedleft##3}%
-	        \makebox[\marginparsep]{\smash{\rule[-\dp\strutbox]{1pt}{\maxdimen}}}%
-	        \smash{\parbox[b]{\marginparwidth}{##2\unskip}}%
-	        %% do \showtokens{##2}: the chapter number ends with a \par and then vertical glue corresponding to the innerskip option in RedeclareSectionCommand. By adding \unskip, we remove the extra glue and empty paragraph, because we don't need it.
-	    }%
+		\makebox[0pt][l]{%
+			\parbox[b]{\textwidth}{\raggedleft##3}%
+			\makebox[\marginparsep]{\smash{\rule[-\dp\strutbox]{1pt}{\maxdimen}}}%
+			\smash{\parbox[b]{\marginparwidth}{##2\unskip}}%
+			%% do \showtokens{##2}: the chapter number ends with a \par and then vertical glue corresponding to the innerskip option in RedeclareSectionCommand. By adding \unskip, we remove the extra glue and empty paragraph, because we don't need it.
+		}%
 	}%
 	\renewcommand*\chapterlineswithprefixformat[3]{%
-	    \savebox\tempboxa{\chapappifchapterprefix}%
-	    \savebox\tempboxb{\scalebox{\kaochapterformatscale}{\thechapter\autodot}}%
-	    \makebox[0pt][l]{%
-	        \parbox[b]{\textwidth}{\raggedleft##3}%
-	        \makebox[\marginparsep]{\smash{\rule[.5\dimexpr-\ht\tempboxa-\dp\tempboxa-\ht\tempboxb-\dp\tempboxb-\scr@chapter@innerskip]{1pt}{\maxdimen}}}%
-	        \smash{\parbox[c]{\ifdim\wd\tempboxa>\wd\tempboxb \wd\tempboxa \else \wd\tempboxb\fi}{##2\unskip}}%
-	    }%
+		\savebox\tempboxa{\chapappifchapterprefix}%
+		\savebox\tempboxb{\scalebox{\kaochapterformatscale}{\thechapter\autodot}}%
+		\makebox[0pt][l]{%
+			\parbox[b]{\textwidth}{\raggedleft##3}%
+			\makebox[\marginparsep]{\smash{\rule[.5\dimexpr-\ht\tempboxa-\dp\tempboxa-\ht\tempboxb-\dp\tempboxb-\scr@chapter@innerskip]{1pt}{\maxdimen}}}%
+			\smash{\parbox[c]{\ifdim\wd\tempboxa>\wd\tempboxb \wd\tempboxa \else \wd\tempboxb\fi}{##2\unskip}}%
+		}%
 	}%
 	\RedeclareSectionCommand[beforeskip=-.5\baselineskip plus .25\baselineskip minus .25\baselineskip,afterskip=3\baselineskip plus .5\baselineskip minus .5\baselineskip]{chapter}%
 	\def\kao@curr@chapterstyle{kao}
@@ -451,7 +451,7 @@
 }
 \newcommand*\chapterstylelines{%
 	\renewcommand*{\chapterformat}{%
-	    \IfUsePrefixLine{\chapapp\enskip}{}\scalebox{3}{\thechapter\autodot}%
+		\IfUsePrefixLine{\chapapp\enskip}{}\scalebox{3}{\thechapter\autodot}%
 	}%
 	\renewcommand*\chapterlinesformat[3]{%
 		\hrulefill[1pt]##2\\
@@ -532,8 +532,8 @@
 \RequirePackage{localtoc}
 
 \NewDocumentCommand{\sidetoc}{}{%
-    \marklocaltoc%
-    \ifvmode%
+	\marklocaltoc%
+	\ifvmode%
 		\vbox{\hbox{\raisebox{\baselineskip}{\makenote{\printlocaltoc\thelocaltoc}}}}%
 		\vskip-\dimexpr\baselineskip+\parskip\relax%
 	\else%
@@ -546,7 +546,11 @@
 %% If issued in vmode, align the note with the next paragraph
 \NewDocumentCommand{\sidepar}{m}{%
 	\@bsphack%
-	\ifvmode\vskip\the\parskip\vbox{}\makenote{#1}\vskip-\dimexpr\baselineskip+\parskip\relax\else\makenote{#1}\fi%
+	\ifvmode%
+		\vskip\the\parskip\vbox{}\makenote{#1}\vskip-\dimexpr\baselineskip+\parskip\relax%
+	\else%
+		\makenote{#1}%
+	\fi%
 	\@esphack%
 }
 
@@ -555,8 +559,8 @@
 		\vspace{1em}%
 		\begin{minipage}{\marginparwidth}%
 			\def\caption{%
-			    \if@figurecaptionabove\expandafter\captionabove%
-			    \else\expandafter\captionbelow\fi%
+				\if@figurecaptionabove\expandafter\captionabove%
+				\else\expandafter\captionbelow\fi%
 			}%
 			\def\@captype{figure}%
 			\usekomafont{notecolumn.marginpar}%
@@ -569,8 +573,8 @@
 	\makenote*{%
 		\begin{minipage}{\marginparwidth}%
 			\def\caption{%
-			    \if@tablecaptionabove\expandafter\captionabove%
-			    \else\expandafter\captionbelow\fi%
+				\if@tablecaptionabove\expandafter\captionabove%
+				\else\expandafter\captionbelow\fi%
 			}%
 			\def\@captype{table}%
 			\usekomafont{notecolumn.marginpar}%
@@ -732,45 +736,45 @@
 
 \NewDocumentEnvironment{kao@float}{m o}{%
 	\IfNoValueTF{#2}{\kao@orig@float{#1}[\csname fps@#1\endcsname]}{\kao@orig@float{#1}[#2]}%
-    \global\kao@captionusedfalse%
-    \global\kao@captionabovefalse%
+	\global\kao@captionusedfalse%
+	\global\kao@captionabovefalse%
 	\begin{lrbox}{\kao@float@box}%
 	\begin{minipage}[b]{\linewidth}%
-	\def\@caption##1[##2]##3{%
-		% Counter will be incremented again by kao-supplied \caption
-		\addtocounter{##1}{\m@ne}%
-        \xdef\kao@captiontype{##1}%
-        \gdef\kao@captionentry{##2}%
-        \gdef\kao@captioncontent{##3}%
-		\xdef\kao@captionlinewidth{\the\linewidth}%
-        \if@captionabove%
-            \global\kao@captionabovetrue%
-        \fi%
-        \global\kao@captionusedtrue%
-    }%
+		\def\@caption##1[##2]##3{%
+			% Counter will be incremented again by kao-supplied \caption
+			\addtocounter{##1}{\m@ne}%
+			\xdef\kao@captiontype{##1}%
+			\gdef\kao@captionentry{##2}%
+			\gdef\kao@captioncontent{##3}%
+			\xdef\kao@captionlinewidth{\the\linewidth}%
+			\if@captionabove%
+				\global\kao@captionabovetrue%
+			\fi%
+			\global\kao@captionusedtrue%
+		}%
 }{%
 	\end{minipage}%
 	\end{lrbox}%
-    \ifkao@captionused%
-	    \ifkaosidecaption%
+	\ifkao@captionused%
+		\ifkaosidecaption%
 			\usebox{\kao@float@box}%
-	        \kao@makesidecaption%
+			\kao@makesidecaption%
 	    \else%
 			\ifkao@captionabove%
 				\hspace*{\dimexpr\linewidth-\kao@captionlinewidth}%
 				\begin{minipage}[t]{\kao@captionlinewidth}%
-			        \captionaboveof{\kao@captiontype}[\kao@captionentry]{\kao@captioncontent}%
+					\captionaboveof{\kao@captiontype}[\kao@captionentry]{\kao@captioncontent}%
 				\end{minipage}
 				\usebox{\kao@float@box}%
 			\else%
 				\usebox{\kao@float@box}
 				\hspace*{\dimexpr\linewidth-\kao@captionlinewidth}%
 				\begin{minipage}[t]{\kao@captionlinewidth}%
-			        \captionbelowof{\kao@captiontype}[\kao@captionentry]{\kao@captioncontent}%
+					\captionbelowof{\kao@captiontype}[\kao@captionentry]{\kao@captioncontent}%
 				\end{minipage}%
 			\fi%
-	    \fi%
-    \fi%
+		\fi%
+	\fi%
 	\kao@orig@endfloat%
 }%
 \newlength{\kao@sidecaption@offset}
@@ -792,11 +796,11 @@
 		\let\kao@float@caption\captionaboveof%
 	\fi%
 	\makebox[0sp][l]{%
-        \hspace{\kao@sidecaption@offset}%
-        \parbox[b][\ht\kao@float@box][\kao@float@align]{\marginparwidth}{%
-            \kao@float@caption{\kao@captiontype}[\kao@captionentry]{\kao@captioncontent}%
-        }%
-    }%
+		\hspace{\kao@sidecaption@offset}%
+		\parbox[b][\ht\kao@float@box][\kao@float@align]{\marginparwidth}{%
+			\kao@float@caption{\kao@captiontype}[\kao@captionentry]{\kao@captioncontent}%
+		}%
+	}%
 }
 
 \RequirePackage{zref-savepos}
@@ -830,8 +834,8 @@
 %% Good resource: https://resources.latex-cloud-studio.com/learn/latex/formatting/code-listings-minted
 %% XXX Consider using the forcenames option; on one hand it's good to keep our own floating environment separate from the minted one, on the other hand it's convenient to keep the same name...
 \DeclareNewTOC[float,nonfloat,listname={List of listings},counterwithin=chapter,name=Listing,type=kaolisting,atbegin={\@captionabovetrue}]{klol}
-\AtEndPreamble{\@ifpackageloaded{minted}%
-	{%
+\AtEndPreamble{
+	\@ifpackageloaded{minted}{%
 		\setminted{
 			fontsize=\small,
 			linenos=true,
@@ -859,8 +863,8 @@
 \long\def\kao@lst@@makesinglelinecaption#1#2#3{%
 	\fixednote[\lst@captionpos]{\vskip\lst@aboveskip\kao@orig@@makesinglelinecaption#1#2{#3}\vskip\lst@belowskip}%
 }
-\AtEndPreamble{\@ifpackageloaded{listings}%
-	{%
+\AtEndPreamble{
+	\@ifpackageloaded{listings}{%
 		\lst@AddToHook{PreSet}{%
 			\let\scr@makemultilinecaption\kao@lst@makemultilinecaption%
 			\let\scr@makesinglelinecaption\kao@lst@makesinglelinecaption%
@@ -932,7 +936,6 @@
 	{}%
 }
 
-
 %    \end{macrocode}
 % \end{macro}
 
@@ -941,13 +944,13 @@
 
 \NewDocumentEnvironment{widepar}{}{%
 	\if@twoside%
-	\Ifthispageodd{%
-		\begin{addmargin}[0cm]{-\dimexpr\marginparwidth+\marginparsep}%
-	}{%
-		\begin{addmargin}[-\dimexpr\marginparwidth+\marginparsep]{0cm}%
-	}%
+		\Ifthispageodd{%
+			\begin{addmargin}[0cm]{-\dimexpr\marginparwidth+\marginparsep}%
+		}{%
+			\begin{addmargin}[-\dimexpr\marginparwidth+\marginparsep]{0cm}%
+		}%
 	\else%
-	\begin{addmargin}[0cm]{-\dimexpr\marginparwidth+\marginparsep}%
+		\begin{addmargin}[0cm]{-\dimexpr\marginparwidth+\marginparsep}%
 	\fi%
 }{%
 	\end{addmargin}%
@@ -956,13 +959,13 @@
 % Environment for a full width paragraph
 \NewDocumentEnvironment{fullwidthpar}{}{%
 	\if@twoside%
-	\Ifthispageodd{%
-		\begin{addmargin}[-\dimexpr 1in+\hoffset+\oddsidemargin]{\dimexpr-\paperwidth+1in+\hoffset+\oddsidemargin+\textwidth}%
-	}{%
-		\begin{addmargin}[\dimexpr-\paperwidth+1in+\hoffset+\oddsidemargin+\textwidth]{\dimexpr-\paperwidth+1in+\hoffset+\oddsidemargin+\marginparsep+\marginparwidth+\textwidth}%
-	}%
+		\Ifthispageodd{%
+			\begin{addmargin}[-\dimexpr 1in+\hoffset+\oddsidemargin]{\dimexpr-\paperwidth+1in+\hoffset+\oddsidemargin+\textwidth}%
+		}{%
+			\begin{addmargin}[\dimexpr-\paperwidth+1in+\hoffset+\oddsidemargin+\textwidth]{\dimexpr-\paperwidth+1in+\hoffset+\oddsidemargin+\marginparsep+\marginparwidth+\textwidth}%
+		}%
 	\else%
-	\begin{addmargin}[-\dimexpr1in+\hoffset+\oddsidemargin]{\dimexpr-\paperwidth+1in+\hoffset+\oddsidemargin+\textwidth}%
+		\begin{addmargin}[-\dimexpr1in+\hoffset+\oddsidemargin]{\dimexpr-\paperwidth+1in+\hoffset+\oddsidemargin+\textwidth}%
 	\fi%
 }{%
 	\end{addmargin}%
