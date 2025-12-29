@@ -146,7 +146,7 @@
 
 \ifxetexorluatex
 	\RequirePackage{fontspec}
-	\RequirePackage{amsmath}
+	% \RequirePackage{amsmath}
 	\RequirePackage{unicode-math} % use \mathbfit for bold italics, or \mathbf, or \mathit
 	\defaultfontfeatures{Scale=MatchLowercase}
 	\setmainfont{TeX Gyre Pagella}[Scale=.97]
@@ -164,11 +164,11 @@
 \else
 	\RequirePackage[utf8]{inputenc} % utf8 encoding in the input (.tex) file
 	\RequirePackage[T1]{fontenc} % utf8 encoding in the output (.pdf) file
-	\RequirePackage{amsmath} % math environments
+	% \RequirePackage{amsmath} % math environments
 	\RequirePackage{amssymb} % additional maths symbols
 	\RequirePackage{bm} % use \bm
 	\RequirePackage[scaled=.97,helvratio=.93,p,theoremfont]{newpxtext} % Serif palatino font
-	\RequirePackage[scaled=.97,vvarbb,smallerops,bigdelims]{newpxmath} % Math palatino font
+	\RequirePackage[scaled=.97,vvarbb,smallerops,bigdelims]{newpxmath} % Math palatino font (loads amsmath)
 	\RequirePackage[cal=pxtx,scr=stixtwofancy,bb=ncmbbr]{mathalfa} % Mathscr from STIX
 	\RequirePackage{classico} % sans-serif font: URW classico
 	\RequirePackage[scaled=0.85]{DejaVuSansMono} % Monospace font
@@ -1084,10 +1084,10 @@
 }
 
 % Make a bookmark to the title page
-\pretocmd{\maketitle}{\pdfbookmark[1]{\@plaintitle}{title}}{}{}%
+\pretocmd{\maketitle}{\pdfbookmark[0]{\@plaintitle}{title}}{}{}%
 % Make a bookmark to the toc (can be useful in pdf even if the toc entry is not in the toc)
 % We need the conditional otherwise the toc bookmark will appear twice
-\Iftocfeature{toc}{totoc}{}{\pretocmd{\tableofcontents}{\pdfbookmark[1]{\contentsname}{toc}}{}{}}%
+\Iftocfeature{toc}{totoc}{}{\pretocmd{\tableofcontents}{\pdfbookmark[0]{\contentsname}{toc}}{}{}}%
 
 % Color settings should be done in the next \hypersetup
 \hypersetup{ % Set up hyperref options
@@ -1157,7 +1157,7 @@
 		\clearpage%
 	\fi%
 	\bookmarksetup{startatroot}% Reset the bookmark depth
-	\pdfbookmark[1]{\appendixname}{appendix}%
+	\pdfbookmark[0]{\appendixname}{appendix}%
 }
 
 % Back matter
