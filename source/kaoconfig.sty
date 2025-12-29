@@ -1,26 +1,39 @@
 \ProvidesPackage{kaoconfig}[2025/12/28 v1.0 my custom macros]
 
+%----------------------------------------------------------------------------------------
+%	USEFUL PACKAGES AND OTHER DOCUMENT CONFIGURATIONS
+%----------------------------------------------------------------------------------------
+
+% Choose the language
 \ifxetexorluatex
 	\usepackage{polyglossia}
 	\setmainlanguage{english}
 \else
 	\usepackage[english]{babel}
+	\usepackage{morewrites}% we may need them later
 \fi
-\usepackage[english=british]{csquotes}
+\usepackage[english=british]{csquotes} % English quotes
 
+% Load the bibliography package
 \usepackage{kaobiblio}
-\addbibresource{../../testfiles/test.bib}
+\addbibresource{../../testfiles/test.bib} % Bibliography file
 
-\usepackage{kaotheorems}
+% Load mathematical packages for theorems and related environments
+\let\openbox\relax% Workaround to load amsthm after amsmath
+\usepackage[framed=true]{kaotheorems}
+
+\usepackage{booktabs} % Improved tables
 
 \graphicspath{{../../testfiles/}} % Paths in which to look for images
 
 \makeindex[columns=3, title=Alphabetical Index, intoc] % Make LaTeX produce the files required to compile the index
 
 \makeglossaries % Make LaTeX produce the files required to compile the glossary
-\input{glossary.tex} % Include the glossary definitions
+\input{../../testfiles/glossary.tex} % Include the glossary definitions
 
 \makenomenclature % Make LaTeX produce the files required to compile the nomenclature
+
+\usepackage{minted}
 
 % Uncomment to have coloured headings
 %\addtokomafont{title}{\color{Maroon}}
