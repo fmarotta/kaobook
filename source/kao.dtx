@@ -29,6 +29,7 @@
 \usepackage{blindtext}
 \EnableCrossrefs
 \CodelineIndex
+\setlength{\IndexMin}{80em}
 \RecordChanges
 %\OnlyDescription
 \NewDocElement[%
@@ -358,8 +359,9 @@
 	\newpage%
 }
 %    \end{macrocode}
+% \end{macro}
 
-% Here we load graphicx (we will need its \scalebox macro later on), and set some options for floats and displays.
+% Here we load graphicx (we will need its |\scalebox| macro later on), and set some options for floats and displays.
 
 % \begin{macro}{graphicx, displays, floats}
 %    \begin{macrocode}
@@ -711,6 +713,7 @@
 %% Our redefinition places the captions either above or below depending on the configuration, regardless of where the user writes the caption.
 \RequirePackage{zref-savepos}
 \RequirePackage{zref-user}
+% \RequirePackage{hypcap}
 \setcapindent{0pt}
 \setkomafont{captionlabel}{\bfseries}
 \newif\ifkaofloat\kaofloattrue
@@ -989,7 +992,7 @@
 % \begin{macro}{kaobox}
 % \begin{macro}{kaocomment}
 % \begin{macro}{kaoinsight}
-% \begin{macrocode}
+%    \begin{macrocode}
 \RequirePackage[most]{tcolorbox}
 \RequirePackage[dvipsnames,table]{xcolor} % Colours
 \RequirePackage{tocbasic}
@@ -1015,6 +1018,7 @@
 	colbacktitle=RoyalBlue!25!White,
 	coltitle=black,
 	colframe=black,
+	label type=kaobox, % support for zref-cleveref (needs more setup)
 	fonttitle=\bfseries,
 	#1
 }
@@ -1048,18 +1052,29 @@
 % \end{macro}
 % \end{macro}
 
+% \begin{macro}{extra packages}
+%    \begin{macrocode}
+% TODO: here we could also use atendpreamble and beforepackage to detect whether the user had loaded these packages and load them before hyperref (which should also be loaded atendpreamble). however, I'm not sure how to respect the options that the user wants to set.
 \RequirePackage[linesnumbered, ruled, vlined]{algorithm2e} % Algorithms
 \RequirePackage{imakeidx}% must be loaded before hyperref
-\RequirePackage[xindy,toc,numberedsection=nameref]{glossaries}
 \RequirePackage[intoc]{nomencl}
+\AfterAtEndOfPackage{hyperref}{
+	\RequirePackage[xindy,toc,numberedsection=nameref]{glossaries} % Must be loaded after hyperref
+}
+%    \end{macrocode}
+% \end{macro}
 
 % \section{Hyperreferences and bookmarks}
 % \iffalse
 
+\RequirePackage{ifdraft} % Detect whether draft mode is enabled
+% \RequirePackage[nospace]{varioref} % Must be loaded before hyperref
 \RequirePackage[hyphens]{url} % Allow hyphens as breakpoints in URLs (this option must be passed before hyperref, because hyperref loads url)
 \RequirePackage{hyperref} % Required for hyperlinks
-\RequirePackage{bookmark} % Required for pdf bookmarks
-\RequirePackage{ifdraft} % Detect whether draft mode is enabled
+\AfterAtEndOfPackage*{hyperref}{
+	% We put it here in case the user loads hyperref again (this way, bookmark will also be reloaded)
+	\RequirePackage{bookmark} % Required for pdf bookmarks (must be loaded after hyperref)
+}
 
 % Provide an optional argument to the \title command in which to store a plain text title, without any formatting
 % Usage: \title[Plain Title]{Actual Title}
