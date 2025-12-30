@@ -1,0 +1,24 @@
+name: Build Documentation
+
+on:
+  push:
+    branches: [ "ctan" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Run l3build doc
+        uses: xu-cheng/texlive-action@v3
+        with:
+          run: |
+            l3build doc
+
+      - name: Upload Documentation
+        uses: actions/upload-artifact@v4
+        with:
+          name: documentation
+          path: build/doc/*.pdf
