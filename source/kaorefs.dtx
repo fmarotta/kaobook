@@ -79,9 +79,9 @@
 %
 % Here are references to this section:
 % \begin{description}
-% \item[kref] \kref{intro}
-% \item[krefv] \krefv{intro}
-% \item[krefn] \krefn{intro}
+% \item[kref] \kref{conclusion}
+% \item[krefv] \krefv{conclusion}
+% \item[kreft] \kreft{intro}
 % \item[kreff] \kreff{intro}
 % \end{description}
 %
@@ -96,7 +96,7 @@
 % \begin{description}
 % \item[kref] \kref{lisa}
 % \item[krefv] \krefv{lisa}
-% \item[krefn] \krefn{lisa}
+% \item[kreft] \kreft{lisa}
 % \item[kreff] \kreff{lisa}
 % \end{description}
 % 
@@ -108,6 +108,7 @@
 % \item[range] \kref{intro,impl}
 % \item[mixed] \kreff{intro,lisa,impl,conclusion}
 % \item[just title] \kref[noname,ref=title]{intro}
+% \item[plain zvref] \zvref[abbrev]{lisa}
 % \end{description}
 %
 % \section{Implementation}
@@ -115,6 +116,7 @@
 % \begin{macro}{dependencies}
 %    \begin{macrocode}
 \RequirePackage{zref-vario} % Loads varioref, which must be loaded before hyperref
+% XXX: check whether it works with kaobook, which loads hyperref before we have a chance to load zref-vario. maybe we need to add \RequirePackage{zref-vario} before \documentclass in the manual.
 \RequirePackage{zref-titleref} % similar to \nameref (which is part of hyperref), but integrates better with zref-clever
 \RequirePackage[hyperindex=false]{hyperref}
 \RequirePackage{zref-clever}
@@ -123,12 +125,18 @@
 
 % \begin{macro}{\kref}
 %    \begin{macrocode}
-\NewDocumentCommand{\kref}{s O{} m}{%
+\NewDocumentCommand{\kref}{s O{} m}{% name, number
 	\IfBooleanTF{#1}{\zcref*}{\zcref}[#2]{#3}%
 }
-\NewDocumentCommand{\krefv}{s O{} m}{\zcref[#2]{#3} \vpageref{#3}}
-\NewDocumentCommand{\krefn}{s O{} m}{\zcref[#2]{#3} (\zcref[noname,ref=title]{#3})}
-\NewDocumentCommand{\kreff}{s O{} m}{\zcref[#2]{#3} (\zcref[noname,ref=title]{#3}) \vpageref{#3}}
+\NewDocumentCommand{\krefv}{s O{} m}{% name, number, page
+	\IfBooleanTF{#1}{\zvref*}{\zvref}[cap=false,capfirst,#2]{#3}%
+}
+\NewDocumentCommand{\kreft}{s O{} m}{% name, title
+	\IfBooleanTF{#1}{\zcref*}{\zcref}[#2]{#3} (\zcref[noname,ref=title]{#3})%
+}
+\NewDocumentCommand{\kreff}{s O{} m}{% name, title, page
+	\IfBooleanTF{#1}{\zcref*}{\zcref}[#2]{#3} (\zcref[noname,ref=title]{#3}) \zvpageref[nocap]{#3}%
+}
 %    \end{macrocode}
 % \end{macro}
 
