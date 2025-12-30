@@ -16,6 +16,8 @@ jobs:
         with:
           run: |
             tlmgr update --self
+            tlmgr repository add https://mirror.ctan.org/systems/texlive/tlcontrib tlcontrib
+            tlmgr pinning add tlcontrib "*"
             tlmgr install classico
             l3build doc
 

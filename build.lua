@@ -10,6 +10,8 @@ sourcefiledir = "./source"
 sourcefiles = {"*.dtx", "*.ins", "*.tex", "*.sty"}
 -- files that should be typeset as pdf
 typesetfiles = {"*.dtx", "*.tex"}
+typesetopts = "-shell-escape"
+-- typesetexe = "lualatex"
 -- number of runs for typesetting (we need 3 to get the labels and notecolumns right)
 typesetruns = 3
 
