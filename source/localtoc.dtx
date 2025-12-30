@@ -75,6 +75,7 @@
 %
 % \section{Introduction}
 % This package creates local tables of contents.
+% It makes extensive use of the features of \KOMAScript, hence it is only compatible with KOMA classes and not with standard \LaTeX.
 % \iffalse
 %% Make sure we are using KOMAScript
 \@ifundefined{KOMAClassName}{%
@@ -184,8 +185,9 @@
 %    \end{macrocode}
 % The following macro writes the aux file; we need it because we redefine |\@starttoc| and the file is never really opened.
 % We make sure that it's written only if the user issues |\localtoc| (otherwise it's a waste).
-% \\TODO: delete the file if not necessary anymore
-% \\TODO: etoc reads the file only once at the beginning in memory, maybe we should do it as well. We could use the catchfile package (egreg-approved!)
+% TODO: delete the file if not necessary anymore
+% TODO: etoc reads the file only once at the beginning in memory, maybe we should do it as well. We could use the catchfile package (egreg-approved!)
+% TODO: actually, an even better design would be to read the file only once and let \startlocaltoc{<id>} define the corresponding macro \csname printlocaltoc<id>\endcsname. This way, the macro will always be available and we can print the toc very far away from its home, without reading the file every time we meet a new toc.
 %    \begin{macrocode}
 \newcommand*{\lt@writeauxfile}{%
 	%% Update our aux file even though @starttoc is not really called
@@ -231,6 +233,7 @@
 % Therefore, marking the local toc (i.e. adding the |\startlocaltoc| line to the aux file) is not done until the chapter is over.
 % But at that point the local toc will be empty, because no sections are defined anymore\ldots.
 % Using |\clearnotecolumn| is not a solution, because that would also clear the main page.
+% At any rate, this separation also makes it possible to print the table of contents far away from where it was created, e.g. at the end of a chapter, linking back to the previous sections as a reminder.
 %    \begin{macrocode}
 \newcommand*\startlocaltoc[1]{%
 	\csname startlocaltoc#1\endcsname%
@@ -245,6 +248,9 @@
 	\begingroup% avoid polluting env with startlocaltoc<n> macros
 	\let\oldcontentsline\contentsline%
 	\renewcommand\contentsline[4]{\def\@currentlocallevel{##1}}%
+%    \end{macrocode}
+% \changes{v0.1.0}{2025/12/30}{Previously, \texttt{\textbackslash contentsline} was redefined to be empty and the \texttt{\textbackslash @currentlocallevel} was set in the heading/preinit Hook. However, this led to a nice bug when using \texttt{\textbackslash printlocaltoc} inside \texttt{\textbackslash makenote}: since the note may be typeset after starting a new heading, the \texttt{\textbackslash @currentlocallevel} was sometimes wrong, leading to empty localtocs. Now, the \texttt{\textbackslash @currentlocallevel} is taken from the entry right before \texttt{\textbackslash startlocaltoc} in the aux file.}
+%    \begin{macrocode}
 	\expandafter\def\csname startlocaltoc#1\endcsname{%
 		\ifx\@currentlocallevel\relax%
 			\PackageWarning{\lt@name}{Cannot create a `localtoc' before adding headings.}%
@@ -314,6 +320,14 @@
 \DeclareTOCStyleEntries[level:=subparagraph]{gobble}{subparagraphlocalstar}
 %    \end{macrocode}
 % \end{macro}
+
+%
+% \StopEventually{
+%   \PrintChanges
+%   \PrintIndex
+% }
+%
+
 % \Finale
 % Text that is printed only if OnlyDescription is false or commented out (apparently this is not true).
 \endinput
