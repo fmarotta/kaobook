@@ -22,7 +22,6 @@
 %----------------------------------------------------------------------------------------
 %	EXAMPLE AND DOCUMENTATION OF THE KAOBOOK CLASS
 %----------------------------------------------------------------------------------------
-
 \documentclass[draft,appendixprefix=true,headings=big]{kaobook}
 
 \usepackage{showframe}
@@ -180,9 +179,10 @@ There is some overlap with margin stuff: sidecaption, sidefigures and sidetables
 
 \blindtext
 
-ref wide: \ref{mona-wide}.
+ref wide: \krefv{mona-wide}.
 
-ref bottom: \ref{mona-bottom}.
+ref bottom: \kreff{mona-bottom}.
+ref bottom: \krefv{mona-bottom}.
 
 % \begin{lstlisting}[language=Python,caption={Wa, it works also with this caption? How is this possible?},captionpos=t]
 % import numpy as pd

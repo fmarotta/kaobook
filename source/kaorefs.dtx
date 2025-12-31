@@ -115,10 +115,8 @@
 % \label{impl}
 % \begin{macro}{dependencies}
 %    \begin{macrocode}
-\RequirePackage{zref-vario} % Loads varioref, which must be loaded before hyperref
-% XXX: check whether it works with kaobook, which loads hyperref before we have a chance to load zref-vario. maybe we need to add \RequirePackage{zref-vario} before \documentclass in the manual.
+\RequirePackage{zref-vario} % Loads varioref, which should be loaded before hyperref (but it seems to work fine even if I load it after)
 \RequirePackage{zref-titleref} % similar to \nameref (which is part of hyperref), but integrates better with zref-clever
-\RequirePackage[hyperindex=false]{hyperref}
 \RequirePackage{zref-clever}
 %    \end{macrocode}
 % \end{macro}
@@ -128,7 +126,7 @@
 \NewDocumentCommand{\kref}{s O{} m}{% name, number
 	\IfBooleanTF{#1}{\zcref*}{\zcref}[#2]{#3}%
 }
-\NewDocumentCommand{\krefv}{s O{} m}{% name, number, page
+\NewDocumentCommand{\krefv}{s O{} m}{% name, number, page (only if ref is not on same page as label)
 	\IfBooleanTF{#1}{\zvref*}{\zvref}[cap=false,capfirst,#2]{#3}%
 }
 \NewDocumentCommand{\kreft}{s O{} m}{% name, title
@@ -144,7 +142,7 @@
 %    \begin{macrocode}
 \zvsetup{pageprop=abspage}
 \zcsetup{
-	hyperref=true,
+	hyperref=auto,
 	nameinlink=tsingle,
 	cap=true,
 }
