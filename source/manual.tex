@@ -166,6 +166,16 @@ There is some overlap with margin stuff: sidecaption, sidefigures and sidetables
 	\label{mona-wide}
 \end{widefigure}
 
+\begin{table}
+	\caption{A useless table.}
+	\centering
+	\Large
+	\begin{tabular}{c c c}
+		1 & 2 & 3\footnote{Equals three.}\\
+		4 & 5 & 6\\
+		7 & 8 & 9\\
+	\end{tabular}
+\end{table}
 
 % \begin{kaolisting}
 % 	\caption{Lasting listing impression.}
@@ -180,6 +190,11 @@ There is some overlap with margin stuff: sidecaption, sidefigures and sidetables
 \blindtext
 
 ref wide: \krefv{mona-wide}.
+
+\begin{figure-}
+	\includegraphics[width=.4\textwidth]{../../testfiles/La_Gioconda_Leonardo_Da_Vinci.jpg}
+	\captionaboveof{table}{Mona Lisa. Leonardo da Vinci, Public domain, via \href{https://commons.wikimedia.org/wiki/File:La_Gioconda,_Leonardo_Da_Vinci.jpg}{Wikimedia Commons}.}
+\end{figure-}
 
 ref bottom: \kreff{mona-bottom}.
 ref bottom: \krefv{mona-bottom}.
@@ -288,14 +303,14 @@ Ciao\fixednote{Meow}.
 
 % \blindtext
 
-% \begin{sidetable}
-% 	\caption{A useless table.}
-% 	\begin{tabular}{c c c}
-% 		1 & 2 & 3\\
-% 		4 & 5 & 6\\
-% 		7 & 8 & 9\\
-% 	\end{tabular}
-% \end{sidetable}
+\begin{sidetable}
+	\caption{A useless table.}
+	\begin{tabular}{c c c}
+		1 & 2 & 3\footnote{Equals three.}\\
+		4 & 5 & 6\\
+		7 & 8 & 9\\
+	\end{tabular}
+\end{sidetable}
 
 % \chapterstylelines
 \chapter{References}

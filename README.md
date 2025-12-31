@@ -138,7 +138,14 @@ The goal is to reach feature parity with the old kaobook version, then try to up
 * [x] boxes
 * [x] theorem environments
 * [x] pdf bookmarks
-* [ ] clever zref
+* [x] kaorefs
+* [ ] special environments
+  * [ ] subfig/subcaption
+  * [ ] wrapfig
+  * [ ] longtable
+  * [ ] rotating
+  * [ ] lstlisting
+  * [ ] condinuedfloat
 * [ ] kaohandt
 * [ ] kaoreprt
 * [ ] non-english languages

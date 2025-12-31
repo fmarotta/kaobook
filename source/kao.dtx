@@ -713,7 +713,6 @@
 %% Our redefinition places the captions either above or below depending on the configuration, regardless of where the user writes the caption.
 \RequirePackage{zref-savepos}
 \RequirePackage{zref-user}
-% \RequirePackage{hypcap}
 \setcapindent{0pt}
 \setkomafont{captionlabel}{\bfseries}
 \newif\ifkaominipage\kaominipagetrue
@@ -734,6 +733,9 @@
 	\fi%
 }{%
 	\ifkaominipage%
+		% This prevents nesting minipages! pls fix asap. If we set kaominipagefalse in the pre, the kaominipage will be ended by a latexminipage. we need another conditional.
+		% In any case, putting minipages inside kaofloats WILL result in captions lost. It's the same issue as floatrow. Maybe we should make sure that only the minipage which contains a caption becomes a kaominipage, the others stay latexminipage. seems tricky...
+		% TODO: disable sidecaption if KOMA's captionbeside is used!
 		\endkaominipage%
 	\else%
 		\endlatexminipage%
@@ -775,6 +777,7 @@
 			\fi%
 			\global\kao@captionusedtrue%
 		}%
+		\centering
 }{%
 	\endlatexminipage%
 	\end{lrbox}%
