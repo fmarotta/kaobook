@@ -25,10 +25,11 @@
 
 \documentclass[draft,appendixprefix=true,headings=big]{kaobook}
 
-\usepackage{kaoconfig}
 \usepackage{showframe}
 \usepackage{blindtext}
 \usepackage{showlabels}
+% \endofdump
+\usepackage{kaoconfig}
 
 \begin{document}
 
@@ -150,7 +151,8 @@ There is some overlap with margin stuff: sidecaption, sidefigures and sidetables
 
 \begin{figure}[h]
 	\includegraphics[width=.4\textwidth]{../../testfiles/La_Gioconda_Leonardo_Da_Vinci.jpg}
-	\captionaboveof{table}{Mona Lisa. Leonardo da Vinci, Public domain, via \href{https://commons.wikimedia.org/wiki/File:La_Gioconda,_Leonardo_Da_Vinci.jpg}{Wikimedia Commons}.}
+	\captionbelow{Mona Lisa. Leonardo da Vinci, Public domain, via \href{https://commons.wikimedia.org/wiki/File:La_Gioconda,_Leonardo_Da_Vinci.jpg}{Wikimedia Commons}.}
+	\label{mona-bottom}
 \end{figure}
 
 \begin{figure}
@@ -158,11 +160,11 @@ There is some overlap with margin stuff: sidecaption, sidefigures and sidetables
 	\captionaboveof{table}{Mona Lisa. Leonardo da Vinci, Public domain, via \href{https://commons.wikimedia.org/wiki/File:La_Gioconda,_Leonardo_Da_Vinci.jpg}{Wikimedia Commons}.}
 \end{figure}
 
-
 \begin{widefigure}
 	\centering
 	\includegraphics[width=.4\textwidth]{../../testfiles/La_Gioconda_Leonardo_Da_Vinci.jpg}
-	\captionbelowof{table}{Mona Lisa. Leonardo da Vinci, Public domain, via \href{https://commons.wikimedia.org/wiki/File:La_Gioconda,_Leonardo_Da_Vinci.jpg}{Wikimedia Commons}.}
+	\captionbelow{Mona Lisa. Leonardo da Vinci, Public domain, via \href{https://commons.wikimedia.org/wiki/File:La_Gioconda,_Leonardo_Da_Vinci.jpg}{Wikimedia Commons}.}
+	\label{mona-wide}
 \end{widefigure}
 
 
@@ -177,6 +179,10 @@ There is some overlap with margin stuff: sidecaption, sidefigures and sidetables
 % \end{kaolisting}
 
 \blindtext
+
+ref wide: \ref{mona-wide}.
+
+ref bottom: \ref{mona-bottom}.
 
 % \begin{lstlisting}[language=Python,caption={Wa, it works also with this caption? How is this possible?},captionpos=t]
 % import numpy as pd

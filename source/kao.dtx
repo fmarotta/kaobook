@@ -744,8 +744,13 @@
 	\begin{lrbox}{\kao@float@box}%
 	\begin{minipage}[b]{\linewidth}%
 		\def\@caption##1[##2]##3{%
+			\ifkao@captionused
+				\ClassError{kao}{Multiple captions in kao@float.}{%
+				kao@floats can have only one \noexpand\caption.\MessageBreak
+				Please set \noexpand\kaofloatfalse before this float}
+			\fi
 			% Counter will be incremented again by kao-supplied \caption
-			\addtocounter{##1}{\m@ne}%
+			\global\advance\csname c@##1\endcsname\m@ne%
 			\xdef\kao@captiontype{##1}%
 			\gdef\kao@captionentry{##2}%
 			\gdef\kao@captioncontent{##3}%
@@ -759,6 +764,8 @@
 	\end{minipage}%
 	\end{lrbox}%
 	\ifkao@captionused%
+		\def\@captype{\kao@captiontype}
+		\capstart% hypcap
 		\ifkaosidecaption%
 			\usebox{\kao@float@box}%
 			\kao@makesidecaption%
@@ -766,17 +773,18 @@
 			\ifkao@captionabove%
 				\hspace*{\dimexpr\linewidth-\kao@captionlinewidth}%
 				\begin{minipage}[t]{\kao@captionlinewidth}%
-					\captionaboveof{\kao@captiontype}[\kao@captionentry]{\kao@captioncontent}%
+					\captionabove[\kao@captionentry]{\kao@captioncontent}%
 				\end{minipage}
 				\usebox{\kao@float@box}%
 			\else%
 				\usebox{\kao@float@box}
 				\hspace*{\dimexpr\linewidth-\kao@captionlinewidth}%
 				\begin{minipage}[t]{\kao@captionlinewidth}%
-					\captionbelowof{\kao@captiontype}[\kao@captionentry]{\kao@captioncontent}%
+					\captionbelow[\kao@captionentry]{\kao@captioncontent}%
 				\end{minipage}%
 			\fi%
 		\fi%
+		\global\@capstartfalse% hypcap
 	\else
 		\usebox{\kao@float@box}
 	\fi%
@@ -1060,6 +1068,7 @@
 \RequirePackage[intoc]{nomencl}
 \AfterAtEndOfPackage{hyperref}{
 	\RequirePackage[xindy,toc,numberedsection=nameref]{glossaries} % Must be loaded after hyperref
+	\RequirePackage{hypcap}
 }
 %    \end{macrocode}
 % \end{macro}
