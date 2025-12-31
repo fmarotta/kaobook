@@ -559,7 +559,7 @@
 \NewDocumentEnvironment{sidefigure}{b}{%
 	\makenote*{%
 		\vspace{1em}%
-		\begin{minipage}{\marginparwidth}%
+		\begin{latexminipage}{\marginparwidth}%
 			\def\caption{%
 				\if@figurecaptionabove\expandafter\captionabove%
 				\else\expandafter\captionbelow\fi%
@@ -567,13 +567,13 @@
 			\def\@captype{figure}%
 			\usekomafont{notecolumn.marginpar}%
 			#1%
-		\end{minipage}%
+		\end{latexminipage}%
 	}%
 }{}
 
 \NewDocumentEnvironment{sidetable}{b}{%
 	\makenote*{%
-		\begin{minipage}{\marginparwidth}%
+		\begin{latexminipage}{\marginparwidth}%
 			\def\caption{%
 				\if@tablecaptionabove\expandafter\captionabove%
 				\else\expandafter\captionbelow\fi%
@@ -581,7 +581,7 @@
 			\def\@captype{table}%
 			\usekomafont{notecolumn.marginpar}%
 			#1%
-		\end{minipage}%
+		\end{latexminipage}%
 	}%
 }{}
 
@@ -593,9 +593,9 @@
 		\if@twoside%
 			\Ifthispageodd{}{\hspace*{-\dimexpr\marginparwidth+\marginparsep}}%
 		\fi%
-		\begin{minipage}{\@tempdima}%
+		\begin{latexminipage}{\@tempdima}%
 }{%
-		\end{minipage}%
+		\end{latexminipage}%
 	\end{figure}%
 }
 \NewDocumentEnvironment{widetable}{O{bthp}}{%
@@ -605,9 +605,9 @@
 		\if@twoside%
 			\Ifthispageodd{}{\hspace*{-\dimexpr\marginparwidth+\marginparsep}}%
 		\fi%
-		\begin{minipage}{\@tempdima}%
+		\begin{latexminipage}{\@tempdima}%
 }{%
-		\end{minipage}%
+		\end{latexminipage}%
 	\end{table}%
 }
 
@@ -639,11 +639,11 @@
 	\stepcounter{kao@sidepage@in}%
 	\global\expandafter\newsavebox\csname kao@sidepage\thekao@sidepage@in\endcsname%
 	\begin{lrbox}{\@kao@sidebox}%
-	\begin{minipage}{\marginparwidth}%
+	\begin{latexminipage}{\marginparwidth}%
 	\usekomafont{notecolumn.marginpar}%
 	#1%
 }{
-	\end{minipage}%
+	\end{latexminipage}%
 	\end{lrbox}%
 	\global\expandafter\setbox\csname kao@sidepage\thekao@sidepage@in\endcsname\box\the\@kao@sidebox%
 	\makenote*{\stepcounter{kao@sidepage@out}\usebox{\csname kao@sidepage\thekao@sidepage@out\endcsname}}%
@@ -716,37 +716,52 @@
 % \RequirePackage{hypcap}
 \setcapindent{0pt}
 \setkomafont{captionlabel}{\bfseries}
-\newif\ifkaofloat\kaofloattrue
+\newif\ifkaominipage\kaominipagetrue
 \newif\ifkaosidecaption\kaosidecaptionfalse
+\newif\ifkaofloat\kaofloattrue
 \let\kao@orig@float\@float
 \let\kao@orig@endfloat\end@float
+\let\latexminipage\minipage
+\let\endlatexminipage\endminipage
 \newif\ifkao@captionused
 \newif\ifkao@captionabove
-\newsavebox\kao@float@box
+\newsavebox\kao@minipage@box
+\RenewDocumentEnvironment{minipage}{O{t} m}{%
+	\ifkaominipage%
+		\kaominipage[#1]{#2}%
+	\else%
+		\latexminipage[#1]{#2}%
+	\fi%
+}{%
+	\ifkaominipage%
+		\endkaominipage%
+	\else%
+		\endlatexminipage%
+	\fi%
+}
 \RenewDocumentEnvironment{@float}{m o}{%
 	\ifkaofloat%
-		\IfNoValueTF{#2}{\kao@float{#1}[\csname fps@#1\endcsname]}{\kao@float{#1}[#2]}%
+		\IfNoValueTF{#2}{\kaofloat{#1}[\csname fps@#1\endcsname]}{\kaofloat{#1}[#2]}%
 	\else%
 		\IfNoValueTF{#2}{\kao@orig@float{#1}[\csname fps@#1\endcsname]}{\kao@orig@float{#1}[#2]}%
 	\fi%
 }{%
 	\ifkaofloat%
-		\endkao@float%
+		\endkaofloat%
 	\else%
 		\kao@orig@endfloat%
 	\fi%
 }
 
-\NewDocumentEnvironment{kao@float}{m o}{%
-	\IfNoValueTF{#2}{\kao@orig@float{#1}[\csname fps@#1\endcsname]}{\kao@orig@float{#1}[#2]}%
+\NewDocumentEnvironment{kaominipage}{O{t} m}{%
 	\global\kao@captionusedfalse%
 	\global\kao@captionabovefalse%
-	\begin{lrbox}{\kao@float@box}%
-	\begin{minipage}[b]{\linewidth}%
+	\begin{lrbox}{\kao@minipage@box}%
+	\latexminipage[#1]{#2}%
 		\def\@caption##1[##2]##3{%
 			\ifkao@captionused
-				\ClassError{kao}{Multiple captions in kao@float.}{%
-				kao@floats can have only one \noexpand\caption.\MessageBreak
+				\ClassError{kao}{Multiple captions in kaofloat.}{%
+				kaofloats can have only one \noexpand\caption.\MessageBreak
 				Please set \noexpand\kaofloatfalse before this float}
 			\fi
 			% Counter will be incremented again by kao-supplied \caption
@@ -761,33 +776,40 @@
 			\global\kao@captionusedtrue%
 		}%
 }{%
-	\end{minipage}%
+	\endlatexminipage%
 	\end{lrbox}%
 	\ifkao@captionused%
 		\def\@captype{\kao@captiontype}
 		\capstart% hypcap
 		\ifkaosidecaption%
-			\usebox{\kao@float@box}%
+			\usebox{\kao@minipage@box}%
 			\kao@makesidecaption%
 	    \else%
 			\ifkao@captionabove%
 				\hspace*{\dimexpr\linewidth-\kao@captionlinewidth}%
-				\begin{minipage}[t]{\kao@captionlinewidth}%
+				\begin{latexminipage}[t]{\kao@captionlinewidth}%
 					\captionabove[\kao@captionentry]{\kao@captioncontent}%
-				\end{minipage}
-				\usebox{\kao@float@box}%
+				\end{latexminipage}
+				\usebox{\kao@minipage@box}%
 			\else%
-				\usebox{\kao@float@box}
+				\usebox{\kao@minipage@box}
 				\hspace*{\dimexpr\linewidth-\kao@captionlinewidth}%
-				\begin{minipage}[t]{\kao@captionlinewidth}%
+				\begin{latexminipage}[t]{\kao@captionlinewidth}%
 					\captionbelow[\kao@captionentry]{\kao@captioncontent}%
-				\end{minipage}%
+				\end{latexminipage}%
 			\fi%
 		\fi%
 		\global\@capstartfalse% hypcap
 	\else
-		\usebox{\kao@float@box}
+		\usebox{\kao@minipage@box}
 	\fi%
+}
+
+\NewDocumentEnvironment{kaofloat}{m o}{%
+	\IfNoValueTF{#2}{\kao@orig@float{#1}[\csname fps@#1\endcsname]}{\kao@orig@float{#1}[#2]}%
+	\begin{kaominipage}{\linewidth}
+}{
+	\end{kaominipage}
 	\kao@orig@endfloat%
 }%
 \newlength{\kao@sidecaption@offset}
@@ -810,7 +832,7 @@
 	\fi%
 	\makebox[0sp][l]{%
 		\hspace{\kao@sidecaption@offset}%
-		\parbox[b][\ht\kao@float@box][\kao@float@align]{\marginparwidth}{%
+		\parbox[b][\ht\kao@minipage@box][\kao@float@align]{\marginparwidth}{%
 			\kao@float@caption{\kao@captiontype}[\kao@captionentry]{\kao@captioncontent}%
 		}%
 	}%
