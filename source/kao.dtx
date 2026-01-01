@@ -795,17 +795,24 @@
 		\def\@captype{\kao@captiontype}%
 		\capstart% hypcap
 		\ifkaosidecaption%
-			\usebox{\kao@minipage@box}%
-			\kao@makesidecaption%
+			\usebox\kao@minipage@box%
+			\ifkao@captionabove%
+				\fixednote[-\ht\kao@minipage@box][t]{\captionaboveof{\kao@captiontype}[\kao@captionentry]{\kao@captioncontent}}%
+			\else%
+				\fixednote[0sp][b]{\captionbelowof{\kao@captiontype}[\kao@captionentry]{\kao@captioncontent}}%
+			\fi%
 	    \else%
 			\ifkao@captionabove%
+				% TODO: adjust alignment of caption minipage relative to #1. this assumes 'b', which is passed in kaofloat.
 				\hspace*{\dimexpr\linewidth-\kao@captionlinewidth}%
 				\latexminipage[t]{\kao@captionlinewidth}%
 					\captionabove[\kao@captionentry]{\kao@captioncontent}%
 				\endlatexminipage%
-				\usebox{\kao@minipage@box}%
+				\par%
+				\unhbox\kao@minipage@box%
 			\else%
-				\usebox{\kao@minipage@box}
+				\unhbox\kao@minipage@box%
+				\par%
 				\hspace*{\dimexpr\linewidth-\kao@captionlinewidth}%
 				\latexminipage[t]{\kao@captionlinewidth}%
 					\captionbelow[\kao@captionentry]{\kao@captioncontent}%
@@ -814,15 +821,94 @@
 		\fi%
 		\global\@capstartfalse% hypcap
 	\else%
-		\usebox{\kao@minipage@box}%
+		\unhbox\kao@minipage@box%
 	\fi%
 }
 
+\newif\ifkao@subcaptionused
+\newif\ifkao@subcaptionabove
+\newsavebox\kao@subminipage@box
+\NewDocumentEnvironment{subminipage}{O{t} m}{%
+	\let\@caption\kao@orig@@caption% reset the caption def
+	\global\kao@subcaptionusedfalse%
+	\global\kao@subcaptionabovefalse%
+	\begin{lrbox}{\kao@subminipage@box}%
+	\begin{latexminipage}[#1]{#2}%
+		\edef\kao@orig@captype{\csname @captype\endcsname}%
+		\addtocounter{\kao@orig@captype}{1}%
+		\def\@captype{sub\kao@orig@captype}%
+		\def\@caption##1[##2]##3{%
+			\ifkao@subcaptionused%
+				\ClassError{kao}{Multiple captions in subminipage.}{%
+				subminipage can have only one \noexpand\caption}%
+			\fi%
+			% Counter will be incremented again by kao-supplied \caption
+			\global\advance\csname c@##1\endcsname\m@ne%
+			\xdef\kao@subcaptiontype{##1}%
+			\gdef\kao@subcaptionentry{##2}%
+			\gdef\kao@subcaptioncontent{##3}%
+			\xdef\kao@subcaptionlinewidth{\the\linewidth}%
+			\if@captionabove%
+				\global\kao@subcaptionabovetrue%
+			\fi%
+			\global\kao@subcaptionusedtrue%
+		}%
+}{%
+	\addtocounter{\kao@orig@captype}{-1}%
+	\end{latexminipage}%
+	\end{lrbox}%
+	\ifkao@subcaptionused%
+		\def\@captype{\kao@subcaptiontype}%
+		\capstart% hypcap
+		\ifkao@subcaptionabove%
+			% TODO: adjust alignment of caption minipage relative to #1. this assumes 'b', which is passed in kaofloat.
+			\begin{latexminipage}[t]{\kao@subcaptionlinewidth}%
+				\captionabove[\kao@subcaptionentry]{\kao@subcaptioncontent}%
+				\unhbox\kao@subminipage@box%
+			\end{latexminipage}%
+		\else%
+			\begin{latexminipage}[t]{\kao@subcaptionlinewidth}%
+				\unhbox\kao@subminipage@box%
+				\captionbelow[\kao@subcaptionentry]{\kao@subcaptioncontent}%
+			\end{latexminipage}%
+		\fi%
+		\global\@capstartfalse% hypcap
+	\else%
+		\unhbox\kao@subminipage@box%
+	\fi%
+}
+
+\NewDocumentCommand{\makesubminipage}{m}{% marg: the name of the environment
+	\newcounter{sub#1}[#1] % NO, this should be a subcounter of any MINIPAGE environment! Although mixing subtypes is not a good idea anyway...
+	\expandafter\def\csname thesub#1\endcsname{%
+		\alph{sub#1}%
+	}
+	\expandafter\def\csname sub#1format\endcsname{%
+		(\csname thesub#1\endcsname\csname autodot\endcsname)%
+	}
+	\expandafter\def\csname sub#1captionformat\endcsname{%
+		\enskip%
+	}
+	\expandafter\def\csname fnum@sub#1\endcsname{%
+		\csname sub#1format\endcsname%
+		\def\captionformat{\csname sub#1captionformat\endcsname}%
+	}
+	\labelformat{sub#1}{%
+		\csname the#1\endcsname\csname autodot\endcsname\ \csname thesub#1\endcsname\csname autodot\endcsname%
+	}
+	\expandafter\def\csname ext@sub#1\endcsname{%
+		\csname ext@#1\endcsname%
+	}
+	\DeclareTOCStyleEntry[level:=#1]{gobble}{sub#1}
+}
+\makesubminipage{figure}
+\makesubminipage{table}
+
 \NewDocumentEnvironment{kaofloat}{m o}{%
 	\IfNoValueTF{#2}{\kao@orig@float{#1}[\csname fps@#1\endcsname]}{\kao@orig@float{#1}[#2]}%
-	\begin{kaominipage}[t]{\linewidth}
-}{
-	\end{kaominipage}
+	\begin{kaominipage}[t]{\linewidth}%
+}{%
+	\end{kaominipage}%
 	\kao@orig@endfloat%
 }%
 \newlength{\kao@sidecaption@offset}
