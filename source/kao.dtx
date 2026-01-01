@@ -911,31 +911,6 @@
 	\end{kaominipage}%
 	\kao@orig@endfloat%
 }%
-\newlength{\kao@sidecaption@offset}
-\newcounter{@sidecaption@counter}
-\newcommand*\kao@makesidecaption{%
-	\zsavepos{kao@\the@sidecaption@counter}%
-	\setlength{\kao@sidecaption@offset}{\dimexpr-\zposx{kao@\the@sidecaption@counter}sp+1in+\hoffset+\oddsidemargin+\textwidth+\marginparsep}%
-	\Ifthispageodd{}{%
-		\if@twoside%
-			\setlength{\kao@sidecaption@offset}{\dimexpr-\zposx{kao@\the@sidecaption@counter}sp+1in+\hoffset+\evensidemargin-\marginparsep-\marginparwidth}%
-		\fi%
-	}%
-	\zrefused{kao@\the@sidecaption@counter}%
-	\stepcounter{@sidecaption@counter}%
-	\def\kao@float@align{b}%
-	\let\kao@float@caption\captionbelowof%
-	\ifkao@captionabove%
-		\def\kao@float@align{t}%
-		\let\kao@float@caption\captionaboveof%
-	\fi%
-	\makebox[0sp][l]{%
-		\hspace{\kao@sidecaption@offset}%
-		\parbox[b][\ht\kao@minipage@box][\kao@float@align]{\marginparwidth}{%
-			\kao@float@caption{\kao@captiontype}[\kao@captionentry]{\kao@captioncontent}%
-		}%
-	}%
-}
 
 \RequirePackage{zref-savepos}
 \RequirePackage{zref-user}
