@@ -727,7 +727,7 @@
 \newif\ifkao@captionused
 \newif\ifkao@captionabove
 \newsavebox\kao@minipage@box
-\RenewDocumentEnvironment{minipage}{O{c} m}{%
+\RenewDocumentEnvironment{minipage}{O{t} m}{%
 	\if@kaominipage%
 		% we are starting a nested minipage
 		\latexminipage[#1]{#2}%
@@ -763,7 +763,7 @@
 	\fi%
 }
 
-\NewDocumentEnvironment{kaominipage}{O{c} m}{%
+\NewDocumentEnvironment{kaominipage}{O{t} m}{%
 	\@kaominipagetrue%
 	\let\kao@orig@@caption\@caption%
 	\global\kao@captionusedfalse%
