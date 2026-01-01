@@ -716,6 +716,7 @@
 \setcapindent{0pt}
 \setkomafont{captionlabel}{\bfseries}
 \newif\ifkaominipage\kaominipagetrue
+\newif\if@kaominipage\@kaominipagefalse
 \newif\ifkaosidecaption\kaosidecaptionfalse
 \newif\ifkaofloat\kaofloattrue
 \let\kao@orig@float\@float
@@ -725,16 +726,22 @@
 \newif\ifkao@captionused
 \newif\ifkao@captionabove
 \newsavebox\kao@minipage@box
-\RenewDocumentEnvironment{minipage}{O{t} m}{%
-	\ifkaominipage%
-		\kaominipage[#1]{#2}%
-	\else%
+\RenewDocumentEnvironment{minipage}{O{c} m}{%
+	\if@kaominipage%
+		% we are starting a nested minipage
 		\latexminipage[#1]{#2}%
+		\@kaominipagefalse% we need to close the correct one
+		\let\@caption\kao@orig@@caption% reset the caption def
+	\else%
+		\ifkaominipage%
+			\kaominipage[#1]{#2}%
+		\else%
+			% we want a normal latex minipage
+			\latexminipage[#1]{#2}%
+		\fi%
 	\fi%
 }{%
-	\ifkaominipage%
-		% This prevents nesting minipages! pls fix asap. If we set kaominipagefalse in the pre, the kaominipage will be ended by a latexminipage. we need another conditional.
-		% In any case, putting minipages inside kaofloats WILL result in captions lost. It's the same issue as floatrow. Maybe we should make sure that only the minipage which contains a caption becomes a kaominipage, the others stay latexminipage. seems tricky...
+	\if@kaominipage%
 		% TODO: disable sidecaption if KOMA's captionbeside is used!
 		\endkaominipage%
 	\else%
@@ -755,17 +762,19 @@
 	\fi%
 }
 
-\NewDocumentEnvironment{kaominipage}{O{t} m}{%
+\NewDocumentEnvironment{kaominipage}{O{c} m}{%
+	\@kaominipagetrue%
+	\let\kao@orig@@caption\@caption%
 	\global\kao@captionusedfalse%
 	\global\kao@captionabovefalse%
 	\begin{lrbox}{\kao@minipage@box}%
 	\latexminipage[#1]{#2}%
 		\def\@caption##1[##2]##3{%
-			\ifkao@captionused
+			\ifkao@captionused%
 				\ClassError{kao}{Multiple captions in kaofloat.}{%
-				kaofloats can have only one \noexpand\caption.\MessageBreak
-				Please set \noexpand\kaofloatfalse before this float}
-			\fi
+				kaofloats can have only one \noexpand\caption.\MessageBreak%
+				Please set \noexpand\kaofloatfalse before this float}%
+			\fi%
 			% Counter will be incremented again by kao-supplied \caption
 			\global\advance\csname c@##1\endcsname\m@ne%
 			\xdef\kao@captiontype{##1}%
@@ -777,12 +786,12 @@
 			\fi%
 			\global\kao@captionusedtrue%
 		}%
-		\centering
+		\centering%
 }{%
 	\endlatexminipage%
 	\end{lrbox}%
 	\ifkao@captionused%
-		\def\@captype{\kao@captiontype}
+		\def\@captype{\kao@captiontype}%
 		\capstart% hypcap
 		\ifkaosidecaption%
 			\usebox{\kao@minipage@box}%
@@ -790,27 +799,27 @@
 	    \else%
 			\ifkao@captionabove%
 				\hspace*{\dimexpr\linewidth-\kao@captionlinewidth}%
-				\begin{latexminipage}[t]{\kao@captionlinewidth}%
+				\latexminipage[t]{\kao@captionlinewidth}%
 					\captionabove[\kao@captionentry]{\kao@captioncontent}%
-				\end{latexminipage}
+				\endlatexminipage%
 				\usebox{\kao@minipage@box}%
 			\else%
 				\usebox{\kao@minipage@box}
 				\hspace*{\dimexpr\linewidth-\kao@captionlinewidth}%
-				\begin{latexminipage}[t]{\kao@captionlinewidth}%
+				\latexminipage[t]{\kao@captionlinewidth}%
 					\captionbelow[\kao@captionentry]{\kao@captioncontent}%
-				\end{latexminipage}%
+				\endlatexminipage%
 			\fi%
 		\fi%
 		\global\@capstartfalse% hypcap
-	\else
-		\usebox{\kao@minipage@box}
+	\else%
+		\usebox{\kao@minipage@box}%
 	\fi%
 }
 
 \NewDocumentEnvironment{kaofloat}{m o}{%
 	\IfNoValueTF{#2}{\kao@orig@float{#1}[\csname fps@#1\endcsname]}{\kao@orig@float{#1}[#2]}%
-	\begin{kaominipage}{\linewidth}
+	\begin{kaominipage}[t]{\linewidth}
 }{
 	\end{kaominipage}
 	\kao@orig@endfloat%
