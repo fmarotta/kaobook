@@ -770,7 +770,7 @@
 	\global\kao@captionabovefalse%
 	\begin{lrbox}{\kao@minipage@box}%
 	\latexminipage[#1]{#2}%
-		\def\@caption##1[##2]##3{%
+		\long\def\@caption##1[##2]##3{%
 			\ifkao@captionused%
 				\ClassError{kao}{Multiple captions in kaofloat.}{%
 				kaofloats can have only one \noexpand\caption.\MessageBreak%
@@ -795,7 +795,7 @@
 		\def\@captype{\kao@captiontype}%
 		\capstart% hypcap
 		\ifkaosidecaption%
-			\usebox\kao@minipage@box%
+			\unhbox\kao@minipage@box%
 			\ifkao@captionabove%
 				\fixednote[-\ht\kao@minipage@box][t]{\captionaboveof{\kao@captiontype}[\kao@captionentry]{\kao@captioncontent}}%
 			\else%
@@ -829,6 +829,7 @@
 \newif\ifkao@subcaptionabove
 \newsavebox\kao@subminipage@box
 \NewDocumentEnvironment{subminipage}{O{t} m}{%
+	% TODO: error out if orig@@caption is undefined
 	\let\@caption\kao@orig@@caption% reset the caption def
 	\global\kao@subcaptionusedfalse%
 	\global\kao@subcaptionabovefalse%
@@ -837,7 +838,7 @@
 		\edef\kao@orig@captype{\csname @captype\endcsname}%
 		\addtocounter{\kao@orig@captype}{1}%
 		\def\@captype{sub\kao@orig@captype}%
-		\def\@caption##1[##2]##3{%
+		\long\def\@caption##1[##2]##3{%
 			\ifkao@subcaptionused%
 				\ClassError{kao}{Multiple captions in subminipage.}{%
 				subminipage can have only one \noexpand\caption}%
@@ -854,12 +855,12 @@
 			\global\kao@subcaptionusedtrue%
 		}%
 }{%
+	\unskip%
 	\addtocounter{\kao@orig@captype}{-1}%
 	\end{latexminipage}%
 	\end{lrbox}%
 	\ifkao@subcaptionused%
 		\def\@captype{\kao@subcaptiontype}%
-		\capstart% hypcap
 		\ifkao@subcaptionabove%
 			% TODO: adjust alignment of caption minipage relative to #1. this assumes 'b', which is passed in kaofloat.
 			\begin{latexminipage}[t]{\kao@subcaptionlinewidth}%
@@ -872,7 +873,6 @@
 				\captionbelow[\kao@subcaptionentry]{\kao@subcaptioncontent}%
 			\end{latexminipage}%
 		\fi%
-		\global\@capstartfalse% hypcap
 	\else%
 		\unhbox\kao@subminipage@box%
 	\fi%
@@ -1164,7 +1164,6 @@
 \RequirePackage[intoc]{nomencl}
 \AfterAtEndOfPackage{hyperref}{
 	\RequirePackage[xindy,toc,numberedsection=nameref]{glossaries} % Must be loaded after hyperref
-	\RequirePackage{hypcap}
 }
 %    \end{macrocode}
 % \end{macro}
@@ -1177,8 +1176,9 @@
 \RequirePackage[hyphens]{url} % Allow hyphens as breakpoints in URLs (this option must be passed before hyperref, because hyperref loads url)
 \RequirePackage{hyperref} % Required for hyperlinks
 \AfterAtEndOfPackage*{hyperref}{
-	% We put it here in case the user loads hyperref again (this way, bookmark will also be reloaded)
+	% We put it here in case the user loads hyperref again (this way, bookmark will also be reloaded (I'm not sure this is true))
 	\RequirePackage{bookmark} % Required for pdf bookmarks (must be loaded after hyperref)
+	\RequirePackage{hypcap}
 }
 
 % Provide an optional argument to the \title command in which to store a plain text title, without any formatting
