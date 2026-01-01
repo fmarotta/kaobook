@@ -714,6 +714,7 @@
 \RequirePackage{zref-savepos}
 \RequirePackage{zref-user}
 \setcapindent{0pt}
+\renewcommand*{\captionformat}{:\enskip} % this is only what follows the label; the label itself is handled by \figureformat, \tableformat, and so on, which in turn uses \thefigure, \thetable, and so on.
 \setkomafont{captionlabel}{\bfseries}
 \newif\ifkaominipage\kaominipagetrue
 \newif\if@kaominipage\@kaominipagefalse
