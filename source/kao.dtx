@@ -587,27 +587,27 @@
 
 %% FIXME: \captionbelowof{table} puts the caption above.
 \NewDocumentEnvironment{widefigure}{O{tbhp}}{%
-	\kaosidecaptionfalse
 	\begin{figure}[#1]%
 		\setlength{\@tempdima}{\dimexpr\textwidth+\marginparwidth+\marginparsep}%
 		\if@twoside%
 			\Ifthispageodd{}{\hspace*{-\dimexpr\marginparwidth+\marginparsep}}%
 		\fi%
-		\begin{latexminipage}{\@tempdima}%
+		\begin{subminipage}{\@tempdima}% this would be a subminipage under default circumstances
+		\def\@captype{figure}% ...so we need to override the default subminipage captype
 }{%
-		\end{latexminipage}%
+		\end{subminipage}%
 	\end{figure}%
 }
 \NewDocumentEnvironment{widetable}{O{bthp}}{%
-	\kaosidecaptionfalse%
 	\begin{table}[#1]%
 		\setlength{\@tempdima}{\dimexpr\textwidth+\marginparwidth+\marginparsep}%
 		\if@twoside%
 			\Ifthispageodd{}{\hspace*{-\dimexpr\marginparwidth+\marginparsep}}%
 		\fi%
-		\begin{latexminipage}{\@tempdima}%
+		\begin{subminipage}{\@tempdima}%
+		\def\@captype{table}%
 }{%
-		\end{latexminipage}%
+		\end{subminipage}%
 	\end{table}%
 }
 
@@ -709,208 +709,233 @@
 %% It respects \captionabove, \captionof, and \captionaboveof (as well as the corresponding below's).
 %% XXX: currently not compatible with the caption package. KOMAScript claims to be compatible, so we need to do something heh.
 %% NOTE: calling \kaosidecaptionfalse makes it use almost the "regular" captions, either above or below. the difference is that the captions are as wide as the float (we need this for widefigure and widetable environments).
-%% NOTE: calling \kaofloatfalse is the escape hatch: floats will be the regular LaTeX floats, instead of the redefined ones.
+%% NOTE: calling \kaominipagefalse is the escape hatch: floats will be the regular LaTeX floats, instead of the redefined ones.
 %% Our redefinition places the captions either above or below depending on the configuration, regardless of where the user writes the caption.
-\RequirePackage{zref-savepos}
-\RequirePackage{zref-user}
 \setcapindent{0pt}
 \renewcommand*{\captionformat}{:\enskip} % this is only what follows the label; the label itself is handled by \figureformat, \tableformat, and so on, which in turn uses \thefigure, \thetable, and so on.
 \setkomafont{captionlabel}{\bfseries}
-\newif\ifkaominipage\kaominipagetrue
-\newif\if@kaominipage\@kaominipagefalse
-\newif\ifkaosidecaption\kaosidecaptionfalse
+
 \newif\ifkaofloat\kaofloattrue
-\let\kao@orig@float\@float
-\let\kao@orig@endfloat\end@float
-\let\latexminipage\minipage
-\let\endlatexminipage\endminipage
-\newif\ifkao@captionused
-\newif\ifkao@captionabove
-\newsavebox\kao@minipage@box
-\RenewDocumentEnvironment{minipage}{O{t} m}{%
-	\if@kaominipage%
-		% we are starting a nested minipage
-		\latexminipage[#1]{#2}%
-		\@kaominipagefalse% we need to close the correct one
-		\let\@caption\kao@orig@@caption% reset the caption def
-	\else%
-		\ifkaominipage%
-			\kaominipage[#1]{#2}%
-		\else%
-			% we want a normal latex minipage
-			\latexminipage[#1]{#2}%
-		\fi%
-	\fi%
-}{%
-	\if@kaominipage%
-		% TODO: disable sidecaption if KOMA's captionbeside is used!
-		\endkaominipage%
-	\else%
-		\endlatexminipage%
-	\fi%
-}
-\RenewDocumentEnvironment{@float}{m o}{%
+\let\latex@float\@float
+\let\endlatex@float\end@float
+\RenewDocumentEnvironment{@float}{m o O{t}}{%
 	\ifkaofloat%
-		\IfNoValueTF{#2}{\kaofloat{#1}[\csname fps@#1\endcsname]}{\kaofloat{#1}[#2]}%
+		\IfNoValueTF{#2}{\kaofloat{#1}[\csname fps@#1\endcsname][#3]}{\kaofloat{#1}[#2][#3]}%
 	\else%
-		\IfNoValueTF{#2}{\kao@orig@float{#1}[\csname fps@#1\endcsname]}{\kao@orig@float{#1}[#2]}%
+		\IfNoValueTF{#2}{\latex@float{#1}[\csname fps@#1\endcsname]}{\latex@float{#1}[#2]}%
 	\fi%
 }{%
 	\ifkaofloat%
 		\endkaofloat%
 	\else%
-		\kao@orig@endfloat%
+		\endlatex@float%
 	\fi%
 }
 
-\NewDocumentEnvironment{kaominipage}{O{t} m}{%
-	\@kaominipagetrue%
-	\let\kao@orig@@caption\@caption%
-	\global\kao@captionusedfalse%
-	\global\kao@captionabovefalse%
-	\begin{lrbox}{\kao@minipage@box}%
-	\latexminipage[#1]{#2}%
-		\long\def\@caption##1[##2]##3{%
-			\ifkao@captionused%
-				\ClassError{kao}{Multiple captions in kaofloat.}{%
-				kaofloats can have only one \noexpand\caption.\MessageBreak%
-				Please set \noexpand\kaofloatfalse before this float}%
-			\fi%
-			% Counter will be incremented again by kao-supplied \caption
-			\global\advance\csname c@##1\endcsname\m@ne%
-			\xdef\kao@captiontype{##1}%
-			\gdef\kao@captionentry{##2}%
-			\gdef\kao@captioncontent{##3}%
-			\xdef\kao@captionlinewidth{\the\linewidth}%
-			\if@captionabove%
-				\global\kao@captionabovetrue%
-			\fi%
-			\global\kao@captionusedtrue%
-		}%
-		\centering%
-}{%
-	\endlatexminipage%
-	\end{lrbox}%
-	\ifkao@captionused%
-		\def\@captype{\kao@captiontype}%
-		\capstart% hypcap
-		\ifkaosidecaption%
-			\unhbox\kao@minipage@box%
-			\ifkao@captionabove%
-				\fixednote[-\ht\kao@minipage@box][t]{\captionaboveof{\kao@captiontype}[\kao@captionentry]{\kao@captioncontent}}%
-			\else%
-				\fixednote[0sp][b]{\captionbelowof{\kao@captiontype}[\kao@captionentry]{\kao@captioncontent}}%
-			\fi%
-	    \else%
-			\ifkao@captionabove%
-				% TODO: adjust alignment of caption minipage relative to #1. this assumes 'b', which is passed in kaofloat.
-				\hspace*{\dimexpr\linewidth-\kao@captionlinewidth}%
-				\latexminipage[t]{\kao@captionlinewidth}%
-					\captionabove[\kao@captionentry]{\kao@captioncontent}%
-				\endlatexminipage%
-				\par%
-				\unhbox\kao@minipage@box%
-			\else%
-				\unhbox\kao@minipage@box%
-				\par%
-				\hspace*{\dimexpr\linewidth-\kao@captionlinewidth}%
-				\latexminipage[t]{\kao@captionlinewidth}%
-					\captionbelow[\kao@captionentry]{\kao@captioncontent}%
-				\endlatexminipage%
-			\fi%
-		\fi%
-		\global\@capstartfalse% hypcap
-	\else%
-		\unhbox\kao@minipage@box%
-	\fi%
-}
-
-\newif\ifkao@subcaptionused
-\newif\ifkao@subcaptionabove
-\newsavebox\kao@subminipage@box
-\NewDocumentEnvironment{subminipage}{O{t} m}{%
-	% TODO: error out if orig@@caption is undefined
-	\let\@caption\kao@orig@@caption% reset the caption def
-	\global\kao@subcaptionusedfalse%
-	\global\kao@subcaptionabovefalse%
-	\begin{lrbox}{\kao@subminipage@box}%
-	\begin{latexminipage}[#1]{#2}%
-		\edef\kao@orig@captype{\csname @captype\endcsname}%
-		\addtocounter{\kao@orig@captype}{1}%
-		\def\@captype{sub\kao@orig@captype}%
-		\long\def\@caption##1[##2]##3{%
-			\ifkao@subcaptionused%
-				\ClassError{kao}{Multiple captions in subminipage.}{%
-				subminipage can have only one \noexpand\caption}%
-			\fi%
-			% Counter will be incremented again by kao-supplied \caption
-			\global\advance\csname c@##1\endcsname\m@ne%
-			\xdef\kao@subcaptiontype{##1}%
-			\gdef\kao@subcaptionentry{##2}%
-			\gdef\kao@subcaptioncontent{##3}%
-			\xdef\kao@subcaptionlinewidth{\the\linewidth}%
-			\if@captionabove%
-				\global\kao@subcaptionabovetrue%
-			\fi%
-			\global\kao@subcaptionusedtrue%
-		}%
-}{%
-	\unskip%
-	\addtocounter{\kao@orig@captype}{-1}%
-	\end{latexminipage}%
-	\end{lrbox}%
-	\ifkao@subcaptionused%
-		\def\@captype{\kao@subcaptiontype}%
-		\ifkao@subcaptionabove%
-			% TODO: adjust alignment of caption minipage relative to #1. this assumes 'b', which is passed in kaofloat.
-			\begin{latexminipage}[t]{\kao@subcaptionlinewidth}%
-				\captionabove[\kao@subcaptionentry]{\kao@subcaptioncontent}%
-				\unhbox\kao@subminipage@box%
-			\end{latexminipage}%
-		\else%
-			\begin{latexminipage}[t]{\kao@subcaptionlinewidth}%
-				\unhbox\kao@subminipage@box%
-				\captionbelow[\kao@subcaptionentry]{\kao@subcaptioncontent}%
-			\end{latexminipage}%
-		\fi%
-	\else%
-		\unhbox\kao@subminipage@box%
-	\fi%
-}
-
-\NewDocumentCommand{\makesubminipage}{m}{% marg: the name of the environment
-	\newcounter{sub#1}[#1] % NO, this should be a subcounter of any MINIPAGE environment! Although mixing subtypes is not a good idea anyway...
-	\expandafter\def\csname thesub#1\endcsname{%
-		\alph{sub#1}%
-	}
-	\expandafter\def\csname sub#1format\endcsname{%
-		(\csname thesub#1\endcsname\csname autodot\endcsname)%
-	}
-	\expandafter\def\csname sub#1captionformat\endcsname{%
-		\enskip%
-	}
-	\expandafter\def\csname fnum@sub#1\endcsname{%
-		\csname sub#1format\endcsname%
-		\def\captionformat{\csname sub#1captionformat\endcsname}%
-	}
-	\labelformat{sub#1}{%
-		\csname the#1\endcsname\csname autodot\endcsname\ \csname thesub#1\endcsname\csname autodot\endcsname%
-	}
-	\expandafter\def\csname ext@sub#1\endcsname{%
-		\csname ext@#1\endcsname%
-	}
-	\DeclareTOCStyleEntry[level:=#1]{gobble}{sub#1}
-}
-\makesubminipage{figure}
-\makesubminipage{table}
-
-\NewDocumentEnvironment{kaofloat}{m o}{%
-	\IfNoValueTF{#2}{\kao@orig@float{#1}[\csname fps@#1\endcsname]}{\kao@orig@float{#1}[#2]}%
-	\begin{kaominipage}[t]{\linewidth}%
+\NewDocumentEnvironment{kaofloat}{m o O{t}}{%
+	\IfNoValueTF{#2}{\latex@float{#1}[\csname fps@#1\endcsname]}{\latex@float{#1}[#2]}%
+	\begin{kaominipage}[#3]{\linewidth}%
 }{%
 	\end{kaominipage}%
-	\kao@orig@endfloat%
-}%
+	\endlatex@float%
+}
+
+\newif\ifkaominipage\kaominipagetrue
+\let\latexminipage\minipage
+\let\endlatexminipage\endminipage
+\RenewDocumentEnvironment{minipage}{O{t} m}{%
+	% Alignments:
+	% - t: everything (including side captions) aligns with the bottom of the graphics (default)
+	% - b: everything aligns with the bottom of the captions
+	% - to align everything with the very top: put \hbox{} at the beginning of the subminipages
+	\if@subminipage%
+		\begin{latexminipage}[#1]{#2}%
+		\kaominipagefalse% from now on, use only regular latexminipages
+		\@subminipagefalse%
+	\else%
+		\if@kaominipage%
+			\begin{subminipage}[#1]{#2}%
+			\@kaominipagefalse%
+		\else%
+			\ifkaominipage%
+				\begin{kaominipage}[#1]{#2}%
+			\else%
+				\begin{latexminipage}[#1]{#2}%
+			\fi%
+		\fi%
+	\fi%
+}{%
+	\if@subminipage%
+		\end{subminipage}%
+	\else%
+		\if@kaominipage%
+			\end{kaominipage}%
+		\else%
+			\end{latexminipage}%
+		\fi%
+	\fi%
+}
+
+\newif\ifkaosidecaption\kaosidecaptiontrue
+\newsavebox{\kao@minipage@box}
+\newcounter{minipage}
+\newif\ifkao@captionused
+\newif\ifkao@captionabove
+\newif\if@kaominipage
+\NewDocumentEnvironment{kaominipage}{O{t} m}{%
+	\let\kao@orig@@caption\@caption%
+	\def\kao@minipage@alignment{#1}%
+	\@kaominipagetrue%
+	\kao@captionusedfalse%
+	\kao@captionabovefalse%
+	\setbox\kao@minipage@box=\vbox\bgroup%
+	\noindent\latexminipage[#1]{#2}%
+	\stepcounter{minipage}%
+	\long\def\@caption##1[##2]##3{%
+		\ifkao@captionused%
+			\ClassError{kao}{Multiple captions in kaominipage or kaofloat.}{%
+			kaominipages and kaofloats can have only one \noexpand\caption.\MessageBreak%
+			Please set \noexpand\kaofloatfalse before this float}%
+		\fi%
+		\hyper@makecurrent##1%
+		\global\advance\csname c@##1\endcsname\m@ne%
+		\xdef\kao@caption@type{##1}%
+		\protected@xdef\kao@caption@entry{##2}%
+		\protected@xdef\kao@caption@content{##3}%
+		\if@captionabove%
+			\global\kao@captionabovetrue%
+		\fi%
+		\global\kao@captionusedtrue%
+		\par% needed to put the \label's whatsit on the line after the figure, otherwise it takes horizontal space.
+	}%
+	\centering%
+}{%
+	\endlatexminipage%
+	\egroup%
+	\ifkao@captionused%
+		\def\@captype{\kao@caption@type}%
+		\ifkaosidecaption%
+			\ifkao@captionabove%
+				\noindent\vtop{\hsize=#2 \capstart\unvbox\the\kao@minipage@box}%
+				\fixednote[0sp][t]{\captionabove[\kao@caption@entry]{\kao@caption@content}}%
+			\else%
+				\capstart%
+				\noindent\fixednote[0sp][b]{\captionbelow[\kao@caption@entry]{\kao@caption@content}}%
+				\vbox{\hsize=#2 \unvbox\the\kao@minipage@box}%
+			\fi%
+		\else%
+			\ifkao@captionabove%
+				\noindent\latexminipage[#1]{#2}%
+				% \capstart% not necessary here
+				\captionabove[\kao@caption@entry]{\kao@caption@content}%
+				\unvbox\the\kao@minipage@box%
+				\endlatexminipage%
+			\else%
+				\noindent\latexminipage[#1]{#2}%
+				\par\capstart%
+				\unvbox\the\kao@minipage@box%
+				\captionbelow[\kao@caption@entry]{\kao@caption@content}%
+				\endlatexminipage%
+			\fi%
+		\fi
+	\else%
+		\unvbox\kao@minipage@box%
+	\fi%
+}
+
+\newsavebox{\kao@subminipage@box}
+\newif\ifkao@subcaptionused
+\newif\ifkao@subcaptionabove
+\newif\if@subminipage
+\NewDocumentEnvironment{subminipage}{o m}{%
+	% Make sure that subminipages can be called oudside of kaominipages as well
+	\ifdefined\kao@orig@@caption%
+		\let\@caption\kao@orig@@caption%
+	\fi%
+	\edef\kao@subminipage@alignment{%
+		\IfValueTF{#1}{#1}{%
+			\ifdefined\kao@minipage@alignment%
+				\kao@minipage@alignment%
+			\else%
+				t%
+			\fi%
+		}%
+	}%
+	\@subminipagetrue%
+	\kao@subcaptionusedfalse%
+	\kao@subcaptionabovefalse%
+	\setbox\kao@subminipage@box=\hbox\bgroup% this must be hbox, whereas in kaominipage it must be a vbox. don't ask me why.
+	\latexminipage[\kao@subminipage@alignment]{#2}%
+	\def\@captype{subminipage}% default value; use \captionof{sub...} to override (although it's better not to change it... this ensures that the entries will be ordered a b c d. otherwise you could have two a's and three b's.)
+	\long\def\@caption##1[##2]##3{%
+		\ifkao@subcaptionused%
+			\ClassError{kao}{Multiple captions in subminipage.}{%
+			subminipage can have only one \noexpand\caption}%
+		\fi%
+		\hyper@makecurrent{##1}%
+		\global\advance\csname c@##1\endcsname\m@ne%
+		\xdef\kao@subcaption@type{##1}%
+		\protected@xdef\kao@subcaption@entry{##2}%
+		\protected@xdef\kao@subcaption@content{##3}%
+		\if@captionabove%
+			\global\kao@subcaptionabovetrue%
+		\fi%
+		\global\kao@subcaptionusedtrue%
+		\par% needed to put the \label's whatsit on the line after the figure, otherwise it takes horizontal space.
+	}%
+	\centering%
+}{%
+	\endlatexminipage%
+	\egroup%
+	\ifkao@subcaptionused%
+		\def\@captype{\kao@subcaption@type}%
+		\ifkao@subcaptionabove%
+			\noindent\latexminipage[\kao@subminipage@alignment]{#2}%
+			\leavevmode\capstart%
+			\captionabove[\kao@subcaption@entry]{\kao@subcaption@content}%
+			\unhbox\the\kao@subminipage@box%
+			\endlatexminipage%
+		\else%
+			\noindent\latexminipage[\kao@subminipage@alignment]{#2}%
+			\vbox{\capstart% the price to pay is that the whatsit will take some vertical space... but at least it doesn't set the baseline for the whole minipage.
+			\unhbox\the\kao@subminipage@box}%
+			\captionbelow[\kao@subcaption@entry]{\kao@subcaption@content}%
+			\endlatexminipage%
+		\fi%
+	\else%
+		\unhbox\the\kao@subminipage@box%
+	\fi%
+}
+
+\NewDocumentCommand{\makesubcounter}{m}{% marg: the name of the environment
+	\newcounter{sub#1}[#1] % Careful: what if #1 counter doesn't exist?
+	\expandafter\renewcommand\csname thesub#1\endcsname{%
+		\alph{sub#1}%
+	}
+	\expandafter\newcommand\csname sub#1format\endcsname{%
+		(\csname thesub#1\endcsname\csname autodot\endcsname)%
+	}
+	\expandafter\newcommand\csname sub#1captionformat\endcsname{%
+		\enskip%
+	}
+	\expandafter\newcommand\csname fnum@sub#1\endcsname{%
+		\csname sub#1format\endcsname%
+		\renewcommand\captionformat{\csname sub#1captionformat\endcsname}%
+	}
+	\expandafter\newcommand\csname ext@sub#1\endcsname{%
+		log% we need to write the caption entry somewhere... here it doesn't do any harm
+		% \csname ext@#1\endcsname%
+	}
+	% \DeclareTOCStyleEntry[level=0]{gobble}{sub#1}
+}
+\makesubcounter{minipage}
+\labelformat{subminipage}{\subminipageformat}
+\makesubcounter{figure}
+\labelformat{subfigure}{\figureformat\ \thesubfigure\autodot}
+\makesubcounter{table}
+\labelformat{subtable}{\tableformat\ \thesubtable\autodot}
+
+% Fixed notes
 
 \RequirePackage{zref-savepos}
 \RequirePackage{zref-user}
