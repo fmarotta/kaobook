@@ -743,7 +743,10 @@
 \newif\ifkaominipage\kaominipagetrue
 \let\latexminipage\minipage
 \let\endlatexminipage\endminipage
-\RenewDocumentEnvironment{minipage}{O{t} m}{%
+\RenewDocumentEnvironment{minipage}{O{c} m}{%
+	% Logic for nested minipages: the first one is a kaominipage; inside that it's a subminipage; inside that and beyond it's a plain latex minipage.
+	% This should work most of the times, except that in some cases the \@captype will be wrong and user needs to change it.
+	% User can also use kaominipage, subminipage, or latexminipage directly.
 	% Alignments:
 	% - t: everything (including side captions) aligns with the bottom of the graphics (default)
 	% - b: everything aligns with the bottom of the captions
@@ -775,6 +778,14 @@
 		\fi%
 	\fi%
 }
+
+% \capstart puts a whatsit which creates the link anchor. the anchor takes some space, so we need to be careful about where we put the whatsit.
+% There are many cases depending also on the position of the caption (above or below).
+% Sometimes we need to put \par before \capstart to make sure that the whatsit is on a new line; other times we wrap the whatsit and the graphic in a \vbox or \vtop.
+%
+% the \label also puts a whatsit; users write \label after caption, but we overwrite \@caption making it essentially empty, so the \label would end up at the same level as the graphic. therefore we still need to add a \par inside our \@caption, so that the label's whatsit is in a line on its own and doesn't take space from the graphics.
+%
+% Sometimes if the whatsit is on the same line of the figure it can make the line overflow, so the whatsit is moved to the beginning of the next line and then the rest of the line is empty. this creates an extra line's worth of space above the caption. In this case, one thing we can do is to add \par in a strategic place.
 
 \newif\ifkaosidecaption\kaosidecaptiontrue
 \newsavebox{\kao@minipage@box}
