@@ -981,6 +981,7 @@
 \DeclareNewTOC[float,nonfloat,listname={List of listings},counterwithin=chapter,name=Listing,type=kaolisting,atbegin={\@captionabovetrue}]{klol}
 \AtEndPreamble{
 	\@ifpackageloaded{minted}{%
+		\removefromtoclist[float]{lol}
 		\setminted{
 			fontsize=\small,
 			linenos=true,
@@ -1133,6 +1134,7 @@
 % \begin{macro}{kaocomment}
 % \begin{macro}{kaoinsight}
 %    \begin{macrocode}
+\PassOptionsToPackage{newfloat=true}{minted} % loading minted (without newfloat) screws up our captions, and tcolorbox loads minted...
 \RequirePackage[most]{tcolorbox}
 \RequirePackage[dvipsnames,table]{xcolor} % Colours
 \RequirePackage{tocbasic}
