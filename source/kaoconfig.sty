@@ -12,7 +12,6 @@
 	\usepackage[english]{babel}
 	\usepackage{morewrites}% we may need them later
 \fi
-\usepackage[english=british]{csquotes} % English quotes
 
 % Load the bibliography package
 \usepackage{kaobiblio}
@@ -35,7 +34,9 @@
 
 \makenomenclature % Make LaTeX produce the files required to compile the nomenclature
 
-\usepackage{minted}
+\usepackage[chapter]{minted}
+
+\usepackage[english=british]{csquotes} % English quotes (should be loaded after lineno, which is loaded by minted)
 
 % Uncomment to have coloured headings
 %\addtokomafont{title}{\color{Maroon}}

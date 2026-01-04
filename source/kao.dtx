@@ -148,7 +148,8 @@
 \ifxetexorluatex
 	\RequirePackage{fontspec}
 	% \RequirePackage{amsmath}
-	\RequirePackage{unicode-math} % use \mathbfit for bold italics, or \mathbf, or \mathit
+	\RequirePackage{mathtools}% Improved maths, automatically loads amsmath and extends it (we could load amsmath instead); should be loaded before unicode-math
+	\RequirePackage{unicode-math} % use \mathbfit for bold italics, or \mathbf, or \mathit; should be loaded after mathtools
 	\defaultfontfeatures{Scale=MatchLowercase}
 	\setmainfont{TeX Gyre Pagella}[Scale=.97]
 	\setmathfont{TeX Gyre Pagella Math}
@@ -166,6 +167,7 @@
 	\RequirePackage[utf8]{inputenc} % utf8 encoding in the input (.tex) file
 	\RequirePackage[T1]{fontenc} % utf8 encoding in the output (.pdf) file
 	% \RequirePackage{amsmath} % math environments
+	\RequirePackage{mathtools}% Improved maths, automatically loads amsmath and extends it (we could load amsmath instead); should be loaded before unicode-math
 	\RequirePackage{amssymb} % additional maths symbols
 	\RequirePackage{bm} % use \bm
 	\RequirePackage[scaled=.97,helvratio=.93,p,theoremfont]{newpxtext} % Serif palatino font
