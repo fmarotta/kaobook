@@ -592,10 +592,10 @@
 		\if@twoside%
 			\Ifthispageodd{}{\hspace*{-\dimexpr\marginparwidth+\marginparsep}}%
 		\fi%
-		\begin{subminipage}{\@tempdima}% this would be a subminipage under default circumstances
-		\def\@captype{figure}% ...so we need to override the default subminipage captype
+		\kaosidecaptionfalse%
+		\begin{minipage}{\@tempdima}% this should be a kaominipage under default circumstances; we could also use subminipage explicitly
 }{%
-		\end{subminipage}%
+		\end{minipage}%
 	\end{figure}%
 }
 \NewDocumentEnvironment{widetable}{O{bthp}}{%
@@ -604,10 +604,10 @@
 		\if@twoside%
 			\Ifthispageodd{}{\hspace*{-\dimexpr\marginparwidth+\marginparsep}}%
 		\fi%
-		\begin{subminipage}{\@tempdima}%
-		\def\@captype{table}%
+		\kaosidecaptionfalse%
+		\begin{minipage}{\@tempdima}%
 }{%
-		\end{subminipage}%
+		\end{minipage}%
 	\end{table}%
 }
 
@@ -720,9 +720,17 @@
 \let\endlatex@float\end@float
 \RenewDocumentEnvironment{@float}{m o O{t}}{%
 	\ifkaofloat%
-		\IfNoValueTF{#2}{\kaofloat{#1}[\csname fps@#1\endcsname][#3]}{\kaofloat{#1}[#2][#3]}%
+		\IfNoValueTF{#2}{%
+			\edef\reserved@a{\noexpand\kaofloat{#1}[\csname fps@#1\endcsname][#3]}\reserved@a%
+		}{%
+			\kaofloat{#1}[#2][#3]%
+		}%
 	\else%
-		\IfNoValueTF{#2}{\latex@float{#1}[\csname fps@#1\endcsname]}{\latex@float{#1}[#2]}%
+		\IfNoValueTF{#2}{%
+			\edef\reserved@a{\noexpand\latex@float{#1}[\csname fps@#1\endcsname][#3]}\reserved@a%
+		}{%
+			\latex@float{#1}[#2]
+		}%
 	\fi%
 }{%
 	\ifkaofloat%
@@ -732,8 +740,8 @@
 	\fi%
 }
 
-\NewDocumentEnvironment{kaofloat}{m o O{t}}{%
-	\IfNoValueTF{#2}{\latex@float{#1}[\csname fps@#1\endcsname]}{\latex@float{#1}[#2]}%
+\NewDocumentEnvironment{kaofloat}{m o o}{%
+	\latex@float{#1}[#2]%
 	\begin{kaominipage}[#3]{\linewidth}%
 }{%
 	\end{kaominipage}%
@@ -744,44 +752,44 @@
 \let\latexminipage\minipage
 \let\endlatexminipage\endminipage
 \RenewDocumentEnvironment{minipage}{O{c} m}{%
-	% Logic for nested minipages: the first one is a kaominipage; inside that it's a subminipage; inside that and beyond it's a plain latex minipage.
-	% This should work most of the times, except that in some cases the \@captype will be wrong and user needs to change it.
+	% Logic for nested minipages: they are all kaominipages until \caption is used; then they become plain latexminipages.
 	% User can also use kaominipage, subminipage, or latexminipage directly.
 	% Alignments:
 	% - t: everything (including side captions) aligns with the bottom of the graphics (default)
 	% - b: everything aligns with the bottom of the captions
 	% - to align everything with the very top: put \hbox{} at the beginning of the subminipages
-	\if@subminipage%
-		\begin{latexminipage}[#1]{#2}%
-		\kaominipagefalse% from now on, use only regular latexminipages
-		\@subminipagefalse%
-	\else%
-		\if@kaominipage%
-			\begin{subminipage}[#1]{#2}%
-			\@kaominipagefalse%
+	% XXX: should we use begin/end or just the plain macros? https://tex.stackexchange.com/questions/14683/defining-environments-based-on-other-ones-whats-the-right-way
+	\if@kaominipage% we are in a nested minipage environment
+		\let\@caption\kao@orig@@caption%
+		\ifkao@captionused% this may be useless: if the \caption is used after the nested minipage, the switch will always be false
+			\begin{latexminipage}[#1]{#2}%
+			\kaominipagefalse% from now on, use only regular latexminipages
+			\@kaominipagefalse% close the correct one
 		\else%
-			\ifkaominipage%
-				\begin{kaominipage}[#1]{#2}%
-			\else%
-				\begin{latexminipage}[#1]{#2}%
-			\fi%
+			\begin{kaominipage}[#1]{#2}%
+		\fi%
+	\else%
+		\ifkaominipage%
+			\begin{kaominipage}[#1]{#2}%
+		\else%
+			\begin{latexminipage}[#1]{#2}%
 		\fi%
 	\fi%
 }{%
-	\if@subminipage%
-		\end{subminipage}%
-	\else%
-		\if@kaominipage%
-			\end{kaominipage}%
-		\else%
-			\end{latexminipage}%
+	\if@kaominipage%
+		\end{kaominipage}%
+		\ifkao@captionused%
+			\global\kao@captionusedfalse%
 		\fi%
+	\else%
+		\end{latexminipage}%
 	\fi%
 }
 
 % \capstart puts a whatsit which creates the link anchor. the anchor takes some space, so we need to be careful about where we put the whatsit.
 % There are many cases depending also on the position of the caption (above or below).
 % Sometimes we need to put \par before \capstart to make sure that the whatsit is on a new line; other times we wrap the whatsit and the graphic in a \vbox or \vtop.
+% At any rate, \capstart must be seen by TeX *before* \caption
 %
 % the \label also puts a whatsit; users write \label after caption, but we overwrite \@caption making it essentially empty, so the \label would end up at the same level as the graphic. therefore we still need to add a \par inside our \@caption, so that the label's whatsit is in a line on its own and doesn't take space from the graphics.
 %
@@ -827,24 +835,30 @@
 		\def\@captype{\kao@caption@type}%
 		\ifkaosidecaption%
 			\ifkao@captionabove%
-				\noindent\vtop{\hsize=#2 \capstart\unvbox\the\kao@minipage@box}%
-				\fixednote[0sp][t]{\captionabove[\kao@caption@entry]{\kao@caption@content}}%
+				\edef\kao@ht{\the\ht\kao@minipage@box}%
+				\noindent\latexminipage[#1]{#2}%
+				\vbox{\capstart%
+				\unvbox\the\kao@minipage@box}%
+				\endlatexminipage%
+				\fixednote[-\kao@ht][t]{\captionabove[\kao@caption@entry]{\kao@caption@content}}%
 			\else%
-				\capstart%
-				\noindent\fixednote[0sp][b]{\captionbelow[\kao@caption@entry]{\kao@caption@content}}%
-				\vbox{\hsize=#2 \unvbox\the\kao@minipage@box}%
+				\noindent\latexminipage[#1]{#2}%
+				\vbox{\capstart%
+				\unvbox\the\kao@minipage@box}%
+				\endlatexminipage%
+				\fixednote[0sp][b]{\captionbelow[\kao@caption@entry]{\kao@caption@content}}%
 			\fi%
 		\else%
 			\ifkao@captionabove%
 				\noindent\latexminipage[#1]{#2}%
-				% \capstart% not necessary here
-				\captionabove[\kao@caption@entry]{\kao@caption@content}%
+				\vbox{\capstart%
+				\captionabove[\kao@caption@entry]{\kao@caption@content}}%
 				\unvbox\the\kao@minipage@box%
 				\endlatexminipage%
 			\else%
 				\noindent\latexminipage[#1]{#2}%
-				\par\capstart%
-				\unvbox\the\kao@minipage@box%
+				\vbox{\capstart%
+				\unvbox\the\kao@minipage@box}%
 				\captionbelow[\kao@caption@entry]{\kao@caption@content}%
 				\endlatexminipage%
 			\fi%
@@ -901,14 +915,14 @@
 	\ifkao@subcaptionused%
 		\def\@captype{\kao@subcaption@type}%
 		\ifkao@subcaptionabove%
-			\noindent\latexminipage[\kao@subminipage@alignment]{#2}%
-			\leavevmode\capstart%
-			\captionabove[\kao@subcaption@entry]{\kao@subcaption@content}%
+			\latexminipage[\kao@subminipage@alignment]{#2}%
+			\vbox{\capstart%
+			\captionabove[\kao@subcaption@entry]{\kao@subcaption@content}}%
 			\unhbox\the\kao@subminipage@box%
 			\endlatexminipage%
 		\else%
-			\noindent\latexminipage[\kao@subminipage@alignment]{#2}%
-			\vbox{\capstart% the price to pay is that the whatsit will take some vertical space... but at least it doesn't set the baseline for the whole minipage.
+			\latexminipage[\kao@subminipage@alignment]{#2}%
+			\vbox{\capstart%
 			\unhbox\the\kao@subminipage@box}%
 			\captionbelow[\kao@subcaption@entry]{\kao@subcaption@content}%
 			\endlatexminipage%
@@ -978,10 +992,11 @@
 %% XXX: alignment between caption and code is not pixel-perfect; for the time being I add 4pt but would like to find out exactly where the space is coming from.
 %% Good resource: https://resources.latex-cloud-studio.com/learn/latex/formatting/code-listings-minted
 %% XXX Consider using the forcenames option; on one hand it's good to keep our own floating environment separate from the minted one, on the other hand it's convenient to keep the same name...
-\DeclareNewTOC[float,nonfloat,listname={List of listings},counterwithin=chapter,name=Listing,type=kaolisting,atbegin={\@captionabovetrue}]{klol}
+\def\newfloat@dont@patch@chapter{}
 \AtEndPreamble{
 	\@ifpackageloaded{minted}{%
 		\removefromtoclist[float]{lol}
+		\AtBeginDocument{\edef\listing{\listing\noexpand\@captionabovetrue}}%
 		\setminted{
 			fontsize=\small,
 			linenos=true,
@@ -990,7 +1005,7 @@
 			frame=leftline,
 			% framesep=.4em
 		}
-		\counterwithin{listing}{chapter}%
+		% \counterwithin{listing}{chapter}% user should decide this
 		% \newcommand{\lstlistoflistings}{\listoflistings}% Provide the alias \lstlistoflistings
 		% \newcommand{\listoflstlistings}{\listoflistings}% Provide the alias \listoflstlistings
 	}%
