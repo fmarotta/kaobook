@@ -22,13 +22,18 @@
 %----------------------------------------------------------------------------------------
 %	EXAMPLE AND DOCUMENTATION OF THE KAOBOOK CLASS
 %----------------------------------------------------------------------------------------
-\documentclass[draft,appendixprefix=true,headings=big]{kaobook}
+\documentclass[draft,appendixprefix=true]{kaobook}
 
-\usepackage{showframe}
+\usepackage{lua-visual-debug}
+% \usepackage{showframe}
 \usepackage{blindtext}
 \usepackage{showlabels}
+\usepackage{wrapfig}
+\usepackage{longtable}
+\usepackage{rotating}
 % \endofdump
 \usepackage{kaoconfig}
+% \let\kref\ref \let\krefv\ref \let\kreff\ref \let\cczero\relax
 
 \begin{document}
 
@@ -73,26 +78,26 @@
 \lowertitleback{
 	\textbf{Disclaimer}\\
 	You can edit this page to suit your needs. For instance, here we have a no copyright statement, a colophon and some other information. This page is based on the corresponding page of Ken Arroyo Ohori's thesis, with minimal changes.
-	
+
 	\medskip
-	
+
 	\textbf{No copyright}\\
 	\cczero\ This book is released into the public domain using the CC0 code. To the extent possible under law, I waive all copyright and related or neighbouring rights to this work.
-	
+
 	To view a copy of the CC0 code, visit: \\\url{http://creativecommons.org/publicdomain/zero/1.0/}
-	
+
 	\medskip
-	
-	\textbf{Colophon} \\
+
+	\textbf{Colophon}\\
 	This document was typeset with the help of \href{https://sourceforge.net/projects/koma-script/}{\KOMAScript} and \href{https://www.latex-project.org/}{\LaTeX} using the \href{https://github.com/fmarotta/kaobook/}{kaobook} class.
-	
+
 	The source code of this book is available at:\\\url{https://github.com/fmarotta/kaobook}
-	
+
 	(You are welcome to contribute!)
-	
+
 	\medskip
-	
-	\textbf{Publisher} \\
+
+	\textbf{Publisher}\\
 	First printed in May 2019 by \@publishers
 }
 \makeatother
@@ -103,7 +108,7 @@
 
 \dedication{
 	The harmony of the world is made manifest in Form and Number, and the heart and soul and all the poetry of Natural Philosophy are embodied in the concept of mathematical beauty.\\
-	\flushright -- D'Arcy Wentworth Thompson
+	\flushright --- D'Arcy Wentworth Thompson
 }
 
 %----------------------------------------------------------------------------------------
@@ -157,12 +162,13 @@ There is some overlap with margin stuff: sidecaption, sidefigures and sidetables
 \begin{figure}
 	\includegraphics[width=.4\textwidth]{../../testfiles/La_Gioconda_Leonardo_Da_Vinci.jpg}
 	\captionaboveof{table}{Mona Lisa. Leonardo da Vinci, Public domain, via \href{https://commons.wikimedia.org/wiki/File:La_Gioconda,_Leonardo_Da_Vinci.jpg}{Wikimedia Commons}.}
+	\label{mona-table}
 \end{figure}
 
 \begin{widefigure}
 	\centering
 	\includegraphics[width=.4\textwidth]{../../testfiles/La_Gioconda_Leonardo_Da_Vinci.jpg}
-	\captionbelow{Mona Lisa. Leonardo da Vinci, Public domain, via \href{https://commons.wikimedia.org/wiki/File:La_Gioconda,_Leonardo_Da_Vinci.jpg}{Wikimedia Commons}.}
+	\captionabove{Mona Lisa. Leonardo da Vinci, Public domain, via \href{https://commons.wikimedia.org/wiki/File:La_Gioconda,_Leonardo_Da_Vinci.jpg}{Wikimedia Commons}.}
 	\label{mona-wide}
 \end{widefigure}
 
@@ -177,19 +183,21 @@ There is some overlap with margin stuff: sidecaption, sidefigures and sidetables
 	\end{tabular}
 \end{table}
 
-% \begin{kaolisting}
-% 	\caption{Lasting listing impression.}
-% 	\begin{minted}{Python}
-% import pandas as np
-% import pandas as np
-% import pandas as np
-% import pandas as np
-% 	\end{minted}
-% \end{kaolisting}
+\begin{listing}
+	\caption{Lasting listing impression.}
+	\begin{minted}{Python}
+import pandas as np
+import pandas as np
+import pandas as np
+import pandas as np
+	\end{minted}
+\end{listing}
 
 \blindtext
 
 ref wide: \krefv{mona-wide}.
+
+mona table: \krefv{mona-table}.
 
 \begin{figure-}
 	\includegraphics[width=.4\textwidth]{../../testfiles/La_Gioconda_Leonardo_Da_Vinci.jpg}
@@ -240,6 +248,154 @@ ref bottom: \krefv{mona-bottom}.
 
 
 \def\shortpar{Just some text to fill the margin column. It should be long enough to fill about three or four lines.}
+
+\chapter{Special environments}
+
+\begin{kaominipage}{\textwidth}
+\makeatletter\def\@captype{figure}\makeatother
+	\begin{subminipage}{.3\textwidth}%
+	\includegraphics[width=\textwidth]{../../testfiles/La_Gioconda_Leonardo_Da_Vinci.jpg}
+	\captionbelow{meow with some content for length.}
+	\label{meow}
+	\end{subminipage}
+	\begin{subminipage}{.4\textwidth}
+	\includegraphics[width=\textwidth]{../../testfiles/La_Gioconda_Leonardo_Da_Vinci.jpg}
+	\captionbelow{bau with some content for length and more.}
+	\label{bau}
+	\end{subminipage}
+	\captionbelow{Two animals}
+	\label{animals}
+\end{kaominipage}
+
+\blindtext
+
+Ref \kref{animals}, \kref{meow}, \kref{bau}.
+
+\blindtext
+
+\blindtext
+
+\begin{wrapfigure}{i}{.3\textwidth}
+	\capstart
+	\includegraphics[width=.3\textwidth]{../../testfiles/La_Gioconda_Leonardo_Da_Vinci.jpg}
+	\caption{birds}
+	\label{birds}
+\end{wrapfigure}
+\blindtext Ref birds: \kref{birds}. \blindtext
+
+\blindtext
+
+% https://www.overleaf.com/latex/examples/a-longtable-example/xxwzfxkxxjmc
+\begin{longtable}{|l|l|l|}
+\caption{A sample long table.} \label{tab:long} \\
+
+\hline \multicolumn{1}{|c|}{\textbf{First column}} & \multicolumn{1}{c|}{\textbf{Second column}} & \multicolumn{1}{c|}{\textbf{Third column}} \\ \hline 
+\endfirsthead
+
+\multicolumn{3}{c}%
+{{\bfseries \tablename\ \thetable{} -- continued from previous page}} \\
+\hline \multicolumn{1}{|c|}{\textbf{First column}} & \multicolumn{1}{c|}{\textbf{Second column}} & \multicolumn{1}{c|}{\textbf{Third column}} \\ \hline 
+\endhead
+
+\hline \multicolumn{3}{|r|}{{Continued on next page}} \\ \hline
+\endfoot
+
+\hline \hline
+\endlastfoot
+
+One & abcdef ghjijklmn & 123.456778 \\
+One & abcdef ghjijklmn & 123.456778 \\
+One & abcdef ghjijklmn & 123.456778 \\
+One & abcdef ghjijklmn & 123.456778 \\
+One & abcdef ghjijklmn & 123.456778 \\
+One & abcdef ghjijklmn & 123.456778 \\
+One & abcdef ghjijklmn & 123.456778 \\
+One & abcdef ghjijklmn & 123.456778 \\
+One & abcdef ghjijklmn & 123.456778 \\
+One & abcdef ghjijklmn & 123.456778 \\
+One & abcdef ghjijklmn & 123.456778 \\
+One & abcdef ghjijklmn & 123.456778 \\
+One & abcdef ghjijklmn & 123.456778 \\
+One & abcdef ghjijklmn & 123.456778 \\
+One & abcdef ghjijklmn & 123.456778 \\
+One & abcdef ghjijklmn & 123.456778 \\
+One & abcdef ghjijklmn & 123.456778 \\
+One & abcdef ghjijklmn & 123.456778 \\
+One & abcdef ghjijklmn & 123.456778 \\
+One & abcdef ghjijklmn & 123.456778 \\
+One & abcdef ghjijklmn & 123.456778 \\
+One & abcdef ghjijklmn & 123.456778 \\
+One & abcdef ghjijklmn & 123.456778 \\
+One & abcdef ghjijklmn & 123.456778 \\
+One & abcdef ghjijklmn & 123.456778 \\
+One & abcdef ghjijklmn & 123.456778 \\
+One & abcdef ghjijklmn & 123.456778 \\
+One & abcdef ghjijklmn & 123.456778 \\
+One & abcdef ghjijklmn & 123.456778 \\
+One & abcdef ghjijklmn & 123.456778 \\
+One & abcdef ghjijklmn & 123.456778 \\
+One & abcdef ghjijklmn & 123.456778 \\
+One & abcdef ghjijklmn & 123.456778 \\
+One & abcdef ghjijklmn & 123.456778 \\
+One & abcdef ghjijklmn & 123.456778 \\
+One & abcdef ghjijklmn & 123.456778 \\
+One & abcdef ghjijklmn & 123.456778 \\
+One & abcdef ghjijklmn & 123.456778 \\
+One & abcdef ghjijklmn & 123.456778 \\
+One & abcdef ghjijklmn & 123.456778 \\
+One & abcdef ghjijklmn & 123.456778 \\
+One & abcdef ghjijklmn & 123.456778 \\
+One & abcdef ghjijklmn & 123.456778 \\
+One & abcdef ghjijklmn & 123.456778 \\
+One & abcdef ghjijklmn & 123.456778 \\
+One & abcdef ghjijklmn & 123.456778 \\
+One & abcdef ghjijklmn & 123.456778 \\
+One & abcdef ghjijklmn & 123.456778 \\
+One & abcdef ghjijklmn & 123.456778 \\
+One & abcdef ghjijklmn & 123.456778 \\
+One & abcdef ghjijklmn & 123.456778 \\
+One & abcdef ghjijklmn & 123.456778 \\
+One & abcdef ghjijklmn & 123.456778 \\
+One & abcdef ghjijklmn & 123.456778 \\
+One & abcdef ghjijklmn & 123.456778 \\
+One & abcdef ghjijklmn & 123.456778 \\
+One & abcdef ghjijklmn & 123.456778 \\
+One & abcdef ghjijklmn & 123.456778 \\
+One & abcdef ghjijklmn & 123.456778 \\
+One & abcdef ghjijklmn & 123.456778 \\
+One & abcdef ghjijklmn & 123.456778 \\
+One & abcdef ghjijklmn & 123.456778 \\
+One & abcdef ghjijklmn & 123.456778 \\
+One & abcdef ghjijklmn & 123.456778 \\
+One & abcdef ghjijklmn & 123.456778 \\
+One & abcdef ghjijklmn & 123.456778 \\
+One & abcdef ghjijklmn & 123.456778 \\
+One & abcdef ghjijklmn & 123.456778 \\
+One & abcdef ghjijklmn & 123.456778 \\
+One & abcdef ghjijklmn & 123.456778 \\
+One & abcdef ghjijklmn & 123.456778 \\
+One & abcdef ghjijklmn & 123.456778 \\
+One & abcdef ghjijklmn & 123.456778 \\
+One & abcdef ghjijklmn & 123.456778 \\
+One & abcdef ghjijklmn & 123.456778 \\
+One & abcdef ghjijklmn & 123.456778 \\
+One & abcdef ghjijklmn & 123.456778 \\
+One & abcdef ghjijklmn & 123.456778 \\
+One & abcdef ghjijklmn & 123.456778 \\
+One & abcdef ghjijklmn & 123.456778 \\
+\end{longtable}
+
+\blindtext
+
+\kaofloatfalse
+\kaominipagefalse
+\begin{sidewaysfigure}
+	\includegraphics[width=.3\textwidth]{../../testfiles/La_Gioconda_Leonardo_Da_Vinci.jpg}
+	\captionbelowof{figure}{This is the first part of the figure on the even page}
+\end{sidewaysfigure}
+
+\end{document}
+
 
 \chapter{Margin stuff}
 \sidetoc
@@ -303,14 +459,14 @@ Ciao\fixednote{Meow}.
 
 % \blindtext
 
-\begin{sidetable}
-	\caption{A useless table.}
-	\begin{tabular}{c c c}
-		1 & 2 & 3\footnote{Equals three.}\\
-		4 & 5 & 6\\
-		7 & 8 & 9\\
-	\end{tabular}
-\end{sidetable}
+% \begin{sidetable}
+% 	\caption{A useless table.}
+% 	\begin{tabular}{c c c}
+% 		1 & 2 & 3\footnote{Equals three.}\\
+% 		4 & 5 & 6\\
+% 		7 & 8 & 9\\
+% 	\end{tabular}
+% \end{sidetable}
 
 % \chapterstylelines
 \chapter{References}
