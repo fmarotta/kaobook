@@ -1018,13 +1018,13 @@
 \let\kao@orig@makemultilinecaption\scr@makemultilinecaption%
 \let\kao@orig@makesinglelinecaption\scr@makesinglelinecaption%
 \long\def\kao@lst@makemultilinecaption#1#2#3{%
-	\fixednote[\lst@captionpos]{\vskip\lst@aboveskip\kao@orig@makemultilinecaption#1#2{#3}\vskip\lst@belowskip}%
+	\fixednote[0sp][\lst@captionpos]{\vspace{0sp}\kao@orig@makemultilinecaption#1#2{#3}}% the \vspace is to ensure top alignment
 }
 \long\def\kao@lst@makesinglelinecaption#1#2#3{%
-	\fixednote[\lst@captionpos]{\vskip\lst@aboveskip\kao@orig@makesinglelinecaption#1#2{#3}\vskip\lst@belowskip}%
+	\fixednote[0sp][\lst@captionpos]{\vspace{0sp}\kao@orig@makesinglelinecaption#1#2{#3}}%
 }
 \long\def\kao@lst@@makesinglelinecaption#1#2#3{%
-	\fixednote[\lst@captionpos]{\vskip\lst@aboveskip\kao@orig@@makesinglelinecaption#1#2{#3}\vskip\lst@belowskip}%
+	\fixednote[0sp][\lst@captionpos]{\vspace{0sp}\kao@orig@@makesinglelinecaption#1#2{#3}}%
 }
 \AtEndPreamble{
 	\@ifpackageloaded{listings}{%
@@ -1032,10 +1032,18 @@
 			\let\scr@makemultilinecaption\kao@lst@makemultilinecaption%
 			\let\scr@makesinglelinecaption\kao@lst@makesinglelinecaption%
 			\let\scr@makesinglelinecaption\kao@lst@@makesinglelinecaption%
-			\kaofloatfalse%
-			\expandafter\ifx\lst@captionpos t
+		}%
+		\lst@AddToHook{Init}{%
+			\expandafter\ifx\lst@captionpos t%
 				\vskip-\baselineskip%
-			\fi
+			\else
+				\vskip.5\baselineskip%
+			\fi%
+		}%
+		\lst@AddToHook{DeInit}{%
+			\expandafter\ifx\lst@captionpos b%
+				\vskip-1.5\baselineskip%
+			\fi%
 		}%
 		\definecolor{listingkeywords}{rgb}{0.0, 0.5, 0.0}
 		\definecolor{listingidentifiers}{rgb}{0, 0, 0}
