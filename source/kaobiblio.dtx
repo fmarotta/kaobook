@@ -80,7 +80,6 @@
 % \iffalse
 
 \RequirePackage{kvoptions} % Handle package options
-\RequirePackage{etoolbox} % Easy programming to modify TeX stuff
 
 % Set up the package options
 \SetupKeyvalOptions{
@@ -356,6 +355,7 @@
 % The `linkeverything' option provides an easy way to activate this behaviour.
 %    \begin{macrocode}
 \ifkaobiblio@linkeverything
+	\RequirePackage{etoolbox} % Easy programming to modify TeX stuff
 	\xpatchbibmacro{cite}
 		{\usebibmacro{cite:label}%
 		 \setunit{\printdelim{nonameyeardelim}}%
