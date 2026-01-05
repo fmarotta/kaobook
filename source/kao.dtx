@@ -568,13 +568,15 @@
 }
 
 \NewDocumentEnvironment{sidelstlisting}{}{%
-	\begin{sidepage}{\def\@captype{lstlisting}}%
+	\begin{sidepage}%
+	\def\@captype{lstlisting}%
 }{%
 	\end{sidepage}%
 }
 
 \NewDocumentEnvironment{sidelisting}{}{%
-	\begin{sidepage}{\def\@captype{listing}}%
+	\begin{sidepage}%
+	\def\@captype{listing}%
 }{%
 	\end{sidepage}%
 }
@@ -585,19 +587,17 @@
 %% Wrapping them inside other environments is also challenging.
 %% So we seal them into a box and pass that box to \makenote.
 %% We need two counters because all the notes for a page are processed together, so if there are multiple sidepage environments on the same page, only the last value of the counter would be used.
-%% Another thing: the optional argument can't be completely empty otherwise it gets the flag -no-value-, so we give it a default (which is empty, but at least it prevents #1 from taking the flag value).
 \newcounter{kao@sidepage@in}
 \newcounter{kao@sidepage@out}
 \setcounter{kao@sidepage@in}{0}
 \setcounter{kao@sidepage@out}{0}
 \newsavebox{\@kao@sidebox}
-\NewDocumentEnvironment{sidepage}{O{}}{%
+\NewDocumentEnvironment{sidepage}{}{%
 	\stepcounter{kao@sidepage@in}%
 	\global\expandafter\newsavebox\csname kao@sidepage\thekao@sidepage@in\endcsname%
 	\begin{lrbox}{\@kao@sidebox}%
 	\begin{latexminipage}{\marginparwidth}%
 	\usekomafont{notecolumn.marginpar}%
-	#1%
 }{
 	\end{latexminipage}%
 	\end{lrbox}%
@@ -944,10 +944,8 @@
 	\fi%
 }
 
-%% minted: KOMAScript is only compatible with newfloat=true, according to minted documentation.
-%% XXX: alignment between caption and code is not pixel-perfect; for the time being I add 4pt but would like to find out exactly where the space is coming from.
+%% minted: KOMAScript is only compatible with newfloat=true, according to minted documentation. We pass this option before loading tcolorbox, since tcolorbox loads minted.
 %% Good resource: https://resources.latex-cloud-studio.com/learn/latex/formatting/code-listings-minted
-%% XXX Consider using the forcenames option; on one hand it's good to keep our own floating environment separate from the minted one, on the other hand it's convenient to keep the same name...
 \def\newfloat@dont@patch@chapter{}
 \AtEndPreamble{
 	\@ifpackageloaded{minted}{%
@@ -983,20 +981,26 @@
 \AtEndPreamble{
 	\@ifpackageloaded{listings}{%
 		\lst@AddToHook{PreSet}{%
-			\let\scr@makemultilinecaption\kao@lst@makemultilinecaption%
-			\let\scr@makesinglelinecaption\kao@lst@makesinglelinecaption%
-			\let\scr@makesinglelinecaption\kao@lst@@makesinglelinecaption%
+			\ifkaosidecaption%
+				\let\scr@makemultilinecaption\kao@lst@makemultilinecaption%
+				\let\scr@makesinglelinecaption\kao@lst@makesinglelinecaption%
+				\let\scr@makesinglelinecaption\kao@lst@@makesinglelinecaption%
+			\fi%
 		}%
 		\lst@AddToHook{Init}{%
-			\expandafter\ifx\lst@captionpos t%
-				\vskip-\baselineskip%
-			\else
-				\vskip.5\baselineskip%
+			\ifkaosidecaption%
+				\expandafter\ifx\lst@captionpos t%
+					\vskip-\baselineskip%
+				\else
+					\vskip.5\baselineskip%
+				\fi%
 			\fi%
 		}%
 		\lst@AddToHook{DeInit}{%
-			\expandafter\ifx\lst@captionpos b%
-				\vskip-1.5\baselineskip%
+			\ifkaosidecaption%
+				\expandafter\ifx\lst@captionpos b%
+					\vskip-1.5\baselineskip%
+				\fi%
 			\fi%
 		}%
 		\definecolor{listingkeywords}{rgb}{0.0, 0.5, 0.0}
@@ -1116,7 +1120,6 @@
 \PassOptionsToPackage{newfloat=true}{minted} % loading minted (without newfloat) screws up our captions, and tcolorbox loads minted...
 \RequirePackage[most]{tcolorbox}
 \RequirePackage[dvipsnames,table]{xcolor} % Colours
-\RequirePackage{tocbasic}
 
 \newtcolorbox{kaobox}[1][]{
 	breakable,
