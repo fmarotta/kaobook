@@ -4,21 +4,76 @@
 %	USEFUL PACKAGES AND OTHER DOCUMENT CONFIGURATIONS
 %----------------------------------------------------------------------------------------
 
-% Choose the language
-\ifxetexorluatex
-	\usepackage{polyglossia}
-	\setmainlanguage{english}
-\else
-	\usepackage[english]{babel}
-	\usepackage{morewrites}% we may need them later
-\fi
+% Fix for the subequation environment
+% https://tex.stackexchange.com/questions/27053/too-much-space-between-full-paragraph-and-subequations-env
+% \preto\subequations{\ifhmode\unskip\fi}
+
+% Fonts
+\RequirePackage{mathtools}% Improved maths, automatically loads amsmath and extends it (we could load amsmath instead); should be loaded before unicode-math
+
+\RequirePackage[english]{babel} % if using babel; must be loaded before newpx. If you use polyglossia, see below. polyglossia must be loaded after fontspec, which is loaded by newpx.
+
+% Three default setups (taken from the newpx package manual)
+
+	% Set up 1: LuaLaTeX, T1 math fonts, mathalpha
+	\RequirePackage[T1]{fontenc} % T1 is active encoding for use in math text
+	% \RequirePackage[type1]{sourcesanspro}% used only by \mathsf, optional
+	% amsthm in next line loads amsmath, then loads amsthm (not necessary since we load mathtools earlier)
+	\RequirePackage[no-math,amsthm,helvratio=.93,theoremfont,trueslanted,largesc,p]{newpx}
+	% Fontspec will be loaded so that Opentype text fonts may be loaded
+	\linespread{1.07}
+	\defaultfontfeatures{Scale=MatchLowercase}
+	\RequirePackage{classico} % sans-serif font: URW classico
+	\setmonofont{DejaVu Sans Mono}[Scale=.85]
+	% either mathalpha or unicode-math, choose one
+	\RequirePackage[cal=stixplain,scr=stixtwofancy,bb=px]{mathalpha} % Mathscr from STIX
+
+	% % Set up 2: LuaLaTeX, opentype math fonts
+	% \RequirePackage[english]{babel} % if using babel
+	% \RequirePackage[otfmath,helvratio=.93,theoremfont,trueslanted,largesc,p]{newpx}
+	% \linespread{1.07}
+	% \defaultfontfeatures{Scale=MatchLowercase}
+	% \RequirePackage{classico} % sans-serif font: URW classico
+	% \setmonofont{DejaVu Sans Mono}[Scale=.85]
+	% \setmathfont{texgyrepagella-math}[]
+	% \setmathfont{Stix Two Math}[
+	% 	range = {cal, bfcal},
+	% ]
+	% \setmathfont{Stix Two Math}[
+	% 	range={scr,bfscr},
+	% 	StylisticSet=01
+	% ]
+
+	% % Set up 3: pdfLaTeX, T1 fonts
+	% \RequirePackage[english]{babel} % if using babel
+	% \RequirePackage[utf8]{inputenc} % utf8 encoding in the input (.tex) file
+	% \RequirePackage[T1]{fontenc} % T1 is active encoding for use in math text
+	% % \RequirePackage[type1]{sourcesanspro}% used only by \mathsf, optional
+	% \RequirePackage[no-math,amsthm,helvratio=.93,theoremfont,trueslanted,largesc,p]{newpx}
+	% % Fontspec will be loaded so that Opentype text fonts may be loaded
+	% \linespread{1.07}
+	% \RequirePackage{amssymb} % additional maths symbols (alternative to unicode-math)
+	% \RequirePackage{bm} % use \bm (alternative to unicode-math)
+	% \let\mathbf\bm%
+	% \let\symbf\bm%
+	% \RequirePackage{classico} % sans-serif font: URW classico
+	% \RequirePackage[scaled=0.85]{DejaVuSansMono} % Monospace font
+	% \RequirePackage[cal=stixplain,scr=stixtwofancy,bb=px]{mathalpha} % Mathscr from STIX
+
+% \RequirePackage{polyglossia}% must load after fontspec, if using polyglossia
+% \setmainlanguage{english}
+
+\addtokomafont{disposition}{\rmfamily}
+\addtokomafont{part}{\normalfont\scshape\bfseries}
+\addtokomafont{partentry}{\normalfont\scshape\bfseries}
+\addtokomafont{paragraph}{\normalfont\bfseries}
+\setkomafont{descriptionlabel}{\normalfont\bfseries}
 
 % Load the bibliography package
 \usepackage{kaobiblio}
 \addbibresource{../../testfiles/test.bib} % Bibliography file
 
 % Load mathematical packages for theorems and related environments
-\let\openbox\relax% Workaround to load amsthm after amsmath
 \usepackage[framed=true]{kaotheorems}
 
 \usepackage{kaorefs} % kao-style references

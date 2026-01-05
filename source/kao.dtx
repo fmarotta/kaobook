@@ -123,13 +123,8 @@
 
 % \section{Page layout}
 
-% Before setting the page layout, we need to address some decisions made by the author of this class, as they will have an impact on the layout itself.
-% I will describe later how to revert all these decisions, so that users can go back to a more ``plain \LaTeX'' experience.
-% The first of these decision is the main serif font: Palatino.
-% Then we have some choices about the styling of lists: triangles for the first level, bullets for the second level, and very compact spacing.
-
 % \begin{style}{typearea}
-% We need to set the font before typearea, otherwise use |\recalctypearea|
+% We should set the font before typearea, otherwise use |\recalctypearea|
 %    \begin{macrocode}
 \RequirePackage{iftex} % Check whether XeTeX is being used
 % https://tex.stackexchange.com/questions/47576/combining-ifxetex-and-ifluatex-with-the-logical-or-operation
@@ -145,44 +140,6 @@
 	\fi
 \fi
 
-\ifxetexorluatex
-	\RequirePackage{fontspec}
-	% \RequirePackage{amsmath}
-	\RequirePackage{mathtools}% Improved maths, automatically loads amsmath and extends it (we could load amsmath instead); should be loaded before unicode-math
-	\RequirePackage{unicode-math} % use \mathbfit for bold italics, or \mathbf, or \mathit; should be loaded after mathtools
-	\defaultfontfeatures{Scale=MatchLowercase}
-	\setmainfont{TeX Gyre Pagella}[Scale=.97]
-	\setmathfont{TeX Gyre Pagella Math}
-	\setmathfont{Stix Two Math}[
-		range={scr,bfscr},
-		StylisticSet=01
-	]
-	\setmathfont{Euler Math}[
-		range={cal,bfcal},
-	]
-	\setsansfont{URW Classico}
-	\setmonofont{DejaVu Sans Mono}[Scale=.85]
-	\linespread{1.07}
-\else
-	\RequirePackage[utf8]{inputenc} % utf8 encoding in the input (.tex) file
-	\RequirePackage[T1]{fontenc} % utf8 encoding in the output (.pdf) file
-	% \RequirePackage{amsmath} % math environments
-	\RequirePackage{mathtools}% Improved maths, automatically loads amsmath and extends it (we could load amsmath instead); should be loaded before unicode-math
-	\RequirePackage{amssymb} % additional maths symbols
-	\RequirePackage{bm} % use \bm
-	\RequirePackage[scaled=.97,helvratio=.93,p,theoremfont]{newpxtext} % Serif palatino font
-	\RequirePackage[scaled=.97,vvarbb,smallerops,bigdelims]{newpxmath} % Math palatino font (loads amsmath)
-	\RequirePackage[cal=pxtx,scr=stixtwofancy,bb=ncmbbr]{mathalfa} % Mathscr from STIX
-	\RequirePackage{classico} % sans-serif font: URW classico
-	\RequirePackage[scaled=0.85]{DejaVuSansMono} % Monospace font
-	\linespread{1.07}
-\fi
-
-\addtokomafont{disposition}{\rmfamily}
-\addtokomafont{part}{\normalfont\scshape\bfseries}
-\addtokomafont{partentry}{\normalfont\scshape\bfseries}
-\addtokomafont{paragraph}{\normalfont\bfseries}
-\setkomafont{descriptionlabel}{\normalfont\bfseries}
 %    \end{macrocode}
 
 % Here we also set some font-adjacent settings, such as the style of the bullet points and footnotes
@@ -218,9 +175,6 @@
 \RequirePackage{microtype}
 % \RequirePackage{hyphenat} % Hyphenation for special fonts
 
-% Fix for the subequation environment
-% https://tex.stackexchange.com/questions/27053/too-much-space-between-full-paragraph-and-subequations-env
-\preto\subequations{\ifhmode\unskip\fi}
 %    \end{macrocode}
 % \end{style}
 
