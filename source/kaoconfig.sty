@@ -13,20 +13,20 @@
 
 \RequirePackage[english]{babel} % if using babel; must be loaded before newpx. If you use polyglossia, see below. polyglossia must be loaded after fontspec, which is loaded by newpx.
 
-% Three default setups (taken from the newpx package manual)
+% Three default setups with Palatino font (taken from the newpx package manual)
 
-	% Set up 1: LuaLaTeX, T1 math fonts, mathalpha
-	\RequirePackage[T1]{fontenc} % T1 is active encoding for use in math text
-	% \RequirePackage[type1]{sourcesanspro}% used only by \mathsf, optional
-	% amsthm in next line loads amsmath, then loads amsthm (not necessary since we load mathtools earlier)
-	\RequirePackage[no-math,amsthm,helvratio=.93,theoremfont,trueslanted,largesc,p]{newpx}
-	% Fontspec will be loaded so that Opentype text fonts may be loaded
-	\linespread{1.07}
-	\defaultfontfeatures{Scale=MatchLowercase}
-	\RequirePackage{classico} % sans-serif font: URW classico
-	\setmonofont{DejaVu Sans Mono}[Scale=.85]
-	% either mathalpha or unicode-math, choose one
-	\RequirePackage[cal=stixplain,scr=stixtwofancy,bb=px]{mathalpha} % Mathscr from STIX
+	% % Set up 1: LuaLaTeX, T1 math fonts, mathalpha
+	% \RequirePackage[T1]{fontenc} % T1 is active encoding for use in math text
+	% % \RequirePackage[type1]{sourcesanspro}% used only by \mathsf, optional
+	% % amsthm in next line loads amsmath, then loads amsthm (not necessary since we load mathtools earlier)
+	% \RequirePackage[no-math,amsthm,helvratio=.93,theoremfont,trueslanted,largesc,p]{newpx}
+	% % Fontspec will be loaded so that Opentype text fonts may be loaded
+	% \linespread{1.07}
+	% \defaultfontfeatures{Scale=MatchLowercase}
+	% \RequirePackage{classico} % sans-serif font: URW classico
+	% \setmonofont{DejaVu Sans Mono}[Scale=.85]
+	% % either mathalpha or unicode-math, choose one
+	% \RequirePackage[cal=stixplain,scr=stixtwofancy,bb=px]{mathalpha} % Mathscr from STIX
 
 	% % Set up 2: LuaLaTeX, opentype math fonts
 	% \RequirePackage[english]{babel} % if using babel
@@ -44,21 +44,22 @@
 	% 	StylisticSet=01
 	% ]
 
-	% % Set up 3: pdfLaTeX, T1 fonts
-	% \RequirePackage[english]{babel} % if using babel
-	% \RequirePackage[utf8]{inputenc} % utf8 encoding in the input (.tex) file
-	% \RequirePackage[T1]{fontenc} % T1 is active encoding for use in math text
-	% % \RequirePackage[type1]{sourcesanspro}% used only by \mathsf, optional
-	% \RequirePackage[no-math,amsthm,helvratio=.93,theoremfont,trueslanted,largesc,p]{newpx}
-	% % Fontspec will be loaded so that Opentype text fonts may be loaded
-	% \linespread{1.07}
-	% \RequirePackage{amssymb} % additional maths symbols (alternative to unicode-math)
-	% \RequirePackage{bm} % use \bm (alternative to unicode-math)
-	% \let\mathbf\bm%
-	% \let\symbf\bm%
-	% \RequirePackage{classico} % sans-serif font: URW classico
-	% \RequirePackage[scaled=0.85]{DejaVuSansMono} % Monospace font
-	% \RequirePackage[cal=stixplain,scr=stixtwofancy,bb=px]{mathalpha} % Mathscr from STIX
+	% Set up 3: pdfLaTeX, T1 fonts
+	\RequirePackage[english]{babel} % if using babel
+	\RequirePackage[utf8]{inputenc} % utf8 encoding in the input (.tex) file
+	\RequirePackage[T1]{fontenc} % T1 is active encoding for use in math text
+	% \RequirePackage[type1]{sourcesanspro}% used only by \mathsf, optional
+	\RequirePackage{amssymb} % additional maths symbols (alternative to unicode-math), must be loaded before newpx
+	\RequirePackage[no-math,amsthm,helvratio=.93,theoremfont,trueslanted,largesc,p]{newpx}
+	% Fontspec will be loaded so that Opentype text fonts may be loaded
+	\linespread{1.07}
+	\RequirePackage{bm} % use \bm (alternative to unicode-math)
+	\let\mathbf\bm%
+	\let\symbf\bm%
+	\RequirePackage{classico} % sans-serif font: URW classico
+	\RequirePackage[scaled=0.85]{DejaVuSansMono} % Monospace font
+	\RequirePackage[cal=stixplain,scr=stixtwofancy,bb=px]{mathalpha} % Mathscr from STIX
+	\RequirePackage{morewrites}% because we are not using lualatex
 
 % \RequirePackage{polyglossia}% must load after fontspec, if using polyglossia
 % \setmainlanguage{english}
@@ -68,30 +69,6 @@
 \addtokomafont{partentry}{\normalfont\scshape\bfseries}
 \addtokomafont{paragraph}{\normalfont\bfseries}
 \setkomafont{descriptionlabel}{\normalfont\bfseries}
-
-% Load the bibliography package
-\usepackage{kaobiblio}
-\addbibresource{../../testfiles/test.bib} % Bibliography file
-
-% Load mathematical packages for theorems and related environments
-\usepackage[framed=true]{kaotheorems}
-
-\usepackage{kaorefs} % kao-style references
-
-\usepackage{booktabs} % Improved tables
-
-\graphicspath{{../../testfiles/}} % Paths in which to look for images
-
-\makeindex[columns=3, title=Alphabetical Index, intoc] % Make LaTeX produce the files required to compile the index
-
-\makeglossaries % Make LaTeX produce the files required to compile the glossary
-\input{../../testfiles/glossary.tex} % Include the glossary definitions
-
-\makenomenclature % Make LaTeX produce the files required to compile the nomenclature
-
-\usepackage[chapter]{minted}
-
-\usepackage[english=british]{csquotes} % English quotes (should be loaded after lineno, which is loaded by minted)
 
 % Uncomment to have coloured headings
 %\addtokomafont{title}{\color{Maroon}}
@@ -104,19 +81,45 @@
 %\addtokomafont{captionlabel}{\color{Blue}}
 %\addtokomafont{pagenumber}{\color{Maroon}}
 
+\usepackage[chapter]{minted}
+
+\usepackage[english=british]{csquotes} % English quotes (should be loaded after lineno, which is loaded by minted)
+
+% Productivity
+% \RequirePackage{pdfpages} % Insert PDF pages
+% \RequirePackage{subfiles} % Adopt a modular structure
+% \RequirePackage{todonotes} % Add useful notes in the margins
+
+\usepackage{booktabs} % Improved tables
+
+% Special gliphs
+\RequirePackage{ccicons} % Creative Commons icons
+
+% Load mathematical packages for theorems and related environments
+\usepackage[framed=true]{kaotheorems}
+
+\usepackage{kaorefs} % kao-style references
+
+% Load the bibliography package
+\usepackage{kaobiblio}
+\addbibresource{../../testfiles/test.bib} % Bibliography file
+
+\graphicspath{{../../testfiles/}} % Paths in which to look for images
+
+\ifdraft{}{
+	\makeindex[columns=3, title=Alphabetical Index, intoc] % Make LaTeX produce the files required to compile the index
+	\makeglossaries % Make LaTeX produce the files required to compile the glossary
+	\input{../../testfiles/glossary.tex} % Include the glossary definitions
+	\makenomenclature % Make LaTeX produce the files required to compile the nomenclature
+}
+
 % Commands to print specific words always in the same way
 % TODO: in \Command, automatically escape braces {} and replace backslashes with \textbackslash
+\newcommand{\kaobook}{\texttt{kaobook}}
+\newcommand{\kaoconfig}{\texttt{kaoconfig.sty}}
 \newcommand{\Class}[1]{\texttt{#1}}
 \newcommand{\Package}[1]{\texttt{#1}}
 \newcommand{\Option}[1]{\texttt{#1}}
 \newcommand{\Command}[1]{\texttt{\textbackslash#1}}
 \newcommand{\Environment}[1]{\texttt{#1}}
 \newcommand{\Path}[1]{\texttt{#1}}
-
-% Special gliphs
-\RequirePackage{ccicons} % Creative Commons icons
-
-% Productivity
-\RequirePackage{pdfpages} % Insert PDF pages
-\RequirePackage{subfiles} % Adopt a modular structure
-\RequirePackage{todonotes} % Add useful notes in the margins
