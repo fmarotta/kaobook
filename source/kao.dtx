@@ -951,13 +951,29 @@
 	\@ifpackageloaded{minted}{%
 		\removefromtoclist[float]{lol}
 		\AtBeginDocument{\edef\listing{\listing\noexpand\@captionabovetrue}}%
+		% \usemintedstyle{perldoc}
+		\usemintedstyle{tango}
 		\setminted{
 			fontsize=\small,
 			linenos=true,
-			breaklines=true,
 			numbersep=.7em,
+			breaklines=true,
 			frame=leftline,
 			% framesep=.4em
+		}
+		\newcommand*\setmintedplain[1]{%
+			\renewcommand*\@setmintedplain{#1}%
+		}
+		\newcommand*\@setmintedplain{
+			linenos=false,
+			breaklines=true,
+			frame=none,
+		}
+		\newenvironment{mintedplain}[2][]{% the environment is already enclosed in a group, so the \setminted will not affect subsequent minted envs
+			\expandafter\setminted\expandafter{\@setmintedplain}%
+			\minted[#1]{#2}%
+		}{%
+			\endminted%
 		}
 		% \counterwithin{listing}{chapter}% user should decide this
 		% \newcommand{\lstlistoflistings}{\listoflistings}% Provide the alias \lstlistoflistings
