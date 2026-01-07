@@ -5,8 +5,20 @@ on:
     branches: [ "ctan" ]
 
 jobs:
-  build:
+  check:
     runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Run l3build check
+        uses: xu-cheng/texlive-action@v3
+        with:
+          run: l3build check
+
+  doc:
+    runs-on: ubuntu-latest
+    needs: check
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
