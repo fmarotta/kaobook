@@ -1,0 +1,23 @@
+\input{regression-test.tex} % Required for l3build
+\documentclass{kaobook}
+
+\begin{document}
+\START
+
+\showoutput
+
+\marginlayout
+
+\chapter{Title}
+\sidetoc
+\section{First Section}
+\subsection{Subsection One}
+\section{Second Section}
+\subsection{Subsection Two}
+\section{Third Section}
+\subsection{Subsection Three}
+\subsection{Subsection Four}
+
+\clearpage% if missing, the sidetoc is not printed. Could be an issue with scrlayer-notecolumn.
+
+\end{document}
