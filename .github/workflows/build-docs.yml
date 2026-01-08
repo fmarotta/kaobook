@@ -14,7 +14,16 @@ jobs:
       - name: Run l3build check
         uses: xu-cheng/texlive-action@v3
         with:
-          run: l3build check
+          run: |
+            apk add --no-cache diffutils
+            l3build check -q -H --show-log-on-error
+
+      - name: Upload Test Logs
+        uses: actions/upload-artifact@v4
+        with:
+          name: test
+          path: build/test*/*.diff
+          retention-days: 3
 
   doc:
     runs-on: ubuntu-latest
