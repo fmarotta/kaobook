@@ -23,6 +23,12 @@ the paragraphs are separated by space,\sidenote[][-7mm]{To be precise,
 they are separated by half a line worth of space: the \Option{parskip} 
 value is \enquote{half}.} not marked by indentation.
 
+The \KOMAScript\xspace option \Option{BCOR} (binding correction) is supported; 
+its value is forwarded to \Package{geometry} as a binding offset so that 
+inner margins are enlarged automatically. For example,
+\lstinline|\documentclass[BCOR=8mm]{kaobook}| adds an 8\,mm correction to 
+the inner margin.
+
 \section{\Class{kao} Options}
 
 In the future I plan to add more options to set the paragraph formatting 
