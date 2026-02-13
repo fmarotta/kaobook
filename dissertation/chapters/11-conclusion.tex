@@ -1,0 +1,219 @@
+% !TEX root = ../main.tex
+\documentclass[../main.tex]{subfiles}
+
+\begin{document}
+
+\chapter{Conclusion}
+\labch{conclusion}
+\margintoc
+
+\begin{chapteroverview}
+This concluding chapter directly addresses the dissertation's research questions, demonstrating how theoretical reconceptualization, methodological artifacts, and empirical application combine to advance our understanding of \textbf{role constellations in innovation intermediary ecosystems}. We summarize contributions, acknowledge limitations, and chart directions for future research.
+\end{chapteroverview}
+
+%===============================================================================
+\section{Answering the Research Questions}
+%===============================================================================
+
+The dissertation posed one overarching question and four sub-questions.\sidenote{\textbf{Research questions}---The structure of this section mirrors the dissertation's logical architecture: main question $\rightarrow$ four sub-questions $\rightarrow$ integrated answer.} We address each in turn, drawing on evidence from the preceding chapters.
+
+\subsection{The Main Question}
+
+\begin{mainrq}
+What role constellations characterize interstitial actors in sustainability transitions, and how does multimodal cartography reveal the mechanisms through which they emerge?
+\end{mainrq}
+
+\noindent\textbf{Answer.} This dissertation demonstrates that role constellations \emph{can} be studied at scale by reconceptualizing them as \textbf{complex adaptive systems} and building computational infrastructure that preserves theoretical meaning \sidecite{holland1995hidden,kauffman1993origins}.\sidenote{\textbf{The CAS bridge}---Complexity science provides mechanisms that are both theoretically meaningful and computationally tractable---exactly the bridge transitions research needs.} The CAS framing offers mechanisms---emergence, self-organization, co-evolution, non-linearity, feedback loops---that explain why constellations exhibit the patterns they do while providing tractable formalizations for computational analysis. The \RoleBox{} infrastructure, with its six modality pipelines and integration protocols, operationalizes this framing for multimodal cartography.
+
+Across eight intermediation domains (climate, energy, health, digital, food, raw materials, urban mobility, manufacturing), we find:
+
+\begin{itemize}[leftmargin=*, itemsep=0.3em]
+\item A persistent \textbf{connector gap}: 34\% of organizations claim intermediary roles, but only 13\% occupy structural bridging positions---revealing systematic aspiration-reality divergence.\sidenote{\textbf{21-point gap}---This finding is robust across all eight domains, suggesting a universal feature of innovation ecosystems.}
+\item \textbf{Knowledge triangle imbalance}: Business vocabulary (43\%) dominates over research (32\%) and education (25\%) across all domains (see \cref{ch:interstitial}, \cref{tab:kt-by-kic}), despite the EIT's founding mission of balanced integration.
+\item \textbf{Recurring sociotypes}: Five role configurations (Entrepreneurial, Research, Connective, Public, Accountability) emerge across domains, suggesting universal features of innovation intermediary ecosystems.
+\item \textbf{The breakdown gap}: Complete absence of breakdown/exnovation roles across all five modalities---innovation intermediaries structurally orient only toward build-up.
+\item \textbf{Cross-modal signal value}: Convergence across modalities validates role attributions; divergence reveals aspiration gaps, perception gaps, and strategic positioning.
+\end{itemize}
+
+These findings demonstrate that multimodal cartography yields insights inaccessible to either single-modality computational analysis or traditional qualitative approaches alone.
+
+%-------------------------------------------------------------------------------
+\subsection{Sub-Question 1: Theoretical Foundation}
+%-------------------------------------------------------------------------------
+
+\begin{subrq}
+\textbf{Theory}\\
+What conceptual framework enables theory-guided but empirically open analysis of role constellations?
+\end{subrq}
+
+\noindent\textbf{Answer.} \cref{ch:cas} developed a reconceptualization through three moves. \textbf{First}, we framed role constellations as \textbf{complex adaptive systems} \cite{levin1998ecosystems,sterman2000business}, providing mechanisms that transitions theory invokes but rarely specifies: emergence, self-organization, co-evolution, non-linearity, and feedback loops. \textbf{Second}, we formalized these mechanisms into \textbf{fifteen propositions} that specify observable patterns and testable predictions---bridging the gap between theoretical richness and empirical tractability.\sidenote{\textbf{15 propositions}---Testable predictions that future research can validate, refute, or refine across different contexts.} \textbf{Third}, we developed three complementary conceptual lenses: multimodal identity (roles manifest differently across modalities), cartographic framing (maps render complex landscapes legible), and signal interpretation (divergence between modalities is analytical signal, not measurement noise).
+
+%-------------------------------------------------------------------------------
+\subsection{Sub-Question 2: Methodological Artifacts}
+%-------------------------------------------------------------------------------
+
+\begin{subrq}
+\textbf{Method}\\
+What methodology enables systematic cross-modal mapping of claimed, attributed, and enacted roles?
+\end{subrq}
+
+\noindent\textbf{Answer.} Following Design Science Research principles \sidecite{hevner2004design,peffers2007dsr}, \cref{ch:method} developed \RoleBox{} as the primary methodological artifact---an open-source computational infrastructure for multimodal role constellation cartography.\sidenote{\textbf{Open infrastructure}---All code available at \texttt{github.com/babajideowoyele/rolebox} for replication, critique, and extension.} The infrastructure comprises six data modality pipelines (Wikipedia/Wikidata, websites, news media, Crunchbase, social media, visual materials), integration protocols for entity alignment, missing data handling, signal weighting, and divergence interpretation, and design principles derived from four Meta-Design Requirements (MDR-1: theory-data reconciliation; MDR-2: hypothesis-driven data selection; MDR-3: computational-human complementarity; MDR-4: knowledge accumulation through open infrastructure).
+
+%-------------------------------------------------------------------------------
+\subsection{Sub-Question 3: Empirical Demonstration}
+%-------------------------------------------------------------------------------
+
+\begin{subrq}
+\textbf{Empirics}\\
+What role constellation patterns characterize interstitial actors in the EIT ecosystem, how do these patterns vary across modalities, and what does the distribution of build-up versus breakdown roles reveal about ecosystem orientation?
+\end{subrq}
+
+\noindent\textbf{Answer.} \cref{ch:interstitial,ch:rolefield,ch:venture,ch:visual,ch:power} demonstrated multimodal cartography across EIT's eight Knowledge and Innovation Communities. The key empirical findings include:
+
+\textbf{The connector gap} (\cref{ch:interstitial,ch:rolefield}): Systematic divergence between claimed and enacted intermediary roles \cite{kivimaa2019innovation,howells2006intermediation}. The 21-point gap between aspiration (34\%) and reality (13\%) is remarkably consistent across domains.\sidenote{\textbf{Aspiration vs. reality}---The gap persists even when controlling for organization size, age, and sector.}
+
+\textbf{Knowledge triangle imbalance} (\cref{ch:interstitial}): Despite EIT's founding rationale of integrating business, research, and education \cite{etzkowitz2000dynamics,carayannis2009mode}, vocabulary analysis reveals consistent dominance of business framing across all eight KICs.
+
+\textbf{Five recurring sociotypes} (\cref{ch:interstitial}): Entrepreneurial, Research, Connective, Public, and Accountability configurations emerge independently across domains, suggesting universal features of innovation intermediary ecosystems \cite{adner2017ecosystem,jacobides2018ecosystems}.\sidenote{\textbf{Sociotypes}---These five configurations represent stable ``attractors'' in role constellation space.}
+
+\textbf{The breakdown gap} (all chapters): Breakdown and exnovation roles are \emph{completely absent} across all five modalities.\sidenote{\textbf{Build-up bias}---The X-curve framework \cite{hebinck2022xcurve} shows transitions require both acceleration and phase-out.} Zero organizations claim phase-out roles on websites; zero occupy breakdown positions in social networks; zero receive funding for managed decline; zero deploy visual registers of sunset or exit; zero construct discursive agency around phasing out. This systematic absence suggests that innovation intermediaries may be structurally incapable of supporting breakdown dynamics.
+
+%-------------------------------------------------------------------------------
+\subsection{Sub-Question 4: The Researcher as Interstitial Actor}
+%-------------------------------------------------------------------------------
+
+\begin{subrq}
+\textbf{Implications}\\
+How can open cartographic infrastructure simultaneously \emph{break down} barriers to knowledge accumulation while \emph{building up} shared resources for role constellation research?
+\end{subrq}
+
+\noindent\textbf{Answer.} This dissertation is not only \emph{about} build-up and breakdown dynamics---it \emph{enacts} them.\sidenote{\textbf{X-curve reflexivity}---The dissertation applies X-curve logic to its own methodological contribution.} By building \RoleBox{} as open infrastructure, the dissertation simultaneously \textbf{breaks down} barriers (proprietary tools, undocumented methods, fragmented datasets, disciplinary silos) while \textbf{building up} shared resources (open-source code, documented pipelines, curated datasets, integration protocols, seven design principles and six design patterns). The researcher becomes an interstitial actor positioned between communities, facilitating exchange. The reflexive insight: design science research on transitions can practice what it preaches---demonstrating through infrastructure development how build-up and breakdown dynamics work in creative tension.
+
+
+%===============================================================================
+\section{Summary of Contributions}
+%===============================================================================
+
+The dissertation's contributions form an integrated whole in which theory, method, empirics, and infrastructure mutually reinforce one another.\sidenote{\textbf{Integrated contributions}---These four dimensions are not independent outputs but facets of a single coherent research programme.}
+
+\textbf{Theoretical.} The CAS reconceptualization changes how we think about roles in sustainability transitions. Where previous work borrowed complexity language without specifying what these terms mean operationally, this dissertation formalizes them into fifteen testable propositions. The multimodal identity framework treats divergence between what an organization says and what it does as signal, not noise.
+
+\textbf{Methodological.} \RoleBox{} provides six pipelines for six data modalities plus the integration protocols that hold them together. The harder contribution was integration itself: entity alignment across sources, missing data handling, signal weighting, divergence interpretation. These protocols make multimodal analysis tractable rather than merely aspirational.
+
+\textbf{Empirical.} Three findings stand out: the connector gap (34\% claimed vs. 13\% enacted, consistent across all eight KICs), the knowledge triangle imbalance (business 43\%, research 32\%, education 25\%), and five recurring sociotypes (Entrepreneurial, Research, Connective, Public, Accountability) that emerge independently across domains. The breakdown gap---complete absence of exnovation roles across all modalities---is the most striking finding.
+
+\textbf{Infrastructural.} All code is public. The repositories, the documentation, the replication packages---anyone can download them, run them, break them, improve them. Open infrastructure is not generosity; it is accountability.
+
+%===============================================================================
+\section{Evaluating the CAS Propositions}
+%===============================================================================
+
+\cref{ch:cas} developed fifteen propositions from Complex Adaptive Systems theory. The empirical chapters provide evidence for evaluating each (see full evaluation in \cref{tab:proposition-evaluation}).
+
+% Proposition evaluation table
+\begin{table*}[htbp]
+\centering
+\caption{Evaluation of the fifteen CAS propositions against empirical evidence}
+\label{tab:proposition-evaluation}
+\tableminimal
+\scriptsize
+\begin{tabular}{@{}clp{5.5cm}cp{3cm}@{}}
+\toprule
+\textbf{ID} & \textbf{Proposition} & \textbf{Empirical Finding} & \textbf{Status} & \textbf{Evidence Source} \\
+\midrule
+\multicolumn{5}{l}{\textit{Emergence (P1--P3)}} \\
+P1 & Role multiplicity is the norm & All 8 KICs span multiple sociotype categories & \textcolor{PandaBamboo}{\textbf{Supported}} & \cref{ch:interstitial} \\
+P2 & Constellation functions exceed sum & System-level bridging observed beyond individual roles & \textcolor{PandaBamboo}{\textbf{Supported}} & \cref{ch:rolefield} \\
+P3 & Emergence accelerates with density & Denser KIC networks show more role differentiation & \textcolor{Azure}{\textbf{Consistent}} & \cref{ch:rolefield} \\
+\addlinespace
+\multicolumn{5}{l}{\textit{Self-Organization (P4--P6)}} \\
+P4 & Differentiation without coordination & Same EIT mandate $\rightarrow$ different KIC configurations & \textcolor{PandaBamboo}{\textbf{Supported}} & \cref{ch:interstitial} \\
+P5 & Hierarchy from accumulated advantage & InnoEnergy's centrality correlates with early success & \textcolor{Azure}{\textbf{Consistent}} & \cref{ch:venture} \\
+P6 & Niche formation reduces competition & Five distinct sociotypes with minimal overlap & \textcolor{PandaBamboo}{\textbf{Supported}} & \cref{ch:interstitial} \\
+\addlinespace
+\multicolumn{5}{l}{\textit{Co-evolution (P7--P9)}} \\
+P7 & Policy-structure co-evolution & KIC restructuring follows EU Green Deal shifts & \textcolor{Azure}{\textbf{Consistent}} & \cref{ch:power} \\
+P8 & Success alters landscape for others & Northvolt success reshaped battery venture space & \textcolor{Azure}{\textbf{Consistent}} & \cref{ch:venture} \\
+P9 & Technology trajectory coupling & Role profiles shift with technology maturation & \textcolor{Slate}{\textbf{Untested}} & --- \\
+\addlinespace
+\multicolumn{5}{l}{\textit{Non-linearity (P10--P12)}} \\
+P10 & Punctuated equilibrium & Insufficient temporal resolution to test & \textcolor{Slate}{\textbf{Untested}} & --- \\
+P11 & Small triggers, large effects & Climate-KIC restructuring from single policy change & \textcolor{Azure}{\textbf{Consistent}} & \cref{ch:power} \\
+P12 & Path dependence constrains & Founding-era roles persist despite environmental change & \textcolor{PandaBamboo}{\textbf{Supported}} & \cref{ch:interstitial} \\
+\addlinespace
+\multicolumn{5}{l}{\textit{Feedback \& Fitness (P13--P15)}} \\
+P13 & Reinforcing feedback $\rightarrow$ concentration & Top 3 KICs capture 68\% of venture funding & \textcolor{PandaBamboo}{\textbf{Supported}} & \cref{ch:venture} \\
+P14 & Balancing feedback $\rightarrow$ diversity & All 8 KICs survive; no monopolization & \textcolor{PandaBamboo}{\textbf{Supported}} & \cref{ch:rolefield} \\
+P15 & Multi-dimensional fitness required & Balanced KICs (InnoEnergy, Digital) outperform & \textcolor{Azure}{\textbf{Consistent}} & \cref{ch:synthesis} \\
+\bottomrule
+\end{tabular}
+\end{table*}
+
+Of fifteen propositions: \textbf{7 supported} with direct evidence, \textbf{6 consistent} with compatible but indirect evidence, \textbf{2 untested} due to data limitations (P9: technology coupling, P10: punctuated equilibrium---both require fine-grained temporal data). No propositions were contradicted. The CAS framing proves empirically productive: it generated predictions that structured inquiry and found substantial confirmation in the EIT ecosystem. The strongest support comes from emergence and self-organization mechanisms (P1, P4, P6), where role multiplicity, self-organized differentiation, and niche formation are all clearly evidenced.
+
+
+%===============================================================================
+\section{Limitations Acknowledged}
+%===============================================================================
+
+Every method has blind spots. Ours are substantial.\sidenote{\textbf{Honest boundaries}---Acknowledging what we cannot see is as important as reporting what we found.}
+
+\begin{itemize}[leftmargin=*, itemsep=0.3em]
+\item \textbf{Digital traces only.} Organizations without websites, news coverage, or social media presence are invisible to us \cite{boyd2012critical,tufekci2014big}. The most important actors in sustainability transitions might be precisely the ones we cannot see.
+\item \textbf{EIT context only.} Eight domains sounds comprehensive, but all eight operate within one institutional framework: European, policy-funded, knowledge-triangle-focused. Would the connector gap appear in Silicon Valley, Shenzhen, or Lagos? We do not know.
+\item \textbf{Limited temporal resolution.} Fourteen years of data sounds longitudinal, but CAS theory predicts dynamics that unfold through micro-interactions. Our data aggregates across years; we cannot observe the mechanisms producing change at the resolution our theory demands.
+\item \textbf{No ground truth.} There is no registry of ``true'' roles against which to check our classifications. Triangulation builds confidence; it does not establish ground truth.
+\item \textbf{Descriptive, not causal.} The connector gap exists. Why? We can speculate, but we cannot test these explanations with observational data alone.
+\end{itemize}
+
+
+%===============================================================================
+\section{Future Research Directions}
+%===============================================================================
+
+Each limitation suggests a research direction:\sidenote{\textbf{Research agenda}---These are invitations, not prescriptions.}
+
+\begin{itemize}[leftmargin=*, itemsep=0.4em]
+\item \textbf{Real-time tracking.} Move from retrospective snapshots to continuously updated dashboards using streaming data from social media feeds, news APIs, and funding databases---enabling adaptive governance of innovation ecosystems.
+
+\item \textbf{Reaching the invisible.} Complement digital trace analysis with interviews, ethnography, and participant observation to reach actors our computational methods cannot see. A promising approach: use interviews to identify invisible actors, then trace their digital-visible partners to reconstruct indirect maps.
+
+\item \textbf{Testing generalizability.} Apply the same tools to US venture ecosystems, Chinese state-led innovation networks, and African tech hubs. If the connector gap replicates, it reveals something fundamental. If it does not, we learn where European specificity ends and universal structure begins.
+
+\item \textbf{Explaining causes.} Move from description to explanation through natural experiments: policy changes that suddenly restructure ecosystems, funding shocks that force adaptation, regulatory shifts that open or close niches.
+
+\item \textbf{Evaluating configurations.} Develop criteria for ``healthy'' constellations---resilience, functional coverage, adaptive capacity---to transform cartography from description into diagnosis.
+
+\item \textbf{Model-assisted annotation.} Develop human-in-the-loop workflows where large language models handle volume while humans handle nuance, ensuring computational categories map to theoretical constructs.
+\end{itemize}
+
+%===============================================================================
+\section{Closing Reflections}
+%===============================================================================
+
+Transitions research has a methodological gap: rich qualitative work that is theoretically sophisticated but limited in scale, versus big data approaches that are scalable but often atheoretical. This dissertation tried to build a bridge.
+
+The bridge is buildable. Design Science Research \cite{simon1996sciences,gregor2013positioning} provides a framework for treating methodological integration as engineering. \RoleBox{} exists, runs, and produces output. The combination reveals things single methods miss: only the multimodal approach exposed the gaps between what organizations claim, how they connect, what they look like, and how discourse constructs their agency.\sidenote{\textbf{Synergistic insight}---No single modality would have revealed the connector gap.} Opening the infrastructure was the right call \cite{salganik2019bitbybit}---science accumulates through shared tools.
+
+The limitations are real. We see only what leaves digital traces. We studied only European institutions. We described patterns but could not explain them. Saying so is not modesty; it is accuracy.
+
+Where does this leave us? We have maps---imperfect, as all maps are---but they show patterns we could not see before. The connector gap is real. The knowledge triangle tilts. Five sociotypes recur. And the breakdown gap is universal: not a single actor across all modalities orients toward breakdown dynamics. The map is not the territory.\sidenote{\textbf{Korzybski's dictum}---``The map is not the territory'' (1931). Yet maps remain essential for navigation.} But territories without maps are hard to navigate. We offer one set of maps, one cartographic infrastructure, and one invitation: use these tools, break them, improve them, apply them elsewhere. The work continues.
+
+\begin{summarybox}
+This dissertation developed \textbf{multimodal cartography} for mapping innovation intermediary role constellations---integrating theory (CAS reconceptualization), method (\RoleBox{} infrastructure), and empirical demonstration (8 EIT KICs).
+
+\vspace{0.5em}
+\textbf{Key findings:}
+\begin{itemize}[leftmargin=*, itemsep=0.2em]
+\item \textbf{Connector gap} (34\% claimed $\rightarrow$ 13\% observed): Systematic aspiration-reality divergence across all domains
+\item \textbf{Knowledge triangle imbalance}: Business (43\%) dominates over research (32\%) and education (25\%) (\cref{ch:interstitial})
+\item \textbf{Breakdown gap}: Complete absence of breakdown/exnovation roles across all five modalities
+\item \textbf{Five recurring sociotypes}: Universal features of innovation intermediary ecosystems
+\item \textbf{Cross-modal signal value}: Divergence reveals gaps; convergence validates attributions
+\end{itemize}
+
+\vspace{0.5em}
+\textbf{Dissertation arc:} Problem identification (\cref{ch:intro}) $\rightarrow$ Theoretical foundation (\cref{ch:cas}) $\rightarrow$ Methodology (\cref{ch:method}) $\rightarrow$ Empirical chapters (\cref{ch:interstitial,ch:rolefield,ch:venture,ch:visual,ch:power}) $\rightarrow$ Synthesis (\cref{ch:synthesis}). The unifying thread: building infrastructure to map what transitions research could previously only theorize.
+\end{summarybox}
+
+\end{document}

@@ -1,0 +1,222 @@
+% !TEX root = ../main.tex
+%========================================================================================
+% VISUAL ABSTRACT - Dissertation at a Glance
+% Unnumbered chapter before Part I providing a single-page infographic overview
+%========================================================================================
+\documentclass[../main.tex]{subfiles}
+\begin{document}
+
+\addchap{Dissertation at a Glance}
+\labch{visual-abstract}
+
+\vspace{-0.8cm}
+
+\begin{center}
+\begin{tikzpicture}[x=0.80cm, y=0.75cm,
+    every node/.style={font=\small},
+    infobox/.style={draw=#1!50, fill=#1!6, rounded corners=4pt,
+                    align=center, inner sep=5pt, font=\scriptsize},
+    modnode/.style={circle, draw=#1!60, fill=#1!15,
+                   minimum size=1cm, font=\fontsize{5}{6}\selectfont\bfseries,
+                   align=center, inner sep=1pt},
+    findbox/.style={draw=#1!40, fill=#1!6, rounded corners=3pt,
+                    font=\fontsize{6}{7.5}\selectfont, text width=2.1cm,
+                    align=center, inner sep=4pt}
+]
+
+%========================================================================================
+% ROW 1: RESEARCH QUESTION
+%========================================================================================
+\node[draw=AccentPurple!50, fill=AccentPurple!5, rounded corners=6pt,
+      text width=10cm, align=center, inner sep=7pt,
+      font=\small\itshape, text=RBcharcoal]
+  (rq) at (6, 21) {%
+    How do intermediary organizations perform and combine roles
+    in sustainability transitions, and what can \textbf{multimodal data}
+    reveal about these \textbf{role constellations}?%
+  };
+
+%========================================================================================
+% ROW 2: CASE --- METHOD --- PLATFORM
+%========================================================================================
+\node[infobox=Slate, text width=2.8cm] (case) at (1.8, 18.2) {%
+    \textbf{\small Empirical Setting}\\[3pt]
+    EIT Community\\
+    394 organizations\\
+    8 KICs $\cdot$ 27 countries%
+};
+
+\node[infobox=AccentCyan, text width=3.2cm] (method) at (6, 18.2) {%
+    \textbf{\small Methodology}\\[3pt]
+    Design Science Research\\
+    Multimodal Cartography\\
+    Complex Adaptive Systems%
+};
+
+\node[infobox=Azure, text width=2.8cm] (platform) at (10.2, 18.2) {%
+    \textbf{\small Infrastructure}\\[3pt]
+    \textsc{RoleBox} (open-source)\\
+    6 data pipelines\\
+    Reproducible analysis%
+};
+
+% Arrows
+\draw[->, thick, Slate!35] (3.5, 18.2) -- (4.2, 18.2);
+\draw[->, thick, Slate!35] (7.8, 18.2) -- (8.6, 18.2);
+
+%========================================================================================
+% ROW 3: SIX DATA MODALITIES
+%========================================================================================
+\node[font=\scriptsize\bfseries, text=RBcharcoal] at (6, 16.2) {Six Data Modalities};
+
+\node[modnode=Slate]       (m1) at (1,  15.3) {Wiki-\\pedia};
+\node[modnode=Azure]       (m2) at (3,  15.3) {Web-\\sites};
+\node[modnode=AccentPurple](m3) at (5,  15.3) {News\\Media};
+\node[modnode=AccentCyan]  (m4) at (7,  15.3) {Social\\Media};
+\node[modnode=Marigold]    (m5) at (9,  15.3) {Visual\\Materials};
+\node[modnode=AccentCoral] (m6) at (11, 15.3) {Invest-\\ment};
+
+% Chapter references
+\node[font=\fontsize{5}{6}\selectfont, text=Slate]       at (1,  14.5) {contextual};
+\node[font=\fontsize{5}{6}\selectfont, text=Azure]       at (3,  14.5) {Ch.\,5};
+\node[font=\fontsize{5}{6}\selectfont, text=AccentPurple] at (5,  14.5) {Ch.\,6};
+\node[font=\fontsize{5}{6}\selectfont, text=AccentCyan]   at (7,  14.5) {Ch.\,7};
+\node[font=\fontsize{5}{6}\selectfont, text=Marigold]     at (9,  14.5) {Ch.\,8};
+\node[font=\fontsize{5}{6}\selectfont, text=AccentCoral]  at (11, 14.5) {Ch.\,9};
+
+% Connecting line
+\draw[Slate!20, thick] (m1) -- (m2) -- (m3) -- (m4) -- (m5) -- (m6);
+
+% Arrow down
+\draw[->, very thick, Slate!30] (6, 14) -- (6, 13.4);
+\node[font=\fontsize{5}{6}\selectfont\itshape, text=Slate, anchor=west] at (6.2, 13.7) {converge into};
+
+%========================================================================================
+% ROW 4: X-CURVE WITH ROLE SPHERES (centerpiece)
+%========================================================================================
+% Background panel
+\fill[RBcream, rounded corners=5pt] (-0.3, 6.2) rectangle (12.3, 13.1);
+\draw[RBcharcoal!15, rounded corners=5pt] (-0.3, 6.2) rectangle (12.3, 13.1);
+
+% Title
+\node[font=\scriptsize\bfseries, text=RBcharcoal] at (6, 12.7) {The X-Curve \& Role Spheres};
+
+% Build-up / Breakdown regions
+\fill[Azure!5] (0, 6.5) rectangle (6, 12.3);
+\fill[AccentCoral!5] (6, 6.5) rectangle (12, 12.3);
+
+% Region labels
+\node[font=\fontsize{6}{7}\selectfont\bfseries, text=Azure!60!black] at (3, 12) {\faIcon{arrow-up}\; BUILD-UP};
+\node[font=\fontsize{6}{7}\selectfont\bfseries, text=AccentCoral!60!black] at (9, 12) {BREAKDOWN \;\faIcon{arrow-down}};
+
+% X-curve: Build-up arm
+\draw[very thick, Azure, line width=1.8pt]
+    plot[smooth, tension=0.8] coordinates {
+        (0.3,7.2) (1.5,7.4) (3,8) (4.5,9.5) (6,10.5) (7.5,11) (9,11.3) (10.5,11.4) (11.7,11.5)
+    };
+
+% X-curve: Breakdown arm
+\draw[very thick, AccentCoral, line width=1.8pt]
+    plot[smooth, tension=0.8] coordinates {
+        (0.3,11.5) (1.5,11.4) (3,11.3) (4.5,11) (6,10.5) (7.5,9.5) (9,8) (10.5,7.4) (11.7,7.2)
+    };
+
+% Build-up phase labels
+\node[font=\fontsize{5}{6}\selectfont, text=Azure!70!black, anchor=east] at (1.3,7.1) {Experimentation};
+\node[font=\fontsize{5}{6}\selectfont, text=Azure!70!black, anchor=east] at (2.8,7.6) {Acceleration};
+\node[font=\fontsize{5}{6}\selectfont, text=Azure!70!black, anchor=west] at (4.2,9.2) {Emergence};
+\node[font=\fontsize{5}{6}\selectfont, text=Azure!70!black, anchor=west] at (7.2,10.8) {Institutionalization};
+
+% Breakdown phase labels
+\node[font=\fontsize{5}{6}\selectfont, text=AccentCoral!70!black, anchor=west] at (1.8,11.2) {Destabilisation};
+\node[font=\fontsize{5}{6}\selectfont, text=AccentCoral!70!black, anchor=east] at (7.2,9.2) {Chaos};
+\node[font=\fontsize{5}{6}\selectfont, text=AccentCoral!70!black, anchor=east] at (9.2,7.6) {Breakdown};
+\node[font=\fontsize{5}{6}\selectfont, text=AccentCoral!70!black, anchor=west] at (10.8,7.1) {Phase-out};
+
+% Build-up: populated with role activity (small filled circles)
+\foreach \x/\y in {%
+    1.0/8.5, 1.4/8.8, 1.8/9.0, 2.2/9.4, 2.6/9.6,
+    3.0/9.9, 3.4/10.1, 3.8/10.3, 4.2/10.5,
+    1.6/8.2, 2.4/8.8, 3.2/9.2, 2.0/9.8,
+    1.2/9.2, 2.8/10.0, 3.6/9.5, 4.0/9.8%
+} {
+    \fill[Azure!50] (\x, \y) circle (1.5pt);
+}
+
+% Breakdown: sparse (question marks)
+\node[font=\normalsize, text=AccentCoral!25] at (8, 8.8) {\textbf{?}};
+\node[font=\normalsize, text=AccentCoral!25] at (9.5, 8.2) {\textbf{?}};
+\node[font=\normalsize, text=AccentCoral!25] at (10.5, 8.8) {\textbf{?}};
+\node[font=\small, text=AccentCoral!20] at (8.8, 9.5) {\textbf{?}};
+
+% Role Sphere labels
+\node[draw=Azure!35, fill=Azure!12, rounded corners=2pt,
+      font=\fontsize{5.5}{6.5}\selectfont\bfseries, inner sep=2.5pt,
+      text=Azure!70!black]
+  at (2.5, 10.6) {Role Sphere: populated};
+\node[draw=AccentCoral!35, fill=AccentCoral!12, rounded corners=2pt,
+      font=\fontsize{5.5}{6.5}\selectfont\bfseries, inner sep=2.5pt,
+      text=AccentCoral!70!black]
+  at (9.5, 10.6) {Role Sphere: empty};
+
+% Central finding (the gap)
+\node[draw=Marigold!50, fill=Marigold!8, rounded corners=3pt,
+      font=\fontsize{5.5}{6.5}\selectfont, inner sep=3.5pt,
+      text=RBcharcoal, text width=4cm, align=center]
+  at (6, 7) {Build-up activity crowds out breakdown:\\
+    lock-ins \,$\cdot$\, legacy investments \,$\cdot$\, subtractive neglect};
+
+%========================================================================================
+% ROW 5: KEY FINDINGS
+%========================================================================================
+\node[font=\scriptsize\bfseries, text=RBcharcoal] at (6, 5.5) {Key Findings};
+
+\node[findbox=AccentPurple] at (1.2, 4) {%
+    \textbf{5 Sociotypes}\\[1pt]
+    Innovation, Business,\\
+    Sustainability,\\Public, Hybrid%
+};
+
+\node[findbox=Azure] at (3.7, 4) {%
+    \textbf{Connector Gap}\\[1pt]
+    {<}3\% claim connector\\
+    role; ${\sim}$0\% enact it%
+};
+
+\node[findbox=AccentCoral] at (6.2, 4) {%
+    \textbf{Build-up Bias}\\[1pt]
+    All modalities show\\
+    build-up; breakdown\\
+    roles absent%
+};
+
+\node[findbox=Marigold] at (8.7, 4) {%
+    \textbf{KT Imbalance}\\[1pt]
+    Innovation anchor\\
+    dominates; Education\\
+    peripheral%
+};
+
+\node[findbox=Slate] at (11.2, 4) {%
+    \textbf{6 Design}\\
+    \textbf{Patterns}\\[1pt]
+    for multimodal\\
+    cartography%
+};
+
+%========================================================================================
+% BOTTOM: CHAPTER STRUCTURE
+%========================================================================================
+\node[font=\fontsize{5.5}{7}\selectfont, text=Slate, align=center] at (6, 2.3) {%
+    Part\,I: Foundations (Ch.\,1--4) \;\textbar\;
+    Part\,II: Empirical Studies (Ch.\,5--9) \;\textbar\;
+    Part\,III: Synthesis \& Conclusions (Ch.\,10--11)%
+};
+
+% Thin line separator
+\draw[Slate!20] (0.5, 2.8) -- (11.5, 2.8);
+
+\end{tikzpicture}
+\end{center}
+
+\end{document}

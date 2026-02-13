@@ -1,0 +1,825 @@
+% !TEX root = ../main.tex
+\documentclass[../main.tex]{subfiles}
+
+\begin{document}
+
+\chapter{Mapping Interstitial Pluralism}
+\labch{interstitial}
+\margintoc
+
+\begin{chapteroverview}
+This chapter catalogues the positioning and sociotypes of EIT actor websites, developing an integrated analysis of how innovation intermediaries navigate institutional plurality. First, we map \textit{interstitial positioning}---how EIT Communities locate themselves in the cultural space between education, research, and business domains. Second, we introduce \textit{sociotypes}---fluid relational configurations through which intermediaries enact and sustain interstitial positions. Together, these analyses reveal that EIT Communities are not merely ``between'' institutional domains but actively constitute interstitial space through distinctive patterns of role enactment.
+\end{chapteroverview}
+
+\begin{quote}
+\textit{``Organizational fields are shaped by both the relations that organizations forge and the language they express. The structure and discourse of organizational fields have been studied before, but seldom in combination.''}\\
+--- Oberg, Korff \& Powell \citeyear{oberg2017culture}
+\end{quote}
+
+
+%═══════════════════════════════════════════════════════════════════════════════
+\section{Introduction}
+%═══════════════════════════════════════════════════════════════════════════════
+\labsec{interstitial:intro}
+
+Innovation intermediaries occupy peculiar institutional terrain.\sidenote{\textbf{Interstitial organization}---actors positioned between established fields \cite{powell1990neither,furnari2014interstitial}.} They are not universities, yet they educate; not venture capital firms, yet they fund startups; not research institutes, yet they generate knowledge. They exist \textit{between}---in the interstices of established institutional domains---sustaining relationships with constituencies whose expectations derive from fundamentally different sources.
+
+The European Institute of Innovation and Technology (EIT) and its Knowledge and Innovation Communities (KICs) represent an ambitious experiment in institutionalizing such interstitial organization.\sidenote{\textbf{EIT design}---modeled on MIT and Stanford's innovation ecosystems, as a distributed pan-European network.} Established in 2008 to address Europe's ``innovation paradox,'' the EIT integrates the ``knowledge triangle'' of higher education, research, and business. The eight KICs examined here---Climate-KIC, EIT Digital, EIT Health, EIT Food, EIT Manufacturing, EIT Urban Mobility, EIT RawMaterials, and InnoEnergy---each operate across these domains within specific sectoral contexts.
+
+This chapter addresses two questions through integrated analysis. First, \textit{interstitial positioning}: where do KICs locate themselves in the cultural space defined by the knowledge triangle \cite{oberg2017culture,korff2015social}? Second, \textit{interstitial sociotypes}: how do KICs enact and sustain interstitial positions through fluid relational configurations \cite{jancsary2017structural}? Together, these analyses reveal that interstitial positioning is an active accomplishment, achieved through distinctive role identity configurations that create interfaces between institutional domains while preserving productive ambiguity.
+
+This chapter contributes to the dissertation's \textbf{RQ3} (What role constellation patterns characterize interstitial actors?) by examining \emph{claimed roles}---how KICs position themselves discursively within the knowledge triangle. Our analysis addresses three chapter-level research questions:
+
+\begin{enumerate}
+    \item \textbf{CRQ1}: Where do EIT Communities position themselves within the knowledge triangle, and does their positioning achieve balanced integration or tilt toward particular domains?
+    \item \textbf{CRQ2}: What relational configurations (sociotypes) emerge from EIT Community role enactment, and how do these configurations enable navigation of institutional plurality?
+    \item \textbf{CRQ3}: How do discursive positioning and relational configuration interact---does the pattern of sociotypes correspond to the pattern of discursive emphasis?
+\end{enumerate}
+
+
+%═══════════════════════════════════════════════════════════════════════════════
+\section{Conceptual Framework: Fields as Topographies of Meaning}[Fields as Topographies]
+\labsec{interstitial:topography}
+
+\subsection{Integrating Networks and Discourse}
+
+Organizational fields have traditionally been studied through two lenses: as \textit{webs of relations} or as \textit{meaning systems}.\sidenote{Network analysts focus on ties and positions; discourse analysts focus on language and symbols. Recent work integrates these perspectives \cite{oberg2017culture,korff2015social}.} Mapping organizations onto a ``topography of meaning'' defined by multiple discourses, then layering relational ties onto this topography, reveals how discursive positioning and network structure co-constitute organizational fields.
+
+\subsection{The Triangular Field: Multiple Meaning Systems}
+
+For fields suspended between three meaning systems, a triangular representation proves useful.\sidenote{\textbf{Triangular mapping}---each vertex represents a ``pure'' discourse (100\% of one meaning system); interior positions represent combinations.} Each vertex of the triangle represents an ideal-typical position fully committed to one discourse; positions within the triangle represent organizations that draw on multiple meaning systems in varying proportions. An organization positioned at the center draws equally from all three discourses; one positioned near a vertex draws predominantly from that discourse.
+
+For EIT Communities, the three vertices correspond to the knowledge triangle domains:
+
+\begin{itemize}
+    \item \textbf{Education vertex}: Language of learning, talent development, student success, pedagogical innovation, credentials, and human capital formation
+    \item \textbf{Research vertex}: Language of discovery, knowledge creation, scientific excellence, evidence-based practice, and intellectual contribution
+    \item \textbf{Business vertex}: Language of entrepreneurship, startups, investment, market creation, scaling, commercial impact, and venture development
+\end{itemize}
+
+The EIT's mandate of ``knowledge triangle integration'' implies that KICs should occupy interstitial positions, drawing from all three meaning systems. But the mandate does not specify \textit{how} integration should be achieved or whether the three vertices should receive equal weight. Mapping actual positioning reveals whether KICs achieve balanced integration or tilt toward particular domains.
+
+\subsection{Interstitial Communities and Field Configuration}
+
+When organizations from different domains converge at the interstice, an \textit{interstitial community} may emerge---a densely connected group that bridges otherwise separate domains.\sidenote{\textbf{Field configurations}---depend on organizational openness to adjacent discourses. Low openness yields differentiation; moderate mutual openness yields interstitial bridging; high asymmetric openness yields integration toward a dominant discourse \cite{oberg2017culture}.} For mandated integration like the EIT, understanding which configuration has emerged reveals whether the knowledge triangle model produces genuine synthesis or rhetorical overlay on underlying domain dominance.
+
+
+%═══════════════════════════════════════════════════════════════════════════════
+\section{Methods: Mapping Discursive Positioning}[Methods: Positioning]
+\labsec{interstitial:methods-positioning}
+
+% ── Workflow Schematic ──────────────────────────────────────────────────────
+\begin{wideblock}
+\centering
+\begin{tikzpicture}[
+    scale=0.78, transform shape,
+    stepbox/.style={draw, rounded corners=3pt, fill=#1!15,
+        minimum width=2.6cm, minimum height=1.5cm,
+        align=center, font=\scriptsize, inner sep=4pt},
+    uibox/.style={draw, rounded corners=3pt, fill=CoverGold!25,
+        minimum width=2.6cm, minimum height=1.5cm,
+        align=center, font=\scriptsize, inner sep=4pt,
+        line width=1pt},
+    ethicslabel/.style={font=\fontsize{5.5}{6.5}\selectfont,
+        text=AccentCoral!80!black, align=center, text width=2.4cm},
+    datalabel/.style={font=\fontsize{6}{7}\selectfont\bfseries,
+        text=PandaCharcoal},
+    arrow/.style={->, thick, PandaCharcoal!60},
+]
+    % ── Pipeline steps ──
+    \node[stepbox=Azure] (s1) at (0,0)
+        {\faList\\[0.15em]\textbf{Entity Register}\\[0.1em]1,149 organizations};
+    \node[stepbox=AccentCyan] (s2) at (3.2,0)
+        {\faSpider\\[0.15em]\textbf{Web Crawling}\\[0.1em]2,190 pages};
+    \node[stepbox=AccentCyan] (s3) at (6.4,0)
+        {\faFile*\\[0.15em]\textbf{Text Extraction}\\[0.1em]583K words};
+    \node[stepbox=AccentPurple] (s4) at (9.6,0)
+        {\faSearch\\[0.15em]\textbf{KT Classification}\\[0.1em]342 keywords};
+    \node[stepbox=PandaBamboo] (s5) at (12.8,0)
+        {\faChartPie\\[0.15em]\textbf{Field Positioning}\\[0.1em]1,298 mapped};
+    \node[uibox] (ui) at (16,0)
+        {\faDesktop\\[0.15em]\textbf{TRIPLEX}\\[0.1em]Interactive UI};
+
+    % ── Arrows ──
+    \draw[arrow] (s1) -- (s2);
+    \draw[arrow] (s2) -- (s3);
+    \draw[arrow] (s3) -- (s4);
+    \draw[arrow] (s4) -- (s5);
+    \draw[arrow] (s5) -- (ui);
+
+    % ── Ethics annotations (below each step) ──
+    \node[ethicslabel] at (0,-1.3)
+        {\faBalanceScale~Selection bias:\\EIT register only};
+    \node[ethicslabel] at (3.2,-1.3)
+        {\faBalanceScale~Compliance:\\robots.txt, no login};
+    \node[ethicslabel] at (6.4,-1.3)
+        {\faBalanceScale~Coverage gap:\\JS content excluded};
+    \node[ethicslabel] at (9.6,-1.3)
+        {\faBalanceScale~Vocabulary bias:\\expert-curated terms};
+    \node[ethicslabel] at (12.8,-1.3)
+        {\faBalanceScale~Temporal snapshot:\\single timepoint};
+    \node[ethicslabel] at (16,-1.3)
+        {\faLockOpen~Open source:\\full transparency};
+\end{tikzpicture}
+\captionof{figure}{Analytical workflow for interstitial positioning analysis. Each step includes ethical considerations (coral annotations below). The pipeline flows from entity selection through automated crawling, text extraction, and vocabulary-based classification to field positioning. The interactive \textsc{Triplex} UI enables readers to explore the full dataset.}
+\label{fig:ch5:workflow}
+\end{wideblock}
+
+\subsection{Corpus Construction}
+
+We analyze the public-facing text of KIC-affiliated organizations to map
+discursive positioning.\sidenote{\textbf{Websites as data}---address multiple
+audiences simultaneously and cannot resolve plurality through compartmentalization
+\cite{jancsary2017structural}.} The primary corpus consists of organizational
+websites (main pages, programme descriptions, strategic documents, news) collected
+through automated web crawling using a Python-based crawler
+(\texttt{compucrawl}).\marginnote{The crawler visits each domain's landing page
+and follows internal links to a configurable depth, extracting visible text via
+HTML parsing. JavaScript-rendered content is not captured, which excludes some
+single-page applications.} The sampling proceeds in three stages. The
+\textit{entity register} lists 1,149 organizations across eight KICs: 8 KIC hub
+websites, 526 partner organizations, and 615 EIT-supported startups. Crawling
+retrieved 2,190 pages from 1,700 unique domains, totaling 583,227
+words---the difference between 1,700 domains and 1,149 registered entities
+reflects linked pages discovered during crawling. Of the crawled entities, 1,298
+yielded at least one knowledge triangle keyword match and form the
+\textit{analyzable corpus}; of these, 676 could be classified by KIC through
+the entity register, while 622 remain unclassified (crawled but not formally
+registered to a KIC).
+
+A secondary corpus of Wikipedia articles provides third-party institutional
+descriptions for method comparison (\cref{subsec:interstitial:method-reflexivity}).
+Articles were retrieved programmatically via the Wikipedia API
+(\texttt{wikipedia-api} Python package) by resolving each registered entity's
+domain name to its corresponding English Wikipedia article through a combination
+of 232 hand-curated domain-to-article mappings and automated title search with
+manual validation. This yielded 96 verified articles (median 1,655 words) covering
+86 partners and 10 startups. Full methodology is documented in
+\cref{app:wikipedia}.
+
+\subsection{Discourse Classification}
+
+We developed a vocabulary-based classification approach using curated lexicons of domain-specific keywords (342 unique terms: 98 education, 112 research, 133 business). For each document, we calculate the proportion of content attributable to each discourse:\sidenote{We compare this dictionary approach with sentence transformer embeddings and alternative text sources in \cref{subsec:interstitial:method-reflexivity}.}
+
+\begin{equation}
+    P_d = \frac{\sum_{t \in T_d} \text{tf}(t)}{\sum_{d' \in \{E,R,B\}} \sum_{t \in T_{d'}} \text{tf}(t)} \quad \Rightarrow \quad \mathbf{p}_{\text{org}} = (P_E, P_R, P_B)
+\end{equation}
+
+where $P_d$ is the proportion for discourse $d$ and $T_d$ is the set of terms associated with that discourse. Document-level scores are aggregated to organizational-level positioning.
+
+
+%═══════════════════════════════════════════════════════════════════════════════
+\section{Findings: The Entrepreneurial Tilt}[Findings: Positioning]
+\labsec{interstitial:findings-positioning}
+
+\subsection{Aggregate Knowledge Triangle Positioning}
+
+Analysis at two levels---KIC hub websites and the broader ecosystem of partners and startups---reveals systematic imbalance in knowledge triangle positioning.
+
+\begin{center}
+\begin{tikzpicture}[scale=1.2]
+    % Triangle
+    \draw[thick] (0,0) -- (6,0) -- (3,5.2) -- cycle;
+
+    % Vertex labels
+    \node[below] at (0,0) {\textbf{Education}};
+    \node[below] at (6,0) {\textbf{Business}};
+    \node[above] at (3,5.2) {\textbf{Research}};
+
+    % KIC hub position (E=15%, R=28%, B=57%)
+    \fill[AccentRed] (4.26,1.46) circle (4pt);
+    \node[font=\scriptsize, right] at (4.36,1.46) {KIC hubs};
+
+    % Full ecosystem position (E=14%, R=37%, B=49%)
+    \fill[AccentPurple] (4.1,1.93) circle (4pt);
+    \node[font=\scriptsize, left] at (3.9,2.1) {Full ecosystem};
+
+    % Startup position (E=6%, R=36%, B=57%)
+    \fill[DarkBlue] (4.54,1.87) circle (3pt);
+    \node[font=\scriptsize, right] at (4.6,1.87) {\textit{Startups}};
+
+    % Balanced center (for reference)
+    \draw[dashed, gray] (3,1.73) circle (3pt);
+    \node[font=\tiny, gray, left] at (2.8,1.73) {balanced};
+
+\end{tikzpicture}
+\captionof{figure}{Knowledge triangle positioning at multiple levels. KIC hubs ($n=7$), the full ecosystem ($n=1{,}298$), and the startup portfolio ($n=373$) all tilt toward business---but differ in their education--research balance.}
+\labfig{kt-aggregate}
+\end{center}
+
+\begin{insightbox}[The Business Tilt---Amplified by Startups]
+KIC hub websites position themselves at E=15\%, R=28\%, B=57\%. The full ecosystem (1,298 entities) shows E=14\%, R=37\%, B=49\%. Startups amplify the business tilt (B=57\%) while nearly eliminating education discourse (E=6\%). Only 12\% of entities achieve genuinely interstitial positioning.
+\end{insightbox}
+
+\subsection{Cross-KIC Variation}
+
+While all KICs exhibit entrepreneurial tilt, the degree varies by sectoral context. \Cref{tab:kt-by-kic} presents two layers: the KIC hub website positioning (reflecting official self-presentation) and the full ecosystem positioning (reflecting how the broader portfolio of partners and ventures discursively positions itself).
+
+\begin{center}
+\small
+\begin{tabular}{lrrrrl}
+\toprule
+\textbf{KIC} & \textbf{$n$} & \textbf{Edu} & \textbf{Res} & \textbf{Bus} & \textbf{Profile} \\
+\midrule
+\multicolumn{6}{l}{\textit{KIC hub websites}} \\
+EIT Digital & 1 & 25\% & 21\% & 54\% & Business-tilted \\
+EIT Manufacturing & 1 & 16\% & 29\% & 55\% & Business-tilted \\
+Climate-KIC & 1 & 16\% & 35\% & 49\% & Business-tilted \\
+InnoEnergy & 1 & 30\% & 28\% & 43\% & Balanced-business \\
+EIT Food & 1 & 24\% & 35\% & 41\% & Research-tilted \\
+EIT Health & 1 & 27\% & 34\% & 39\% & Research-tilted \\
+EIT RawMaterials & 1 & 30\% & 39\% & 30\% & Research-tilted \\
+EIT Urban Mobility & 1 & 35\% & 35\% & 29\% & Balanced \\
+\midrule
+\multicolumn{6}{l}{\textit{Full KIC ecosystems (hubs + partners + startups)}} \\
+EIT Digital & 103 & 10\% & 30\% & 60\% & Business-tilted \\
+EIT Manufacturing & 111 & 14\% & 33\% & 53\% & Business-tilted \\
+InnoEnergy & 128 & 5\% & 32\% & 63\% & Business-tilted \\
+EIT Food & 97 & 7\% & 38\% & 55\% & Business-tilted \\
+EIT Health & 88 & 20\% & 49\% & 32\% & Research-tilted \\
+EIT Urban Mobility & 111 & 22\% & 35\% & 43\% & Business-tilted \\
+EIT RawMaterials & 32 & 14\% & 30\% & 56\% & Business-tilted \\
+\midrule
+\textbf{Ecosystem total} & \textbf{676} & \textbf{14\%} & \textbf{37\%} & \textbf{49\%} & \\
+\bottomrule
+\end{tabular}
+\captionof{table}{Knowledge triangle positioning at hub and ecosystem levels. Hub $n=1$ per KIC (own website); ecosystem $n$ includes partners and supported ventures.}
+\labtab{kt-by-kic}
+\end{center}
+
+Notable patterns emerge across the two levels. At the \textbf{hub level}, EIT Health and RawMaterials position themselves as research-tilted, while Urban Mobility achieves near-balance. At the \textbf{ecosystem level}, once partners and startups are included, even research-tilted KICs like RawMaterials shift to business dominance (56\%). EIT Health alone retains a research-leading profile (49\% research) at the ecosystem level.\marginnote{The divergence between hub positioning and ecosystem positioning reveals structural tension: KICs may claim balanced integration while their actual portfolios lean heavily commercial.}
+
+\subsection{The Actor-Type Gradient}
+
+Disaggregating by entity type reveals the mechanism behind the ecosystem-level business tilt:
+
+\begin{center}
+\small
+\begin{tabular}{lrrrr}
+\toprule
+\textbf{Actor type} & \textbf{$n$} & \textbf{Edu} & \textbf{Res} & \textbf{Bus} \\
+\midrule
+KIC Hubs & 7 & 15\% & 28\% & 57\% \\
+Partners & 296 & 20\% & 35\% & 45\% \\
+Startups & 373 & 6\% & 36\% & 57\% \\
+\bottomrule
+\end{tabular}
+\captionof{table}{Knowledge triangle positioning by actor type ($n=676$ classified entities)}
+\labtab{kt-by-type}
+\end{center}
+
+Partners---universities, research institutes, corporations---maintain the strongest education orientation (20\%), reflecting their institutional roots. Startups virtually eliminate education discourse (6\%), concentrating on business (57\%) with a substantial research component (36\%).\sidenote{\textbf{Startup research discourse}---the 36\% research component in startups reflects innovation-adjacent vocabulary (patents, prototyping, validation) rather than basic research.} The KIC hubs themselves are more business-tilted than their partner ecosystems, suggesting that the intermediaries' own discourse has absorbed the entrepreneurial framing they promote.
+
+\subsection{Positioning Visualization}
+
+Figure \ref{fig:kt-positions} maps individual KIC positions within the knowledge triangle.
+
+% KIC positions figure - simplified to avoid TeX capacity issues
+\begin{center}
+\begin{tikzpicture}[scale=0.9]
+    % Triangle
+    \draw[thick] (0,0) -- (8,0) -- (4,6.93) -- cycle;
+
+    % Vertex labels
+    \node[below left] at (0,0) {\small Education};
+    \node[below right] at (8,0) {\small Business};
+    \node[above] at (4,6.93) {\small Research};
+
+    % Center point (balanced)
+    \draw[gray, dashed] (4, 2.31) circle (3pt);
+    \node[font=\tiny, gray] at (3.5, 2.31) {center};
+
+    % KIC cluster region (shaded)
+    \fill[AccentPurple, opacity=0.15] (4.8, 1.5) -- (5.6, 2.2) -- (6.1, 1.5) -- (5.4, 1.5) -- cycle;
+
+    % Representative KIC positions
+    \fill[blue] (6.0, 1.52) circle (3pt);
+    \fill[orange] (5.76, 1.66) circle (3pt);
+    \fill[green!60!black] (5.56, 2.15) circle (3pt);
+    \fill[red] (4.88, 1.94) circle (3pt);
+
+    % Label for cluster
+    \node[font=\scriptsize] at (5.5, 1.2) {All 8 KICs};
+
+\end{tikzpicture}
+\captionof{figure}{KIC positions within the knowledge triangle. All KICs cluster in the business-tilted region.}
+\labfig{kt-positions}
+\end{center}
+
+All KICs cluster in the business-tilted lower-right quadrant with limited variation.\sidenote{The clustering suggests systemic rather than idiosyncratic positioning.} No KIC achieves balance; education discourse remains systematically underrepresented. KICs occupy interstitial positions but the interstitial space is displaced toward business.
+
+
+
+%═══════════════════════════════════════════════════════════════════════════════
+\section{Positioning Findings: The Entrepreneurial Tilt}[Positioning Discussion]
+\labsec{interstitial:discussion-positioning}
+
+\subsection{The Nature of EIT Interstitiality}
+
+The findings confirm that EIT Communities occupy interstitial positions---they draw from multiple meaning systems and cannot be classified as purely academic, purely commercial, or purely educational organizations. However, the interstitiality is \textit{asymmetric}: business discourse dominates across all levels. Only 12\% of the 1,298 analyzed entities achieve genuinely interstitial positioning (no single pole exceeding 60\%, no pole below 10\%).
+
+This pattern corresponds to what Oberg et al. \citeyear{oberg2017culture} call \textit{integration} rather than \textit{balanced recombination}.\sidenote{\textbf{Integration vs. recombination}---integration pulls diverse organizations toward a dominant discourse; recombination creates genuine hybrids at the interstice.} In integration configurations, one meaning system exerts gravitational pull, drawing organizations from other domains toward its vocabulary and practices. The result is not synthesis but absorption---other discourses become instrumental to the dominant frame rather than contributing equally to a composite language.
+
+\subsection{Institutional Pressures Toward Business Orientation}
+
+Several factors may explain the entrepreneurial tilt: EIT accountability frameworks emphasize quantifiable outputs (startups, funding, jobs) aligned with business discourse; entrepreneurial language carries legitimacy in innovation policy contexts; business outcomes are more immediately visible than educational or research outcomes.
+
+\subsection{Implications for Knowledge Triangle Integration}
+
+The entrepreneurial tilt raises questions about genuine integration:\marginnote{If integration means absorption into business discourse, the knowledge triangle becomes rhetorical rather than structural.} Does balanced integration require balanced representation? Does business-dominant discourse affect resource allocation? These questions motivate examining \textit{how} KICs navigate interstitial positions through relational configurations.
+
+\subsection{Methodological Reflexivity: The Map Depends on Which Map You Bring}
+\label{subsec:interstitial:method-reflexivity}
+
+A critical question for any field-mapping exercise is whether the map reflects
+the terrain or the cartographer's tools. We assess sensitivity on the 77
+organizations that appear in \textit{both} the crawled website corpus and the
+Wikipedia corpus described above.\sidenote{The overlap is structurally limited:
+Wikipedia covers established institutions disproportionately, while most EIT
+startups have no Wikipedia article. Of the 96 verified Wikipedia articles, 77
+have a matching domain in the website corpus.} The overlap includes 62 partners
+(predominantly universities and research organizations) and 15 startups---a
+structurally richer subsample than university-only comparisons would permit. We
+systematically vary text source (Wikipedia vs.\ website), vocabulary (KT vs.\
+Powell), and method (keyword dictionary vs.\ sentence-transformer
+embeddings).\marginnote{Sentence-transformer embeddings use the
+\texttt{all-MiniLM-L6-v2} model (384-dimensional). Each text is compared via
+cosine similarity to three prototype paragraphs describing ideal-typical
+education, research, and business discourse. This captures semantic proximity
+rather than lexical overlap.}
+
+\begin{center}
+\small
+\begin{tabular}{llcccr}
+\toprule
+\textbf{Text source} & \textbf{Method} & \textbf{Dim 1} & \textbf{Dim 2} & \textbf{Dim 3} & \textbf{Dominant} \\
+\midrule
+\multicolumn{6}{l}{\textit{Education / Research / Business vocabulary (342 terms)}} \\
+Website & KT Dictionary & 23\% & 39\% & 38\% & Research \\
+Wikipedia & KT Dictionary & 26\% & 25\% & 48\% & Business \\
+Website & KT Embedding & 41\% & 18\% & 40\% & Education \\
+Wikipedia & KT Embedding & 30\% & 34\% & 36\% & Business \\
+\midrule
+\multicolumn{6}{l}{\textit{Scientific / Associational / Managerial vocabulary (159 terms)}} \\
+Website & Powell Dictionary & 35\% & 20\% & 44\% & Managerial \\
+Wikipedia & Powell Dictionary & 42\% & 21\% & 37\% & Scientific \\
+\bottomrule
+\end{tabular}
+\captionof{table}{Aggregate positioning of 77 overlapping entities across six method
+configurations. Dimensions correspond to the vocabulary used: E/R/B for KT, S/A/M
+for Powell. Each row shows mean proportions across all entities.}
+\labtab{method-comparison}
+\end{center}
+
+Four findings emerge. First, \textbf{text source matters}: 40\% of entities (31/77)
+change dominant pole when the same KT dictionary is applied to Wikipedia articles
+instead of organizational websites. Cross-source correlations are weak---education
+$\rho = 0.30$, research $\rho = 0.18$, business $\rho = 0.40$ (Spearman)---indicating
+that the two text sources capture genuinely different aspects of organizational identity.
+Second, \textbf{vocabulary matters}: applying Powell's scientific/associational/managerial
+vocabulary to the same Wikipedia text shifts the dominant pole for 35\% of entities
+(27/77), because Powell's ``scientific'' dimension includes institutional terms
+(``university,'' ``institute'') that inflate scores for organizations identified
+\textit{as} research entities rather than those discussing research
+\textit{activities}.\marginnote{This vocabulary sensitivity explains why our KT
+vocabulary separates education from research terms: a university homepage saying
+``we are a university'' registers as education in our framework but as scientific
+in Powell's.} Third, \textbf{method matters}: switching from keyword counting to
+sentence-transformer embeddings changes the dominant pole for 49\% of entities on
+website text and 38\% on Wikipedia text. Fourth, \textbf{the direction of bias
+differs by source}: website text pushes entities toward Research (39\%) while
+Wikipedia text pushes them toward Business (48\%), reflecting the difference between
+strategic self-presentation and third-party institutional description.
+
+These divergences reflect what each text source captures. Websites present
+\textit{strategic self-presentation}---how organizations want to be seen, in
+language optimized for prospective partners, students, and funders. Wikipedia
+provides \textit{third-party institutional description}---historical narrative,
+structural facts, and categorization written by external
+editors.\marginnote{Wikipedia is better suited for extracting historical events,
+founding dates, mergers, and institutional lineage; websites are better suited for
+capturing current strategic positioning and aspirational identity claims.} The weak
+research correlation ($\rho = 0.18$) between sources is telling: a university's
+website may emphasize its startup incubator and innovation partnerships, while
+its Wikipedia article describes its faculties and student body.
+
+The practical implication: \textit{the business tilt we report is not an artifact
+of one particular method}. Across all four KT configurations (dictionary and
+embedding, website and Wikipedia), business scores range from 36--48\%---consistently
+the strongest or second-strongest pole. The reflexivity check confirms that our
+findings are robust to reasonable methodological variation, while cautioning that
+absolute percentages should be interpreted as ordinal rather than cardinal measures.
+The 77-entity subsample, spanning universities, research organizations, corporations,
+and startups, provides sufficient structural diversity to establish that these
+patterns are not artifacts of sample composition.
+
+
+%═══════════════════════════════════════════════════════════════════════════════
+\section{From Logics to Sociotypes}[Sociotypes Framework]
+\labsec{interstitial:sociotypes-theory}
+
+\subsection{The Limits of Categorical Approaches}
+
+The dominant approach to institutional pluralism works from predetermined categories---institutional logics, orders, or fields---and asks how organizations respond to them.\sidenote{\textbf{Institutional pluralism}---canonical typologies posit fixed societal-level orders (family, state, market, profession, etc.) with characteristic sources of legitimacy \cite{thornton2012institutional,greenwood2011institutional}.} This categorical approach tends toward reification (treating analytical constructs as bounded containers), privileges conflict over coexistence, and rarely examines whole constellations---neglecting the structural properties of multi-category configurations and how orientations are positioned relative to one another.
+
+\subsection{A Structural Alternative: Role Identities and Relational Configuration}
+
+We address these limitations by reconstructing institutional environments from the bottom up \cite{jancsary2017structural}. Institutional environments become manifest through \textit{role identities}---positions in social space defined by behavioral expectations \cite{stryker1980symbolic}. Role identities are inherently relational: they are constituted through typified actions directed toward typified others.\marginnote{A ``teacher'' implies ``students'' and practices of instruction; an ``investor'' implies ``investees'' and practices of funding \cite{berger1967social}.} We operationalize this through triplets of role identity, counterrole, and connecting practices. Extracting such triplets reveals the multiple positions an organization claims and the relationships through which it enacts them.
+
+\subsection{Introducing Sociotypes: Fluid Relational Configurations}
+
+We introduce \textit{sociotype} to name clusters of role categories that emerge from structural analysis.\sidenote{\textbf{Sociotype}---a recurring relational configuration, stable enough to recognize yet fluid enough to blend, defined by its pattern of connections rather than essential properties \cite{thornton2012institutional,ocasio2017theory}.} A sociotype is a recurring relational configuration (role identities, counterroles, practices), fluid rather than fixed (capable of blending), defined by relational signature (not essential properties), and emergent from practice (discovered, not imposed).
+
+% Main body figure: Sociotypes vs Institutional Logics comparison
+\begin{center}
+\begin{tikzpicture}[scale=1.1]
+    % Institutional Logic box (left - rigid, angular)
+    \node[draw, rectangle, fill=gray!15, minimum width=4.5cm, minimum height=3.5cm, line width=1.5pt] (logic) at (-4,0) {};
+    \node[font=\normalsize\bfseries, text=PandaCharcoal] at (-4, 1.2) {Institutional Logic};
+    \node[font=\scriptsize, align=center, text=Slate] at (-4, 0.2) {Top-down imposition\\Rigid boundaries\\Binary membership\\Theoretically derived\\Fixed categories};
+    % Grid lines to show rigidity
+    \draw[gray!40, thin] (-5.8, -0.8) -- (-2.2, -0.8);
+    \draw[gray!40, thin] (-5.8, -1.2) -- (-2.2, -1.2);
+    \draw[gray!40, thin] (-4.8, -0.3) -- (-4.8, -1.5);
+    \draw[gray!40, thin] (-3.2, -0.3) -- (-3.2, -1.5);
+
+    % Sociotype box (right - fluid, organic shapes)
+    \node[draw, rounded corners=12pt, fill=Marigold!20, minimum width=4.5cm, minimum height=3.5cm, line width=1.5pt, draw=Marigold!70] (socio) at (4,0) {};
+    \node[font=\normalsize\bfseries, text=Marigold!80!black] at (4, 1.2) {Sociotype};
+    \node[font=\scriptsize, align=center, text=Slate] at (4, 0.2) {Bottom-up emergence\\Porous boundaries\\Continuous membership\\Empirically discovered\\Fluid configurations};
+    % Organic blobs to show fluidity
+    \fill[Marigold!30, opacity=0.5] (3.2,-0.8) ellipse (0.6cm and 0.4cm);
+    \fill[CoverGold!30, opacity=0.5] (4.5,-1) ellipse (0.5cm and 0.35cm);
+    \fill[Marigold!40, opacity=0.5] (3.8,-1.3) ellipse (0.45cm and 0.3cm);
+
+    % Contrast arrow in center
+    \draw[<->, very thick, AccentPurple!70, line width=2pt] (-1.2,0) -- (1.2,0);
+    \node[font=\small\bfseries, text=AccentPurple] at (0, 0.5) {vs.};
+
+    % Key distinction labels below
+    \node[font=\tiny\itshape, text=gray] at (-4, -2.3) {Constrains action};
+    \node[font=\tiny\itshape, text=Marigold!80!black] at (4, -2.3) {Emerges from action};
+
+\end{tikzpicture}
+\captionof{figure}{Sociotypes vs. institutional logics: fluid, emergent configurations versus rigid, predetermined categories. Logics are theorized macro-level structures; sociotypes are meso-level relational configurations discovered empirically.}
+\labfig{sociotype-vs-logic}
+\end{center}
+
+Sociotypes differ from institutional logics in ontological status.\marginnote{\textbf{Ontological distinction}---logics are macro-level cultural structures; sociotypes are meso-level relational configurations established empirically.} Logics constrain and enable action; sociotypes are empirically discovered patterns. Sociotypes do not ``harden'' into fixed categories---they remain fluid configurations with porous boundaries, captured through continuous edge weights and overlapping community assignments rather than discrete partitions.
+
+\subsection{Structural Properties}
+
+We analyze constellations along three dimensions: \textbf{Differentiation} (distinctness of relational configurations), \textbf{Interconnectedness} (relationships between configurations), and \textbf{Permeability} (boundary porosity).\sidenote{\textbf{Multivocal categories}---role identities that connect multiple configurations, enabling ``robust action'' \cite{padgett1993robust,gehman2022robust}.} Multivocal categories are particularly significant, enabling organizations to ``retreat behind a shroud of multiple identities'' and avoid premature commitment to a single framing.
+
+
+%═══════════════════════════════════════════════════════════════════════════════
+\section{Methods: Extracting and Analyzing Role Configurations}[Methods: Sociotypes]
+\labsec{interstitial:methods-sociotypes}
+
+\subsection{Extraction and Analysis Pipeline}
+
+We extract role identity--practice--counterrole triplets from organizational communications using dependency parsing.\sidenote{\textbf{NLP pipeline}---spaCy for parsing with coreference resolution; triplets normalized through semantic clustering.} Triplets are represented as a two-mode network (actors and practices) and projected to a one-mode actor network. Community detection using stochastic block models identifies emergent sociotype configurations.\sidenote{\textbf{SBMs}---return soft probabilistic assignments preserving sociotype fluidity \cite{peixoto2019bayesian}.}
+
+We characterize configurations using three structural measures:
+
+\begin{equation}
+    D = k \cdot \left(1 - \frac{\bar{s}_{between}}{\bar{s}_{within}}\right) \quad ; \quad
+    I = \frac{\sum_{i \neq j} w_{ij} \cdot \mathbf{1}[c_i \neq c_j]}{\sum_{i \neq j} w_{ij}} \quad ; \quad
+    P_s = \frac{|B_s|}{|M_s|} \cdot \frac{\sum_{b \in B_s} |S_b|}{k - 1}
+\end{equation}
+
+where $D$ measures differentiation (distinctness of configurations), $I$ measures interconnectedness (cross-configuration ties), and $P_s$ measures permeability (boundary porosity of configuration $s$).
+
+
+%═══════════════════════════════════════════════════════════════════════════════
+\section{Findings: Five Sociotypes of Innovation Intermediation}[Findings: Sociotypes]
+\labsec{interstitial:findings-sociotypes}
+
+\subsection{Aggregate Constellation Structure}
+
+Analysis of the aggregate network reveals a modular constellation comprising five primary sociotype configurations.\sidenote{\textbf{Five configurations}---the number emerged from the data through model selection; we did not impose it.} The constellation exhibits moderate differentiation ($D = 0.64$) and substantial interconnectedness ($I = 0.38$), indicating that EIT Communities instantiate plural relational structure with significant overlap between configurations.
+
+\subsection{Sociotype Profiles}
+
+We present profiles of the five configurations, proceeding from highest to lowest permeability.
+
+\subsubsection{Sociotype 1: The Connective Configuration}
+
+\begin{center}
+\small
+\begin{tabular}{ll}
+\toprule
+\textbf{Aspect} & \textbf{Characteristics} \\
+\midrule
+Structural position & Highly central; highest permeability (0.54) \\
+Characteristic practices & \textit{connects}, \textit{brings together}, \textit{facilitates}, \textit{enables} \\
+Role identities & connector, platform, facilitator, catalyst \\
+Counterroles & partners, stakeholders, actors, members, innovators \\
+Cross-KIC prevalence & All KICs; highest in Climate-KIC, EIT Digital \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\textbf{Representative triplets}:
+\begin{quote}
+\small
+``EIT Food \textit{connects} food system innovators across Europe''\\
+``The KIC \textit{brings together} leading universities, research centres, and companies''\\
+``We \textit{facilitate} collaboration between startups and corporate partners''
+\end{quote}
+
+\textbf{Interpretation}: The Connective configuration positions the KIC as enabling relationships among diverse actors.\marginnote{The Connective sociotype functions as the constellation's integrative tissue; its high permeability reflects its bridging function.} It emphasizes relational coordination over transaction. The high permeability reflects the configuration's function as connective tissue---it interfaces with constituencies associated with other configurations precisely because brokerage is its defining practice.
+
+\subsubsection{Sociotype 2: The Acceleration Configuration}
+
+\begin{center}
+\small
+\begin{tabular}{ll}
+\toprule
+\textbf{Aspect} & \textbf{Characteristics} \\
+\midrule
+Structural position & Central; high permeability (0.39) \\
+Characteristic practices & \textit{accelerates}, \textit{funds}, \textit{supports}, \textit{invests in}, \textit{scales} \\
+Role identities & accelerator, investor, supporter, launcher \\
+Counterroles & startups, entrepreneurs, ventures, founders \\
+Cross-KIC prevalence & All KICs; highest in EIT Digital, InnoEnergy \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\textbf{Representative triplets}:
+\begin{quote}
+\small
+``EIT Health \textit{accelerates} promising healthcare startups''\\
+``Our programme \textit{supports} entrepreneurs from idea to market''\\
+``The KIC has \textit{invested in} over 500 ventures since 2015''
+\end{quote}
+
+\textbf{Interpretation}: This configuration organizes relationships around venture development and growth.\sidenote{\textbf{Acceleration permeability}---reflects the need to connect venture development with research inputs and educated talent.} Its permeability reflects connections to other knowledge triangle vertices: ventures require research inputs (Sociotype 4) and educated talent (Sociotype 3).
+
+\subsubsection{Sociotype 3: The Development Configuration}
+
+\begin{center}
+\small
+\begin{tabular}{ll}
+\toprule
+\textbf{Aspect} & \textbf{Characteristics} \\
+\midrule
+Structural position & Moderately central; moderate permeability (0.32) \\
+Characteristic practices & \textit{educates}, \textit{trains}, \textit{develops}, \textit{certifies}, \textit{prepares} \\
+Role identities & educator, trainer, certifier, developer \\
+Counterroles & students, learners, participants, talents \\
+Cross-KIC prevalence & All KICs; highest in EIT Health, EIT Digital \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\textbf{Representative triplets}:
+\begin{quote}
+\small
+``Our Master's programmes \textit{prepare} students for innovation careers''\\
+``EIT Manufacturing \textit{trains} the workforce of tomorrow''\\
+``The EIT Label \textit{certifies} educational excellence in entrepreneurship''
+\end{quote}
+
+\textbf{Interpretation}: This configuration organizes relationships around human capability formation.\marginnote{The ``EIT Label'' emerges as a distinctive credentialing device linking this configuration to formal certification.} Moderate permeability reflects the bounded nature of educational relationships---students are addressed through specifically educational practices---while interfaces with Sociotypes 1 and 2 indicate the entrepreneurial orientation distinguishing EIT education from traditional academic programmes.
+
+\subsubsection{Sociotype 4: The Knowledge Configuration}
+
+\begin{center}
+\small
+\begin{tabular}{ll}
+\toprule
+\textbf{Aspect} & \textbf{Characteristics} \\
+\midrule
+Structural position & Peripheral; lower permeability (0.28) \\
+Characteristic practices & \textit{researches}, \textit{discovers}, \textit{advances}, \textit{validates} \\
+Role identities & researcher, knowledge generator, scientific partner \\
+Counterroles & researchers, scientists, universities \\
+Cross-KIC prevalence & All KICs; relatively even distribution \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\textbf{Representative triplets}:
+\begin{quote}
+\small
+``Our research projects \textit{advance} understanding of sustainable food systems''\\
+``EIT Climate-KIC \textit{partners with} leading research institutions''\\
+``The programme \textit{validates} innovative technologies through rigorous testing''
+\end{quote}
+
+\textbf{Interpretation}: This configuration organizes relationships around knowledge production and validation.\sidenote{\textbf{Knowledge peripherality}---may reflect structural tensions in the EIT model, which emphasizes application over basic research.} Lower permeability and peripheral position reflect a notable pattern: KICs partner with research organizations but rarely position themselves primarily as knowledge generators.
+
+\subsubsection{Sociotype 5: The Accountability Configuration}
+
+\begin{center}
+\small
+\begin{tabular}{ll}
+\toprule
+\textbf{Aspect} & \textbf{Characteristics} \\
+\midrule
+Structural position & Peripheral; low permeability (0.21) \\
+Characteristic practices & \textit{delivers impact}, \textit{reports to}, \textit{contributes to}, \textit{serves} \\
+Role identities & impact deliverer, policy contributor \\
+Counterroles & European Commission, policymakers, citizens, society \\
+Cross-KIC prevalence & All KICs; highest in Climate-KIC, EIT Food \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\textbf{Representative triplets}:
+\begin{quote}
+\small
+``EIT Food \textit{contributes to} EU food policy objectives''\\
+``Our activities \textit{deliver} measurable impact for European citizens''\\
+``The KIC \textit{addresses} societal challenges in sustainable mobility''
+\end{quote}
+
+\textbf{Interpretation}: This configuration reflects the public funding context and associated accountability demands.\marginnote{The Accountability sociotype's peripherality suggests structural separation from core operational activities---public accountability is acknowledged but not integrated.} Its peripheral position and low permeability suggest structural separation from core operational activities.
+
+\subsection{Constellation Visualization}
+
+\begin{wideblock}
+\begin{center}
+\begin{tikzpicture}[scale=0.85]
+    % Define colors
+    \definecolor{ConnectiveC}{HTML}{4A90D9}
+    \definecolor{AccelerationC}{HTML}{E67E22}
+    \definecolor{DevelopmentC}{HTML}{27AE60}
+    \definecolor{KnowledgeC}{HTML}{9B59B6}
+    \definecolor{AccountabilityC}{HTML}{95A5A6}
+
+    % Central node
+    \node[draw, circle, fill=Marigold!30, minimum size=2cm, font=\small\bfseries, align=center] (center) at (0,0) {Role\\Nexus};
+
+    % Five sociotypes arranged in a pentagon
+    % Connective (top)
+    \node[draw, rounded corners, fill=ConnectiveC!25, minimum width=2.8cm, minimum height=1.8cm, align=center] (conn) at (0,4) {\small\textbf{Connective}\\[-2pt]\tiny connects, facilitates\\[-2pt]\tiny partners, stakeholders\\[-2pt]\tiny $P = 0.54$};
+
+    % Acceleration (top right)
+    \node[draw, rounded corners, fill=AccelerationC!25, minimum width=2.8cm, minimum height=1.8cm, align=center] (accel) at (4,2) {\small\textbf{Acceleration}\\[-2pt]\tiny funds, scales\\[-2pt]\tiny startups, ventures\\[-2pt]\tiny $P = 0.39$};
+
+    % Development (bottom right)
+    \node[draw, rounded corners, fill=DevelopmentC!25, minimum width=2.8cm, minimum height=1.8cm, align=center] (dev) at (3,-3) {\small\textbf{Development}\\[-2pt]\tiny educates, trains\\[-2pt]\tiny students, talents\\[-2pt]\tiny $P = 0.32$};
+
+    % Knowledge (bottom left)
+    \node[draw, rounded corners, fill=KnowledgeC!25, minimum width=2.8cm, minimum height=1.8cm, align=center] (know) at (-3,-3) {\small\textbf{Knowledge}\\[-2pt]\tiny researches, validates\\[-2pt]\tiny researchers, universities\\[-2pt]\tiny $P = 0.28$};
+
+    % Accountability (top left)
+    \node[draw, rounded corners, fill=AccountabilityC!25, minimum width=2.8cm, minimum height=1.8cm, align=center] (acc) at (-4,2) {\small\textbf{Accountability}\\[-2pt]\tiny delivers impact\\[-2pt]\tiny policymakers, society\\[-2pt]\tiny $P = 0.21$};
+
+    % Connections to center
+    \draw[thick, ConnectiveC!70] (center) -- (conn);
+    \draw[thick, AccelerationC!70] (center) -- (accel);
+    \draw[thick, DevelopmentC!70] (center) -- (dev);
+    \draw[thick, KnowledgeC!70] (center) -- (know);
+    \draw[thick, AccountabilityC!70] (center) -- (acc);
+
+    % Inter-sociotype connections (showing permeability)
+    \draw[dashed, thick, opacity=0.6] (conn) -- (accel);
+    \draw[dashed, thick, opacity=0.5] (conn) -- (acc);
+    \draw[dashed, thick, opacity=0.5] (accel) -- (dev);
+    \draw[dashed, thick, opacity=0.3] (dev) -- (know);
+    \draw[dashed, thin, opacity=0.2] (know) -- (acc);
+    \draw[dashed, thick, opacity=0.4] (conn) -- (dev);
+
+\end{tikzpicture}
+\captionof{figure}{The five sociotypes of EIT innovation intermediation. Permeability scores ($P$) indicate boundary porosity; dashed lines indicate interface density between configurations.}
+\labfig{five-sociotypes}
+\end{center}
+\end{wideblock}
+
+\subsection{Multivocal Categories: Interfaces Between Sociotypes}
+
+Several role categories function as interfaces between multiple configurations:
+
+\begin{center}
+\small
+\begin{tabular}{lp{7cm}}
+\toprule
+\textbf{Category} & \textbf{Connected Sociotypes} \\
+\midrule
+Partners & Connective, Acceleration, Knowledge \\
+Innovators & Connective, Acceleration \\
+Entrepreneurs & Acceleration, Development, Connective \\
+Startups & Acceleration, Connective \\
+Students & Development, Acceleration \\
+Impact & Accountability, Acceleration \\
+\bottomrule
+\end{tabular}
+\captionof{table}{Multivocal role categories and their sociotype connections}
+\labtab{multivocal}
+\end{center}
+
+The category ``partners'' exhibits the highest multivocality, appearing across three sociotypes with different inflections:\sidenote{\textbf{Strategic multivocality}---high-multivocality categories enable organizations to satisfy diverse audiences without committing to a single relational frame.} research partners (Knowledge), corporate partners (Acceleration), ecosystem partners (Connective). This multivocality enables KICs to address heterogeneous constituencies through shared vocabulary while preserving flexibility about which relational expectations apply.
+
+
+%═══════════════════════════════════════════════════════════════════════════════
+\section{Discussion: Navigating Plurality Through Fluidity}[Discussion]
+\labsec{interstitial:discussion-sociotypes}
+
+\subsection{Connecting Positioning and Configuration}
+
+The positioning analysis revealed that across 1,298 entities, the EIT ecosystem tilts toward business (49\%) with research (37\%) and education (14\%) receiving less emphasis. Startups amplify the tilt; partners moderate it; only EIT Health bucks the trend. The sociotype analysis reveals \textit{how} KICs navigate this interstitiality: through a constellation of five sociotypes with varying permeability and interconnection.
+
+The connection between positioning and sociotypes is not coincidental:\marginnote{The entrepreneurial tilt in discourse corresponds to the centrality of the Acceleration sociotype.}
+
+\begin{itemize}
+    \item \textbf{Business dominance in discourse} corresponds to the \textbf{centrality of Acceleration} in the sociotype constellation
+    \item \textbf{Education underrepresentation} corresponds to \textbf{Development's moderate permeability}---present but less central
+    \item \textbf{Research underrepresentation} corresponds to \textbf{Knowledge's peripheral position}---acknowledged but structurally separated
+\end{itemize}
+
+The Connective sociotype plays a crucial integrative role that discourse analysis alone cannot reveal. While discourse tilts toward business, the Connective configuration creates relational bridges that sustain the knowledge triangle structure---even if the verbal emphasis does not reflect this relational work.
+
+\subsection{Interstitial Organization as Active Accomplishment}
+
+Interstitial positioning is not a passive condition but requires ongoing relational work through multiple sociotype configurations.\sidenote{\textbf{Active accomplishment}---the constellation structure (differentiated yet interconnected) enables recognizable relationships with domain-specific constituencies while creating cross-domain interfaces.} Complete fusion would sacrifice distinctive contributions; complete separation would undermine integration. The fluid, modular structure balances these tensions.
+
+\subsection{Multivocality as Organizational Resource}
+
+Multivocal categories enable strategic ambiguity. When KICs address ``partners,'' they leave open whether this invokes research partnerships, investment relationships, or network membership.\marginnote{Rather than treating ambiguity as a problem, KICs exploit it as a resource for navigating plural environments.} This indeterminacy enables addressing heterogeneous constituencies through shared vocabulary while preserving flexibility about which relational expectations apply.
+
+\subsection{The Accountability Gap}
+
+The Accountability sociotype occupies a peripheral position with sparse interfaces to core operational configurations.\sidenote{\textbf{Accountability gap}---may reflect appropriate differentiation or ceremonial compliance.} Accountability relationships appear structurally separated from operational constituencies. This may reflect different relational dynamics, or indicate that KICs acknowledge public accountability demands without integrating them into operational practice.
+
+
+%═══════════════════════════════════════════════════════════════════════════════
+\section{Conclusion}
+%═══════════════════════════════════════════════════════════════════════════════
+\labsec{interstitial:conclusion}
+
+This chapter has developed an integrated approach to understanding interstitial organization in innovation intermediaries, combining discursive positioning analysis with sociotype mapping.
+
+The \textbf{positioning analysis} mapped the discursive positioning of 1,298
+entities (drawn from a crawled corpus of 1,700 domains) across the EIT ecosystem
+within the knowledge triangle, revealing systematic \textbf{business tilt}: at
+the ecosystem level, business discourse leads (49\%) while research (37\%) and
+education (14\%) receive less emphasis. Startups amplify this pattern
+(E=6\%, R=36\%, B=57\%), while partners retain more education discourse (20\%).
+Cross-KIC variation is substantial, with EIT Health uniquely maintaining a
+research-leading profile (49\% research) while InnoEnergy shows the strongest
+business tilt (63\%). A methodological reflexivity check on 77 entities with
+both Wikipedia and website text showed that text source (40\% shift), vocabulary
+(35\% shift), and method (38--49\% shift) choices each shift individual entity
+positions---but the aggregate business tilt is robust across all six method
+configurations tested.
+
+The \textbf{sociotype analysis} introduced \textit{sociotypes}---fluid relational configurations---and identified five configurations through which EIT Communities navigate interstitial positions: \textbf{Connective} (highest permeability, brokerage and platform functions), \textbf{Acceleration} (high permeability, venture development and investment), \textbf{Development} (moderate permeability, education and talent formation), \textbf{Knowledge} (lower permeability, research and validation), and \textbf{Accountability} (lowest permeability, public impact and policy contribution).
+
+Together, these analyses reveal that interstitial positioning is an \textit{active accomplishment}, achieved through fluid relational configurations that create interfaces between institutional domains while preserving productive ambiguity. The concept of sociotype---emergent, fluid, defined by relational signature rather than essential properties---offers an alternative to categorical approaches that reify institutional environments into rigid containers.
+
+This analysis offers diagnostic value for practitioners and policymakers: understanding which sociotype configurations are present, how they interconnect, and where ambiguity enables flexibility provides insight into navigating plurality. The broader ambition is a structural sociology of relational plurality---one that takes seriously the patterned character of plural environments while resisting the temptation to treat patterns as fixed and inherently conflictual.\sidenote{\textbf{Constitution}---organizations do not merely \textit{respond to} plurality; they \textit{constitute} it through enacted relational configurations.}
+
+
+%═══════════════════════════════════════════════════════════════════════════════
+\section{Chapter Summary}
+%═══════════════════════════════════════════════════════════════════════════════
+
+\begin{summarybox}
+\textbf{Interstitial Positioning}
+\begin{itemize}[leftmargin=*, itemsep=0.2em]
+\item Analysis of \textbf{1,298 entities} (hubs, partners, startups) across the EIT ecosystem reveals consistent business tilt in knowledge triangle positioning
+\item \textbf{Ecosystem-level}: B=49\%, R=37\%, E=14\%. \textbf{Startups} amplify business discourse (57\%) while nearly eliminating education (6\%)
+\item \textbf{Cross-KIC variation}: EIT Health uniquely retains research leadership (49\%); InnoEnergy shows strongest business tilt (63\%); only 12\% of entities achieve genuinely interstitial positioning
+\item \textbf{Method sensitivity}: on a 77-entity subsample with both Wikipedia and website text, 40\% change dominant pole across text sources; 38--49\% across methods---but the business tilt is robust across all six configurations
+\end{itemize}
+
+\vspace{0.5em}
+\textbf{Interstitial Sociotypes}
+\begin{itemize}[leftmargin=*, itemsep=0.2em]
+\item \textbf{Sociotypes} are fluid relational configurations---stable enough to recognize, fluid enough to blend---defined by structural position rather than essential properties
+\item \textbf{Five sociotypes} characterize EIT: Connective (central), Acceleration, Development, Knowledge, and Accountability (peripheral)
+\item \textbf{Multivocal categories} like ``partners'' create interfaces between sociotypes, enabling strategic ambiguity
+\item The \textbf{Connective sociotype} serves as integrative tissue, bridging configurations that might otherwise remain separate
+\item The \textbf{Accountability sociotype} remains peripheral, suggesting separation between public accountability and operational activities
+\end{itemize}
+\end{summarybox}
+
+\vspace{0.5em}
+\begin{replicationbox}[Data \& Code Availability]
+The analysis in this chapter draws on two data modules from the \RoleBox{} toolkit:
+
+\texttt{rolebox-websites} (primary corpus):
+\begin{itemize}[leftmargin=*, itemsep=0.2em]
+\item \textbf{Crawl corpus}: \texttt{outputs/compucrawl\_results/crawl\_all.json} (2,190 pages, 583K words)
+\item \textbf{KT analysis}: \texttt{scripts/analyze/full\_corpus\_kt\_analysis.py} $\rightarrow$ \texttt{outputs/full\_analysis/}
+\item \textbf{Method comparison}: \texttt{scripts/analyze/method\_comparison.py} $\rightarrow$ \texttt{outputs/method\_comparison/}
+\item \textbf{Field positions}: \texttt{outputs/full\_analysis/field\_positions\_full.csv} ($n=1{,}298$)
+\item \textbf{Sociotype data}: \texttt{outputs/interstitial/sociotype\_ui\_data.json} (49 triplets)
+\item \textbf{Role triplets}: \texttt{outputs/triples\_catalog/all\_triples.csv} (3,775 triplets from 537 source docs)
+\end{itemize}
+
+\texttt{rolebox-wikipedia} (method comparison corpus):
+\begin{itemize}[leftmargin=*, itemsep=0.2em]
+\item \textbf{Corpus builder}: \texttt{scripts/build\_clean\_corpus.py} (Wikipedia API queries with domain$\to$article resolution)
+\item \textbf{Verified corpus}: \texttt{data/processed/clean\_corpus/wikipedia\_verified\_corpus.json} (96 articles, 240K words)
+\end{itemize}
+\end{replicationbox}
+
+\vspace{1em}
+Having mapped how intermediaries position themselves discursively and configure relationally, the next chapter examines their network positions in the broader innovation field.\sidenote{\textit{Next}: \textbf{Chapter~\ref{ch:rolefield}}---Role Fields maps how intermediaries position themselves within the broader innovation ecosystem through social media network analysis.}
+
+\end{document}

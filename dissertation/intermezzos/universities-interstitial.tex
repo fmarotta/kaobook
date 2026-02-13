@@ -1,0 +1,411 @@
+% !TEX root = ../main.tex
+\documentclass[../main.tex]{subfiles}
+
+\begin{document}
+
+%========================================================================================
+% INTERMEZZO: UNIVERSITIES AS INTERSTITIAL ACTORS
+%========================================================================================
+
+\intermezzo{Universities as Interstitial Actors}
+
+\begin{center}
+\begin{tikzpicture}
+    \fill[CoverGold] (-2,0) rectangle (-1.7,0.08);
+    \fill[AccentPurple] (-1.5,0) rectangle (-1.2,0.08);
+    \fill[AccentCyan] (-1,0) rectangle (-0.7,0.08);
+    \fill[PandaBamboo] (-0.5,0) rectangle (-0.2,0.08);
+    \fill[PandaRose] (0,0) rectangle (0.3,0.08);
+\end{tikzpicture}
+\end{center}
+
+\vspace{1cm}
+
+\begin{center}
+\textit{\large Universities have always been interstitial.\\[0.3em]
+They sit between knowledge production and knowledge application,\\[0.3em]
+between state and market, between tradition and innovation.\\[0.3em]
+What does the world's largest encyclopedia reveal about how\\[0.3em]
+7,249 European universities narrate this interstitiality?}
+\end{center}
+
+\vspace{1.5cm}
+
+\begin{chapteroverview}
+This intermezzo applies text mining to a corpus of 7,249 English-language
+Wikipedia articles on European universities across 38 countries (6.1 million words).
+Using BERTopic for thematic discovery, named entity recognition for institutional
+mapping, and event extraction for temporal analysis, we examine how Wikipedia's
+editorial community describes the interstitial character of European higher
+education. Three analyses structure the intermezzo: (1) a topic landscape
+revealing the discursive terrain of European university descriptions;
+(2) a named entity network showing which organizations, people, and places
+co-occur across university articles; and (3) an event timeline extracting
+founding dates, mergers, and reforms that mark institutional evolution. We
+conclude by positioning the EIT partner universities within this broader
+landscape, connecting back to the knowledge triangle analysis in
+\cref{ch:interstitial-pluralism}.
+\end{chapteroverview}
+
+
+%===============================================================================
+\section*{Why Wikipedia? Institutional Description at Scale}
+\labsec{wiki-uni:rationale}
+%===============================================================================
+
+Universities are paradigmatic interstitial actors. They educate (producing human
+capital), research (producing knowledge), and increasingly entrepreneurialize
+(producing innovation and startups). This triple mandate---the ``knowledge
+triangle'' that structures the EIT's design---predates the EIT by centuries.
+Every university navigates it differently.
+
+Wikipedia offers a unique vantage point for studying how this interstitiality
+is narrated at scale.\sidenote{\textbf{Wikipedia as institutional
+archive}---unlike websites (strategic self-presentation) or rankings (metric
+reduction), Wikipedia articles are collaboratively authored third-party
+descriptions that integrate historical, structural, and reputational
+information.} Its articles are:
+
+\begin{itemize}
+    \item \textbf{Third-party authored}: not self-promotional, but written by
+    external editors with encyclopedic intent
+    \item \textbf{Structurally consistent}: following Wikipedia's manual of
+    style for educational institutions, articles share comparable sections
+    (history, academics, research, notable alumni)
+    \item \textbf{Massively parallel}: 7,249 articles across 38 countries,
+    enabling cross-national comparison at a scale impossible through manual
+    case study
+    \item \textbf{Temporally layered}: articles accumulate institutional
+    history, from medieval founding to contemporary innovation programs
+\end{itemize}
+
+The corpus comprises 3,377 articles with 500+ words
+(the analytically usable subset), totaling 6.1 million words,
+with a median article length of 452 words.\sidenote{Articles were retrieved
+programmatically via the Wikipedia API (\texttt{wikipedia-api} Python package),
+traversing ``Category:Universities in [Country]'' trees for 38 European
+countries. Filtering removed non-university articles (student unions,
+libraries, sports teams) using title and summary heuristics.}
+
+
+%===============================================================================
+\section*{Topic Landscape: What Wikipedia Says About Universities}
+\labsec{wiki-uni:topics}
+%===============================================================================
+
+We apply BERTopic \parencite{grootendorst2022bertopic} to discover thematic
+structure in the corpus.\sidenote{\textbf{BERTopic pipeline}---documents
+embedded with \texttt{all-MiniLM-L6-v2}, reduced via UMAP, clustered with
+HDBSCAN (\texttt{min\_topic\_size=10}), and topic representations refined
+using c-TF-IDF with English stop-word removal and bigram support.}
+The model discovers 29 topics from the 3,377 substantial articles, assigning
+73.6\% of documents to a topic (the remaining 26.4\% are outliers too
+heterogeneous for any cluster).
+
+The topic landscape reveals three dominant structuring principles:
+
+\begin{center}
+\includegraphics[width=0.95\textwidth]{figures/wiki-topic-landscape.pdf}
+\captionof{figure}{BERTopic topic landscape of 3,377 European university Wikipedia
+articles. Topics are labeled by their dominant terms and colored by category:
+national-linguistic (gold), institutional type (purple), and British cultural
+(cyan). The 29 topics assign 73.6\% of articles; the remaining 26.4\% are
+outliers.}
+\labfig{wiki-topic-landscape}
+\end{center}
+
+\paragraph{National-linguistic clustering.}
+The largest topics partition by country or language group. Eastern European
+and Ukrainian universities form the largest cluster (460 articles), followed by
+British campus universities (392), Oxford--Cambridge colleges (153), German
+applied sciences (151), Nordic universities (149), Italian universities (137),
+Iberian universities (130), French grandes écoles (129), Irish universities (103),
+and Benelux universities (75). Wikipedia's English-language descriptions of
+European universities are, first and foremost, organized by national higher
+education systems---each with its own institutional vocabulary, degree structures,
+and historical narratives.
+
+\paragraph{Institutional type specialization.}
+Beyond national clustering, several topics capture institutional types that
+cut across borders: arts and music academies (88 articles), theatre and design
+schools (55), business schools (42), military academies (14), and
+European politics and international relations programs (10). These
+cross-national topics suggest that certain institutional identities---the
+conservatoire, the business school, the military academy---carry sufficient
+distinctiveness to override national framing.
+
+\paragraph{British cultural specificity.}
+A striking finding is the prevalence of distinctly British cultural
+topics: rowing and boat clubs (44 articles), student newspapers (21),
+student radio stations (19), university choirs (18), University Challenge
+appearances on the BBC (18), academic dress (15), and students' unions (31).
+These topics reflect not just the UK's numerical dominance in the corpus
+(2,504 of 7,249 articles) but also Wikipedia's editorial community's
+disproportionate attention to British university culture---a form of
+encyclopedic Anglocentrism that shapes how the ``typical university'' is
+described in the English-language Wikipedia.
+
+\subsection*{EIT Partner Universities in the Topic Landscape}
+
+Of the 27 EIT partner universities identified in the corpus, their topic
+distribution is revealing: 6 fall in the Nordic cluster, 5 in the Iberian
+cluster, 4 in the German applied sciences cluster, 3 each in the Eastern
+European and British campus clusters, 2 each in the Oxford--Cambridge,
+Italian, and Benelux clusters. No EIT partner universities appear in
+the arts, business school, or cultural-specific topics. This dispersal
+across primarily technical and research-oriented national clusters---rather
+than concentration in any single topic---is consistent with the EIT's
+selection criteria favoring technically oriented research universities
+across diverse European countries.
+
+
+%===============================================================================
+\section*{Event Extraction: Institutional Histories}
+\labsec{wiki-uni:events}
+%===============================================================================
+
+University Wikipedia articles are rich in temporal markers---founding dates,
+mergers, name changes, reforms, and expansions. Using regex-based event
+extraction on the first 5,000 characters of each article, we extract
+4,189 events from the corpus: 2,601 founding dates, 1,353 institutional
+renames, and 235 mergers.\sidenote{\textbf{Event extraction}---pattern matching
+for ``founded/established/created in [YEAR]'', ``merged/amalgamated with'',
+and ``renamed/became known as'' constructions. Founding years are validated
+to the range 800--2025. Cross-validation against 24 well-known universities
+yields 79\% accuracy (71\% exact match, 8\% within $\pm$5 years); errors
+arise primarily from regex matching earlier dates mentioned in historical
+context rather than the actual founding year.}
+
+\paragraph{The long arc of European higher education.}
+The extracted founding dates span nearly a millennium, from 1088 (the
+University of Bologna, conventionally Europe's oldest) to 2025. The
+distribution reveals clear historical waves:
+
+\begin{itemize}
+    \item \textbf{Medieval foundations} (1088--1499): 126 universities,
+    concentrated in Italy, France, Spain, and the UK---the first European
+    universities emerging from cathedral schools and monastic traditions
+    \item \textbf{Early modern expansion} (1500--1799): 268 universities,
+    driven by the Reformation (Protestant universities), Counter-Reformation
+    (Jesuit colleges), and Enlightenment-era state building
+    \item \textbf{Nineteenth-century massification} (1800--1899): 505
+    universities, reflecting industrialization, the Humboldtian research
+    university model, and the nation-state's need for trained professionals
+    \item \textbf{Twentieth-century explosion} (1900--1999): 1,204
+    universities---nearly half of all extracted founding dates---driven by
+    post-war expansion, the welfare state, and the democratization of
+    higher education
+    \item \textbf{Twenty-first-century continuation} (2000--2025): 498
+    universities, many in post-socialist countries, Turkey, and as mergers
+    of existing institutions
+\end{itemize}
+
+The median founding year is 1953, placing the ``typical'' European university
+squarely in the post-war expansion era.
+
+\begin{center}
+\includegraphics[width=0.95\textwidth]{figures/wiki-founding-timeline.pdf}
+\captionof{figure}{Distribution of university founding dates extracted from
+Wikipedia articles (25-year bins). Colors indicate historical eras: medieval
+and early modern (gold), nineteenth century (gold, lighter), twentieth century
+(purple), and twenty-first century (cyan). The dashed line marks the median
+founding year (1953).}
+\labfig{wiki-founding-timeline}
+\end{center}
+
+\paragraph{National temporal signatures.}
+Countries exhibit distinctive temporal signatures that reflect their
+political histories.\sidenote{Median founding year by country (selected):
+Albania 2004, Italy 1935, UK 1928, France 1941, Germany 1968,
+Ukraine 1930, Turkey 1987, Luxembourg 2003.} The UK (median 1928) and
+Italy (1935) have older median founding dates, reflecting deep
+institutional histories. Germany (1968) and Austria (1967) show
+the post-war Fachhochschule expansion. Post-socialist countries
+cluster in the 1950s--1990s (Romania 1948, Czech Republic 1968,
+Latvia 1993, Slovenia 1995). The youngest systems---Albania (2004),
+Montenegro (2004), North Macedonia (2007)---reflect post-independence
+institution building.
+
+\begin{center}
+\includegraphics[width=0.95\textwidth]{figures/wiki-country-founding.pdf}
+\captionof{figure}{Median founding year by country (countries with $\geq 5$
+extracted events). Vertical reference lines mark 1945 (post-war) and 1992
+(polytechnic conversion / post-socialist transition). Countries range from
+Italy and the UK (oldest median) to Albania and North Macedonia (youngest).}
+\labfig{wiki-country-founding}
+\end{center}
+
+\paragraph{Mergers and renames as interstitial markers.}
+The 235 mergers and 1,353 renames reveal institutions in transition.
+Renaming is particularly common in post-socialist countries (where
+universities shed Soviet-era names) and in the UK (where polytechnics
+became universities after the 1992 Further and Higher Education Act).
+Mergers accelerate in the 2000s and 2010s, driven by efficiency pressures,
+the Bologna Process, and excellence initiatives---institutional
+restructuring that creates the interstitial conditions the EIT later
+exploits.
+
+\begin{center}
+\includegraphics[width=0.95\textwidth]{figures/wiki-event-decades.pdf}
+\captionof{figure}{Institutional events by decade: founding dates, renames,
+and mergers extracted from Wikipedia articles. Founding dates peak in the
+1960s--1990s (post-war expansion); renames cluster in the 1990s--2000s
+(post-socialist and polytechnic transitions); mergers accelerate after 2000.}
+\labfig{wiki-event-decades}
+\end{center}
+
+
+%===============================================================================
+\section*{Named Entity Network: Institutional Connections}
+\labsec{wiki-uni:ner}
+%===============================================================================
+
+Named entity recognition (spaCy, \texttt{en\_core\_web\_sm}) extracts
+397,252 entity mentions across the 3,377 articles, comprising 163,426
+unique entities.\sidenote{\textbf{NER pipeline}---spaCy's small English model
+applied to the first 10,000 characters of each article. Entity types retained:
+ORG, GPE (geopolitical entities), PERSON, DATE.} Co-occurrence of
+organizations within the same article creates an implicit institutional
+network: 41,138 edges with weight $\geq 3$ (i.e., organizations mentioned
+together in at least three different university articles).
+
+\paragraph{Most-mentioned organizations.}
+The top organizations reveal the institutional landmarks of European
+higher education: Oxford (1,218 mentions), the University of Cambridge
+(237), the University of London (235), BBC (229), UCL (228), and the
+EU (213). The presence of the BBC reflects the UK corpus dominance and
+British university culture (University Challenge, student media). The
+EU's prominence signals the growing Europeanization of higher
+education discourse.
+
+\paragraph{Geographic anchors.}
+The most-mentioned locations trace the urban geography of European
+higher education: UK (1,568), Germany (1,277), London (1,233),
+France (1,119), Cambridge (1,109). These are not merely country names
+but reflect the gravitational centers around which university
+descriptions orbit---London as the hub of the British system, Paris
+for France, Berlin and Munich for Germany.
+
+\paragraph{Co-occurrence network structure.}
+The 41,138 co-occurrence edges create a dense network of implicit
+institutional relationships. Universities that appear in the same
+Wikipedia articles share contextual space---they are compared, grouped,
+or historically connected by Wikipedia's editorial community. This
+network, while not analyzed with full community detection here, provides
+a complementary view to the website-based network in
+\cref{ch:interstitial-pluralism}: where website text reveals how
+organizations describe \emph{themselves}, the co-occurrence network
+reveals how they are described \emph{in relation to each other} by an
+external editorial community.
+
+
+%===============================================================================
+\section*{SeeAlsology: The Wikipedia Link Network}
+\labsec{wiki-uni:seealsology}
+%===============================================================================
+
+Wikipedia's ``See also'' sections create an editorial link network---how
+Wikipedia's community of editors conceptually connects universities to each
+other and to related concepts. Inspired by the SeeAlsology
+tool,\sidenote{\textbf{SeeAlsology}---a visual network exploration tool by
+DensityDesign Lab that traces ``See also'' links on Wikipedia, revealing
+conceptual proximity as perceived by Wikipedia editors
+\parencite{ricci2014seealsology}. We replicate its logic programmatically via
+the MediaWiki parse API.} we extract ``See also'' links from each of the 34
+EIT partner university articles and follow them one hop out, building a
+two-depth neighborhood network.
+
+\begin{center}
+\includegraphics[width=0.95\textwidth]{figures/wiki-seealsology-network.pdf}
+\captionof{figure}{SeeAlsology network of EIT partner universities' ``See also''
+links (two-hop neighborhood). Gold nodes are EIT seed universities; purple nodes
+are bridge concepts. Node size reflects degree. Only one direct EIT-to-EIT link
+exists (Chalmers $\rightarrow$ KTH). The Bologna Process (degree 31) and
+national university lists serve as primary bridges.}
+\labfig{wiki-seealsology}
+\end{center}
+
+The resulting network comprises 452 nodes and 578 edges. Of the 34 seed
+universities, 27 have ``See also'' sections (the remaining 7 lack this
+section entirely---a signal of thinner editorial attention). The network
+reveals three patterns:
+
+\paragraph{Sparse EIT interconnection.}
+Only one direct ``See also'' link connects two EIT partner universities:
+Chalmers University of Technology $\rightarrow$ KTH Royal Institute of
+Technology (both Swedish). This near-absence of editorial cross-linking
+confirms that Wikipedia's editors do not perceive EIT partners as a
+coherent group---they are connected to their national higher education
+contexts, not to each other. The EIT as institutional network is
+\emph{invisible} to Wikipedia's editorial community.
+
+\paragraph{The EIT as bridge concept.}
+The ``European Institute of Innovation and Technology'' article itself
+appears as a bridge node with degree 13 in the network---linked from
+or to 13 other articles in the two-hop neighborhood. This is notable:
+while the EIT partner universities are not linked to each other, they
+are indirectly connected \emph{through} the EIT's own Wikipedia article
+and through shared concepts like the Bologna Process (degree 31), lists
+of national universities, and the concept of ``institutes of technology''
+(degree 10).
+
+\paragraph{National and thematic bridges.}
+The highest-degree bridge concepts are national university lists
+(``List of universities in the United Kingdom'' at degree 24,
+``List of universities in Germany'' at 15), educational policy
+(``Bologna Process'' at 31, ``Education in Germany'' at 13),
+and cultural concepts (``Town and gown'' at 20). The concept
+``Science and technology in Flanders'' (degree 13) and
+``Science and technology in Switzerland'' (degree 10) reveal
+regional innovation ecosystem framing. The presence of the
+``Vlaams Instituut voor Biotechnologie'' (VIB, degree 18) as
+a bridge node illustrates how research institutes mediate
+between university articles---a structural analogue to the
+knowledge triangle's research-education interface.
+
+
+%===============================================================================
+\section*{Connecting Back: Universities in the Knowledge Triangle}
+\labsec{wiki-uni:connection}
+%===============================================================================
+
+This intermezzo provides the broader landscape for
+\cref{ch:interstitial-pluralism}'s analysis of EIT Community positioning.
+Where that chapter examines how 1,298 entities position themselves through
+website text, this intermezzo shows how 7,249 universities are described
+through the lens of Wikipedia's editorial community. Three bridging
+observations emerge:
+
+\begin{enumerate}
+    \item \textbf{National systems dominate the topic landscape.}
+    The 29 BERTopic topics organize primarily by country and language group,
+    not by knowledge-triangle pole. Wikipedia does not describe universities
+    primarily as ``research universities'' or ``teaching universities'' but as
+    \emph{national} institutions embedded in specific higher education
+    systems. This suggests that the knowledge triangle framing---central to
+    the EIT's design---is an \emph{overlay} on more fundamental national
+    organizing logics, not the natural vocabulary through which universities
+    are described.
+
+    \item \textbf{The event timeline reveals waves of interstitialization.}
+    The founding date distribution shows that most European universities
+    (median 1953) are relatively young institutions. The post-war expansion,
+    the polytechnic-to-university conversions of the 1990s, and the merger
+    waves of the 2000s--2010s represent successive rounds of institutional
+    reconfiguration---each creating new interstitial positions between
+    education, research, and business. The EIT arrives not as a creator of
+    interstitiality but as a \emph{formalizer} of conditions already
+    produced by decades of higher education reform.
+
+    \item \textbf{EIT partners are dispersed, not clustered.}
+    The 27 EIT partner universities in the corpus spread across 8 of the 29
+    topics, concentrated in national-technical clusters rather than forming
+    a distinctive topic of their own. This dispersal is analytically
+    significant: it confirms that EIT membership does not correspond to a
+    distinctive Wikipedia discursive profile but rather selects from the
+    technically oriented segments of diverse national systems.
+\end{enumerate}
+
+\closeintermezzo
+
+\end{document}

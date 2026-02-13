@@ -1,0 +1,572 @@
+% !TEX root = ../main.tex
+\documentclass[../main.tex]{subfiles}
+
+\begin{document}
+
+\chapter{Design Science Methodology}
+\labch{method}
+\margintoc
+
+\begin{chapteroverview}
+This chapter explains \textit{how} we conducted this research. We employed \textbf{Design Science Research} (DSR)---a methodology suited for building and evaluating artifacts that solve real problems. Our artifact is the \RoleBox toolkit for multimodal cartography of intermediary role constellations. The core unit of analysis is the \textbf{eight EIT Knowledge and Innovation Communities (KICs)}---innovation intermediaries whose role constellations we map across multiple data modalities. This chapter establishes why DSR fits our goals, details the systematic process we followed, documents our data collection and analytical workflows, and addresses rigor and limitations with transparency.
+
+The methodology directly serves the dissertation's research questions: \textbf{RQ1} (What conceptual framework enables theory-guided analysis?) is grounded in DSR's theoretical foundations. \textbf{RQ2} (What methodology enables cross-modal mapping?) is the direct focus of this chapter---we build \RoleBox{} as the methodological answer. \textbf{RQ3} (What role constellation patterns characterize interstitial actors, and how do they vary across modalities?) requires the systematic data collection and analytical pipelines we develop here. The DSR process generates both the artifact and methodological knowledge about multimodal cartography.
+\end{chapteroverview}
+
+
+%═══════════════════════════════════════════════════════════════════════════════
+\section{The Methodological Challenge}
+\labsec{method:challenge}
+%═══════════════════════════════════════════════════════════════════════════════
+
+This dissertation faces an unusual methodological challenge. We are not merely testing hypotheses against existing data or building theory from qualitative interpretation. We are \textit{building something}---a toolkit for mapping role constellations that does not yet exist.
+
+Chapter~\ref{ch:background} identified a \textbf{cartographic gap}:\sidenote{\textbf{The core challenge}---We needed methods that didn't exist. So we had to build them. That requires a different kind of research.} the field has sophisticated conceptual frameworks for thinking about intermediary roles but lacks methodological tools adequate to its own insights. Categories abound; maps are absent. The literature tells us \emph{what kinds} of intermediaries exist but cannot show us how their role constellations manifest across different modalities---what roles they claim, what roles others attribute to them, and what roles they enact through their activities.
+
+Traditional research methodologies do not quite fit this challenge. Quantitative methods assume measures already exist---but we needed to create them, operationalizing ``role'' across multiple data modalities where no validated instruments exist. Qualitative methods assume phenomena ready for interpretation---but we needed to build infrastructure for systematic observation before interpretation could begin. Mixed methods combine existing approaches---but we needed something genuinely new, not a combination of established techniques but novel methods for a novel problem.
+
+What we required was a methodology for \textit{building and evaluating research tools}---creating artifacts that enable new kinds of inquiry while simultaneously using those artifacts to generate substantive findings.
+
+This methodological challenge resonates with broader critiques of transitions research. De Haan \citeyear{dehaan2025makingscience} provocatively argues that the field remains insufficiently scientific---over-reliant on narrative case studies of single transitions (N=1) that resist falsification and cumulation.\sidenote{\textbf{De Haan's challenge}---``One mechanism, multiple models, many data''---theory development requires systematic comparison across many cases using shared data infrastructure, not interpretive depth in isolated narratives.} His proposed remedy---``one mechanism, multiple models, many data''---calls for shared databases and computational tools that enable meta-analysis across cases. The \RoleBox{} toolkit responds to this call: it provides reusable infrastructure for mapping intermediary roles that can be applied systematically across ecosystems, enabling the kind of cumulative, data-intensive inquiry that de Haan envisions.
+
+
+\subsection{Disciplinary Positioning: Information Systems as Interstitial Discipline}
+
+This research is situated within \textbf{Information Systems} (IS)---itself an inherently interstitial discipline.\sidenote{\textbf{IS as interstitial}---Information Systems emerged at the intersection of computer science, organizational studies, and management, creating a disciplinary space that neither purely technical nor purely social research could occupy.} IS occupies the space between computer science's formal methods and organizational studies' interpretive approaches, drawing from both while belonging fully to neither. This interstitial positioning is not a weakness but a methodological strength: it enables the kind of boundary-spanning inquiry that studying innovation intermediaries demands.
+
+Through \textbf{Design Science Research}, IS provides a rigorous framework for building artifacts that bridge theory and practice---computational tools grounded in social theory, evaluated through both technical performance and practical utility. Where computer science might build systems without theoretical grounding in organizational dynamics, and where sustainability transitions research might theorize without building operational tools, IS-based DSR does both simultaneously. The \RoleBox{} toolkit exemplifies this: a computational artifact that embodies transitions theory while generating new theoretical insights through its application.
+
+Table~\ref{tab:disciplinary-workflows} compares the typical workflows across these three research traditions, highlighting how IS inherits and synthesizes elements from both neighboring fields.
+
+% Using captionof to avoid kaobook caption recursion issue
+\tableminimal
+\begin{center}
+\small
+\begin{tabular}{@{}p{2.2cm}p{3.3cm}p{3.3cm}p{3.3cm}@{}}
+\toprule
+\textbf{Dimension} & \textbf{Computer Science} & \textbf{Information Systems} & \textbf{Sustainability Transitions} \\
+\midrule
+Primary output & Algorithms, systems, proofs & Artifacts + design knowledge & Frameworks, case insights \\
+Typical method & Formal methods, experiments & Design Science Research & Qualitative case studies \\
+Validation & Correctness, efficiency & Utility + rigor & Theoretical coherence \\
+Theory role & Mathematical foundations & Kernel theories guide design & Explanatory frameworks \\
+Data emphasis & Benchmarks, simulations & Multimodal, real-world & Interviews, documents \\
+Generalization & Algorithmic guarantees & Design principles & Analytical generalization \\
+\bottomrule
+\end{tabular}
+\captionof{table}{Typical research workflows across Computer Science, Information Systems, and Sustainability Transitions research}
+\label{tab:disciplinary-workflows}
+\end{center}
+\normalsize
+
+
+
+%═══════════════════════════════════════════════════════════════════════════════
+\section{Design Science Research: Building as Inquiry}[DSR Framework]
+\labsec{method:dsr}
+%═══════════════════════════════════════════════════════════════════════════════
+
+Design Science Research (DSR) is a methodology originating in information systems that treats the creation of artifacts as a legitimate---indeed, central---form of research contribution.\sidenote{\textbf{DSR Origins}---Developed in information systems by Simon \cite{simon1996sciences}, Hevner et al. \cite{hevner2004design}, and Peffers et al. \cite{peffers2007dsr}. Recent work extends DSR to handle complex sociotechnical systems through ``design echelons'' \cite{peffers2024designechelons} and emphasizes design knowledge accumulation \cite{vombrocke2020accumulation}.} The core insight is deceptively simple: sometimes the best way to understand a problem is to build something that solves it.
+
+\subsection{The Logic of Design Science}
+
+DSR differs fundamentally from both natural science (explaining what \emph{is}) and interpretive science (understanding what things \emph{mean}). It belongs to the ``sciences of the artificial'' \cite{simon1996sciences}---inquiry into things that \emph{could be} but do not yet exist. Natural science follows a deductive path from theory through hypothesis to testing, producing \emph{explanations}. Interpretive science proceeds inductively from phenomenon through immersion to interpretation, generating \emph{understanding}. Design science iterates through problem-design-build-evaluate cycles, yielding both \emph{artifacts and knowledge} about their creation.
+
+The key distinctions from traditional research:
+
+% Using captionof to avoid kaobook caption recursion issue
+\tableminimal
+\small
+\begin{center}
+\begin{tabular}{@{}p{3.5cm}p{3.5cm}p{3.5cm}@{}}
+\toprule
+\textbf{Dimension} & \textbf{Traditional Research} & \textbf{Design Science Research} \\
+\midrule
+Primary output & Knowledge claims & Artifacts \emph{plus} knowledge \\
+Core activity & Testing or interpreting & Building and evaluating \\
+Validation logic & Correspondence to reality & Utility for purpose \\
+Success criterion & Is it true? Is it insightful? & Does it work? Is it useful? \\
+Theory role & Tested against data & Embodied in artifact design \\
+\bottomrule
+\end{tabular}
+\captionof{table}{Traditional research vs. Design Science Research}
+\end{center}
+\normalsize
+
+\subsection{Why DSR Fits This Research}
+
+DSR is appropriate when four conditions hold.\sidenote{\textbf{Key insight}---DSR doesn't replace theory; it generates theory \textit{through} building. The artifact embodies design knowledge that can be abstracted into transferable principles.} All four apply to our research.
+
+First, \textbf{a real problem exists that current tools cannot solve}. Chapter~\ref{ch:background} documented the cartographic gap: rich conceptual frameworks but no methods for systematically mapping role constellations at scale. Researchers must choose between qualitative depth (30--50 actors) and quantitative breadth (losing theoretical meaning). The problem is real and consequential.
+
+Second, \textbf{solving the problem requires creating something new}. No existing toolkit combines multimodal data collection, theory-guided role identification, relational mapping, and cross-modal validation. We could not address the gap by applying existing methods differently; we needed to build new cartographic infrastructure.
+
+Third, \textbf{the artifact itself contributes knowledge}. The \RoleBox toolkit embodies methodological knowledge about \emph{how} to map intermediary roles---which data sources reveal which role dimensions, how to integrate signals across modalities, what validation strategies work. This design knowledge transfers beyond our specific application to inform future multimodal research.
+
+Fourth, \textbf{evaluation is possible through demonstration and use}. We can apply the toolkit to the EIT ecosystem, assess whether it produces meaningful maps, compare results with theory-derived expectations, and gather feedback from practitioners. The artifact's utility is empirically assessable.
+
+\begin{propositionbox}
+\textbf{DSR Fit Proposition:} When the research goal is to enable new forms of inquiry rather than to conduct inquiry with existing tools, Design Science Research provides appropriate methodological scaffolding---legitimizing artifact creation as research contribution while maintaining rigor through systematic evaluation.
+\end{propositionbox}
+
+
+%═══════════════════════════════════════════════════════════════════════════════
+\section{The DSR Process: From Problem to Artifact}[DSR Process]
+\labsec{method:process}
+%═══════════════════════════════════════════════════════════════════════════════
+
+We followed Peffers et al.'s (2007) six-activity DSR process model \cite{peffers2007dsr}, adapted for our context.\sidenote{\textbf{Timeline}---2021: Problem identification. 2022: First design iteration. 2023: Core development, EIT data collection. 2024: Integration, evaluation, refinement. 2025: Dissertation completion. This timeline aligns with the ``design echelons'' approach to complex DSR \cite{peffers2024designechelons}, where sociotechnical complexity requires staged knowledge validation.} The process is explicitly iterative---we cycled through activities multiple times over four years, with each cycle refining both the artifact and our understanding of the problem. The six activities are: (1) \textbf{Problem identification} through literature review and gap analysis (Chapters 1--2); (2) \textbf{Objectives definition} establishing design requirements and success criteria (Chapter 3); (3) \textbf{Design and development} of architecture and implementation (Chapters 4--5); (4) \textbf{Demonstration} through EIT application and pattern discovery (Chapters 5--9); (5) \textbf{Evaluation} via technical assessment and theoretical testing (Chapter 10); and (6) \textbf{Communication} through this dissertation and open-source release (Chapter 12). Design iterations refine the artifact based on evaluation feedback, while problem refinement sharpens understanding based on demonstration findings.
+
+\subsection{Activity 1: Problem Identification and Motivation}
+
+Problem identification drew on multiple sources.\sidenote{\textbf{Problem sources}---Academic literature, conference discussions, practitioner needs, research obstacles.} Systematic review of intermediary and role constellation scholarship (Chapter~\ref{ch:background}) identified the cartographic gap---categories without maps, typologies without topographies. Conference discussions at IST (International Sustainability Transitions), DRUID, and Eu-SPRI revealed shared frustration with methodological limitations; colleagues wanted to map ecosystems but lacked the tools. Conversations with EIT staff and KIC managers confirmed practical demand for ecosystem assessment tools that could inform strategy. And our own research obstacles---attempting role analysis with inadequate methods---motivated the search for alternatives.
+
+The problem crystallized as: \emph{How can we systematically map intermediary role constellations at scale while preserving theoretical meaning?}
+
+\subsection{Activity 2: Define Objectives of a Solution}
+
+Based on theoretical foundations (Chapter~\ref{ch:cas}) and problem analysis, we defined six design objectives that a solution must achieve.\sidenote{\textbf{RQ alignment}---O1--O3 directly enable answering RQ3 (what patterns characterize interstitial actors across modalities). O4--O6 address RQ2 (the methodology enabling cross-modal mapping).}
+
+% Using captionof to avoid kaobook caption recursion issue
+\tableminimal
+\begin{center}
+\begin{tabular}{@{}cp{2.5cm}p{7cm}@{}}
+\toprule
+\textbf{ID} & \textbf{Objective} & \textbf{Specification} \\
+\midrule
+O1 & \textbf{Intermediary Focus} & Map role constellations of innovation intermediaries (EIT KICs) as the core unit of analysis---enabling systematic comparison across intermediation domains \\
+O2 & \textbf{Multimodality} & Integrate multiple data modalities (websites, news, investment, social, visual) to capture how roles manifest differently across evidence types \\
+O3 & \textbf{Triangulation} & Compare claimed roles (self-presentation) vs. attributed roles (external characterization) vs. enacted roles (observed behavior) \\
+O4 & \textbf{Design Knowledge} & Generate transferable methodological insights about multimodal cartography---not just findings but reusable methods \\
+O5 & \textbf{Openness} & Be transparent, documented, and extensible---supporting replication and adaptation \\
+O6 & \textbf{Theoretical grounding} & Connect to transitions theory and CAS principles---ensuring maps are interpretable through established lenses \\
+\bottomrule
+\end{tabular}
+\captionof{table}{Design objectives for the \RoleBox toolkit}
+\end{center}
+
+These objectives translate directly into evaluation criteria: a successful artifact must demonstrably achieve each objective.
+
+\subsection{Activity 3: Design and Development}
+
+This was the core creative work---designing architecture, selecting technologies, implementing pipelines, and iterating through failures.\sidenote{\textbf{Design iterations}---v0.1: Single-modality proof of concept. v0.5: Multi-modality pipelines. v1.0: Full integration layer. v1.5: Refinement based on EIT application.} The empirical chapters detail the resulting artifact in action; here we describe the design \emph{process}.
+
+We followed an iterative prototyping approach. Each cycle began by building a minimal viable version for one modality, then testing it against a subset of EIT data (100 organizations). Failures were inevitable and instructive---identifying what breaks, what produces noise, what misses signal. We documented failure modes and successful patterns, refined based on learning, then expanded to the next modality and repeated. Once all modalities worked individually, we built the integration layer that connects them. Finally, we cycled through the entire system based on full-scale application, refining connections and addressing emergent issues.
+
+Key design decisions emerged through this process. Early monolithic designs proved brittle, so we restructured into a \textbf{modular architecture} where independent modules can be used separately or together---a researcher interested only in website analysis need not engage with the social media pipeline. Initial atheoretical feature extraction produced uninterpretable results, leading us to redesign extraction around \textbf{theory-guided features} that target theoretically meaningful role dimensions rather than whatever patterns happen to emerge. \textbf{Cross-modal linking}---entity resolution across modalities---proved harder than anticipated; ``European Institute of Innovation \& Technology'' in one database had to be matched to ``EIT'' in another and ``the EU's innovation body'' in a third. We developed a dedicated linking layer with fuzzy matching and human verification. Finally, rather than treating validation as an afterthought, we built \textbf{comparison mechanisms} (claimed vs. enacted roles) into the core architecture from the start.
+
+\subsection{Activity 4: Demonstration}
+
+Demonstration applies the artifact to a real problem, showing that it works.\sidenote{\textbf{Demonstration scope}---8 EIT KICs as intermediaries, their partner ecosystems, 5 data modalities, 2010--2024 timeframe.}\marginnote{\textbf{Data-driven discovery}---Each empirical chapter adopts an exploratory stance, asking ``what can this modality reveal about role constellations?'' rather than testing predetermined hypotheses. This openness allowed unexpected patterns to emerge---the five sociotypes, the connector gap, the knowledge triangle imbalance---that theory alone would not have predicted.} The empirical chapters demonstrate multimodal cartography on the EIT innovation intermediary ecosystem. Each chapter addresses how role constellations manifest through a different modality: \textbf{Interstitial Pluralism} (Chapter~\ref{ch:interstitial}) examines internal role configurations---how KICs combine multiple intermediary functions into sociotypes. \textbf{Role Fields Mapping} (Chapter~\ref{ch:rolefield}) positions KICs within the broader innovation intermediary field. \textbf{Venture Positioning} (Chapter~\ref{ch:venture}) analyzes claimed sociotypes---how KIC-supported ventures present themselves through website text. \textbf{Visual Registers} (Chapter~\ref{ch:visual}) traces attributed sociotypes---how visual materials and news media characterize KIC roles. \textbf{Power \& Agency} (Chapter~\ref{ch:power}) reveals enacted sociotypes---how discourse constructs power relations and agency among ecosystem actors. Finally, the \textbf{Synthesis} (Chapter~\ref{ch:synthesis}) triangulates across modalities, comparing what intermediaries claim, what others attribute, and what actions reveal.
+
+Demonstration is not mere illustration---it is part of evaluation, showing whether multimodal cartography produces useful, interpretable, theoretically meaningful maps of intermediary role constellations.
+
+\subsection{Activity 5: Evaluation}
+
+Evaluation assesses whether the artifact achieves its objectives. We employ multiple evaluation strategies:
+
+% Using captionof to avoid kaobook caption recursion issue
+\tableminimal
+\small
+\begin{center}
+\begin{tabular}{@{}p{3cm}p{3.5cm}p{3.5cm}@{}}
+\toprule
+\textbf{Strategy} & \textbf{What It Assesses} & \textbf{How We Apply It} \\
+\midrule
+Technical evaluation & Does it work correctly? & Performance metrics, error rates, computational efficiency, edge case handling \\
+Empirical evaluation & Does it reveal patterns? & Novelty and interpretability of EIT findings; comparison with prior knowledge \\
+Theoretical evaluation & Does it connect to theory? & Testing propositions derived from intermediary literature \\
+Comparative evaluation & Does it improve on alternatives? & Comparison with single-modality approaches and existing methods \\
+Practical evaluation & Is it useful? & Feedback from EIT practitioners and transitions researchers \\
+\bottomrule
+\end{tabular}
+\captionof{table}{Evaluation strategies and their application}
+\end{center}
+\normalsize
+
+Chapter~\ref{ch:synthesis} presents detailed evaluation results. The key question is not ``Is it perfect?'' but ``Does it advance our ability to map role constellations beyond what was previously possible?''
+
+\subsection{Activity 6: Communication}
+
+Communication shares the artifact and generated knowledge with relevant communities, contributing to the cumulative body of DSR design knowledge \cite{vombrocke2020accumulation}.\sidenote{\textbf{Communication channels}---This dissertation, open-source code (GitHub), archived datasets (Zenodo), conference presentations, journal articles.} This dissertation serves as the primary communication vehicle, documenting the problem, artifact, demonstration, and evaluation in integrated form. The open-source repository makes all code publicly available with documentation, enabling replication and extension. Processed datasets are archived for research reuse. Selected findings have been published in peer-reviewed venues, and presentations to EIT stakeholders ensured practitioner engagement throughout the research process.
+
+
+%═══════════════════════════════════════════════════════════════════════════════
+\section{The \RoleBox Artifact: Architecture Overview}[RoleBox Architecture]
+\labsec{method:artifact}
+%═══════════════════════════════════════════════════════════════════════════════
+
+The artifact we built is the \textbf{\RoleBox toolkit}---an integrated system for multimodal cartography of role constellations \cite{gregor2013positioning}. The appendices provide detailed technical documentation; here we present the architectural overview.
+
+\subsection{Multimodal Cartography Architecture}
+
+The \RoleBox toolkit is organized around the core insight that intermediary roles manifest differently across modalities. Rather than a generic processing pipeline, the architecture directly supports the three-way comparison central to our research design:
+
+% Figure 3.5: RoleBox toolkit architecture - organized by role dimension
+\begin{center}
+\begin{tikzpicture}[scale=1.1]
+    % Central: 8 KICs
+    \node[rectangle, rounded corners=8pt, draw=CoverGold, fill=CoverGold!20,
+          minimum width=3.5cm, minimum height=1.8cm, line width=1.5pt, font=\normalsize\bfseries, align=center]
+          (kics) at (0,0) {8 EIT KICs\\Role Constellations};
+
+    % Three modality branches
+    % Left: Claimed
+    \node[rectangle, rounded corners=6pt, draw=Azure, fill=Azure!12,
+          minimum width=4cm, minimum height=3cm, line width=1pt] (claimed) at (-5.5,0) {};
+    \node[font=\sffamily\bfseries\small, text=Azure, anchor=north] at (-5.5,1.35) {CLAIMED};
+    \node[font=\scriptsize, align=center] at (-5.5,0.4) {\textbf{Websites}\\Self-presentation\\Aspirational positioning};
+    \node[font=\scriptsize, align=center, text=Slate] at (-5.5,-0.7) {Ch.~\ref{ch:interstitial}};
+
+    % Top: Attributed
+    \node[rectangle, rounded corners=6pt, draw=PandaBamboo, fill=PandaBamboo!12,
+          minimum width=4cm, minimum height=3cm, line width=1pt] (attributed) at (0,4) {};
+    \node[font=\sffamily\bfseries\small, text=PandaBamboo, anchor=north] at (0,5.35) {ATTRIBUTED};
+    \node[font=\scriptsize, align=center] at (0,4.4) {\textbf{News + Visual}\\Media coverage\\Imagery \& registers};
+    \node[font=\scriptsize, align=center, text=Slate] at (0,3.3) {Ch.~\ref{ch:visual}};
+
+    % Right: Enacted
+    \node[rectangle, rounded corners=6pt, draw=Marigold, fill=Marigold!12,
+          minimum width=4cm, minimum height=3cm, line width=1pt] (enacted) at (5.5,0) {};
+    \node[font=\sffamily\bfseries\small, text=Marigold, anchor=north] at (5.5,1.35) {ENACTED};
+    \node[font=\scriptsize, align=center] at (5.5,0.4) {\textbf{Social + Investment + Discourse}\\Network position, funding flows\\Power dynamics};
+    \node[font=\scriptsize, align=center, text=Slate] at (5.5,-0.7) {Ch.~\ref{ch:rolefield}, Ch.~\ref{ch:venture}, Ch.~\ref{ch:power}};
+
+    % Bottom: Synthesis
+    \node[rectangle, rounded corners=6pt, draw=AccentPurple, fill=AccentPurple!12,
+          minimum width=4cm, minimum height=1.8cm, line width=1pt] (synth) at (0,-3.5) {};
+    \node[font=\sffamily\bfseries\small, text=AccentPurple, anchor=north] at (0,-2.7) {SYNTHESIS};
+    \node[font=\scriptsize, align=center] at (0,-3.3) {Triangulation\\Ch.~\ref{ch:synthesis}};
+
+    % Arrows - thicker
+    \draw[->, Azure, line width=1.5pt] (claimed) -- (kics);
+    \draw[->, PandaBamboo, line width=1.5pt] (attributed) -- (kics);
+    \draw[->, Marigold, line width=1.5pt] (enacted) -- (kics);
+    \draw[->, CoverGold, line width=1.5pt] (kics) -- (synth);
+
+\end{tikzpicture}
+\captionof{figure}[The \RoleBox multimodal architecture]{The \RoleBox architecture organized around the three dimensions of role manifestation. Each modality stream produces evidence for how intermediaries claim, are attributed, or enact their roles. Synthesis triangulates across streams.}
+\label{fig:toolkit-architecture}
+\end{center}
+
+The architecture reflects our design objectives:\sidenote{\textbf{Three dimensions}---\textcolor{Azure}{Claimed}: What intermediaries say about themselves. \textcolor{PandaBamboo}{Attributed}: What others say about them. \textcolor{Marigold}{Enacted}: What their actions reveal.}
+
+\begin{description}[leftmargin=0.5cm, itemsep=0.2em]
+\item[Intermediary focus] (O1): The 8 KICs sit at the center; all modalities feed into understanding their role constellations.
+\item[Triangulation] (O3): The explicit separation of claimed/attributed/enacted enables systematic comparison of how roles manifest across evidence types.
+\item[Design knowledge] (O4): Each modality stream generates transferable methodological insights, documented in the data modality appendices.
+\item[Transparency] (O5): All code is documented and version-controlled. Processing decisions are logged for auditability.
+\end{description}
+
+Data flows through five stages: raw URLs are scraped into HTML/JSON, which undergoes feature extraction, followed by embedding generation, culminating in map projections. Each stage persists results to PostgreSQL for traceability and reprocessing.
+
+
+%═══════════════════════════════════════════════════════════════════════════════
+\section{Data Collection: Sources and Workflows}[Data Collection]
+\labsec{method:data}
+%═══════════════════════════════════════════════════════════════════════════════
+
+The empirical component required data collection across six modalities for the eight EIT KICs and their partner ecosystems.\sidenote{\textbf{Six collected, five analyzed}---Wikipedia provides contextual background for entity resolution and organizational profiling; the remaining five modalities each receive a dedicated empirical chapter (Chapters~\ref{ch:interstitial}--\ref{ch:power}).} Each modality captures different aspects of how intermediary role constellations manifest; together they enable triangulation between claimed, attributed, and enacted identities.
+
+\subsection{Unit of Analysis: EIT Intermediaries}
+
+The \textbf{eight EIT Knowledge and Innovation Communities (KICs)} serve as our primary unit of analysis---innovation intermediaries whose role constellations we map across modalities.
+
+% KIC overview table - compact with founding years
+\begin{center}
+\small
+\begin{tabular}{@{}llcl@{}}
+\toprule
+\textbf{KIC} & \textbf{Domain} & \textbf{Est.} & \textbf{SDG Alignment} \\
+\midrule
+EIT Climate-KIC & Climate mitigation \& adaptation & 2010 & SDG 13 \\
+EIT Digital & Digital transformation & 2010 & SDG 9 \\
+EIT InnoEnergy & Sustainable energy & 2010 & SDG 7 \\
+EIT Health & Health \& active ageing & 2015 & SDG 3 \\
+EIT Raw Materials & Circular economy & 2016 & SDG 12 \\
+EIT Food & Food systems & 2017 & SDG 2 \\
+EIT Manufacturing & Industry 4.0 & 2019 & SDG 9 \\
+EIT Urban Mobility & Sustainable transport & 2019 & SDG 11 \\
+\bottomrule
+\end{tabular}
+\captionof{table}{The eight EIT KICs as units of analysis, with founding year and primary SDG alignment.}
+\labtab{kic-overview}
+\end{center}
+
+For each KIC, we collect data across modalities to understand how its role constellation manifests---what roles it claims, what roles others attribute, and what roles its activities enact.\sidenote{\textbf{KIC selection rationale}---The 8 KICs span multiple sustainability domains, vary in maturity (2010--2019), and share common EIT governance---enabling within-ecosystem comparison while controlling for institutional context.}
+
+\subsection{Multimodal Organic Data: Uncharted Territory}
+
+Before detailing data sources, we must acknowledge a fundamental methodological departure from mainstream transitions research. Following Groves \citeyear{groves2011three} and Maass et al. \citeyear{maass2018data}, we distinguish between two types of research data:\sidenote{\textbf{Groves (2011)}---``Three eras of survey research: Designed versus organic data.'' \emph{Public Opinion Quarterly}, 75(5), 861--871.}
+
+\begin{description}[leftmargin=0.5cm, itemsep=0.3em]
+\item[Designed data] Data created specifically for research purposes---surveys, interviews, experiments, focus groups. The researcher controls collection instruments and sampling.
+
+\item[Organic data] Data generated independently of research objectives---social media traces, website content, news coverage, transaction logs. The data exists prior to and independent of the research project.
+\end{description}
+
+Most transitions research on intermediary roles relies heavily on \textbf{designed data}: semi-structured interviews with transition arena participants, survey instruments measuring perceived role importance, case study fieldwork with purposive sampling \sidecite{kivimaa2019innovation,mignon2017intermediary}. A systematic review by Zolfagharian et al. \citeyear{zolfagharian2019studying} confirms this pattern empirically: 82\% of transitions studies employ qualitative methods, 58\% rely on interviews, and only 9\% use quantitative approaches.\sidenote{\textbf{Zolfagharian et al. (2019)}---Systematic review of 540 transitions publications showing dominance of qualitative, interview-based methods.} While 82\% of studies use documents, these are typically \emph{single-modality} sources---policy documents, grey literature, archival records---analyzed individually rather than integrated across channels. This tradition has generated rich theoretical insights but faces inherent limitations: small samples (typically 30--50 informants), retrospective accounts prone to recall bias, and social desirability effects in self-reporting.
+
+\begin{insightbox}[The Multimodal Organic Data Contribution]
+This dissertation makes a deliberate methodological choice: we rely almost entirely on \textbf{multimodal organic data}---digital traces that intermediaries and their ecosystems generate independently of our research objectives, integrated across five distinct data modalities. Websites existed before we studied them. Tweets were posted without anticipation of analysis. News articles were written for audiences, not researchers. Investment records reflect commercial decisions, not research designs. Visual materials were created for impression management, not scholarly inspection.
+
+This shift from designed to organic data is not merely a data source substitution---it represents a different epistemological stance toward studying roles. Rather than asking actors what roles they play (designed data), we observe what roles they \emph{enact} through their digital traces (organic data). And rather than relying on a single data channel, we triangulate across modalities to reveal where claimed roles converge with or diverge from enacted roles.
+\end{insightbox}
+
+The combination of organic data with multimodal integration remains \textbf{uncharted territory} for transitions research. De Haan et al. \citeyear{dehaan2019datadriven} issue a compelling call for ``data-driven transitions research''---a ``thorough-going empiricism'' where ``data, as many as can be mustered, lead rather than just support inference.'' They envision shared databases, standardized event catalogues, and computational tools enabling meta-analysis across cases.\sidenote{\textbf{De Haan et al. (2019)}---``What is clear, at least to us, is that computational tools are opening up new ways of doing research on complex societal issues such as transitions.'' (p. 208)} Yet their vision remains largely unrealized: ``Not only is there no such database but moreover it seems contrary to the way data are used in transitions research'' (p. 208).
+
+This dissertation responds to that call. While de Haan et al. focus on event-based analysis of historical transitions, we extend their vision to \emph{multimodal actor-level analysis} of contemporary innovation ecosystems. The \RoleBox{} platform instantiates their aspiration for shareable, cumulative data infrastructure---applied not to events but to role constellations.\sidenote{\textbf{Uncharted territory}---The ``transition research onion'' \parencite{zolfagharian2019studying} maps methodological layers but does not include multimodal digital trace analysis. This dissertation ventures into that unmapped space.}
+
+The organic data approach also addresses Challenge 4 identified by Maass et al. \citeyear{maass2018data}: sharing data and models across research teams. Organic data, once collected and documented, can be repurposed by other researchers for different questions---unlike interview transcripts bound by confidentiality agreements or survey responses tied to specific instruments.\sidenote{\textbf{Challenge 4}---Maass et al. identify organic data's potential for cross-project reuse, but note the challenge of providing contextual information and resolving heterogeneity.}
+
+\subsection{Overview of Data Sources}
+
+% Using captionof to avoid kaobook caption recursion issue
+\tableminimal
+\begin{center}
+\begin{tabular}{@{}p{2cm}p{3.5cm}p{2.5cm}p{2.5cm}@{}}
+\toprule
+\textbf{Modality} & \textbf{Primary Source} & \textbf{Scope} & \textbf{Role Dimension} \\
+\midrule
+Wikipedia & Wikidata, Wikipedia articles & 8 KICs + key partners & Encyclopedic positioning \\
+Websites & KIC websites, partner pages & 8 KICs + 675 partners & Claimed sociotype \\
+News & LexisNexis, MediaCloud & 3,400+ articles & Attributed sociotype \\
+Investment & Crunchbase, Dealroom & 2,100 funding rounds & Enacted sociotype \\
+Visual & Website screenshots, images & 1,500+ images & Symbolic positioning \\
+Social & Twitter/X API & 1.45M+ tweets & Relational positioning \\
+\bottomrule
+\end{tabular}
+\captionof{table}{Data collection summary across six modalities---organized by role dimension. All sources represent \textbf{organic data} generated independently of this research.}
+\labtab{data-collection-summary}
+\end{center}
+
+\marginnote{\textbf{Note on Wikipedia/Wikidata}: Wikipedia proved more complex to parse and leverage systematically than anticipated. We share the data and code for future work. Wikipedia remains promising for studying cities, global events, and connecting to demographic contexts---providing a fuller picture when other data sources are locked behind paywalls or inaccessible due to platform changes (as occurred with Twitter/X during this research).}
+
+\marginnote{\textbf{Note on video data}: While initially planned as a modality for this dissertation, video analysis proved more complex than static images, particularly regarding ethics, archiving, and computational demands. This dissertation therefore focused on developing infrastructure for making video data more accessible for social science and humanities research---this motivated \textsc{MaskAnyone} and \textsc{MaskBench} (see Portfolio). Video as a primary analytical modality will be central to postdoctoral research on multimodal communication in innovation ecosystems (see Portfolio: Grant Applications).}
+
+% Modality-Construct Mapping Table
+\tableminimal
+\begin{center}
+\begin{tabular}{@{}p{2cm}p{2.5cm}p{3cm}p{3.5cm}@{}}
+\toprule
+\minimalhead{Modality} & \minimalhead{Role View} & \minimalhead{Theoretical Construct} & \minimalhead{What It Reveals} \\
+\midrule
+Wikipedia & Encyclopedic & Institutionalized knowledge & How actors are formally classified in structured knowledge \\
+\addlinespace
+Websites & Claimed & Sociotype self-construction & How actors wish to be seen; aspirational identity \\
+\addlinespace
+News media & Attributed & External legitimacy & How external observers characterize actors \\
+\addlinespace
+Investment & Enacted & Material role basis & Which roles receive resource backing \\
+\addlinespace
+Social media & Relational & Network positioning & How actors relate to field peers; community affiliation \\
+\addlinespace
+Visual & Embodied & Aesthetic signaling & How roles are materially performed through imagery \\
+\bottomrule
+\end{tabular}
+\captionof{table}{Modality-construct mapping: each data source operationalizes specific theoretical constructs about organizational roles}
+\labtab{modality-construct}
+\end{center}
+
+This multimodal architecture directly operationalizes \textcite{wittmayer2017roles}'s three role perspectives: roles as \emph{recognizable activities} (website claims), roles as \emph{resources} (strategic deployment via social media), and roles as \emph{boundary objects} (external negotiation through news and visuals). Where their framework remained qualitative and case-specific, multimodal cartography enables systematic operationalization at population scale.
+
+\subsection{Sampling Strategy}
+
+Our sampling centers on the eight KICs as intermediaries, but these organizations are embedded within a vast ecosystem of interconnected actors.\sidenote{\textbf{Data scope}---8 KICs as core unit, embedded in ecosystem of 6,000+ connected organizations across 6 modalities, 14 years (2010--2024).} We employ concentric sampling: the core consists of the 8 KICs themselves; an inner ring includes 675 direct partners (universities, research institutes, corporations); an outer ring encompasses 800+ ventures supported by KIC accelerators; and the broader context extends to 6,000+ organizations through partnership relationships, funding networks, and news co-mentions. Many partners work with multiple KICs, creating overlapping role constellations.
+
+
+\subsection{Collection Workflows by Modality}
+
+Each modality required specialized collection procedures, detailed in the data modality appendices.\sidenote{\textbf{Full documentation}---Appendices D--H provide complete workflow specifications, code references, and data dictionaries for each modality.} All follow a common pattern: source identification, API access or crawling, cleaning and filtering, feature extraction, and database storage. Websites (675 sites) used Scrapy and Playwright over 3 weeks; news (3,400+ articles) used LexisNexis and GDELT over 2 months; investment data (2,100 rounds) used Crunchbase and Dealroom over 1 month; visual materials (1,500+ images) used Playwright and OpenCV over 2 weeks; and social media (1.45M tweets) used Twitter API v2 over 6 weeks.
+
+
+%═══════════════════════════════════════════════════════════════════════════════
+\section{Analytical Workflows}
+\labsec{method:analysis}
+%═══════════════════════════════════════════════════════════════════════════════
+
+Each modality requires tailored analytical workflows. Before detailing these workflows, we situate our approach within the broader challenge of computational theory construction.
+
+\subsection{Three Lexicons: Practice, Method, Theory}
+
+Miranda et al. \citeyear{miranda2022computationally} identify a fundamental challenge for computationally intensive research: the need to align three distinct lexicons.\sidenote{\textbf{Three lexicons}---Practice lexicon: how actors talk about their work. Method lexicon: how computational tools categorize data. Theoretical lexicon: how scholarly concepts explain patterns.} The \textbf{practice lexicon} captures how actors in the domain talk about their work---for EIT intermediaries, terms like ``knowledge triangle,'' ``co-location,'' and ``innovation community.'' The \textbf{method lexicon} comprises the vocabulary of computational tools---``embeddings,'' ``clusters,'' ``centrality measures.'' The \textbf{theoretical lexicon} provides scholarly concepts for explaining observed patterns---``institutional work,'' ``boundary spanning,'' ``niche protection.''
+
+The risk is that computational methods produce findings that are technically valid (method lexicon) but theoretically vacuous---patterns without meaning. Conversely, theoretical frameworks may be rich but untethered from empirical regularities accessible through computational methods.
+
+This challenge echoes the broader tension between data-driven and theory-driven research that Maass et al. \citeyear{maass2018data} identify as central to the big data era. Their framework proposes two bridging pathways: \textbf{patterns to theory} (abstracting and generalizing computational patterns to develop or refine theoretical constructs) and \textbf{theory to data requirements} (using theoretical frameworks to guide data selection and analysis). Multimodal cartography traverses both pathways simultaneously---we use transitions theory to guide which patterns to seek (theory $\rightarrow$ data), while allowing emergent patterns to refine our theoretical understanding of role constellations (patterns $\rightarrow$ theory).\sidenote{\textbf{Maass et al.'s challenges}---They identify four bridging challenges: (1) reconciling competing knowledge creation approaches, (2) selecting data for theory testing, (3) solving problems unsolvable from a single perspective, and (4) sharing data across projects. Our methodology addresses all four.}
+
+\begin{insightbox}[Lexical Alignment in Multimodal Cartography]
+Our analytical workflows are designed to maintain alignment across all three lexicons:
+\begin{itemize}[nosep, leftmargin=*]
+\item \textbf{Practice $\rightarrow$ Method}: We encode EIT practitioner concepts (``knowledge triangle integration'') into computable features (topic distributions, network positions)
+\item \textbf{Method $\rightarrow$ Theory}: We interpret computational patterns (cluster membership, embedding distances) through theoretical lenses (role theory, field theory)
+\item \textbf{Theory $\rightarrow$ Practice}: We translate theoretical findings back into practitioner-relevant insights (actionable recommendations for KIC strategy)
+\end{itemize}
+This triangular alignment---not merely methodological triangulation---ensures that multimodal cartography produces knowledge that is empirically grounded, theoretically meaningful, and practically relevant.
+\end{insightbox}
+
+Miranda et al. also identify \textbf{stopping rules}---criteria for determining when analysis is sufficient. For contribution stopping, we ask: does the pattern add to theory or merely confirm the obvious? For sampling stopping: have we captured sufficient variation in role constellations? For methodological stopping: are results robust to alternative analytical choices? These questions guide our iterative refinement of both data collection and analysis.
+
+\subsection{Bridging Data-Driven and Theory-Driven Research}
+
+Multimodal cartography bridges computational pattern discovery with transitions theory development through two pathways \cite{maass2018data}: \textbf{Path 1} (patterns to theory) abstracts computational patterns into theoretical constructs about role constellations; \textbf{Path 2} (theory to data) uses transitions theory to guide data requirements and analytical choices. The \RoleBox{} toolkit embodies the bridging knowledge that enables both pathways. Table~\ref{tab:challenges-resolution} shows how our methodology addresses Maass et al.'s four challenges for research at the data-theory intersection.
+
+% Challenges resolution table (Maass-style)
+\begin{center}
+\small
+\begin{tabular}{@{}p{3.2cm}p{3.8cm}p{4cm}@{}}
+\toprule
+\textbf{Challenge} & \textbf{Resolution Strategy} & \textbf{How We Address It} \\
+\midrule
+\textbf{C1: Reconciling} knowledge creation approaches & Abstraction \& generalization of patterns & Theory-guided feature extraction; role taxonomy grounds computational clusters \\
+\addlinespace
+\textbf{C2: Selecting} data \& techniques for theory testing & Requirements gathering from theoretical constructs & Propositions (Ch.~\ref{ch:cas}) specify what patterns to seek; modalities chosen to operationalize role dimensions \\
+\addlinespace
+\textbf{C3: Solving} problems unsolvable from single perspective & Problem refinement \& decomposition & RQ2 (claimed vs. enacted) requires both computational comparison and theoretical interpretation \\
+\addlinespace
+\textbf{C4: Sharing} data across research teams & Preparing data for future use & Open-source toolkit; archived datasets; documented workflows (Appendices) \\
+\bottomrule
+\end{tabular}
+\captionof{table}{How multimodal cartography addresses challenges at the data-driven/theory-driven intersection}
+\label{tab:challenges-resolution}
+\end{center}
+
+Here we summarize the analytical approaches for each modality; empirical chapters provide details.
+
+\subsection{Text Analysis Workflow}
+
+Text from websites and news undergoes six NLP stages:\sidenote{\textbf{For non-specialists}---These NLP (natural language processing) steps transform messy web text into structured data. Think of it as cleaning and organizing documents before filing them.} (1) \textbf{Preprocessing} via language detection, encoding normalization, and boilerplate removal \cite{bird2009nlp}; (2) \textbf{Tokenization} using spaCy \cite{honnibal2020spacy} to segment text into sentences and words; (3) \textbf{Named Entity Recognition} to extract organizations, persons, locations, and technologies \cite{ner2018survey}---the actors and artifacts that populate role constellations; (4) \textbf{Topic modeling} using BERTopic \cite{grootendorst2022bertopic} for semantic clustering and guided LDA \cite{blei2003lda} for theory-informed topic extraction;\sidenote{\textbf{LLMs for topic labeling}---Large language models can assist with interpreting topic clusters by suggesting coherent labels. However, domain expertise remains crucial for mapping computational topics to theoretical constructs like role categories. We used LLM suggestions as starting points, not final answers.} (5) \textbf{Embedding} via Sentence-BERT \cite{reimers2019sentence,devlin2019bert} to produce dense vector representations enabling similarity computation; and (6) storage in the database for downstream analysis.
+
+\subsection{Network Analysis Workflow}
+
+Networks are constructed from multiple relationship types. \textbf{Partnership networks} capture edges from co-membership in KICs and joint projects---the formal collaborative ties that define ecosystem structure. \textbf{Citation networks} trace website hyperlinks and news co-mentions, revealing informal recognition patterns. \textbf{Investment networks} document funding relationships from Crunchbase, showing where capital flows. \textbf{Social networks} extract Twitter mentions and retweets, mapping interaction patterns in real time.
+
+Analysis employs standard network metrics---degree, betweenness, and eigenvector centrality \cite{newman2010networks,borgatti2009network}---to characterize positional properties. Community detection algorithms (Louvain \cite{blondel2008louvain}, Infomap \cite{rosvall2008infomap}) identify clusters of densely connected actors. Structural equivalence measures \cite{wasserman1994social} reveal which actors occupy similar positions regardless of direct connection---the relational basis for role classification.
+
+\subsection{Visual Analysis Workflow}
+
+Visual analysis extracts features from website screenshots and logos. \textbf{Color analysis} captures dominant colors, palette complexity, and color harmony---visual signals that organizations use to position themselves within aesthetic fields. \textbf{Composition analysis} examines layout structure, visual hierarchy, and whitespace usage. \textbf{CNN features} from pre-trained ResNet models \cite{he2016resnet} enable visual similarity computation across organizational imagery \cite{krizhevsky2012imagenet}. \textbf{Logo analysis} extracts shape features, color schemes, and symbolic elements using CLIP embeddings \cite{radford2021clip} that capture semantic visual content.
+
+\subsection{Integration Workflow}
+
+The integration layer synthesizes signals across modalities---the most technically demanding component of the infrastructure. \textbf{Entity alignment} ensures the same organization is linked across modalities, resolving the name matching problem described earlier. \textbf{Feature normalization} scales features to comparable ranges, preventing any single modality from dominating due to measurement scale. \textbf{Multi-view embedding} learns joint representations from all modalities, capturing the shared structure underlying different data sources. \textbf{Role classification} applies theory-guided classifiers to combined features, producing sociotype assignments grounded in transitions theory rather than atheoretical clustering. \textbf{Validation scoring} compares claimed roles (from websites) against enacted roles (from news, networks), operationalizing the claim-action gap analysis central to this dissertation. Finally, \textbf{map generation} projects high-dimensional embeddings to 2D/3D for visualization---transforming abstract feature spaces into navigable cartographies.
+
+
+%═══════════════════════════════════════════════════════════════════════════════
+\section{Ensuring Rigor}
+\labsec{method:rigor}
+%═══════════════════════════════════════════════════════════════════════════════
+
+DSR has sometimes been criticized as ``just building things'' without scientific rigor. We take rigor seriously, addressing it through multiple mechanisms.
+
+\subsection{DSR Guidelines Compliance}
+
+Following Hevner et al. \cite{hevner2004design}, we explicitly address seven DSR guidelines:
+
+% Using captionof to avoid kaobook caption recursion issue
+\tableminimal
+\begin{center}
+\begin{tabular}{@{}p{3.5cm}p{7.5cm}@{}}
+\toprule
+\textbf{Guideline} & \textbf{How We Address It} \\
+\midrule
+1. Design as artifact & \RoleBox is a concrete, functional toolkit---not just concepts \\
+2. Problem relevance & Addresses documented cartographic gap (Chapter~\ref{ch:background}) \\
+3. Design evaluation & Multiple evaluation strategies: technical, empirical, theoretical, practical \\
+4. Research contributions & New methods (toolkit), tested propositions, open infrastructure \\
+5. Research rigor & Systematic process, documented decisions, transparent limitations \\
+6. Design as search & Iterative refinement through four major versions \\
+7. Communication of research & Dissertation, open code, archived data, publications \\
+\bottomrule
+\end{tabular}
+\captionof{table}{DSR rigor guidelines and how we address them}
+\end{center}
+
+\subsection{Validity Considerations}
+
+We consider standard validity threats:\sidenote{\textbf{Seven guidelines}---Hevner et al. \cite{hevner2004design} established canonical DSR guidelines. We address each explicitly.}
+
+\begin{description}[leftmargin=0.5cm, itemsep=0.4em]
+\item[Construct validity] \textit{Do our measures capture what we claim?}
+
+We address this through multiple operationalizations of role concepts (textual, relational, visual) and cross-modal validation. If claimed and enacted roles diverge, we investigate rather than ignore the discrepancy.
+
+\item[Internal validity] \textit{Are patterns real or artifacts of methods?}
+
+We address this through robustness checks (alternative parameter settings), sensitivity analysis (how results change with different thresholds), and triangulation (do different modalities converge?).
+
+\item[External validity] \textit{Do findings generalize beyond EIT?}
+
+We are \emph{cautious} about generalization. EIT is a specific European policy context with designed intermediaries. We provide open infrastructure enabling replication in other contexts but make no strong generalization claims.
+
+\item[Reliability] \textit{Would others get similar results?}
+
+We address this through documented code, archived data, version-controlled workflows, and containerized execution environments. The entire analysis can be re-executed.
+\end{description}
+
+\subsection{Triangulation Strategy}
+
+Triangulation is central to our validation approach.\sidenote{\textbf{Triangulation logic}---We do not average across modalities but rather treat convergence and divergence as distinct analytical signals.} Text signals from websites and news reveal claimed and attributed sociotypes (Chapters \ref{ch:interstitial}, \ref{ch:power}); network signals from social media reveal relational positioning (Chapter \ref{ch:rolefield}); visual signals from imagery reveal aesthetic positioning (Chapter \ref{ch:visual}); and investment signals reveal enacted priorities (Chapter \ref{ch:venture}). The Synthesis chapter (Chapter \ref{ch:synthesis}) integrates these streams. Critically, \emph{divergence is as informative as convergence}---when an organization claims connector status but occupies a peripheral network position, the gap itself becomes evidence of aspiration, strategic positioning, or evolving role trajectory.
+
+
+%═══════════════════════════════════════════════════════════════════════════════
+\section{Ethical Considerations}
+\labsec{method:ethics}
+%═══════════════════════════════════════════════════════════════════════════════
+
+Our research involves organizational data from public sources only.\sidenote{\textbf{Ethics principles}---Public data only, organizational focus, no individual identification, platform compliance, open science.} All data was publicly available (organizational websites, published news, public investment records, public social media posts); our unit of analysis is organizations, not individuals; we anonymize individual quotes unless from named official spokespeople; we complied with platform terms of service including rate limiting and robots.txt; and we share aggregated processed data while withholding raw data that could enable re-identification. The research was reviewed and approved by the university ethics board.
+
+
+%═══════════════════════════════════════════════════════════════════════════════
+\section{Limitations}
+\labsec{method:limitations}
+%═══════════════════════════════════════════════════════════════════════════════
+
+Every methodology has limitations. We are explicit about ours:
+
+\begin{criticalbox}[Methodological Limitations]
+\textbf{Single ecosystem}: EIT is a designed, policy-driven, European context; findings may not generalize. \textbf{Digital trace bias}: Organizations with weak digital presence are underrepresented. \textbf{Snapshot emphasis}: Most analyses are cross-sectional (2023); temporal dynamics are limited. \textbf{English language bias}: NLP pipelines are optimized for English, underrepresenting non-English content. \textbf{Platform dependencies}: API restrictions (especially Twitter/X post-2023) constrained coverage. \textbf{Interpretive judgment}: Role identification involves researcher judgment in codebook development, threshold setting, and pattern interpretation.
+\end{criticalbox}%
+\marginnote{\textbf{Model-assisted annotation}---We explored using LLMs to assist with coding tasks. While promising, these tools remain early-stage: they suggest categories but struggle with domain-specific nuance. Human judgment remains essential for validating model outputs against theoretical constructs.}
+
+These limitations do not invalidate the research---they \emph{bound} it.\sidenote{\textbf{Honest limitations}---Acknowledging limitations strengthens rather than weakens research. Others can address what we could not.} We are building a toolkit and demonstrating its potential, not claiming definitive answers. The open infrastructure enables others to extend, adapt, and apply the approach in contexts where our limitations matter less.
+
+\clearpage
+%═══════════════════════════════════════════════════════════════════════════════
+\section{Chapter Summary}
+\labsec{method:summary}
+%═══════════════════════════════════════════════════════════════════════════════
+
+\begin{summarybox}
+This chapter established \textbf{Design Science Research} as our methodology---appropriate because we are building something new (the \RoleBox{} toolkit) rather than testing hypotheses with existing methods. The methodology enables us to build cartographic infrastructure while simultaneously using that infrastructure to map intermediary role constellations.
+
+\vspace{0.5em}
+\textbf{Key methodological elements:}
+
+\begin{center}
+\small
+\begin{tabular}{@{}p{3cm}p{6.5cm}@{}}
+\toprule
+\textbf{Element} & \textbf{Specification} \\
+\midrule
+Unit of analysis & 8 EIT KICs as innovation intermediaries \\
+DSR process & 6 activities with iteration loops \\
+Design objectives & Intermediary focus, multimodality, triangulation, design knowledge, openness, theoretical grounding \\
+Architecture & Claimed $\leftrightarrow$ Attributed $\leftrightarrow$ Enacted \\
+Data modalities & Wikipedia, websites, news, investment, visual, social \\
+Sampling & Core (8 KICs) $\rightarrow$ Partners (675) $\rightarrow$ Ventures (800+) \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\vspace{0.5em}
+\textbf{Connecting the methodological thread:} This chapter answers the \emph{how} question---how we conduct multimodal cartography. Chapter~\ref{ch:cas} provides the theoretical foundation (\emph{why} role constellations behave as complex adaptive systems). The empirical chapters then demonstrate the methodology in action, each revealing different facets of intermediary role constellations: interstitial positioning (Ch.~\ref{ch:interstitial}), field structure (Ch.~\ref{ch:rolefield}), venture portfolios (Ch.~\ref{ch:venture}), visual registers (Ch.~\ref{ch:visual}), and discourse dynamics (Ch.~\ref{ch:power}). The synthesis (Ch.~\ref{ch:synthesis}) triangulates across modalities, and the conclusion (Ch.~\ref{ch:conclusion}) evaluates the fifteen propositions against our empirical findings.
+\end{summarybox}
+
+\vspace{1em}
+With methodology established, the next intermezzo introduces RoleXray---the NLP pipeline for extracting role signals from organizational texts.\sidenote{\textit{Next}: \textbf{Intermezzo}---RoleXray introduces the text processing pipeline that operationalizes role extraction from websites, news, and other textual sources.}
+
+% Force floats to output before chapter ends
+\clearpage
+
+\end{document}

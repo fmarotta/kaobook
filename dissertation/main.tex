@@ -1,0 +1,340 @@
+%========================================================================================
+% ROLEBOX DISSERTATION - MODULAR STRUCTURE
+% Compile with: lualatex (recommended) or xelatex
+% Run 2-3 passes for references, then biber, then 2 more passes
+%========================================================================================
+
+%----------------------------------------------------------------------------------------
+% COMPILATION MODES (set via command line or uncomment one)
+%----------------------------------------------------------------------------------------
+% CONCISEMODE: All chapters + bibliography, NO intermezzos/portfolio/supplementary
+% \newcommand{\CONCISEMODE}{}
+% FOCUSMODE: Draft mode - core chapters only, no backmatter (for fast iteration)
+% \newcommand{\FOCUSMODE}{}
+% DRAFTMODE: Shows placeholders for images, fastest compilation
+% \newcommand{\DRAFTMODE}{}
+% PARTONEONLY: First 4 chapters only (for supervisor review)
+% \newcommand{\PARTONEONLY}{}
+
+%----------------------------------------------------------------------------------------
+\documentclass[
+    fontsize=10pt,
+    a4paper,
+    twoside=false,
+    open=any,
+    secnumdepth=1,
+    numbers=noenddot,
+    % draft,  % Uncomment for fastest compilation (no images, just boxes)
+]{kaobook}
+
+%========================================================================================
+% PACKAGES AND CONFIGURATION
+%========================================================================================
+
+% Compilation check
+\RequirePackage{iftex}
+\ifxetex\else\ifluatex\else
+  \ClassError{kaobook}{This template requires XeLaTeX or LuaLaTeX}{}
+\fi\fi
+
+% Language support (required by kaorefs for \addto command)
+\usepackage[english]{babel}
+
+% Subfiles for modular chapters
+\usepackage{subfiles}
+
+% Font configuration (Fira Sans Light - lighter weight for easier reading)
+\usepackage[firasanslight]{kaofonts}
+
+% Custom RoleBox styling (colors, environments, icons)
+\usepackage{kaoci-rolebox}
+
+%----------------------------------------------------------------------------------------
+% GRAPHICS
+%----------------------------------------------------------------------------------------
+% graphicx, tikz, booktabs, multirow already loaded by kao.sty
+\graphicspath{{dividers/images/}{dissertation/figures/}{figures/}{chapters/}{./}}
+
+% Additional TikZ libraries beyond what kao.sty loads
+\usetikzlibrary{
+    shapes.geometric,
+    shapes.symbols,
+    decorations.pathreplacing,
+    calligraphy,
+    arrows.meta,
+    positioning,
+    calc,
+    backgrounds,
+    fit,
+    decorations.pathmorphing,
+    patterns,
+    matrix
+}
+
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
+\usepgfplotslibrary{fillbetween,statistics}
+
+%----------------------------------------------------------------------------------------
+% TABLES
+%----------------------------------------------------------------------------------------
+% booktabs, multirow already loaded by kao.sty
+\usepackage{array}
+\usepackage{tabularx}
+\usepackage{longtable}
+\usepackage{colortbl}
+\usepackage{xspace}
+
+%----------------------------------------------------------------------------------------
+% BIBLIOGRAPHY
+%----------------------------------------------------------------------------------------
+\usepackage{kaobiblio}
+\addbibresource{dissertation/references.bib}
+
+%----------------------------------------------------------------------------------------
+% MATH PACKAGES (load before kaotheorems to avoid conflicts)
+%----------------------------------------------------------------------------------------
+\usepackage{amsmath,mathtools}
+
+%----------------------------------------------------------------------------------------
+% THEOREMS AND REFERENCES
+%----------------------------------------------------------------------------------------
+\usepackage[framed]{kaotheorems}
+% Undefine mathtools' \refeq before kaorefs redefines it
+\let\refeq\undefined
+\usepackage{kaorefs}
+
+%----------------------------------------------------------------------------------------
+% ADDITIONAL PACKAGES
+%----------------------------------------------------------------------------------------
+\usepackage{listings}
+% fontawesome5 already loaded by kaoci-rolebox
+
+% Code listings for JavaScript etc.
+\lstdefinelanguage{JavaScript}{
+  keywords={break, case, catch, continue, debugger, default, delete, do, else, finally, for, function, if, in, instanceof, new, return, switch, this, throw, try, typeof, var, void, while, with, let, const},
+  keywordstyle=\color{blue}\bfseries,
+  ndkeywords={class, export, boolean, throw, implements, import, this},
+  ndkeywordstyle=\color{darkgray}\bfseries,
+  identifierstyle=\color{black},
+  sensitive=false,
+  comment=[l]{//},
+  morecomment=[s]{/*}{*/},
+  commentstyle=\color{purple}\ttfamily,
+  stringstyle=\color{red}\ttfamily,
+  morestring=[b]',
+  morestring=[b]",
+  morestring=[b]`
+}
+
+%----------------------------------------------------------------------------------------
+% DOCUMENT METADATA
+%----------------------------------------------------------------------------------------
+\newcommand{\RoleBox}{\textsc{RoleBox}\xspace}
+\newcommand{\RoleSim}{\textsc{RoleSim}\xspace}
+\newcommand{\myauthor}{Babajide Alamu Owoyele}
+\newcommand{\mytitle}{RoleBox}
+\newcommand{\mysubtitle}{Towards Multimodal Cartography of Role Constellations in Sustainability Transitions}
+\newcommand{\myuniversity}{Erasmus University Rotterdam}
+\newcommand{\mydepartment}{Dutch Research Institute For Transitions}
+\newcommand{\mypromotor}{Prof. dr. Derk Loorbach}
+\newcommand{\mycopromotorA}{Prof.dr. Gerard de Melo}
+\newcommand{\mycopromotorB}{Dr. Jonathan Antonio Edelman}
+\newcommand{\mydate}{2025}
+
+\title{\mytitle}
+\author{\myauthor}
+\date{\mydate}
+
+% Margin TOC depth
+\setcounter{margintocdepth}{1}
+
+%========================================================================================
+% FIX KAOBOOK CAPTION RECURSION
+%========================================================================================
+% The kao.sty caption hooks cause infinite recursion with some packages.
+% Solution: Patch the figure and table environments to reset \caption
+\makeatletter
+\AtBeginDocument{%
+    % Save the original caption command (before kao.sty hooks redefine it)
+    \let\kaociOrigCaption\caption%
+    % Patch the figure begin to restore original caption
+    \pretocmd{\figure}{\let\caption\kaociOrigCaption}{}{}%
+    \pretocmd{\table}{\let\caption\kaociOrigCaption}{}{}%
+}
+\makeatother
+
+% Intermezzo page numbering is handled by \intermezzo / \closeintermezzo
+% in kaoci-rolebox.sty (stealth roman numerals, TOC entries, sidenote symbols)
+
+%========================================================================================
+% BEGIN DOCUMENT
+%========================================================================================
+\begin{document}
+
+%----------------------------------------------------------------------------------------
+% FRONT MATTER
+%----------------------------------------------------------------------------------------
+\frontmatter
+
+% Title page
+\subfile{dissertation/frontmatter/titlepage}
+
+% Copyright page
+\subfile{dissertation/frontmatter/copyright}
+
+% Dedication (optional)
+% \subfile{frontmatter/dedication}
+
+% Abstract
+\subfile{dissertation/frontmatter/abstract}
+
+% Acknowledgments
+\subfile{dissertation/frontmatter/acknowledgments}
+
+% Table of contents
+\tableofcontents
+
+% Lists of figures/tables omitted in concise version
+
+%----------------------------------------------------------------------------------------
+% MAIN MATTER
+%----------------------------------------------------------------------------------------
+\mainmatter
+\setchapterstyle{kao}
+% Adjust margin TOC vertical position to prevent bleeding
+% The kao chapter style sets \mtocshift to -3.5\vscale by default.
+% We use a moderate adjustment to balance between bleeding prevention and proper positioning.
+\setlength{\mtocshift}{-4.5\vscale}
+
+%========================================================================================
+% PART I: FOUNDATIONS
+%========================================================================================
+\ifdefined\FOCUSMODE
+    % FOCUS MODE: Only compile core chapters for faster iteration
+    \part{Foundations}
+    \chapterdivider{ch1-introduction}
+    \subfile{dissertation/chapters/01-introduction}
+    \chapterdivider{intermezzo}
+    \subfile{dissertation/intermezzos/eit-communities}
+    \chapterdivider{ch2-litrev}
+    \subfile{dissertation/chapters/02-role-categories}
+    \chapterdivider{ch3-cas}
+    \subfile{dissertation/chapters/03-methodology}
+    \chapterdivider{ch4-methodology}
+    \subfile{dissertation/chapters/04-role-constellations}
+
+    % \chapterdivider{intermezzo-universities}
+    % \subfile{dissertation/intermezzos/universities-interstitial}
+
+    \part{Empirical Studies}
+    \chapterdivider{ch5-eit-case}
+    \subfile{dissertation/chapters/05-interstitial-pluralism}
+    \chapterdivider{ch6-websites}
+    \subfile{dissertation/chapters/06-rolefield}
+    \chapterdivider{ch7-crunchbase}
+    \subfile{dissertation/chapters/07-venture-positioning}
+    \chapterdivider{ch8-visual}
+    \subfile{dissertation/chapters/08-visual-registers}
+    \chapterdivider{ch9-power}
+    \subfile{dissertation/chapters/09-power-agency}
+\else
+    % CONCISE MODE: Core chapters only, no intermezzos
+
+    \part{Foundations}
+
+    \chapterdivider{ch1-introduction}
+    \subfile{dissertation/chapters/01-introduction}
+
+    \chapterdivider{ch2-litrev}
+    \subfile{dissertation/chapters/02-role-categories}
+
+    \chapterdivider{ch3-cas}
+    \subfile{dissertation/chapters/03-methodology}
+
+    \chapterdivider{ch4-methodology}
+    \subfile{dissertation/chapters/04-role-constellations}
+
+    % \chapterdivider{intermezzo-universities}
+    % \subfile{dissertation/intermezzos/universities-interstitial}
+
+    %========================================================================================
+    % PART II: EMPIRICAL STUDIES
+    %========================================================================================
+    \clearpage
+    \part{Empirical Studies}
+
+    \chapterdivider{ch5-eit-case}
+    \subfile{dissertation/chapters/05-interstitial-pluralism}
+
+    \chapterdivider{ch6-websites}
+    \subfile{dissertation/chapters/06-rolefield}
+
+    \chapterdivider{ch7-twitter}
+    \subfile{dissertation/chapters/07-venture-positioning}
+
+    \chapterdivider{ch8-news}
+    \subfile{dissertation/chapters/08-visual-registers}
+
+    \chapterdivider{ch9-investment}
+    \subfile{dissertation/chapters/09-power-agency}
+
+    %========================================================================================
+    % PART III: SYNTHESIS AND CONCLUSIONS
+    %========================================================================================
+    \part{Synthesis and Conclusions}
+
+    \chapterdivider{ch10-visual}
+    \subfile{dissertation/chapters/10-synthesis}
+
+    \chapterdivider{ch-conclusion}
+    \subfile{dissertation/chapters/11-conclusion}
+\fi
+
+%----------------------------------------------------------------------------------------
+% BACK MATTER
+%----------------------------------------------------------------------------------------
+\backmatter
+
+\ifdefined\FOCUSMODE
+    % FOCUS MODE: Skip bibliography and appendices for faster iteration
+    % Just end the document cleanly
+\else
+    % FULL MODE: Include all back matter
+
+    % Bibliography
+    \printbibliography[heading=bibintoc, title=References]
+
+    %========================================================================================
+    % APPENDICES
+    %========================================================================================
+    \appendix
+
+    % Core Appendices only (concise version)
+    \subfile{dissertation/appendices/A-software}
+    \subfile{dissertation/appendices/B-glossary}
+    \subfile{dissertation/appendices/I-cas-propositions}
+
+    % Supplementary materials (data modality documentation, portfolio,
+    % Cartalog database, propositions) available in the full version
+    % and online repository.
+\fi
+
+%========================================================================================
+% BACK COVER
+%========================================================================================
+\ifdefined\FOCUSMODE
+    % Skip back cover in focus mode
+\else
+    \clearpage
+    \thispagestyle{empty}
+    \newgeometry{margin=0pt}
+    \begin{tikzpicture}[remember picture,overlay]
+        \node[anchor=center] at (current page.center) {%
+            \includegraphics[width=\paperwidth,height=\paperheight,keepaspectratio]{back_cover.png}%
+        };
+    \end{tikzpicture}
+    \restoregeometry
+\fi
+
+\end{document}

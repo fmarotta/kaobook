@@ -1,0 +1,738 @@
+% !TEX root = ../main.tex
+\documentclass[../main.tex]{subfiles}
+
+\begin{document}
+
+%========================================================================================
+% CHAPTER 4: ROLE CONSTELLATIONS AS COMPLEX ADAPTIVE SYSTEMS
+%========================================================================================
+\chapter{Role Constellations as Complex Adaptive Systems}
+\labch{cas}
+\margintoc
+
+\begin{chapteroverview}
+This chapter makes role constellations concrete and provides their theoretical foundation. We first establish \textbf{what role constellations are}---the configurations of roles that intermediaries perform---with rich visualizations and EIT examples. We then argue that role constellations are best understood as \textbf{Complex Adaptive Systems} (CAS)---they emerge from interactions, self-organize without central control, and evolve through feedback. CAS theory explains \emph{why} constellations behave the way they do and generates propositions that cartographic methods can test. The chapter bridges the conceptual vocabulary of Chapter~\ref{ch:background} with the methodological apparatus developed in subsequent chapters.
+
+This chapter directly addresses \textbf{RQ1} (What conceptual framework enables theory-guided yet empirically open analysis of role constellations?) by developing CAS as the theoretical foundation, and establishes fifteen propositions that structure the empirical inquiry of \textbf{RQ3} (What role patterns emerge in the EIT ecosystem?).
+\end{chapteroverview}
+
+
+%═══════════════════════════════════════════════════════════════════════════════
+\section{What Are Role Constellations?}[What Are Role Constellations?]
+\labsec{cas:what}
+%═══════════════════════════════════════════════════════════════════════════════
+
+Before theorizing \emph{why} role constellations behave as they do, we need a clear picture of \emph{what} they are. This section makes the concept concrete through definitions, visualizations, and examples from the EIT ecosystem.
+
+\subsection{The Core Concept}
+
+A \textbf{role} is a function that an organization performs within a system---not a fixed identity but a pattern of activity and relationship.\sidenote{\textbf{Roles vs. types}---``Investor'' is a role performed through funding activities. ``Venture capital firm'' is an organizational type. The same organization can perform multiple roles; different organization types can perform the same role.} Organizations don't ``have'' roles the way they have addresses or employees. They \emph{perform} roles through what they do and how they relate to others.
+
+A \textbf{role constellation} is the configuration of roles that an organization or set of organizations performs---including how those roles relate to each other, reinforce or tension against each other, and change over time.
+
+\begin{roledef}[Role Constellation]
+A \textbf{role constellation} is a dynamic configuration of roles performed by an actor (or actors), characterized by:
+\begin{itemize}[leftmargin=*, itemsep=0.1em]
+\item \textbf{Multiplicity}: Multiple roles performed simultaneously
+\item \textbf{Relationality}: Roles defined through relationships, not in isolation
+\item \textbf{Dynamics}: Roles that shift, emerge, and evolve over time
+\item \textbf{Coherence}: Roles that combine into recognizable patterns
+\end{itemize}
+\end{roledef}
+
+The constellation metaphor is deliberate.\sidenote{\textbf{Why ``constellation''?}---Like stars forming recognizable patterns, roles cluster into configurations. The pattern is in the eye of the observer---but it is not arbitrary. Certain role combinations recur; others are unstable.} Stars form patterns that humans recognize as constellations---the Big Dipper, Orion. The stars exist independently, but the pattern emerges from their configuration. Similarly, organizations perform various roles; the constellation is the pattern these roles form together.
+
+\subsection{Anatomy of a Role Constellation}
+
+Consider a concrete example: \textbf{EIT InnoEnergy}, one of the eight EIT Knowledge and Innovation Communities. What roles does it perform?
+
+% Figure: InnoEnergy role constellation
+\begin{center}
+\begin{tikzpicture}[scale=1.0]
+    % Central organization
+    \node[draw, rounded corners=8pt, fill=CoverGold!30, minimum width=3.2cm, minimum height=1.4cm,
+          font=\small\bfseries, align=center, line width=1.5pt, draw=CoverGold] (org) at (0,0) {EIT InnoEnergy};
+
+    % Role nodes arranged around
+    \node[draw, circle, fill=Azure!25, minimum size=1.8cm, font=\scriptsize, align=center]
+          (r1) at (-3.5, 2.5) {\textbf{Investor}\\€2B+\\deployed};
+    \node[draw, circle, fill=Marigold!25, minimum size=1.8cm, font=\scriptsize, align=center]
+          (r2) at (0, 3.5) {\textbf{Accelerator}\\800+\\startups};
+    \node[draw, circle, fill=PandaBamboo!25, minimum size=1.8cm, font=\scriptsize, align=center]
+          (r3) at (3.5, 2.5) {\textbf{Educator}\\MSc/PhD\\programs};
+    \node[draw, circle, fill=AccentPurple!25, minimum size=1.8cm, font=\scriptsize, align=center]
+          (r4) at (3.5, -2.5) {\textbf{Convener}\\Industry\\alliances};
+    \node[draw, circle, fill=AccentCoral!25, minimum size=1.8cm, font=\scriptsize, align=center]
+          (r5) at (0, -3.5) {\textbf{Advocate}\\EU energy\\policy};
+    \node[draw, circle, fill=AccentCyan!25, minimum size=1.8cm, font=\scriptsize, align=center]
+          (r6) at (-3.5, -2.5) {\textbf{Broker}\\Industry--\\academia};
+
+    % Connections from org to roles
+    \foreach \x in {r1,r2,r3,r4,r5,r6} {
+        \draw[thick, PandaCharcoal!50] (org) -- (\x);
+    }
+
+    % Inter-role connections (showing reinforcement)
+    \draw[dashed, Azure!60, line width=0.8pt] (r1) to[bend left=20] (r2);
+    \draw[dashed, PandaBamboo!60, line width=0.8pt] (r2) to[bend left=20] (r3);
+    \draw[dashed, AccentPurple!60, line width=0.8pt] (r4) to[bend right=20] (r6);
+
+    % Labels for inter-role relationships
+    \node[font=\tiny, text=Slate, rotate=45] at (-1.8, 3.2) {funds accelerated ventures};
+    \node[font=\tiny, text=Slate, rotate=-30] at (1.8, 3.3) {talent pipeline};
+
+\end{tikzpicture}
+\captionof{figure}[EIT InnoEnergy role constellation]{EIT InnoEnergy's role constellation. The organization simultaneously performs investor, accelerator, educator, convener, advocate, and broker roles. Dashed lines show how roles reinforce each other: investment supports accelerated ventures; education provides talent pipeline. This is role \emph{multiplicity} in action.}
+\labfig{innoenergy-constellation}
+\end{center}
+
+The figure reveals several constellation properties:
+
+\begin{description}[leftmargin=0.5cm, itemsep=0.3em]
+\item[Multiplicity] InnoEnergy performs six distinct roles simultaneously---not sequentially or in different contexts, but concurrently as part of its ongoing operations.
+
+\item[Reinforcement] Roles strengthen each other. Investment (Investor) supports ventures from the accelerator (Accelerator). Educational programs (Educator) create talent pipelines for portfolio companies. Policy advocacy (Advocate) shapes the market environment that determines venture success.
+
+\item[Tension] Some roles create tensions. The broker role (connecting industry and academia) requires neutrality; the investor role creates financial interests that may compromise perceived neutrality.
+
+\item[Relational definition] Each role exists only in relation to others. ``Investor'' makes sense only if there are investees; ``broker'' requires parties to connect; ``convener'' needs actors to convene.
+\end{description}
+
+\begin{insightbox}[Not Just a List of Functions]
+A role constellation is more than a list of functions an organization performs. It is a \emph{configuration}---the pattern formed by how roles combine, interact, and relate. Two organizations might perform the same six roles but have very different constellations depending on which roles dominate, how they reinforce or tension each other, and how they're perceived by others.
+\end{insightbox}
+
+\subsection{Role Triples: Vignettes from the EIT Ecosystem}
+
+To make role constellations vivid, we introduce \textbf{role triples}---each combining a \textit{Role}, the \textit{Practices} through which it is enacted, and the \textit{Constituencies} it serves.\sidenote{\textbf{Role triples}---Role + Practices + Constituencies. This triple structure grounds abstract role concepts in observable activities and relationships.} Examples from EIT: InnoEnergy as \textit{Investor} (equity stakes, Highway program) serving cleantech startups and VCs; Climate-KIC as \textit{Convener} (systems innovation labs, city partnerships) serving policymakers and regions; EIT Health as \textit{Broker} (industry-academia matchmaking, clinical pilots) serving hospitals and pharma; EIT Digital as \textit{Educator} (summer schools, I\&E modules) serving students and faculty; EIT RawMaterials as \textit{Advocate} (policy briefs, EU consultations) serving EC and industry. The triples reveal four patterns: same role manifests through different practices; constituencies define role meaning; practices signal credibility; triples link modalities (roles in website claims, practices in enacted behavior, constituencies in attributed relationships).\sidenote{\textbf{Data sources for triples}---Roles from website text analysis (rolebox-websites); Practices from Crunchbase and event data (rolebox-crunchbase); Constituencies from news co-mentions and network ties (rolebox-news, rolebox-social).}
+
+\subsection{Two Levels of Analysis}
+
+The concept operates at two levels:\sidenote{\textbf{Two levels}---Actor-level constellations show what one organization does; system-level show how roles distribute across a network.} \textbf{Actor-level constellation} shows the roles performed by a single organization (\cref{fig:innoenergy-constellation}); \textbf{system-level constellation} shows how roles distribute across multiple organizations. At the system level, we ask: Are all necessary roles performed (coverage)? Do multiple organizations perform the same roles (redundancy and resilience)? Do organizations specialize (complementarity)? Are some roles underperformed (gaps)?
+
+\subsection{Role Dimensions: Claimed, Attributed, Enacted}
+
+A critical insight for cartographic methodology: roles manifest differently depending on who is observing and how.\sidenote{\textbf{Three lenses}---The same organization may claim one role profile, be attributed a different profile by media, and enact yet another through behavior.}
+
+% Figure: Three role dimensions
+\begin{center}
+\begin{tikzpicture}[scale=1.0]
+    % Central organization
+    \node[draw, circle, fill=CoverGold!30, minimum size=2cm, font=\small\bfseries, align=center,
+          line width=1.5pt, draw=CoverGold] (org) at (0,0) {KIC};
+
+    % Three dimensions
+    \node[draw, rounded corners, fill=Azure!20, minimum width=3cm, minimum height=2cm,
+          font=\small, align=center] (claimed) at (-4.5, 0) {\textbf{CLAIMED}\\Website\\Self-description};
+
+    \node[draw, rounded corners, fill=PandaBamboo!20, minimum width=3cm, minimum height=2cm,
+          font=\small, align=center] (attributed) at (0, 4) {\textbf{ATTRIBUTED}\\News coverage\\External perception};
+
+    \node[draw, rounded corners, fill=Marigold!20, minimum width=3cm, minimum height=2cm,
+          font=\small, align=center] (enacted) at (4.5, 0) {\textbf{ENACTED}\\Investments\\Network ties};
+
+    % Arrows
+    \draw[->, thick, Azure] (claimed) -- (org);
+    \draw[->, thick, PandaBamboo] (attributed) -- (org);
+    \draw[->, thick, Marigold] (enacted) -- (org);
+
+    % Labels
+    \node[font=\tiny, text=Azure, align=center] at (-2.3, 0.5) {``We are''};
+    \node[font=\tiny, text=PandaBamboo, align=center] at (-1, 2.3) {``They are''};
+    \node[font=\tiny, text=Marigold, align=center] at (2.3, 0.5) {``Actions show''};
+
+    % Example divergences
+    \node[font=\tiny, text=Slate, align=left] at (-4.5, -1.8) {Claims: ``Leading\\investor''};
+    \node[font=\tiny, text=Slate, align=center] at (0, 2) {Coverage: ``Policy\\influencer''};
+    \node[font=\tiny, text=Slate, align=right] at (4.5, -1.8) {Actual: Moderate\\investment activity};
+
+\end{tikzpicture}
+\captionof{figure}[Three dimensions of role manifestation]{Roles manifest across three dimensions: what organizations \textbf{claim} (self-presentation), what others \textbf{attribute} to them (external perception), and what they \textbf{enact} (observable behavior). Divergences between dimensions are analytically valuable.}
+\labfig{role-dimensions}
+\end{center}
+
+\begin{description}[leftmargin=0.5cm, itemsep=0.3em]
+\item[Claimed roles] What organizations say about themselves---on websites, in annual reports, in public communications. These reveal \emph{aspirational sociotypes} and \emph{strategic positioning}.
+
+\item[Attributed roles] What external observers say about organizations---in news coverage, analyst reports, peer characterizations. These reveal \emph{perceived positioning} and \emph{legitimacy recognition}.
+
+\item[Enacted roles] What organizations actually do---investments made, events convened, partnerships formed, knowledge transferred. These reveal \emph{behavioral reality}.
+\end{description}
+
+\begin{criticalbox}[Divergence as Signal]
+When claimed, attributed, and enacted roles diverge, this is not measurement error---it is analytically valuable signal. An organization claiming ``leading investor'' status while showing modest investment activity reveals aspiration-behavior gaps. An organization enacted as a broker but attributed as an advocate reveals perception-reality mismatches. Multimodal cartography makes these divergences visible.
+\end{criticalbox}
+
+\subsection{Visualizing Constellations: From Concept to Cartography}
+
+What does a role constellation look like when mapped cartographically? The conceptual diagrams above illustrate principles; this section previews how multimodal cartography renders constellations visible at scale.\sidenote{\textbf{Preview}---This visualization anticipates methods detailed in Chapters 5--9. Here we show the \textit{form} of cartographic output; later chapters explain the \textit{methods} that produce it.}
+
+% Large network visualization showing role constellation cartography
+\begin{wideblock}
+\begin{center}
+\begin{tikzpicture}[scale=0.75]
+
+    % === ROLE REGIONS (background areas) ===
+    % Investor region (top-left)
+    \fill[Azure!8, rounded corners=20pt] (-9, 3) rectangle (-3, 8);
+    \node[font=\scriptsize\bfseries, text=Azure!60] at (-6, 7.5) {INVESTOR CLUSTER};
+
+    % Accelerator region (top-center)
+    \fill[Marigold!8, rounded corners=20pt] (-2, 3.5) rectangle (4, 8);
+    \node[font=\scriptsize\bfseries, text=Marigold!60] at (1, 7.5) {ACCELERATOR CLUSTER};
+
+    % Educator region (top-right)
+    \fill[PandaBamboo!8, rounded corners=20pt] (5, 3) rectangle (11, 8);
+    \node[font=\scriptsize\bfseries, text=PandaBamboo!60] at (8, 7.5) {EDUCATOR CLUSTER};
+
+    % Broker region (bottom-left)
+    \fill[AccentPurple!8, rounded corners=20pt] (-9, -3) rectangle (-3, 2);
+    \node[font=\scriptsize\bfseries, text=AccentPurple!60] at (-6, 1.5) {BROKER CLUSTER};
+
+    % Convener region (bottom-center)
+    \fill[AccentCyan!8, rounded corners=20pt] (-2, -3) rectangle (4, 2);
+    \node[font=\scriptsize\bfseries, text=AccentCyan!60] at (1, 1.5) {CONVENER CLUSTER};
+
+    % Advocate region (bottom-right)
+    \fill[AccentCoral!8, rounded corners=20pt] (5, -3) rectangle (11, 2);
+    \node[font=\scriptsize\bfseries, text=AccentCoral!60] at (8, 1.5) {ADVOCATE CLUSTER};
+
+    % === INTERSTITIAL ZONE (center) ===
+    \fill[CoverGold!15, rounded corners=15pt] (-1.5, -0.5) rectangle (3.5, 5);
+    \node[font=\scriptsize\bfseries, text=CoverGold!70!black] at (1, 4.5) {INTERSTITIAL};
+
+    % === NODES: KICs (large) ===
+    \node[draw, circle, fill=Azure!50, minimum size=1.2cm, font=\tiny\bfseries, line width=1.5pt] (IE) at (-6, 5.5) {InnoE};
+    \node[draw, circle, fill=PandaBamboo!50, minimum size=1.1cm, font=\tiny\bfseries, line width=1.5pt] (CK) at (1, 3) {C-KIC};
+    \node[draw, circle, fill=AccentPurple!50, minimum size=1cm, font=\tiny\bfseries, line width=1.5pt] (EH) at (-6, -0.5) {Health};
+    \node[draw, circle, fill=Marigold!50, minimum size=0.95cm, font=\tiny\bfseries, line width=1.5pt] (ED) at (1, 5.8) {Digital};
+    \node[draw, circle, fill=AccentCoral!50, minimum size=0.9cm, font=\tiny\bfseries, line width=1.5pt] (RM) at (8, -0.5) {RawMat};
+    \node[draw, circle, fill=AccentCyan!50, minimum size=0.85cm, font=\tiny\bfseries, line width=1.5pt] (EF) at (1, -0.5) {Food};
+
+    % === NODES: Partners (medium) ===
+    \node[draw, circle, fill=Azure!30, minimum size=0.7cm, font=\tiny] (p1) at (-7.5, 4.5) {};
+    \node[draw, circle, fill=Azure!30, minimum size=0.6cm, font=\tiny] (p2) at (-5, 6.5) {};
+    \node[draw, circle, fill=Azure!30, minimum size=0.55cm, font=\tiny] (p3) at (-4.2, 5) {};
+    \node[draw, circle, fill=Marigold!30, minimum size=0.6cm, font=\tiny] (p4) at (2.5, 6.5) {};
+    \node[draw, circle, fill=Marigold!30, minimum size=0.55cm, font=\tiny] (p5) at (-0.5, 6) {};
+    \node[draw, circle, fill=PandaBamboo!30, minimum size=0.7cm, font=\tiny] (p6) at (7, 5.5) {};
+    \node[draw, circle, fill=PandaBamboo!30, minimum size=0.6cm, font=\tiny] (p7) at (9, 6) {};
+    \node[draw, circle, fill=PandaBamboo!30, minimum size=0.5cm, font=\tiny] (p8) at (8.5, 4.5) {};
+    \node[draw, circle, fill=AccentPurple!30, minimum size=0.6cm, font=\tiny] (p9) at (-7.5, 0.5) {};
+    \node[draw, circle, fill=AccentPurple!30, minimum size=0.55cm, font=\tiny] (p10) at (-5, -1.5) {};
+    \node[draw, circle, fill=AccentCyan!30, minimum size=0.55cm, font=\tiny] (p11) at (2.5, -1.5) {};
+    \node[draw, circle, fill=AccentCyan!30, minimum size=0.5cm, font=\tiny] (p12) at (-0.5, -2) {};
+    \node[draw, circle, fill=AccentCoral!30, minimum size=0.6cm, font=\tiny] (p13) at (9.5, 0.5) {};
+    \node[draw, circle, fill=AccentCoral!30, minimum size=0.5cm, font=\tiny] (p14) at (7, -1.5) {};
+
+    % === NODES: Startups (small) ===
+    \foreach \x/\y in {-8/5, -7/6.2, -5.5/4, -4.5/6.2} {
+        \node[draw, circle, fill=Slate!20, minimum size=0.35cm] at (\x, \y) {};
+    }
+    \foreach \x/\y in {0/7, 2/7.2, 3/5.5, -1/4.5} {
+        \node[draw, circle, fill=Slate!20, minimum size=0.35cm] at (\x, \y) {};
+    }
+    \foreach \x/\y in {6.5/6.8, 8/7, 9.5/5, 10/6.5} {
+        \node[draw, circle, fill=Slate!20, minimum size=0.35cm] at (\x, \y) {};
+    }
+
+    % === EDGES: KIC-KIC (thick, showing cross-KIC relationships) ===
+    \draw[thick, CoverGold!70, line width=2pt] (IE) -- (CK);
+    \draw[thick, CoverGold!70, line width=1.5pt] (CK) -- (ED);
+    \draw[thick, CoverGold!70, line width=1.2pt] (CK) -- (EF);
+    \draw[thick, CoverGold!70, line width=1pt] (EH) -- (EF);
+    \draw[thick, CoverGold!70, line width=0.8pt] (RM) -- (CK);
+
+    % === EDGES: KIC-Partner (medium) ===
+    \draw[Slate!40] (IE) -- (p1);
+    \draw[Slate!40] (IE) -- (p2);
+    \draw[Slate!40] (IE) -- (p3);
+    \draw[Slate!40] (ED) -- (p4);
+    \draw[Slate!40] (ED) -- (p5);
+    \draw[Slate!40] (CK) -- (p6);
+    \draw[Slate!40] (EH) -- (p9);
+    \draw[Slate!40] (EH) -- (p10);
+    \draw[Slate!40] (EF) -- (p11);
+    \draw[Slate!40] (EF) -- (p12);
+    \draw[Slate!40] (RM) -- (p13);
+    \draw[Slate!40] (RM) -- (p14);
+
+    % === INTERSTITIAL ACTORS (bridging multiple clusters) ===
+    \node[draw, circle, fill=CoverGold!60, minimum size=0.8cm, font=\tiny\bfseries, line width=1.5pt] (b1) at (1, 2) {B1};
+    \node[draw, circle, fill=CoverGold!50, minimum size=0.65cm, font=\tiny\bfseries] (b2) at (2.5, 1) {B2};
+
+    % Bridge connections
+    \draw[dashed, CoverGold, line width=1.2pt] (b1) -- (IE);
+    \draw[dashed, CoverGold, line width=1.2pt] (b1) -- (CK);
+    \draw[dashed, CoverGold, line width=1.2pt] (b1) -- (EH);
+    \draw[dashed, CoverGold, line width=1pt] (b2) -- (CK);
+    \draw[dashed, CoverGold, line width=1pt] (b2) -- (EF);
+    \draw[dashed, CoverGold, line width=1pt] (b2) -- (RM);
+
+    % === LEGEND ===
+    \node[font=\scriptsize\bfseries, text=PandaCharcoal, anchor=west] at (-9, -4.5) {Legend:};
+    \node[draw, circle, fill=Azure!50, minimum size=0.5cm] at (-7.5, -5.2) {};
+    \node[font=\tiny, anchor=west] at (-7, -5.2) {KIC (size = influence)};
+    \node[draw, circle, fill=Slate!30, minimum size=0.35cm] at (-4, -5.2) {};
+    \node[font=\tiny, anchor=west] at (-3.6, -5.2) {Partner/Startup};
+    \node[draw, circle, fill=CoverGold!60, minimum size=0.5cm] at (-0.5, -5.2) {};
+    \node[font=\tiny, anchor=west] at (-0.1, -5.2) {Interstitial actor};
+
+    \draw[thick, CoverGold!70, line width=1.5pt] (3, -5.2) -- (4, -5.2);
+    \node[font=\tiny, anchor=west] at (4.2, -5.2) {Cross-cluster tie};
+    \draw[Slate!40] (6.5, -5.2) -- (7.5, -5.2);
+    \node[font=\tiny, anchor=west] at (7.7, -5.2) {Within-cluster tie};
+
+\end{tikzpicture}
+\end{center}
+\captionof{figure}[Role constellation network: cartographic preview]{A stylized role constellation network showing how multimodal cartography renders the EIT ecosystem. \textbf{Colored regions} represent role clusters where organizations emphasize similar functions. \textbf{Large nodes} are KICs; \textbf{medium nodes} are core partners; \textbf{small nodes} are startups and affiliates. \textbf{Golden edges} show cross-cluster relationships that bridge role domains. \textbf{Interstitial actors} (B1, B2) occupy positions connecting multiple clusters---these are the bridges that cartography reveals. Node positions derive from role profiles; clustering emerges from role similarity. This is what role constellations look like when mapped.}
+\labfig{constellation-network}
+\end{wideblock}
+
+The network visualization reveals several cartographic insights:
+
+\begin{itemize}[leftmargin=*, itemsep=0.2em]
+\item \textbf{Role clusters are real but porous.} Organizations cluster by primary role orientation, but boundaries are fuzzy. Many actors straddle cluster edges.
+
+\item \textbf{KICs anchor clusters but also bridge them.} The large KIC nodes sit within their primary role cluster but maintain ties across clusters---performing the multi-role constellations documented earlier.
+
+\item \textbf{Interstitial actors are rare but structurally critical.} The golden bridge actors (B1, B2) occupy central positions connecting otherwise separate clusters. These are the brokers, boundary spanners, and translators that enable system-level coherence.
+
+\item \textbf{Density varies.} Some role clusters (Investor, Accelerator) are dense with many actors and ties; others (Advocate) are sparser. This variation signals where the ecosystem has developed capacity and where gaps remain.
+
+\item \textbf{Cross-cluster ties matter for system function.} The golden edges connecting different role clusters are the pathways through which resources, knowledge, and legitimacy flow across functional boundaries.
+\end{itemize}
+
+\sidenote{\textbf{From static to dynamic}---This figure shows a single snapshot. Role constellation cartography tracks how such networks evolve over time, revealing emergence, restructuring, and adaptation. See Chapters 6--9 for temporal analyses.}
+
+This preview demonstrates what cartography produces: not just lists of who performs what role, but relational maps showing how actors position relative to each other, where clusters form, and where bridges connect otherwise separate domains. The visual form embodies the CAS insight that constellations are more than the sum of their parts---they have structure, topology, and dynamics that emerge from interactions.
+
+\subsection{Why Role Constellations Matter for Transitions}
+
+Role constellations are not merely descriptive tools. They matter for understanding transition dynamics because:\sidenote{\textbf{Practical stakes}---Role constellation analysis informs where to intervene, which capacities to build, and how to design innovation policy.}
+
+\begin{enumerate}[leftmargin=*, itemsep=0.4em]
+\item \textbf{Functional coverage determines system capacity.} Transitions require many functions: resource mobilization, legitimation, knowledge development, network building, advocacy. If role constellations have gaps---functions nobody performs adequately---transitions stall.
+
+\item \textbf{Role combinations enable or constrain.} Certain role combinations are synergistic (broker + convener); others create tensions (neutral broker + interested investor). How roles combine within organizations and across systems shapes what becomes possible.
+
+\item \textbf{Role evolution tracks transition phases.} Early transitions need different roles than mature ones. Tracking how constellations evolve reveals transition dynamics and anticipates emerging needs.
+
+\item \textbf{Role conflicts explain coordination failures.} When organizations claim incompatible roles, or when attributed roles clash with enacted ones, coordination breaks down. Mapping constellations diagnoses coordination problems.
+\end{enumerate}
+
+Understanding role constellations thus goes beyond academic categorization. It provides diagnostic tools for practitioners, policymakers, and transition managers seeking to understand why some ecosystems thrive while others stagnate.
+
+
+%═══════════════════════════════════════════════════════════════════════════════
+\section{From Categories to Systems}[Categories to Systems]
+\labsec{cas:intro}
+%═══════════════════════════════════════════════════════════════════════════════
+
+With the role constellation concept now concrete, we can address the theoretical challenge: how should we \emph{understand} these configurations? Chapter~\ref{ch:background} documented a persistent tension in how transitions research handles intermediary roles. The field has produced sophisticated typologies---systemic, niche, regime-based, process, user intermediaries---yet these categories struggle to capture what practitioners and close observers consistently report:\sidenote{\textbf{The category problem}---Typologies answer ``what kind?'' but intermediaries don't stay in boxes. We need theory that explains \emph{why} roles shift, combine, and emerge.} roles are fluid, context-dependent, multiply-enacted, and relationally constituted. An organization classified as a ``niche intermediary'' in one analysis may simultaneously perform regime-based functions in another domain, shift toward systemic coordination over time, and be perceived entirely differently by different network partners.
+
+The six problems identified in Chapter~\ref{ch:background}---definitional ambiguity, static categorization, actor-centric bias, normative loading, methodological constraints, and theoretical fragmentation---share a common root: they treat roles as \emph{attributes} rather than \emph{emergent properties}. A broker ``has'' brokerage as an attribute; an intermediary ``is'' a particular type. This framing imports assumptions from classical organizational theory that may not hold for the dynamic, relational phenomena we seek to understand.
+
+What if roles are not attributes that actors possess but patterns that \emph{emerge} from interactions? What if constellations are not collections of categorized actors but self-organizing systems that generate their own structure? What if the apparent messiness---roles shifting, boundaries blurring, functions combining---is not methodological noise but systemic signal?
+
+% Figure 4.1: Categories to systems
+\begin{center}
+\begin{tikzpicture}[scale=1.2]
+    % Left: Categories (boxes)
+    \node[font=\small\bfseries, text=Slate] at (-4, 4) {Categories};
+    \node[draw, rectangle, fill=Slate!15, minimum width=2cm, minimum height=1cm, font=\small] at (-5, 2.5) {Type A};
+    \node[draw, rectangle, fill=Slate!15, minimum width=2cm, minimum height=1cm, font=\small] at (-3, 2.5) {Type B};
+    \node[draw, rectangle, fill=Slate!15, minimum width=2cm, minimum height=1cm, font=\small] at (-4, 0.8) {Type C};
+
+    % Right: Systems (network)
+    \node[font=\small\bfseries, text=AccentPurple] at (4, 4) {Systems};
+    \node[draw, circle, fill=AccentPurple!20, minimum size=0.8cm] (s1) at (2.6, 2.5) {};
+    \node[draw, circle, fill=AccentPurple!20, minimum size=0.8cm] (s2) at (5.4, 2.5) {};
+    \node[draw, circle, fill=AccentPurple!20, minimum size=0.8cm] (s3) at (3, 0.8) {};
+    \node[draw, circle, fill=AccentPurple!20, minimum size=0.8cm] (s4) at (5, 0.8) {};
+    \node[draw, circle, fill=AccentPurple!20, minimum size=0.8cm] (s5) at (4, 1.6) {};
+    \draw[thick, AccentPurple!50] (s1) -- (s5) -- (s2);
+    \draw[thick, AccentPurple!50] (s3) -- (s5) -- (s4);
+    \draw[thick, AccentPurple!50] (s1) -- (s3);
+    \draw[thick, AccentPurple!50] (s2) -- (s4);
+
+    % Arrow
+    \draw[->, thick, PandaCharcoal, line width=1.5pt] (-0.5, 1.8) -- (1.2, 1.8);
+\end{tikzpicture}
+
+\captionof{figure}{From categorical thinking (fixed boxes) to systems thinking (emergent patterns from interactions).}
+\labfig{categories-to-systems}
+\end{center}
+
+These questions point toward \textbf{Complex Adaptive Systems} theory as a reconceptualizing frame. CAS theory offers mechanisms---emergence, self-organization, co-evolution, non-linearity, feedback---that are both theoretically substantive and methodologically tractable. It explains \emph{why} we should expect the patterns that categorical approaches struggle to accommodate, while generating propositions that multimodal cartography can test.
+
+\begin{insightbox}[Why CAS?]
+CAS theory is not merely a metaphor or analogy. It provides specific mechanisms explaining how macro-level patterns (role constellations) arise from micro-level interactions (organizational activities and relationships). These mechanisms have been operationalized in fields from ecology to economics. Importing them to intermediary research offers both explanatory power and methodological guidance.
+\end{insightbox}
+
+
+%═══════════════════════════════════════════════════════════════════════════════
+\section{Complex Adaptive Systems: Theoretical Foundations}[CAS Foundations]
+\labsec{cas:foundations}
+%═══════════════════════════════════════════════════════════════════════════════
+
+\subsection{What Makes a System ``Complex'' and ``Adaptive''}
+
+Systems thinking has informed organization studies since Katz and Kahn's \cite{katz1978social} conceptualization of organizations as open systems \cite{scott2007organizations}. However, as Phillips and Ritala \cite{phillips2019innovation} observe, much organizational research invokes ``system'' language without engaging systems thinking principles \cite{meadows2008thinking}.\sidenote{\textbf{Systems vs. ``systems''}---Meadows \cite{meadows2008thinking} identifies leverage points, feedback structures, and boundary choices as core systems concepts. Many studies invoke ``ecosystem'' without attending to these mechanisms.} The ecosystem concept, despite its systems etymology, has often been applied as metaphor rather than theoretical foundation---what Badinelli et al. \cite{badinelli2012service} criticized as describing ``interconnectedness of entities'' without adhering to ``systems thinking principles, which often disrupt traditional thinking.''
+
+A \textbf{system} is an entity with interconnected components whose relationships permit identification of a boundary-maintaining process \cite{laszlo1996systems}. Systems become \textbf{complex} when the number and density of relationships makes prediction difficult---not merely complicated (many parts) but genuinely complex (emergent, non-linear). \textbf{Complex adaptive systems} involve components that adapt or learn as they interact, organizing without being controlled by any singular entity \cite{holland1995hidden}. Recent applications to entrepreneurial and innovation ecosystems \cite{roundy2018emergence, jarvi2018organization, dattee2018maneuvering} demonstrate the value of CAS thinking for understanding how system-level coherence emerges from decentralized interactions.
+
+% Using captionof to avoid kaobook caption recursion issue
+\tableminimal
+\scriptsize
+\begin{center}
+\begin{tabular}{@{}p{2cm}p{2.5cm}p{2.5cm}p{3.5cm}@{}}
+\toprule
+\minimalhead{Feature} & \minimalhead{Simple Systems} & \minimalhead{Complicated Systems} & \minimalhead{Complex Adaptive Systems} \\
+\midrule
+Components & Few & Many & Many, heterogeneous \\
+Relationships & Linear & Linear, numerous & Non-linear, dense \\
+Predictability & High & Moderate (expertise helps) & Low (fundamentally emergent) \\
+Control & Centralized & Distributed but coordinated & Decentralized, emergent \\
+Adaptation & None & Designed response & Autonomous learning \\
+\bottomrule
+\end{tabular}
+\captionof{table}{System types distinguished by component relationships and adaptive capacity}
+\labtab{system-types}
+\end{center}
+\normalsize
+
+Role constellations exhibit all CAS characteristics:
+\begin{itemize}[leftmargin=*, itemsep=0.2em]
+\item \textbf{Multiple heterogeneous components}: Diverse organizations with different resources, orientations, and capabilities
+\item \textbf{Dense non-linear relationships}: Interactions that produce effects disproportionate to inputs
+\item \textbf{Emergent properties}: Constellation-level patterns not reducible to individual actor attributes
+\item \textbf{Adaptation}: Organizations modify behavior based on feedback from constellation dynamics
+\item \textbf{Self-organization}: Structure emerges without central design or control
+\end{itemize}
+
+\subsection{The Phillips-Ritala Framework: Three Dimensions}
+
+Phillips and Ritala's \cite{phillips2019innovation} methodological framework for ecosystem research provides essential scaffolding for our approach.\sidenote{\textbf{Recent CAS ecosystem work}---The CAS perspective on ecosystems has matured considerably, with Autio \& Thomas \cite{autio2022ecosystem} emphasizing integration as a boundary condition and Baldwin et al. \cite{baldwin2024ecosystems} connecting modularity theory to emergence dynamics.} They identify three dimensions that any rigorous CAS-based inquiry must address: \textbf{conceptual}, \textbf{structural}, and \textbf{temporal}. Each dimension poses distinct questions and requires specific methodological attention.
+
+% Figure 4.2: Three dimensions of CAS inquiry
+\begin{center}
+\begin{tikzpicture}[scale=1.1]
+    % Three dimensions as overlapping circles
+    \node[draw, circle, fill=Azure!15, minimum size=4cm, font=\small\bfseries, align=center]
+          (con) at (0,2.2) {};
+    \node at (0, 3.1) {\textcolor{Azure}{\textbf{Conceptual}}};
+    \node[font=\small, align=center, text=Slate] at (0, 1.9) {Boundaries\\Perspectives\\Epistemology};
+
+    \node[draw, circle, fill=PandaBamboo!15, minimum size=4cm, font=\small\bfseries, align=center]
+          (str) at (-2,-1.1) {};
+    \node at (-3, -0.3) {\textcolor{PandaBamboo}{\textbf{Structural}}};
+    \node[font=\small, align=center, text=Slate] at (-2, -1.4) {Hierarchy\\Relationships\\Networks};
+
+    \node[draw, circle, fill=Marigold!15, minimum size=4cm, font=\small\bfseries, align=center]
+          (tmp) at (2,-1.1) {};
+    \node at (3, -0.3) {\textcolor{Marigold}{\textbf{Temporal}}};
+    \node[font=\small, align=center, text=Slate] at (2, -1.4) {Dynamics\\Co-evolution\\Emergence};
+
+    % Center intersection
+    \node[font=\small\bfseries, align=center] at (0, 0.2) {Role\\Constellation\\Cartography};
+
+\end{tikzpicture}
+\captionof{figure}{The three dimensions of CAS-based inquiry (adapted from Phillips \& Ritala, 2019). Multimodal cartography must address all three: how we \emph{think} about constellations (conceptual), what we \emph{know} about their structure (structural), and how they \emph{change} over time (temporal).}
+\labfig{three-dimensions}
+\end{center}
+
+The \textbf{conceptual dimension} addresses\sidenote{\textbf{Three questions}---\textcolor{Azure}{Conceptual}: How do we think about the system? \textcolor{PandaBamboo}{Structural}: What do we know about its structure? \textcolor{Marigold}{Temporal}: How does it change over time?} epistemological considerations: How do we define system boundaries? Whose perspectives matter? What theoretical positioning guides inquiry? For role constellations, this means grappling with where intermediation begins and ends, how different actors perceive the same constellation differently, and what theoretical lens renders roles visible.\sidenote{\textbf{Soft systems methodology}---Checkland's \cite{checkland1990soft} soft systems methodology offers complementary framing for the conceptual dimension, emphasizing that ``systems'' are not given in reality but are constructs through which we organize inquiry. This resonates with our attention to multiple perspectives and constructed boundaries.}
+
+The \textbf{structural dimension} concerns ontology: What are the system's components and their relationships? How is hierarchy organized? What patterns of connection characterize the constellation? For our purposes, this means mapping which organizations perform which roles, how role-performers relate to each other, and what network structures emerge.
+
+The \textbf{temporal dimension} addresses dynamics and evolution: How does the system change over time? What drives co-evolution between components and environment? How do emergent properties arise? For role constellations, this means tracing how roles shift, how constellations restructure, and how external pressures reshape internal dynamics.
+
+\begin{importantbox}
+\textbf{The integration imperative.} Phillips and Ritala (2019) emphasize that addressing only one or two dimensions compromises inquiry. A study of constellation structure without temporal attention misses how that structure came to be and where it is heading. A study of dynamics without structural grounding cannot explain \emph{what} is changing. Multimodal cartography must integrate all three dimensions---a requirement that shapes our methodological design.
+\end{importantbox}
+
+\subsection{Boundary Critique: Population-Community and Process-Function}
+
+A critical methodological challenge for any ecosystem study concerns \textbf{boundary determination}: who (and what) is included in the system, and why?\sidenote{\textbf{Boundary critique}---Cilliers \cite{cilliers2001boundaries} argues that boundaries in complex systems are never given but always constructed---they depend on the observer's framing and purpose. Santos and Eisenhardt \cite{santos2005organizational} identify four boundary types: efficiency, power, competence, and identity.} Phillips and Ritala identify two complementary approaches:
+
+\begin{description}[leftmargin=0.5cm, itemsep=0.2em]
+\item[Population-community approach] Defines boundaries based on \emph{who} belongs---actors identified by geography, organizational membership, or shared identity.\sidenote{\textbf{Ecological origins}---Post et al. \cite{post2007problem} first distinguished these approaches in biological ecosystem research, noting that boundary choice fundamentally shapes what phenomena become visible. Phillips and Ritala adapt the distinction to organizational ecosystems.} For role constellations, this might include all organizations formally affiliated with a KIC or all entities appearing in a defined network.
+
+\item[Process-function approach] Defines boundaries based on \emph{what} flows through the system---activities, value creation, resource exchange. For role constellations, this might include all actors involved in a focal value proposition or participating in specified innovation processes.
+\end{description}
+
+Our multimodal cartography employs both approaches.\sidenote{\textbf{Methodological operationalization}---Phillips and Ritala (\citeyear{phillips2019innovation}, Figures 1--3) provide detailed methodological frameworks for operationalizing each CAS dimension: boundary determination through expert informants and confirmatory reviews (conceptual); hierarchy and relationship mapping through network and multilevel analysis (structural); and dynamics tracking through longitudinal snapshots and modelling (temporal). Our approach adapts these frameworks for computational implementation.} The \RoleBox modules operationalize population-community boundaries through network membership (who is connected?) and identity markers (who claims affiliation?), while simultaneously tracking process-function boundaries through investment flows, event participation, and knowledge exchange. This dual approach---what Adner \cite{adner2017ecosystem} distinguishes as ``ecosystem-as-affiliation'' versus ``ecosystem-as-structure''---enables triangulation: actors who appear in both boundary definitions are core to the constellation; those appearing in only one may be peripheral or contested.
+
+
+%═══════════════════════════════════════════════════════════════════════════════
+\section{Six CAS Mechanisms for Role Constellations}[Six CAS Mechanisms]
+\labsec{cas:mechanisms}
+%═══════════════════════════════════════════════════════════════════════════════
+
+Building on CAS theory and the three-dimensional framework, we identify six mechanisms particularly relevant for understanding role constellation dynamics. Each mechanism generates specific expectations about how constellations form, structure themselves, and evolve---expectations that can be translated into testable propositions.
+
+This approach resonates with de Haan's \cite{dehaan2025makingscience} call for ``one mechanism, multiple models, many data'' in transitions research.\sidenote{\textbf{One mechanism, multiple models, many data}---De Haan argues that scientific progress requires moving from N=1 narratives to systematic engagement where core mechanisms are tested across multiple theoretical framings and diverse data sources.} The six mechanisms below constitute our theoretical core---the ``one mechanism'' (or small set) that CAS theory offers. The fifteen propositions that follow are ``multiple models'' instantiating these mechanisms for role constellations. The multimodal cartography apparatus provides ``many data'' for exploration. This structure addresses the methodological critique that transitions research relies too heavily on single-case narratives without accumulating knowledge across contexts.
+
+\subsection{Mechanism 1: Emergence}
+
+\textbf{Emergence} refers to macro-level patterns arising from micro-level interactions that cannot be predicted from individual component properties \cite{holland1995hidden}.\sidenote{\textbf{Emergence}---Macro patterns arising from micro interactions. The ``whole'' exhibits properties not found in any ``part.''} In role constellations, constellation-level functions appear that no single intermediary performs alone, system-wide orientations crystallize from distributed activities, and collective identities form transcending individual organizational brands. Emergent roles are properties of the \emph{constellation}, not of individual organizations. Methodologically, this means roles cannot be fully captured by studying organizations in isolation---cartographic methods must attend to relational patterns, not just organizational attributes.
+
+\subsection{Mechanism 2: Self-Organization}
+
+\textbf{Self-organization} is the process by which structure emerges without external control or central coordination \cite{kauffman1993origins}.\sidenote{\textbf{Self-organization}---Order without a designer. Structure emerges from local interactions following what Gell-Mann \cite{gellmann1994complex} terms ``schemas''---adaptive rules that guide behavior without central control.} Role constellations self-organize as intermediaries cluster around complementary functions without explicit coordination, division of labor emerges from bilateral negotiations, niches form through differentiation, and hierarchy develops through accumulated influence rather than formal assignment. The EIT ecosystem offers a compelling test case: KICs were designed by policy, but the role constellations they have developed over fifteen years reflect substantial self-organization within designed parameters \cite{peltoniemi2006preliminary}.
+
+\subsection{Mechanism 3: Co-evolution}
+
+\textbf{Co-evolution} describes the mutual adaptation of system components and their environment \cite{kauffman1991coevolution}.\sidenote{\textbf{Co-evolution}---Mutual adaptation. Components and environment shape each other through recursive feedback.} Role constellations co-evolve as changes in one intermediary's role performance alter opportunities for others, landscape pressures reshape constellation structure \cite{geels2017sustainability}, and constellation activities modify the environment itself through market creation, discourse shifts, and policy influence. The EIT ecosystem operates within European innovation policy while simultaneously shaping it---Climate-KIC activities influence climate discourse, InnoEnergy's battery alliance affects industrial strategy. These dynamics create what \textcite{ansari2016disruptor} call the ``disruptor's dilemma''---intermediaries seeking transformation must balance disruption with coalition-building.
+
+\subsection{Mechanism 4: Non-linearity}
+
+\textbf{Non-linearity} means that effects are not proportional to causes \cite{anderson1999complexity}.\sidenote{\textbf{Non-linearity}---Effects disproportionate to causes. Small changes may trigger cascades; large interventions may produce nothing.} In role constellations, non-linearity manifests through tipping points where gradual change suddenly produces rapid restructuring \cite{scheffer2009critical}, path dependence where early choices constrain later possibilities \cite{david1985clio}, threshold effects where role combinations only work above critical mass, and cascades where one intermediary's shift triggers chain reactions \cite{watts2002simple}. Linear thinking---``more funding produces proportionally more innovation''---fails in CAS contexts where dynamics may remain stable despite substantial pressures, then restructure rapidly in response to seemingly minor triggers.
+
+\subsection{Mechanism 5: Feedback Loops}
+
+\textbf{Feedback loops} are circular causal chains where outputs become inputs \cite{sterman2000business}.\sidenote{\textbf{Feedback loops}---Outputs become inputs. Reinforcing loops amplify; balancing loops stabilize.} Role constellations exhibit both types: \textit{reinforcing feedback} (success attracts resources $\rightarrow$ more capacity $\rightarrow$ more success; legitimacy attracts partners $\rightarrow$ larger network $\rightarrow$ more legitimacy) and \textit{balancing feedback} (growth increases coordination costs $\rightarrow$ reduces efficiency $\rightarrow$ limits growth; dominance triggers resistance $\rightarrow$ coalition-building $\rightarrow$ reduces dominance). CAS behavior emerges from the interplay of multiple feedback loops operating at different timescales.
+
+\subsection{Mechanism 6: Fitness Landscapes}
+
+\textbf{Fitness landscapes} provide a spatial metaphor for adaptation \cite{kauffman1993origins}.\sidenote{\textbf{Fitness landscapes}---Adaptive terrain. Organizations seek ``peaks'' but the landscape shifts as others move and environment changes.} Organizations occupy positions in multi-dimensional role-space with varying fitness (viability). Peaks represent viable configurations where intermediaries sustain themselves; valleys represent unviable combinations. The landscape deforms as other actors move and environmental conditions change, creating local optima traps (organizations on suboptimal peaks unable to traverse valleys), niche partitioning (coexistence on different peaks), Red Queen dynamics \cite{valen1973red} (continuous adaptation to maintain position), and punctuated equilibrium \cite{eldredge1972punctuated} (stability interrupted by rapid change). This metaphor directly connects CAS theory to cartographic methods---multimodal cartography constructs empirical approximations of the theoretical landscape, revealing peaks and valleys, tracking movements, identifying viable configurations.
+
+\subsection{From Observation to Simulation: The \RoleSim Complement}
+
+Empirical cartography reveals where actors \emph{are} and how they \emph{have} moved. But CAS theory raises counterfactual questions observation cannot answer:\sidenote{\textbf{Counterfactual necessity}---CAS dynamics involve path dependence and contingency. Understanding \emph{why} requires exploring paths not taken.} What if a key intermediary exited? How might constellations restructure under different policies? Agent-based modeling provides the complement, enabling: counterfactual exploration, mechanism sufficiency testing, sensitive parameter identification, and forward projection. The \RoleSim model (Intermezzo B) operationalizes this with agents having role profiles, adaptive behavior, interaction dynamics, and environmental coupling.\sidenote{\textbf{\RoleSim}---Agent-based model implementing CAS mechanisms. Parameterized from \RoleBox{} empirics. Enables counterfactual exploration. See Intermezzo B.} Crucially, \RoleSim is parameterized from empirical cartography and validated against observation. Neither cartography nor simulation alone suffices---cartography without simulation describes but cannot explain; simulation without cartography explores disconnected parameter spaces.
+
+
+%═══════════════════════════════════════════════════════════════════════════════
+\section{Applying CAS to Role Constellations: A Theoretical Synthesis}[CAS Synthesis]
+\labsec{cas:synthesis}
+%═══════════════════════════════════════════════════════════════════════════════
+
+\subsection{Reconceptualizing Roles as Emergent Properties}
+
+Integrating the six mechanisms, we arrive at a reconceptualization:
+
+\begin{roledef}[Role Constellation as CAS]
+A \textbf{role constellation} is a complex adaptive system comprising intermediary organizations whose roles emerge from their interactions, self-organize into differentiated configurations, and co-evolve with each other and their environment through non-linear dynamics mediated by feedback loops across a shifting fitness landscape.
+\end{roledef}
+
+\noindent This reconceptualization implies:\sidenote{\textbf{Key shift}---Roles are not actor attributes but \emph{system properties}; they emerge from, are sustained by, and change through relational dynamics.} (1) roles are relational, not attributional---enacted in relation to others; (2) constellations have system-level properties (coverage, redundancy, coherence) irreducible to individual attributes; (3) role boundaries are fuzzy gradients, not discrete categories; (4) stability is dynamically maintained through feedback; (5) change is the default---static snapshots miss the motion defining CAS behavior.
+
+\subsection{The Three Dimensions Revisited}
+
+We can now specify how the Phillips-Ritala dimensions apply to role constellation cartography. Table~\ref{tab:cas-dimensions-full} adapts their framework (Table 1 in Phillips \& Ritala, 2019) to our specific inquiry, showing how multimodal cartography operationalizes each dimension.
+
+% Extended Phillips-Ritala table adapted for role constellations
+\begin{wideblock}
+\tableminimal
+\begin{center}
+\small
+\begin{tabular}{@{}p{2.2cm}p{3.8cm}p{3.8cm}p{3.8cm}@{}}
+\toprule
+ & \textbf{Conceptual} & \textbf{Structural} & \textbf{Temporal} \\
+ & \textit{How we think about the system} & \textit{What we know about the system} & \textit{How systems change over time} \\
+\midrule
+\textbf{Systems-theoretic definition} &
+Epistemology and theoretical considerations for scope and design of ecosystem research &
+Ecosystem components and relationships between them impacting structure and processes &
+Temporal considerations impacting the dynamics and evolution of the ecosystem \\
+\addlinespace
+\textbf{Focus of systems-based inquiry} &
+\textbf{Boundaries}: Determining constellation type and scope \newline
+\textbf{Perspectives}: How to address differing perspectives of actors, ecosystem, and environment &
+\textbf{Hierarchy}: Components (actors) in the study, including subsystems \newline
+\textbf{Relationships}: Links between components, driven by actors' processes (schema) &
+\textbf{Dynamics}: Changes over time in ecosystem, actors, relationships, boundaries \newline
+\textbf{Co-evolution}: Interdependent evolution within ecosystem and environment \\
+\addlinespace
+\textbf{Key research design questions} &
+What is the focal issue? What theoretical positioning is appropriate? What are the implications for determining boundaries? &
+What are the structures? What is the hierarchy? How are components interrelated? What level/s of analysis? &
+What are the underpinning dynamics? What timeframe is appropriate? How might time impact conceptual and structural considerations? \\
+\addlinespace
+\textbf{Multimodal cartography operationalization} &
+Multi-modal boundary detection: membership claims (websites), network inclusion (RoleField), media recognition (news), resource flows (Crunchbase) &
+Role identification from text (RoleXray) and behavior; network mapping; clustering and community detection; centrality and position analysis &
+Longitudinal tracking across modalities; event detection; trajectory analysis; before/after comparison around policy interventions \\
+\addlinespace
+\textbf{RoleBox modules} &
+RoleXray (identity claims); RoleField (network boundaries); RoleSim (theoretical exploration) &
+RoleXray (role extraction); RoleField (structural mapping); RoleSim (structural emergence) &
+All modules with temporal data; RoleSim (dynamics modeling); News analysis (event tracking) \\
+\bottomrule
+\end{tabular}
+\captionof{table}[CAS dimensions applied to role constellation cartography]{Conceptual, structural, and temporal dimensions applied to role constellation cartography (adapted from Phillips \& Ritala, 2019, Table 1). Each dimension poses distinct questions that multimodal cartography must address; the \RoleBox{} toolkit provides modular operationalization across all three.}
+\labtab{cas-dimensions-full}
+\end{center}
+\end{wideblock}
+
+\subsection{Levels of Analysis}
+
+CAS theory demands attention to multiple levels \parencite{simon1962architecture}: \textit{Micro level} (individual intermediaries with strategies and activities), \textit{meso level} (constellation configuration where emergent properties become visible), and \textit{macro level} (transition context providing selection pressures). These levels interact through upward causation (micro actions produce meso patterns), downward causation (macro conditions shape viable constellations), and cross-level feedback.
+
+
+%═══════════════════════════════════════════════════════════════════════════════
+\section{Fifteen Propositions for Cartographic Exploration}[Fifteen Propositions]
+\labsec{cas:propositions}
+%═══════════════════════════════════════════════════════════════════════════════
+
+Theoretical frameworks become useful through empirical engagement---but ``engagement'' here means \textit{interpretive exploration}, not hypothesis testing in a confirmatory sense. The CAS reconceptualization generates propositions about role constellation dynamics---not predictions to falsify, but \textit{theoretical expectations} that guide cartographic attention. When we map EIT ecosystems, what patterns should we look for? What would CAS dynamics look like if we could see them?
+
+These propositions are deliberately general---applicable to any complex adaptive system of organizational roles. We organize fifteen propositions around the six mechanisms (see \cref{ch:appendix-cas-propositions} for the full summary). We highlight five key propositions below; others are explored in empirical chapters.
+
+\subsection{Key Propositions: Emergence and Self-Organization (P1--P6)}
+
+\begin{propositionbox}
+\textbf{P1: Role multiplicity is the norm, not the exception.} \parencite{padgett1993robust, merton1957role}\\[3pt]
+Because roles emerge from diverse relationships rather than being inherent attributes, most intermediaries will perform multiple roles simultaneously. Single-role specialization requires active maintenance against the pull of relationship diversity.
+
+\vspace{4pt}
+\textit{Observable pattern}: Multimodal analysis will reveal that intermediaries exhibit different role signatures across data sources, and that most intermediaries score significantly on multiple role dimensions rather than loading heavily on just one.
+\end{propositionbox}
+
+\begin{propositionbox}
+\textbf{P2: Constellation-level functions exceed the sum of individual role performances.} \parencite{hekkert2007functions, giddens1984constitution}\\[3pt]
+Emergent properties mean the constellation as a system performs functions that no individual intermediary performs. Collective brokerage, system-level advocacy, and distributed knowledge integration appear at the constellation level.
+\end{propositionbox}
+
+\begin{propositionbox}
+\textbf{P4: Role differentiation emerges without central coordination.} \parencite{powell1996interorganizational, hannan1977population}\\[3pt]
+Even in designed ecosystems like EIT, the specific role configuration will reflect self-organization more than policy design. Similar initial conditions (KIC mandates) will produce different role structures based on local interaction dynamics.
+
+\vspace{4pt}
+\textit{Observable pattern}: Despite similar formal mandates, the eight KICs will exhibit substantially different role constellation structures, with variation unexplained by design differences.
+\end{propositionbox}
+
+\subsection{Key Propositions: Co-evolution and Non-linearity (P7--P12)}
+
+\begin{propositionbox}
+\textbf{P7: Constellation structure and policy environment co-evolve.} \parencite{geels2002technological, garud2003bricolage}\\[3pt]
+Role constellations both respond to and shape policy contexts. Policy shifts will produce constellation restructuring, but constellation activities will also correlate with subsequent policy changes.
+
+\vspace{4pt}
+\textit{Observable pattern}: Temporal analysis will reveal bidirectional relationships between policy events and constellation structural changes, not just one-way policy $\rightarrow$ structure causation.
+\end{propositionbox}
+
+\begin{propositionbox}
+\textbf{P10: Constellation change follows punctuated equilibrium patterns.} \parencite{gersick1991revolutionary, romanelli1994organizational}\\[3pt]
+Non-linear dynamics produce stability punctuated by rapid change. Role constellations will exhibit long periods of incremental adjustment interrupted by episodes of rapid restructuring.
+
+\vspace{4pt}
+\textit{Observable pattern}: Time series of constellation structure measures will show episodic rather than continuous change, with identifiable ``punctuation'' events.
+\end{propositionbox}
+
+\subsection{Key Proposition: Feedback and Fitness (P13--P15)}
+
+\begin{propositionbox}
+\textbf{P13: Reinforcing feedback produces role concentration.} \parencite{merton1968matthew, simon1955class}\\[3pt]
+Success-breeds-success dynamics concentrate resources and influence. Over time, constellation distributions will become more skewed, with dominant intermediaries capturing disproportionate shares.
+
+\vspace{4pt}
+\textit{Observable pattern}: Network centrality, media attention, and funding distributions will become more unequal over time within constellations.
+\end{propositionbox}
+
+\begin{center}
+\tableminimal
+\scriptsize
+\begin{tabular}{@{}clp{5cm}p{4cm}@{}}
+\toprule
+\textbf{ID} & \textbf{Mechanism} & \textbf{Proposition (abbreviated)} & \textbf{Cartographic Pattern} \\
+\midrule
+P1 & Emergence & Role multiplicity is the norm & Website + news role profiles \\
+P2 & Emergence & Constellation functions exceed individual roles & Network functional mapping \\
+P3 & Emergence & Emergence accelerates with density & Density $\times$ diversity correlation \\
+\addlinespace
+P4 & Self-org & Differentiation without coordination & Cross-KIC structural comparison \\
+P5 & Self-org & Hierarchy from accumulated advantage & Centrality $\times$ resources $\times$ age \\
+P6 & Self-org & Niche formation reduces competition & Role similarity trajectories \\
+\addlinespace
+P7 & Co-evol & Structure and policy co-evolve & Event-structure correlation \\
+P8 & Co-evol & Success alters landscape for others & Success $\rightarrow$ partner shifts \\
+P9 & Co-evol & Tech trajectory coupling & Maturity $\times$ role profiles \\
+\addlinespace
+P10 & Non-linear & Punctuated equilibrium & Change magnitude time series \\
+P11 & Non-linear & Small triggers, large effects & Case analysis \\
+P12 & Non-linear & Path dependence & Founding $\rightarrow$ current roles \\
+\addlinespace
+P13 & Feedback & Reinforcing $\rightarrow$ concentration & Inequality trends \\
+P14 & Feedback & Balancing $\rightarrow$ diversity & Diversity floor persistence \\
+P15 & Fitness & Multi-dimensional adaptation & Balanced score $\times$ longevity \\
+\bottomrule
+\end{tabular}
+\captionof{table}{Proposition exploration roadmap: all fifteen propositions with cartographic patterns}
+\labtab{prop-roadmap}
+\end{center}
+
+
+%═══════════════════════════════════════════════════════════════════════════════
+\section{Implications for Multimodal Cartography}[Multimodal Implications]
+\labsec{cas:implications}
+%═══════════════════════════════════════════════════════════════════════════════
+
+The CAS reconceptualization has direct implications for cartographic methods. CAS theory explains why multimodality is necessary: (1) emergence requires multiple observation points (self-reports capture perception, external observation captures behavior); (2) perspectives differ systematically (claims, networks, news are complementary facets); (3) levels require different methods (micro activity data, meso relational mapping, macro discourse); (4) dynamics require temporal depth. Validation strategies follow: cross-modal convergence signals robust role identification, divergence reveals aspiration-behavior gaps, temporal consistency adds confidence. Generative testing through agent-based modeling enables mechanism isolation, parameter sensitivity analysis, counterfactual exploration, and temporal acceleration beyond the empirical window.
+
+
+%═══════════════════════════════════════════════════════════════════════════════
+\section{From Theory to Method: The Design Science Bridge}[Theory to Method]
+\labsec{cas:bridge}
+%═══════════════════════════════════════════════════════════════════════════════
+
+The CAS reconceptualization creates both opportunity and obligation. Design Science Research treats artifact creation as legitimate research contribution. The artifacts we build embody theoretical choices: what counts as a role, how relationships are detected, which dynamics matter. Theory guides design; design enables theory-testing.
+
+The four Meta-Design Requirements (\cref{ch:intro}) connect directly to CAS theory: MDR-1 translates CAS concepts into measurable features; MDR-2 uses the fifteen propositions to drive data selection; MDR-3 enables computational pattern detection with human interpretation; MDR-4 supports knowledge accumulation through open artifacts. The EIT ecosystem offers an ideal CAS laboratory---designed yet emergent, multiple interacting systems (eight KICs), temporal depth (fifteen years), rich digital traces, and documented policy context.
+
+
+%═══════════════════════════════════════════════════════════════════════════════
+\section{Limitations and Boundary Conditions}[Limitations]
+\labsec{cas:limitations}
+%═══════════════════════════════════════════════════════════════════════════════
+
+CAS theory is powerful but not unlimited. We acknowledge several boundary conditions:
+
+\begin{description}[leftmargin=0.5cm, itemsep=0.4em]
+\item[Not all systems are equally complex.] Some intermediary configurations may be simple enough that categorical approaches suffice. CAS theory adds value for genuinely complex constellations; it may be overkill for small, stable, centrally-coordinated settings.
+
+\item[Emergence is hard to prove.] Demonstrating that a pattern is truly emergent (not designed, not reducible) is difficult. We can show consistency with emergence predictions but cannot definitively rule out alternative explanations.
+
+\item[Agency remains underspecified.] CAS theory emphasizes system dynamics but can underplay individual agency. Strategic actors can and do attempt to shape constellations. CAS provides context for agency but doesn't fully theorize it.
+
+\item[Prediction remains limited.] CAS theory explains \emph{why} prediction is difficult but doesn't overcome that difficulty. We can identify tendencies and mechanisms without being able to forecast specific outcomes.
+
+\item[Operationalization requires choices.] Translating CAS concepts into measures involves judgment calls. Different operationalizations might yield different results. We document choices transparently but cannot claim they are uniquely correct.
+\end{description}
+
+\begin{criticalbox}[The Theory-Method Gap]
+CAS theory is more fully developed than methods for testing it. Mechanisms like emergence and self-organization have clear theoretical meanings but contested empirical operationalizations. This dissertation contributes to closing the gap, but does not claim to resolve it completely. The cartographic approach advances operational capacity while remaining honest about interpretation challenges.
+\end{criticalbox}
+
+
+%═══════════════════════════════════════════════════════════════════════════════
+\section{Chapter Summary}
+\labsec{cas:summary}
+%═══════════════════════════════════════════════════════════════════════════════
+
+\begin{summarybox}
+This chapter established Complex Adaptive Systems theory as the theoretical foundation for multimodal cartography of role constellations:
+
+\begin{itemize}[leftmargin=*, itemsep=0.3em]
+\item \textbf{The category-to-system shift}: Roles are reconceptualized as emergent properties of interactions rather than attributes of actors. This explains why typological approaches struggle with fluidity and multiplicity.
+
+\item \textbf{Six CAS mechanisms} provide explanatory power: emergence, self-organization, co-evolution, non-linearity, feedback loops, and fitness landscapes. Each generates specific predictions about constellation behavior.
+
+\item \textbf{The Phillips-Ritala framework} identifies three dimensions---conceptual, structural, temporal---that rigorous CAS-based inquiry must address. Multimodal cartography operationalizes all three.
+
+\item \textbf{Three levels of analysis}---micro (intermediaries), meso (constellations), macro (transition context)---interact through upward emergence and downward constraint.
+
+\item \textbf{Fifteen propositions} translate mechanisms into testable predictions, organized across emergence (P1--P3), self-organization (P4--P6), co-evolution (P7--P9), non-linearity (P10--P12), and feedback/fitness (P13--P15).
+
+\item \textbf{Multimodality is theoretically necessary}, not merely methodologically desirable. CAS properties require multiple observation points, perspectives, and temporal depths.
+
+\item \textbf{Boundary conditions} include: not all systems are equally complex; emergence is hard to prove; agency remains underspecified; prediction remains limited; operationalization requires judgment.
+\end{itemize}
+\end{summarybox}
+
+\vspace{1em}
+
+With theoretical foundations established, the empirical chapters that follow test whether these fifteen propositions hold in the EIT ecosystem---and what we learn when they do or don't. The map we have drawn in this chapter is itself a kind of cartography: a theoretical terrain showing where concepts are positioned, how mechanisms connect, what propositions follow. The challenge now is to apply tools capable of mapping empirical terrain with corresponding rigor.
+
+\end{document}

@@ -1,0 +1,651 @@
+% !TEX root = ../main.tex
+%========================================================================================
+% CHAPTER 1: INTRODUCTION
+%========================================================================================
+\documentclass[../main.tex]{subfiles}
+\begin{document}
+
+\chapter{Introduction}
+\labch{intro}
+\margintoc
+
+\begin{chapteroverview}
+Why do some sustainability transitions take off while others stall? This dissertation argues that part of the answer lies in understanding \emph{role constellations}\textemdash the dynamic configurations of roles that intermediary organizations perform within transition ecosystems. But studying these constellations presents a methodological puzzle: the rich theoretical frameworks we have do not scale, and the computational methods that do scale often miss what matters most.
+
+This chapter introduces \textbf{multimodal cartography} as a response: a systematic approach to mapping role constellations by integrating multiple data modalities within a Design Science framework. It establishes the problem, makes the case for treating methodological integration as a design challenge, introduces \RoleBox as the platform for this cartography, and maps the dissertation's journey ahead.
+\end{chapteroverview}
+
+
+\section{The Urgency of Navigating Transitions}
+\label{sec:intro:urgency}
+
+We are living through what historians may one day call the Great Reckoning. Climate change has outpaced many scientific predictions \cite{ipcc2023ar6}.\sidenote{\textbf{420 ppm}---CO\textsubscript{2} levels in 2023, unseen for three million years.} Biodiversity loss continues at what some scientists characterize as a sixth mass extinction \cite{ipbes2019global}. Social inequalities have widened, exacerbated by technological disruption and pandemic aftershocks. These crises share a common origin: the unsustainability of systems that have dominated since the industrial revolution.
+
+Addressing these challenges requires more than incremental fixes. We need \emph{transitions}\sidenote{\textbf{Transitions}---Deep structural changes in technologies, institutions, practices, and power relations.}---fundamental shifts in how societies produce energy, grow food, move people, and organize economic life. The shift from coal to renewables. From industrial to regenerative agriculture. From private cars to shared mobility. Each touches every dimension of socio-technical systems.
+
+Critically, these transitions involve not only \emph{building up} new alternatives but also \emph{breaking down} existing unsustainable systems. The X-curve framework \sidecite{hebinck2022xcurve} captures this dual dynamic: transitions require simultaneous patterns of build-up (experimentation, acceleration, emergence, institutionalization) and breakdown (destabilization, chaos, breakdown, phase-out).\sidenote{\textbf{X-curve}---Framework capturing the interaction between patterns of build-up and breakdown in sustainability transitions \parencite{hebinck2022xcurve}.} A sustainable energy transition is not only about scaling renewables; it is equally about the managed decline and phase-out of fossil fuels. Yet as \textcite{adams2021subtractive} demonstrate, people systematically overlook subtractive changes when solving problems---a bias that appears to extend to transition intermediaries themselves.
+
+% Figure: X-curve framework
+\begin{center}
+\begin{tikzpicture}[scale=0.9]
+    % Background regions
+    \fill[Azure!8] (-0.5,-0.5) rectangle (6,5.5);
+    \fill[AccentCoral!8] (6,-0.5) rectangle (12.5,5.5);
+
+    % X-curve: Build-up curve (rising S-curve)
+    \draw[very thick, Azure, line width=2pt]
+        plot[smooth, tension=0.8] coordinates {
+            (0,0.5) (1.5,0.8) (3,1.5) (4.5,3) (6,4) (7.5,4.5) (9,4.7) (10.5,4.8) (12,4.9)
+        };
+
+    % X-curve: Breakdown curve (declining S-curve)
+    \draw[very thick, AccentCoral, line width=2pt]
+        plot[smooth, tension=0.8] coordinates {
+            (0,4.9) (1.5,4.8) (3,4.7) (4.5,4.5) (6,4) (7.5,3) (9,1.5) (10.5,0.8) (12,0.5)
+        };
+
+    % Build-up phase labels (left side, along rising curve)
+    \node[font=\scriptsize, text=Azure!80!black, anchor=east] at (0.8,0.6) {Experimentation};
+    \node[font=\scriptsize, text=Azure!80!black, anchor=east] at (2.8,1.2) {Acceleration};
+    \node[font=\scriptsize, text=Azure!80!black, anchor=west] at (4.8,2.8) {Emergence};
+    \node[font=\scriptsize, text=Azure!80!black, anchor=west] at (7.8,4.3) {Institutionalization};
+    \node[font=\scriptsize, text=Azure!80!black, anchor=west] at (10.5,4.6) {Stabilization};
+
+    % Breakdown phase labels (right side, along declining curve)
+    \node[font=\scriptsize, text=AccentCoral!80!black, anchor=west] at (0.5,4.6) {Optimisation};
+    \node[font=\scriptsize, text=AccentCoral!80!black, anchor=west] at (2.5,4.3) {Destabilisation};
+    \node[font=\scriptsize, text=AccentCoral!80!black, anchor=east] at (7.2,2.8) {Chaos};
+    \node[font=\scriptsize, text=AccentCoral!80!black, anchor=east] at (9.2,1.2) {Breakdown};
+    \node[font=\scriptsize, text=AccentCoral!80!black, anchor=west] at (11.2,0.6) {Phase-out};
+
+    % Central crossing point
+    \node[draw, circle, fill=white, minimum size=0.6cm, font=\tiny\bfseries] at (6,4) {X};
+
+    % Region labels
+    \node[font=\small\bfseries, text=Azure!70!black] at (3,5.2) {BUILD-UP};
+    \node[font=\small\bfseries, text=AccentCoral!70!black] at (9,5.2) {BREAKDOWN};
+
+    % Axis labels
+    \node[font=\scriptsize, text=Slate, rotate=90, anchor=south] at (-0.3,2.5) {System dominance};
+    \node[font=\scriptsize, text=Slate] at (6,-0.2) {Time};
+
+    % Arrows showing direction
+    \draw[->, thick, Azure!60] (1,0.5) -- (2,1);
+    \draw[->, thick, AccentCoral!60] (10,1) -- (11,0.5);
+\end{tikzpicture}
+\captionof{figure}{The X-curve framework: sustainability transitions require both build-up of alternatives (rising curve) and breakdown of unsustainable regimes (declining curve). The curves interact at the crossing point, where chaos and emergence co-occur. Adapted from \textcite{hebinck2022xcurve}.}
+\label{fig:intro:xcurve}
+\end{center}
+
+The X-curve's temporal depiction can be misleading---suggesting linear phases that actors move through sequentially. A \textbf{flat ontology} reframes these dynamics as \emph{relational configurations} that actors may occupy simultaneously.\sidenote{\textbf{Flat ontology}---Actors do not progress through phases; they occupy positions in a relational space where build-up and breakdown functions coexist and interact.} Role constellations characterize which positions an ecosystem's actors collectively occupy at any moment. The critical insight for this dissertation: if all intermediaries cluster in build-up positions, the breakdown functions remain \emph{structurally absent}---not delayed to later phases but missing from the ecosystem entirely.
+
+% Figure: Role sphere — constellations linked to X-curve dynamics
+\begin{center}
+\begin{tikzpicture}[scale=0.78]
+    % --- The sphere: outer ring of X-curve dynamics ---
+    \draw[Slate!20, line width=0.6pt] (0,0) circle (4.5cm);
+    \node[font=\scriptsize\scshape, text=Slate!35] at (0,5.0) {Role Sphere};
+
+    % --- Build-up dynamics (left arc) ---
+    \foreach \ang/\lab [count=\i] in {
+        126/Experimentation, 162/Acceleration,
+        198/Connection, 234/Legitimation, 270/Stabilization} {
+        \node[font=\tiny, text=Azure!70!black,
+            anchor={\ifnum\ang>180 north\else south\fi\space %
+                     \ifnum\ang>90 east\else west\fi}]
+            (bl\i) at (\ang:5.0) {\lab};
+        \fill[Azure!50] (\ang:4.5) circle (3pt);
+    }
+
+    % --- Breakdown dynamics (right arc) ---
+    \foreach \ang/\lab [count=\i] in {
+        54/Optimization, 18/Destabilization,
+        342/Chaos nav., 306/Exit facil., 270/Phase-out} {
+        % skip duplicate 270 — handled below
+    }
+    % Place breakdown dynamics manually for clean anchoring
+    \fill[Slate!20] (54:4.5) circle (3pt);
+    \node[font=\tiny, text=Slate!30, anchor=south west] at (54:5.0) {Optimization};
+    \fill[Slate!20] (18:4.5) circle (3pt);
+    \node[font=\tiny, text=Slate!30, anchor=south west] at (18:5.0) {Destabilization};
+    \fill[Slate!20] (342:4.5) circle (3pt);
+    \node[font=\tiny, text=Slate!30, anchor=north west] at (342:5.0) {Chaos navigation};
+    \fill[Slate!20] (306:4.5) circle (3pt);
+    \node[font=\tiny, text=Slate!30, anchor=north west] at (306:5.0) {Exit facilitation};
+    \fill[Slate!20] (270:4.5) circle (3pt);
+    \node[font=\tiny, text=Slate!30, anchor=north] at (270:5.3) {Phase-out};
+
+    % --- Role constellation \textalpha: experimentation + acceleration ---
+    % Cluster of actors forming a constellation
+    \draw[Azure!25, thick, rounded corners=8pt]
+        (-2.8,1.8) ellipse (1.0cm and 0.7cm);
+    \node[font=\tiny\itshape, text=Azure!50] at (-2.8,2.7) {constellation $\alpha$};
+    % Actor dots inside
+    \foreach \dx/\dy in {-0.3/0.1, 0.2/-0.15, -0.1/0.3, 0.3/0.2, -0.4/-0.2} {
+        \fill[Marigold!60] (-2.8+\dx,1.8+\dy) circle (2.2pt);
+    }
+    % Links to dynamics
+    \draw[Azure!30, thin] (-2.1,2.1) -- (126:4.5);
+    \draw[Azure!30, thin] (-2.2,1.5) -- (162:4.5);
+
+    % --- Role constellation \textbeta: connection + legitimation ---
+    \draw[Azure!25, thick, rounded corners=8pt]
+        (-2.5,-0.6) ellipse (0.9cm and 0.65cm);
+    \node[font=\tiny\itshape, text=Azure!50] at (-2.5,-1.5) {constellation $\beta$};
+    \foreach \dx/\dy in {-0.2/0.1, 0.15/-0.2, 0.3/0.15, -0.35/-.1} {
+        \fill[PandaBamboo!50] (-2.5+\dx,-0.6+\dy) circle (2.2pt);
+    }
+    \draw[Azure!30, thin] (-1.9,-0.3) -- (198:4.5);
+    \draw[Azure!30, thin] (-2.0,-1.0) -- (234:4.5);
+
+    % --- Role constellation \textgamma: stabilization + legitimation + connection ---
+    \draw[Azure!25, thick, rounded corners=8pt]
+        (-1.4,-2.0) ellipse (0.85cm and 0.6cm);
+    \node[font=\tiny\itshape, text=Azure!50] at (-1.4,-2.8) {constellation $\gamma$};
+    \foreach \dx/\dy in {-0.2/0.0, 0.2/0.15, 0.0/-0.2} {
+        \fill[AccentCoral!50] (-1.4+\dx,-2.0+\dy) circle (2.2pt);
+    }
+    \draw[Azure!30, thin] (-0.8,-1.7) -- (198:4.5);
+    \draw[Azure!30, thin] (-1.0,-2.4) -- (234:4.5);
+    \draw[Azure!30, thin] (-0.7,-2.3) -- (270:4.35);
+
+    % --- Overlap: actors spanning constellations ---
+    % One actor dot between alpha and beta (spans both)
+    \fill[Marigold!70] (-2.2,0.7) circle (2.8pt);
+    \draw[Marigold!40, densely dashed, thin] (-2.2,0.7) -- (-2.5,1.2);
+    \draw[Marigold!40, densely dashed, thin] (-2.2,0.7) -- (-2.4,0.0);
+
+    % --- Breakdown side: empty interior ---
+    % No constellations, no actor dots
+    \node[font=\large, text=Slate!15] at (1.8,0) {?};
+    \node[font=\tiny\itshape, text=Slate!25, align=center] at (1.8,-0.7)
+        {no constellations\\form here};
+
+\end{tikzpicture}
+\captionof{figure}{The \textbf{role sphere}: a flat ontology of transition dynamics.
+All ten X-curve dynamics coexist as positions around a single relational
+space. Actors cluster into \emph{role constellations} ($\alpha$, $\beta$,
+$\gamma$)---groups connected to the dynamics they enact, not labeled by them.
+One actor may span constellations (dashed lines). Build-up dynamics attract
+dense constellations; breakdown dynamics remain structurally
+unoccupied---not future functions but \emph{missing} ones.}
+\label{fig:intro:xcurve-flat}
+\end{center}
+
+Over three decades, sustainability transitions research has developed sophisticated frameworks for understanding these transformations. The Multi-Level Perspective sees transitions emerging from interactions between niche innovations, dominant regimes, and broader landscape pressures \sidecite{geels2002technological}.\sidenote{The MLP remains the field's most influential framework, though it has faced critiques for underspecifying actor agency and micro-level dynamics.} Strategic Niche Management explores how protected spaces help radical innovations mature \cite{smith2007snm}. Transition Management investigates governance approaches for steering complex systems toward sustainability \cite{kemp2007tm}.
+
+These frameworks have generated valuable insights. But the field faces a persistent problem---one that motivates this entire dissertation.
+
+% Figure 1.1: Depth-breadth trade-off
+\begin{center}
+\begin{tikzpicture}[scale=1.0]
+    % Simple visual showing the tension
+    \node[draw, circle, fill=Azure!20, minimum size=2.4cm, font=\small, align=center] (qual) at (0,3) {Deep\\N=30};
+    \node[draw, circle, fill=Marigold!20, minimum size=2.4cm, font=\small, align=center] (quant) at (0,-3) {Broad\\N=10k};
+    \draw[<->, thick, PandaCharcoal] (qual) -- (quant) node[midway, right, font=\small] {Trade-off?};
+\end{tikzpicture}
+\captionof{figure}{The depth-breadth trade-off in transitions research.}
+\label{fig:intro:depth-breadth}
+\end{center}
+
+\section{The Methodological Divide}
+\label{sec:intro:divide}
+
+\subsection{The Qualitative Tradition}
+
+Most transitions research is qualitative and case-based.\sidenote{\textbf{Designed data}---Groves (2011) distinguishes data created \emph{for} research (surveys, interviews) from data existing \emph{independently} of research (digital traces, transaction logs).} Researchers spend years embedded in transition arenas, conducting interviews, analyzing documents, observing how actors negotiate visions and navigate institutional barriers. This work excels at capturing complexity, contingency, and context. It reveals how actors make sense of change, how meanings shift, how power operates through discourse.
+
+Consider the exemplary studies of the Dutch energy transition \cite{verbong2007dutch},\sidenote{\textbf{The Dutch example}---Years of embedded research yielding rich insights, but examining only dozens of actors.} or the longitudinal analyses tracing organic agriculture's evolution from countercultural movement to mainstream practice \cite{smith2006organic}. These provide the theoretical depth that makes transitions research valuable.
+
+But this tradition has limits.\sidenote{Qualitative strengths: deep context, rich meaning, process tracing, actor voice. Limits: small samples, hard to generalize, retrospective, hard to compare.} Case studies typically examine thirty to fifty actors---enough for rich understanding, not enough for pattern identification. By the time a transition is documented, it has largely already happened. Cross-case comparison remains challenging when contexts differ and operationalization varies.
+
+\subsection{The Computational Turn}
+
+Meanwhile, computational social science has developed powerful methods for analyzing large-scale social phenomena \cite{lazer2009computational,salganik2019bitbybit,grimmer2021mlsocialscience}.\sidenote{\textbf{Scale possibilities}---Studies now analyze thousands of patents, millions of tweets, and entire startup ecosystems.} Network analysis reveals hidden collaborative structures \cite{newman2010networks,borgatti2009network}. Natural language processing extracts themes from millions of documents \cite{grimmer2013text}. Machine learning identifies patterns invisible to human observation \cite{molina2019machine}.
+
+Applied to transitions, these methods promise to overcome scale limitations. Researchers have mapped innovation networks through patent analysis, tracked climate discourse dynamics on Twitter, and analyzed startup ecosystems at population level \cite{jacobides2018ecosystems,phillips2019innovation}. The potential is substantial.
+
+Yet computational approaches face their own problems---particularly regarding theory \cite{ruths2014social,boyd2012critical}.\sidenote{Computational strengths: population scale, pattern detection, replicability, high-frequency. Limits: theory-light, validation hard, context-blind, digital only.} Many studies begin with available data rather than theoretical questions, leading to sophisticated analysis of what \emph{can} be measured rather than what \emph{matters} \cite{tufekci2014big}. The rich concepts animating transitions research---intentionality, power, meaning, legitimacy, institutional work---often resist straightforward operationalization \cite{lawrence2009institutional}.\sidenote{\textbf{The data-driven call}---De Haan et al. (2019) argue for ``thorough-going empiricism'' where ``data, as many as can be mustered, lead rather than just support inference.''}
+
+\subsection{Why Bridging Requires Design}
+
+The divide between these approaches is not absolute\textemdash some researchers combine methods, some studies integrate data types.\sidenote{\textbf{The design metaphor}---Like bridge engineering, methodological bridging requires attention to materials and constraints.} But such integration remains ad hoc rather than systematic, opportunistic rather than principled.
+
+What is missing is explicit methodological work on \emph{how} to bridge these approaches while preserving each tradition's strengths. This dissertation argues that bridging requires treating integration as a \textbf{design problem}. Given particular materials (concepts, data, methods, expertise) and constraints (validity, resources, ethics), how can we construct artifacts enabling analysis that neither approach achieves alone?
+
+This is where Design Science Research enters the picture. But before introducing that framework, we need to understand why role constellations make such a compelling test case for bridging work.
+
+
+\section{Role Constellations: Central Yet Elusive}
+\label{sec:intro:roles}
+
+\subsection{What Are Role Constellations?}
+
+Transitions unfold through the actions of diverse actors occupying different positions and performing different functions \cite{avelino2009power,fischer2016actors,laakso2024}. Some develop radical innovations in protected niches. Others maintain incumbent regimes. Still others broker connections, build coalitions, or provide legitimacy \cite{burt1992structural,granovetter1973strength}. Understanding these differentiated positions\textemdash what we call \emph{roles}\textemdash is essential for explaining why some transitions accelerate while others stall.\sidenote{\textbf{Role}---A position or function enacted through relationships and activities, not fixed identity.}
+
+But roles do not exist in isolation \cite{padgett2012emergence}. A niche innovation needs more than just entrepreneurs. It requires financiers willing to bet on uncertainty, brokers who can translate between worlds, legitimators who confer credibility, and sometimes even sympathetic regime insiders \cite{schot2018three,suchman1995managing}. Transitions depend not only on what actors do individually, but on how diverse roles configure together.
+
+\begin{roledef}[Role Constellation]
+A \textbf{role constellation} is the dynamic configuration of roles that an actor or set of actors performs, including how these roles relate to each other, evolve over time, and combine to enable (or constrain) transition processes.
+\end{roledef}
+
+The concept operates at two levels. At the \emph{actor level}, a role constellation describes the portfolio of roles a single organization performs (how a university might simultaneously act as knowledge producer, network convenor, and policy advisor). At the \emph{system level}, it describes how different actors' roles combine into functional configurations that support innovation and change.
+
+% Figure 1.2: Role constellation
+\begin{center}
+\begin{tikzpicture}[scale=1.6]
+    % Central intermediary
+    \node[draw, rounded corners, fill=Marigold!40, minimum size=1.8cm, font=\small, align=center] (inter) at (0,0) {Org};
+
+    % Its roles (inner constellation)
+    \node[draw, circle, fill=Azure!30, minimum size=1.0cm, font=\small] (r1) at (2.4,2.4) {B};
+    \node[draw, circle, fill=PandaBamboo!30, minimum size=1.0cm, font=\small] (r2) at (3.0,0) {F};
+    \node[draw, circle, fill=AccentPurple!30, minimum size=1.0cm, font=\small] (r3) at (2.4,-2.4) {A};
+    \node[draw, circle, fill=AccentCyan!30, minimum size=1.0cm, font=\small] (r4) at (-2.4,2.4) {C};
+    \node[draw, circle, fill=AccentCoral!30, minimum size=1.0cm, font=\small] (r5) at (-3.0,0) {V};
+
+    % Connections to roles
+    \foreach \x in {r1,r2,r3,r4,r5} {
+        \draw[thick, PandaCharcoal!60] (inter) -- (\x);
+    }
+
+    % Outer network (faded)
+    \node[draw, circle, fill=Slate!15, minimum size=0.8cm] (n1) at (4.8,3.2) {};
+    \node[draw, circle, fill=Slate!15, minimum size=0.8cm] (n2) at (5.2,0) {};
+    \draw[dashed, Slate!40] (r1) -- (n1);
+    \draw[dashed, Slate!40] (r2) -- (n2);
+\end{tikzpicture}
+
+\captionof{figure}{Role constellation (colored) and network connections (gray).}
+\label{fig:intro:constellation}
+\end{center}
+
+\subsection{Scope: Intermediaries and Their Roles}
+
+Intermediary organizations occupy a special place in transitions \cite{kivimaa2019innovation,kanda2020conceptualising,vanlente2020intermediaries}. Positioned between innovators and regimes, between sectors, between policy and practice, they perform critical bridging functions: facilitating connections, translating between logics, providing resources, conferring legitimacy, and helping innovations navigate institutional barriers.
+
+This dissertation focuses specifically on \textbf{intermediary organizations and their role constellations}. We ask: what roles do intermediaries perform? How do these roles combine and evolve? What explains variation across intermediaries and over time?
+
+\begin{importantbox}
+\textbf{Scope and scalability.} While our empirical focus is intermediary organizations and the roles they perform, the methodological approach we develop\textemdash the analytical platform, integration protocols, and theoretical framework\textemdash scales to studying the broader networks that intermediaries mediate. We demonstrate feasibility at the intermediary level; extension to full ecosystem mapping is a logical next step.
+\end{importantbox}
+
+This scoping choice is strategic. Intermediaries are theoretically central to transitions yet understudied empirically \cite{howells2006intermediation,vanLente2003roles}, leave substantial digital traces amenable to computational analysis \cite{salganik2019bitbybit}, and their bounded number makes comprehensive analysis feasible while still requiring methods that go beyond traditional case studies.
+
+\subsection{Seven Problems in Current Research}
+
+Despite the theoretical importance of roles, existing research faces seven interconnected problems. These are not fatal flaws but productive tensions pointing toward opportunities for development.
+
+% Seven problems visualization - layout for main body
+\begin{center}
+\begin{tikzpicture}[scale=0.9,
+    probnode/.style={draw, rounded corners=3pt, fill=#1!20, minimum width=1.9cm, minimum height=0.7cm, align=center, font=\scriptsize}
+]
+    % Top row of four
+    \node[probnode=Azure] (p1) at (0,0) {1. Definitional\\ambiguity};
+    \node[probnode=PandaBamboo] (p2) at (3.2,0) {2. Static\\categorization};
+    \node[probnode=Marigold] (p3) at (6.4,0) {3. Actor-centric\\bias};
+    \node[probnode=AccentPurple] (p4) at (9.6,0) {4. Normative\\loading};
+    % Bottom row of three
+    \node[probnode=AccentCyan] (p5) at (1.6,-1.4) {5. Methodological\\constraints};
+    \node[probnode=AccentCoral] (p6) at (4.8,-1.4) {6. Theoretical\\fragmentation};
+    \node[probnode=PandaCharcoal] (p7) at (8.0,-1.4) {7. Build-up\\bias};
+
+    % Horizontal connections
+    \draw[->, Slate!50, thick] (p1) -- (p2);
+    \draw[->, Slate!50, thick] (p2) -- (p3);
+    \draw[->, Slate!50, thick] (p3) -- (p4);
+    \draw[->, Slate!50, thick] (p5) -- (p6);
+    \draw[->, Slate!50, thick] (p6) -- (p7);
+
+    % Vertical connections
+    \draw[->, Slate!50, thick] (p4.south) -- (p7.north);
+    \draw[->, Slate!50, thick] (p5.north) -- (p1.south);
+
+    % Feedback loop
+    \draw[->, dashed, PandaCharcoal!40] (p7.south) to[out=-90,in=-90] (p5.south);
+\end{tikzpicture}
+\captionof{figure}{Seven interconnected problems in role research.}
+\label{fig:intro:seven-problems}
+\end{center}
+
+\begin{enumerate}[leftmargin=*, itemsep=0.5em]
+
+\item \textbf{Definitional ambiguity.} The term ``role'' means different things to different scholars: position, function, identity, category, or behavior. Are roles what actors \emph{do}, who actors \emph{are}, or where actors are \emph{positioned}? This conceptual slippage makes comparison and accumulation difficult.
+
+\item \textbf{Static categorization.} Most typologies present roles as fixed boxes\textemdash entrepreneur, incumbent, intermediary\textemdash that actors occupy permanently. Yet empirical observation suggests otherwise. Actors shift roles over time, occupy multiple roles simultaneously, and vary their role performance by context. Start-ups become incumbents. Regime actors launch niche innovations. Static typologies cannot capture this dynamism.
+
+\item \textbf{Actor-centric bias.} Roles are typically treated as attributes of individual actors: this organization \emph{is} an intermediary, that firm \emph{is} an incumbent. But relational approaches suggest roles emerge through interactions and network positions. An intermediary is only an intermediary \emph{in relation to} others it connects.
+
+\item \textbf{Normative loading.} Role concepts often carry implicit value judgments\textemdash intermediaries presumed beneficial, incumbents framed as barriers. These judgments may sometimes be warranted, but they should be examined explicitly rather than smuggled in through terminology.
+
+\item \textbf{Methodological constraints.} The small-N qualitative methods dominating transitions research enable rich understanding but struggle with population-level questions. How common is role multiplicity? Do particular constellations correlate with transition success? How do constellations evolve across transition phases?
+
+\item \textbf{Theoretical fragmentation.} Different transitions frameworks emphasize different roles. The Multi-Level Perspective focuses on niche-regime dynamics. Strategic Niche Management highlights innovation champions. Transition Management emphasizes frontrunners and change agents. These perspectives complement rather than compete, yet the field lacks an integrative framework.
+
+\item \textbf{Build-up bias.} Existing role typologies overwhelmingly emphasize innovation and acceleration (entrepreneurs, frontrunners, connectors, network builders). Roles associated with the breakdown side of transitions (destabilizers, phase-out managers, regime dismantlers, exnovation facilitators) remain largely untheorized. This reflects a broader tendency to overlook subtractive changes \parencite{adams2021subtractive}, yet sustainable transitions require not only scaling alternatives but actively phasing out unsustainable practices.
+
+\end{enumerate}
+
+\subsection{The Promise of Systematic Integration}
+
+These seven problems point toward an opportunity. If roles could be analyzed computationally at population scale \emph{while} retaining sensitivity to their emergent, relational, and dynamic properties, new insights might emerge that neither tradition could generate alone. Patterns invisible in small samples could become apparent. Hypotheses could be tested systematically across contexts. The fluidity and multiplicity of roles could be tracked over time rather than frozen in static typologies.
+
+This dissertation proposes \textbf{multimodal cartography} as a methodological response. The cartographic metaphor is deliberate. Maps do not merely represent pre-existing territory; they render complex landscapes legible, navigable, and actionable. They combine multiple information sources into integrated representations that serve particular purposes. Similarly, mapping role constellations requires integrating multiple data modalities (what organizations say on their websites, how they interact on social media, how media portrays them, what their visual communications convey) into representations that make transition ecosystems comprehensible.
+
+\begin{roledef}[Multimodal Cartography]
+\textbf{Multimodal cartography} is a methodological approach that integrates multiple data modalities (text, networks, images, video, structured databases) to construct systematic representations of complex social phenomena\textemdash in this case, the role constellations of intermediary organizations in sustainability transitions.
+\end{roledef}
+
+The multimodal dimension is essential. Roles are not singular phenomena observable through any single lens. An intermediary may claim a convening role on its website, perform a brokering role through its Twitter interactions, and be perceived as an advocate in news coverage. These are not contradictions to be resolved but facets to be mapped. Single-modality analysis (whether text-only, network-only, or interview-only) inevitably misses dimensions that other modalities would reveal.
+
+This dissertation develops \RoleBox as the platform for multimodal cartography, instantiating six data modalities in an integrated analytical environment. But before detailing the artifacts, we must establish the methodological framework that guides their construction: Design Science Research.
+
+
+\section{Design Science Research as Framework}
+\label{sec:intro:dsr}
+
+\subsection{Why Design?}
+
+The challenge of bridging methodological divides is not primarily a matter of applying existing methods more skillfully or collecting more data. Rather, it requires \emph{creating} new methodological artifacts (conceptual frameworks, analytical tools, integration protocols, validation procedures) that enable forms of analysis not previously possible.
+
+This is fundamentally a design problem \cite{simon1996sciences}. Engineers designing a bridge must understand materials, forces, and contexts. Similarly, bridging methodological divides requires systematic attention to what each approach offers, where tensions arise, and how artifacts can be constructed that enable productive integration. The question shifts from "which method is better?" to "what can we build that serves both traditions?"
+
+% Design Science Research Framework - artifact-centered visualization
+\begin{wideblock}
+\centering
+\begin{tikzpicture}[scale=0.85,
+    artifactbox/.style={draw, rounded corners=4pt, fill=#1!20, minimum width=3.8cm, minimum height=1.6cm, align=center, font=\small},
+    flowline/.style={->, thick, PandaCharcoal!70}
+]
+    % === CENTRAL: Six Artifact Types in 2x3 grid ===
+    % Top row
+    \node[artifactbox=Azure] (a1) at (0,3) {\faServer\\[0.2em]\textbf{Analytical Platforms}\\[0.1em]\scriptsize Documented codebases\\others can deploy};
+    \node[artifactbox=PandaBamboo] (a2) at (5,3) {\faDatabase\\[0.2em]\textbf{Curated Datasets}\\[0.1em]\scriptsize Clear provenance \&\\quality documentation};
+    \node[artifactbox=Marigold] (a3) at (10,3) {\faCogs\\[0.2em]\textbf{Computational Workflows}\\[0.1em]\scriptsize Reproducible\\analytical steps};
+
+    % Bottom row
+    \node[artifactbox=AccentPurple] (a4) at (0,0) {\faDesktop\\[0.2em]\textbf{User Interfaces}\\[0.1em]\scriptsize Enabling non-programmers\\to conduct analyses};
+    \node[artifactbox=AccentCyan] (a5) at (5,0) {\faCodeBranch\\[0.2em]\textbf{Integration Protocols}\\[0.1em]\scriptsize Combining data sources\\and methods};
+    \node[artifactbox=AccentCoral] (a6) at (10,0) {\faBook\\[0.2em]\textbf{Methodological Guidelines}\\[0.1em]\scriptsize Tacit expertise into\\transferable procedures};
+
+    % Horizontal connections (workflow)
+    \draw[flowline] (a1.east) -- (a2.west);
+    \draw[flowline] (a2.east) -- (a3.west);
+    \draw[flowline] (a4.east) -- (a5.west);
+    \draw[flowline] (a5.east) -- (a6.west);
+
+    % Vertical connections
+    \draw[flowline] (a1.south) -- (a4.north);
+    \draw[flowline] (a2.south) -- (a5.north);
+    \draw[flowline] (a3.south) -- (a6.north);
+
+    % === LEFT: Problem Space ===
+    \node[draw, rounded corners=6pt, fill=Slate!10, minimum width=2.4cm, minimum height=2.6cm, align=center, font=\small] (problem) at (-4,1.5) {\textbf{Problem Space}\\[0.2em]\scriptsize Methodological\\divide\\[0.1em]\scriptsize Theory vs. data\\[0.1em]\scriptsize Depth vs. breadth};
+
+    \draw[flowline, very thick] (problem.east) -- (-1.6,1.5);
+
+    % === RIGHT: Contribution Space ===
+    \node[draw, rounded corners=6pt, fill=PandaCharcoal!10, minimum width=2.4cm, minimum height=2.6cm, align=center, font=\small] (contrib) at (14,1.5) {\textbf{Contributions}\\[0.2em]\scriptsize Replication\\[0.1em]\scriptsize Extension\\[0.1em]\scriptsize Cumulative\\progress};
+
+    \draw[flowline, very thick] (11.6,1.5) -- (contrib.west);
+
+    % === BOTTOM: RoleBox instantiation ===
+    \node[draw, rounded corners=4pt, fill=CoverGold!20, minimum width=11cm, minimum height=1.1cm, align=center, font=\scriptsize] (rolebox) at (5,-2) {\textbf{\RoleBox{} Instantiation:} \texttt{rolebox-*} pipelines $\cdot$ EIT datasets $\cdot$ Interactive UIs $\cdot$ Six modality workflows $\cdot$ Triangulation protocols $\cdot$ This dissertation};
+
+    % Connect artifacts to RoleBox
+    \draw[Slate!50, dashed] (a4.south) -- ++(0,-0.4) -| (rolebox.north west);
+    \draw[Slate!50, dashed] (a5.south) -- (rolebox.north);
+    \draw[Slate!50, dashed] (a6.south) -- ++(0,-0.4) -| (rolebox.north east);
+
+\end{tikzpicture}
+\captionof{figure}{The Design Science artifact gap in transitions research. Six artifact types (center) are rarely produced despite their importance for cumulative progress. This dissertation addresses this gap through the \RoleBox{} platform, instantiating each artifact type: analytical platforms (\texttt{rolebox-*} codebases), curated datasets (EIT ecosystem data), computational workflows (six modality pipelines), user interfaces (interactive exploration tools), integration protocols (cross-modal triangulation), and methodological guidelines (this dissertation itself).}
+\label{fig:intro:dsr-framework}
+\end{wideblock}
+
+\subsection{Design Science in Sustainability Transitions: Uncharted Territory}
+
+Design Science Research (DSR) provides a systematic framework for this kind of methodological innovation \sidecite{hevner2004design}. Originating in information systems research \cite{march1995design}, DSR treats the creation and evaluation of novel artifacts as legitimate scientific contribution \cite{peffers2007dsr}. Unlike explanatory research that seeks to understand existing phenomena, or critical research that interrogates power and assumptions, design research asks: \emph{what new capabilities become possible through systematic artifact creation?}
+
+Yet DSR remains largely uncharted territory in sustainability transitions research. The field has produced sophisticated theoretical frameworks (the Multi-Level Perspective, Strategic Niche Management, Transition Management) but has devoted far less attention to the \emph{artifacts} that enable empirical analysis.
+
+\begin{itemize}[leftmargin=*, itemsep=0.3em]
+\item \textbf{Analytical platforms} with documented codebases that others can deploy
+\item \textbf{Curated datasets} with clear provenance and quality documentation
+\item \textbf{Computational workflows} specifying reproducible analytical steps
+\item \textbf{User interfaces} enabling researchers without programming expertise to conduct analyses
+\item \textbf{Integration protocols} detailing how to combine different data sources and methods
+\item \textbf{Methodological guidelines} translating tacit expertise into transferable procedures
+\end{itemize}
+
+This absence is consequential. Without such artifacts, each research team starts from scratch. Findings cannot be replicated or extended. Methodological innovations remain locked in individual projects rather than accumulating as shared infrastructure. The field advances through theoretical refinement but lacks the material foundations for cumulative empirical progress.
+
+This dissertation imports the Design Science paradigm from information systems to address this gap. The contribution is not merely to \emph{use} computational methods but to \emph{design, document, and share} the artifacts that make multimodal cartography accessible and reproducible.
+
+\subsection{Four Meta-Design Requirements}
+
+Applying DSR to the bridging challenge, this dissertation develops four Meta-Design Requirements (MDRs) that any systematic integration effort must address. These are not specific to role constellation analysis but represent general principles for combining computational and qualitative approaches.
+
+% MDR visualization
+\begin{center}
+\begin{tikzpicture}[
+    mdrbox/.style={draw, rounded corners=3pt, fill=#1!15, minimum width=3.2cm, minimum height=1.4cm, align=center, font=\small},
+    arrow/.style={->, thick, PandaCharcoal!70}
+]
+    % Four MDRs in a square arrangement with connecting arrows
+    \node[mdrbox=Azure] (mdr1) at (-2.8,2) {\textbf{MDR-1}\\Theory--Data\\Reconciliation};
+    \node[mdrbox=PandaBamboo] (mdr2) at (2.8,2) {\textbf{MDR-2}\\Hypothesis-Driven\\Data Selection};
+    \node[mdrbox=Marigold] (mdr3) at (-2.8,-2) {\textbf{MDR-3}\\Computational--Human\\Complementarity};
+    \node[mdrbox=AccentPurple] (mdr4) at (2.8,-2) {\textbf{MDR-4}\\Knowledge\\Infrastructure};
+
+    % Central node
+    \node[draw, circle, fill=PandaCharcoal!10, minimum size=1.6cm, font=\small\bfseries, align=center] (center) at (0,0) {Bridging\\Work};
+
+    % Connecting arrows
+    \draw[arrow] (mdr1) -- (center);
+    \draw[arrow] (mdr2) -- (center);
+    \draw[arrow] (mdr3) -- (center);
+    \draw[arrow] (mdr4) -- (center);
+
+    % Horizontal connections (complementary)
+    \draw[<->, dashed, Slate!60] (mdr1) -- (mdr2);
+    \draw[<->, dashed, Slate!60] (mdr3) -- (mdr4);
+\end{tikzpicture}
+\captionof{figure}{Four Meta-Design Requirements for bridging methodological divides.}
+\label{fig:intro:mdrs}
+\end{center}
+
+\begin{description}[leftmargin=0pt, itemsep=0.4em]
+\item[MDR-1: Theory-Data Reconciliation.] Bidirectional translation between theoretical constructs and empirical measures (not just operationalizing theory, but theorizing what data patterns reveal).
+\item[MDR-2: Hypothesis-Driven Data Selection.] Data collection guided by theoretical questions rather than opportunistic availability; each modality requires justification.
+\item[MDR-3: Computational-Human Complementarity.] Appropriate division of labor between computational scale (pattern detection) and human judgment (meaning interpretation).
+\item[MDR-4: Knowledge Accumulation Infrastructure.] Reusable artifacts (open-source code, documented data, transparent procedures) enabling cumulative progress.
+\end{description}
+
+\Cref{ch:method} develops these requirements in detail and shows how each is operationalized throughout the dissertation.
+
+
+\section{Research Questions and Structure}
+\label{sec:intro:questions}
+
+% Research questions visualization - enlarged main body figure
+\begin{wideblock}
+\centering
+\begin{tikzpicture}[scale=1.1,
+    rqbox/.style={draw, rounded corners=4pt, fill=#1!20, minimum width=3.8cm, minimum height=1.6cm, align=center, font=\normalsize\bfseries}
+]
+    % Main RQ at top - full width
+    \node[draw, rounded corners=5pt, fill=PandaCharcoal!25, minimum width=14cm, minimum height=1.8cm, align=center, font=\normalsize] (main) at (0,4.5) {\textbf{Main Research Question}\\[0.2em]\small What role constellations characterize interstitial actors in sustainability transitions,\\and how does multimodal cartography reveal the mechanisms through which they emerge?};
+
+    % Four sub-questions in a row
+    \node[rqbox=Azure] (rq1) at (-5.5,1.2) {\faLightbulb\\[0.2em]RQ1};
+    \node[rqbox=PandaBamboo] (rq2) at (-1.8,1.2) {\faWrench\\[0.2em]RQ2};
+    \node[rqbox=Marigold] (rq3) at (1.8,1.2) {\faChartBar\\[0.2em]RQ3};
+    \node[rqbox=AccentPurple] (rq4) at (5.5,1.2) {\faCompass\\[0.2em]RQ4};
+
+    % Labels below each with descriptions
+    \node[font=\small\bfseries, text=Azure] at (-5.5,-0.2) {Theory};
+    \node[font=\scriptsize, text=Slate, align=center, text width=3.5cm] at (-5.5,-1) {What framework enables theory-guided, empirically open analysis?};
+
+    \node[font=\small\bfseries, text=PandaBamboo] at (-1.8,-0.2) {Method};
+    \node[font=\scriptsize, text=Slate, align=center, text width=3.5cm] at (-1.8,-1) {What methodology enables cross-modal mapping?};
+
+    \node[font=\small\bfseries, text=Marigold] at (1.8,-0.2) {Empirics};
+    \node[font=\scriptsize, text=Slate, align=center, text width=3.5cm] at (1.8,-1) {What patterns emerge, and what does build-up vs. breakdown reveal?};
+
+    \node[font=\small\bfseries, text=AccentPurple] at (5.5,-0.2) {Implications};
+    \node[font=\scriptsize, text=Slate, align=center, text width=3.5cm] at (5.5,-1) {Breaking down barriers, building up shared resources?};
+
+    % Connecting lines from main to sub-questions
+    \draw[PandaCharcoal!60, thick] (main.south) -- ++(0,-0.6) -| (rq1.north);
+    \draw[PandaCharcoal!60, thick] (main.south) -- ++(0,-0.6) -| (rq2.north);
+    \draw[PandaCharcoal!60, thick] (main.south) -- ++(0,-0.6) -| (rq3.north);
+    \draw[PandaCharcoal!60, thick] (main.south) -- ++(0,-0.6) -| (rq4.north);
+
+    % Horizontal connections between sub-questions (interdependencies)
+    \draw[<->, dashed, Slate!50, thick] (rq1.east) -- (rq2.west);
+    \draw[<->, dashed, Slate!50, thick] (rq2.east) -- (rq3.west);
+    \draw[<->, dashed, Slate!50, thick] (rq3.east) -- (rq4.west);
+
+    % Chapter mapping at bottom
+    \node[font=\scriptsize\itshape, text=Slate] at (-5.5,-1.8) {Ch.~2, 4};
+    \node[font=\scriptsize\itshape, text=Slate] at (-1.8,-1.8) {Ch.~3, Intermezzos};
+    \node[font=\scriptsize\itshape, text=Slate] at (1.8,-1.8) {Ch.~5--9, 10};
+    \node[font=\scriptsize\itshape, text=Slate] at (5.5,-1.8) {Ch.~3, 10, 11, App.};
+
+\end{tikzpicture}
+\captionof{figure}{Research question hierarchy. The main question integrates four sub-questions spanning theory (RQ1), method (RQ2), empirics (RQ3), and implications (RQ4). RQ3 explicitly investigates the distribution of build-up versus breakdown roles; RQ4 frames the dissertation's contribution using X-curve vocabulary---simultaneously breaking down knowledge barriers while building up open infrastructure. Chapter mappings show where each question is primarily addressed.}
+\label{fig:intro:rq-hierarchy}
+\end{wideblock}
+
+\subsection{Guiding Questions}
+
+The overarching question guiding this dissertation is:
+
+\begin{mainrq}
+What role constellations characterize interstitial actors in sustainability transitions, and how does multimodal cartography reveal the mechanisms through which they emerge?
+\end{mainrq}
+
+This question combines theoretical, methodological, empirical, and practical ambitions. It asks how to \emph{think about} role constellations, how to \emph{map} them systematically, what patterns \emph{emerge}, and what this \emph{implies} for cumulative research. Four sub-questions structure the inquiry:
+
+\begin{subrq}
+\textbf{Theory}\\
+What conceptual framework enables theory-guided but empirically open analysis of role constellations?
+\end{subrq}
+
+\begin{subrq}
+\textbf{Method}\\
+What methodology enables systematic cross-modal mapping of claimed, attributed, and enacted roles?
+\end{subrq}
+
+\begin{subrq}
+\textbf{Empirics}\\
+What role constellation patterns characterize interstitial actors in the EIT ecosystem, and what does the distribution of build-up versus breakdown roles reveal about ecosystem orientation?
+\end{subrq}
+
+\begin{subrq}
+\textbf{Implications}\\
+How can open cartographic infrastructure simultaneously \emph{break down} barriers to knowledge accumulation while \emph{building up} shared resources for role constellation research?
+\end{subrq}
+
+
+\section{Contributions in Brief}
+\label{sec:intro:contributions}
+
+Before embarking on the journey, it is worth previewing what lies at the destination. This dissertation makes contributions across four dimensions, each corresponding to a different audience and purpose.
+
+% Contributions visualization
+\begin{center}
+\begin{tikzpicture}[
+    contribbox/.style={draw, rounded corners=4pt, fill=#1!25, minimum width=3cm, minimum height=1.1cm, align=center, font=\small},
+    detailnode/.style={font=\tiny, align=left, text width=2.8cm}
+]
+    % Four contribution boxes in 2x2 grid
+    \node[contribbox=Azure] (theory) at (0,2) {\textbf{Theoretical}};
+    \node[contribbox=PandaBamboo] (method) at (4,2) {\textbf{Methodological}};
+    \node[contribbox=Marigold] (empirical) at (0,-0.5) {\textbf{Empirical}};
+    \node[contribbox=AccentPurple] (infra) at (4,-0.5) {\textbf{Infrastructural}};
+
+    % Detail labels
+    \node[detailnode, below=0.15cm of theory] {CAS reconceptualization\\15 propositions};
+    \node[detailnode, below=0.15cm of method] {4 MDRs, DSR framework\\Multimodal integration};
+    \node[detailnode, below=0.15cm of empirical] {800+ orgs, 8 KICs\\5 sociotypes};
+    \node[detailnode, below=0.15cm of infra] {Open-source \RoleBox{}\\Replication packages};
+
+    % Central connecting element
+    \node[draw, circle, fill=PandaCharcoal!10, minimum size=0.9cm, font=\tiny\bfseries] (center) at (2,0.75) {MMC};
+
+    % Connecting lines
+    \draw[Slate!40] (theory.south east) -- (center);
+    \draw[Slate!40] (method.south west) -- (center);
+    \draw[Slate!40] (empirical.north east) -- (center);
+    \draw[Slate!40] (infra.north west) -- (center);
+\end{tikzpicture}
+\captionof{figure}{Four contribution dimensions of multimodal cartography (MMC).}
+\label{fig:intro:contributions}
+\end{center}
+
+\textbf{Theoretical and empirical contributions.} The CAS reconceptualization offers mechanisms explaining constellation dynamics while enabling operationalization. Empirically, we reveal five recurring sociotypes across eight domains and document systematic gaps between claimed, enacted, and attributed roles.
+
+\textbf{Methodological and infrastructural contributions.} The four Meta-Design Requirements provide a transferable framework for bridging data-driven and theory-driven approaches. Critically, this dissertation demonstrates how multimodal organic data can substitute for the designed data dominating transitions research, enabling population-scale analysis while preserving theoretical meaning. \RoleBox provides open-source infrastructure with documented pipelines for six data modalities.
+
+
+\section{Scope and Boundaries}
+\label{sec:intro:scope}
+
+Clarity requires specifying not only what this dissertation attempts but also what it does not.
+
+\textbf{Empirically}, the dissertation focuses on European Institute of Innovation and Technology (EIT) Knowledge and Innovation Communities (2010--2023) as the primary case. This choice enables comparison across sustainability domains with consistent institutional framing and substantial digital traces.
+
+\textbf{Methodologically}, the heavy reliance on digital trace data privileges what is observable online. Organizations with limited digital presence, interactions through non-digital channels, and dimensions leaving few digital traces are underrepresented or invisible.
+
+\textbf{Theoretically}, the dissertation focuses on micro-level role constellation dynamics rather than macro-level regime change, treating landscape pressures and regime structures as context rather than primary objects of study.
+
+\textbf{Normatively}, the dissertation is primarily descriptive and analytical rather than prescriptive (though we recognize all methodological choices carry normative implications). While occasional normative questions arise, the aim is understanding how role constellations emerge and evolve, not prescribing ideal configurations or governance interventions.
+
+
+\section{The Journey Ahead}
+\label{sec:intro:journey}
+
+This dissertation represents five years of work spanning theory development, tool building, data collection, analysis, validation, and reflection across 8 EIT communities, encompassing 800+ organizations, 1.45M+ tweets, 8K+ articles, 15K+ images, and 675 websites.
+
+\subsection{Dissertation Structure}
+
+The dissertation unfolds across three parts, interspersed with intermezzos that introduce tools, methods, and contextual frameworks:
+
+\begin{itemize}[leftmargin=*]
+\item \textbf{Part I: Foundations} (Ch.\ 1--4) establishes theoretical and methodological groundwork
+\item \textbf{Part II: Empirical Studies} (Ch.\ 5--9) applies multimodal cartography across six data modalities
+\item \textbf{Part III: Synthesis and Conclusions} (Ch.\ 10--11) integrates findings and reflects on implications
+\end{itemize}
+
+\Cref{tab:intro:rq-mapping} maps research questions to chapters. The appendices provide technical documentation for the \RoleBox{} toolkit and data modality details; the portfolio presents related scholarly outputs; and the propositions (at the front) summarize the dissertation's core claims.
+
+\begin{center}
+\small
+\begin{tabular}{@{}p{5.5cm}p{4.5cm}@{}}
+\toprule
+\textbf{Research Question} & \textbf{Addressed In} \\
+\midrule
+\textbf{RQ1 (Theory):} What framework enables theory-guided, empirically open analysis? & Ch.~2, 4 \\[0.6em]
+\textbf{RQ2 (Method):} What methodology enables cross-modal mapping? & Ch.~3, Intermezzos \\[0.6em]
+\textbf{RQ3 (Empirics):} What patterns characterize interstitial actors, and what does build-up vs. breakdown reveal? & Ch.~5--9, 10 \\[0.6em]
+\textbf{RQ4 (Implications):} How can open infrastructure break down knowledge barriers while building up shared resources? & Ch.~3, 10, 11, App. \\
+\bottomrule
+\end{tabular}
+\captionof{table}{Research questions addressed by each chapter}
+\label{tab:intro:rq-mapping}
+\end{center}
+
+\subsection{Reading This Dissertation}
+
+The chapters present not a smooth narrative where each step follows logically from the last, but an honest account of iterative refinement through partial success and instructive failure. They show both what multimodal cartography enables and what limitations persist despite best efforts. They offer not a finished product but infrastructure that others can build upon, critique, and adapt.
+
+The urgency of sustainability transitions demands that researchers continually expand their methodological repertoires while maintaining theoretical rigor and reflexive honesty. This dissertation contributes one set of tools, one theoretical lens, one empirical demonstration, and one open invitation. The maps we draw are never the territory. But better maps might help us navigate the territory more wisely.
+
+The journey begins with an intermezzo introducing the EIT ecosystem, then proceeds to Chapter~\ref{ch:background}, where we survey the territory itself: sustainability transitions, the actors who shape them, and the roles those actors play.\footnote{\textit{Next}: \textbf{Intermezzo}---The EIT Ecosystem introduces the eight Knowledge and Innovation Communities serving as our empirical laboratory.}
+
+% Force all floats to be output before chapter ends
+\clearpage
+
+\end{document}
