@@ -648,52 +648,45 @@
 \DeclareFloatSeparators{marginparsep}{\hskip\marginparsep}%
 
 % Detect whether there is a caption in the current environment by switching the kaocaption toggle when \caption is called. If there is no caption, reset the floatsetup. Without this fix, the floatrow package will align the environment to the main text if there is a caption, but to the margin if there is no caption.
-\newtoggle{kaocaption}
-\AtBeginEnvironment{figure}{%
-	\let\oldcaption\caption%
-	\RenewDocumentCommand{\caption}{s o m}{%
-		\IfBooleanTF{#1}{%
-			\oldcaption*{#3}%
-		}{%
-			\IfValueTF{#2}{%
-				\oldcaption[#2]{#3}%
-			}{%
-				\oldcaption{#3}%
-			}%
-		}%
-		\toggletrue{kaocaption}%
+% The detection works by raising a flag when \caption is called. Note that:
+%   * The hook is attached to \caption once, after the preamble, rather than
+%     re-wrapping \caption inside each float. Re-wrapping is what caused the
+%     infinite recursion of issue #316: the wrapper saved "the real \caption"
+%     every time a float began, and on newer LaTeX/KOMA-Script releases the
+%     hook can run when \caption has already been wrapped, so the wrapper ends
+%     up saved as its own target and calls itself forever.
+%   * It must be attached after the preamble, because the caption package
+%     installs its own \caption from an \AtBeginDocument hook and would
+%     discard anything attached earlier. \AfterEndPreamble is used in
+%     preference to \AddToHook{begindocument/end} so that no LaTeX newer than
+%     the current \NeedsTeXFormat is required.
+%   * The flag is set \global because \caption runs inside floatrow's boxes,
+%     several groups deep; a group-local flag would be restored before the
+%     end-of-environment hook could read it, and floatrow would then report
+%     "Caption(s) lost".
+%   * The flag is cleared when a float begins rather than when it ends, so a
+%     captioned marginfigure cannot leave it raised and have the next
+%     uncaptioned float mistaken for a captioned one.
+\newif\ifkaosawcaption
+\AfterEndPreamble{%
+	\pretocmd{\caption}{\global\kaosawcaptiontrue}{}{%
+		\PackageWarning{kao}{Could not patch \string\caption\space for caption
+			detection; uncaptioned floats may be aligned to the margin}%
 	}%
 }
+\AtBeginEnvironment{figure}{\global\kaosawcaptionfalse}
 \AtEndEnvironment{figure}{%
-	\iftoggle{kaocaption}{%
-	}{%
+	\ifkaosawcaption\else%
 		\RawFloats%
 		\centering%
-	}%
-	\togglefalse{kaocaption}%
+	\fi%
 }
-\AtBeginEnvironment{table}{%
-	\let\oldcaption\caption%
-	\RenewDocumentCommand{\caption}{s o m}{%
-		\IfBooleanTF{#1}{%
-			\oldcaption*{#3}%
-		}{%
-			\IfValueTF{#2}{%
-				\oldcaption[#2]{#3}%
-			}{%
-				\oldcaption{#3}%
-			}%
-		}%
-		\toggletrue{kaocaption}%
-	}%
-}
+\AtBeginEnvironment{table}{\global\kaosawcaptionfalse}
 \AtEndEnvironment{table}{%
-	\iftoggle{kaocaption}{%
-	}{%
+	\ifkaosawcaption\else%
 		\RawFloats%
 		\centering%
-	}%
-	\togglefalse{kaocaption}%
+	\fi%
 }
 
 % Change the formatting of the captions
